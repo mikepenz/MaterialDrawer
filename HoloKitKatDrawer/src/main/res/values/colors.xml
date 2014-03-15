@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="accent_blue">#33B5E5</color>
+    <color name="accent_blue_secondary">#7CC9E6</color>
+
+    <color name="activity_bg">#ffffff</color>
+
+    <color name="list_item_title">#ff111111</color>
+    <color name="list_item_title_secondary">#ff848484</color>
+
+    <!-- general colors for drawer -->
+    <color name="list_divider">#C3C3C3</color>
+    <color name="list_background">#F2F2F2</color>
+    <!-- primary colors for drawer -->
+    <color name="list_background_normal">#FCFCFC</color>
+    <color name="list_background_pressed">@color/accent_blue_secondary</color>
+    <color name="list_background_activated">@color/accent_blue</color>
+    <!-- secondary colors for drawer -->
+    <color name="list_background_secondary_normal">#F2F2F2</color>
+    <color name="list_background_secondary_pressed">@color/accent_blue_secondary</color>
+</resources>
