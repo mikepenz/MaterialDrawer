@@ -12,6 +12,11 @@ The project also mimicks the drawerstyle of the Google Play Music app.
 android-iconify for the icons: https://github.com/JoanZapata/android-iconify
 
 
+## Screenshots
+
+![Alt](https://raw.github.com/mikepenz/HoloKitKatDrawer/master/screenshot_1.png) ![Alt](https://raw.github.com/mikepenz/HoloKitKatDrawer/master/screenshot_2.png)
+
+
 ## License
 
 ```
