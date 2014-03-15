@@ -29,10 +29,6 @@
         <item name="android:actionModeBackground">@drawable/cab_background_top_custom</item>
         <item name="android:actionModeSplitBackground">@drawable/cab_background_bottom_custom</item>
         <item name="android:actionModeCloseButtonStyle">@style/ActionButton.CloseMode.Custom</item>
-
-        <item name="android:windowTranslucentNavigation">true</item>
-        <item name="android:windowTranslucentStatus">true</item>
-        <item name="android:windowBackground">@color/accent_blue</item>
     </style>
 
     <style name="ActionBar.Solid.Custom" parent="@android:style/Widget.Holo.Light.ActionBar.Solid">

@@ -27,6 +27,7 @@ public class MainActivity extends Activity {
     private ListView mDrawerList;
     private ActionBarDrawerToggle mDrawerToggle;
 
+
     // nav drawer title
     private CharSequence mDrawerTitle;
 
@@ -44,6 +45,9 @@ public class MainActivity extends Activity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
+        //init the activity and make it beautiful :D
+        UIUtils.getInstance().initActivity(this);
+
         mTitle = mDrawerTitle = getTitle();
 
         // load slide menu items
@@ -53,7 +57,7 @@ public class MainActivity extends Activity {
         mDrawerList = (ListView) findViewById(R.id.list_slidermenu);
 
         //init ui margins to make our activity beautiful!
-        mDrawerLayout.setLayoutParams(UIUtils.handleTranslucentDecorMargins(this, getResources().getConfiguration().orientation, ((FrameLayout.LayoutParams) mDrawerLayout.getLayoutParams())));
+        mDrawerLayout.setLayoutParams(UIUtils.getInstance().handleTranslucentDecorMargins(getResources().getConfiguration().orientation, ((FrameLayout.LayoutParams) mDrawerLayout.getLayoutParams())));
 
 
         navDrawerItems = new ArrayList<NavDrawerItem>();
@@ -76,8 +80,7 @@ public class MainActivity extends Activity {
         mDrawerList.setOnItemClickListener(new SlideMenuClickListener());
 
         // setting the nav drawer list adapter
-        adapter = new NavDrawerListAdapter(getApplicationContext(),
-                navDrawerItems);
+        adapter = new NavDrawerListAdapter(this, navDrawerItems);
         mDrawerList.setAdapter(adapter);
 
         // enabling action bar app icon and behaving it as toggle button
@@ -212,12 +215,11 @@ public class MainActivity extends Activity {
     public void onConfigurationChanged(Configuration newConfig) {
         super.onConfigurationChanged(newConfig);
 
-        mDrawerLayout.setLayoutParams(UIUtils.handleTranslucentDecorMargins(this, newConfig.orientation, ((FrameLayout.LayoutParams) mDrawerLayout.getLayoutParams())));
+        mDrawerLayout.setLayoutParams(UIUtils.getInstance().handleTranslucentDecorMargins(newConfig.orientation, ((FrameLayout.LayoutParams) mDrawerLayout.getLayoutParams())));
 
         // Pass any configuration change to the drawer toggls
         mDrawerToggle.onConfigurationChanged(newConfig);
     }
-
 
     /**
      * Slide menu item click listener
@@ -231,5 +233,4 @@ public class MainActivity extends Activity {
             displayView(position);
         }
     }
-
 }

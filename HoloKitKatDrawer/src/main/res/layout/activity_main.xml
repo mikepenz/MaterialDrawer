@@ -24,7 +24,6 @@
             android:background="@color/list_background"
             android:choiceMode="singleChoice"
             android:divider="@color/list_divider"
-            android:dividerHeight="1px"
-            android:listSelector="@drawable/list_selector"/>
+            android:dividerHeight="1px"/>
     </android.support.v4.widget.DrawerLayout>
 </FrameLayout>
