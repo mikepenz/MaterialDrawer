@@ -4,6 +4,7 @@ import android.app.Activity;
 import android.app.Fragment;
 import android.app.FragmentManager;
 import android.content.res.Configuration;
+import android.graphics.Rect;
 import android.os.Bundle;
 import android.support.v4.app.ActionBarDrawerToggle;
 import android.support.v4.widget.DrawerLayout;
@@ -19,6 +20,7 @@ import com.joanzapata.android.iconify.Iconify;
 import com.tundem.holokitkatdrawer.adapter.NavDrawerListAdapter;
 import com.tundem.holokitkatdrawer.model.NavDrawerItem;
 import com.tundem.holokitkatdrawer.util.UIUtils;
+import com.tundem.holokitkatdrawer.view.DrawInsetsFrameLayout;
 
 import java.util.ArrayList;
 
@@ -55,10 +57,6 @@ public class MainActivity extends Activity {
 
         mDrawerLayout = (DrawerLayout) findViewById(R.id.drawer_layout);
         mDrawerList = (ListView) findViewById(R.id.list_slidermenu);
-
-        //init ui margins to make our activity beautiful!
-        mDrawerLayout.setLayoutParams(UIUtils.getInstance().handleTranslucentDecorMargins(getResources().getConfiguration().orientation, ((FrameLayout.LayoutParams) mDrawerLayout.getLayoutParams())));
-
 
         navDrawerItems = new ArrayList<NavDrawerItem>();
         // adding nav drawer items to array
@@ -110,6 +108,15 @@ public class MainActivity extends Activity {
             // on first time display view for first nav item
             displayView(0);
         }
+
+        //init ui margins to make our activity beautiful!
+        DrawInsetsFrameLayout drawInsetsFrameLayout = (DrawInsetsFrameLayout) findViewById(R.id.drawinsetsframelayout);
+        drawInsetsFrameLayout.setOnInsetsCallback(new DrawInsetsFrameLayout.OnInsetsCallback() {
+            @Override
+            public void onInsetsChanged(Rect insets) {
+                mDrawerLayout.setLayoutParams(UIUtils.getInstance().handleTranslucentDecorMargins(((FrameLayout.LayoutParams) mDrawerLayout.getLayoutParams()), insets));
+            }
+        });
     }
 
     @Override
@@ -214,8 +221,6 @@ public class MainActivity extends Activity {
     @Override
     public void onConfigurationChanged(Configuration newConfig) {
         super.onConfigurationChanged(newConfig);
-
-        mDrawerLayout.setLayoutParams(UIUtils.getInstance().handleTranslucentDecorMargins(newConfig.orientation, ((FrameLayout.LayoutParams) mDrawerLayout.getLayoutParams())));
 
         // Pass any configuration change to the drawer toggls
         mDrawerToggle.onConfigurationChanged(newConfig);

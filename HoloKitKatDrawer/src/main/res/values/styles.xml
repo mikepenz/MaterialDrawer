@@ -20,6 +20,9 @@
 <resources>
 
     <style name="Theme.Custom" parent="@android:style/Theme.Holo.Light">
+        <!-- set fixed actionbarsize so we can override customromspecific settings! -->
+        <item name="android:actionBarSize">48dip</item>
+
         <item name="android:actionBarItemBackground">@drawable/selectable_background_custom</item>
         <item name="android:popupMenuStyle">@style/PopupMenu.Custom</item>
         <item name="android:dropDownListViewStyle">@style/DropDownListView.Custom</item>
