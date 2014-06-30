@@ -1,10 +1,11 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
           package="com.tundem.holokitkatdrawer.app">
 
-    <application android:allowBackup="true"
-                 android:label="@string/app_name"
-                 android:icon="@drawable/ic_launcher"
-        >
+    <application
+        android:name="com.tundem.holokitkatdrawer.CustomApplication"
+        android:allowBackup="true"
+        android:label="@string/app_name"
+        android:icon="@drawable/ic_launcher">
         <activity
             android:name="com.tundem.holokitkatdrawer.MainActivity"
             android:configChanges="orientation|keyboardHidden|screenSize"
