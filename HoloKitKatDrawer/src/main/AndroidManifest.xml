@@ -4,16 +4,12 @@
     xmlns:android="http://schemas.android.com/apk/res/android">
 
     <application
-        android:name="com.tundem.holokitkatdrawer.CustomApplication"
-        android:allowBackup="true"
-        android:icon="@drawable/ic_launcher"
-        android:label="@string/app_name"
-        android:theme="@style/Theme.Custom">
+        android:label="@string/app_name">
         <activity
             android:name="com.tundem.holokitkatdrawer.MainActivity"
             android:configChanges="orientation|keyboardHidden|screenSize"
-            android:label="@string/app_name"
-            android:theme="@style/Theme.Custom">
+            android:theme="@style/Theme.Custom"
+            android:label="@string/app_name">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN"/>
 
