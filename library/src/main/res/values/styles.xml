@@ -20,6 +20,9 @@
 <resources>
 
     <style name="Theme.Custom" parent="@android:style/Theme.Holo.Light">
+        <item name="android:actionOverflowButtonStyle">@drawable/ic_ab_overflow_holo_dark</item>
+        <item name="android:homeAsUpIndicator">@drawable/ic_ab_back_holo_dark_am</item>
+
         <!-- set fixed actionbarsize so we can override customromspecific settings! -->
         <item name="android:actionBarSize">48dip</item>
 
