@@ -11,6 +11,10 @@ public class SampleFragment extends Fragment {
 
     private String title = "";
 
+    public SampleFragment() {
+
+    }
+
     public SampleFragment(String title) {
         this.title = title;
     }
