@@ -1,15 +1,30 @@
 apply plugin: 'android-library'
-
 android {
     compileSdkVersion 20
     buildToolsVersion '20'
+    
     defaultConfig {
         minSdkVersion 15
         targetSdkVersion 20
         versionCode 1
         versionName '1.0'
     }
+
+    buildTypes {
+        release {
+            runProguard false
+            proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.txt'
+        }
+    }
+    productFlavors {
+    }
+
+    lintOptions {
+        abortOnError false
+    }
 }
+
+apply from: 'gradle-mvn-push.gradle'
 
 dependencies {
     compile 'com.android.support:appcompat-v7:20+'
