@@ -1,0 +1,25 @@
+apply plugin: 'android'
+
+android {
+    compileSdkVersion '20'
+    buildToolsVersion "20.0.0"
+
+    defaultConfig {
+        applicationId "com.tundem.holokitkatdrawer.app"
+        minSdkVersion 15
+        targetSdkVersion 20
+        versionCode 1
+        versionName "1.0"
+    }
+    buildTypes {
+        release {
+            runProguard false
+            proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+        }
+    }
+}
+
+dependencies {
+    compile project(':library')
+    compile fileTree(dir: 'libs', include: ['*.jar'])
+}
