@@ -2,12 +2,12 @@ apply plugin: 'android-library'
 android {
     compileSdkVersion 20
     buildToolsVersion '20'
-    
+
     defaultConfig {
         minSdkVersion 15
         targetSdkVersion 20
-        versionCode 1
-        versionName '1.0'
+        versionCode 51
+        versionName '0.5.1'
     }
 
     buildTypes {
@@ -27,6 +27,7 @@ android {
 apply from: 'gradle-mvn-push.gradle'
 
 dependencies {
+    compile 'com.android.support:support-v4:20+'
     compile 'com.android.support:appcompat-v7:20+'
     compile 'com.joanzapata.android:android-iconify:+'
 }
