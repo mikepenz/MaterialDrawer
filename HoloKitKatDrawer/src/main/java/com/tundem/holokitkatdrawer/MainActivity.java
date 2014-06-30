@@ -132,11 +132,11 @@ public class MainActivity extends Activity {
             return true;
         }
         // Handle action bar actions click
-        switch (item.getItemId()) {
-            case R.id.action_settings:
-                return true;
-            default:
-                return super.onOptionsItemSelected(item);
+        int id = item.getItemId();
+        if (id == R.id.action_settings) {
+            return true;
+        } else {
+            return super.onOptionsItemSelected(item);
         }
     }
 
