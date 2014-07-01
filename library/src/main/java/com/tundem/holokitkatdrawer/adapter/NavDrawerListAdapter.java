@@ -9,7 +9,6 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.joanzapata.android.iconify.IconDrawable;
-import com.tundem.holokitkatdrawer.MainActivity;
 import com.tundem.holokitkatdrawer.R;
 import com.tundem.holokitkatdrawer.model.NavDrawerItem;
 import com.tundem.holokitkatdrawer.util.UIUtils;
@@ -18,10 +17,10 @@ import java.util.ArrayList;
 
 public class NavDrawerListAdapter extends BaseAdapter {
 
-    private MainActivity act;
+    private Activity act;
     private ArrayList<NavDrawerItem> navDrawerItems;
 
-    public NavDrawerListAdapter(MainActivity act, ArrayList<NavDrawerItem> navDrawerItems) {
+    public NavDrawerListAdapter(Activity act, ArrayList<NavDrawerItem> navDrawerItems) {
         this.act = act;
         this.navDrawerItems = navDrawerItems;
     }
