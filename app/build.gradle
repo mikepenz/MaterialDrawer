@@ -8,8 +8,8 @@ android {
         applicationId "com.tundem.holokitkatdrawer.app"
         minSdkVersion 15
         targetSdkVersion 20
-        versionCode 60
-        versionName "0.6.0"
+        versionCode 61
+        versionName "0.6.1"
     }
     buildTypes {
         release {
