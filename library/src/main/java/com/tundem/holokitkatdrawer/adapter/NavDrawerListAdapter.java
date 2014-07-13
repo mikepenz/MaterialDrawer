@@ -58,12 +58,12 @@ public class NavDrawerListAdapter extends BaseAdapter {
         int color;
         if (navDrawerItems.get(position).isPrimary()) {
             convertView = mInflater.inflate(R.layout.drawer_list_item_primary, null);
-            convertView.setBackground(UIUtils.getInstance().getDrawerListItem());
+            UIUtils.setBackground(convertView, UIUtils.getInstance().getDrawerListItem());
 
             color = act.getResources().getColor(R.color.list_item_title);
         } else {
             convertView = mInflater.inflate(R.layout.drawer_list_item_secondary, null);
-            convertView.setBackground(UIUtils.getInstance().getDrawerListSecondaryItem());
+            UIUtils.setBackground(convertView, UIUtils.getInstance().getDrawerListSecondaryItem());
 
             color = act.getResources().getColor(R.color.list_item_title_secondary);
         }

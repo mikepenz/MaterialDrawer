@@ -1,14 +1,17 @@
 package com.tundem.holokitkatdrawer.util;
 
+import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.content.Context;
 import android.content.res.Configuration;
 import android.graphics.Color;
 import android.graphics.Rect;
 import android.graphics.drawable.ColorDrawable;
+import android.graphics.drawable.Drawable;
 import android.graphics.drawable.StateListDrawable;
 import android.os.Build;
 import android.util.TypedValue;
+import android.view.View;
 import android.view.WindowManager;
 import android.widget.FrameLayout;
 import android.widget.LinearLayout;
@@ -227,6 +230,16 @@ public class UIUtils {
         spacer.setPadding(0, spacerSize, 0, 0);
         spacer.setBackgroundColor(color);
         return spacer;
+    }
+
+    @SuppressLint("NewApi")
+    public static void setBackground(View v, Drawable d) {
+        int sdk = android.os.Build.VERSION.SDK_INT;
+        if (sdk < android.os.Build.VERSION_CODES.JELLY_BEAN) {
+            v.setBackgroundDrawable(d);
+        } else {
+            v.setBackground(d);
+        }
     }
 
     /**
