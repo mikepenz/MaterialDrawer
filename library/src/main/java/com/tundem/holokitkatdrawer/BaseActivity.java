@@ -81,6 +81,13 @@ public abstract class BaseActivity extends Activity {
         return mDrawerList;
     }
 
+    public void setAdapter(NavDrawerListAdapter adapter) {
+        this.adapter = adapter;
+    }
+
+    public NavDrawerListAdapter getAdapter() {
+        return adapter;
+    }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

@@ -26,6 +26,16 @@ public class NavDrawerListAdapter extends BaseAdapter {
     }
 
     @Override
+    public boolean areAllItemsEnabled() {
+        return false;
+    }
+
+    @Override
+    public boolean isEnabled(int position) {
+        return navDrawerItems.get(position).isEnabled();
+    }
+
+    @Override
     public int getCount() {
         return navDrawerItems.size();
     }
@@ -45,40 +55,33 @@ public class NavDrawerListAdapter extends BaseAdapter {
         LayoutInflater mInflater = (LayoutInflater)
                 act.getSystemService(Activity.LAYOUT_INFLATER_SERVICE);
 
+        int color;
         if (navDrawerItems.get(position).isPrimary()) {
             convertView = mInflater.inflate(R.layout.drawer_list_item_primary, null);
             convertView.setBackground(UIUtils.getInstance().getDrawerListItem());
 
-            int color = act.getResources().getColor(R.color.list_item_title);
-
-            TextView txtTitle = (TextView) convertView.findViewById(R.id.title);
-            txtTitle.setText(navDrawerItems.get(position).getTitle());
-            txtTitle.setTextColor(color);
-
-            ImageView imgIcon = (ImageView) convertView.findViewById(R.id.icon);
-            if (navDrawerItems.get(position).getIcon() != null) {
-                imgIcon.setImageDrawable(new IconDrawable(act, navDrawerItems.get(position).getIcon()).color(color).actionBarSize());
-            } else {
-                imgIcon.setVisibility(View.GONE);
-            }
+            color = act.getResources().getColor(R.color.list_item_title);
         } else {
             convertView = mInflater.inflate(R.layout.drawer_list_item_secondary, null);
             convertView.setBackground(UIUtils.getInstance().getDrawerListSecondaryItem());
 
-            int color = act.getResources().getColor(R.color.list_item_title_secondary);
-
-            TextView txtTitle = (TextView) convertView.findViewById(R.id.title);
-            txtTitle.setText(navDrawerItems.get(position).getTitle());
-            txtTitle.setTextColor(color);
-
-            ImageView imgIcon = (ImageView) convertView.findViewById(R.id.icon);
-            if (navDrawerItems.get(position).getIcon() != null) {
-                imgIcon.setImageDrawable(new IconDrawable(act, navDrawerItems.get(position).getIcon()).color(color).actionBarSize());
-            } else {
-                imgIcon.setVisibility(View.GONE);
-            }
+            color = act.getResources().getColor(R.color.list_item_title_secondary);
         }
 
+        TextView txtTitle = (TextView) convertView.findViewById(R.id.title);
+        txtTitle.setText(navDrawerItems.get(position).getTitle());
+        txtTitle.setTextColor(color);
+
+        ImageView imgIcon = (ImageView) convertView.findViewById(R.id.icon);
+        if (navDrawerItems.get(position).getIcon() != null) {
+            imgIcon.setImageDrawable(new IconDrawable(act, navDrawerItems.get(position).getIcon()).color(color).actionBarSize());
+        } else {
+            imgIcon.setVisibility(View.GONE);
+        }
+
+        if (!navDrawerItems.get(position).isEnabled()) {
+            txtTitle.setTextColor(act.getResources().getColor(R.color.list_item_disabled));
+        }
         return convertView;
     }
 

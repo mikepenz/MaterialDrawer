@@ -5,6 +5,7 @@ import android.app.FragmentManager;
 import android.util.Log;
 
 import com.joanzapata.android.iconify.Iconify;
+import com.tundem.holokitkatdrawer.adapter.NavDrawerListAdapter;
 import com.tundem.holokitkatdrawer.model.NavDrawerItem;
 
 import java.util.ArrayList;
@@ -12,6 +13,8 @@ import java.util.ArrayList;
 public class MainActivity extends BaseActivity {
     // slide menu items
     private String[] navMenuTitles;
+
+    boolean enabledSecond = false;
 
     @Override
     public ArrayList<NavDrawerItem> getNavDrawerItems() {
@@ -21,7 +24,7 @@ public class MainActivity extends BaseActivity {
         // Home
         navDrawerItems.add(new NavDrawerItem(navMenuTitles[0]));
         // Freeplay
-        navDrawerItems.add(new NavDrawerItem(navMenuTitles[1]));
+        navDrawerItems.add(new NavDrawerItem(navMenuTitles[1], true, enabledSecond));
         // Custom
         navDrawerItems.add(new NavDrawerItem(navMenuTitles[2]));
         // Settings
@@ -62,6 +65,12 @@ public class MainActivity extends BaseActivity {
                 break;
             case 6:
                 fragment = new SampleFragment(navMenuTitles[position]);
+
+                //Not a good idea. but it should work for demonstration
+                enabledSecond = !enabledSecond;
+                setAdapter(new NavDrawerListAdapter(this, getNavDrawerItems()));
+                getDrawerListView().setAdapter(getAdapter());
+
                 break;
 
             default:

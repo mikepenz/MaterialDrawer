@@ -9,8 +9,9 @@
 
     <color name="activity_bg">#ffffff</color>
 
-    <color name="list_item_title">#ff111111</color>
-    <color name="list_item_title_secondary">#ff848484</color>
+    <color name="list_item_title">#ff010101</color>
+    <color name="list_item_title_secondary">#ff505050</color>
+    <color name="list_item_disabled">#ff8F8F8F</color>
 
     <!-- general colors for drawer -->
     <color name="list_divider">#C3C3C3</color>
