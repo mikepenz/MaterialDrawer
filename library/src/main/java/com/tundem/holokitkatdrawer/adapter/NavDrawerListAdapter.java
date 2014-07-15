@@ -25,6 +25,10 @@ public class NavDrawerListAdapter extends BaseAdapter {
         this.navDrawerItems = navDrawerItems;
     }
 
+    public void updateData(ArrayList<NavDrawerItem> navDrawerItems) {
+        this.navDrawerItems = navDrawerItems;
+    }
+
     @Override
     public boolean areAllItemsEnabled() {
         return false;

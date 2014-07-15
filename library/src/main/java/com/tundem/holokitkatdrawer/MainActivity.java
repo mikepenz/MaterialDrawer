@@ -5,7 +5,6 @@ import android.support.v4.app.FragmentManager;
 import android.util.Log;
 
 import com.joanzapata.android.iconify.Iconify;
-import com.tundem.holokitkatdrawer.adapter.NavDrawerListAdapter;
 import com.tundem.holokitkatdrawer.model.NavDrawerItem;
 
 import java.util.ArrayList;
@@ -68,8 +67,9 @@ public class MainActivity extends BaseActivity {
 
                 //Not a good idea. but it should work for demonstration
                 enabledSecond = !enabledSecond;
-                setAdapter(new NavDrawerListAdapter(this, getNavDrawerItems()));
-                getDrawerListView().setAdapter(getAdapter());
+
+                getAdapter().updateData(getNavDrawerItems());
+                getAdapter().notifyDataSetChanged();
 
                 break;
 
