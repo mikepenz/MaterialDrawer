@@ -72,6 +72,10 @@ public class NavDrawerListAdapter extends BaseAdapter {
             color = act.getResources().getColor(R.color.list_item_title_secondary);
         }
 
+        if (!navDrawerItems.get(position).isEnabled()) {
+            color = act.getResources().getColor(R.color.list_item_disabled);
+        }
+
         TextView txtTitle = (TextView) convertView.findViewById(R.id.title);
         txtTitle.setText(navDrawerItems.get(position).getTitle());
         txtTitle.setTextColor(color);
@@ -81,10 +85,6 @@ public class NavDrawerListAdapter extends BaseAdapter {
             imgIcon.setImageDrawable(new IconDrawable(act, navDrawerItems.get(position).getIcon()).color(color).actionBarSize());
         } else {
             imgIcon.setVisibility(View.GONE);
-        }
-
-        if (!navDrawerItems.get(position).isEnabled()) {
-            txtTitle.setTextColor(act.getResources().getColor(R.color.list_item_disabled));
         }
         return convertView;
     }
