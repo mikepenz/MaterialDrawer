@@ -1,3 +1,14 @@
 <resources>
     <string name="app_name">app</string>
+
+    <!-- Nav Drawer Menu Items -->
+    <string-array name="nav_drawer_items">
+        <item>Home</item>
+        <item>Freeplay</item>
+        <item>Custom</item>
+        <item>Settings</item>
+        <item>Help</item>
+        <item>Open Source</item>
+        <item>Contact</item>
+    </string-array>
 </resources>
