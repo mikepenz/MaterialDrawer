@@ -1,9 +1,41 @@
-<menu xmlns:android="http://schemas.android.com/apk/res/android" >
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
 
+    <item
+        android:orderInCategory="100"
+        android:showAsAction="ifRoom"
+        android:title="Item 1"/>
+    <item
+        android:orderInCategory="100"
+        android:showAsAction="ifRoom"
+        android:title="Item 2"/>
+    <item
+        android:orderInCategory="100"
+        android:showAsAction="ifRoom"
+        android:title="Item 3"/>
+    <item
+        android:orderInCategory="100"
+        android:showAsAction="ifRoom"
+        android:title="Item 4"/>
+    <item
+        android:orderInCategory="100"
+        android:showAsAction="ifRoom"
+        android:title="Item 5"/>
+    <item
+        android:orderInCategory="100"
+        android:showAsAction="ifRoom"
+        android:title="Item 6"/>
+    <item
+        android:orderInCategory="100"
+        android:showAsAction="ifRoom"
+        android:title="Item 7"/>
+    <item
+        android:orderInCategory="100"
+        android:showAsAction="ifRoom"
+        android:title="Item 8"/>
     <item
         android:id="@+id/action_settings"
         android:orderInCategory="100"
-        android:showAsAction="never"
+        android:showAsAction="ifRoom"
         android:title="@string/action_settings"/>
 
 </menu>
