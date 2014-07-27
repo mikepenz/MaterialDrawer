@@ -19,10 +19,22 @@
 
 <resources>
 
-    <style name="Theme.Custom" parent="@android:style/Theme.Holo.Light">
-        <item name="android:actionOverflowButtonStyle">@drawable/ic_ab_overflow_holo_dark</item>
-        <item name="android:homeAsUpIndicator">@drawable/ic_ab_back_holo_dark_am</item>
+    <style name="Theme.Custom" parent="@android:style/Theme.Holo">
+        <!-- set fixed actionbarsize so we can override customromspecific settings! -->
+        <item name="android:actionBarSize">48dip</item>
 
+        <item name="android:actionBarItemBackground">@drawable/selectable_background_custom</item>
+        <item name="android:popupMenuStyle">@style/PopupMenu.Custom</item>
+        <item name="android:dropDownListViewStyle">@style/DropDownListView.Custom</item>
+        <item name="android:actionBarTabStyle">@style/ActionBarTabStyle.Custom</item>
+        <item name="android:actionDropDownStyle">@style/DropDownNav.Custom</item>
+        <item name="android:actionBarStyle">@style/ActionBar.Solid.Custom</item>
+        <item name="android:actionModeBackground">@drawable/cab_background_top_custom</item>
+        <item name="android:actionModeSplitBackground">@drawable/cab_background_bottom_custom</item>
+        <item name="android:actionModeCloseButtonStyle">@style/ActionButton.CloseMode.Custom</item>
+    </style>
+
+    <style name="Theme.Custom.Light" parent="@android:style/Theme.Holo.Light">
         <!-- set fixed actionbarsize so we can override customromspecific settings! -->
         <item name="android:actionBarSize">48dip</item>
 
