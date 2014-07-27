@@ -112,8 +112,20 @@ public abstract class BaseActivity extends FragmentActivity {
         getActionBar().setDisplayHomeAsUpEnabled(true);
         getActionBar().setHomeButtonEnabled(true);
 
+        int navigation_drawer_icon = R.drawable.ic_navigation_drawer;
+        try {
+            int theme = getPackageManager().getActivityInfo(getComponentName(), 0).theme;
+            if (R.style.Theme_Custom == theme) {
+                navigation_drawer_icon = R.drawable.ic_navigation_drawer;
+            } else if (R.style.Theme_Custom_Light == theme) {
+                navigation_drawer_icon = R.drawable.ic_navigation_drawer_light;
+            }
+        } catch (Exception ex) {
+
+        }
+
         mDrawerToggle = new ActionBarDrawerToggle(this, getDrawerLayout(),
-                R.drawable.ic_navigation_drawer, //nav menu toggle icon
+                navigation_drawer_icon, //nav menu toggle icon
                 R.string.app_name, // nav drawer open - description for accessibility
                 R.string.app_name // nav drawer close - description for accessibility
         ) {
