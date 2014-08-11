@@ -142,7 +142,7 @@ public class UIUtils {
 
         if (layoutParams != null) {
             if (orientation == Configuration.ORIENTATION_LANDSCAPE) {
-                layoutParams.setMargins(0, actionBarHeight + statusBarHeight, 0, 0);
+                layoutParams.setMargins(0, actionBarHeight + statusBarHeight, navigationBarHeight, 0);
             } else {
                 layoutParams.setMargins(0, actionBarHeight + statusBarHeight, 0, navigationBarHeight);
             }
@@ -152,7 +152,7 @@ public class UIUtils {
     }
 
     public FrameLayout.LayoutParams handleTranslucentDecorMargins(FrameLayout.LayoutParams layoutParams, Rect insets) {
-        layoutParams.setMargins(0, insets.top, 0, insets.bottom);
+        layoutParams.setMargins(insets.left, insets.top, insets.right, insets.bottom);
         return layoutParams;
     }
 
