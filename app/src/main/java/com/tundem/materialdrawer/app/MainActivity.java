@@ -6,6 +6,7 @@ import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 
+import com.mikepenz.aboutlibraries.Libs;
 import com.mikepenz.iconics.typeface.FontAwesome;
 import com.tundem.materialdrawer.BaseActivity;
 import com.tundem.materialdrawer.SampleFragment;
@@ -64,7 +65,7 @@ public class MainActivity extends BaseActivity {
                 fragment = new SampleFragment(navMenuTitles[position]);
                 break;
             case 5:
-                fragment = new SampleFragment(navMenuTitles[position]);
+                fragment = new Libs.Builder().withFields(R.string.class.getFields()).fragment();
                 break;
             case 6:
                 fragment = new SampleFragment(navMenuTitles[position]);
