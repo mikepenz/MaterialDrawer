@@ -1,20 +1,19 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <color name="accent_blue">#33B5E5</color>
-    <color name="accent_blue_secondary">#8833B5E5</color>
-    <color name="accent_orange">#FF8800</color>
-    <color name="accent_orange_secondary">#88FF8800</color>
-    <color name="accent_yellow">#FFBB33</color>
-    <color name="accent_yellow_secondary">#88FFBB33</color>
-
-    <color name="activity_bg">#ffffff</color>
-
-    <color name="list_item_title">#ff010101</color>
-    <color name="list_item_title_secondary">#ff505050</color>
-    <color name="list_item_disabled">#ff8F8F8F</color>
+    <!-- Material DEFAULT colors -->
+    <color name="material_primary_color">#2196F3</color>
+    <color name="material_primary_color_dark">#1976D2</color>
+    <color name="material_primary_color_light">#BBDEFB</color>
+    <color name="material_accent">#FF4081</color>
+    <color name="material_background">#F9F9F9</color>
+    <!-- Material DEFAULT text / items colors -->
+    <color name="material_text_icons">#FFF</color>
+    <color name="material_text_primary">#212121</color>
+    <color name="material_text_secondary">#727272</color>
+    <color name="material_text_hint">#B8B8B8</color>
+    <color name="material_divider">#B6B6B6</color>
 
     <!-- general colors for drawer -->
-    <color name="list_divider">#C3C3C3</color>
     <color name="list_background">#F2F2F2</color>
     <!-- primary colors for drawer -->
     <color name="list_background_normal">#FCFCFC</color>

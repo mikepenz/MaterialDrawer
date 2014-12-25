@@ -20,7 +20,7 @@
         android:layout_toRightOf="@id/icon"
         android:gravity="center_vertical"
         android:minHeight="44dp"
-        android:textAppearance="?android:attr/textAppearanceListItemSmall"
-        android:textColor="@color/list_item_title_secondary"/>
+        android:textAppearance="?android:attr/textAppearanceListItemSecondary"
+        android:textColor="@color/material_text_secondary"/>
 
 </RelativeLayout>

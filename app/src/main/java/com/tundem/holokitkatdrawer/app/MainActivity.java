@@ -84,7 +84,7 @@ public class MainActivity extends BaseActivity {
         if (fragment != null) {
             FragmentManager fragmentManager = getSupportFragmentManager();
             fragmentManager.beginTransaction()
-                    .replace(com.tundem.holokitkatdrawer.R.id.frame_container, fragment).commit();
+                    .replace(R.id.frame_container, fragment).commit();
 
             // update selected item and title, then close the drawer
             getDrawerListView().setItemChecked(position, true);

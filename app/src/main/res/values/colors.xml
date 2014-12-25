@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Material SAMPLE colors -->
+    <color name="material_primary_color">#9C27B0</color>
+    <color name="material_primary_color_dark">#7B1FA2</color>
+    <color name="material_primary_color_light">#E1BEE7</color>
+    <color name="material_accent">#00BCD4</color>
+</resources>

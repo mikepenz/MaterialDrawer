@@ -96,11 +96,7 @@ afterEvaluate { project ->
         def javadocTask = task("generate${variant.name.capitalize()}Javadoc", type: Javadoc) {
             description "Generates Javadoc for $variant.name."
             source = variant.javaCompile.source
-            try {
-                ext.androidJar = project.files(android.getBootClasspath().join(File.pathSeparator))
-            } catch (Exception e) {
-                ext.androidJar = project.files(android.plugin.getRuntimeJarList().join(File.pathSeparator))
-            }
+            ext.androidJar = project.files(android.getBootClasspath().join(File.pathSeparator))
             classpath = files(variant.javaCompile.classpath.files) + files(ext.androidJar)
             exclude '**/BuildConfig.java'
             exclude '**/R.java'

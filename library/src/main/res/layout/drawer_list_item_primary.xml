@@ -22,6 +22,6 @@
         android:gravity="center_vertical"
         android:minHeight="60dp"
         android:textAppearance="?android:attr/textAppearanceListItem"
-        android:textColor="@color/list_item_title"/>
+        android:textColor="@color/material_text_primary"/>
 
 </RelativeLayout>

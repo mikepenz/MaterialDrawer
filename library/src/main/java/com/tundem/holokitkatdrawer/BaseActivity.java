@@ -1,32 +1,25 @@
 package com.tundem.holokitkatdrawer;
 
 import android.content.res.Configuration;
-import android.graphics.Rect;
 import android.os.Bundle;
-import android.support.v4.app.ActionBarDrawerToggle;
-import android.support.v4.app.FragmentActivity;
 import android.support.v4.widget.DrawerLayout;
+import android.support.v7.app.ActionBarActivity;
+import android.support.v7.app.ActionBarDrawerToggle;
+import android.support.v7.widget.Toolbar;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
-import android.widget.FrameLayout;
 import android.widget.ListView;
 
 import com.tundem.holokitkatdrawer.adapter.NavDrawerListAdapter;
 import com.tundem.holokitkatdrawer.model.NavDrawerItem;
-import com.tundem.holokitkatdrawer.util.UIUtils;
-import com.tundem.holokitkatdrawer.view.DrawInsetsFrameLayout;
 
 import java.util.ArrayList;
 
-public abstract class BaseActivity extends FragmentActivity {
+public abstract class BaseActivity extends ActionBarActivity {
     private DrawerLayout mDrawerLayout;
     private ListView mDrawerList;
     private ActionBarDrawerToggle mDrawerToggle;
-
-
-    // nav drawer title
-    private CharSequence mDrawerTitle;
 
     // used to store app title
     private CharSequence mTitle;
@@ -97,33 +90,37 @@ public abstract class BaseActivity extends FragmentActivity {
         super.onCreate(savedInstanceState);
         setContentView(getLayout());
 
-        //init the activity and make it beautiful :D
-        UIUtils.getInstance().initActivity(this);
+        mTitle = getTitle();
 
-        mTitle = mDrawerTitle = getTitle();
+        // Handle Toolbar
+        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
+        setSupportActionBar(toolbar);
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
+        // Handle DrawerLayout
+        DrawerLayout mDrawerLayout = (DrawerLayout) findViewById(R.id.drawer_layout);
+
+        // Handle ActionBarDrawerToggle
+        mDrawerToggle = new ActionBarDrawerToggle(this, mDrawerLayout, toolbar, R.string.drawer_open, R.string.drawer_close);
+        mDrawerToggle.syncState();
+
+        // Handle different Drawer States :D
+        mDrawerLayout.setStatusBarBackground(R.color.material_primary_color_dark);
+        mDrawerLayout.setDrawerListener(mDrawerToggle);
+
+        //create SlideMenuClickListener
         getDrawerListView().setOnItemClickListener(new SlideMenuClickListener());
 
         // setting the nav drawer list adapter
         adapter = new NavDrawerListAdapter(this, getNavDrawerItems());
         getDrawerListView().setAdapter(adapter);
 
+
         // enabling action bar app icon and behaving it as toggle button
-        getActionBar().setDisplayHomeAsUpEnabled(true);
-        getActionBar().setHomeButtonEnabled(true);
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        getSupportActionBar().setHomeButtonEnabled(true);
 
-        int navigation_drawer_icon = R.drawable.ic_navigation_drawer;
-        try {
-            int theme = getPackageManager().getActivityInfo(getComponentName(), 0).theme;
-            if (R.style.Theme_Custom == theme) {
-                navigation_drawer_icon = R.drawable.ic_navigation_drawer;
-            } else if (R.style.Theme_Custom_Light == theme) {
-                navigation_drawer_icon = R.drawable.ic_navigation_drawer_light;
-            }
-        } catch (Exception ex) {
-
-        }
-
+        /*
         mDrawerToggle = new ActionBarDrawerToggle(this, getDrawerLayout(),
                 navigation_drawer_icon, //nav menu toggle icon
                 R.string.app_name, // nav drawer open - description for accessibility
@@ -142,20 +139,12 @@ public abstract class BaseActivity extends FragmentActivity {
             }
         };
         getDrawerLayout().setDrawerListener(mDrawerToggle);
+        */
 
         if (savedInstanceState == null) {
             // on first time display view for first nav item
             displayView(0);
         }
-
-        //init ui margins to make our activity beautiful!
-        DrawInsetsFrameLayout drawInsetsFrameLayout = (DrawInsetsFrameLayout) findViewById(R.id.drawinsetsframelayout);
-        drawInsetsFrameLayout.setOnInsetsCallback(new DrawInsetsFrameLayout.OnInsetsCallback() {
-            @Override
-            public void onInsetsChanged(Rect insets) {
-                getDrawerLayout().setLayoutParams(UIUtils.getInstance().handleTranslucentDecorMargins(((FrameLayout.LayoutParams) getDrawerLayout().getLayoutParams()), insets));
-            }
-        });
     }
 
 
@@ -171,7 +160,7 @@ public abstract class BaseActivity extends FragmentActivity {
     @Override
     public void setTitle(CharSequence title) {
         mTitle = title;
-        getActionBar().setTitle(mTitle);
+        getSupportActionBar().setTitle(mTitle);
     }
 
     /**
