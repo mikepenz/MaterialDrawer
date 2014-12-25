@@ -6,7 +6,7 @@ import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 
-import com.joanzapata.android.iconify.Iconify;
+import com.mikepenz.iconics.typeface.FontAwesome;
 import com.tundem.materialdrawer.BaseActivity;
 import com.tundem.materialdrawer.SampleFragment;
 import com.tundem.materialdrawer.model.NavDrawerItem;
@@ -31,13 +31,13 @@ public class MainActivity extends BaseActivity {
         // Custom
         navDrawerItems.add(new NavDrawerItem(navMenuTitles[2]));
         // Settings
-        navDrawerItems.add(new NavDrawerItem(navMenuTitles[3], Iconify.IconValue.fa_cog, false));
+        navDrawerItems.add(new NavDrawerItem(navMenuTitles[3], FontAwesome.Icon.faw_cog, false));
         // Help
-        navDrawerItems.add(new NavDrawerItem(navMenuTitles[4], Iconify.IconValue.fa_question, false));
+        navDrawerItems.add(new NavDrawerItem(navMenuTitles[4], FontAwesome.Icon.faw_question, false));
         // Open Source
-        navDrawerItems.add(new NavDrawerItem(navMenuTitles[5], Iconify.IconValue.fa_github, false));
+        navDrawerItems.add(new NavDrawerItem(navMenuTitles[5], FontAwesome.Icon.faw_github, false));
         // Contact
-        navDrawerItems.add(new NavDrawerItem(navMenuTitles[6], Iconify.IconValue.fa_bullhorn, false));
+        navDrawerItems.add(new NavDrawerItem(navMenuTitles[6], FontAwesome.Icon.faw_bullhorn, false));
         return navDrawerItems;
     }
 

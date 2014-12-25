@@ -1,12 +1,12 @@
 package com.tundem.materialdrawer.model;
 
 
-import com.joanzapata.android.iconify.Iconify.IconValue;
+import com.mikepenz.iconics.typeface.IIcon;
 
 public class NavDrawerItem {
 
     private String title;
-    private IconValue icon;
+    private IIcon icon;
     private boolean primary = true;
     private boolean enabled = true;
 
@@ -17,7 +17,7 @@ public class NavDrawerItem {
         this.title = title;
     }
 
-    public NavDrawerItem(String title, IconValue icon) {
+    public NavDrawerItem(String title, IIcon icon) {
         this.setTitle(title);
         this.setIcon(icon);
     }
@@ -33,13 +33,13 @@ public class NavDrawerItem {
         this.enabled = enabled;
     }
 
-    public NavDrawerItem(String title, IconValue icon, boolean primary) {
+    public NavDrawerItem(String title, IIcon icon, boolean primary) {
         this.setTitle(title);
         this.setIcon(icon);
         this.setPrimary(primary);
     }
 
-    public NavDrawerItem(String title, IconValue icon, boolean primary, boolean enabled) {
+    public NavDrawerItem(String title, IIcon icon, boolean primary, boolean enabled) {
         this.setTitle(title);
         this.setIcon(icon);
         this.setPrimary(primary);
@@ -54,11 +54,11 @@ public class NavDrawerItem {
         this.title = title;
     }
 
-    public IconValue getIcon() {
+    public IIcon getIcon() {
         return icon;
     }
 
-    public void setIcon(IconValue icon) {
+    public void setIcon(IIcon icon) {
         this.icon = icon;
     }
 

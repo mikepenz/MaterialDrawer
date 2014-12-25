@@ -8,7 +8,7 @@ import android.widget.BaseAdapter;
 import android.widget.ImageView;
 import android.widget.TextView;
 
-import com.joanzapata.android.iconify.IconDrawable;
+import com.mikepenz.iconics.IconicsDrawable;
 import com.tundem.materialdrawer.R;
 import com.tundem.materialdrawer.model.NavDrawerItem;
 import com.tundem.materialdrawer.util.UIUtils;
@@ -82,7 +82,7 @@ public class NavDrawerListAdapter extends BaseAdapter {
 
         ImageView imgIcon = (ImageView) convertView.findViewById(R.id.icon);
         if (navDrawerItems.get(position).getIcon() != null) {
-            imgIcon.setImageDrawable(new IconDrawable(act, navDrawerItems.get(position).getIcon()).color(color).actionBarSize());
+            imgIcon.setImageDrawable(new IconicsDrawable(act, navDrawerItems.get(position).getIcon()).color(color).actionBarSize());
         } else {
             imgIcon.setVisibility(View.GONE);
         }
