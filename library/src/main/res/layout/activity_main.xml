@@ -33,7 +33,7 @@
         android:layout_width="240dp"
         android:layout_height="match_parent"
         android:layout_gravity="start"
-        android:background="@color/list_background"
+        android:background="@color/material_list"
         android:choiceMode="singleChoice"
         android:divider="@color/material_divider"
         android:dividerHeight="1px"/>

@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <!-- Material DEFAULT colors -->
-    <color name="material_primary_color">#2196F3</color>
-    <color name="material_primary_color_dark">#1976D2</color>
-    <color name="material_primary_color_light">#BBDEFB</color>
+    <color name="material_primary">#2196F3</color>
+    <color name="material_primary_dark">#1976D2</color>
+    <color name="material_primary_light">#BBDEFB</color>
     <color name="material_accent">#FF4081</color>
     <color name="material_background">#F9F9F9</color>
     <!-- Material DEFAULT text / items colors -->
@@ -12,11 +12,35 @@
     <color name="material_text_secondary">#727272</color>
     <color name="material_text_hint">#B8B8B8</color>
     <color name="material_divider">#B6B6B6</color>
+    <!-- Material DEFAULT drawer colors -->
+    <color name="material_list">#FCFCFC</color>
+    <color name="material_list_secondary">#F2F2F2</color>
 
-    <!-- general colors for drawer -->
-    <color name="list_background">#F2F2F2</color>
-    <!-- primary colors for drawer -->
-    <color name="list_background_normal">#FCFCFC</color>
-    <!-- secondary colors for drawer -->
-    <color name="list_background_secondary_normal">#F2F2F2</color>
+
+    <!-- SAMPLE DARK COLORS -->
+    <!--
+    - Material SAMPLE DARK colors -
+    <color name="material_primary_color">#9C27B0</color>
+    <color name="material_primary_color_dark">#7B1FA2</color>
+    <color name="material_primary_color_light">#E1BEE7</color>
+    <color name="material_accent">#00BCD4</color>
+    <color name="material_background">#303030</color>
+    - Material SAMPLE DARK text / items colors -
+    <color name="material_text_icons">#000</color>
+    <color name="material_text_primary">#FFF</color>
+    <color name="material_text_secondary">#DEDEDE</color>
+    <color name="material_text_hint">#ABABAB</color>
+    <color name="material_divider">#303030</color>
+    - Material SAMPLE DARK drawer colors -
+    <color name="material_list">#303030</color>
+    <color name="material_list_secondary">#424242</color>
+
+    - AboutLibraries colors -
+    <color name="theme_window_background">#303030</color>
+    <color name="about_libraries_card">#666666</color>
+    <color name="about_libraries_title_openSource">#ffffffff</color>
+    <color name="about_libraries_text_openSource">#DEDEDE</color>
+    <color name="about_libraries_dividerDark_openSource">#303030</color>
+    <color name="about_libraries_dividerLight_openSource">#303030</color>
+    -->
 </resources>

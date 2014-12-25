@@ -18,29 +18,34 @@
 -->
 
 <resources>
-
-    <style name="Theme.Custom" parent="Theme.AppCompat.NoActionBar">
+    <style name="BaseTheme" parent="Theme.AppCompat.NoActionBar">
         <!-- Here we setting appcompat’s actionBarStyle -->
         <item name="drawerArrowStyle">@style/DrawerArrowStyle</item>
 
         <!-- ...and here we setting appcompat’s color theming attrs -->
-        <item name="colorPrimary">@color/material_primary_color</item>
-        <item name="colorPrimaryDark">@color/material_primary_color_dark</item>
+        <item name="colorPrimary">@color/material_primary</item>
+        <item name="colorPrimaryDark">@color/material_primary_dark</item>
         <item name="colorAccent">@color/material_accent</item>
 
         <item name="android:windowBackground">@color/material_background</item>
     </style>
 
-    <style name="Theme.Custom.Light" parent="Theme.AppCompat.Light.NoActionBar">
+    <style name="Theme.Material" parent="BaseTheme">
+    </style>
+
+    <style name="BaseTheme.Light" parent="Theme.AppCompat.Light.NoActionBar">
         <!-- Here we setting appcompat’s actionBarStyle -->
         <item name="drawerArrowStyle">@style/DrawerArrowStyle</item>
 
         <!-- ...and here we setting appcompat’s color theming attrs -->
-        <item name="colorPrimary">@color/material_primary_color</item>
-        <item name="colorPrimaryDark">@color/material_primary_color_dark</item>
+        <item name="colorPrimary">@color/material_primary</item>
+        <item name="colorPrimaryDark">@color/material_primary_dark</item>
         <item name="colorAccent">@color/material_accent</item>
 
         <item name="android:windowBackground">@color/material_background</item>
+    </style>
+
+    <style name="Theme.Material.Light" parent="BaseTheme.Light">
     </style>
 
     <style name="DrawerArrowStyle" parent="Widget.AppCompat.DrawerArrowToggle">
