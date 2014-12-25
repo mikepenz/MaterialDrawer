@@ -1,4 +1,4 @@
-package com.tundem.holokitkatdrawer.util;
+package com.tundem.materialdrawer.util;
 
 import android.annotation.SuppressLint;
 import android.content.Context;
@@ -10,7 +10,7 @@ import android.util.TypedValue;
 import android.view.View;
 import android.widget.LinearLayout;
 
-import com.tundem.holokitkatdrawer.R;
+import com.tundem.materialdrawer.R;
 
 /**
  * Created by mikepenz on 15.03.14.

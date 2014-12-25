@@ -5,7 +5,7 @@ android {
     buildToolsVersion "21.1.2"
 
     defaultConfig {
-        applicationId "com.tundem.holokitkatdrawer.app"
+        applicationId "com.tundem.materialdrawer.app"
         minSdkVersion 14
         targetSdkVersion 21
         versionCode 100

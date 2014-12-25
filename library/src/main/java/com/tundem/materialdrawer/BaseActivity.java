@@ -1,4 +1,4 @@
-package com.tundem.holokitkatdrawer;
+package com.tundem.materialdrawer;
 
 import android.content.res.Configuration;
 import android.os.Bundle;
@@ -11,8 +11,8 @@ import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ListView;
 
-import com.tundem.holokitkatdrawer.adapter.NavDrawerListAdapter;
-import com.tundem.holokitkatdrawer.model.NavDrawerItem;
+import com.tundem.materialdrawer.adapter.NavDrawerListAdapter;
+import com.tundem.materialdrawer.model.NavDrawerItem;
 
 import java.util.ArrayList;
 

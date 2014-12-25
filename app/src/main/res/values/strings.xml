@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">app</string>
+    <string name="app_name">MaterialDrawer</string>
 
     <!-- Nav Drawer Menu Items -->
     <string-array name="nav_drawer_items">

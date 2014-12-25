@@ -1,4 +1,4 @@
-package com.tundem.holokitkatdrawer.model;
+package com.tundem.materialdrawer.model;
 
 
 import com.joanzapata.android.iconify.Iconify.IconValue;

@@ -1,4 +1,4 @@
-package com.tundem.holokitkatdrawer.app;
+package com.tundem.materialdrawer.app;
 
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
@@ -7,9 +7,9 @@ import android.view.Menu;
 import android.view.MenuItem;
 
 import com.joanzapata.android.iconify.Iconify;
-import com.tundem.holokitkatdrawer.BaseActivity;
-import com.tundem.holokitkatdrawer.SampleFragment;
-import com.tundem.holokitkatdrawer.model.NavDrawerItem;
+import com.tundem.materialdrawer.BaseActivity;
+import com.tundem.materialdrawer.SampleFragment;
+import com.tundem.materialdrawer.model.NavDrawerItem;
 
 import java.util.ArrayList;
 

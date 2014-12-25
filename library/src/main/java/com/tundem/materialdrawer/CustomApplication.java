@@ -1,4 +1,4 @@
-package com.tundem.holokitkatdrawer;
+package com.tundem.materialdrawer;
 
 
 import android.app.Application;

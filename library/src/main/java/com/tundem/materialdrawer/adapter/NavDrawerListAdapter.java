@@ -1,4 +1,4 @@
-package com.tundem.holokitkatdrawer.adapter;
+package com.tundem.materialdrawer.adapter;
 
 import android.app.Activity;
 import android.view.LayoutInflater;
@@ -9,9 +9,9 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.joanzapata.android.iconify.IconDrawable;
-import com.tundem.holokitkatdrawer.R;
-import com.tundem.holokitkatdrawer.model.NavDrawerItem;
-import com.tundem.holokitkatdrawer.util.UIUtils;
+import com.tundem.materialdrawer.R;
+import com.tundem.materialdrawer.model.NavDrawerItem;
+import com.tundem.materialdrawer.util.UIUtils;
 
 import java.util.ArrayList;
 
