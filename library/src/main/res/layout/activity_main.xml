@@ -21,6 +21,7 @@
 
         <!-- Framelayout to display Fragments -->
         <FrameLayout
+            android:layout_below="@id/toolbar"
             android:id="@+id/frame_container"
             android:layout_width="match_parent"
             android:layout_height="match_parent"/>
