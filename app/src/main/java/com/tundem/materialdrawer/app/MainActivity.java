@@ -9,7 +9,7 @@ import android.view.MenuItem;
 import com.mikepenz.aboutlibraries.Libs;
 import com.mikepenz.iconics.typeface.FontAwesome;
 import com.tundem.materialdrawer.BaseActivity;
-import com.tundem.materialdrawer.SampleFragment;
+import com.tundem.materialdrawer.app.SampleFragment;
 import com.tundem.materialdrawer.model.NavDrawerItem;
 
 import java.util.ArrayList;
