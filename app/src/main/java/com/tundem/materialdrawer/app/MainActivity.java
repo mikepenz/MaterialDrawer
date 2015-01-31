@@ -92,7 +92,7 @@ public class MainActivity extends BaseActivity {
             getDrawerListView().setItemChecked(position, true);
             getDrawerListView().setSelection(position);
             setTitle(navMenuTitles[position]);
-            getDrawerLayout().closeDrawer(getDrawerListView());
+            getDrawerLayout().closeDrawer(getSlider());
         } else {
             // error in creating fragment
             Log.e("MainActivity", "Error in creating fragment");
@@ -128,7 +128,7 @@ public class MainActivity extends BaseActivity {
     @Override
     public boolean onPrepareOptionsMenu(Menu menu) {
         // if nav drawer is opened, hide the action items
-        boolean drawerOpen = getDrawerLayout().isDrawerOpen(getDrawerListView());
+        boolean drawerOpen = getDrawerLayout().isDrawerOpen(getSlider());
 
         if (menu.findItem(R.id.action_settings) != null) {
             menu.findItem(R.id.action_settings).setVisible(!drawerOpen);

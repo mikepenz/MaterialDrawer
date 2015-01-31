@@ -29,14 +29,22 @@
     </RelativeLayout>
 
     <!-- Listview to display slider menu -->
-    <ListView
+    <LinearLayout
+        android:layout_gravity="start"
         android:paddingTop="@dimen/tool_bar_top_padding"
-        android:id="@+id/list_slidermenu"
         android:layout_width="@dimen/material_drawer_width"
         android:layout_height="match_parent"
-        android:layout_gravity="start"
-        android:background="@color/material_drawer_list"
-        android:choiceMode="singleChoice"
-        android:divider="@color/material_drawer_divider"
-        android:dividerHeight="1px"/>
+        android:background="@color/material_drawer_primary"
+        android:id="@+id/slider"
+        android:orientation="vertical">
+        <ListView
+            android:id="@+id/list_slidermenu"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="1"
+            android:background="@color/material_drawer_list"
+            android:choiceMode="singleChoice"
+            android:divider="@color/material_drawer_divider"
+            android:dividerHeight="1px"/>
+    </LinearLayout>
 </android.support.v4.widget.DrawerLayout>

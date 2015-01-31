@@ -9,6 +9,7 @@ import android.support.v7.widget.Toolbar;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
+import android.widget.LinearLayout;
 import android.widget.ListView;
 
 import com.tundem.materialdrawer.adapter.NavDrawerListAdapter;
@@ -18,7 +19,10 @@ import java.util.ArrayList;
 
 public abstract class BaseActivity extends ActionBarActivity {
     private DrawerLayout mDrawerLayout;
+    private LinearLayout mSlider;
     private ListView mDrawerList;
+
+
     private ActionBarDrawerToggle mDrawerToggle;
     private CharSequence mTitle;
 
@@ -45,6 +49,18 @@ public abstract class BaseActivity extends ActionBarActivity {
      */
     public int getLayout() {
         return R.layout.activity_main;
+    }
+
+    /**
+     * getSlider (This is the container of the drawer listView)
+     *
+     * @return the slider which contains the drawer list
+     */
+    public LinearLayout getSlider() {
+        if (mSlider == null) {
+            mSlider = (LinearLayout) findViewById(R.id.slider);
+        }
+        return mSlider;
     }
 
     /**
