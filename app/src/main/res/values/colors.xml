@@ -11,7 +11,7 @@
     <color name="material_drawer_primary_text">#FFF</color>
     <color name="material_drawer_secondary_text">#DEDEDE</color>
     <color name="material_drawer_hint_text">#ABABAB</color>
-    <color name="material_drawer_divider">#666666</color>
+    <color name="material_drawer_divider">#3E3E3E</color>
     <!-- Material SAMPLE DARK drawer colors -->
     <color name="material_drawer_list">#303030</color>
     <color name="material_drawer_list_secondary">#424242</color>
