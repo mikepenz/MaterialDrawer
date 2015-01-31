@@ -23,7 +23,7 @@ android {
 
 dependencies {
     compile project(':library')
-    compile('com.mikepenz.aboutlibraries:library:4.5.0@aar') {
+    compile('com.mikepenz.aboutlibraries:library:4.5.2@aar') {
         transitive = true
     }
 }
