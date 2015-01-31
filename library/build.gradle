@@ -1,18 +1,19 @@
 apply plugin: 'com.android.library'
+
 android {
-    compileSdkVersion 20
-    buildToolsVersion '20'
+    compileSdkVersion 21
+    buildToolsVersion '21.1.2'
 
     defaultConfig {
         minSdkVersion 14
-        targetSdkVersion 20
-        versionCode 71
-        versionName '0.7.1'
+        targetSdkVersion 21
+        versionCode 105
+        versionName '1.0.5'
     }
 
     buildTypes {
         release {
-            runProguard false
+            minifyEnabled false
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.txt'
         }
     }
@@ -27,6 +28,7 @@ android {
 apply from: 'gradle-mvn-push.gradle'
 
 dependencies {
-    compile 'com.android.support:support-v4:20+'
-    compile 'com.joanzapata.android:android-iconify:+'
+    compile 'com.android.support:support-v4:21.0.3'
+    compile "com.android.support:appcompat-v7:21.0.3"
+    compile 'com.mikepenz.iconics:library:0.7.0@aar'
 }

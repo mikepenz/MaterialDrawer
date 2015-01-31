@@ -1,4 +1,4 @@
-package com.tundem.holokitkatdrawer.app;
+package com.tundem.materialdrawer.app;
 
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
@@ -6,10 +6,10 @@ import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 
-import com.joanzapata.android.iconify.Iconify;
-import com.tundem.holokitkatdrawer.BaseActivity;
-import com.tundem.holokitkatdrawer.SampleFragment;
-import com.tundem.holokitkatdrawer.model.NavDrawerItem;
+import com.mikepenz.aboutlibraries.Libs;
+import com.mikepenz.iconics.typeface.FontAwesome;
+import com.tundem.materialdrawer.BaseActivity;
+import com.tundem.materialdrawer.model.NavDrawerItem;
 
 import java.util.ArrayList;
 
@@ -27,17 +27,19 @@ public class MainActivity extends BaseActivity {
         // Home
         navDrawerItems.add(new NavDrawerItem(navMenuTitles[0]));
         // Freeplay
-        navDrawerItems.add(new NavDrawerItem(navMenuTitles[1], true, enabledSecond));
+        navDrawerItems.add(new NavDrawerItem(navMenuTitles[1], NavDrawerItem.PRIMARY, enabledSecond));
         // Custom
         navDrawerItems.add(new NavDrawerItem(navMenuTitles[2]));
+        // SPACER
+        navDrawerItems.add(new NavDrawerItem(NavDrawerItem.SPACER));
         // Settings
-        navDrawerItems.add(new NavDrawerItem(navMenuTitles[3], Iconify.IconValue.fa_cog, false));
+        navDrawerItems.add(new NavDrawerItem(navMenuTitles[3], FontAwesome.Icon.faw_cog, NavDrawerItem.SECONDARY));
         // Help
-        navDrawerItems.add(new NavDrawerItem(navMenuTitles[4], Iconify.IconValue.fa_question, false));
+        navDrawerItems.add(new NavDrawerItem(navMenuTitles[4], FontAwesome.Icon.faw_question, NavDrawerItem.SECONDARY));
         // Open Source
-        navDrawerItems.add(new NavDrawerItem(navMenuTitles[5], Iconify.IconValue.fa_github, false));
+        navDrawerItems.add(new NavDrawerItem(navMenuTitles[5], FontAwesome.Icon.faw_github, NavDrawerItem.SECONDARY));
         // Contact
-        navDrawerItems.add(new NavDrawerItem(navMenuTitles[6], Iconify.IconValue.fa_bullhorn, false));
+        navDrawerItems.add(new NavDrawerItem(navMenuTitles[6], FontAwesome.Icon.faw_bullhorn, NavDrawerItem.SECONDARY));
         return navDrawerItems;
     }
 
@@ -64,7 +66,7 @@ public class MainActivity extends BaseActivity {
                 fragment = new SampleFragment(navMenuTitles[position]);
                 break;
             case 5:
-                fragment = new SampleFragment(navMenuTitles[position]);
+                fragment = new Libs.Builder().withFields(R.string.class.getFields()).fragment();
                 break;
             case 6:
                 fragment = new SampleFragment(navMenuTitles[position]);
@@ -84,7 +86,7 @@ public class MainActivity extends BaseActivity {
         if (fragment != null) {
             FragmentManager fragmentManager = getSupportFragmentManager();
             fragmentManager.beginTransaction()
-                    .replace(com.tundem.holokitkatdrawer.R.id.frame_container, fragment).commit();
+                    .replace(R.id.frame_container, fragment).commit();
 
             // update selected item and title, then close the drawer
             getDrawerListView().setItemChecked(position, true);

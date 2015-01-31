@@ -1,20 +1,19 @@
 apply plugin: 'com.android.application'
 
 android {
-    compileSdkVersion 20
-    buildToolsVersion "20.0.0"
+    compileSdkVersion 21
+    buildToolsVersion "21.1.2"
 
     defaultConfig {
-        applicationId "com.tundem.holokitkatdrawer.app"
+        applicationId "com.tundem.materialdrawer.app"
         minSdkVersion 14
-        targetSdkVersion 20
-        versionCode 71
-        versionName "0.7.1"
+        targetSdkVersion 21
+        versionCode 105
+        versionName "1.0.5"
     }
     buildTypes {
         release {
-            runProguard false
-            proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+            minifyEnabled false
         }
     }
     lintOptions {
@@ -24,4 +23,7 @@ android {
 
 dependencies {
     compile project(':library')
+    compile('com.mikepenz.aboutlibraries:library:4.5.2@aar') {
+        transitive = true
+    }
 }

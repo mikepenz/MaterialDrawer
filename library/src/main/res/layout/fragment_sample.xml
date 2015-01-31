@@ -9,6 +9,6 @@
         android:layout_height="wrap_content"
         android:layout_centerInParent="true"
         android:text=""
-        android:textSize="16dp"/>
+        android:textSize="16sp"/>
 
 </RelativeLayout>

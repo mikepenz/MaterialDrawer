@@ -1,23 +1,46 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <color name="accent_blue">#33B5E5</color>
-    <color name="accent_blue_secondary">#8833B5E5</color>
-    <color name="accent_orange">#FF8800</color>
-    <color name="accent_orange_secondary">#88FF8800</color>
-    <color name="accent_yellow">#FFBB33</color>
-    <color name="accent_yellow_secondary">#88FFBB33</color>
+    <!-- Material DEFAULT colors -->
+    <color name="material_drawer_primary">#2196F3</color>
+    <color name="material_drawer_primary_dark">#1976D2</color>
+    <color name="material_drawer_primary_light">#BBDEFB</color>
+    <color name="material_drawer_accent">#FF4081</color>
+    <color name="material_drawer_background">#F9F9F9</color>
+    <!-- Material DEFAULT text / items colors -->
+    <color name="material_drawer_icons">#FFF</color>
+    <color name="material_drawer_primary_text">#212121</color>
+    <color name="material_drawer_secondary_text">#727272</color>
+    <color name="material_drawer_hint_text">#B8B8B8</color>
+    <color name="material_drawer_divider">#B6B6B6</color>
+    <!-- Material DEFAULT drawer colors -->
+    <color name="material_drawer_list">#FCFCFC</color>
+    <color name="material_drawer_list_secondary">#F2F2F2</color>
 
-    <color name="activity_bg">#ffffff</color>
 
-    <color name="list_item_title">#ff010101</color>
-    <color name="list_item_title_secondary">#ff505050</color>
-    <color name="list_item_disabled">#ff8F8F8F</color>
+    <!-- SAMPLE DARK COLORS -->
+    <!--
+    - Material SAMPLE DARK colors -
+    <color name="material_drawer_primary_color">#9C27B0</color>
+    <color name="material_drawer_primary_color_dark">#7B1FA2</color>
+    <color name="material_drawer_primary_color_light">#E1BEE7</color>
+    <color name="material_drawer_accent">#00BCD4</color>
+    <color name="material_drawer_background">#303030</color>
+    - Material SAMPLE DARK text / items colors -
+    <color name="material_drawer_icons">#000</color>
+    <color name="material_drawer_primary_text">#FFF</color>
+    <color name="material_drawer_secondary_text">#DEDEDE</color>
+    <color name="material_drawer_hint_text">#ABABAB</color>
+    <color name="material_drawer_divider">#555555</color>
+    - Material SAMPLE DARK drawer colors -
+    <color name="material_drawer_list">#303030</color>
+    <color name="material_drawer_list_secondary">#424242</color>
 
-    <!-- general colors for drawer -->
-    <color name="list_divider">#C3C3C3</color>
-    <color name="list_background">#F2F2F2</color>
-    <!-- primary colors for drawer -->
-    <color name="list_background_normal">#FCFCFC</color>
-    <!-- secondary colors for drawer -->
-    <color name="list_background_secondary_normal">#F2F2F2</color>
+    - AboutLibraries colors -
+    <color name="theme_window_background">#303030</color>
+    <color name="about_libraries_card">#666666</color>
+    <color name="about_libraries_title_openSource">#ffffffff</color>
+    <color name="about_libraries_text_openSource">#DEDEDE</color>
+    <color name="about_libraries_dividerDark_openSource">#303030</color>
+    <color name="about_libraries_dividerLight_openSource">#303030</color>
+    -->
 </resources>
