@@ -8,8 +8,8 @@ android {
         applicationId "com.tundem.materialdrawer.app"
         minSdkVersion 14
         targetSdkVersion 21
-        versionCode 104
-        versionName "1.0.4"
+        versionCode 105
+        versionName "1.0.5"
     }
     buildTypes {
         release {
