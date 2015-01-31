@@ -3,6 +3,15 @@
     <dimen name="activity_horizontal_margin">16dp</dimen>
     <dimen name="activity_vertical_margin">16dp</dimen>
 
+    <!-- Drawer -->
+    <dimen name="material_drawer_primary">?attr/actionBarSize</dimen>
+    <dimen name="material_drawer_primary_text">22sp</dimen>
+    <dimen name="material_drawer_primary_icon">24dp</dimen>
+    <dimen name="material_drawer_secondary">44dp</dimen>
+    <dimen name="material_drawer_secondary_text">16sp</dimen>
+    <dimen name="material_drawer_secondary_icon">16dp</dimen>
+    <dimen name="material_drawer_width">304dp</dimen>
+
     <!-- Toolbar Padding -->
     <dimen name="tool_bar_top_padding">0dp</dimen>
 </resources>
