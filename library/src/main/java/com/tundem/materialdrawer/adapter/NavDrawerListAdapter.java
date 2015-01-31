@@ -56,35 +56,40 @@ public class NavDrawerListAdapter extends BaseAdapter {
 
     @Override
     public View getView(int position, View convertView, ViewGroup parent) {
-        LayoutInflater mInflater = (LayoutInflater)
-                act.getSystemService(Activity.LAYOUT_INFLATER_SERVICE);
+        LayoutInflater mInflater = (LayoutInflater) act.getSystemService(Activity.LAYOUT_INFLATER_SERVICE);
 
         int color;
-        if (navDrawerItems.get(position).isPrimary()) {
+        if (navDrawerItems.get(position).getType() == NavDrawerItem.PRIMARY) {
             convertView = mInflater.inflate(R.layout.drawer_list_item_primary, null);
             UIUtils.setBackground(convertView, UIUtils.getDrawerListItem(act));
 
             color = act.getResources().getColor(R.color.material_drawer_primary_text);
-        } else {
+        } else if (navDrawerItems.get(position).getType() == NavDrawerItem.SECONDARY) {
             convertView = mInflater.inflate(R.layout.drawer_list_item_secondary, null);
             UIUtils.setBackground(convertView, UIUtils.getDrawerListSecondaryItem(act));
 
             color = act.getResources().getColor(R.color.material_drawer_secondary_text);
-        }
-
-        if (!navDrawerItems.get(position).isEnabled()) {
-            color = act.getResources().getColor(R.color.material_drawer_hint_text);
-        }
-
-        TextView txtTitle = (TextView) convertView.findViewById(R.id.title);
-        txtTitle.setText(navDrawerItems.get(position).getTitle());
-        txtTitle.setTextColor(color);
-
-        ImageView imgIcon = (ImageView) convertView.findViewById(R.id.icon);
-        if (navDrawerItems.get(position).getIcon() != null) {
-            imgIcon.setImageDrawable(new IconicsDrawable(act, navDrawerItems.get(position).getIcon()).color(color).actionBarSize());
         } else {
-            imgIcon.setVisibility(View.GONE);
+            convertView = mInflater.inflate(R.layout.drawer_list_item_spacer, null);
+            convertView.setMinimumHeight(1);
+            color = -1;
+        }
+
+        if (navDrawerItems.get(position).getType() != NavDrawerItem.SPACER) {
+            if (!navDrawerItems.get(position).isEnabled()) {
+                color = act.getResources().getColor(R.color.material_drawer_hint_text);
+            }
+
+            TextView txtTitle = (TextView) convertView.findViewById(R.id.title);
+            txtTitle.setText(navDrawerItems.get(position).getTitle());
+            txtTitle.setTextColor(color);
+
+            ImageView imgIcon = (ImageView) convertView.findViewById(R.id.icon);
+            if (navDrawerItems.get(position).getIcon() != null) {
+                imgIcon.setImageDrawable(new IconicsDrawable(act, navDrawerItems.get(position).getIcon()).color(color).actionBarSize());
+            } else {
+                imgIcon.setVisibility(View.GONE);
+            }
         }
         return convertView;
     }

@@ -4,11 +4,14 @@ package com.tundem.materialdrawer.model;
 import com.mikepenz.iconics.typeface.IIcon;
 
 public class NavDrawerItem {
+    public static final int PRIMARY = 1;
+    public static final int SECONDARY = 2;
+    public static final int SPACER = 3;
 
     private String title;
     private IIcon icon;
-    private boolean primary = true;
     private boolean enabled = true;
+    private int type = PRIMARY;
 
     public NavDrawerItem() {
     }
@@ -22,27 +25,27 @@ public class NavDrawerItem {
         this.setIcon(icon);
     }
 
-    public NavDrawerItem(String title, boolean primary) {
+    public NavDrawerItem(String title, int type) {
         this.title = title;
-        this.setPrimary(primary);
+        this.type = type;
     }
 
-    public NavDrawerItem(String title, boolean primary, boolean enabled) {
+    public NavDrawerItem(String title, int type, boolean enabled) {
         this.title = title;
-        this.primary = primary;
+        this.type = type;
         this.enabled = enabled;
     }
 
-    public NavDrawerItem(String title, IIcon icon, boolean primary) {
+    public NavDrawerItem(String title, IIcon icon, int type) {
         this.setTitle(title);
         this.setIcon(icon);
-        this.setPrimary(primary);
+        this.setType(type);
     }
 
-    public NavDrawerItem(String title, IIcon icon, boolean primary, boolean enabled) {
+    public NavDrawerItem(String title, IIcon icon, int type, boolean enabled) {
         this.setTitle(title);
         this.setIcon(icon);
-        this.setPrimary(primary);
+        this.setType(type);
         this.setEnabled(enabled);
     }
 
@@ -62,12 +65,12 @@ public class NavDrawerItem {
         this.icon = icon;
     }
 
-    public boolean isPrimary() {
-        return primary;
+    public int getType() {
+        return type;
     }
 
-    public void setPrimary(boolean primary) {
-        this.primary = primary;
+    public void setType(int type) {
+        this.type = type;
     }
 
     public boolean isEnabled() {
@@ -76,5 +79,10 @@ public class NavDrawerItem {
 
     public void setEnabled(boolean enabled) {
         this.enabled = enabled;
+    }
+
+
+    public NavDrawerItem(int type) {
+        this.type = type;
     }
 }

@@ -9,7 +9,6 @@ import android.view.MenuItem;
 import com.mikepenz.aboutlibraries.Libs;
 import com.mikepenz.iconics.typeface.FontAwesome;
 import com.tundem.materialdrawer.BaseActivity;
-import com.tundem.materialdrawer.app.SampleFragment;
 import com.tundem.materialdrawer.model.NavDrawerItem;
 
 import java.util.ArrayList;
@@ -28,17 +27,19 @@ public class MainActivity extends BaseActivity {
         // Home
         navDrawerItems.add(new NavDrawerItem(navMenuTitles[0]));
         // Freeplay
-        navDrawerItems.add(new NavDrawerItem(navMenuTitles[1], true, enabledSecond));
+        navDrawerItems.add(new NavDrawerItem(navMenuTitles[1], NavDrawerItem.PRIMARY, enabledSecond));
         // Custom
         navDrawerItems.add(new NavDrawerItem(navMenuTitles[2]));
+        // SPACER
+        navDrawerItems.add(new NavDrawerItem(NavDrawerItem.SPACER));
         // Settings
-        navDrawerItems.add(new NavDrawerItem(navMenuTitles[3], FontAwesome.Icon.faw_cog, false));
+        navDrawerItems.add(new NavDrawerItem(navMenuTitles[3], FontAwesome.Icon.faw_cog, NavDrawerItem.SECONDARY));
         // Help
-        navDrawerItems.add(new NavDrawerItem(navMenuTitles[4], FontAwesome.Icon.faw_question, false));
+        navDrawerItems.add(new NavDrawerItem(navMenuTitles[4], FontAwesome.Icon.faw_question, NavDrawerItem.SECONDARY));
         // Open Source
-        navDrawerItems.add(new NavDrawerItem(navMenuTitles[5], FontAwesome.Icon.faw_github, false));
+        navDrawerItems.add(new NavDrawerItem(navMenuTitles[5], FontAwesome.Icon.faw_github, NavDrawerItem.SECONDARY));
         // Contact
-        navDrawerItems.add(new NavDrawerItem(navMenuTitles[6], FontAwesome.Icon.faw_bullhorn, false));
+        navDrawerItems.add(new NavDrawerItem(navMenuTitles[6], FontAwesome.Icon.faw_bullhorn, NavDrawerItem.SECONDARY));
         return navDrawerItems;
     }
 
