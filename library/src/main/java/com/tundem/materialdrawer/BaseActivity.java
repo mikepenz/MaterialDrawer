@@ -20,12 +20,10 @@ public abstract class BaseActivity extends ActionBarActivity {
     private DrawerLayout mDrawerLayout;
     private ListView mDrawerList;
     private ActionBarDrawerToggle mDrawerToggle;
-
-    // used to store app title
     private CharSequence mTitle;
 
-
-    private NavDrawerListAdapter adapter;
+    // the adapter :D
+    private NavDrawerListAdapter mAdapter;
 
 
     /**
@@ -78,11 +76,11 @@ public abstract class BaseActivity extends ActionBarActivity {
     }
 
     public void setAdapter(NavDrawerListAdapter adapter) {
-        this.adapter = adapter;
+        this.mAdapter = adapter;
     }
 
     public NavDrawerListAdapter getAdapter() {
-        return adapter;
+        return mAdapter;
     }
 
     @Override
@@ -111,35 +109,13 @@ public abstract class BaseActivity extends ActionBarActivity {
         //create SlideMenuClickListener
         getDrawerListView().setOnItemClickListener(new SlideMenuClickListener());
 
-        // setting the nav drawer list adapter
-        adapter = new NavDrawerListAdapter(this, getNavDrawerItems());
-        getDrawerListView().setAdapter(adapter);
-
+        // setting the nav drawer list mAdapter
+        mAdapter = new NavDrawerListAdapter(this, getNavDrawerItems());
+        getDrawerListView().setAdapter(mAdapter);
 
         // enabling action bar app icon and behaving it as toggle button
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         getSupportActionBar().setHomeButtonEnabled(true);
-
-        /*
-        mDrawerToggle = new ActionBarDrawerToggle(this, getDrawerLayout(),
-                navigation_drawer_icon, //nav menu toggle icon
-                R.string.app_name, // nav drawer open - description for accessibility
-                R.string.app_name // nav drawer close - description for accessibility
-        ) {
-            public void onDrawerClosed(View view) {
-                getActionBar().setTitle(mTitle);
-                // calling onPrepareOptionsMenu() to show action bar icons
-                invalidateOptionsMenu();
-            }
-
-            public void onDrawerOpened(View drawerView) {
-                getActionBar().setTitle(mDrawerTitle);
-                // calling onPrepareOptionsMenu() to hide action bar icons
-                invalidateOptionsMenu();
-            }
-        };
-        getDrawerLayout().setDrawerListener(mDrawerToggle);
-        */
 
         if (savedInstanceState == null) {
             // on first time display view for first nav item
@@ -163,11 +139,6 @@ public abstract class BaseActivity extends ActionBarActivity {
         getSupportActionBar().setTitle(mTitle);
     }
 
-    /**
-     * When using the ActionBarDrawerToggle, you must call it during
-     * onPostCreate() and onConfigurationChanged()...
-     */
-
     @Override
     protected void onPostCreate(Bundle savedInstanceState) {
         super.onPostCreate(savedInstanceState);
@@ -179,7 +150,7 @@ public abstract class BaseActivity extends ActionBarActivity {
     public void onConfigurationChanged(Configuration newConfig) {
         super.onConfigurationChanged(newConfig);
 
-        // Pass any configuration change to the drawer toggls
+        // Pass any configuration change to the drawer toggle's
         mDrawerToggle.onConfigurationChanged(newConfig);
     }
 
