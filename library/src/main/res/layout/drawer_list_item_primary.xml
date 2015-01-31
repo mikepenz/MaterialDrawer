@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
                 android:layout_width="match_parent"
-                android:layout_height="60dp">
+                android:layout_height="?attr/actionBarSize">
 
     <ImageView
         android:id="@+id/icon"
@@ -20,8 +20,8 @@
         android:layout_marginLeft="12dp"
         android:layout_toRightOf="@id/icon"
         android:gravity="center_vertical"
-        android:minHeight="60dp"
+        android:minHeight="?attr/actionBarSize"
         android:textAppearance="?android:attr/textAppearanceListItem"
-        android:textColor="@color/material_text_primary"/>
+        android:textColor="@color/material_drawer_primary_text"/>
 
 </RelativeLayout>

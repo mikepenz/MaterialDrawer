@@ -64,16 +64,16 @@ public class NavDrawerListAdapter extends BaseAdapter {
             convertView = mInflater.inflate(R.layout.drawer_list_item_primary, null);
             UIUtils.setBackground(convertView, UIUtils.getInstance().getDrawerListItem(act));
 
-            color = act.getResources().getColor(R.color.material_text_primary);
+            color = act.getResources().getColor(R.color.material_drawer_primary_text);
         } else {
             convertView = mInflater.inflate(R.layout.drawer_list_item_secondary, null);
             UIUtils.setBackground(convertView, UIUtils.getInstance().getDrawerListSecondaryItem(act));
 
-            color = act.getResources().getColor(R.color.material_text_secondary);
+            color = act.getResources().getColor(R.color.material_drawer_secondary_text);
         }
 
         if (!navDrawerItems.get(position).isEnabled()) {
-            color = act.getResources().getColor(R.color.material_text_hint);
+            color = act.getResources().getColor(R.color.material_drawer_hint_text);
         }
 
         TextView txtTitle = (TextView) convertView.findViewById(R.id.title);

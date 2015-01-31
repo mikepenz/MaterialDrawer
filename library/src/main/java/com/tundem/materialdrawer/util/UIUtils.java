@@ -65,11 +65,11 @@ public class UIUtils {
 
     public StateListDrawable getDrawerListItem(Context ctx) {
         ColorDrawable clrPress = new ColorDrawable();
-        clrPress.setColor(ctx.getResources().getColor(R.color.material_primary_dark));
+        clrPress.setColor(ctx.getResources().getColor(R.color.material_drawer_primary_dark));
         ColorDrawable clrActive = new ColorDrawable();
-        clrActive.setColor(ctx.getResources().getColor(R.color.material_primary));
+        clrActive.setColor(ctx.getResources().getColor(R.color.material_drawer_primary));
         ColorDrawable clrBase = new ColorDrawable();
-        clrBase.setColor(ctx.getResources().getColor(R.color.material_list));
+        clrBase.setColor(ctx.getResources().getColor(R.color.material_drawer_list));
 
         StateListDrawable states = new StateListDrawable();
         states.addState(new int[]{android.R.attr.state_pressed}, clrPress);
@@ -81,11 +81,11 @@ public class UIUtils {
 
     public StateListDrawable getDrawerListSecondaryItem(Context ctx) {
         ColorDrawable clrPress = new ColorDrawable();
-        clrPress.setColor(ctx.getResources().getColor(R.color.material_primary_dark));
+        clrPress.setColor(ctx.getResources().getColor(R.color.material_drawer_primary_dark));
         ColorDrawable clrActive = new ColorDrawable();
-        clrActive.setColor(ctx.getResources().getColor(R.color.material_primary));
+        clrActive.setColor(ctx.getResources().getColor(R.color.material_drawer_primary));
         ColorDrawable clrBase = new ColorDrawable();
-        clrBase.setColor(ctx.getResources().getColor(R.color.material_list_secondary));
+        clrBase.setColor(ctx.getResources().getColor(R.color.material_drawer_list_secondary));
 
         StateListDrawable states = new StateListDrawable();
         states.addState(new int[]{android.R.attr.state_pressed}, clrPress);

@@ -14,7 +14,7 @@
         <android.support.v7.widget.Toolbar
             android:id="@+id/toolbar"
             android:layout_width="match_parent"
-            android:layout_height="?android:attr/actionBarSize"
+            android:layout_height="?attr/actionBarSize"
             android:background="?attr/colorPrimary"
             android:elevation="4dp"
             android:transitionName="actionBar"/>
@@ -33,8 +33,8 @@
         android:layout_width="240dp"
         android:layout_height="match_parent"
         android:layout_gravity="start"
-        android:background="@color/material_list"
+        android:background="@color/material_drawer_list"
         android:choiceMode="singleChoice"
-        android:divider="@color/material_divider"
+        android:divider="@color/material_drawer_divider"
         android:dividerHeight="1px"/>
 </android.support.v4.widget.DrawerLayout>

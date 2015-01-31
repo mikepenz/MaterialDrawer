@@ -105,7 +105,7 @@ public abstract class BaseActivity extends ActionBarActivity {
         mDrawerToggle.syncState();
 
         // Handle different Drawer States :D
-        mDrawerLayout.setStatusBarBackground(R.color.material_primary_dark);
+        mDrawerLayout.setStatusBarBackground(R.color.material_drawer_primary_dark);
         mDrawerLayout.setDrawerListener(mDrawerToggle);
 
         //create SlideMenuClickListener
