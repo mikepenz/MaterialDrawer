@@ -15,10 +15,10 @@ import android.widget.LinearLayout;
 
 import com.mikepenz.materialdrawer.adapter.DrawerAdapter;
 import com.mikepenz.materialdrawer.model.DrawerItem;
+import com.mikepenz.materialdrawer.twowayext.ItemSelectionSupport;
 import com.mikepenz.materialdrawer.util.Utils;
 
 import org.lucasr.twowayview.ItemClickSupport;
-import org.lucasr.twowayview.ItemSelectionSupport;
 import org.lucasr.twowayview.TwoWayLayoutManager;
 import org.lucasr.twowayview.widget.ListLayoutManager;
 import org.lucasr.twowayview.widget.TwoWayView;
@@ -75,13 +75,9 @@ public abstract class BaseActivity extends ActionBarActivity {
             //set the title and close the drawer
             setTitle(title);
             getDrawerLayout().closeDrawer(getSlider());
-        } else {
-            ItemSelectionSupport.removeFrom(getRecyclerView());
-            mItemSelection = ItemSelectionSupport.addTo(getRecyclerView());
-            mItemSelection.setChoiceMode(ItemSelectionSupport.ChoiceMode.SINGLE);
-            mItemSelection.setItemChecked(previousSelection, true);
         }
     }
+
 
     /**
      * getLayout
