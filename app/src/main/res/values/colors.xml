@@ -1,10 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <!-- Material SAMPLE DARK colors -->
-    <color name="material_drawer_primary">#9C27B0</color>
-    <color name="material_drawer_primary_dark">#7B1FA2</color>
-    <color name="material_drawer_primary_light">#E1BEE7</color>
-    <color name="material_drawer_accent">#00BCD4</color>
+    <color name="material_drawer_primary">#4BAE4F</color>
+    <color name="material_drawer_primary_dark">#378D3B</color>
+    <color name="material_drawer_primary_light">#C8E5C9</color>
+    <color name="material_drawer_accent">#FE5621</color>
     <color name="material_drawer_background">#303030</color>
     <!-- Material SAMPLE DARK text / items colors -->
     <color name="material_drawer_icons">#000</color>
