@@ -1,4 +1,4 @@
-package com.tundem.materialdrawer.model;
+package com.mikepenz.materialdrawer.model;
 
 
 import com.mikepenz.iconics.typeface.IIcon;

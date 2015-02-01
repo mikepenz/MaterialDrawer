@@ -1,4 +1,4 @@
-package com.tundem.materialdrawer.util;
+package com.mikepenz.materialdrawer.util;
 
 import android.annotation.SuppressLint;
 import android.content.Context;
@@ -7,7 +7,7 @@ import android.graphics.drawable.Drawable;
 import android.graphics.drawable.StateListDrawable;
 import android.view.View;
 
-import com.tundem.materialdrawer.R;
+import com.mikepenz.materialdrawer.R;
 
 /**
  * Created by mikepenz on 15.03.14.

@@ -1,4 +1,4 @@
-package com.tundem.materialdrawer.adapter;
+package com.mikepenz.materialdrawer.adapter;
 
 import android.app.Activity;
 import android.view.LayoutInflater;
@@ -9,9 +9,9 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.mikepenz.iconics.IconicsDrawable;
-import com.tundem.materialdrawer.R;
-import com.tundem.materialdrawer.model.NavDrawerItem;
-import com.tundem.materialdrawer.util.UIUtils;
+import com.mikepenz.materialdrawer.R;
+import com.mikepenz.materialdrawer.model.NavDrawerItem;
+import com.mikepenz.materialdrawer.util.UIUtils;
 
 import java.util.ArrayList;
 

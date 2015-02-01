@@ -1,4 +1,4 @@
-package com.tundem.materialdrawer.app;
+package com.mikepenz.materialdrawer.app;
 
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
@@ -8,8 +8,8 @@ import android.view.MenuItem;
 
 import com.mikepenz.aboutlibraries.Libs;
 import com.mikepenz.iconics.typeface.FontAwesome;
-import com.tundem.materialdrawer.BaseActivity;
-import com.tundem.materialdrawer.model.NavDrawerItem;
+import com.mikepenz.materialdrawer.BaseActivity;
+import com.mikepenz.materialdrawer.model.NavDrawerItem;
 
 import java.util.ArrayList;
 

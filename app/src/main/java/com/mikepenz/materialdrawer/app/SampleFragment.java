@@ -1,4 +1,4 @@
-package com.tundem.materialdrawer.app;
+package com.mikepenz.materialdrawer.app;
 
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
@@ -23,9 +23,9 @@ public class SampleFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
 
-        View rootView = inflater.inflate(com.tundem.materialdrawer.R.layout.fragment_sample, container, false);
+        View rootView = inflater.inflate(com.mikepenz.materialdrawer.R.layout.fragment_sample, container, false);
 
-        ((TextView) rootView.findViewById(com.tundem.materialdrawer.R.id.txtLabel)).setText(title);
+        ((TextView) rootView.findViewById(com.mikepenz.materialdrawer.R.id.txtLabel)).setText(title);
 
         return rootView;
     }

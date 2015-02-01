@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest
-    package="com.tundem.materialdrawer"
+    package="com.mikepenz.materialdrawer"
     xmlns:android="http://schemas.android.com/apk/res/android">
 
     <application

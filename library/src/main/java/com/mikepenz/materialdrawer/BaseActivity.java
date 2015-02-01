@@ -1,4 +1,4 @@
-package com.tundem.materialdrawer;
+package com.mikepenz.materialdrawer;
 
 import android.content.res.Configuration;
 import android.os.Bundle;
@@ -12,8 +12,8 @@ import android.widget.AdapterView;
 import android.widget.LinearLayout;
 import android.widget.ListView;
 
-import com.tundem.materialdrawer.adapter.NavDrawerListAdapter;
-import com.tundem.materialdrawer.model.NavDrawerItem;
+import com.mikepenz.materialdrawer.adapter.NavDrawerListAdapter;
+import com.mikepenz.materialdrawer.model.NavDrawerItem;
 
 import java.util.ArrayList;
 
