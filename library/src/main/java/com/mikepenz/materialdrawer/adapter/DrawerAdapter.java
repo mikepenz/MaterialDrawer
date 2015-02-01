@@ -88,7 +88,10 @@ public class DrawerAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder>
             int color = -1;
             if (!item.isEnabled()) {
                 color = mContext.getResources().getColor(R.color.material_drawer_hint_text);
-                ((ViewHolder) viewHolder).iconView.setEnabled(false);
+            } else if (item.getType() == DrawerItem.PRIMARY) {
+                color = mContext.getResources().getColor(R.color.material_drawer_primary_text);
+            } else if (item.getType() == DrawerItem.SECONDARY) {
+                color = mContext.getResources().getColor(R.color.material_drawer_secondary_text);
             }
 
             ((ViewHolder) viewHolder).titleView.setText(item.getTitle());
@@ -98,6 +101,14 @@ public class DrawerAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder>
                 UIUtils.setBackground(((ViewHolder) viewHolder).iconView, new IconicsDrawable(mContext, drawerItems.get(position).getIcon()).color(color).actionBarSize());
             } else {
                 ((ViewHolder) viewHolder).iconView.setVisibility(View.GONE);
+            }
+
+            if (item.isEnabled()) {
+                ((ViewHolder) viewHolder).itemView.setEnabled(true);
+                ((ViewHolder) viewHolder).itemView.setClickable(true);
+            } else {
+                ((ViewHolder) viewHolder).itemView.setEnabled(false);
+                ((ViewHolder) viewHolder).itemView.setClickable(false);
             }
         } else if (viewHolder instanceof ViewHolderSpacer) {
             ((ViewHolderSpacer) viewHolder).itemView.setMinimumHeight(1);
