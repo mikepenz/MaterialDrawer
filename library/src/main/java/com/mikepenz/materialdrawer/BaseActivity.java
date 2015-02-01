@@ -29,11 +29,14 @@ public abstract class BaseActivity extends ActionBarActivity {
     private DrawerLayout mDrawerLayout;
     private LinearLayout mSlider;
 
-
+    //the recyclerlist :D
     private TwoWayView mRecyclerView;
     private ItemClickSupport mItemClick;
     private ItemSelectionSupport mItemSelection;
+    private int currentSelection = 0;
+    private int previousSelection = 0;
 
+    //the toggle and title :D
     private ActionBarDrawerToggle mDrawerToggle;
     private CharSequence mTitle;
 
@@ -52,6 +55,11 @@ public abstract class BaseActivity extends ActionBarActivity {
      * Diplaying fragment view for selected nav drawer list item
      */
     public void displayView(Fragment fragment, String title, int position) {
+        if (currentSelection != position) {
+            previousSelection = currentSelection;
+            currentSelection = position;
+        }
+
         if (getAdapter() == null) {
             return;
         }
@@ -67,6 +75,11 @@ public abstract class BaseActivity extends ActionBarActivity {
             //set the title and close the drawer
             setTitle(title);
             getDrawerLayout().closeDrawer(getSlider());
+        } else {
+            ItemSelectionSupport.removeFrom(getRecyclerView());
+            mItemSelection = ItemSelectionSupport.addTo(getRecyclerView());
+            mItemSelection.setChoiceMode(ItemSelectionSupport.ChoiceMode.SINGLE);
+            mItemSelection.setItemChecked(previousSelection, true);
         }
     }
 
