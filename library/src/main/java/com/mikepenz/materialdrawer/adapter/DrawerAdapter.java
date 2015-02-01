@@ -83,7 +83,11 @@ public class DrawerAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder>
         DrawerItem item = drawerItems.get(position);
 
         if (viewHolder instanceof ViewHolder) {
-            UIUtils.setBackground(((ViewHolder) viewHolder).itemView, UIUtils.getDrawerListSecondaryItem(mContext));
+            if (item.getType() == DrawerItem.PRIMARY) {
+                UIUtils.setBackground(((ViewHolder) viewHolder).itemView, UIUtils.getDrawerListItem(mContext));
+            } else if (item.getType() == DrawerItem.SECONDARY) {
+                UIUtils.setBackground(((ViewHolder) viewHolder).itemView, UIUtils.getDrawerListSecondaryItem(mContext));
+            }
 
             int color = -1;
             if (!item.isEnabled()) {
