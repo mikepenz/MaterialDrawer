@@ -4,7 +4,7 @@
     <dimen name="activity_vertical_margin">16dp</dimen>
 
     <!-- Drawer -->
-    <dimen name="material_drawer_primary">?attr/actionBarSize</dimen>
+    <dimen name="material_drawer_primary">56dp</dimen>
     <dimen name="material_drawer_primary_text">22sp</dimen>
     <dimen name="material_drawer_primary_icon">24dp</dimen>
     <dimen name="material_drawer_secondary">44dp</dimen>

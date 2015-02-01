@@ -2,32 +2,43 @@ package com.mikepenz.materialdrawer;
 
 import android.content.res.Configuration;
 import android.os.Bundle;
+import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentManager;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarActivity;
 import android.support.v7.app.ActionBarDrawerToggle;
+import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
 import android.view.MenuItem;
 import android.view.View;
-import android.widget.AdapterView;
 import android.widget.LinearLayout;
-import android.widget.ListView;
 
-import com.mikepenz.materialdrawer.adapter.NavDrawerListAdapter;
-import com.mikepenz.materialdrawer.model.NavDrawerItem;
+import com.mikepenz.materialdrawer.adapter.DrawerAdapter;
+import com.mikepenz.materialdrawer.model.DrawerItem;
+import com.mikepenz.materialdrawer.util.Utils;
+
+import org.lucasr.twowayview.ItemClickSupport;
+import org.lucasr.twowayview.ItemSelectionSupport;
+import org.lucasr.twowayview.TwoWayLayoutManager;
+import org.lucasr.twowayview.widget.ListLayoutManager;
+import org.lucasr.twowayview.widget.TwoWayView;
 
 import java.util.ArrayList;
 
 public abstract class BaseActivity extends ActionBarActivity {
     private DrawerLayout mDrawerLayout;
     private LinearLayout mSlider;
-    private ListView mDrawerList;
 
+
+    private TwoWayView mRecyclerView;
+    private ItemClickSupport mItemClick;
+    private ItemSelectionSupport mItemSelection;
 
     private ActionBarDrawerToggle mDrawerToggle;
     private CharSequence mTitle;
 
     // the adapter :D
-    private NavDrawerListAdapter mAdapter;
+    private DrawerAdapter mAdapter;
 
 
     /**
@@ -35,12 +46,29 @@ public abstract class BaseActivity extends ActionBarActivity {
      *
      * @return
      */
-    public abstract ArrayList<NavDrawerItem> getNavDrawerItems();
+    public abstract ArrayList<DrawerItem> getDrawerItems();
 
     /**
      * Diplaying fragment view for selected nav drawer list item
      */
-    public abstract void displayView(int position);
+    public void displayView(Fragment fragment, String title, int position) {
+        if (getAdapter() == null) {
+            return;
+        }
+
+        DrawerItem item = Utils.getItem(getAdapter().getDrawerItems(), position);
+        if (fragment != null && item != null && item.isEnabled()) {
+            FragmentManager fragmentManager = getSupportFragmentManager();
+            fragmentManager.beginTransaction().replace(R.id.frame_container, fragment).commit();
+
+            // update selected item and title, then close the drawer
+            mItemSelection.setItemChecked(position, true);
+
+            //set the title and close the drawer
+            setTitle(title);
+            getDrawerLayout().closeDrawer(getSlider());
+        }
+    }
 
     /**
      * getLayout
@@ -80,22 +108,23 @@ public abstract class BaseActivity extends ActionBarActivity {
     }
 
     /**
-     * getDrawerListView
+     * getRecyclerView
      *
      * @return the listview to fill with the items
      */
-    public ListView getDrawerListView() {
-        if (mDrawerList == null) {
-            mDrawerList = (ListView) findViewById(R.id.list_slidermenu);
+    public RecyclerView getRecyclerView() {
+        if (mRecyclerView == null) {
+            mRecyclerView = (TwoWayView) findViewById(R.id.list_slidermenu);
+            mRecyclerView.setLayoutManager(new ListLayoutManager(this, TwoWayLayoutManager.Orientation.VERTICAL));
         }
-        return mDrawerList;
+        return mRecyclerView;
     }
 
-    public void setAdapter(NavDrawerListAdapter adapter) {
+    public void setAdapter(DrawerAdapter adapter) {
         this.mAdapter = adapter;
     }
 
-    public NavDrawerListAdapter getAdapter() {
+    public DrawerAdapter getAdapter() {
         return mAdapter;
     }
 
@@ -123,11 +152,17 @@ public abstract class BaseActivity extends ActionBarActivity {
         mDrawerLayout.setDrawerListener(mDrawerToggle);
 
         //create SlideMenuClickListener
-        getDrawerListView().setOnItemClickListener(new SlideMenuClickListener());
+        //getRecyclerView().setO.setOnItemClickListener(new SlideMenuClickListener());
+        mItemClick = ItemClickSupport.addTo(getRecyclerView());
+        mItemClick.setOnItemClickListener(new SlideMenuClickListener());
+
+        mItemSelection = ItemSelectionSupport.addTo(getRecyclerView());
+        mItemSelection.setChoiceMode(ItemSelectionSupport.ChoiceMode.SINGLE);
 
         // setting the nav drawer list mAdapter
-        mAdapter = new NavDrawerListAdapter(this, getNavDrawerItems());
-        getDrawerListView().setAdapter(mAdapter);
+        mAdapter = new DrawerAdapter(this);
+        mAdapter.addDrawerItems(getDrawerItems());
+        getRecyclerView().setAdapter(mAdapter);
 
         // enabling action bar app icon and behaving it as toggle button
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
@@ -135,10 +170,9 @@ public abstract class BaseActivity extends ActionBarActivity {
 
         if (savedInstanceState == null) {
             // on first time display view for first nav item
-            displayView(0);
+            displayView(null, "", 0);
         }
     }
-
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
@@ -173,13 +207,10 @@ public abstract class BaseActivity extends ActionBarActivity {
     /**
      * Slide menu item click listener
      */
-    private class SlideMenuClickListener implements
-            ListView.OnItemClickListener {
+    private class SlideMenuClickListener implements ItemClickSupport.OnItemClickListener {
         @Override
-        public void onItemClick(AdapterView<?> parent, View view, int position,
-                                long id) {
-            // display view for selected nav drawer item
-            displayView(position);
+        public void onItemClick(RecyclerView recyclerView, View view, int position, long l) {
+            displayView(null, "", position);
         }
     }
 }

@@ -21,7 +21,7 @@
         android:layout_toRightOf="@id/icon"
         android:textSize="@dimen/material_drawer_primary_text"
         android:gravity="center_vertical"
-        android:minHeight="?attr/actionBarSize"
+        android:minHeight="@dimen/material_drawer_primary"
         android:textAppearance="?android:attr/textAppearanceListItem"
         android:textColor="@color/material_drawer_primary_text"/>
 

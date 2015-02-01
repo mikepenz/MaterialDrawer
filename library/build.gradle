@@ -29,6 +29,10 @@ apply from: 'gradle-mvn-push.gradle'
 
 dependencies {
     compile 'com.android.support:support-v4:21.0.3'
-    compile "com.android.support:appcompat-v7:21.0.3"
+    compile 'com.android.support:appcompat-v7:21.0.3'
+    compile 'com.android.support:recyclerview-v7:21.0.3'
     compile 'com.mikepenz.iconics:library:0.7.2@aar'
+
+    compile 'org.lucasr.twowayview:core:1.0.0-SNAPSHOT@aar'
+    compile 'org.lucasr.twowayview:layouts:1.0.0-SNAPSHOT@aar'
 }

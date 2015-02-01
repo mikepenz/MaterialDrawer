@@ -3,7 +3,7 @@ package com.mikepenz.materialdrawer.model;
 
 import com.mikepenz.iconics.typeface.IIcon;
 
-public class NavDrawerItem {
+public class DrawerItem {
     public static final int PRIMARY = 1;
     public static final int SECONDARY = 2;
     public static final int SPACER = 3;
@@ -13,36 +13,36 @@ public class NavDrawerItem {
     private boolean enabled = true;
     private int type = PRIMARY;
 
-    public NavDrawerItem() {
+    public DrawerItem() {
     }
 
-    public NavDrawerItem(String title) {
+    public DrawerItem(String title) {
         this.title = title;
     }
 
-    public NavDrawerItem(String title, IIcon icon) {
+    public DrawerItem(String title, IIcon icon) {
         this.setTitle(title);
         this.setIcon(icon);
     }
 
-    public NavDrawerItem(String title, int type) {
+    public DrawerItem(String title, int type) {
         this.title = title;
         this.type = type;
     }
 
-    public NavDrawerItem(String title, int type, boolean enabled) {
+    public DrawerItem(String title, int type, boolean enabled) {
         this.title = title;
         this.type = type;
         this.enabled = enabled;
     }
 
-    public NavDrawerItem(String title, IIcon icon, int type) {
+    public DrawerItem(String title, IIcon icon, int type) {
         this.setTitle(title);
         this.setIcon(icon);
         this.setType(type);
     }
 
-    public NavDrawerItem(String title, IIcon icon, int type, boolean enabled) {
+    public DrawerItem(String title, IIcon icon, int type, boolean enabled) {
         this.setTitle(title);
         this.setIcon(icon);
         this.setType(type);
@@ -82,7 +82,7 @@ public class NavDrawerItem {
     }
 
 
-    public NavDrawerItem(int type) {
+    public DrawerItem(int type) {
         this.type = type;
     }
 }

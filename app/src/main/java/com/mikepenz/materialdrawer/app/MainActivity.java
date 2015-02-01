@@ -1,15 +1,13 @@
 package com.mikepenz.materialdrawer.app;
 
 import android.support.v4.app.Fragment;
-import android.support.v4.app.FragmentManager;
-import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 
 import com.mikepenz.aboutlibraries.Libs;
 import com.mikepenz.iconics.typeface.FontAwesome;
 import com.mikepenz.materialdrawer.BaseActivity;
-import com.mikepenz.materialdrawer.model.NavDrawerItem;
+import com.mikepenz.materialdrawer.model.DrawerItem;
 
 import java.util.ArrayList;
 
@@ -20,61 +18,63 @@ public class MainActivity extends BaseActivity {
     boolean enabledSecond = false;
 
     @Override
-    public ArrayList<NavDrawerItem> getNavDrawerItems() {
+    public ArrayList<DrawerItem> getDrawerItems() {
         navMenuTitles = getResources().getStringArray(R.array.nav_drawer_items);
-        ArrayList<NavDrawerItem> navDrawerItems = new ArrayList<NavDrawerItem>();
+        ArrayList<DrawerItem> drawerItems = new ArrayList<DrawerItem>();
         // adding nav drawer items to array
         // Home
-        navDrawerItems.add(new NavDrawerItem(navMenuTitles[0]));
+        drawerItems.add(new DrawerItem(navMenuTitles[0]));
         // Freeplay
-        navDrawerItems.add(new NavDrawerItem(navMenuTitles[1], NavDrawerItem.PRIMARY, enabledSecond));
+        drawerItems.add(new DrawerItem(navMenuTitles[1], DrawerItem.PRIMARY, enabledSecond));
         // Custom
-        navDrawerItems.add(new NavDrawerItem(navMenuTitles[2]));
+        drawerItems.add(new DrawerItem(navMenuTitles[2]));
         // SPACER
-        navDrawerItems.add(new NavDrawerItem(NavDrawerItem.SPACER));
+        drawerItems.add(new DrawerItem(DrawerItem.SPACER));
         // Settings
-        navDrawerItems.add(new NavDrawerItem(navMenuTitles[3], FontAwesome.Icon.faw_cog, NavDrawerItem.SECONDARY));
+        drawerItems.add(new DrawerItem(navMenuTitles[4], FontAwesome.Icon.faw_cog, DrawerItem.SECONDARY));
         // Help
-        navDrawerItems.add(new NavDrawerItem(navMenuTitles[4], FontAwesome.Icon.faw_question, NavDrawerItem.SECONDARY));
+        drawerItems.add(new DrawerItem(navMenuTitles[5], FontAwesome.Icon.faw_question, DrawerItem.SECONDARY));
         // Open Source
-        navDrawerItems.add(new NavDrawerItem(navMenuTitles[5], FontAwesome.Icon.faw_github, NavDrawerItem.SECONDARY));
+        drawerItems.add(new DrawerItem(navMenuTitles[6], FontAwesome.Icon.faw_github, DrawerItem.SECONDARY));
         // Contact
-        navDrawerItems.add(new NavDrawerItem(navMenuTitles[6], FontAwesome.Icon.faw_bullhorn, NavDrawerItem.SECONDARY));
-        return navDrawerItems;
+        drawerItems.add(new DrawerItem(navMenuTitles[7], FontAwesome.Icon.faw_bullhorn, DrawerItem.SECONDARY));
+        return drawerItems;
     }
 
     /**
      * Diplaying fragment view for selected nav drawer list item
      */
-    public void displayView(int position) {
+    @Override
+    public void displayView(Fragment fragment, String title, int position) {
+        title = navMenuTitles[position];
+
         // update the main content by replacing fragments
-        Fragment fragment = null;
         switch (position) {
             case 0:
-                fragment = new SampleFragment(navMenuTitles[position]);
+                fragment = new SampleFragment(title);
                 break;
             case 1:
-                fragment = new SampleFragment(navMenuTitles[position]);
+                fragment = new SampleFragment(title);
                 break;
             case 2:
-                fragment = new SampleFragment(navMenuTitles[position]);
-                break;
-            case 3:
-                fragment = new SampleFragment(navMenuTitles[position]);
+                fragment = new SampleFragment(title);
                 break;
             case 4:
-                fragment = new SampleFragment(navMenuTitles[position]);
+                fragment = new SampleFragment(title);
                 break;
             case 5:
-                fragment = new Libs.Builder().withFields(R.string.class.getFields()).fragment();
+                fragment = new SampleFragment(title);
                 break;
             case 6:
-                fragment = new SampleFragment(navMenuTitles[position]);
+                fragment = new Libs.Builder().withFields(R.string.class.getFields()).fragment();
+                break;
+            case 7:
+                fragment = new SampleFragment(title);
 
                 //Not a good idea. but it should work for demonstration
                 enabledSecond = !enabledSecond;
 
-                getAdapter().updateData(getNavDrawerItems());
+                getAdapter().setDrawerItems(getDrawerItems());
                 getAdapter().notifyDataSetChanged();
 
                 break;
@@ -83,20 +83,7 @@ public class MainActivity extends BaseActivity {
                 break;
         }
 
-        if (fragment != null) {
-            FragmentManager fragmentManager = getSupportFragmentManager();
-            fragmentManager.beginTransaction()
-                    .replace(R.id.frame_container, fragment).commit();
-
-            // update selected item and title, then close the drawer
-            getDrawerListView().setItemChecked(position, true);
-            getDrawerListView().setSelection(position);
-            setTitle(navMenuTitles[position]);
-            getDrawerLayout().closeDrawer(getSlider());
-        } else {
-            // error in creating fragment
-            Log.e("MainActivity", "Error in creating fragment");
-        }
+        super.displayView(fragment, title, position);
     }
 
     @Override
