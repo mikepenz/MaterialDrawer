@@ -12,7 +12,7 @@ Here's a quick overview of functions it include:
 - modify the colors on the go
 - **uses the AppCompat support library**
 - comes with a basetheme which helps if you want an activity with a colored statusbar
-- the navigationdrawer is also und the statusbar
+- the navigationdrawer is also under the statusbar
 
 #Screenshots
 ![Image](https://raw.githubusercontent.com/mikepenz/MaterialDrawer/master/DEV/screenshots/screenshot1_small.png)
@@ -46,55 +46,44 @@ Here's a quick overview what you have to do within your application.
 
 ####Activity
 #####Code:
+It's (theoretically) a one-liner :D
 ```java
- extends BaseActivity
-```
-And implement following methods
-```java
-@Override
-    public ArrayList<NavDrawerItem> getNavDrawerItems() {
-        navMenuTitles = getResources().getStringArray(R.array.nav_drawer_items);
-        ArrayList<NavDrawerItem> navDrawerItems = new ArrayList<NavDrawerItem>();
-        // adding nav drawer items to array
-        // Home
-        navDrawerItems.add(new NavDrawerItem("Home"));
-        // SPACER
-        navDrawerItems.add(new NavDrawerItem(NavDrawerItem.SPACER));
-        // Settings
-        navDrawerItems.add(new NavDrawerItem("Settings", FontAwesome.Icon.faw_cog, NavDrawerItem.SECONDARY));
-        return navDrawerItems;
-    }
-
-    /**
-     * Diplaying fragment view for selected nav drawer list item
-     */
-    public void displayView(int position) {
-        // update the main content by replacing fragments
-        Fragment fragment = null;
-        switch (position) {
-            case 0:
-                fragment = new SampleFragment("Home");
-                break;
-            case 2:
-                fragment = new SampleFragment("Settings");
-                break;
-            default:
-                break;
-        }
-
-        if (fragment != null) {
-            FragmentManager fragmentManager = getSupportFragmentManager();
-            fragmentManager.beginTransaction().replace(R.id.frame_container, fragment).commit();
-            // update selected item and title, then close the drawer
-            getDrawerListView().setItemChecked(position, true);
-            getDrawerListView().setSelection(position);
-            setTitle(navMenuTitles[position]);
-            getDrawerLayout().closeDrawer(getSlider());
-        }
-    }
+Drawer.Result result = new Drawer()
+                .withActivity(this)
+                .withToolbar(toolbar)
+                .withActionBarDrawerToggle(true)
+                .addDrawerItems(
+                        new PrimaryDrawerItem().withName(R.string.drawer_item_home),
+                        new PrimaryDrawerItem().withName(R.string.drawer_item_free_play),
+                        new PrimaryDrawerItem().withName(R.string.drawer_item_custom),
+                        new SpacerDrawerItem(),
+                        new SecondaryDrawerItem().withName(R.string.drawer_item_settings).withIcon(FontAwesome.Icon.faw_cog),
+                        new SecondaryDrawerItem().withName(R.string.drawer_item_help).withIcon(FontAwesome.Icon.faw_question).setEnabled(false),
+                        new SecondaryDrawerItem().withName(R.string.drawer_item_open_source).withIcon(FontAwesome.Icon.faw_github),
+                        new SecondaryDrawerItem().withName(R.string.drawer_item_contact).withIcon(FontAwesome.Icon.faw_bullhorn)
+                )
+                .withOnDrawerItemClickListener(new Drawer.OnDrawerItemClickListener() {
+                    @Override
+                    public void onItemClick(AdapterView<?> parent, View view, int position, long id, IDrawerItem drawerItem) {
+                        if (drawerItem instanceof PrimaryDrawerItem) {
+                            Toast.makeText(DrawerActivity.this, DrawerActivity.this.getString(((PrimaryDrawerItem) drawerItem).getNameRes()), Toast.LENGTH_SHORT).show();
+                        }
+                    }
+                })
+                .withOnDrawerItemLongClickListener(new Drawer.OnDrawerItemLongClickListener() {
+                    @Override
+                    public boolean onItemLongClick(AdapterView<?> parent, View view, int position, long id, IDrawerItem drawerItem) {
+                        if (drawerItem instanceof SecondaryDrawerItem) {
+                            Toast.makeText(DrawerActivity.this, DrawerActivity.this.getString(((SecondaryDrawerItem) drawerItem).getNameRes()), Toast.LENGTH_SHORT).show();
+                        }
+                        return false;
+                    }
+                })
+                .build();
 ```
 
-###AndroidManifest.xml
+###AndroidManifest.xml (OPTIONAL)
+You can use the provided theme, this will allow the drawer to display under the statusbar
 ```xml
   android:theme="@style/AppTheme"
 ```
