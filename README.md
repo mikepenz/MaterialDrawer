@@ -21,10 +21,16 @@ Here's a quick overview of functions it include:
 
 ##Include in your project
 ###Using Maven
-The MaterialDrawer Library is pushed to [Maven Central](http://search.maven.org/#search|ga|1|g%3A%22com.mikepenz.materialdrawer%22), so you just need to add the following dependency to your `build.gradle`.
+~~The MaterialDrawer Library is pushed to [Maven Central](http://search.maven.org/#search|ga|1|g%3A%22com.mikepenz.materialdrawer%22),~~ so you just need to add the following dependency to your `build.gradle`.
+
+Please use the SNAPSHOT repository for now.
 
 ```javascript
-compile('com.mikepenz.materialdrawer:library:0.1.0@aar') {
+repositories {
+    maven { url "https://oss.sonatype.org/content/repositories/snapshots/" }
+}
+
+compile('com.mikepenz.materialdrawer:library:0.5.0-SNAPSHOT@aar') {
 	transitive = true
 }
 ```
