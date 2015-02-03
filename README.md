@@ -49,26 +49,26 @@ Here's a quick overview what you have to do within your application.
 It's (theoretically) a one-liner :D
 ```java
 new Drawer()
-            .withActivity(this)
-            .withToolbar(toolbar)
-            .withActionBarDrawerToggle(true)
-            .addDrawerItems(
-                    new PrimaryDrawerItem().withName(R.string.drawer_item_home),
-                    new PrimaryDrawerItem().withName(R.string.drawer_item_free_play),
-                    new PrimaryDrawerItem().withName(R.string.drawer_item_custom),
-                    new SpacerDrawerItem(),
-                    new SecondaryDrawerItem().withName(R.string.drawer_item_settings).withIcon(FontAwesome.Icon.faw_cog),
-                    new SecondaryDrawerItem().withName(R.string.drawer_item_help).withIcon(FontAwesome.Icon.faw_question).setEnabled(false),
-                    new SecondaryDrawerItem().withName(R.string.drawer_item_open_source).withIcon(FontAwesome.Icon.faw_github),
-                    new SecondaryDrawerItem().withName(R.string.drawer_item_contact).withIcon(FontAwesome.Icon.faw_bullhorn)
-            )
-            .withOnDrawerItemClickListener(new Drawer.OnDrawerItemClickListener() {
-                @Override
-                public void onItemClick(AdapterView<?> parent, View view, int position, long id, IDrawerItem drawerItem) {
-                    // do something with the clicked item :D
-                }
-            })
-            .build();
+.withActivity(this)
+.withToolbar(toolbar)
+.withActionBarDrawerToggle(true)
+.addDrawerItems(
+	new PrimaryDrawerItem().withName(R.string.drawer_item_home),
+	new PrimaryDrawerItem().withName(R.string.drawer_item_free_play),
+	new PrimaryDrawerItem().withName(R.string.drawer_item_custom),
+	new SpacerDrawerItem(),
+	new SecondaryDrawerItem().withName(R.string.drawer_item_settings).withIcon(FontAwesome.Icon.faw_cog),
+	new SecondaryDrawerItem().withName(R.string.drawer_item_help).withIcon(FontAwesome.Icon.faw_question).setEnabled(false),
+	new SecondaryDrawerItem().withName(R.string.drawer_item_open_source).withIcon(FontAwesome.Icon.faw_github),
+	new SecondaryDrawerItem().withName(R.string.drawer_item_contact).withIcon(FontAwesome.Icon.faw_bullhorn)
+)
+.withOnDrawerItemClickListener(new Drawer.OnDrawerItemClickListener() {
+@Override
+public void onItemClick(AdapterView<?> parent, View view, int position, long id, IDrawerItem drawerItem) {
+	// do something with the clicked item :D
+}
+})
+.build();
 ```
 
 ###AndroidManifest.xml (OPTIONAL)
