@@ -1,10 +1,2 @@
 <?xml version="1.0" encoding="utf-8"?>
-<manifest
-    package="com.mikepenz.materialdrawer"
-    xmlns:android="http://schemas.android.com/apk/res/android">
-
-    <application
-        android:label="@string/app_name">
-    </application>
-
-</manifest>
+<manifest package="com.mikepenz.materialdrawer"/>

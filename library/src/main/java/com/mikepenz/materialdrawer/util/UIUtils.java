@@ -2,6 +2,7 @@ package com.mikepenz.materialdrawer.util;
 
 import android.annotation.SuppressLint;
 import android.content.Context;
+import android.content.res.ColorStateList;
 import android.graphics.drawable.ColorDrawable;
 import android.graphics.drawable.Drawable;
 import android.graphics.drawable.StateListDrawable;
@@ -13,6 +14,21 @@ import com.mikepenz.materialdrawer.R;
  * Created by mikepenz on 15.03.14.
  */
 public class UIUtils {
+    public static ColorStateList getTextColor(Context ctx, int text_color) {
+        return new ColorStateList(
+                new int[][]{
+                        new int[]{android.R.attr.state_pressed},
+                        new int[]{android.R.attr.state_activated},
+                        new int[]{android.R.attr.state_enabled}
+                },
+                new int[]{
+                        ctx.getResources().getColor(R.color.material_drawer_contrast_text),
+                        ctx.getResources().getColor(R.color.material_drawer_contrast_text),
+                        text_color
+                }
+        );
+    }
+
     public static StateListDrawable getDrawerListItem(Context ctx) {
         ColorDrawable clrPress = new ColorDrawable();
         clrPress.setColor(ctx.getResources().getColor(R.color.material_drawer_primary_dark));

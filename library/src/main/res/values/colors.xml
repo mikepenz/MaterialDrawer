@@ -11,6 +11,7 @@
     <color name="material_drawer_primary_text">#212121</color>
     <color name="material_drawer_secondary_text">#727272</color>
     <color name="material_drawer_hint_text">#B8B8B8</color>
+    <color name="material_drawer_contrast_text">#FFF</color>
     <color name="material_drawer_divider">#B6B6B6</color>
     <!-- Material DEFAULT drawer colors -->
     <color name="material_drawer_list">#FCFCFC</color>

@@ -1,14 +1,15 @@
 <resources>
     <string name="app_name">MaterialDrawer</string>
 
-    <!-- Nav Drawer Menu Items -->
-    <string-array name="nav_drawer_items">
-        <item>Home</item>
-        <item>Freeplay</item>
-        <item>Custom</item>
-        <item>Settings</item>
-        <item>Help</item>
-        <item>Open Source</item>
-        <item>Contact</item>
-    </string-array>
+    <!-- Sample menu -->
+    <string name="action_settings">Settings</string>
+
+    <!-- Drawer Items -->
+    <string name="drawer_item_home">Home</string>
+    <string name="drawer_item_free_play">Free Play</string>
+    <string name="drawer_item_custom">Custom</string>
+    <string name="drawer_item_settings">Settings</string>
+    <string name="drawer_item_help">Help</string>
+    <string name="drawer_item_open_source">Open Source</string>
+    <string name="drawer_item_contact">Contact</string>
 </resources>
