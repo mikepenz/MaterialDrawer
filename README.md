@@ -97,6 +97,12 @@ Overwrite following colors to create a quick custom style for your application
     <color name="material_drawer_list_secondary">#424242</color>
 ```
 
+#Credits
+
+- Mirosław Stanek - [GitHub](https://github.com/frogermcs)
+	- For his InstaMaterial concept and the idea of inflating the drawerLayout [InstaMaterial Concept](http://frogermcs.github.io/InstaMaterial-concept-part-7-navigation-drawer/)
+
+
 #Developed By
 
 * Mike Penz - http://mikepenz.com - <mikepenz@gmail.com>
