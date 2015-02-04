@@ -62,8 +62,6 @@ public class DrawerActivity extends ActionBarActivity {
                 })
                 .build();
 
-        result.setSelection(2);
-
         SampleFragment fragment = new SampleFragment("Hugo");
 
         FragmentManager fragmentManager = getSupportFragmentManager();

@@ -71,8 +71,8 @@ public class SecondaryDrawerItem implements IDrawerItem {
     }
 
     @Override
-    public Type getType() {
-        return Type.SECONDARY;
+    public String getType() {
+        return "SECONDARY_ITEM";
     }
 
     @Override

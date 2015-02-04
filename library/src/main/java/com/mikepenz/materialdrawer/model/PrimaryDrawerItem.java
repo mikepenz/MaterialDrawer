@@ -70,8 +70,8 @@ public class PrimaryDrawerItem implements IDrawerItem {
     }
 
     @Override
-    public Type getType() {
-        return Type.PRIMARY;
+    public String getType() {
+        return "PRIMARY_ITEM";
     }
 
     @Override

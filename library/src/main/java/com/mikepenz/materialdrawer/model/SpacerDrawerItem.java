@@ -22,8 +22,8 @@ public class SpacerDrawerItem implements IDrawerItem {
     }
 
     @Override
-    public Type getType() {
-        return Type.SPACER;
+    public String getType() {
+        return "SPACER_ITEM";
     }
 
     @Override

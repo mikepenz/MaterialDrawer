@@ -7,12 +7,10 @@ import android.view.ViewGroup;
 import android.widget.BaseAdapter;
 
 import com.mikepenz.materialdrawer.model.IDrawerItem;
-import com.mikepenz.materialdrawer.model.PrimaryDrawerItem;
-import com.mikepenz.materialdrawer.model.SecondaryDrawerItem;
-import com.mikepenz.materialdrawer.model.SpacerDrawerItem;
 
 import java.util.ArrayList;
 import java.util.Collections;
+import java.util.List;
 
 public class DrawerAdapter extends BaseAdapter {
 
@@ -20,29 +18,55 @@ public class DrawerAdapter extends BaseAdapter {
     private ArrayList<IDrawerItem> mDrawerItems;
     private LayoutInflater mInflater;
 
+    private List<String> mTypeMapper;
+
     public DrawerAdapter(Activity activity) {
         this.mActivity = activity;
         this.mInflater = (LayoutInflater) mActivity.getSystemService(Activity.LAYOUT_INFLATER_SERVICE);
-        mDrawerItems = new ArrayList<IDrawerItem>();
+
+        update(null);
     }
 
     public DrawerAdapter(Activity activity, ArrayList<IDrawerItem> drawerItems) {
         this.mActivity = activity;
         this.mInflater = (LayoutInflater) mActivity.getSystemService(Activity.LAYOUT_INFLATER_SERVICE);
-        this.mDrawerItems = drawerItems;
+
+        update(drawerItems);
     }
 
     public void update(ArrayList<IDrawerItem> drawerItems) {
         this.mDrawerItems = drawerItems;
-        notifyDataSetChanged();
+
+        if (this.mDrawerItems == null) {
+            mDrawerItems = new ArrayList<IDrawerItem>();
+        }
+
+        mapTypes();
     }
 
     public void add(IDrawerItem... drawerItems) {
+        if (this.mDrawerItems == null) {
+            mDrawerItems = new ArrayList<IDrawerItem>();
+        }
+
         if (drawerItems != null) {
             Collections.addAll(this.mDrawerItems, drawerItems);
         }
+
+        mapTypes();
     }
 
+    private void mapTypes() {
+        if (this.mTypeMapper == null) {
+            this.mTypeMapper = new ArrayList<String>();
+        }
+
+        if (this.mDrawerItems != null) {
+            for (IDrawerItem drawerItem : this.mDrawerItems) {
+                mTypeMapper.add(drawerItem.getType());
+            }
+        }
+    }
 
     @Override
     public boolean areAllItemsEnabled() {
@@ -83,7 +107,7 @@ public class DrawerAdapter extends BaseAdapter {
     @Override
     public int getItemViewType(int position) {
         if (mDrawerItems != null && mDrawerItems.size() > position) {
-            return mDrawerItems.get(position).getType().getIdentifier();
+            return mTypeMapper.indexOf(mDrawerItems.get(position).getType());
         } else {
             return -1;
         }
@@ -92,25 +116,12 @@ public class DrawerAdapter extends BaseAdapter {
 
     @Override
     public int getViewTypeCount() {
-        return IDrawerItem.Type.values().length;
+        return mTypeMapper.size();
     }
 
     @Override
     public View getView(int position, View convertView, ViewGroup parent) {
-        int type = getItemViewType(position);
         IDrawerItem item = (IDrawerItem) getItem(position);
-
-        if (type == IDrawerItem.Type.PRIMARY.getIdentifier()) {
-            PrimaryDrawerItem primaryDrawerItem = (PrimaryDrawerItem) item;
-            convertView = primaryDrawerItem.convertView(mActivity, mInflater, convertView, parent);
-        } else if (type == IDrawerItem.Type.SECONDARY.getIdentifier()) {
-            SecondaryDrawerItem secondaryDrawerItem = (SecondaryDrawerItem) item;
-            convertView = secondaryDrawerItem.convertView(mActivity, mInflater, convertView, parent);
-        } else if (type == IDrawerItem.Type.SPACER.getIdentifier()) {
-            SpacerDrawerItem spacerDrawerItem = (SpacerDrawerItem) item;
-            convertView = spacerDrawerItem.convertView(mActivity, mInflater, convertView, parent);
-        }
-
-        return convertView;
+        return item.convertView(mActivity, mInflater, convertView, parent);
     }
 }
