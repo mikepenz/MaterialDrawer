@@ -14,16 +14,14 @@
     <color name="material_drawer_contrast_text">#FFF</color>
     <color name="material_drawer_divider">#B6B6B6</color>
     <!-- Material DEFAULT drawer colors -->
-    <color name="material_drawer_list">#FCFCFC</color>
-    <color name="material_drawer_list_secondary">#F2F2F2</color>
-
+    <color name="material_drawer_selected">#E8E8E8</color>
 
     <!-- SAMPLE DARK COLORS -->
     <!--
     - Material SAMPLE DARK colors -
-    <color name="material_drawer_primary_color">#9C27B0</color>
-    <color name="material_drawer_primary_color_dark">#7B1FA2</color>
-    <color name="material_drawer_primary_color_light">#E1BEE7</color>
+    <color name="material_drawer_primary">#9C27B0</color>
+    <color name="material_drawer_primary_dark">#7B1FA2</color>
+    <color name="material_drawer_primary_light">#E1BEE7</color>
     <color name="material_drawer_accent">#00BCD4</color>
     <color name="material_drawer_background">#303030</color>
     - Material SAMPLE DARK text / items colors -
@@ -31,10 +29,10 @@
     <color name="material_drawer_primary_text">#FFF</color>
     <color name="material_drawer_secondary_text">#DEDEDE</color>
     <color name="material_drawer_hint_text">#ABABAB</color>
+    <color name="material_drawer_contrast_text">#000</color>
     <color name="material_drawer_divider">#555555</color>
     - Material SAMPLE DARK drawer colors -
-    <color name="material_drawer_list">#303030</color>
-    <color name="material_drawer_list_secondary">#424242</color>
+    <color name="material_drawer_selected">#303030</color>
 
     - AboutLibraries colors -
     <color name="theme_window_background">#303030</color>

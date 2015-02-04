@@ -116,6 +116,28 @@ public class Drawer {
         return this;
     }
 
+    // header view
+    protected View mHeaderView;
+
+    public Drawer withHeader(View headerView) {
+        this.mHeaderView = headerView;
+        return this;
+    }
+
+    public Drawer withHeader(int headerViewRes) {
+        if (mActivity == null) {
+            throw new RuntimeException("please pass an activity first to use this call");
+        }
+
+        if (headerViewRes != -1) {
+            //i know there should be a root, bit i got none here
+            this.mHeaderView = mActivity.getLayoutInflater().inflate(headerViewRes, null, false);
+        }
+
+        return this;
+    }
+
+    // item to select
     protected int mSelectedItem = 0;
 
     /**
@@ -271,10 +293,15 @@ public class Drawer {
             mDrawerLayout.setDrawerListener(mActionBarDrawerToggle);
         }
 
+        //TODO don't require an adapter or drawerItems to create a ListView
+
         // initialize list if there is an adapter or set items
         if (mDrawerItems != null && mAdapter == null) {
             mAdapter = new DrawerAdapter(mActivity, mDrawerItems);
         }
+
+        // get the slider view
+        FrameLayout slider = (FrameLayout) mDrawerLayout.findViewById(R.id.slider_layout);
 
         // if we have an adapter (either by defining a custom one or the included one add a list :D
         if (mAdapter != null) {
@@ -282,9 +309,10 @@ public class Drawer {
                 mListView = new ListView(mActivity);
                 mListView.setChoiceMode(AbsListView.CHOICE_MODE_SINGLE);
                 mListView.setDivider(null);
+                mListView.setClipToPadding(false);
+                mListView.setPadding(0, mActivity.getResources().getDimensionPixelSize(R.dimen.tool_bar_top_padding), 0, 0);
             }
 
-            FrameLayout slider = (FrameLayout) mDrawerLayout.findViewById(R.id.slider_layout);
             slider.addView(mListView, new ViewGroup.LayoutParams(
                     ViewGroup.LayoutParams.MATCH_PARENT,
                     ViewGroup.LayoutParams.MATCH_PARENT
@@ -298,6 +326,15 @@ public class Drawer {
                 mListView.setSelection(mSelectedItem);
                 mListView.setItemChecked(mSelectedItem, true);
             }
+        }
+
+        if (mHeaderView != null) {
+            if (mListView == null) {
+                throw new RuntimeException("can't use a headerView without a listView");
+            }
+
+            mListView.addHeaderView(mHeaderView);
+            mListView.setPadding(0, 0, 0, 0);
         }
 
         // add the onDrawerItemClickListener if set

@@ -23,7 +23,7 @@ public class UIUtils {
                 },
                 new int[]{
                         ctx.getResources().getColor(R.color.material_drawer_contrast_text),
-                        ctx.getResources().getColor(R.color.material_drawer_contrast_text),
+                        text_color,
                         text_color
                 }
         );
@@ -31,32 +31,26 @@ public class UIUtils {
 
     public static StateListDrawable getDrawerListItem(Context ctx) {
         ColorDrawable clrPress = new ColorDrawable();
-        clrPress.setColor(ctx.getResources().getColor(R.color.material_drawer_primary_dark));
+        clrPress.setColor(ctx.getResources().getColor(R.color.material_drawer_primary));
         ColorDrawable clrActive = new ColorDrawable();
-        clrActive.setColor(ctx.getResources().getColor(R.color.material_drawer_primary));
-        ColorDrawable clrBase = new ColorDrawable();
-        clrBase.setColor(ctx.getResources().getColor(R.color.material_drawer_list));
+        clrActive.setColor(ctx.getResources().getColor(R.color.material_drawer_selected));
 
         StateListDrawable states = new StateListDrawable();
         states.addState(new int[]{android.R.attr.state_pressed}, clrPress);
         states.addState(new int[]{android.R.attr.state_activated}, clrActive);
-        states.addState(new int[]{android.R.attr.state_empty}, clrBase);
 
         return states;
     }
 
     public static StateListDrawable getDrawerListSecondaryItem(Context ctx) {
         ColorDrawable clrPress = new ColorDrawable();
-        clrPress.setColor(ctx.getResources().getColor(R.color.material_drawer_primary_dark));
+        clrPress.setColor(ctx.getResources().getColor(R.color.material_drawer_primary));
         ColorDrawable clrActive = new ColorDrawable();
-        clrActive.setColor(ctx.getResources().getColor(R.color.material_drawer_primary));
-        ColorDrawable clrBase = new ColorDrawable();
-        clrBase.setColor(ctx.getResources().getColor(R.color.material_drawer_list_secondary));
+        clrActive.setColor(ctx.getResources().getColor(R.color.material_drawer_selected));
 
         StateListDrawable states = new StateListDrawable();
         states.addState(new int[]{android.R.attr.state_pressed}, clrPress);
         states.addState(new int[]{android.R.attr.state_activated}, clrActive);
-        states.addState(new int[]{android.R.attr.state_empty}, clrBase);
 
         return states;
     }

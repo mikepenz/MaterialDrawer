@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+              android:layout_width="match_parent"
+              android:layout_height="wrap_content"
+              android:orientation="vertical">
+    <View
+        android:id="@+id/divider"
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:layout_marginTop="@dimen/material_drawer_padding"
+        android:background="@color/material_drawer_divider"/>
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/material_drawer_primary"
+        android:id="@+id/name"
+        android:fontFamily="sans-serif-medium"
+        android:gravity="center_vertical"
+        android:paddingLeft="@dimen/material_drawer_vertical_padding"
+        android:layout_centerVertical="true"
+        android:textSize="@dimen/material_drawer_primary_text"
+        android:textColor="@color/material_drawer_secondary_text"
+        android:paddingRight="@dimen/material_drawer_vertical_padding"/>
+</LinearLayout>

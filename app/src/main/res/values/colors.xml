@@ -5,25 +5,23 @@
     <color name="material_drawer_primary_dark">#378D3B</color>
     <color name="material_drawer_primary_light">#C8E5C9</color>
     <color name="material_drawer_accent">#FE5621</color>
-
-    <!--
     <color name="material_drawer_background">#303030</color>
-    - Material SAMPLE DARK text / items colors -
+    <!-- Material SAMPLE DARK text / items colors -->
     <color name="material_drawer_icons">#000</color>
     <color name="material_drawer_primary_text">#FFF</color>
     <color name="material_drawer_secondary_text">#DEDEDE</color>
     <color name="material_drawer_hint_text">#ABABAB</color>
+    <color name="material_drawer_contrast_text">#000</color>
     <color name="material_drawer_divider">#555555</color>
-    - Material SAMPLE DARK drawer colors -
-    <color name="material_drawer_list">#303030</color>
-    <color name="material_drawer_list_secondary">#424242</color>
+    <!-- Material SAMPLE DARK drawer colors -->
+    <color name="material_drawer_selected">#262626</color>
 
-    - AboutLibraries colors -
+    <!-- AboutLibraries colors -->
     <color name="theme_window_background">#303030</color>
     <color name="about_libraries_card">#666666</color>
     <color name="about_libraries_title_openSource">#ffffffff</color>
     <color name="about_libraries_text_openSource">#DEDEDE</color>
     <color name="about_libraries_dividerDark_openSource">#303030</color>
     <color name="about_libraries_dividerLight_openSource">#303030</color>
-    -->
+
 </resources>

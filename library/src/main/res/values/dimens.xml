@@ -3,14 +3,24 @@
     <dimen name="activity_horizontal_margin">16dp</dimen>
     <dimen name="activity_vertical_margin">16dp</dimen>
 
-    <!-- Drawer -->
-    <dimen name="material_drawer_primary">56dp</dimen>
-    <dimen name="material_drawer_primary_text">22sp</dimen>
+    <!-- ********************** -->
+    <!-- Material Drawer Dimens -->
+    <!-- ********************** -->
+    <!-- Definition for the Drawer Slider margin right -->
+    <dimen name="material_drawer_margin">56dp</dimen>
+    <!-- General padding value -->
+    <dimen name="material_drawer_padding">8dp</dimen>
+    <!-- General vertical padding values -->
+    <dimen name="material_drawer_vertical_padding">16dp</dimen>
+    <dimen name="material_drawer_vertical_content_padding">72dp</dimen>
+    <!-- Definition for the primary item -->
+    <dimen name="material_drawer_primary">48dp</dimen>
     <dimen name="material_drawer_primary_icon">24dp</dimen>
+    <dimen name="material_drawer_primary_text">14sp</dimen>
+    <!-- Definition for the secondary item -->
     <dimen name="material_drawer_secondary">44dp</dimen>
-    <dimen name="material_drawer_secondary_text">16sp</dimen>
-    <dimen name="material_drawer_secondary_icon">16dp</dimen>
-    <dimen name="material_drawer_width">280dp</dimen>
+    <dimen name="material_drawer_secondary_icon">20dp</dimen>
+    <dimen name="material_drawer_secondary_text">14sp</dimen>
 
     <!-- Toolbar Padding -->
     <dimen name="tool_bar_top_padding">0dp</dimen>

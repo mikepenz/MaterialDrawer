@@ -10,25 +10,25 @@ import com.mikepenz.materialdrawer.R;
 /**
  * Created by mikepenz on 03.02.15.
  */
-public class SpacerDrawerItem implements IDrawerItem {
+public class DividerDrawerItem implements IDrawerItem {
 
-    public SpacerDrawerItem() {
+    public DividerDrawerItem() {
 
     }
 
     @Override
     public boolean isEnabled() {
-        return true;
+        return false;
     }
 
     @Override
     public String getType() {
-        return "SPACER_ITEM";
+        return "DIVIDER_ITEM";
     }
 
     @Override
     public int getLayoutRes() {
-        return R.layout.drawer_item_spacer;
+        return R.layout.drawer_item_divider;
     }
 
     @Override
@@ -41,6 +41,9 @@ public class SpacerDrawerItem implements IDrawerItem {
         } else {
             viewHolder = (ViewHolder) convertView.getTag();
         }
+
+        viewHolder.view.setClickable(false);
+        viewHolder.view.setEnabled(false);
 
         viewHolder.view.setMinimumHeight(1);
         return convertView;
