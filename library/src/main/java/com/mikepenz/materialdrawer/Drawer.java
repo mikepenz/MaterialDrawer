@@ -281,7 +281,6 @@ public class Drawer {
             if (mListView == null) {
                 mListView = new ListView(mActivity);
                 mListView.setChoiceMode(AbsListView.CHOICE_MODE_SINGLE);
-                mListView.setBackgroundColor(mActivity.getResources().getColor(R.color.material_drawer_list));
                 mListView.setDivider(null);
             }
 
