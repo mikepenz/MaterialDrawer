@@ -116,6 +116,19 @@ public class Drawer {
         return this;
     }
 
+    protected int mSelectedItem = 0;
+
+    /**
+     * pass the item which should be selected on start
+     *
+     * @param selectedItem
+     * @return
+     */
+    public Drawer withSelectedItem(int selectedItem) {
+        this.mSelectedItem = selectedItem;
+        return this;
+    }
+
     // an ListView to use within the drawer :D
     protected ListView mListView;
 
@@ -278,7 +291,14 @@ public class Drawer {
                     ViewGroup.LayoutParams.MATCH_PARENT
             ));
 
+            //set the adapter on the listView
             mListView.setAdapter(mAdapter);
+
+            //predefine selection (should be the first element
+            if (mListView != null && mSelectedItem > -1) {
+                mListView.setSelection(mSelectedItem);
+                mListView.setItemChecked(mSelectedItem, true);
+            }
         }
 
         // add the onDrawerItemClickListener if set
@@ -362,6 +382,28 @@ public class Drawer {
 
         public ListView getListView() {
             return mDrawer.mListView;
+        }
+
+        /**
+         * set the current selection in the drawer
+         * <p/>
+         * NOTE: This will trigger onDrawerItemSelected without a view!
+         *
+         * @param position the position to select
+         */
+        public void setSelection(int position) {
+            if (mDrawer.mListView != null) {
+                mDrawer.mListView.setSelection(position);
+                mDrawer.mListView.setItemChecked(position, true);
+
+                if (mDrawer.mOnDrawerItemSelectedListener != null) {
+                    if (mDrawer.mDrawerItems != null && mDrawer.mDrawerItems.size() > position) {
+                        mDrawer.mOnDrawerItemSelectedListener.onItemSelected(null, null, position, position, mDrawer.mDrawerItems.get(position));
+                    } else {
+                        mDrawer.mOnDrawerItemSelectedListener.onItemSelected(null, null, position, position, null);
+                    }
+                }
+            }
         }
     }
 
