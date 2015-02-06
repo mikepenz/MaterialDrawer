@@ -7,6 +7,7 @@ import android.support.v7.widget.Toolbar;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AbsListView;
+import android.widget.Adapter;
 import android.widget.AdapterView;
 import android.widget.BaseAdapter;
 import android.widget.FrameLayout;
@@ -418,6 +419,10 @@ public class Drawer {
 
         public ListView getListView() {
             return mDrawer.mListView;
+        }
+
+        public Adapter getAdapter() {
+            return mDrawer.mAdapter;
         }
 
         /**
