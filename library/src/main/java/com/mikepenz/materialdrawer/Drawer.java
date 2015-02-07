@@ -427,7 +427,6 @@ public class Drawer {
 
         /**
          * set the current selection in the drawer
-         * <p/>
          * NOTE: This will trigger onDrawerItemSelected without a view!
          *
          * @param position the position to select
