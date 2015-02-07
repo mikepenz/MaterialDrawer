@@ -30,7 +30,7 @@ repositories {
     maven { url "https://oss.sonatype.org/content/repositories/snapshots/" }
 }
 
-compile('com.mikepenz.materialdrawer:library:0.6.0-SNAPSHOT@aar') {
+compile('com.mikepenz.materialdrawer:library:0.6.1-SNAPSHOT@aar') {
 	transitive = true
 }
 ```
