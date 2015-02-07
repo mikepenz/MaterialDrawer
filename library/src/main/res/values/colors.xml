@@ -32,7 +32,7 @@
     <color name="material_drawer_contrast_text">#000</color>
     <color name="material_drawer_divider">#555555</color>
     - Material SAMPLE DARK drawer colors -
-    <color name="material_drawer_selected">#303030</color>
+    <color name="material_drawer_selected">#202020</color>
 
     - AboutLibraries colors -
     <color name="theme_window_background">#303030</color>
