@@ -9,6 +9,8 @@ import android.view.ViewGroup;
  * Created by mikepenz on 03.02.15.
  */
 public interface IDrawerItem {
+    public int getIdentifier();
+
     public boolean isEnabled();
 
     public String getType();

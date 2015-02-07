@@ -18,11 +18,17 @@ import com.mikepenz.materialdrawer.util.UIUtils;
  */
 public class SecondaryDrawerItem implements IDrawerItem {
 
+    private int identifier = -1;
     private Drawable icon;
     private IIcon iicon;
     private String name;
     private int nameRes = -1;
     private boolean enabled = true;
+
+    public SecondaryDrawerItem withIdentifier(int identifier) {
+        this.identifier = identifier;
+        return this;
+    }
 
     public SecondaryDrawerItem withIcon(Drawable icon) {
         this.icon = icon;
@@ -63,6 +69,11 @@ public class SecondaryDrawerItem implements IDrawerItem {
 
     public int getNameRes() {
         return nameRes;
+    }
+
+    @Override
+    public int getIdentifier() {
+        return identifier;
     }
 
     @Override

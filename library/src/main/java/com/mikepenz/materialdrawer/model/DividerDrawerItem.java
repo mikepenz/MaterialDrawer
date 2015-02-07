@@ -17,6 +17,11 @@ public class DividerDrawerItem implements IDrawerItem {
     }
 
     @Override
+    public int getIdentifier() {
+        return -1;
+    }
+
+    @Override
     public boolean isEnabled() {
         return false;
     }

@@ -17,11 +17,18 @@ import com.mikepenz.materialdrawer.util.UIUtils;
  * Created by mikepenz on 03.02.15.
  */
 public class PrimaryDrawerItem implements IDrawerItem {
+
+    private int identifier = -1;
     private Drawable icon;
     private IIcon iicon;
     private String name;
     private int nameRes = -1;
     private boolean enabled = true;
+
+    public PrimaryDrawerItem withIdentifier(int identifier) {
+        this.identifier = identifier;
+        return this;
+    }
 
     public PrimaryDrawerItem withIcon(Drawable icon) {
         this.icon = icon;
@@ -62,6 +69,11 @@ public class PrimaryDrawerItem implements IDrawerItem {
 
     public int getNameRes() {
         return nameRes;
+    }
+
+    @Override
+    public int getIdentifier() {
+        return identifier;
     }
 
     @Override
