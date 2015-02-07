@@ -119,9 +119,12 @@ public class Drawer {
 
     // header view
     protected View mHeaderView;
+    protected int mHeaderOffset = 0;
 
     public Drawer withHeader(View headerView) {
         this.mHeaderView = headerView;
+        //set the header offset
+        mHeaderOffset = 1;
         return this;
     }
 
@@ -133,6 +136,8 @@ public class Drawer {
         if (headerViewRes != -1) {
             //i know there should be a root, bit i got none here
             this.mHeaderView = mActivity.getLayoutInflater().inflate(headerViewRes, null, false);
+            //set the headerOffset :D
+            mHeaderOffset = 1;
         }
 
         return this;
@@ -331,11 +336,12 @@ public class Drawer {
             mListView.setAdapter(mAdapter);
 
             //predefine selection (should be the first element
-            if (mListView != null && mSelectedItem > -1) {
-                mListView.setSelection(mSelectedItem);
-                mListView.setItemChecked(mSelectedItem, true);
+            if (mListView != null && (mSelectedItem + mHeaderOffset) > -1) {
+                mListView.setSelection(mSelectedItem + mHeaderOffset);
+                mListView.setItemChecked(mSelectedItem + mHeaderOffset, true);
             }
         }
+
 
         if (mHeaderView != null) {
             if (mListView == null) {
@@ -351,8 +357,8 @@ public class Drawer {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                 if (mOnDrawerItemClickListener != null) {
-                    if (mDrawerItems != null && mDrawerItems.size() > position) {
-                        mOnDrawerItemClickListener.onItemClick(parent, view, position, id, mDrawerItems.get(position));
+                    if (mDrawerItems != null && mDrawerItems.size() > (position - mHeaderOffset)) {
+                        mOnDrawerItemClickListener.onItemClick(parent, view, position, id, mDrawerItems.get(position - mHeaderOffset));
                     } else {
                         mOnDrawerItemClickListener.onItemClick(parent, view, position, id, null);
                     }
@@ -368,8 +374,8 @@ public class Drawer {
             mListView.setOnItemLongClickListener(new AdapterView.OnItemLongClickListener() {
                 @Override
                 public boolean onItemLongClick(AdapterView<?> parent, View view, int position, long id) {
-                    if (mDrawerItems != null && mDrawerItems.size() > position) {
-                        return mOnDrawerItemLongClickListener.onItemLongClick(parent, view, position, id, mDrawerItems.get(position));
+                    if (mDrawerItems != null && mDrawerItems.size() > (position - mHeaderOffset)) {
+                        return mOnDrawerItemLongClickListener.onItemLongClick(parent, view, position, id, mDrawerItems.get(position - mHeaderOffset));
                     } else {
                         return mOnDrawerItemLongClickListener.onItemLongClick(parent, view, position, id, null);
                     }
@@ -382,8 +388,8 @@ public class Drawer {
             mListView.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
                 @Override
                 public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
-                    if (mDrawerItems != null && mDrawerItems.size() > position) {
-                        mOnDrawerItemSelectedListener.onItemSelected(parent, view, position, id, mDrawerItems.get(position));
+                    if (mDrawerItems != null && mDrawerItems.size() > (position - mHeaderOffset)) {
+                        mOnDrawerItemSelectedListener.onItemSelected(parent, view, position, id, mDrawerItems.get(position - mHeaderOffset));
                     } else {
                         mOnDrawerItemSelectedListener.onItemSelected(parent, view, position, id, null);
                     }
@@ -444,12 +450,12 @@ public class Drawer {
          */
         public void setSelection(int position) {
             if (mDrawer.mListView != null) {
-                mDrawer.mListView.setSelection(position);
-                mDrawer.mListView.setItemChecked(position, true);
+                mDrawer.mListView.setSelection(position + mDrawer.mHeaderOffset);
+                mDrawer.mListView.setItemChecked(position + mDrawer.mHeaderOffset, true);
 
                 if (mDrawer.mOnDrawerItemSelectedListener != null) {
-                    if (mDrawer.mDrawerItems != null && mDrawer.mDrawerItems.size() > position) {
-                        mDrawer.mOnDrawerItemSelectedListener.onItemSelected(null, null, position, position, mDrawer.mDrawerItems.get(position));
+                    if (mDrawer.mDrawerItems != null && mDrawer.mDrawerItems.size() > (position - mDrawer.mHeaderOffset)) {
+                        mDrawer.mOnDrawerItemSelectedListener.onItemSelected(null, null, position, position, mDrawer.mDrawerItems.get(position - mDrawer.mHeaderOffset));
                     } else {
                         mDrawer.mOnDrawerItemSelectedListener.onItemSelected(null, null, position, position, null);
                     }
