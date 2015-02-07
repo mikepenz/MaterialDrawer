@@ -209,6 +209,14 @@ public class Drawer {
         return this;
     }
 
+    // close drawer on click
+    protected boolean mCloseOnClick = true;
+
+    public Drawer withCloseOnClick(boolean closeOnClick) {
+        this.mCloseOnClick = closeOnClick;
+        return this;
+    }
+
     // onDrawerItemClickListeners
     protected OnDrawerItemClickListener mOnDrawerItemClickListener;
 
@@ -339,18 +347,21 @@ public class Drawer {
         }
 
         // add the onDrawerItemClickListener if set
-        if (mOnDrawerItemClickListener != null) {
-            mListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-                @Override
-                public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+        mListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                if (mOnDrawerItemClickListener != null) {
                     if (mDrawerItems != null && mDrawerItems.size() > position) {
                         mOnDrawerItemClickListener.onItemClick(parent, view, position, id, mDrawerItems.get(position));
                     } else {
                         mOnDrawerItemClickListener.onItemClick(parent, view, position, id, null);
                     }
                 }
-            });
-        }
+                if (mCloseOnClick) {
+                    mDrawerLayout.closeDrawers();
+                }
+            }
+        });
 
         // add the onDrawerItemLongClickListener if set
         if (mOnDrawerItemLongClickListener != null) {
