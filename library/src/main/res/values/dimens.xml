@@ -12,7 +12,8 @@
     <dimen name="material_drawer_padding">8dp</dimen>
     <!-- General vertical padding values -->
     <dimen name="material_drawer_vertical_padding">16dp</dimen>
-    <dimen name="material_drawer_vertical_content_padding">72dp</dimen>
+    <!-- General icon margin above and under the icons -->
+    <dimen name="material_drawer_icon_margin">12dp</dimen>
     <!-- Definition for the primary item -->
     <dimen name="material_drawer_primary">48dp</dimen>
     <dimen name="material_drawer_primary_icon">24dp</dimen>
