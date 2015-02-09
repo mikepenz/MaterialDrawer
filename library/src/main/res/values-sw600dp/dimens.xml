@@ -1,0 +1,7 @@
+<resources>
+    <!-- ********************** -->
+    <!-- Material Drawer Dimens -->
+    <!-- ********************** -->
+    <!-- General vertical padding values -->
+    <dimen name="material_drawer_vertical_padding">24dp</dimen>
+</resources>
