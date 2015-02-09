@@ -331,7 +331,20 @@ public class Drawer {
                     ViewGroup.LayoutParams.MATCH_PARENT,
                     ViewGroup.LayoutParams.MATCH_PARENT
             ));
+        }
 
+        // set the header (do this before the setAdapter because some devices will crash else
+        if (mHeaderView != null) {
+            if (mListView == null) {
+                throw new RuntimeException("can't use a headerView without a listView");
+            }
+
+            mListView.addHeaderView(mHeaderView);
+            mListView.setPadding(0, 0, 0, 0);
+        }
+
+        //after adding the header do the setAdapter and set the selection
+        if(mAdapter != null) {
             //set the adapter on the listView
             mListView.setAdapter(mAdapter);
 
@@ -340,16 +353,6 @@ public class Drawer {
                 mListView.setSelection(mSelectedItem + mHeaderOffset);
                 mListView.setItemChecked(mSelectedItem + mHeaderOffset, true);
             }
-        }
-
-
-        if (mHeaderView != null) {
-            if (mListView == null) {
-                throw new RuntimeException("can't use a headerView without a listView");
-            }
-
-            mListView.addHeaderView(mHeaderView);
-            mListView.setPadding(0, 0, 0, 0);
         }
 
         // add the onDrawerItemClickListener if set
