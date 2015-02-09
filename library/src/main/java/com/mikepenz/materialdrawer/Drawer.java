@@ -360,7 +360,7 @@ public class Drawer {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                 if (mOnDrawerItemClickListener != null) {
-                    if (mDrawerItems != null && mDrawerItems.size() > (position - mHeaderOffset)) {
+                    if (mDrawerItems != null && mDrawerItems.size() > (position - mHeaderOffset) && (position - mHeaderOffset) > -1) {
                         mOnDrawerItemClickListener.onItemClick(parent, view, position, id, mDrawerItems.get(position - mHeaderOffset));
                     } else {
                         mOnDrawerItemClickListener.onItemClick(parent, view, position, id, null);
@@ -377,7 +377,7 @@ public class Drawer {
             mListView.setOnItemLongClickListener(new AdapterView.OnItemLongClickListener() {
                 @Override
                 public boolean onItemLongClick(AdapterView<?> parent, View view, int position, long id) {
-                    if (mDrawerItems != null && mDrawerItems.size() > (position - mHeaderOffset)) {
+                    if (mDrawerItems != null && mDrawerItems.size() > (position - mHeaderOffset) && (position - mHeaderOffset) > -1) {
                         return mOnDrawerItemLongClickListener.onItemLongClick(parent, view, position, id, mDrawerItems.get(position - mHeaderOffset));
                     } else {
                         return mOnDrawerItemLongClickListener.onItemLongClick(parent, view, position, id, null);
@@ -391,7 +391,7 @@ public class Drawer {
             mListView.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
                 @Override
                 public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
-                    if (mDrawerItems != null && mDrawerItems.size() > (position - mHeaderOffset)) {
+                    if (mDrawerItems != null && mDrawerItems.size() > (position - mHeaderOffset) && (position - mHeaderOffset) > -1) {
                         mOnDrawerItemSelectedListener.onItemSelected(parent, view, position, id, mDrawerItems.get(position - mHeaderOffset));
                     } else {
                         mOnDrawerItemSelectedListener.onItemSelected(parent, view, position, id, null);
@@ -457,7 +457,7 @@ public class Drawer {
                 mDrawer.mListView.setItemChecked(position + mDrawer.mHeaderOffset, true);
 
                 if (mDrawer.mOnDrawerItemSelectedListener != null) {
-                    if (mDrawer.mDrawerItems != null && mDrawer.mDrawerItems.size() > (position - mDrawer.mHeaderOffset)) {
+                    if (mDrawer.mDrawerItems != null && mDrawer.mDrawerItems.size() > (position - mDrawer.mHeaderOffset) && (position - mDrawer.mHeaderOffset) > -1) {
                         mDrawer.mOnDrawerItemSelectedListener.onItemSelected(null, null, position, position, mDrawer.mDrawerItems.get(position - mDrawer.mHeaderOffset));
                     } else {
                         mDrawer.mOnDrawerItemSelectedListener.onItemSelected(null, null, position, position, null);
