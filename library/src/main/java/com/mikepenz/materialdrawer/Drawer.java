@@ -468,6 +468,10 @@ public class Drawer {
             });
         }
 
+        if (mListView != null) {
+            mListView.smoothScrollToPosition(0);
+        }
+
         return new Result(this);
     }
 
