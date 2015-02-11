@@ -485,11 +485,18 @@ public class Drawer {
             return this.mDrawer.mDrawerLayout;
         }
 
-        public FrameLayout getSlider() {
-            if (mSliderView == null) {
-                mSliderView = (FrameLayout) this.mDrawer.mDrawerLayout.findViewById(R.id.slider_layout);
+        public void openDrawer() {
+            if (mDrawer.mDrawerLayout != null && mDrawer.mSliderLayout != null) {
+                mDrawer.mDrawerLayout.openDrawer(mDrawer.mSliderLayout);
             }
-            return mSliderView;
+        }
+
+        public void closeDrawer() {
+            if (mDrawer.mDrawerLayout != null) {
+                mDrawer.mDrawerLayout.closeDrawers();
+            }
+        }
+
         public LinearLayout getSlider() {
             return mDrawer.mSliderLayout;
         }
