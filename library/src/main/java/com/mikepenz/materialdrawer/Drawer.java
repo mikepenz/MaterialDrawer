@@ -150,6 +150,7 @@ public class Drawer {
         this.mHeaderDivider = headerDivider;
         return this;
     }
+
     // footer view
     protected View mFooterView;
     protected boolean mFooterDivider = true;
@@ -176,6 +177,28 @@ public class Drawer {
         this.mFooterDivider = footerDivider;
         return this;
     }
+
+    // sticky view
+    protected View mStickyFooterView;
+
+    public Drawer withStickyFooter(View stickyFooter) {
+        this.mStickyFooterView = stickyFooter;
+        return this;
+    }
+
+    public Drawer withStickyFooter(int stickyFooterRes) {
+        if (mActivity == null) {
+            throw new RuntimeException("please pass an activity first to use this call");
+        }
+
+        if (stickyFooterRes != -1) {
+            //i know there should be a root, bit i got none here
+            this.mStickyFooterView = mActivity.getLayoutInflater().inflate(stickyFooterRes, null, false);
+        }
+
+        return this;
+    }
+
     // item to select
     protected int mSelectedItem = 0;
 
