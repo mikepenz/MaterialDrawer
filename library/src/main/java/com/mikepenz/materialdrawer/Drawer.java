@@ -383,10 +383,17 @@ public class Drawer {
                 mListView.setPadding(0, mActivity.getResources().getDimensionPixelSize(R.dimen.tool_bar_top_padding), 0, 0);
             }
 
-            slider.addView(mListView, new ViewGroup.LayoutParams(
+            LinearLayout.LayoutParams params = new LinearLayout.LayoutParams(
                     ViewGroup.LayoutParams.MATCH_PARENT,
                     ViewGroup.LayoutParams.MATCH_PARENT
-            ));
+            );
+            params.weight = 1f;
+            mSliderLayout.addView(mListView, params);
+        }
+
+        //sticky footer view
+        if (mStickyFooterView != null) {
+            mSliderLayout.addView(mStickyFooterView);
         }
 
         // set the header (do this before the setAdapter because some devices will crash else
