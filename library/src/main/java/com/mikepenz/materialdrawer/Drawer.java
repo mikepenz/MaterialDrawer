@@ -11,6 +11,7 @@ import android.widget.Adapter;
 import android.widget.AdapterView;
 import android.widget.BaseAdapter;
 import android.widget.FrameLayout;
+import android.widget.LinearLayout;
 import android.widget.ListView;
 
 import com.mikepenz.materialdrawer.adapter.DrawerAdapter;
@@ -120,6 +121,7 @@ public class Drawer {
     // header view
     protected View mHeaderView;
     protected int mHeaderOffset = 0;
+    protected boolean mHeaderDivider = true;
 
     public Drawer withHeader(View headerView) {
         this.mHeaderView = headerView;
@@ -339,12 +341,19 @@ public class Drawer {
                 throw new RuntimeException("can't use a headerView without a listView");
             }
 
-            mListView.addHeaderView(mHeaderView);
-            mListView.setPadding(0, 0, 0, 0);
+            if (mHeaderDivider) {
+                LinearLayout headerContainer = (LinearLayout) mActivity.getLayoutInflater().inflate(R.layout.drawer_item_header, null, false);
+                headerContainer.addView(mHeaderView, 0);
+                mListView.addHeaderView(headerContainer);
+                mListView.setPadding(0, 0, 0, 0);
+            } else {
+                mListView.addHeaderView(mHeaderView);
+                mListView.setPadding(0, 0, 0, 0);
+            }
         }
 
         //after adding the header do the setAdapter and set the selection
-        if(mAdapter != null) {
+        if (mAdapter != null) {
             //set the adapter on the listView
             mListView.setAdapter(mAdapter);
 

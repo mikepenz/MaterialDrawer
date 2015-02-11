@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+              android:layout_width="match_parent"
+              android:layout_height="wrap_content"
+              android:orientation="vertical">
+    <View android:layout_width="match_parent"
+          android:layout_height="1dp"
+          android:background="@color/material_drawer_divider"
+          android:layout_marginBottom="@dimen/material_drawer_padding"/>
+</LinearLayout>
