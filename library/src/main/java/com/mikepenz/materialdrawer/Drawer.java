@@ -146,6 +146,10 @@ public class Drawer {
         return this;
     }
 
+    public Drawer withHeaderDivider(boolean headerDivider) {
+        this.mHeaderDivider = headerDivider;
+        return this;
+    }
     // item to select
     protected int mSelectedItem = 0;
 
