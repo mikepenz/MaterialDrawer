@@ -509,6 +509,18 @@ public class Drawer {
             return mDrawer.mAdapter;
         }
 
+        public View getHeader() {
+            return mDrawer.mHeaderView;
+        }
+
+        public View getFooter() {
+            return mDrawer.mFooterView;
+        }
+
+        public View getStickyFooter() {
+            return mDrawer.mStickyFooterView;
+        }
+
         /**
          * set the current selection in the drawer
          * NOTE: This will trigger onDrawerItemSelected without a view!
