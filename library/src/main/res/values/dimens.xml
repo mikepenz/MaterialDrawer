@@ -12,11 +12,11 @@
     <dimen name="material_drawer_icon_margin">12dp</dimen>
     <!-- Definition for the primary item -->
     <dimen name="material_drawer_primary">48dp</dimen>
-    <dimen name="material_drawer_primary_icon">24dp</dimen>
+    <dimen name="material_drawer_primary_icon">22dp</dimen>
     <dimen name="material_drawer_primary_text">14sp</dimen>
     <!-- Definition for the secondary item -->
     <dimen name="material_drawer_secondary">44dp</dimen>
-    <dimen name="material_drawer_secondary_icon">20dp</dimen>
+    <dimen name="material_drawer_secondary_icon">22dp</dimen>
     <dimen name="material_drawer_secondary_text">14sp</dimen>
 
     <!-- Toolbar Padding -->
