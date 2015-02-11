@@ -150,6 +150,32 @@ public class Drawer {
         this.mHeaderDivider = headerDivider;
         return this;
     }
+    // footer view
+    protected View mFooterView;
+    protected boolean mFooterDivider = true;
+
+    public Drawer withFooter(View footerView) {
+        this.mFooterView = footerView;
+        return this;
+    }
+
+    public Drawer withFooter(int footerViewRes) {
+        if (mActivity == null) {
+            throw new RuntimeException("please pass an activity first to use this call");
+        }
+
+        if (footerViewRes != -1) {
+            //i know there should be a root, bit i got none here
+            this.mFooterView = mActivity.getLayoutInflater().inflate(footerViewRes, null, false);
+        }
+
+        return this;
+    }
+
+    public Drawer withFooterDivider(boolean footerDivider) {
+        this.mFooterDivider = footerDivider;
+        return this;
+    }
     // item to select
     protected int mSelectedItem = 0;
 
