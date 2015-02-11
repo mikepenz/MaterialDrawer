@@ -57,6 +57,7 @@ public class Drawer {
 
     // the drawerLayout to use
     protected DrawerLayout mDrawerLayout;
+    protected LinearLayout mSliderLayout;
 
     /**
      * You can pass a custom view for the drawer lib. note this requires the same structure as the drawer.xml
@@ -421,7 +422,6 @@ public class Drawer {
         private Drawer mDrawer;
 
         //views
-        private FrameLayout mSliderView;
         private FrameLayout mContentView;
 
         public Result(Drawer drawer) {
@@ -437,6 +437,8 @@ public class Drawer {
                 mSliderView = (FrameLayout) this.mDrawer.mDrawerLayout.findViewById(R.id.slider_layout);
             }
             return mSliderView;
+        public LinearLayout getSlider() {
+            return mDrawer.mSliderLayout;
         }
 
         public FrameLayout getContent() {
