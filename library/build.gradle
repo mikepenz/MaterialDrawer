@@ -8,7 +8,7 @@ android {
         minSdkVersion 14
         targetSdkVersion 21
         versionCode 80
-        versionName '0.8.0'
+        versionName '0.8.1-SNAPSHOT'
     }
 
     buildTypes {
