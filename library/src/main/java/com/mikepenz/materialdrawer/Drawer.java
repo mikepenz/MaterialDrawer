@@ -276,6 +276,9 @@ public class Drawer {
             withDrawerLayout(-1);
         }
 
+        // get the slider view
+        mSliderLayout = (LinearLayout) mDrawerLayout.findViewById(R.id.slider_layout);
+
         //get the drawer root
         ViewGroup drawerContentRoot = (ViewGroup) mDrawerLayout.getChildAt(0);
         //get the content view
@@ -316,9 +319,6 @@ public class Drawer {
         if (mDrawerItems != null && mAdapter == null) {
             mAdapter = new DrawerAdapter(mActivity, mDrawerItems);
         }
-
-        // get the slider view
-        FrameLayout slider = (FrameLayout) mDrawerLayout.findViewById(R.id.slider_layout);
 
         // if we have an adapter (either by defining a custom one or the included one add a list :D
         if (mAdapter != null) {
