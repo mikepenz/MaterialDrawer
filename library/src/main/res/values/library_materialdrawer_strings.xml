@@ -10,7 +10,7 @@
         <b>MaterialDrawer</b> library aims to provide a quick and easy Activity to create and implement a drawer layout in your application.
         ]]>
     </string>
-    <string name="library_materialdrawer_libraryVersion">0.7.2</string>
+    <string name="library_materialdrawer_libraryVersion">0.7.3</string>
     <string name="library_materialdrawer_libraryWebsite">https://github.com/mikepenz/MaterialDrawer</string>
     <string name="library_materialdrawer_licenseId">apache_2_0</string>
     <string name="library_materialdrawer_isOpenSource">true</string>
