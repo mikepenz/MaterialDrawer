@@ -355,9 +355,10 @@ public class Drawer {
         // create the ActionBarDrawerToggle if not set and enabled
         if (mActionBarDrawerToggleEnabled && mActionBarDrawerToggle == null) {
             if (mToolbar == null) {
-                throw new RuntimeException("you have to pass a toolbar for the ActionBarDrawerToggle auto generation");
+                this.mActionBarDrawerToggle = new ActionBarDrawerToggle(mActivity, mDrawerLayout, R.string.drawer_open, R.string.drawer_close);
+            } else {
+                this.mActionBarDrawerToggle = new ActionBarDrawerToggle(mActivity, mDrawerLayout, mToolbar, R.string.drawer_open, R.string.drawer_close);
             }
-            this.mActionBarDrawerToggle = new ActionBarDrawerToggle(mActivity, mDrawerLayout, mToolbar, R.string.drawer_open, R.string.drawer_close);
             this.mActionBarDrawerToggle.syncState();
         }
 
