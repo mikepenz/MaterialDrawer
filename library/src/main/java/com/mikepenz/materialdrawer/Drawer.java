@@ -381,30 +381,26 @@ public class Drawer {
             mDrawerLayout.setDrawerListener(mActionBarDrawerToggle);
         }
 
-        //TODO don't require an adapter or drawerItems to create a ListView
-
         // initialize list if there is an adapter or set items
         if (mDrawerItems != null && mAdapter == null) {
             mAdapter = new DrawerAdapter(mActivity, mDrawerItems);
         }
 
         // if we have an adapter (either by defining a custom one or the included one add a list :D
-        if (mAdapter != null) {
-            if (mListView == null) {
-                mListView = new ListView(mActivity);
-                mListView.setChoiceMode(AbsListView.CHOICE_MODE_SINGLE);
-                mListView.setDivider(null);
-                mListView.setClipToPadding(false);
-                mListView.setPadding(0, mActivity.getResources().getDimensionPixelSize(R.dimen.tool_bar_top_padding), 0, 0);
-            }
-
-            LinearLayout.LayoutParams params = new LinearLayout.LayoutParams(
-                    ViewGroup.LayoutParams.MATCH_PARENT,
-                    ViewGroup.LayoutParams.MATCH_PARENT
-            );
-            params.weight = 1f;
-            mSliderLayout.addView(mListView, params);
+        if (mListView == null) {
+            mListView = new ListView(mActivity);
+            mListView.setChoiceMode(AbsListView.CHOICE_MODE_SINGLE);
+            mListView.setDivider(null);
+            mListView.setClipToPadding(false);
+            mListView.setPadding(0, mActivity.getResources().getDimensionPixelSize(R.dimen.tool_bar_top_padding), 0, 0);
         }
+
+        LinearLayout.LayoutParams params = new LinearLayout.LayoutParams(
+                ViewGroup.LayoutParams.MATCH_PARENT,
+                ViewGroup.LayoutParams.MATCH_PARENT
+        );
+        params.weight = 1f;
+        mSliderLayout.addView(mListView, params);
 
         //sticky footer view
         if (mStickyFooterView != null) {
