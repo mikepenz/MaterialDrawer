@@ -84,8 +84,8 @@ Overwrite following colors to create a quick custom style for your application
     <color name="material_drawer_hint_text">#ABABAB</color>
     <color name="material_drawer_divider">#555555</color>
     <!-- Material SAMPLE DARK drawer colors -->
-    <color name="material_drawer_list">#303030</color>
-    <color name="material_drawer_list_secondary">#424242</color>
+    <color name="material_drawer_selected">#E8E8E8</color>
+    <color name="material_drawer_selected_text">#2196F3</color>
 ```
 
 #Credits
