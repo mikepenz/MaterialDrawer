@@ -554,6 +554,10 @@ public class Drawer {
             return mDrawer.mStickyFooterView;
         }
 
+        public ActionBarDrawerToggle getActionBarDrawerToggle() {
+            return mDrawer.mActionBarDrawerToggle;
+        }
+
         /**
          * set the current selection in the drawer
          * NOTE: This will trigger onDrawerItemSelected without a view!
