@@ -24,7 +24,7 @@ Here's a quick overview of functions it include:
 The MaterialDrawer Library is pushed to [Maven Central](http://search.maven.org/#search|ga|1|g%3A%22com.mikepenz.materialdrawer%22), so you just need to add the following dependency to your `build.gradle`.
 
 ```javascript
-compile('com.mikepenz.materialdrawer:library:0.8.0@aar') {
+compile('com.mikepenz.materialdrawer:library:0.9.0@aar') {
 	transitive = true
 }
 ```
