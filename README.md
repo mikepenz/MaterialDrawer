@@ -2,10 +2,6 @@
 
 The **MaterialDrawer** library aims to provide a quick and easy Activity to create and implement a drawer layout in your application.
 
-
-It's compatible down to API Level 14
-The **AboutLibraries** library allows you to easily create an **used open source libraries** fragment/activity within your app. As an extra feature you can also add an **about this app** section. 
-
 Here's a quick overview of functions it include:
 - **easy integration**
 - quick and simple api
@@ -13,6 +9,7 @@ Here's a quick overview of functions it include:
 - **uses the AppCompat support library**
 - comes with a basetheme which helps if you want an activity with a colored statusbar
 - the navigationdrawer is also under the statusbar
+- compatible down to API Level 14
 
 #Screenshots
 ![Image](https://raw.githubusercontent.com/mikepenz/MaterialDrawer/master/DEV/screenshots/screenshot1_small.png)
