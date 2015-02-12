@@ -90,6 +90,14 @@ public class Drawer {
         return this;
     }
 
+    //the gravity of the drawer
+    protected Integer mDrawerGravity = null;
+
+    public Drawer withDrawerGravity(int gravity) {
+        this.mDrawerGravity = gravity;
+        return this;
+    }
+
     // enable the drawer toggle / if withActionBarDrawerToggle we will autogenerate it
     protected boolean mActionBarDrawerToggleEnabled = true;
 
@@ -331,6 +339,12 @@ public class Drawer {
 
         // get the slider view
         mSliderLayout = (LinearLayout) mDrawerLayout.findViewById(R.id.slider_layout);
+
+        if (mDrawerGravity != null) {
+            DrawerLayout.LayoutParams params = new DrawerLayout.LayoutParams(DrawerLayout.LayoutParams.MATCH_PARENT, DrawerLayout.LayoutParams.MATCH_PARENT);
+            params.gravity = mDrawerGravity;
+            mSliderLayout.setLayoutParams(params);
+        }
 
         //get the drawer root
         ViewGroup drawerContentRoot = (ViewGroup) mDrawerLayout.getChildAt(0);
