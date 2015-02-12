@@ -25,6 +25,9 @@ import java.util.Collections;
  */
 public class Drawer {
 
+    // variable to check if a builder is only used once
+    protected boolean used = false;
+
     // the activity to use
     protected Activity mActivity;
     protected ViewGroup mRootView;
@@ -328,22 +331,19 @@ public class Drawer {
      * @return
      */
     public Result build() {
+        if (used) {
+            throw new RuntimeException("you must not reuse a Drawer builder");
+        }
         if (mActivity == null) {
             throw new RuntimeException("please pass an activity");
         }
 
+        //set that this builder was used. now you have to create a new one
+        used = true;
+
         // if the user has not set a drawerLayout use the default one :D
         if (mDrawerLayout == null) {
             withDrawerLayout(-1);
-        }
-
-        // get the slider view
-        mSliderLayout = (LinearLayout) mDrawerLayout.findViewById(R.id.slider_layout);
-
-        if (mDrawerGravity != null) {
-            DrawerLayout.LayoutParams params = new DrawerLayout.LayoutParams(DrawerLayout.LayoutParams.MATCH_PARENT, DrawerLayout.LayoutParams.MATCH_PARENT);
-            params.gravity = mDrawerGravity;
-            mSliderLayout.setLayoutParams(params);
         }
 
         //get the drawer root
@@ -381,11 +381,50 @@ public class Drawer {
             mDrawerLayout.setDrawerListener(mActionBarDrawerToggle);
         }
 
-        // initialize list if there is an adapter or set items
-        if (mDrawerItems != null && mAdapter == null) {
-            mAdapter = new DrawerAdapter(mActivity, mDrawerItems);
+        // get the slider view
+        mSliderLayout = (LinearLayout) mActivity.getLayoutInflater().inflate(R.layout.drawer_slider, mDrawerLayout, false);
+        if (mDrawerGravity != null) {
+            DrawerLayout.LayoutParams params = new DrawerLayout.LayoutParams(DrawerLayout.LayoutParams.MATCH_PARENT, DrawerLayout.LayoutParams.MATCH_PARENT);
+            params.gravity = mDrawerGravity;
+            mSliderLayout.setLayoutParams(params);
+        }
+        mDrawerLayout.addView(mSliderLayout, 1);
+
+        //create the content
+        createContent();
+
+        return new Result(this);
+    }
+
+
+    public Result append(Result result) {
+        if (used) {
+            throw new RuntimeException("you must not reuse a Drawer builder");
+        }
+        if (mDrawerGravity == null) {
+            throw new RuntimeException("please set the gravity for the drawer");
         }
 
+        //set that this builder was used. now you have to create a new one
+        used = true;
+
+        //get the drawer layout from the previous drawer
+        mDrawerLayout = result.getDrawerLayout();
+
+        // get the slider view
+        mSliderLayout = (LinearLayout) mActivity.getLayoutInflater().inflate(R.layout.drawer_slider, mDrawerLayout, false);
+        DrawerLayout.LayoutParams params = new DrawerLayout.LayoutParams(DrawerLayout.LayoutParams.MATCH_PARENT, DrawerLayout.LayoutParams.MATCH_PARENT);
+        params.gravity = mDrawerGravity;
+        mSliderLayout.setLayoutParams(params);
+        mDrawerLayout.addView(mSliderLayout, 1);
+
+        //create the content
+        createContent();
+
+        return new Result(this);
+    }
+
+    private void createContent() {
         // if we have an adapter (either by defining a custom one or the included one add a list :D
         if (mListView == null) {
             mListView = new ListView(mActivity);
@@ -402,6 +441,11 @@ public class Drawer {
         params.weight = 1f;
         mSliderLayout.addView(mListView, params);
 
+        // initialize list if there is an adapter or set items
+        if (mDrawerItems != null && mAdapter == null) {
+            mAdapter = new DrawerAdapter(mActivity, mDrawerItems);
+        }
+
         //sticky footer view
         if (mStickyFooterView != null) {
             mSliderLayout.addView(mStickyFooterView);
@@ -414,7 +458,7 @@ public class Drawer {
             }
 
             if (mHeaderDivider) {
-                LinearLayout headerContainer = (LinearLayout) mActivity.getLayoutInflater().inflate(R.layout.drawer_item_header, null, false);
+                LinearLayout headerContainer = (LinearLayout) mActivity.getLayoutInflater().inflate(R.layout.drawer_item_header, mListView, false);
                 headerContainer.addView(mHeaderView, 0);
                 mListView.addHeaderView(headerContainer);
                 mListView.setPadding(0, 0, 0, 0);
@@ -431,7 +475,7 @@ public class Drawer {
             }
 
             if (mHeaderDivider) {
-                LinearLayout footerContainer = (LinearLayout) mActivity.getLayoutInflater().inflate(R.layout.drawer_item_footer, null, false);
+                LinearLayout footerContainer = (LinearLayout) mActivity.getLayoutInflater().inflate(R.layout.drawer_item_footer, mListView, false);
                 footerContainer.addView(mFooterView, 1);
                 mListView.addFooterView(footerContainer);
             } else {
@@ -504,8 +548,6 @@ public class Drawer {
         if (mListView != null) {
             mListView.smoothScrollToPosition(0);
         }
-
-        return new Result(this);
     }
 
     public static class Result {

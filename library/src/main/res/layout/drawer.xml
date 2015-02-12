@@ -10,15 +10,6 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"/>
 
-    <LinearLayout
-        android:id="@+id/slider_layout"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:layout_gravity="start"
-        android:background="@color/material_drawer_background"
-        android:orientation="vertical">
-
-    </LinearLayout>
     <!--
         android:layout_marginRight="@dimen/material_drawer_margin"
         android:layout_marginEnd="@dimen/material_drawer_margin"
