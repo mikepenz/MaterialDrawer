@@ -11,10 +11,10 @@
     <color name="material_drawer_primary_text">#212121</color>
     <color name="material_drawer_secondary_text">#727272</color>
     <color name="material_drawer_hint_text">#B8B8B8</color>
-    <color name="material_drawer_contrast_text">#FFF</color>
     <color name="material_drawer_divider">#B6B6B6</color>
     <!-- Material DEFAULT drawer colors -->
     <color name="material_drawer_selected">#E8E8E8</color>
+    <color name="material_drawer_selected_text">#2196F3</color>
 
     <!-- SAMPLE DARK COLORS -->
     <!--
@@ -29,10 +29,10 @@
     <color name="material_drawer_primary_text">#FFF</color>
     <color name="material_drawer_secondary_text">#DEDEDE</color>
     <color name="material_drawer_hint_text">#ABABAB</color>
-    <color name="material_drawer_contrast_text">#000</color>
     <color name="material_drawer_divider">#555555</color>
     - Material SAMPLE DARK drawer colors -
     <color name="material_drawer_selected">#202020</color>
+    <color name="material_drawer_selected_text">#7B1FA2</color>
 
     - AboutLibraries colors -
     <color name="theme_window_background">#303030</color>

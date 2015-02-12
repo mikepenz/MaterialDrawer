@@ -21,6 +21,7 @@ public class SecondaryDrawerItem implements IDrawerItem {
     private int identifier = -1;
     private Drawable icon;
     private IIcon iicon;
+    private Drawable selectedIcon;
     private String name;
     private int nameRes = -1;
     private boolean enabled = true;
@@ -37,6 +38,11 @@ public class SecondaryDrawerItem implements IDrawerItem {
 
     public SecondaryDrawerItem withIcon(IIcon iicon) {
         this.iicon = iicon;
+        return this;
+    }
+
+    public SecondaryDrawerItem withSelectedIcon(Drawable selectedIcon) {
+        this.selectedIcon = selectedIcon;
         return this;
     }
 
@@ -61,6 +67,10 @@ public class SecondaryDrawerItem implements IDrawerItem {
 
     public IIcon getIIcon() {
         return iicon;
+    }
+
+    public Drawable getSelectedIcon() {
+        return selectedIcon;
     }
 
     public String getName() {
@@ -103,7 +113,7 @@ public class SecondaryDrawerItem implements IDrawerItem {
             viewHolder = (ViewHolder) convertView.getTag();
         }
 
-        UIUtils.setBackground(viewHolder.view, UIUtils.getDrawerListSecondaryItem(activity));
+        UIUtils.setBackground(viewHolder.view, UIUtils.getDrawerItemBackground(activity));
         if (this.getNameRes() != -1) {
             viewHolder.name.setText(this.getNameRes());
         } else {
@@ -111,19 +121,37 @@ public class SecondaryDrawerItem implements IDrawerItem {
         }
 
         int color;
+        int selectedColor = activity.getResources().getColor(R.color.material_drawer_selected_text);
         if (this.isEnabled()) {
             color = activity.getResources().getColor(R.color.material_drawer_secondary_text);
-            viewHolder.name.setTextColor(UIUtils.getTextColor(activity, color));
+            viewHolder.name.setTextColor(UIUtils.getTextColor(color, selectedColor));
         } else {
             color = activity.getResources().getColor(R.color.material_drawer_hint_text);
             viewHolder.name.setTextColor(color);
         }
 
         viewHolder.icon.setVisibility(View.VISIBLE);
-        if (this.getIIcon() != null) {
-            viewHolder.icon.setImageDrawable(new IconicsDrawable(activity, this.getIIcon()).color(color).actionBarSize());
-        } else if (this.getIcon() != null) {
-            viewHolder.icon.setImageDrawable(this.getIcon());
+
+        Drawable icon = null;
+        Drawable selectedIcon = null;
+
+        if (this.getIcon() != null) {
+            icon = this.getIcon();
+
+            if (this.getSelectedIcon() != null) {
+                selectedIcon = this.getSelectedIcon();
+            }
+        } else if (this.getIIcon() != null) {
+            icon = new IconicsDrawable(activity, this.getIIcon()).color(color).actionBarSize();
+            selectedIcon = new IconicsDrawable(activity, this.getIIcon()).color(selectedColor).actionBarSize();
+        }
+
+        if (icon != null) {
+            if (selectedIcon != null) {
+                viewHolder.icon.setImageDrawable(UIUtils.getIconColor(icon, selectedIcon));
+            } else {
+                viewHolder.icon.setImageDrawable(icon);
+            }
         } else {
             viewHolder.icon.setVisibility(View.GONE);
         }

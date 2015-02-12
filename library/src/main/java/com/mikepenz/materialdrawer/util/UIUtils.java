@@ -14,42 +14,31 @@ import com.mikepenz.materialdrawer.R;
  * Created by mikepenz on 15.03.14.
  */
 public class UIUtils {
-    public static ColorStateList getTextColor(Context ctx, int text_color) {
+    public static ColorStateList getTextColor(int text_color, int selected_text_color) {
         return new ColorStateList(
                 new int[][]{
-                        new int[]{android.R.attr.state_pressed},
                         new int[]{android.R.attr.state_activated},
                         new int[]{android.R.attr.state_enabled}
                 },
                 new int[]{
-                        ctx.getResources().getColor(R.color.material_drawer_contrast_text),
-                        text_color,
+                        selected_text_color,
                         text_color
                 }
         );
     }
 
-    public static StateListDrawable getDrawerListItem(Context ctx) {
-        ColorDrawable clrPress = new ColorDrawable();
-        clrPress.setColor(ctx.getResources().getColor(R.color.material_drawer_primary));
-        ColorDrawable clrActive = new ColorDrawable();
-        clrActive.setColor(ctx.getResources().getColor(R.color.material_drawer_selected));
-
-        StateListDrawable states = new StateListDrawable();
-        states.addState(new int[]{android.R.attr.state_pressed}, clrPress);
-        states.addState(new int[]{android.R.attr.state_activated}, clrActive);
-
-        return states;
+    public static StateListDrawable getIconColor(Drawable icon, Drawable selectedIcon) {
+        StateListDrawable iconStateListDrawable = new StateListDrawable();
+        iconStateListDrawable.addState(new int[]{android.R.attr.state_activated}, selectedIcon);
+        iconStateListDrawable.addState(new int[]{android.R.attr.state_enabled}, icon);
+        return iconStateListDrawable;
     }
 
-    public static StateListDrawable getDrawerListSecondaryItem(Context ctx) {
-        ColorDrawable clrPress = new ColorDrawable();
-        clrPress.setColor(ctx.getResources().getColor(R.color.material_drawer_primary));
+    public static StateListDrawable getDrawerItemBackground(Context ctx) {
         ColorDrawable clrActive = new ColorDrawable();
         clrActive.setColor(ctx.getResources().getColor(R.color.material_drawer_selected));
 
         StateListDrawable states = new StateListDrawable();
-        states.addState(new int[]{android.R.attr.state_pressed}, clrPress);
         states.addState(new int[]{android.R.attr.state_activated}, clrActive);
 
         return states;
