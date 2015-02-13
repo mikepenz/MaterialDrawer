@@ -5,19 +5,27 @@ The **MaterialDrawer** library aims to provide a quick and easy Activity to crea
 Here's a quick overview of functions it include:
 - **easy integration**
 - quick and simple api
+- follows the Google Material Design Guidelines
 - modify the colors on the go
 - **uses the AppCompat support library**
 - comes with a basetheme which helps if you want an activity with a colored statusbar
 - the navigationdrawer is also under the statusbar
 - compatible down to API Level 14
+- **supports multiple drawers**
+- comes with multiple default drawer items
+- **badge** support
 
-#Screenshots
+#Preview
+##Demo
+You can try it out here [Google Play](https://play.google.com/store/apps/details?id=com.mikepenz.unsplash) (wall:splash an open source application which uses this drawer implementation)
+
+##Screenshots
 ![Image](https://raw.githubusercontent.com/mikepenz/MaterialDrawer/master/DEV/screenshots/screenshot1_small.png)
 ![Image](https://raw.githubusercontent.com/mikepenz/MaterialDrawer/master/DEV/screenshots/screenshot2_small.png)
 
 
-##Include in your project
-###Using Maven
+#Include in your project
+##Using Maven
 The MaterialDrawer Library is pushed to [Maven Central](http://search.maven.org/#search|ga|1|g%3A%22com.mikepenz.materialdrawer%22), so you just need to add the following dependency to your `build.gradle`.
 
 ```javascript
@@ -25,12 +33,6 @@ compile('com.mikepenz.materialdrawer:library:0.9.1@aar') {
 	transitive = true
 }
 ```
-
-##Upcoming
-- Simplify usage
-  - eliminate the requirement to set the fragment on-your-own (see the "How to use" instructions)
-- Some cleanup
-- Improved options for the drawer style itself
 
 ##How to use
 Here's a quick overview what you have to do within your application.
