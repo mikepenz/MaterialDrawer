@@ -18,6 +18,9 @@
     <dimen name="material_drawer_secondary">44dp</dimen>
     <dimen name="material_drawer_secondary_icon">22dp</dimen>
     <dimen name="material_drawer_secondary_text">14sp</dimen>
+    <!-- Definition for the section item -->
+    <dimen name="material_drawer_section_text">14sp</dimen>
+
 
     <!-- Toolbar Padding -->
     <dimen name="tool_bar_top_padding">0dp</dimen>
