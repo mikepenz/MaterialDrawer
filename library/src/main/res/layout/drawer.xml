@@ -9,9 +9,4 @@
         android:id="@+id/content_layout"
         android:layout_width="match_parent"
         android:layout_height="match_parent"/>
-
-    <!--
-        android:layout_marginRight="@dimen/material_drawer_margin"
-        android:layout_marginEnd="@dimen/material_drawer_margin"
-    -->
 </android.support.v4.widget.DrawerLayout>

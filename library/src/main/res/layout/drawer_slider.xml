@@ -6,6 +6,7 @@
     android:layout_height="match_parent"
     android:layout_gravity="start"
     android:background="@color/material_drawer_background"
-    android:orientation="vertical">
-
+    android:orientation="vertical"
+    android:layout_marginRight="@dimen/material_drawer_margin"
+    android:layout_marginEnd="@dimen/material_drawer_margin">
 </LinearLayout>

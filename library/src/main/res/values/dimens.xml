@@ -3,7 +3,7 @@
     <!-- Material Drawer Dimens -->
     <!-- ********************** -->
     <!-- Definition for the Drawer Slider margin right -->
-    <dimen name="material_drawer_margin">56dp</dimen>
+    <dimen name="material_drawer_margin">0dp</dimen>
     <!-- General padding value -->
     <dimen name="material_drawer_padding">8dp</dimen>
     <!-- General vertical padding values -->
