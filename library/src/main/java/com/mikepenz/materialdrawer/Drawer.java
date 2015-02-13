@@ -1,9 +1,11 @@
 package com.mikepenz.materialdrawer;
 
 import android.app.Activity;
+import android.os.Build;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.widget.Toolbar;
+import android.view.Gravity;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AbsListView;
@@ -13,6 +15,7 @@ import android.widget.FrameLayout;
 import android.widget.LinearLayout;
 import android.widget.ListView;
 
+import com.mikepenz.iconics.utils.Utils;
 import com.mikepenz.materialdrawer.adapter.DrawerAdapter;
 import com.mikepenz.materialdrawer.model.IDrawerItem;
 
@@ -89,6 +92,50 @@ public class Drawer {
             this.mDrawerLayout = (DrawerLayout) mActivity.getLayoutInflater().inflate(R.layout.drawer, mRootView, false);
         }
 
+        return this;
+    }
+
+    //the width of the drawer
+    protected int mDrawerWidth = -1;
+
+    /**
+     * set the drawer width as px
+     *
+     * @param drawerWidthPx
+     * @return
+     */
+    public Drawer withDrawerWidthPx(int drawerWidthPx) {
+        this.mDrawerWidth = drawerWidthPx;
+        return this;
+    }
+
+    /**
+     * set the drawer width as dp
+     *
+     * @param drawerWidthDp
+     * @return
+     */
+    public Drawer withDrawerWidthDp(int drawerWidthDp) {
+        if (mActivity == null) {
+            throw new RuntimeException("please pass an activity first to use this call");
+        }
+
+        this.mDrawerWidth = Utils.convertDpToPx(mActivity, drawerWidthDp);
+        return this;
+    }
+
+    /**
+     * set the drawer width from resource
+     *
+     * @param drawerWidthRes
+     * @return
+     */
+    public Drawer withDrawerWidthRes(int drawerWidthRes) {
+        if (mActivity == null) {
+            throw new RuntimeException("please pass an activity first to use this call");
+        }
+
+        this.mDrawerWidth = mActivity.getResources().getDimensionPixelSize(drawerWidthRes);
         return this;
     }
 
@@ -382,11 +429,18 @@ public class Drawer {
 
         // get the slider view
         mSliderLayout = (LinearLayout) mActivity.getLayoutInflater().inflate(R.layout.drawer_slider, mDrawerLayout, false);
+        // get the layout params
+        DrawerLayout.LayoutParams params = (DrawerLayout.LayoutParams) mSliderLayout.getLayoutParams();
+        // if we've set a custom gravity set it
         if (mDrawerGravity != null) {
-            DrawerLayout.LayoutParams params = new DrawerLayout.LayoutParams(DrawerLayout.LayoutParams.MATCH_PARENT, DrawerLayout.LayoutParams.MATCH_PARENT);
             params.gravity = mDrawerGravity;
-            mSliderLayout.setLayoutParams(params);
         }
+        // if this is a drawer from the right, change the margins :D
+        params = processDrawerLayoutParams(params);
+        // set the new layout params
+        mSliderLayout.setLayoutParams(params);
+
+        // add the slider to the drawer
         mDrawerLayout.addView(mSliderLayout, 1);
 
         //create the content
@@ -412,9 +466,15 @@ public class Drawer {
 
         // get the slider view
         mSliderLayout = (LinearLayout) mActivity.getLayoutInflater().inflate(R.layout.drawer_slider, mDrawerLayout, false);
-        DrawerLayout.LayoutParams params = new DrawerLayout.LayoutParams(DrawerLayout.LayoutParams.MATCH_PARENT, DrawerLayout.LayoutParams.MATCH_PARENT);
+        // get the layout params
+        DrawerLayout.LayoutParams params = (DrawerLayout.LayoutParams) mSliderLayout.getLayoutParams();
+        // set the gravity of this drawerGravity
         params.gravity = mDrawerGravity;
+        // if this is a drawer from the right, change the margins :D
+        params = processDrawerLayoutParams(params);
+        // set the new params
         mSliderLayout.setLayoutParams(params);
+        // add the slider to the drawer
         mDrawerLayout.addView(mSliderLayout, 1);
 
         //create the content
@@ -547,6 +607,32 @@ public class Drawer {
         if (mListView != null) {
             mListView.smoothScrollToPosition(0);
         }
+    }
+
+    /**
+     * helper to extend the layoutParams of the drawer
+     *
+     * @param params
+     * @return
+     */
+    private DrawerLayout.LayoutParams processDrawerLayoutParams(DrawerLayout.LayoutParams params) {
+        if (mDrawerGravity != null && (mDrawerGravity == Gravity.RIGHT || mDrawerGravity == Gravity.END)) {
+            params.rightMargin = 0;
+            if (Build.VERSION.SDK_INT >= 17) {
+                params.setMarginEnd(0);
+            }
+
+            params.leftMargin = mActivity.getResources().getDimensionPixelSize(R.dimen.material_drawer_margin);
+            if (Build.VERSION.SDK_INT >= 17) {
+                params.setMarginEnd(mActivity.getResources().getDimensionPixelSize(R.dimen.material_drawer_margin));
+            }
+        }
+
+        if (mDrawerWidth > -1) {
+            params.width = mDrawerWidth;
+        }
+
+        return params;
     }
 
     public static class Result {
