@@ -634,6 +634,36 @@ public class Drawer {
                 }
             }
         }
+
+        /**
+         * update a specific drawer item :D
+         * automatically identified by its id
+         *
+         * @param drawerItem
+         */
+        public void updateItem(IDrawerItem drawerItem) {
+            if (drawerItem.getIdentifier() > 0) {
+                if (mDrawer.mDrawerItems != null) {
+                    int position = 0;
+                    for (IDrawerItem i : mDrawer.mDrawerItems) {
+                        if (i.getIdentifier() == drawerItem.getIdentifier()) {
+                            updateItem(drawerItem, position);
+                            return;
+                        }
+                        position = position + 1;
+                    }
+                }
+            } else {
+                throw new RuntimeException("the item requires a unique identifier to use this method");
+            }
+        }
+
+        public void updateItem(IDrawerItem drawerItem, int position) {
+            if (mDrawer.mDrawerItems != null && mDrawer.mDrawerItems.size() > position) {
+                mDrawer.mDrawerItems.set(position, drawerItem);
+                mDrawer.mAdapter.notifyDataSetChanged();
+            }
+        }
     }
 
 
