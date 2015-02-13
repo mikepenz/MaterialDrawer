@@ -1,0 +1,190 @@
+<!doctype html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="chrome=1">
+    <title>Materialdrawer by mikepenz</title>
+
+    <link rel="stylesheet" href="stylesheets/styles.css">
+    <link rel="stylesheet" href="stylesheets/pygment_trac.css">
+    <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no">
+    <!--[if lt IE 9]>
+    <script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+    <![endif]-->
+  </head>
+  <body>
+    <div class="wrapper">
+      <header>
+        <h1>Materialdrawer</h1>
+        <p>A simple take on creating a easy to use and fast material drawer implementation</p>
+
+        <p class="view"><a href="https://github.com/mikepenz/MaterialDrawer">View the Project on GitHub <small>mikepenz/MaterialDrawer</small></a></p>
+
+
+        <ul>
+          <li><a href="https://github.com/mikepenz/MaterialDrawer/zipball/master">Download <strong>ZIP File</strong></a></li>
+          <li><a href="https://github.com/mikepenz/MaterialDrawer/tarball/master">Download <strong>TAR Ball</strong></a></li>
+          <li><a href="https://github.com/mikepenz/MaterialDrawer">View On <strong>GitHub</strong></a></li>
+        </ul>
+      </header>
+      <section>
+        <h1>
+<a id="materialdrawer---" class="anchor" href="#materialdrawer---" aria-hidden="true"><span class="octicon octicon-link"></span></a>MaterialDrawer  <a href="https://maven-badges.herokuapp.com/maven-central/com.mikepenz.materialdrawer/library"><img src="https://maven-badges.herokuapp.com/maven-central/com.mikepenz.materialdrawer/library/badge.svg?style=flat" alt="Maven Central"></a> <a href="https://android-arsenal.com/details/1/1526"><img src="https://img.shields.io/badge/Android%20Arsenal-MaterialDrawer-brightgreen.svg?style=flat" alt="Android Arsenal"></a>
+</h1>
+
+<p>The <strong>MaterialDrawer</strong> library aims to provide a quick and easy Activity to create and implement a drawer layout in your application.</p>
+
+<p>Here's a quick overview of functions it include:</p>
+
+<ul>
+<li><strong>easy integration</strong></li>
+<li>quick and simple api</li>
+<li>follows the Google Material Design Guidelines</li>
+<li>modify the colors on the go</li>
+<li><strong>uses the AppCompat support library</strong></li>
+<li>comes with a basetheme which helps if you want an activity with a colored statusbar</li>
+<li>the navigationdrawer is also under the statusbar</li>
+<li>compatible down to API Level 14</li>
+<li><strong>supports multiple drawers</strong></li>
+<li>comes with multiple default drawer items</li>
+<li>
+<strong>badge</strong> support</li>
+</ul>
+
+<h1>
+<a id="preview" class="anchor" href="#preview" aria-hidden="true"><span class="octicon octicon-link"></span></a>Preview</h1>
+
+<h2>
+<a id="demo" class="anchor" href="#demo" aria-hidden="true"><span class="octicon octicon-link"></span></a>Demo</h2>
+
+<p>You can try it out here <a href="https://play.google.com/store/apps/details?id=com.mikepenz.unsplash">Google Play</a> (wall:splash an open source application which uses this drawer implementation)</p>
+
+<h2>
+<a id="screenshots" class="anchor" href="#screenshots" aria-hidden="true"><span class="octicon octicon-link"></span></a>Screenshots</h2>
+
+<p><img src="https://raw.githubusercontent.com/mikepenz/MaterialDrawer/master/DEV/screenshots/screenshot1_small.png" alt="Image">
+<img src="https://raw.githubusercontent.com/mikepenz/MaterialDrawer/master/DEV/screenshots/screenshot2_small.png" alt="Image"></p>
+
+<h1>
+<a id="include-in-your-project" class="anchor" href="#include-in-your-project" aria-hidden="true"><span class="octicon octicon-link"></span></a>Include in your project</h1>
+
+<h2>
+<a id="using-maven" class="anchor" href="#using-maven" aria-hidden="true"><span class="octicon octicon-link"></span></a>Using Maven</h2>
+
+<p>The MaterialDrawer Library is pushed to <a href="http://search.maven.org/#search%7Cga%7C1%7Cg%3A%22com.mikepenz.materialdrawer%22">Maven Central</a>, so you just need to add the following dependency to your <code>build.gradle</code>.</p>
+
+<div class="highlight highlight-javascript"><pre><span class="pl-s3">compile</span>(<span class="pl-s1"><span class="pl-pds">'</span>com.mikepenz.materialdrawer:library:0.9.1@aar<span class="pl-pds">'</span></span>) {
+    transitive <span class="pl-k">=</span> <span class="pl-c1">true</span>
+}</pre></div>
+
+<h2>
+<a id="how-to-use" class="anchor" href="#how-to-use" aria-hidden="true"><span class="octicon octicon-link"></span></a>How to use</h2>
+
+<p>Here's a quick overview what you have to do within your application.</p>
+
+<h4>
+<a id="activity" class="anchor" href="#activity" aria-hidden="true"><span class="octicon octicon-link"></span></a>Activity</h4>
+
+<h5>
+<a id="code" class="anchor" href="#code" aria-hidden="true"><span class="octicon octicon-link"></span></a>Code:</h5>
+
+<p>It's (theoretically) a one-liner :D</p>
+
+<div class="highlight highlight-java"><pre><span class="pl-k">new</span> <span class="pl-stj">Drawer</span>()
+.withActivity(<span class="pl-v">this</span>)
+.withToolbar(toolbar)
+.withActionBarDrawerToggle(<span class="pl-c1">true</span>)
+.addDrawerItems(
+    <span class="pl-k">new</span> <span class="pl-stj">PrimaryDrawerItem</span>()<span class="pl-k">.</span>withName(<span class="pl-stj">R</span><span class="pl-k">.</span>string<span class="pl-k">.</span>drawer_item_home),
+    <span class="pl-k">new</span> <span class="pl-stj">PrimaryDrawerItem</span>()<span class="pl-k">.</span>withName(<span class="pl-stj">R</span><span class="pl-k">.</span>string<span class="pl-k">.</span>drawer_item_free_play),
+    <span class="pl-k">new</span> <span class="pl-stj">PrimaryDrawerItem</span>()<span class="pl-k">.</span>withName(<span class="pl-stj">R</span><span class="pl-k">.</span>string<span class="pl-k">.</span>drawer_item_custom),
+    <span class="pl-k">new</span> <span class="pl-stj">SpacerDrawerItem</span>(),
+    <span class="pl-k">new</span> <span class="pl-stj">SecondaryDrawerItem</span>()<span class="pl-k">.</span>withName(<span class="pl-stj">R</span><span class="pl-k">.</span>string<span class="pl-k">.</span>drawer_item_settings)<span class="pl-k">.</span>withIcon(<span class="pl-stj">FontAwesome</span><span class="pl-k">.</span><span class="pl-stj">Icon</span><span class="pl-k">.</span>faw_cog),
+    <span class="pl-k">new</span> <span class="pl-stj">SecondaryDrawerItem</span>()<span class="pl-k">.</span>withName(<span class="pl-stj">R</span><span class="pl-k">.</span>string<span class="pl-k">.</span>drawer_item_help)<span class="pl-k">.</span>withIcon(<span class="pl-stj">FontAwesome</span><span class="pl-k">.</span><span class="pl-stj">Icon</span><span class="pl-k">.</span>faw_question)<span class="pl-k">.</span>setEnabled(<span class="pl-c1">false</span>),
+    <span class="pl-k">new</span> <span class="pl-stj">SecondaryDrawerItem</span>()<span class="pl-k">.</span>withName(<span class="pl-stj">R</span><span class="pl-k">.</span>string<span class="pl-k">.</span>drawer_item_open_source)<span class="pl-k">.</span>withIcon(<span class="pl-stj">FontAwesome</span><span class="pl-k">.</span><span class="pl-stj">Icon</span><span class="pl-k">.</span>faw_github),
+    <span class="pl-k">new</span> <span class="pl-stj">SecondaryDrawerItem</span>()<span class="pl-k">.</span>withName(<span class="pl-stj">R</span><span class="pl-k">.</span>string<span class="pl-k">.</span>drawer_item_contact)<span class="pl-k">.</span>withIcon(<span class="pl-stj">FontAwesome</span><span class="pl-k">.</span><span class="pl-stj">Icon</span><span class="pl-k">.</span>faw_bullhorn)
+)
+.withOnDrawerItemClickListener(<span class="pl-k">new</span> <span class="pl-stj">Drawer</span>.<span class="pl-stj">OnDrawerItemClickListener</span>() {
+<span class="pl-st">@Override</span>
+<span class="pl-s">public</span> <span class="pl-st">void</span> <span class="pl-en">onItemClick</span>(<span class="pl-st">AdapterView&lt;?&gt;</span> <span class="pl-v">parent</span>, <span class="pl-stj">View</span> <span class="pl-v">view</span>, <span class="pl-st">int</span> <span class="pl-v">position</span>, <span class="pl-st">long</span> <span class="pl-v">id</span>, <span class="pl-stj">IDrawerItem</span> <span class="pl-v">drawerItem</span>) {
+    <span class="pl-c">// do something with the clicked item :D</span>
+}
+})
+.build();</pre></div>
+
+<h3>
+<a id="androidmanifestxml-optional" class="anchor" href="#androidmanifestxml-optional" aria-hidden="true"><span class="octicon octicon-link"></span></a>AndroidManifest.xml (OPTIONAL)</h3>
+
+<p>You can use the provided theme, this will allow the drawer to display under the statusbar</p>
+
+<div class="highlight highlight-xml"><pre>  android:theme="@style/AppTheme"</pre></div>
+
+<h3>
+<a id="stylesxml-optional" class="anchor" href="#stylesxml-optional" aria-hidden="true"><span class="octicon octicon-link"></span></a>styles.xml (OPTIONAL)</h3>
+
+<p>Overwrite following colors to create a quick custom style for your application</p>
+
+<div class="highlight highlight-xml"><pre>    <span class="pl-c">&lt;!-- Material SAMPLE DARK colors --&gt;</span>
+    &lt;<span class="pl-ent">color</span> <span class="pl-e">name</span>=<span class="pl-s1"><span class="pl-pds">"</span>material_drawer_primary<span class="pl-pds">"</span></span>&gt;#9C27B0&lt;/<span class="pl-ent">color</span>&gt;
+    &lt;<span class="pl-ent">color</span> <span class="pl-e">name</span>=<span class="pl-s1"><span class="pl-pds">"</span>material_drawer_primary_dark<span class="pl-pds">"</span></span>&gt;#7B1FA2&lt;/<span class="pl-ent">color</span>&gt;
+    &lt;<span class="pl-ent">color</span> <span class="pl-e">name</span>=<span class="pl-s1"><span class="pl-pds">"</span>material_drawer_primary_light<span class="pl-pds">"</span></span>&gt;#E1BEE7&lt;/<span class="pl-ent">color</span>&gt;
+    &lt;<span class="pl-ent">color</span> <span class="pl-e">name</span>=<span class="pl-s1"><span class="pl-pds">"</span>material_drawer_accent<span class="pl-pds">"</span></span>&gt;#00BCD4&lt;/<span class="pl-ent">color</span>&gt;
+    &lt;<span class="pl-ent">color</span> <span class="pl-e">name</span>=<span class="pl-s1"><span class="pl-pds">"</span>material_drawer_background<span class="pl-pds">"</span></span>&gt;#303030&lt;/<span class="pl-ent">color</span>&gt;
+    <span class="pl-c">&lt;!-- Material SAMPLE DARK text / items colors --&gt;</span>
+    &lt;<span class="pl-ent">color</span> <span class="pl-e">name</span>=<span class="pl-s1"><span class="pl-pds">"</span>material_drawer_icons<span class="pl-pds">"</span></span>&gt;#000&lt;/<span class="pl-ent">color</span>&gt;
+    &lt;<span class="pl-ent">color</span> <span class="pl-e">name</span>=<span class="pl-s1"><span class="pl-pds">"</span>material_drawer_primary_text<span class="pl-pds">"</span></span>&gt;#FFF&lt;/<span class="pl-ent">color</span>&gt;
+    &lt;<span class="pl-ent">color</span> <span class="pl-e">name</span>=<span class="pl-s1"><span class="pl-pds">"</span>material_drawer_secondary_text<span class="pl-pds">"</span></span>&gt;#DEDEDE&lt;/<span class="pl-ent">color</span>&gt;
+    &lt;<span class="pl-ent">color</span> <span class="pl-e">name</span>=<span class="pl-s1"><span class="pl-pds">"</span>material_drawer_hint_text<span class="pl-pds">"</span></span>&gt;#ABABAB&lt;/<span class="pl-ent">color</span>&gt;
+    &lt;<span class="pl-ent">color</span> <span class="pl-e">name</span>=<span class="pl-s1"><span class="pl-pds">"</span>material_drawer_divider<span class="pl-pds">"</span></span>&gt;#555555&lt;/<span class="pl-ent">color</span>&gt;
+    <span class="pl-c">&lt;!-- Material SAMPLE DARK drawer colors --&gt;</span>
+    &lt;<span class="pl-ent">color</span> <span class="pl-e">name</span>=<span class="pl-s1"><span class="pl-pds">"</span>material_drawer_selected<span class="pl-pds">"</span></span>&gt;#E8E8E8&lt;/<span class="pl-ent">color</span>&gt;
+    &lt;<span class="pl-ent">color</span> <span class="pl-e">name</span>=<span class="pl-s1"><span class="pl-pds">"</span>material_drawer_selected_text<span class="pl-pds">"</span></span>&gt;#2196F3&lt;/<span class="pl-ent">color</span>&gt;</pre></div>
+
+<h1>
+<a id="credits" class="anchor" href="#credits" aria-hidden="true"><span class="octicon octicon-link"></span></a>Credits</h1>
+
+<ul>
+<li>Mirosław Stanek - <a href="https://github.com/frogermcs">GitHub</a>
+
+<ul>
+<li>For his InstaMaterial concept and the idea of inflating the drawerLayout <a href="http://frogermcs.github.io/InstaMaterial-concept-part-7-navigation-drawer/">InstaMaterial Concept</a>
+</li>
+</ul>
+</li>
+</ul>
+
+<h1>
+<a id="developed-by" class="anchor" href="#developed-by" aria-hidden="true"><span class="octicon octicon-link"></span></a>Developed By</h1>
+
+<ul>
+<li>Mike Penz - <a href="http://mikepenz.com">http://mikepenz.com</a> - <a href="mailto:mikepenz@gmail.com">mikepenz@gmail.com</a>
+</li>
+</ul>
+
+<h1>
+<a id="license" class="anchor" href="#license" aria-hidden="true"><span class="octicon octicon-link"></span></a>License</h1>
+
+<pre><code>Copyright 2015 Mike Penz
+
+Licensed under the Apache License, Version 2.0 (the "License");
+you may not use this file except in compliance with the License.
+You may obtain a copy of the License at
+
+   http://www.apache.org/licenses/LICENSE-2.0
+
+Unless required by applicable law or agreed to in writing, software
+distributed under the License is distributed on an "AS IS" BASIS,
+WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+See the License for the specific language governing permissions and
+limitations under the License.
+</code></pre>
+      </section>
+      <footer>
+        <p>This project is maintained by <a href="https://github.com/mikepenz">mikepenz</a></p>
+        <p><small>Hosted on GitHub Pages &mdash; Theme by <a href="https://github.com/orderedlist">orderedlist</a></small></p>
+      </footer>
+    </div>
+    <script src="javascripts/scale.fix.js"></script>
+    
+  </body>
+</html>
