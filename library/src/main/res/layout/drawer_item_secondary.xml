@@ -2,7 +2,10 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
                 android:layout_width="match_parent"
                 android:layout_height="@dimen/material_drawer_secondary"
-                android:paddingRight="@dimen/material_drawer_vertical_padding">
+                android:paddingLeft="@dimen/material_drawer_vertical_padding"
+                android:paddingStart="@dimen/material_drawer_vertical_padding"
+                android:paddingRight="@dimen/material_drawer_vertical_padding"
+                android:paddingEnd="@dimen/material_drawer_vertical_padding">
 
     <ImageView
         android:id="@+id/icon"
@@ -12,18 +15,31 @@
         android:layout_marginTop="@dimen/material_drawer_icon_margin"
         android:layout_marginRight="@dimen/material_drawer_vertical_padding"
         android:layout_marginBottom="@dimen/material_drawer_icon_margin"
-        android:layout_marginLeft="@dimen/material_drawer_vertical_padding"
         android:layout_gravity="center_vertical"/>
+
+    <TextView
+        android:id="@+id/badge"
+        android:fontFamily="sans-serif"
+        android:layout_width="wrap_content"
+        android:layout_height="match_parent"
+        android:textSize="@dimen/material_drawer_secondary_text"
+        android:gravity="center_vertical|end"
+        android:textColor="@color/material_drawer_secondary_text"
+        android:layout_alignParentEnd="true"
+        android:layout_alignParentRight="true"/>
 
     <TextView
         android:id="@+id/name"
         android:fontFamily="sans-serif"
         android:layout_toRightOf="@id/icon"
+        android:layout_toEndOf="@id/icon"
+        android:layout_alignRight="@id/badge"
+        android:layout_alignEnd="@id/badge"
         android:layout_width="wrap_content"
         android:layout_height="match_parent"
         android:layout_marginLeft="@dimen/material_drawer_vertical_padding"
+        android:layout_marginStart="@dimen/material_drawer_vertical_padding"
         android:textSize="@dimen/material_drawer_secondary_text"
         android:gravity="center_vertical"
-        android:textAppearance="?android:attr/textAppearanceListItem"
         android:textColor="@color/material_drawer_secondary_text"/>
 </RelativeLayout>

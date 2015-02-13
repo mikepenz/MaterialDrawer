@@ -24,6 +24,7 @@ public class PrimaryDrawerItem implements IDrawerItem {
     private Drawable selectedIcon;
     private String name;
     private int nameRes = -1;
+    private String badge;
     private boolean enabled = true;
 
     public PrimaryDrawerItem withIdentifier(int identifier) {
@@ -56,6 +57,11 @@ public class PrimaryDrawerItem implements IDrawerItem {
         return this;
     }
 
+    public PrimaryDrawerItem withBadge(String badge) {
+        this.badge = badge;
+        return this;
+    }
+
     public PrimaryDrawerItem setEnabled(boolean enabled) {
         this.enabled = enabled;
         return this;
@@ -79,6 +85,10 @@ public class PrimaryDrawerItem implements IDrawerItem {
 
     public int getNameRes() {
         return nameRes;
+    }
+
+    public String getBadge() {
+        return badge;
     }
 
     @Override
@@ -113,10 +123,18 @@ public class PrimaryDrawerItem implements IDrawerItem {
         }
 
         UIUtils.setBackground(viewHolder.view, UIUtils.getDrawerItemBackground(activity));
+
         if (this.getNameRes() != -1) {
             viewHolder.name.setText(this.getNameRes());
         } else {
             viewHolder.name.setText(this.getName());
+        }
+
+        if (badge != null) {
+            viewHolder.badge.setText(badge);
+            viewHolder.badge.setVisibility(View.VISIBLE);
+        } else {
+            viewHolder.badge.setVisibility(View.GONE);
         }
 
         int color;
@@ -124,17 +142,15 @@ public class PrimaryDrawerItem implements IDrawerItem {
         if (this.isEnabled()) {
             color = activity.getResources().getColor(R.color.material_drawer_primary_text);
             viewHolder.name.setTextColor(UIUtils.getTextColor(color, selectedColor));
+            viewHolder.badge.setTextColor(UIUtils.getTextColor(color, selectedColor));
         } else {
             color = activity.getResources().getColor(R.color.material_drawer_hint_text);
             viewHolder.name.setTextColor(color);
+            viewHolder.badge.setTextColor(color);
         }
-
-        viewHolder.icon.setVisibility(View.VISIBLE);
 
         Drawable icon = null;
         Drawable selectedIcon = null;
-
-
         if (this.getIcon() != null) {
             icon = this.getIcon();
 
@@ -152,6 +168,8 @@ public class PrimaryDrawerItem implements IDrawerItem {
             } else {
                 viewHolder.icon.setImageDrawable(icon);
             }
+
+            viewHolder.icon.setVisibility(View.VISIBLE);
         } else {
             viewHolder.icon.setVisibility(View.GONE);
         }
@@ -159,16 +177,17 @@ public class PrimaryDrawerItem implements IDrawerItem {
         return convertView;
     }
 
-
     private class ViewHolder {
         private View view;
         private ImageView icon;
         private TextView name;
+        private TextView badge;
 
         private ViewHolder(View view) {
             this.view = view;
             this.icon = (ImageView) view.findViewById(R.id.icon);
             this.name = (TextView) view.findViewById(R.id.name);
+            this.badge = (TextView) view.findViewById(R.id.badge);
         }
     }
 }
