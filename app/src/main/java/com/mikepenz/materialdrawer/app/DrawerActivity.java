@@ -19,6 +19,8 @@ import com.mikepenz.materialdrawer.model.SectionDrawerItem;
 
 public class DrawerActivity extends ActionBarActivity {
 
+    private Drawer.Result result = null;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         //supportRequestWindowFeature(Window.FEATURE_INDETERMINATE_PROGRESS);
@@ -31,26 +33,37 @@ public class DrawerActivity extends ActionBarActivity {
         setSupportActionBar(toolbar);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
-        Drawer.Result result = new Drawer()
+        result = new Drawer()
                 .withActivity(this)
                 .withToolbar(toolbar)
                 .withActionBarDrawerToggle(true)
                 .withHeader(R.layout.header)
                 .addDrawerItems(
-                        new PrimaryDrawerItem().withName(R.string.drawer_item_home).withIcon(FontAwesome.Icon.faw_home),
+                        new PrimaryDrawerItem().withName(R.string.drawer_item_home).withIcon(FontAwesome.Icon.faw_home).withBadge("99").withIdentifier(1),
                         new PrimaryDrawerItem().withName(R.string.drawer_item_free_play).withIcon(FontAwesome.Icon.faw_gamepad),
-                        new PrimaryDrawerItem().withName(R.string.drawer_item_custom).withIcon(FontAwesome.Icon.faw_eye),
+                        new PrimaryDrawerItem().withName(R.string.drawer_item_custom).withIcon(FontAwesome.Icon.faw_eye).withBadge("6").withIdentifier(2),
                         new SectionDrawerItem().withName(R.string.drawer_item_section_header),
                         new SecondaryDrawerItem().withName(R.string.drawer_item_settings).withIcon(FontAwesome.Icon.faw_cog),
                         new SecondaryDrawerItem().withName(R.string.drawer_item_help).withIcon(FontAwesome.Icon.faw_question).setEnabled(false),
-                        new SecondaryDrawerItem().withName(R.string.drawer_item_open_source).withIcon(FontAwesome.Icon.faw_github),
+                        new SecondaryDrawerItem().withName(R.string.drawer_item_open_source).withIcon(FontAwesome.Icon.faw_github).withBadge("12+").withIdentifier(1),
                         new SecondaryDrawerItem().withName(R.string.drawer_item_contact).withIcon(FontAwesome.Icon.faw_bullhorn)
                 )
                 .withOnDrawerItemClickListener(new Drawer.OnDrawerItemClickListener() {
                     @Override
                     public void onItemClick(AdapterView<?> parent, View view, int position, long id, IDrawerItem drawerItem) {
                         if (drawerItem instanceof PrimaryDrawerItem) {
-                            Toast.makeText(DrawerActivity.this, DrawerActivity.this.getString(((PrimaryDrawerItem) drawerItem).getNameRes()), Toast.LENGTH_SHORT).show();
+                            PrimaryDrawerItem di = (PrimaryDrawerItem) drawerItem;
+
+                            Toast.makeText(DrawerActivity.this, DrawerActivity.this.getString(di.getNameRes()), Toast.LENGTH_SHORT).show();
+
+                            if (di.getBadge() != null) {
+                                //note don't do this if your badge contains a "+"
+                                int badge = Integer.valueOf(di.getBadge());
+                                if (badge > 0) {
+                                    di.withBadge(String.valueOf(badge - 1));
+                                    result.updateItem(di);
+                                }
+                            }
                         }
                     }
                 })
