@@ -11,12 +11,16 @@ import android.widget.TextView;
 import com.mikepenz.iconics.IconicsDrawable;
 import com.mikepenz.iconics.typeface.IIcon;
 import com.mikepenz.materialdrawer.R;
+import com.mikepenz.materialdrawer.model.interfaces.Badgeable;
+import com.mikepenz.materialdrawer.model.interfaces.IDrawerItem;
+import com.mikepenz.materialdrawer.model.interfaces.Iconable;
+import com.mikepenz.materialdrawer.model.interfaces.Nameable;
 import com.mikepenz.materialdrawer.util.UIUtils;
 
 /**
  * Created by mikepenz on 03.02.15.
  */
-public class SecondaryDrawerItem implements IDrawerItem {
+public class SecondaryDrawerItem implements IDrawerItem, Nameable<SecondaryDrawerItem>, Iconable<SecondaryDrawerItem>, Badgeable<SecondaryDrawerItem> {
 
     private int identifier = -1;
     private Drawable icon;
@@ -75,6 +79,16 @@ public class SecondaryDrawerItem implements IDrawerItem {
         return iicon;
     }
 
+    @Override
+    public void setIcon(Drawable icon) {
+        this.icon = icon;
+    }
+
+    @Override
+    public void setIIcon(IIcon iicon) {
+        this.iicon = iicon;
+    }
+
     public Drawable getSelectedIcon() {
         return selectedIcon;
     }
@@ -87,8 +101,23 @@ public class SecondaryDrawerItem implements IDrawerItem {
         return nameRes;
     }
 
+    @Override
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    @Override
+    public void setNameRes(int nameRes) {
+        this.nameRes = nameRes;
+    }
+
     public String getBadge() {
         return badge;
+    }
+
+    @Override
+    public void setBadge(String badge) {
+        this.badge = badge;
     }
 
     @Override

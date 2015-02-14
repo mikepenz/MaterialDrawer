@@ -7,11 +7,13 @@ import android.view.ViewGroup;
 import android.widget.TextView;
 
 import com.mikepenz.materialdrawer.R;
+import com.mikepenz.materialdrawer.model.interfaces.IDrawerItem;
+import com.mikepenz.materialdrawer.model.interfaces.Nameable;
 
 /**
  * Created by mikepenz on 03.02.15.
  */
-public class SectionDrawerItem implements IDrawerItem {
+public class SectionDrawerItem implements IDrawerItem, Nameable<SectionDrawerItem> {
 
     private String name;
     private int nameRes = -1;
@@ -42,6 +44,16 @@ public class SectionDrawerItem implements IDrawerItem {
 
     public int getNameRes() {
         return nameRes;
+    }
+
+    @Override
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    @Override
+    public void setNameRes(int nameRes) {
+        this.nameRes = nameRes;
     }
 
     @Override
