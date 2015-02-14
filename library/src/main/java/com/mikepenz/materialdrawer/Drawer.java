@@ -1,6 +1,7 @@
 package com.mikepenz.materialdrawer;
 
 import android.app.Activity;
+import android.graphics.drawable.Drawable;
 import android.os.Build;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
@@ -15,9 +16,13 @@ import android.widget.FrameLayout;
 import android.widget.LinearLayout;
 import android.widget.ListView;
 
+import com.mikepenz.iconics.typeface.IIcon;
 import com.mikepenz.iconics.utils.Utils;
 import com.mikepenz.materialdrawer.adapter.DrawerAdapter;
-import com.mikepenz.materialdrawer.model.IDrawerItem;
+import com.mikepenz.materialdrawer.model.interfaces.Badgeable;
+import com.mikepenz.materialdrawer.model.interfaces.IDrawerItem;
+import com.mikepenz.materialdrawer.model.interfaces.Iconable;
+import com.mikepenz.materialdrawer.model.interfaces.Nameable;
 
 import java.util.ArrayList;
 import java.util.Collections;
@@ -788,8 +793,97 @@ public class Drawer {
             }
         }
 
+        /**
+         * @param drawerItem
+         * @param position
+         */
         public void updateItem(IDrawerItem drawerItem, int position) {
             if (mDrawer.mDrawerItems != null && mDrawer.mDrawerItems.size() > position) {
+                mDrawer.mDrawerItems.set(position, drawerItem);
+                mDrawer.mAdapter.notifyDataSetChanged();
+            }
+        }
+
+        /**
+         * @param nameRes
+         * @param position
+         */
+        public void updateName(int nameRes, int position) {
+            if (mDrawer.mDrawerItems != null && mDrawer.mDrawerItems.size() > position) {
+                IDrawerItem drawerItem = mDrawer.mDrawerItems.get(position);
+
+                if (drawerItem instanceof Nameable) {
+                    ((Nameable) drawerItem).setNameRes(nameRes);
+                }
+
+                mDrawer.mDrawerItems.set(position, drawerItem);
+                mDrawer.mAdapter.notifyDataSetChanged();
+            }
+        }
+
+        /**
+         * @param name
+         * @param position
+         */
+        public void updateName(String name, int position) {
+            if (mDrawer.mDrawerItems != null && mDrawer.mDrawerItems.size() > position) {
+                IDrawerItem drawerItem = mDrawer.mDrawerItems.get(position);
+
+                if (drawerItem instanceof Nameable) {
+                    ((Nameable) drawerItem).setName(name);
+                }
+
+                mDrawer.mDrawerItems.set(position, drawerItem);
+                mDrawer.mAdapter.notifyDataSetChanged();
+            }
+        }
+
+        /**
+         * @param badge
+         * @param position
+         */
+        public void updateBadge(String badge, int position) {
+            if (mDrawer.mDrawerItems != null && mDrawer.mDrawerItems.size() > position) {
+                IDrawerItem drawerItem = mDrawer.mDrawerItems.get(position);
+
+                if (drawerItem instanceof Badgeable) {
+                    ((Badgeable) drawerItem).setBadge(badge);
+                }
+
+                mDrawer.mDrawerItems.set(position, drawerItem);
+                mDrawer.mAdapter.notifyDataSetChanged();
+            }
+        }
+
+        /**
+         * @param icon
+         * @param position
+         */
+        public void updateIcon(Drawable icon, int position) {
+            if (mDrawer.mDrawerItems != null && mDrawer.mDrawerItems.size() > position) {
+                IDrawerItem drawerItem = mDrawer.mDrawerItems.get(position);
+
+                if (drawerItem instanceof Iconable) {
+                    ((Iconable) drawerItem).setIcon(icon);
+                }
+
+                mDrawer.mDrawerItems.set(position, drawerItem);
+                mDrawer.mAdapter.notifyDataSetChanged();
+            }
+        }
+
+        /**
+         * @param icon
+         * @param position
+         */
+        public void updateIcon(IIcon icon, int position) {
+            if (mDrawer.mDrawerItems != null && mDrawer.mDrawerItems.size() > position) {
+                IDrawerItem drawerItem = mDrawer.mDrawerItems.get(position);
+
+                if (drawerItem instanceof Iconable) {
+                    ((Iconable) drawerItem).setIIcon(icon);
+                }
+
                 mDrawer.mDrawerItems.set(position, drawerItem);
                 mDrawer.mAdapter.notifyDataSetChanged();
             }
