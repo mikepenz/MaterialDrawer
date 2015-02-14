@@ -48,6 +48,17 @@ public class DrawerActivity extends ActionBarActivity {
                         new SecondaryDrawerItem().withName(R.string.drawer_item_open_source).withIcon(FontAwesome.Icon.faw_github).withBadge("12+").withIdentifier(1),
                         new SecondaryDrawerItem().withName(R.string.drawer_item_contact).withIcon(FontAwesome.Icon.faw_bullhorn)
                 )
+                .withOnDrawerListener(new Drawer.OnDrawerListener() {
+                    @Override
+                    public void onDrawerOpened(View drawerView) {
+                        Toast.makeText(DrawerActivity.this, "onDrawerOpened", Toast.LENGTH_SHORT).show();
+                    }
+
+                    @Override
+                    public void onDrawerClosed(View drawerView) {
+                        Toast.makeText(DrawerActivity.this, "onDrawerClosed", Toast.LENGTH_SHORT).show();
+                    }
+                })
                 .withOnDrawerItemClickListener(new Drawer.OnDrawerItemClickListener() {
                     @Override
                     public void onItemClick(AdapterView<?> parent, View view, int position, long id, IDrawerItem drawerItem) {
