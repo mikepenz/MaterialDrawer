@@ -1,4 +1,4 @@
-package com.mikepenz.materialdrawer.model;
+package com.mikepenz.materialdrawer.model.interfaces;
 
 import android.app.Activity;
 import android.view.LayoutInflater;
