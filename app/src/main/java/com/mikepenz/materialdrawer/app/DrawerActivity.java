@@ -12,10 +12,12 @@ import android.widget.Toast;
 import com.mikepenz.iconics.typeface.FontAwesome;
 import com.mikepenz.materialdrawer.Drawer;
 import com.mikepenz.materialdrawer.model.DividerDrawerItem;
-import com.mikepenz.materialdrawer.model.IDrawerItem;
 import com.mikepenz.materialdrawer.model.PrimaryDrawerItem;
 import com.mikepenz.materialdrawer.model.SecondaryDrawerItem;
 import com.mikepenz.materialdrawer.model.SectionDrawerItem;
+import com.mikepenz.materialdrawer.model.interfaces.Badgeable;
+import com.mikepenz.materialdrawer.model.interfaces.IDrawerItem;
+import com.mikepenz.materialdrawer.model.interfaces.Nameable;
 
 public class DrawerActivity extends ActionBarActivity {
 
@@ -45,7 +47,7 @@ public class DrawerActivity extends ActionBarActivity {
                         new SectionDrawerItem().withName(R.string.drawer_item_section_header),
                         new SecondaryDrawerItem().withName(R.string.drawer_item_settings).withIcon(FontAwesome.Icon.faw_cog),
                         new SecondaryDrawerItem().withName(R.string.drawer_item_help).withIcon(FontAwesome.Icon.faw_question).setEnabled(false),
-                        new SecondaryDrawerItem().withName(R.string.drawer_item_open_source).withIcon(FontAwesome.Icon.faw_github).withBadge("12+").withIdentifier(1),
+                        new SecondaryDrawerItem().withName(R.string.drawer_item_open_source).withIcon(FontAwesome.Icon.faw_github).withBadge("12").withIdentifier(1),
                         new SecondaryDrawerItem().withName(R.string.drawer_item_contact).withIcon(FontAwesome.Icon.faw_bullhorn)
                 )
                 .withOnDrawerListener(new Drawer.OnDrawerListener() {
@@ -62,17 +64,17 @@ public class DrawerActivity extends ActionBarActivity {
                 .withOnDrawerItemClickListener(new Drawer.OnDrawerItemClickListener() {
                     @Override
                     public void onItemClick(AdapterView<?> parent, View view, int position, long id, IDrawerItem drawerItem) {
-                        if (drawerItem instanceof PrimaryDrawerItem) {
-                            PrimaryDrawerItem di = (PrimaryDrawerItem) drawerItem;
+                        if (drawerItem instanceof Nameable) {
+                            Toast.makeText(DrawerActivity.this, DrawerActivity.this.getString(((Nameable) drawerItem).getNameRes()), Toast.LENGTH_SHORT).show();
+                        }
 
-                            Toast.makeText(DrawerActivity.this, DrawerActivity.this.getString(di.getNameRes()), Toast.LENGTH_SHORT).show();
-
-                            if (di.getBadge() != null) {
+                        if (drawerItem instanceof Badgeable) {
+                            Badgeable badgeable = (Badgeable) drawerItem;
+                            if (badgeable.getBadge() != null) {
                                 //note don't do this if your badge contains a "+"
-                                int badge = Integer.valueOf(di.getBadge());
+                                int badge = Integer.valueOf(badgeable.getBadge());
                                 if (badge > 0) {
-                                    di.withBadge(String.valueOf(badge - 1));
-                                    result.updateItem(di);
+                                    result.updateBadge(String.valueOf(badge - 1), position);
                                 }
                             }
                         }
