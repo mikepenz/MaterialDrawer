@@ -9,7 +9,7 @@ android {
         targetSdkVersion 21
         versionCode 94
         versionName '0.9.4'
-    }t
+    }
 
     buildTypes {
         release {
