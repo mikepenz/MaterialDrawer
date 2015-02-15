@@ -1,7 +1,6 @@
 package com.mikepenz.materialdrawer.app;
 
 import android.os.Bundle;
-import android.support.v4.app.FragmentManager;
 import android.support.v7.app.ActionBarActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.Gravity;
@@ -19,7 +18,7 @@ import com.mikepenz.materialdrawer.model.interfaces.Badgeable;
 import com.mikepenz.materialdrawer.model.interfaces.IDrawerItem;
 import com.mikepenz.materialdrawer.model.interfaces.Nameable;
 
-public class DrawerActivity extends ActionBarActivity {
+public class SimpleDrawerActivity extends ActionBarActivity {
 
     private Drawer.Result result = null;
 
@@ -53,19 +52,19 @@ public class DrawerActivity extends ActionBarActivity {
                 .withOnDrawerListener(new Drawer.OnDrawerListener() {
                     @Override
                     public void onDrawerOpened(View drawerView) {
-                        Toast.makeText(DrawerActivity.this, "onDrawerOpened", Toast.LENGTH_SHORT).show();
+                        Toast.makeText(SimpleDrawerActivity.this, "onDrawerOpened", Toast.LENGTH_SHORT).show();
                     }
 
                     @Override
                     public void onDrawerClosed(View drawerView) {
-                        Toast.makeText(DrawerActivity.this, "onDrawerClosed", Toast.LENGTH_SHORT).show();
+                        Toast.makeText(SimpleDrawerActivity.this, "onDrawerClosed", Toast.LENGTH_SHORT).show();
                     }
                 })
                 .withOnDrawerItemClickListener(new Drawer.OnDrawerItemClickListener() {
                     @Override
                     public void onItemClick(AdapterView<?> parent, View view, int position, long id, IDrawerItem drawerItem) {
                         if (drawerItem instanceof Nameable) {
-                            Toast.makeText(DrawerActivity.this, DrawerActivity.this.getString(((Nameable) drawerItem).getNameRes()), Toast.LENGTH_SHORT).show();
+                            Toast.makeText(SimpleDrawerActivity.this, SimpleDrawerActivity.this.getString(((Nameable) drawerItem).getNameRes()), Toast.LENGTH_SHORT).show();
                         }
 
                         if (drawerItem instanceof Badgeable) {
@@ -84,7 +83,7 @@ public class DrawerActivity extends ActionBarActivity {
                     @Override
                     public boolean onItemLongClick(AdapterView<?> parent, View view, int position, long id, IDrawerItem drawerItem) {
                         if (drawerItem instanceof SecondaryDrawerItem) {
-                            Toast.makeText(DrawerActivity.this, DrawerActivity.this.getString(((SecondaryDrawerItem) drawerItem).getNameRes()), Toast.LENGTH_SHORT).show();
+                            Toast.makeText(SimpleDrawerActivity.this, SimpleDrawerActivity.this.getString(((SecondaryDrawerItem) drawerItem).getNameRes()), Toast.LENGTH_SHORT).show();
                         }
                         return false;
                     }
@@ -108,10 +107,5 @@ public class DrawerActivity extends ActionBarActivity {
                 )
                 .withDrawerGravity(Gravity.END)
                 .append(result);
-
-        SampleFragment fragment = new SampleFragment("Hugo");
-
-        FragmentManager fragmentManager = getSupportFragmentManager();
-        fragmentManager.beginTransaction().replace(R.id.frame_container, fragment).commit();
     }
 }
