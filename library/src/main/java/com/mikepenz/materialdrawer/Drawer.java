@@ -6,6 +6,7 @@ import android.os.Build;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.widget.Toolbar;
+import android.util.TypedValue;
 import android.view.Gravity;
 import android.view.View;
 import android.view.ViewGroup;
@@ -48,6 +49,18 @@ public class Drawer {
     public Drawer withActivity(Activity activity) {
         this.mRootView = (ViewGroup) activity.findViewById(android.R.id.content);
         this.mActivity = activity;
+        return this;
+    }
+
+    // set actionbar Compatibility mode
+    protected boolean mActionBarCompatibility = false;
+
+    /**
+     * @param actionBarCompatibility
+     * @return
+     */
+    public Drawer withActionBarCompatibility(boolean actionBarCompatibility) {
+        this.mActionBarCompatibility = actionBarCompatibility;
         return this;
     }
 
@@ -674,6 +687,15 @@ public class Drawer {
             params.leftMargin = mActivity.getResources().getDimensionPixelSize(R.dimen.material_drawer_margin);
             if (Build.VERSION.SDK_INT >= 17) {
                 params.setMarginEnd(mActivity.getResources().getDimensionPixelSize(R.dimen.material_drawer_margin));
+            }
+        }
+
+        if (mActionBarCompatibility) {
+            TypedValue tv = new TypedValue();
+            if (mActivity.getTheme().resolveAttribute(android.R.attr.actionBarSize, tv, true)) {
+
+                int mActionBarHeight = TypedValue.complexToDimensionPixelSize(tv.data, mActivity.getResources().getDisplayMetrics());
+                params.topMargin = mActionBarHeight;
             }
         }
 
