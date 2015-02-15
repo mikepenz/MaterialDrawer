@@ -1,9 +1,7 @@
 package com.mikepenz.materialdrawer.app;
 
-import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.ActionBarActivity;
-import android.support.v7.widget.Toolbar;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.Toast;
@@ -16,7 +14,7 @@ import com.mikepenz.materialdrawer.model.SectionDrawerItem;
 import com.mikepenz.materialdrawer.model.interfaces.IDrawerItem;
 import com.mikepenz.materialdrawer.model.interfaces.Nameable;
 
-public class SimpleDrawerActivity extends ActionBarActivity {
+public class ActionBarDrawerActivity extends ActionBarActivity {
 
     private Drawer.Result result = null;
 
@@ -28,17 +26,13 @@ public class SimpleDrawerActivity extends ActionBarActivity {
         setContentView(R.layout.activity_sample);
 
         // Handle Toolbar
-        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
-        setSupportActionBar(toolbar);
-        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
-
         result = new Drawer()
                 .withActivity(this)
-                .withToolbar(toolbar)
+                .withActionBarCompatibility(true)
                 .withActionBarDrawerToggle(true)
                 .addDrawerItems(
-                        new PrimaryDrawerItem().withName(R.string.drawer_item_action_bar).withIcon(FontAwesome.Icon.faw_home).withIdentifier(1),
-                        new PrimaryDrawerItem().withName(R.string.drawer_item_multi_drawer).withIcon(FontAwesome.Icon.faw_gamepad).withIdentifier(2),
+                        new PrimaryDrawerItem().withName(R.string.drawer_item_home).withIcon(FontAwesome.Icon.faw_home),
+                        new PrimaryDrawerItem().withName(R.string.drawer_item_free_play).withIcon(FontAwesome.Icon.faw_gamepad),
                         new PrimaryDrawerItem().withName(R.string.drawer_item_custom).withIcon(FontAwesome.Icon.faw_eye),
                         new SectionDrawerItem().withName(R.string.drawer_item_section_header),
                         new SecondaryDrawerItem().withName(R.string.drawer_item_settings).withIcon(FontAwesome.Icon.faw_cog),
@@ -50,19 +44,9 @@ public class SimpleDrawerActivity extends ActionBarActivity {
                     @Override
                     public void onItemClick(AdapterView<?> parent, View view, int position, long id, IDrawerItem drawerItem) {
                         if (drawerItem instanceof Nameable) {
-                            Toast.makeText(SimpleDrawerActivity.this, SimpleDrawerActivity.this.getString(((Nameable) drawerItem).getNameRes()), Toast.LENGTH_SHORT).show();
-                        }
-
-                        if (drawerItem.getIdentifier() == 1) {
-                            Intent intent = new Intent(SimpleDrawerActivity.this, ActionBarDrawerActivity.class);
-                            SimpleDrawerActivity.this.startActivity(intent);
-                        } else if (drawerItem.getIdentifier() == 2) {
-                            Intent intent = new Intent(SimpleDrawerActivity.this, MultiDrawerActivity.class);
-                            SimpleDrawerActivity.this.startActivity(intent);
+                            Toast.makeText(ActionBarDrawerActivity.this, ActionBarDrawerActivity.this.getString(((Nameable) drawerItem).getNameRes()), Toast.LENGTH_SHORT).show();
                         }
                     }
-                })
-                .withSelectedItem(2)
-                .build();
+                }).build();
     }
 }
