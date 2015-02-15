@@ -5,6 +5,8 @@
     <string name="action_settings">Settings</string>
 
     <!-- Drawer Items -->
+    <string name="drawer_item_action_bar">ActionBar Sample</string>
+    <string name="drawer_item_multi_drawer">MultiDrawer Sample</string>
     <string name="drawer_item_home">Home</string>
     <string name="drawer_item_free_play">Free Play</string>
     <string name="drawer_item_custom">Custom</string>
