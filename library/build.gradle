@@ -8,7 +8,7 @@ android {
         minSdkVersion 14
         targetSdkVersion 21
         versionCode 95
-        versionName '0.9.5-SNAPSHOT'
+        versionName '0.9.5'
     }
 
     buildTypes {
