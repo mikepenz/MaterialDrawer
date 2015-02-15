@@ -49,7 +49,7 @@ new Drawer()
 	new PrimaryDrawerItem().withName(R.string.drawer_item_home),
 	new PrimaryDrawerItem().withName(R.string.drawer_item_free_play),
 	new PrimaryDrawerItem().withName(R.string.drawer_item_custom),
-	new SpacerDrawerItem(),
+	new DividerDrawerItem(),
 	new SecondaryDrawerItem().withName(R.string.drawer_item_settings).withIcon(FontAwesome.Icon.faw_cog),
 	new SecondaryDrawerItem().withName(R.string.drawer_item_help).withIcon(FontAwesome.Icon.faw_question).setEnabled(false),
 	new SecondaryDrawerItem().withName(R.string.drawer_item_open_source).withIcon(FontAwesome.Icon.faw_github),
