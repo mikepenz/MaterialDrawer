@@ -732,6 +732,13 @@ public class Drawer {
             }
         }
 
+        public boolean isDrawerOpen() {
+            if (mDrawer.mDrawerLayout != null && mDrawer.mSliderLayout != null) {
+                return mDrawer.mDrawerLayout.isDrawerOpen(mDrawer.mSliderLayout);
+            }
+            return false;
+        }
+
         public LinearLayout getSlider() {
             return mDrawer.mSliderLayout;
         }
