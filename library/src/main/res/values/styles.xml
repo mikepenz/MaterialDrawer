@@ -49,7 +49,17 @@
     <style name="AppTheme" parent="BaseTheme">
     </style>
 
+    <style name="AppTheme.ActionBar" parent="AppTheme">
+        <item name="windowActionBar">true</item>
+        <item name="android:windowActionBar">true</item>
+    </style>
+
     <style name="AppTheme.Light" parent="BaseTheme.Light">
+    </style>
+
+    <style name="AppTheme.Light.ActionBar" parent="AppTheme.Light">
+        <item name="windowActionBar">true</item>
+        <item name="android:windowActionBar">true</item>
     </style>
 
     <style name="DrawerArrowStyle" parent="Widget.AppCompat.DrawerArrowToggle">
