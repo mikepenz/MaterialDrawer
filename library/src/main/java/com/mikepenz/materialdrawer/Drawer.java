@@ -589,13 +589,13 @@ public class Drawer {
             }
         }
 
-        // set the header (do this before the setAdapter because some devices will crash else
+        // set the footer (do this before the setAdapter because some devices will crash else
         if (mFooterView != null) {
             if (mListView == null) {
                 throw new RuntimeException("can't use a footerView without a listView");
             }
 
-            if (mHeaderDivider) {
+            if (mFooterDivider) {
                 LinearLayout footerContainer = (LinearLayout) mActivity.getLayoutInflater().inflate(R.layout.drawer_item_footer, mListView, false);
                 footerContainer.addView(mFooterView, 1);
                 mListView.addFooterView(footerContainer);
