@@ -827,8 +827,8 @@ public class Drawer {
          * @param position
          */
         public void updateItem(IDrawerItem drawerItem, int position) {
-            if (mDrawer.mDrawerItems != null && mDrawer.mDrawerItems.size() > (position - mDrawer.mHeaderOffset) && (position - mDrawer.mHeaderOffset) > -1) {
-                mDrawer.mDrawerItems.set(position - mDrawer.mHeaderOffset, drawerItem);
+            if (mDrawer.mDrawerItems != null && mDrawer.mDrawerItems.size() > position && position > -1) {
+                mDrawer.mDrawerItems.set(position, drawerItem);
                 mDrawer.mAdapter.notifyDataSetChanged();
             }
         }
@@ -838,14 +838,14 @@ public class Drawer {
          * @param position
          */
         public void updateName(int nameRes, int position) {
-            if (mDrawer.mDrawerItems != null && mDrawer.mDrawerItems.size() > (position - mDrawer.mHeaderOffset) && (position - mDrawer.mHeaderOffset) > -1) {
-                IDrawerItem drawerItem = mDrawer.mDrawerItems.get(position - mDrawer.mHeaderOffset);
+            if (mDrawer.mDrawerItems != null && mDrawer.mDrawerItems.size() > position && position > -1) {
+                IDrawerItem drawerItem = mDrawer.mDrawerItems.get(position);
 
                 if (drawerItem instanceof Nameable) {
                     ((Nameable) drawerItem).setNameRes(nameRes);
                 }
 
-                mDrawer.mDrawerItems.set(position - mDrawer.mHeaderOffset, drawerItem);
+                mDrawer.mDrawerItems.set(position, drawerItem);
                 mDrawer.mAdapter.notifyDataSetChanged();
             }
         }
@@ -855,14 +855,14 @@ public class Drawer {
          * @param position
          */
         public void updateName(String name, int position) {
-            if (mDrawer.mDrawerItems != null && mDrawer.mDrawerItems.size() > (position - mDrawer.mHeaderOffset) && (position - mDrawer.mHeaderOffset) > -1) {
-                IDrawerItem drawerItem = mDrawer.mDrawerItems.get(position - mDrawer.mHeaderOffset);
+            if (mDrawer.mDrawerItems != null && mDrawer.mDrawerItems.size() > position && position > -1) {
+                IDrawerItem drawerItem = mDrawer.mDrawerItems.get(position);
 
                 if (drawerItem instanceof Nameable) {
                     ((Nameable) drawerItem).setName(name);
                 }
 
-                mDrawer.mDrawerItems.set(position - mDrawer.mHeaderOffset, drawerItem);
+                mDrawer.mDrawerItems.set(position, drawerItem);
                 mDrawer.mAdapter.notifyDataSetChanged();
             }
         }
@@ -872,14 +872,14 @@ public class Drawer {
          * @param position
          */
         public void updateBadge(String badge, int position) {
-            if (mDrawer.mDrawerItems != null && mDrawer.mDrawerItems.size() > (position - mDrawer.mHeaderOffset) && (position - mDrawer.mHeaderOffset) > -1) {
-                IDrawerItem drawerItem = mDrawer.mDrawerItems.get(position - mDrawer.mHeaderOffset);
+            if (mDrawer.mDrawerItems != null && mDrawer.mDrawerItems.size() > position && position > -1) {
+                IDrawerItem drawerItem = mDrawer.mDrawerItems.get(position);
 
                 if (drawerItem instanceof Badgeable) {
                     ((Badgeable) drawerItem).setBadge(badge);
                 }
 
-                mDrawer.mDrawerItems.set(position - mDrawer.mHeaderOffset, drawerItem);
+                mDrawer.mDrawerItems.set(position, drawerItem);
                 mDrawer.mAdapter.notifyDataSetChanged();
             }
         }
@@ -889,14 +889,14 @@ public class Drawer {
          * @param position
          */
         public void updateIcon(Drawable icon, int position) {
-            if (mDrawer.mDrawerItems != null && mDrawer.mDrawerItems.size() > (position - mDrawer.mHeaderOffset) && (position - mDrawer.mHeaderOffset) > -1) {
-                IDrawerItem drawerItem = mDrawer.mDrawerItems.get(position - mDrawer.mHeaderOffset);
+            if (mDrawer.mDrawerItems != null && mDrawer.mDrawerItems.size() > position && position > -1) {
+                IDrawerItem drawerItem = mDrawer.mDrawerItems.get(position);
 
                 if (drawerItem instanceof Iconable) {
                     ((Iconable) drawerItem).setIcon(icon);
                 }
 
-                mDrawer.mDrawerItems.set(position - mDrawer.mHeaderOffset, drawerItem);
+                mDrawer.mDrawerItems.set(position, drawerItem);
                 mDrawer.mAdapter.notifyDataSetChanged();
             }
         }
@@ -906,14 +906,14 @@ public class Drawer {
          * @param position
          */
         public void updateIcon(IIcon icon, int position) {
-            if (mDrawer.mDrawerItems != null && mDrawer.mDrawerItems.size() > (position - mDrawer.mHeaderOffset) && (position - mDrawer.mHeaderOffset) > -1) {
-                IDrawerItem drawerItem = mDrawer.mDrawerItems.get(position - mDrawer.mHeaderOffset);
+            if (mDrawer.mDrawerItems != null && mDrawer.mDrawerItems.size() > position && position > -1) {
+                IDrawerItem drawerItem = mDrawer.mDrawerItems.get(position);
 
                 if (drawerItem instanceof Iconable) {
                     ((Iconable) drawerItem).setIIcon(icon);
                 }
 
-                mDrawer.mDrawerItems.set(position - mDrawer.mHeaderOffset, drawerItem);
+                mDrawer.mDrawerItems.set(position, drawerItem);
                 mDrawer.mAdapter.notifyDataSetChanged();
             }
         }
