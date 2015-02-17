@@ -18,9 +18,9 @@
 -->
 
 <resources>
-    <style name="BaseTheme" parent="Theme.AppCompat.NoActionBar">
+    <style name="MaterialDrawerBaseTheme.NoActionBar" parent="Theme.AppCompat.NoActionBar">
         <!-- Here we setting appcompat’s actionBarStyle -->
-        <item name="drawerArrowStyle">@style/DrawerArrowStyle</item>
+        <item name="drawerArrowStyle">@style/MaterialDrawer.DrawerArrowStyle</item>
 
         <!-- ...and here we setting appcompat’s color theming attrs -->
         <item name="colorPrimary">@color/material_drawer_primary</item>
@@ -29,12 +29,12 @@
 
         <item name="android:windowBackground">@color/material_drawer_background</item>
 
-        <item name="android:alertDialogTheme">@style/BaseTheme.Dialog</item>
+        <item name="android:alertDialogTheme">@style/MaterialDrawerBaseTheme.Dialog</item>
     </style>
 
-    <style name="BaseTheme.Light" parent="Theme.AppCompat.Light.NoActionBar">
+    <style name="MaterialDrawerBaseTheme.Light.NoActionBar" parent="Theme.AppCompat.Light.NoActionBar">
         <!-- Here we setting appcompat’s actionBarStyle -->
-        <item name="drawerArrowStyle">@style/DrawerArrowStyle</item>
+        <item name="drawerArrowStyle">@style/MaterialDrawer.DrawerArrowStyle</item>
 
         <!-- ...and here we setting appcompat’s color theming attrs -->
         <item name="colorPrimary">@color/material_drawer_primary</item>
@@ -43,31 +43,31 @@
 
         <item name="android:windowBackground">@color/material_drawer_background</item>
 
-        <item name="android:alertDialogTheme">@style/BaseTheme.Dialog</item>
+        <item name="android:alertDialogTheme">@style/MaterialDrawerBaseTheme.Dialog</item>
     </style>
 
-    <style name="AppTheme" parent="BaseTheme">
+    <style name="MaterialDrawerTheme.NoActionBar" parent="MaterialDrawerBaseTheme.NoActionBar">
     </style>
 
-    <style name="AppTheme.ActionBar" parent="AppTheme">
+    <style name="MaterialDrawerTheme" parent="MaterialDrawerTheme.NoActionBar">
         <item name="windowActionBar">true</item>
         <item name="android:windowActionBar">true</item>
     </style>
 
-    <style name="AppTheme.Light" parent="BaseTheme.Light">
+    <style name="MaterialDrawerTheme.Light.NoActionBar" parent="MaterialDrawerBaseTheme.Light.NoActionBar">
     </style>
 
-    <style name="AppTheme.Light.ActionBar" parent="AppTheme.Light">
+    <style name="MaterialDrawerTheme.Light" parent="MaterialDrawerTheme.Light.NoActionBar">
         <item name="windowActionBar">true</item>
         <item name="android:windowActionBar">true</item>
     </style>
 
-    <style name="DrawerArrowStyle" parent="Widget.AppCompat.DrawerArrowToggle">
+    <style name="MaterialDrawer.DrawerArrowStyle" parent="Widget.AppCompat.DrawerArrowToggle">
         <item name="spinBars">false</item>
         <item name="color">@android:color/white</item>
     </style>
 
-    <style name="BaseTheme.Dialog" parent="Theme.AppCompat.Dialog">
+    <style name="MaterialDrawerBaseTheme.Dialog" parent="Theme.AppCompat.Dialog">
         <item name="colorPrimary">@color/material_drawer_primary</item>
         <item name="colorPrimaryDark">@color/material_drawer_primary_dark</item>
         <item name="colorAccent">@color/material_drawer_accent</item>
