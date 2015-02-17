@@ -4,11 +4,21 @@
         <item name="android:windowDrawsSystemBarBackgrounds">true</item>
         <item name="android:statusBarColor">@android:color/transparent</item>
         <item name="android:windowTranslucentStatus">true</item>
+
+        <!-- ...and here we setting appcompat’s color theming attrs for lollipop devices -->
+        <item name="android:colorPrimary">@color/material_drawer_primary</item>
+        <item name="android:colorPrimaryDark">@color/material_drawer_primary_dark</item>
+        <item name="android:colorAccent">@color/material_drawer_accent</item>
     </style>
 
     <style name="MaterialDrawerTheme.Light.NoActionBar" parent="MaterialDrawerBaseTheme.Light.NoActionBar">
         <item name="android:windowDrawsSystemBarBackgrounds">true</item>
         <item name="android:statusBarColor">@android:color/transparent</item>
         <item name="android:windowTranslucentStatus">true</item>
+
+        <!-- ...and here we setting appcompat’s color theming attrs for lollipop devices -->
+        <item name="android:colorPrimary">@color/material_drawer_primary</item>
+        <item name="android:colorPrimaryDark">@color/material_drawer_primary_dark</item>
+        <item name="android:colorAccent">@color/material_drawer_accent</item>
     </style>
 </resources>

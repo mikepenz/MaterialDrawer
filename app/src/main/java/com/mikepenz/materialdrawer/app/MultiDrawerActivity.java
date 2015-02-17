@@ -91,8 +91,8 @@ public class MultiDrawerActivity extends ActionBarActivity {
 
         new Drawer()
                 .withActivity(this)
-                .withFooter(R.layout.header)
-                .withStickyFooter(R.layout.header)
+                .withFooter(R.layout.footer)
+                .withStickyFooter(R.layout.footer)
                 .addDrawerItems(
                         new PrimaryDrawerItem().withName(R.string.drawer_item_custom).withIcon(FontAwesome.Icon.faw_eye),
                         new PrimaryDrawerItem().withName(R.string.drawer_item_home).withIcon(FontAwesome.Icon.faw_home),
