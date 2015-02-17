@@ -71,6 +71,7 @@ You can use the provided theme, this will allow the drawer to display under the 
 ```
 
 ###styles.xml (OPTIONAL)
+You have to use the provided theme for this to get it working.
 Overwrite following colors to create a quick custom style for your application
 ```xml
     <!-- Material SAMPLE DARK colors -->
