@@ -32,6 +32,7 @@ public class SimpleDrawerActivity extends ActionBarActivity {
         setSupportActionBar(toolbar);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
+
         result = new Drawer()
                 .withActivity(this)
                 .withToolbar(toolbar)
@@ -63,6 +64,13 @@ public class SimpleDrawerActivity extends ActionBarActivity {
                     }
                 })
                 .withSelectedItem(2)
+                .withSavedInstance(savedInstanceState)
                 .build();
+    }
+
+    @Override
+    protected void onSaveInstanceState(Bundle outState) {
+        outState = result.saveInstanceState(outState);
+         super.onSaveInstanceState(outState);
     }
 }
