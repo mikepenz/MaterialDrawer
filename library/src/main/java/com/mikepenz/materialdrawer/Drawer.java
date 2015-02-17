@@ -3,6 +3,7 @@ package com.mikepenz.materialdrawer;
 import android.app.Activity;
 import android.graphics.drawable.Drawable;
 import android.os.Build;
+import android.os.Bundle;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.widget.Toolbar;
@@ -32,9 +33,12 @@ import java.util.Collections;
  * Created by mikepenz on 03.02.15.
  */
 public class Drawer {
+    private static final String BUNDLE_SELECTION = "bundle_selection";
 
+    // some internal vars
     // variable to check if a builder is only used once
-    protected boolean used = false;
+    protected boolean mUsed = false;
+    protected int mCurrentSelection = -1;
 
     // the activity to use
     protected Activity mActivity;
@@ -401,13 +405,25 @@ public class Drawer {
         return this;
     }
 
+    // savedInstance to restore state
+    protected Bundle mSavedInstance;
+
+    /**
+     * @param savedInstance
+     * @return
+     */
+    public Drawer withSavedInstance(Bundle savedInstance) {
+        this.mSavedInstance = savedInstance;
+        return this;
+    }
+
     /**
      * Build everything and get a Result
      *
      * @return
      */
     public Result build() {
-        if (used) {
+        if (mUsed) {
             throw new RuntimeException("you must not reuse a Drawer builder");
         }
         if (mActivity == null) {
@@ -415,7 +431,7 @@ public class Drawer {
         }
 
         //set that this builder was used. now you have to create a new one
-        used = true;
+        mUsed = true;
 
         // if the user has not set a drawerLayout use the default one :D
         if (mDrawerLayout == null) {
@@ -513,7 +529,7 @@ public class Drawer {
 
 
     public Result append(Result result) {
-        if (used) {
+        if (mUsed) {
             throw new RuntimeException("you must not reuse a Drawer builder");
         }
         if (mDrawerGravity == null) {
@@ -521,7 +537,7 @@ public class Drawer {
         }
 
         //set that this builder was used. now you have to create a new one
-        used = true;
+        mUsed = true;
 
         //get the drawer layout from the previous drawer
         mDrawerLayout = result.getDrawerLayout();
@@ -613,6 +629,7 @@ public class Drawer {
             if (mListView != null && (mSelectedItem + mHeaderOffset) > -1) {
                 mListView.setSelection(mSelectedItem + mHeaderOffset);
                 mListView.setItemChecked(mSelectedItem + mHeaderOffset, true);
+                mCurrentSelection = mSelectedItem + mHeaderOffset;
             }
         }
 
@@ -630,6 +647,7 @@ public class Drawer {
                 if (mCloseOnClick) {
                     mDrawerLayout.closeDrawers();
                 }
+                mCurrentSelection = position;
             }
         });
 
@@ -657,6 +675,7 @@ public class Drawer {
                     } else {
                         mOnDrawerItemSelectedListener.onItemSelected(parent, view, position, id, null);
                     }
+                    mCurrentSelection = position;
                 }
 
                 @Override
@@ -668,6 +687,19 @@ public class Drawer {
 
         if (mListView != null) {
             mListView.smoothScrollToPosition(0);
+        }
+
+
+        // try to restore all saved values again
+        if (mSavedInstance != null) {
+            int selection = mSavedInstance.getInt(BUNDLE_SELECTION, -1);
+            if (selection != -1) {
+                //predefine selection (should be the first element
+                if (mListView != null && (selection) > -1) {
+                    mListView.setSelection(selection);
+                    mListView.setItemChecked(selection, true);
+                }
+            }
         }
     }
 
@@ -796,6 +828,8 @@ public class Drawer {
                         mDrawer.mOnDrawerItemSelectedListener.onItemSelected(null, null, position, position, null);
                     }
                 }
+
+                mDrawer.mCurrentSelection = position + mDrawer.mHeaderOffset;
             }
         }
 
@@ -916,6 +950,15 @@ public class Drawer {
                 mDrawer.mDrawerItems.set(position, drawerItem);
                 mDrawer.mAdapter.notifyDataSetChanged();
             }
+        }
+
+        public Bundle saveInstanceState(Bundle savedInstanceState) {
+            if (savedInstanceState != null) {
+                if (getListView() != null) {
+                    savedInstanceState.putInt(BUNDLE_SELECTION, mDrawer.mCurrentSelection);
+                }
+            }
+            return savedInstanceState;
         }
     }
 
