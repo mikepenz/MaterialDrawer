@@ -67,8 +67,7 @@ public class SimpleDrawerActivity extends ActionBarActivity {
 
                     }
                 })
-                .withFireOnInitialOnClick(false)
-                .withSelectedItem(2)
+                .withSelectedItem(4)
                 .withSavedInstance(savedInstanceState)
                 .build();
     }

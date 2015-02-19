@@ -87,7 +87,8 @@ public class MultiDrawerActivity extends ActionBarActivity {
                         }
                         return false;
                     }
-                }).build();
+                })
+                .build();
 
         new Drawer()
                 .withActivity(this)

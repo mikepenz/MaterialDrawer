@@ -291,7 +291,7 @@ public class Drawer {
     }
 
     // fire onClick after build
-    protected boolean mFireInitialOnClick = true;
+    protected boolean mFireInitialOnClick = false;
 
     /**
      * @param fireOnInitialOnClick
