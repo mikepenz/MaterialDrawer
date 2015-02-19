@@ -290,6 +290,18 @@ public class Drawer {
         return this;
     }
 
+    // fire onClick after build
+    protected boolean mFireInitialOnClick = true;
+
+    /**
+     * @param fireOnInitialOnClick
+     * @return
+     */
+    public Drawer withFireOnInitialOnClick(boolean fireOnInitialOnClick) {
+        this.mFireInitialOnClick = fireOnInitialOnClick;
+        return this;
+    }
+
     // item to select
     protected int mSelectedItem = 0;
 
@@ -713,7 +725,17 @@ public class Drawer {
                 if (mListView != null && (selection) > -1) {
                     mListView.setSelection(selection);
                     mListView.setItemChecked(selection, true);
+                    mCurrentSelection = selection;
                 }
+            }
+        }
+
+        // call initial onClick event to allow the dev to init the first view
+        if (mFireInitialOnClick) {
+            if (mDrawerItems != null && mDrawerItems.size() > mCurrentSelection && mCurrentSelection > -1) {
+                mOnDrawerItemClickListener.onItemClick(null, null, mCurrentSelection, mCurrentSelection, mDrawerItems.get(mCurrentSelection));
+            } else {
+                mOnDrawerItemClickListener.onItemClick(null, null, mCurrentSelection, mCurrentSelection, null);
             }
         }
     }
@@ -832,15 +854,26 @@ public class Drawer {
          * @param position the position to select
          */
         public void setSelection(int position) {
+            setSelection(position, true);
+        }
+
+        /**
+         * set the current selection in the drawer
+         * NOTE: This will trigger onDrawerItemSelected without a view!
+         *
+         * @param position
+         * @param fireOnClick
+         */
+        public void setSelection(int position, boolean fireOnClick) {
             if (mDrawer.mListView != null) {
                 mDrawer.mListView.setSelection(position + mDrawer.mHeaderOffset);
                 mDrawer.mListView.setItemChecked(position + mDrawer.mHeaderOffset, true);
 
-                if (mDrawer.mOnDrawerItemSelectedListener != null) {
+                if (fireOnClick && mDrawer.mOnDrawerItemClickListener != null) {
                     if (mDrawer.mDrawerItems != null && mDrawer.mDrawerItems.size() > (position - mDrawer.mHeaderOffset) && (position - mDrawer.mHeaderOffset) > -1) {
-                        mDrawer.mOnDrawerItemSelectedListener.onItemSelected(null, null, position, position, mDrawer.mDrawerItems.get(position - mDrawer.mHeaderOffset));
+                        mDrawer.mOnDrawerItemClickListener.onItemClick(null, null, position, position, mDrawer.mDrawerItems.get(position - mDrawer.mHeaderOffset));
                     } else {
-                        mDrawer.mOnDrawerItemSelectedListener.onItemSelected(null, null, position, position, null);
+                        mDrawer.mOnDrawerItemClickListener.onItemClick(null, null, position, position, null);
                     }
                 }
 
