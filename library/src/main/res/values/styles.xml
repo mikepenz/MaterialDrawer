@@ -18,7 +18,7 @@
 -->
 
 <resources>
-    <style name="MaterialDrawerBaseTheme.NoActionBar" parent="Theme.AppCompat.NoActionBar">
+    <style name="MaterialDrawerBaseTheme" parent="Theme.AppCompat.NoActionBar">
         <!-- Here we setting appcompat’s actionBarStyle -->
         <item name="drawerArrowStyle">@style/MaterialDrawer.DrawerArrowStyle</item>
 
@@ -32,7 +32,7 @@
         <item name="android:alertDialogTheme">@style/MaterialDrawerBaseTheme.Dialog</item>
     </style>
 
-    <style name="MaterialDrawerBaseTheme.Light.NoActionBar" parent="Theme.AppCompat.Light.NoActionBar">
+    <style name="MaterialDrawerBaseTheme.Light" parent="Theme.AppCompat.Light.NoActionBar">
         <!-- Here we setting appcompat’s actionBarStyle -->
         <item name="drawerArrowStyle">@style/MaterialDrawer.DrawerArrowStyle</item>
 
@@ -46,20 +46,33 @@
         <item name="android:alertDialogTheme">@style/MaterialDrawerBaseTheme.Dialog</item>
     </style>
 
-    <style name="MaterialDrawerTheme.NoActionBar" parent="MaterialDrawerBaseTheme.NoActionBar">
+    <style name="MaterialDrawerTheme" parent="MaterialDrawerBaseTheme">
     </style>
 
-    <style name="MaterialDrawerTheme" parent="MaterialDrawerTheme.NoActionBar">
+    <style name="MaterialDrawerTheme.TranslucentStatus" parent="MaterialDrawerTheme">
+    </style>
+
+    <style name="MaterialDrawerTheme.ActionBar" parent="MaterialDrawerTheme">
         <item name="windowActionBar">true</item>
         <item name="android:windowActionBar">true</item>
     </style>
 
-    <style name="MaterialDrawerTheme.Light.NoActionBar" parent="MaterialDrawerBaseTheme.Light.NoActionBar">
+    <style name="MaterialDrawerTheme.ActionBar.TranslucentStatus" parent="MaterialDrawerTheme.ActionBar">
     </style>
 
-    <style name="MaterialDrawerTheme.Light" parent="MaterialDrawerTheme.Light.NoActionBar">
+
+    <style name="MaterialDrawerTheme.Light" parent="MaterialDrawerBaseTheme.Light">
+    </style>
+
+    <style name="MaterialDrawerTheme.Light.TranslucentStatus" parent="MaterialDrawerTheme.Light">
+    </style>
+
+    <style name="MaterialDrawerTheme.Light.ActionBar" parent="MaterialDrawerTheme.Light">
         <item name="windowActionBar">true</item>
         <item name="android:windowActionBar">true</item>
+    </style>
+
+    <style name="MaterialDrawerTheme.Light.ActionBar.TranslucentStatus" parent="MaterialDrawerTheme.Light.ActionBar">
     </style>
 
     <style name="MaterialDrawer.DrawerArrowStyle" parent="Widget.AppCompat.DrawerArrowToggle">

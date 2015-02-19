@@ -1,24 +1,51 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <style name="MaterialDrawerTheme.NoActionBar" parent="MaterialDrawerBaseTheme.NoActionBar">
-        <item name="android:windowDrawsSystemBarBackgrounds">true</item>
-        <item name="android:statusBarColor">@android:color/transparent</item>
-        <item name="android:windowTranslucentStatus">true</item>
-
+    <style name="MaterialDrawerTheme" parent="MaterialDrawerBaseTheme">
         <!-- ...and here we setting appcompat’s color theming attrs for lollipop devices -->
         <item name="android:colorPrimary">@color/material_drawer_primary</item>
         <item name="android:colorPrimaryDark">@color/material_drawer_primary_dark</item>
         <item name="android:colorAccent">@color/material_drawer_accent</item>
     </style>
 
-    <style name="MaterialDrawerTheme.Light.NoActionBar" parent="MaterialDrawerBaseTheme.Light.NoActionBar">
+    <style name="MaterialDrawerTheme.TranslucentStatus" parent="MaterialDrawerTheme">
         <item name="android:windowDrawsSystemBarBackgrounds">true</item>
         <item name="android:statusBarColor">@android:color/transparent</item>
         <item name="android:windowTranslucentStatus">true</item>
+    </style>
 
+    <style name="MaterialDrawerTheme.ActionBar" parent="MaterialDrawerTheme">
+        <item name="windowActionBar">true</item>
+        <item name="android:windowActionBar">true</item>
+    </style>
+
+    <style name="MaterialDrawerTheme.ActionBar.TranslucentStatus" parent="MaterialDrawerTheme.ActionBar">
+        <item name="android:windowDrawsSystemBarBackgrounds">true</item>
+        <item name="android:statusBarColor">@android:color/transparent</item>
+        <item name="android:windowTranslucentStatus">true</item>
+    </style>
+
+
+    <style name="MaterialDrawerTheme.Light" parent="MaterialDrawerBaseTheme.Light">
         <!-- ...and here we setting appcompat’s color theming attrs for lollipop devices -->
         <item name="android:colorPrimary">@color/material_drawer_primary</item>
         <item name="android:colorPrimaryDark">@color/material_drawer_primary_dark</item>
         <item name="android:colorAccent">@color/material_drawer_accent</item>
+    </style>
+
+    <style name="MaterialDrawerTheme.Light.TranslucentStatus" parent="MaterialDrawerTheme.Light">
+        <item name="android:windowDrawsSystemBarBackgrounds">true</item>
+        <item name="android:statusBarColor">@android:color/transparent</item>
+        <item name="android:windowTranslucentStatus">true</item>
+    </style>
+
+    <style name="MaterialDrawerTheme.Light.ActionBar" parent="MaterialDrawerTheme.Light">
+        <item name="windowActionBar">true</item>
+        <item name="android:windowActionBar">true</item>
+    </style>
+
+    <style name="MaterialDrawerTheme.Light.ActionBar.TranslucentStatus" parent="MaterialDrawerTheme.Light.ActionBar">
+        <item name="android:windowDrawsSystemBarBackgrounds">true</item>
+        <item name="android:statusBarColor">@android:color/transparent</item>
+        <item name="android:windowTranslucentStatus">true</item>
     </style>
 </resources>
