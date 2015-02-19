@@ -29,7 +29,7 @@ You can try it out here [Google Play](https://play.google.com/store/apps/details
 The MaterialDrawer Library is pushed to [Maven Central](http://search.maven.org/#search|ga|1|g%3A%22com.mikepenz.materialdrawer%22), so you just need to add the following dependency to your `build.gradle`.
 
 ```javascript
-compile('com.mikepenz.materialdrawer:library:0.9.6@aar') {
+compile('com.mikepenz.materialdrawer:library:0.9.7@aar') {
 	transitive = true
 }
 ```
