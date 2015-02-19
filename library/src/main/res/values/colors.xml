@@ -5,6 +5,7 @@
     <color name="material_drawer_primary_dark">#1976D2</color>
     <color name="material_drawer_primary_light">#BBDEFB</color>
     <color name="material_drawer_accent">#FF4081</color>
+    <color name="material_drawer_window_background">#F9F9F9</color>
     <color name="material_drawer_background">#F9F9F9</color>
     <!-- Material DEFAULT text / items colors -->
     <color name="material_drawer_icons">#FFF</color>
@@ -23,6 +24,7 @@
     <color name="material_drawer_primary_dark">#7B1FA2</color>
     <color name="material_drawer_primary_light">#E1BEE7</color>
     <color name="material_drawer_accent">#00BCD4</color>
+    <color name="material_drawer_window_background">#303030</color>
     <color name="material_drawer_background">#303030</color>
     - Material SAMPLE DARK text / items colors -
     <color name="material_drawer_icons">#000</color>
