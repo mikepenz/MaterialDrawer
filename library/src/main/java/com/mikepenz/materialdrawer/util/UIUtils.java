@@ -35,9 +35,7 @@ public class UIUtils {
     }
 
     public static StateListDrawable getDrawerItemBackground(Context ctx) {
-        ColorDrawable clrActive = new ColorDrawable();
-        clrActive.setColor(ctx.getResources().getColor(R.color.material_drawer_selected));
-
+        ColorDrawable clrActive = new ColorDrawable(ctx.getResources().getColor(R.color.material_drawer_selected));
         StateListDrawable states = new StateListDrawable();
         states.addState(new int[]{android.R.attr.state_activated}, clrActive);
 
