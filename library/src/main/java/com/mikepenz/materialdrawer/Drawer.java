@@ -68,6 +68,18 @@ public class Drawer {
         return this;
     }
 
+    // set non translucent statusbar mode
+    protected boolean mTranslucentStatusBar = true;
+
+    /**
+     * @param translucentStatusBar
+     * @return
+     */
+    public Drawer withTranslucentStatusBar(boolean translucentStatusBar) {
+        this.mTranslucentStatusBar = translucentStatusBar;
+        return this;
+    }
+
     // the toolbar of the activity
     protected Toolbar mToolbar;
 
@@ -568,7 +580,10 @@ public class Drawer {
             mListView.setChoiceMode(AbsListView.CHOICE_MODE_SINGLE);
             mListView.setDivider(null);
             mListView.setClipToPadding(false);
-            mListView.setPadding(0, mActivity.getResources().getDimensionPixelSize(R.dimen.tool_bar_top_padding), 0, 0);
+
+            if (mTranslucentStatusBar) {
+                mListView.setPadding(0, mActivity.getResources().getDimensionPixelSize(R.dimen.tool_bar_top_padding), 0, 0);
+            }
         }
 
         LinearLayout.LayoutParams params = new LinearLayout.LayoutParams(
