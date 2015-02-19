@@ -1,6 +1,5 @@
 package com.mikepenz.materialdrawer.app;
 
-import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.ActionBarActivity;
 import android.support.v7.widget.Toolbar;
@@ -25,7 +24,7 @@ public class SimpleNonTranslucentDrawerActivity extends ActionBarActivity {
         //supportRequestWindowFeature(Window.FEATURE_INDETERMINATE_PROGRESS);
 
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_sample);
+        setContentView(R.layout.activity_sample_nontranslucent);
 
         // Handle Toolbar
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
@@ -37,6 +36,7 @@ public class SimpleNonTranslucentDrawerActivity extends ActionBarActivity {
                 .withActivity(this)
                 .withToolbar(toolbar)
                 .withActionBarDrawerToggle(true)
+                .withTranslucentStatusBar(false)
                 .addDrawerItems(
                         new PrimaryDrawerItem().withName(R.string.drawer_item_action_bar).withIcon(FontAwesome.Icon.faw_home).withIdentifier(1),
                         new PrimaryDrawerItem().withName(R.string.drawer_item_multi_drawer).withIcon(FontAwesome.Icon.faw_gamepad).withIdentifier(2),
@@ -53,14 +53,6 @@ public class SimpleNonTranslucentDrawerActivity extends ActionBarActivity {
                         if (drawerItem instanceof Nameable) {
                             Toast.makeText(SimpleNonTranslucentDrawerActivity.this, SimpleNonTranslucentDrawerActivity.this.getString(((Nameable) drawerItem).getNameRes()), Toast.LENGTH_SHORT).show();
                         }
-
-                        if (drawerItem.getIdentifier() == 1) {
-                            Intent intent = new Intent(SimpleNonTranslucentDrawerActivity.this, ActionBarDrawerActivity.class);
-                            SimpleNonTranslucentDrawerActivity.this.startActivity(intent);
-                        } else if (drawerItem.getIdentifier() == 2) {
-                            Intent intent = new Intent(SimpleNonTranslucentDrawerActivity.this, MultiDrawerActivity.class);
-                            SimpleNonTranslucentDrawerActivity.this.startActivity(intent);
-                        }
                     }
                 })
                 .withSelectedItem(2)
@@ -71,6 +63,6 @@ public class SimpleNonTranslucentDrawerActivity extends ActionBarActivity {
     @Override
     protected void onSaveInstanceState(Bundle outState) {
         outState = result.saveInstanceState(outState);
-         super.onSaveInstanceState(outState);
+        super.onSaveInstanceState(outState);
     }
 }

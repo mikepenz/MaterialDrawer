@@ -40,7 +40,7 @@ public class SimpleDrawerActivity extends ActionBarActivity {
                 .addDrawerItems(
                         new PrimaryDrawerItem().withName(R.string.drawer_item_action_bar).withIcon(FontAwesome.Icon.faw_home).withIdentifier(1),
                         new PrimaryDrawerItem().withName(R.string.drawer_item_multi_drawer).withIcon(FontAwesome.Icon.faw_gamepad).withIdentifier(2),
-                        new PrimaryDrawerItem().withName(R.string.drawer_item_custom).withIcon(FontAwesome.Icon.faw_eye),
+                        new PrimaryDrawerItem().withName(R.string.drawer_item_non_translucent_status_drawer).withIcon(FontAwesome.Icon.faw_eye).withIdentifier(3),
                         new SectionDrawerItem().withName(R.string.drawer_item_section_header),
                         new SecondaryDrawerItem().withName(R.string.drawer_item_settings).withIcon(FontAwesome.Icon.faw_cog),
                         new SecondaryDrawerItem().withName(R.string.drawer_item_help).withIcon(FontAwesome.Icon.faw_question).setEnabled(false),
@@ -60,9 +60,14 @@ public class SimpleDrawerActivity extends ActionBarActivity {
                         } else if (drawerItem.getIdentifier() == 2) {
                             Intent intent = new Intent(SimpleDrawerActivity.this, MultiDrawerActivity.class);
                             SimpleDrawerActivity.this.startActivity(intent);
+                        } else if (drawerItem.getIdentifier() == 3) {
+                            Intent intent = new Intent(SimpleDrawerActivity.this, SimpleNonTranslucentDrawerActivity.class);
+                            SimpleDrawerActivity.this.startActivity(intent);
                         }
+
                     }
                 })
+                .withFireOnInitialOnClick(false)
                 .withSelectedItem(2)
                 .withSavedInstance(savedInstanceState)
                 .build();
@@ -71,6 +76,6 @@ public class SimpleDrawerActivity extends ActionBarActivity {
     @Override
     protected void onSaveInstanceState(Bundle outState) {
         outState = result.saveInstanceState(outState);
-         super.onSaveInstanceState(outState);
+        super.onSaveInstanceState(outState);
     }
 }
