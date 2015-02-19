@@ -731,7 +731,7 @@ public class Drawer {
         }
 
         // call initial onClick event to allow the dev to init the first view
-        if (mFireInitialOnClick) {
+        if (mFireInitialOnClick && mOnDrawerItemClickListener != null) {
             if (mDrawerItems != null && mDrawerItems.size() > mCurrentSelection && mCurrentSelection > -1) {
                 mOnDrawerItemClickListener.onItemClick(null, null, mCurrentSelection, mCurrentSelection, mDrawerItems.get(mCurrentSelection));
             } else {
