@@ -8,19 +8,22 @@
     <dimen name="material_drawer_padding">8dp</dimen>
     <!-- General vertical padding values -->
     <dimen name="material_drawer_vertical_padding">16dp</dimen>
-    <!-- General icon margin above and under the icons -->
-    <dimen name="material_drawer_icon_margin">12dp</dimen>
-    <!-- Definition for the primary item -->
-    <dimen name="material_drawer_primary">48dp</dimen>
-    <dimen name="material_drawer_primary_icon">22dp</dimen>
-    <dimen name="material_drawer_primary_text">14sp</dimen>
-    <!-- Definition for the secondary item -->
-    <dimen name="material_drawer_secondary">44dp</dimen>
-    <dimen name="material_drawer_secondary_icon">22dp</dimen>
-    <dimen name="material_drawer_secondary_text">14sp</dimen>
-    <!-- Definition for the section item -->
-    <dimen name="material_drawer_section_text">14sp</dimen>
 
+    <!-- General icon margins for the drawer item -->
+    <dimen name="material_drawer_item_padding">8dp</dimen>
+    <!-- Definition for the primary item -->
+    <dimen name="material_drawer_item_primary">48dp</dimen>
+    <dimen name="material_drawer_item_primary_icon_padding">12dp</dimen>
+    <dimen name="material_drawer_item_primary_icon_padding_right">24dp</dimen>
+    <dimen name="material_drawer_item_primary_text">14sp</dimen>
+    <!-- Definition for the secondary item -->
+    <dimen name="material_drawer_item_secondary">42dp</dimen>
+    <dimen name="material_drawer_item_secondary_icon_padding">12dp</dimen>
+    <dimen name="material_drawer_item_secondary_icon_padding_right">24dp</dimen>
+    <dimen name="material_drawer_item_secondary_text">14sp</dimen>
+
+    <!-- Definition for the section item -->
+    <dimen name="material_drawer_item_section_text">14sp</dimen>
 
     <!-- Toolbar Padding -->
     <dimen name="tool_bar_top_padding">0dp</dimen>
