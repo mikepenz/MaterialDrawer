@@ -854,6 +854,83 @@ public class Drawer {
         }
 
         /**
+         * calculates the position of an drawerItem. searching by it's identifier
+         *
+         * @param drawerItem
+         * @return
+         */
+        public int getPositionFromIdentifier(IDrawerItem drawerItem) {
+            return getPositionFromIdentifier(drawerItem.getIdentifier());
+        }
+
+        /**
+         * calculates the position of an drawerItem. searching by it's identifier
+         *
+         * @param identifier
+         * @return
+         */
+        public int getPositionFromIdentifier(int identifier) {
+            if (identifier > 0) {
+                if (mDrawer.mDrawerItems != null) {
+                    int position = 0;
+                    for (IDrawerItem i : mDrawer.mDrawerItems) {
+                        if (i.getIdentifier() == identifier) {
+                            return position;
+                        }
+                        position = position + 1;
+                    }
+                }
+            } else {
+                throw new RuntimeException("the item requires a unique identifier to use this method");
+            }
+
+            return -1;
+        }
+
+
+        /**
+         * set the current selection in the drawer
+         * NOTE: This will trigger onDrawerItemSelected without a view!
+         *
+         * @param identifier
+         */
+        public void setSelectionByIdentifier(int identifier) {
+            setSelection(getPositionFromIdentifier(identifier), true);
+        }
+
+        /**
+         * set the current selection in the drawer
+         * NOTE: This will trigger onDrawerItemSelected without a view if you pass fireOnClick = true;
+         *
+         * @param identifier
+         * @param fireOnClick
+         */
+        public void setSelectionByIdentifier(int identifier, boolean fireOnClick) {
+            setSelection(getPositionFromIdentifier(identifier), fireOnClick);
+        }
+
+        /**
+         * set the current selection in the drawer
+         * NOTE: This will trigger onDrawerItemSelected without a view!
+         *
+         * @param drawerItem
+         */
+        public void setSelection(IDrawerItem drawerItem) {
+            setSelection(getPositionFromIdentifier(drawerItem), true);
+        }
+
+        /**
+         * set the current selection in the drawer
+         * NOTE: This will trigger onDrawerItemSelected without a view if you pass fireOnClick = true;
+         *
+         * @param drawerItem
+         * @param fireOnClick
+         */
+        public void setSelection(IDrawerItem drawerItem, boolean fireOnClick) {
+            setSelection(getPositionFromIdentifier(drawerItem), fireOnClick);
+        }
+
+        /**
          * set the current selection in the drawer
          * NOTE: This will trigger onDrawerItemSelected without a view!
          *
@@ -865,7 +942,7 @@ public class Drawer {
 
         /**
          * set the current selection in the drawer
-         * NOTE: This will trigger onDrawerItemSelected without a view!
+         * NOTE: This will trigger onDrawerItemSelected without a view if you pass fireOnClick = true;
          *
          * @param position
          * @param fireOnClick
@@ -894,20 +971,7 @@ public class Drawer {
          * @param drawerItem
          */
         public void updateItem(IDrawerItem drawerItem) {
-            if (drawerItem.getIdentifier() > 0) {
-                if (mDrawer.mDrawerItems != null) {
-                    int position = 0;
-                    for (IDrawerItem i : mDrawer.mDrawerItems) {
-                        if (i.getIdentifier() == drawerItem.getIdentifier()) {
-                            updateItem(drawerItem, position);
-                            return;
-                        }
-                        position = position + 1;
-                    }
-                }
-            } else {
-                throw new RuntimeException("the item requires a unique identifier to use this method");
-            }
+            updateItem(drawerItem, getPositionFromIdentifier(drawerItem));
         }
 
         /**
