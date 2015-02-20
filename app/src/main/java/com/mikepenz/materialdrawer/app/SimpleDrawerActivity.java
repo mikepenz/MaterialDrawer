@@ -45,7 +45,7 @@ public class SimpleDrawerActivity extends ActionBarActivity {
                         new SectionDrawerItem().withName(R.string.drawer_item_section_header),
                         new SecondaryDrawerItem().withName(R.string.drawer_item_settings).withIcon(FontAwesome.Icon.faw_cog),
                         new SecondaryDrawerItem().withName(R.string.drawer_item_help).withIcon(FontAwesome.Icon.faw_question).setEnabled(false),
-                        new SecondaryDrawerItem().withName(R.string.drawer_item_open_source).withIcon(GoogleMaterial.Icon.gmd_format_color_fill),
+                        new SecondaryDrawerItem().withName(R.string.drawer_item_open_source).withIcon(GoogleMaterial.Icon.gmd_format_color_fill).withIdentifier(5),
                         new SecondaryDrawerItem().withName(R.string.drawer_item_contact).withIcon(FontAwesome.Icon.faw_bullhorn)
                 )
                 .withOnDrawerItemClickListener(new Drawer.OnDrawerItemClickListener() {
@@ -68,9 +68,10 @@ public class SimpleDrawerActivity extends ActionBarActivity {
 
                     }
                 })
-                .withSelectedItem(4)
                 .withSavedInstance(savedInstanceState)
                 .build();
+
+        result.setSelectionByIdentifier(5);
     }
 
     @Override
