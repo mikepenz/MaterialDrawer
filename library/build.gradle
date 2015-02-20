@@ -7,8 +7,8 @@ android {
     defaultConfig {
         minSdkVersion 14
         targetSdkVersion 21
-        versionCode 98
-        versionName '0.9.8'
+        versionCode 99
+        versionName '0.9.9-SNAPSHOT'
     }
 
     buildTypes {
