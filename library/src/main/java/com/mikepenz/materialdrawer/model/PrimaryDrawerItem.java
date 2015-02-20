@@ -187,8 +187,8 @@ public class PrimaryDrawerItem implements IDrawerItem, Nameable<PrimaryDrawerIte
                 selectedIcon = this.getSelectedIcon();
             }
         } else if (this.getIIcon() != null) {
-            icon = new IconicsDrawable(activity, this.getIIcon()).color(color).actionBarSize();
-            selectedIcon = new IconicsDrawable(activity, this.getIIcon()).color(selectedColor).actionBarSize();
+            icon = new IconicsDrawable(activity, this.getIIcon()).color(color).actionBarSize().paddingDp(1);
+            selectedIcon = new IconicsDrawable(activity, this.getIIcon()).color(selectedColor).actionBarSize().paddingDp(1);
         }
 
         if (icon != null) {
