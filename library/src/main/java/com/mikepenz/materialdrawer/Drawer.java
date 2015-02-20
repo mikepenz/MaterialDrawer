@@ -774,6 +774,8 @@ public class Drawer {
 
         if (mDrawerWidth > -1) {
             params.width = mDrawerWidth;
+        } else {
+            params.width = mActivity.getResources().getDimensionPixelSize(R.dimen.material_drawer_width);
         }
 
         return params;

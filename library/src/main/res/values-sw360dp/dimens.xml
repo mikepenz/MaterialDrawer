@@ -1,0 +1,7 @@
+<resources>
+    <!-- ********************** -->
+    <!-- Material Drawer Dimens -->
+    <!-- ********************** -->
+    <!-- General drawer width https://medium.com/sebs-top-tips/material-navigation-drawer-sizing-558aea1ad266 -->
+    <dimen name="material_drawer_width">304dp</dimen>
+</resources>
