@@ -548,6 +548,9 @@ public class Drawer {
         //create the content
         createContent();
 
+        //forget the reference to the activity
+        mActivity = null;
+
         return new Result(this);
     }
 
@@ -581,6 +584,9 @@ public class Drawer {
 
         //create the content
         createContent();
+
+        //forget the reference to the activity
+        mActivity = null;
 
         return new Result(this);
     }
