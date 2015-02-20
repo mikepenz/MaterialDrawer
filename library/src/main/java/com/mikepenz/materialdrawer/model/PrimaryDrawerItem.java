@@ -24,8 +24,10 @@ public class PrimaryDrawerItem implements IDrawerItem, Nameable<PrimaryDrawerIte
 
     private int identifier = -1;
     private Drawable icon;
+    private int iconRes = -1;
     private IIcon iicon;
     private Drawable selectedIcon;
+    private int selectedIconRes = -1;
     private String name;
     private int nameRes = -1;
     private String badge;
@@ -41,6 +43,11 @@ public class PrimaryDrawerItem implements IDrawerItem, Nameable<PrimaryDrawerIte
         return this;
     }
 
+    public PrimaryDrawerItem withIcon(int iconRes) {
+        this.iconRes = iconRes;
+        return this;
+    }
+
     public PrimaryDrawerItem withIcon(IIcon iicon) {
         this.iicon = iicon;
         return this;
@@ -48,6 +55,11 @@ public class PrimaryDrawerItem implements IDrawerItem, Nameable<PrimaryDrawerIte
 
     public PrimaryDrawerItem withSelectedIcon(Drawable selectedIcon) {
         this.selectedIcon = selectedIcon;
+        return this;
+    }
+
+    public PrimaryDrawerItem withSelectedIcon(int selectedIconRes) {
+        this.selectedIconRes = selectedIconRes;
         return this;
     }
 
@@ -66,22 +78,33 @@ public class PrimaryDrawerItem implements IDrawerItem, Nameable<PrimaryDrawerIte
         return this;
     }
 
-    public PrimaryDrawerItem setEnabled(boolean enabled) {
-        this.enabled = enabled;
-        return this;
-    }
-
     public Drawable getIcon() {
         return icon;
-    }
-
-    public IIcon getIIcon() {
-        return iicon;
     }
 
     @Override
     public void setIcon(Drawable icon) {
         this.icon = icon;
+    }
+
+    public int getIconRes() {
+        return iconRes;
+    }
+
+    public void setIconRes(int iconRes) {
+        this.iconRes = iconRes;
+    }
+
+    public int getSelectedIconRes() {
+        return selectedIconRes;
+    }
+
+    public void setSelectedIconRes(int selectedIconRes) {
+        this.selectedIconRes = selectedIconRes;
+    }
+
+    public IIcon getIIcon() {
+        return iicon;
     }
 
     @Override
@@ -93,17 +116,21 @@ public class PrimaryDrawerItem implements IDrawerItem, Nameable<PrimaryDrawerIte
         return selectedIcon;
     }
 
-    public String getName() {
-        return name;
+    public void setSelectedIcon(Drawable selectedIcon) {
+        this.selectedIcon = selectedIcon;
     }
 
-    public int getNameRes() {
-        return nameRes;
+    public String getName() {
+        return name;
     }
 
     @Override
     public void setName(String name) {
         this.name = name;
+    }
+
+    public int getNameRes() {
+        return nameRes;
     }
 
     @Override
@@ -125,9 +152,18 @@ public class PrimaryDrawerItem implements IDrawerItem, Nameable<PrimaryDrawerIte
         return identifier;
     }
 
+    public void setIdentifier(int identifier) {
+        this.identifier = identifier;
+    }
+
     @Override
     public boolean isEnabled() {
         return enabled;
+    }
+
+    public PrimaryDrawerItem setEnabled(boolean enabled) {
+        this.enabled = enabled;
+        return this;
     }
 
     @Override
@@ -189,6 +225,12 @@ public class PrimaryDrawerItem implements IDrawerItem, Nameable<PrimaryDrawerIte
         } else if (this.getIIcon() != null) {
             icon = new IconicsDrawable(activity, this.getIIcon()).color(color).actionBarSize().paddingDp(1);
             selectedIcon = new IconicsDrawable(activity, this.getIIcon()).color(selectedColor).actionBarSize().paddingDp(1);
+        } else if (this.getIconRes() > -1) {
+            icon = activity.getResources().getDrawable(iconRes);
+
+            if (this.getSelectedIconRes() > -1) {
+                selectedIcon = activity.getResources().getDrawable(selectedIconRes);
+            }
         }
 
         if (icon != null) {

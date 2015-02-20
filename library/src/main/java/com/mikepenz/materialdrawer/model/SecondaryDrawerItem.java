@@ -24,8 +24,10 @@ public class SecondaryDrawerItem implements IDrawerItem, Nameable<SecondaryDrawe
 
     private int identifier = -1;
     private Drawable icon;
+    private int iconRes = -1;
     private IIcon iicon;
     private Drawable selectedIcon;
+    private int selectedIconRes = -1;
     private String name;
     private int nameRes = -1;
     private String badge;
@@ -38,6 +40,11 @@ public class SecondaryDrawerItem implements IDrawerItem, Nameable<SecondaryDrawe
 
     public SecondaryDrawerItem withIcon(Drawable icon) {
         this.icon = icon;
+        return this;
+    }
+
+    public SecondaryDrawerItem withIcon(int iconRes) {
+        this.iconRes = iconRes;
         return this;
     }
 
@@ -66,17 +73,8 @@ public class SecondaryDrawerItem implements IDrawerItem, Nameable<SecondaryDrawe
         return this;
     }
 
-    public SecondaryDrawerItem setEnabled(boolean enabled) {
-        this.enabled = enabled;
-        return this;
-    }
-
     public Drawable getIcon() {
         return icon;
-    }
-
-    public IIcon getIIcon() {
-        return iicon;
     }
 
     @Override
@@ -84,26 +82,50 @@ public class SecondaryDrawerItem implements IDrawerItem, Nameable<SecondaryDrawe
         this.icon = icon;
     }
 
+    public IIcon getIIcon() {
+        return iicon;
+    }
+
     @Override
     public void setIIcon(IIcon iicon) {
         this.iicon = iicon;
+    }
+
+    public int getIconRes() {
+        return iconRes;
+    }
+
+    public void setIconRes(int iconRes) {
+        this.iconRes = iconRes;
+    }
+
+    public int getSelectedIconRes() {
+        return selectedIconRes;
+    }
+
+    public void setSelectedIconRes(int selectedIconRes) {
+        this.selectedIconRes = selectedIconRes;
     }
 
     public Drawable getSelectedIcon() {
         return selectedIcon;
     }
 
-    public String getName() {
-        return name;
+    public void setSelectedIcon(Drawable selectedIcon) {
+        this.selectedIcon = selectedIcon;
     }
 
-    public int getNameRes() {
-        return nameRes;
+    public String getName() {
+        return name;
     }
 
     @Override
     public void setName(String name) {
         this.name = name;
+    }
+
+    public int getNameRes() {
+        return nameRes;
     }
 
     @Override
@@ -125,9 +147,18 @@ public class SecondaryDrawerItem implements IDrawerItem, Nameable<SecondaryDrawe
         return identifier;
     }
 
+    public void setIdentifier(int identifier) {
+        this.identifier = identifier;
+    }
+
     @Override
     public boolean isEnabled() {
         return enabled;
+    }
+
+    public SecondaryDrawerItem setEnabled(boolean enabled) {
+        this.enabled = enabled;
+        return this;
     }
 
     @Override
@@ -190,6 +221,12 @@ public class SecondaryDrawerItem implements IDrawerItem, Nameable<SecondaryDrawe
         } else if (this.getIIcon() != null) {
             icon = new IconicsDrawable(activity, this.getIIcon()).color(color).actionBarSize().paddingDp(1);
             selectedIcon = new IconicsDrawable(activity, this.getIIcon()).color(selectedColor).actionBarSize().paddingDp(1);
+        } else if (this.getIconRes() > -1) {
+            icon = activity.getResources().getDrawable(iconRes);
+
+            if (this.getSelectedIconRes() > -1) {
+                selectedIcon = activity.getResources().getDrawable(selectedIconRes);
+            }
         }
 
         if (icon != null) {
