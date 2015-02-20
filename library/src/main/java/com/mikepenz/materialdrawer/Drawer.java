@@ -874,8 +874,8 @@ public class Drawer {
                 mDrawer.mListView.setItemChecked(position + mDrawer.mHeaderOffset, true);
 
                 if (fireOnClick && mDrawer.mOnDrawerItemClickListener != null) {
-                    if (mDrawer.mDrawerItems != null && mDrawer.mDrawerItems.size() > (position - mDrawer.mHeaderOffset) && (position - mDrawer.mHeaderOffset) > -1) {
-                        mDrawer.mOnDrawerItemClickListener.onItemClick(null, null, position, position, mDrawer.mDrawerItems.get(position - mDrawer.mHeaderOffset));
+                    if (mDrawer.mDrawerItems != null && mDrawer.mDrawerItems.size() > (position - mDrawer.mHeaderOffset) && (position) > -1) {
+                        mDrawer.mOnDrawerItemClickListener.onItemClick(null, null, position, position, mDrawer.mDrawerItems.get(position));
                     } else {
                         mDrawer.mOnDrawerItemClickListener.onItemClick(null, null, position, position, null);
                     }
