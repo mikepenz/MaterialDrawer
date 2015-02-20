@@ -986,6 +986,55 @@ public class Drawer {
         }
 
         /**
+         * @param drawerItem
+         */
+        public void addItem(IDrawerItem drawerItem) {
+            if (mDrawer.mDrawerItems != null) {
+                mDrawer.mDrawerItems.add(drawerItem);
+                mDrawer.mAdapter.notifyDataSetChanged();
+            }
+        }
+
+        /**
+         * @param drawerItem
+         * @param position
+         */
+        public void addItem(IDrawerItem drawerItem, int position) {
+            if (mDrawer.mDrawerItems != null) {
+                mDrawer.mDrawerItems.set(position, drawerItem);
+                mDrawer.mAdapter.notifyDataSetChanged();
+            }
+        }
+
+        /**
+         * @param position
+         */
+        public void removeItem(int position) {
+            if (mDrawer.mDrawerItems != null && mDrawer.mDrawerItems.size() > position && position > -1) {
+                mDrawer.mDrawerItems.remove(position);
+                mDrawer.mAdapter.notifyDataSetChanged();
+            }
+        }
+
+        /**
+         * @param drawerItems
+         */
+        public void addItems(IDrawerItem... drawerItems) {
+            if (mDrawer.mDrawerItems != null) {
+                Collections.addAll(mDrawer.mDrawerItems, drawerItems);
+                mDrawer.mAdapter.notifyDataSetChanged();
+            }
+        }
+
+        /**
+         * @param drawerItems
+         */
+        public void setItems(ArrayList<IDrawerItem> drawerItems) {
+            mDrawer.mDrawerItems = drawerItems;
+            mDrawer.mAdapter.notifyDataSetChanged();
+        }
+
+        /**
          * @param nameRes
          * @param position
          */
