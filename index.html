@@ -73,7 +73,7 @@
 
 <p>The MaterialDrawer Library is pushed to <a href="http://search.maven.org/#search%7Cga%7C1%7Cg%3A%22com.mikepenz.materialdrawer%22">Maven Central</a>, so you just need to add the following dependency to your <code>build.gradle</code>.</p>
 
-<div class="highlight highlight-javascript"><pre><span class="pl-s3">compile</span>(<span class="pl-s1"><span class="pl-pds">'</span>com.mikepenz.materialdrawer:library:0.9.1@aar<span class="pl-pds">'</span></span>) {
+<div class="highlight highlight-javascript"><pre><span class="pl-s3">compile</span>(<span class="pl-s1"><span class="pl-pds">'</span>com.mikepenz.materialdrawer:library:0.9.8@aar<span class="pl-pds">'</span></span>) {
     transitive <span class="pl-k">=</span> <span class="pl-c1">true</span>
 }</pre></div>
 
@@ -98,7 +98,7 @@
     <span class="pl-k">new</span> <span class="pl-stj">PrimaryDrawerItem</span>()<span class="pl-k">.</span>withName(<span class="pl-stj">R</span><span class="pl-k">.</span>string<span class="pl-k">.</span>drawer_item_home),
     <span class="pl-k">new</span> <span class="pl-stj">PrimaryDrawerItem</span>()<span class="pl-k">.</span>withName(<span class="pl-stj">R</span><span class="pl-k">.</span>string<span class="pl-k">.</span>drawer_item_free_play),
     <span class="pl-k">new</span> <span class="pl-stj">PrimaryDrawerItem</span>()<span class="pl-k">.</span>withName(<span class="pl-stj">R</span><span class="pl-k">.</span>string<span class="pl-k">.</span>drawer_item_custom),
-    <span class="pl-k">new</span> <span class="pl-stj">SpacerDrawerItem</span>(),
+    <span class="pl-k">new</span> <span class="pl-stj">DividerDrawerItem</span>(),
     <span class="pl-k">new</span> <span class="pl-stj">SecondaryDrawerItem</span>()<span class="pl-k">.</span>withName(<span class="pl-stj">R</span><span class="pl-k">.</span>string<span class="pl-k">.</span>drawer_item_settings)<span class="pl-k">.</span>withIcon(<span class="pl-stj">FontAwesome</span><span class="pl-k">.</span><span class="pl-stj">Icon</span><span class="pl-k">.</span>faw_cog),
     <span class="pl-k">new</span> <span class="pl-stj">SecondaryDrawerItem</span>()<span class="pl-k">.</span>withName(<span class="pl-stj">R</span><span class="pl-k">.</span>string<span class="pl-k">.</span>drawer_item_help)<span class="pl-k">.</span>withIcon(<span class="pl-stj">FontAwesome</span><span class="pl-k">.</span><span class="pl-stj">Icon</span><span class="pl-k">.</span>faw_question)<span class="pl-k">.</span>setEnabled(<span class="pl-c1">false</span>),
     <span class="pl-k">new</span> <span class="pl-stj">SecondaryDrawerItem</span>()<span class="pl-k">.</span>withName(<span class="pl-stj">R</span><span class="pl-k">.</span>string<span class="pl-k">.</span>drawer_item_open_source)<span class="pl-k">.</span>withIcon(<span class="pl-stj">FontAwesome</span><span class="pl-k">.</span><span class="pl-stj">Icon</span><span class="pl-k">.</span>faw_github),
@@ -115,14 +115,23 @@
 <h3>
 <a id="androidmanifestxml-optional" class="anchor" href="#androidmanifestxml-optional" aria-hidden="true"><span class="octicon octicon-link"></span></a>AndroidManifest.xml (OPTIONAL)</h3>
 
-<p>You can use the provided theme, this will allow the drawer to display under the statusbar</p>
+<p>You can use (one of) the provided themes, this will allow the drawer to display under the statusbar</p>
 
-<div class="highlight highlight-xml"><pre>  android:theme="@style/AppTheme"</pre></div>
+<div class="highlight highlight-xml"><pre>  android:theme="@style/MaterialDrawerTheme"
+  android:theme="@style/MaterialDrawerTheme.TranslucentStatus"
+  android:theme="@style/MaterialDrawerTheme.ActionBar"
+  android:theme="@style/MaterialDrawerTheme.ActionBar.TranslucentStatus"
+  android:theme="@style/MaterialDrawerTheme.Light"
+  android:theme="@style/MaterialDrawerTheme.Light.TranslucentStatus"
+  android:theme="@style/MaterialDrawerTheme.Light.ActionBar"
+  android:theme="@style/MaterialDrawerTheme.Light.ActionBar.TranslucentStatus"
+</pre></div>
 
 <h3>
 <a id="stylesxml-optional" class="anchor" href="#stylesxml-optional" aria-hidden="true"><span class="octicon octicon-link"></span></a>styles.xml (OPTIONAL)</h3>
 
-<p>Overwrite following colors to create a quick custom style for your application</p>
+<p>You have to use the provided theme for this to get it working.
+Overwrite following colors to create a quick custom style for your application</p>
 
 <div class="highlight highlight-xml"><pre>    <span class="pl-c">&lt;!-- Material SAMPLE DARK colors --&gt;</span>
     &lt;<span class="pl-ent">color</span> <span class="pl-e">name</span>=<span class="pl-s1"><span class="pl-pds">"</span>material_drawer_primary<span class="pl-pds">"</span></span>&gt;#9C27B0&lt;/<span class="pl-ent">color</span>&gt;
