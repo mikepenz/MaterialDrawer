@@ -67,10 +67,14 @@ public void onItemClick(AdapterView<?> parent, View view, int position, long id,
 ###AndroidManifest.xml (OPTIONAL)
 You can use (one of) the provided themes, this will allow the drawer to display under the statusbar
 ```xml
-  android:theme="@style/MaterialDrawerTheme.NoActionBar"
   android:theme="@style/MaterialDrawerTheme"
-  android:theme="@style/MaterialDrawerTheme.Light.NoActionBar"
+  android:theme="@style/MaterialDrawerTheme.TranslucentStatus"
+  android:theme="@style/MaterialDrawerTheme.ActionBar"
+  android:theme="@style/MaterialDrawerTheme.ActionBar.TranslucentStatus"
   android:theme="@style/MaterialDrawerTheme.Light"
+  android:theme="@style/MaterialDrawerTheme.Light.TranslucentStatus"
+  android:theme="@style/MaterialDrawerTheme.Light.ActionBar"
+  android:theme="@style/MaterialDrawerTheme.Light.ActionBar.TranslucentStatus"
   
 ```
 
