@@ -768,9 +768,7 @@ public class Drawer {
         if (mActionBarCompatibility) {
             TypedValue tv = new TypedValue();
             if (mActivity.getTheme().resolveAttribute(android.R.attr.actionBarSize, tv, true)) {
-
-                int mActionBarHeight = TypedValue.complexToDimensionPixelSize(tv.data, mActivity.getResources().getDisplayMetrics());
-                params.topMargin = mActionBarHeight;
+                params.topMargin = TypedValue.complexToDimensionPixelSize(tv.data, mActivity.getResources().getDisplayMetrics());
             }
         }
 
