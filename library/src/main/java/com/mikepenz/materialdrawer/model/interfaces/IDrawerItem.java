@@ -1,6 +1,5 @@
 package com.mikepenz.materialdrawer.model.interfaces;
 
-import android.app.Activity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -17,5 +16,5 @@ public interface IDrawerItem {
 
     public int getLayoutRes();
 
-    public View convertView(Activity activity, LayoutInflater inflater, View convertView, ViewGroup parent);
+    public View convertView(LayoutInflater inflater, View convertView, ViewGroup parent);
 }

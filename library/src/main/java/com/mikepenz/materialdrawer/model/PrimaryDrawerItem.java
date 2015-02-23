@@ -1,6 +1,6 @@
 package com.mikepenz.materialdrawer.model;
 
-import android.app.Activity;
+import android.content.Context;
 import android.graphics.drawable.Drawable;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -177,7 +177,9 @@ public class PrimaryDrawerItem implements IDrawerItem, Nameable<PrimaryDrawerIte
     }
 
     @Override
-    public View convertView(Activity activity, LayoutInflater inflater, View convertView, ViewGroup parent) {
+    public View convertView(LayoutInflater inflater, View convertView, ViewGroup parent) {
+        Context ctx = parent.getContext();
+
         ViewHolder viewHolder;
         if (convertView == null) {
             convertView = inflater.inflate(getLayoutRes(), parent, false);
@@ -187,7 +189,7 @@ public class PrimaryDrawerItem implements IDrawerItem, Nameable<PrimaryDrawerIte
             viewHolder = (ViewHolder) convertView.getTag();
         }
 
-        UIUtils.setBackground(viewHolder.view, UIUtils.getDrawerItemBackground(activity));
+        UIUtils.setBackground(viewHolder.view, UIUtils.getDrawerItemBackground(ctx));
 
         if (this.getNameRes() != -1) {
             viewHolder.name.setText(this.getNameRes());
@@ -203,13 +205,13 @@ public class PrimaryDrawerItem implements IDrawerItem, Nameable<PrimaryDrawerIte
         }
 
         int color;
-        int selectedColor = activity.getResources().getColor(R.color.material_drawer_selected_text);
+        int selectedColor = ctx.getResources().getColor(R.color.material_drawer_selected_text);
         if (this.isEnabled()) {
-            color = activity.getResources().getColor(R.color.material_drawer_primary_text);
+            color = ctx.getResources().getColor(R.color.material_drawer_primary_text);
             viewHolder.name.setTextColor(UIUtils.getTextColor(color, selectedColor));
             viewHolder.badge.setTextColor(UIUtils.getTextColor(color, selectedColor));
         } else {
-            color = activity.getResources().getColor(R.color.material_drawer_hint_text);
+            color = ctx.getResources().getColor(R.color.material_drawer_hint_text);
             viewHolder.name.setTextColor(color);
             viewHolder.badge.setTextColor(color);
         }
@@ -223,13 +225,13 @@ public class PrimaryDrawerItem implements IDrawerItem, Nameable<PrimaryDrawerIte
                 selectedIcon = this.getSelectedIcon();
             }
         } else if (this.getIIcon() != null) {
-            icon = new IconicsDrawable(activity, this.getIIcon()).color(color).actionBarSize().paddingDp(1);
-            selectedIcon = new IconicsDrawable(activity, this.getIIcon()).color(selectedColor).actionBarSize().paddingDp(1);
+            icon = new IconicsDrawable(ctx, this.getIIcon()).color(color).actionBarSize().paddingDp(1);
+            selectedIcon = new IconicsDrawable(ctx, this.getIIcon()).color(selectedColor).actionBarSize().paddingDp(1);
         } else if (this.getIconRes() > -1) {
-            icon = activity.getResources().getDrawable(iconRes);
+            icon = ctx.getResources().getDrawable(iconRes);
 
             if (this.getSelectedIconRes() > -1) {
-                selectedIcon = activity.getResources().getDrawable(selectedIconRes);
+                selectedIcon = ctx.getResources().getDrawable(selectedIconRes);
             }
         }
 

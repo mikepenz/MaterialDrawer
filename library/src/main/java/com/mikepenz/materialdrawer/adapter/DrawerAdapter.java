@@ -13,22 +13,19 @@ import java.util.List;
 
 public class DrawerAdapter extends BaseDrawerAdapter {
 
-    private Activity mActivity;
     private ArrayList<IDrawerItem> mDrawerItems;
     private LayoutInflater mInflater;
 
     private List<String> mTypeMapper;
 
     public DrawerAdapter(Activity activity) {
-        this.mActivity = activity;
-        this.mInflater = (LayoutInflater) mActivity.getSystemService(Activity.LAYOUT_INFLATER_SERVICE);
+        this.mInflater = (LayoutInflater) activity.getSystemService(Activity.LAYOUT_INFLATER_SERVICE);
 
         update(null);
     }
 
     public DrawerAdapter(Activity activity, ArrayList<IDrawerItem> drawerItems) {
-        this.mActivity = activity;
-        this.mInflater = (LayoutInflater) mActivity.getSystemService(Activity.LAYOUT_INFLATER_SERVICE);
+        this.mInflater = (LayoutInflater) activity.getSystemService(Activity.LAYOUT_INFLATER_SERVICE);
 
         update(drawerItems);
     }
@@ -115,6 +112,6 @@ public class DrawerAdapter extends BaseDrawerAdapter {
     @Override
     public View getView(int position, View convertView, ViewGroup parent) {
         IDrawerItem item = (IDrawerItem) getItem(position);
-        return item.convertView(mActivity, mInflater, convertView, parent);
+        return item.convertView(mInflater, convertView, parent);
     }
 }

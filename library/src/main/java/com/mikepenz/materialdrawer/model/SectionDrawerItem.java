@@ -1,6 +1,5 @@
 package com.mikepenz.materialdrawer.model;
 
-import android.app.Activity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -78,7 +77,7 @@ public class SectionDrawerItem implements IDrawerItem, Nameable<SectionDrawerIte
 
 
     @Override
-    public View convertView(Activity activity, LayoutInflater inflater, View convertView, ViewGroup parent) {
+    public View convertView(LayoutInflater inflater, View convertView, ViewGroup parent) {
         ViewHolder viewHolder;
         if (convertView == null) {
             convertView = inflater.inflate(getLayoutRes(), parent, false);
