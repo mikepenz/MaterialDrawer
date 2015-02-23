@@ -4,7 +4,6 @@ import android.app.Activity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.BaseAdapter;
 
 import com.mikepenz.materialdrawer.model.interfaces.IDrawerItem;
 
@@ -12,7 +11,7 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
-public class DrawerAdapter extends BaseAdapter {
+public class DrawerAdapter extends BaseDrawerAdapter {
 
     private Activity mActivity;
     private ArrayList<IDrawerItem> mDrawerItems;
@@ -56,18 +55,6 @@ public class DrawerAdapter extends BaseAdapter {
         mapTypes();
     }
 
-    private void mapTypes() {
-        if (this.mTypeMapper == null) {
-            this.mTypeMapper = new ArrayList<String>();
-        }
-
-        if (this.mDrawerItems != null) {
-            for (IDrawerItem drawerItem : this.mDrawerItems) {
-                mTypeMapper.add(drawerItem.getType());
-            }
-        }
-    }
-
     @Override
     public boolean areAllItemsEnabled() {
         return false;
@@ -104,19 +91,25 @@ public class DrawerAdapter extends BaseAdapter {
         return position;
     }
 
-    @Override
-    public int getItemViewType(int position) {
-        if (mDrawerItems != null && mDrawerItems.size() > position) {
-            return mTypeMapper.indexOf(mDrawerItems.get(position).getType());
-        } else {
-            return -1;
-        }
 
+    @Override
+    public ArrayList<IDrawerItem> getDrawerItems() {
+        return mDrawerItems;
     }
 
     @Override
-    public int getViewTypeCount() {
-        return mTypeMapper.size();
+    public void setDrawerItems(ArrayList<IDrawerItem> drawerItems) {
+        this.mDrawerItems = drawerItems;
+    }
+
+    @Override
+    public List<String> getTypeMapper() {
+        return mTypeMapper;
+    }
+
+    @Override
+    public void setTypeMapper(List<String> typeMapper) {
+        this.mTypeMapper = typeMapper;
     }
 
     @Override

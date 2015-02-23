@@ -13,13 +13,13 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AbsListView;
 import android.widget.AdapterView;
-import android.widget.BaseAdapter;
 import android.widget.FrameLayout;
 import android.widget.LinearLayout;
 import android.widget.ListView;
 
 import com.mikepenz.iconics.typeface.IIcon;
 import com.mikepenz.iconics.utils.Utils;
+import com.mikepenz.materialdrawer.adapter.BaseDrawerAdapter;
 import com.mikepenz.materialdrawer.adapter.DrawerAdapter;
 import com.mikepenz.materialdrawer.model.interfaces.Badgeable;
 import com.mikepenz.materialdrawer.model.interfaces.IDrawerItem;
@@ -331,7 +331,7 @@ public class Drawer {
     }
 
     // an adapter to use for the list
-    protected BaseAdapter mAdapter;
+    protected BaseDrawerAdapter mAdapter;
 
     /**
      * Set the adapter to be used with the list
@@ -339,7 +339,7 @@ public class Drawer {
      * @param adapter
      * @return
      */
-    public Drawer withAdapter(BaseAdapter adapter) {
+    public Drawer withAdapter(BaseDrawerAdapter adapter) {
         this.mAdapter = adapter;
         return this;
     }
@@ -782,7 +782,7 @@ public class Drawer {
     }
 
     public static class Result {
-        private Drawer mDrawer;
+        private final Drawer mDrawer;
 
         //views
         private FrameLayout mContentView;
@@ -829,7 +829,7 @@ public class Drawer {
             return mDrawer.mListView;
         }
 
-        public BaseAdapter getAdapter() {
+        public BaseDrawerAdapter getAdapter() {
             return mDrawer.mAdapter;
         }
 
