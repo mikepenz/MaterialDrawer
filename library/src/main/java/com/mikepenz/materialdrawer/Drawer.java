@@ -981,7 +981,7 @@ public class Drawer {
         public void updateItem(IDrawerItem drawerItem, int position) {
             if (mDrawer.mDrawerItems != null && mDrawer.mDrawerItems.size() > position && position > -1) {
                 mDrawer.mDrawerItems.set(position, drawerItem);
-                mDrawer.mAdapter.notifyDataSetChanged();
+                mDrawer.mAdapter.dataUpdated();
             }
         }
 
@@ -991,7 +991,7 @@ public class Drawer {
         public void addItem(IDrawerItem drawerItem) {
             if (mDrawer.mDrawerItems != null) {
                 mDrawer.mDrawerItems.add(drawerItem);
-                mDrawer.mAdapter.notifyDataSetChanged();
+                mDrawer.mAdapter.dataUpdated();
             }
         }
 
@@ -1002,7 +1002,7 @@ public class Drawer {
         public void addItem(IDrawerItem drawerItem, int position) {
             if (mDrawer.mDrawerItems != null) {
                 mDrawer.mDrawerItems.set(position, drawerItem);
-                mDrawer.mAdapter.notifyDataSetChanged();
+                mDrawer.mAdapter.dataUpdated();
             }
         }
 
@@ -1012,7 +1012,7 @@ public class Drawer {
         public void removeItem(int position) {
             if (mDrawer.mDrawerItems != null && mDrawer.mDrawerItems.size() > position && position > -1) {
                 mDrawer.mDrawerItems.remove(position);
-                mDrawer.mAdapter.notifyDataSetChanged();
+                mDrawer.mAdapter.dataUpdated();
             }
         }
 
@@ -1022,7 +1022,7 @@ public class Drawer {
         public void addItems(IDrawerItem... drawerItems) {
             if (mDrawer.mDrawerItems != null) {
                 Collections.addAll(mDrawer.mDrawerItems, drawerItems);
-                mDrawer.mAdapter.notifyDataSetChanged();
+                mDrawer.mAdapter.dataUpdated();
             }
         }
 
@@ -1031,7 +1031,7 @@ public class Drawer {
          */
         public void setItems(ArrayList<IDrawerItem> drawerItems) {
             mDrawer.mDrawerItems = drawerItems;
-            mDrawer.mAdapter.notifyDataSetChanged();
+            mDrawer.mAdapter.dataUpdated();
         }
 
         /**
