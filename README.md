@@ -10,7 +10,7 @@ Here's a quick overview of functions it include:
 - **uses the AppCompat support library**
 - comes with a basetheme which helps if you want an activity with a colored statusbar
 - the navigationdrawer is also under the statusbar
-- compatible down to API Level 14
+- compatible down to **API Level 10**
 - **supports multiple drawers**
 - comes with multiple default drawer items
 - **badge** support
