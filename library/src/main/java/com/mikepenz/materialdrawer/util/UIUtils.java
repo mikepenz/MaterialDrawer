@@ -13,6 +13,7 @@ import com.mikepenz.materialdrawer.R;
 /**
  * Created by mikepenz on 15.03.14.
  */
+@SuppressLint("InlinedApi")
 public class UIUtils {
     public static ColorStateList getTextColor(int text_color, int selected_text_color) {
         return new ColorStateList(
