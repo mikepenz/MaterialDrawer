@@ -107,7 +107,7 @@ public class SectionDrawerItem implements IDrawerItem, Nameable<SectionDrawerIte
         return convertView;
     }
 
-    private class ViewHolder {
+    private static class ViewHolder {
         private View view;
         private View divider;
         private TextView name;

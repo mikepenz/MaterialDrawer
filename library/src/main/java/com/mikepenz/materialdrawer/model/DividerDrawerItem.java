@@ -54,7 +54,7 @@ public class DividerDrawerItem implements IDrawerItem {
         return convertView;
     }
 
-    private class ViewHolder {
+    private static class ViewHolder {
         private View view;
 
         private ViewHolder(View view) {

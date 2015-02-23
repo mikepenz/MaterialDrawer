@@ -246,7 +246,7 @@ public class SecondaryDrawerItem implements IDrawerItem, Nameable<SecondaryDrawe
         return convertView;
     }
 
-    private class ViewHolder {
+    private static class ViewHolder {
         private View view;
         private ImageView icon;
         private TextView name;

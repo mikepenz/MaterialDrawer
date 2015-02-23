@@ -250,7 +250,7 @@ public class PrimaryDrawerItem implements IDrawerItem, Nameable<PrimaryDrawerIte
         return convertView;
     }
 
-    private class ViewHolder {
+    private static class ViewHolder {
         private View view;
         private ImageView icon;
         private TextView name;
