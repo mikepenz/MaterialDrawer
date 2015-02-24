@@ -4,6 +4,7 @@ import android.app.Activity;
 import android.graphics.drawable.Drawable;
 import android.os.Build;
 import android.os.Bundle;
+import android.os.Handler;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.widget.Toolbar;
@@ -377,17 +378,34 @@ public class Drawer {
     // close drawer on click
     protected boolean mCloseOnClick = true;
 
+    /**
+     * @param closeOnClick
+     * @return this
+     */
     public Drawer withCloseOnClick(boolean closeOnClick) {
         this.mCloseOnClick = closeOnClick;
         return this;
     }
+
+    // delay drawer close to prevent lag
+    protected int mDelayOnDrawerClose = 150;
+
+    /**
+     * @param delayOnDrawerClose -1 to disable
+     * @return this
+     */
+    public Drawer withDelayOnDrawerClose(int delayOnDrawerClose) {
+        this.mDelayOnDrawerClose = delayOnDrawerClose;
+        return this;
+    }
+
 
     // onDrawerListener
     protected OnDrawerListener mOnDrawerListener;
 
     /**
      * @param onDrawerListener
-     * @return
+     * @return this
      */
     public Drawer withOnDrawerListener(OnDrawerListener onDrawerListener) {
         this.mOnDrawerListener = onDrawerListener;
@@ -673,11 +691,17 @@ public class Drawer {
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                 IDrawerItem i = getDrawerItem(position, true);
 
-                if (mOnDrawerItemClickListener != null) {
-                    mOnDrawerItemClickListener.onItemClick(parent, view, position, id, i);
-                }
                 if (mCloseOnClick) {
-                    mDrawerLayout.closeDrawers();
+                    if (mDelayOnDrawerClose > -1) {
+                        new Handler().postDelayed(new Runnable() {
+                            @Override
+                            public void run() {
+                                mDrawerLayout.closeDrawers();
+                            }
+                        }, mDelayOnDrawerClose);
+                    } else {
+                        mDrawerLayout.closeDrawers();
+                    }
                 }
 
                 if (i != null && i instanceof Checkable && !((Checkable) i).isCheckable()) {
@@ -685,6 +709,11 @@ public class Drawer {
                     mListView.setItemChecked(mCurrentSelection, true);
                 } else {
                     mCurrentSelection = position;
+                }
+
+
+                if (mOnDrawerItemClickListener != null) {
+                    mOnDrawerItemClickListener.onItemClick(parent, view, position, id, i);
                 }
             }
         });
