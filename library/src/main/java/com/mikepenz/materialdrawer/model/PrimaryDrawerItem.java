@@ -12,6 +12,7 @@ import com.mikepenz.iconics.IconicsDrawable;
 import com.mikepenz.iconics.typeface.IIcon;
 import com.mikepenz.materialdrawer.R;
 import com.mikepenz.materialdrawer.model.interfaces.Badgeable;
+import com.mikepenz.materialdrawer.model.interfaces.Checkable;
 import com.mikepenz.materialdrawer.model.interfaces.IDrawerItem;
 import com.mikepenz.materialdrawer.model.interfaces.Iconable;
 import com.mikepenz.materialdrawer.model.interfaces.Nameable;
@@ -20,7 +21,7 @@ import com.mikepenz.materialdrawer.util.UIUtils;
 /**
  * Created by mikepenz on 03.02.15.
  */
-public class PrimaryDrawerItem implements IDrawerItem, Nameable<PrimaryDrawerItem>, Iconable<PrimaryDrawerItem>, Badgeable<PrimaryDrawerItem> {
+public class PrimaryDrawerItem implements IDrawerItem, Nameable<PrimaryDrawerItem>, Iconable<PrimaryDrawerItem>, Badgeable<PrimaryDrawerItem>, Checkable<PrimaryDrawerItem> {
 
     private int identifier = -1;
     private Drawable icon;
@@ -32,6 +33,7 @@ public class PrimaryDrawerItem implements IDrawerItem, Nameable<PrimaryDrawerIte
     private int nameRes = -1;
     private String badge;
     private boolean enabled = true;
+    private boolean checkable = true;
 
     public PrimaryDrawerItem withIdentifier(int identifier) {
         this.identifier = identifier;
@@ -75,6 +77,16 @@ public class PrimaryDrawerItem implements IDrawerItem, Nameable<PrimaryDrawerIte
 
     public PrimaryDrawerItem withBadge(String badge) {
         this.badge = badge;
+        return this;
+    }
+
+    public PrimaryDrawerItem withCheckable(boolean checkable) {
+        this.checkable = checkable;
+        return this;
+    }
+
+    public PrimaryDrawerItem setEnabled(boolean enabled) {
+        this.enabled = enabled;
         return this;
     }
 
@@ -161,9 +173,14 @@ public class PrimaryDrawerItem implements IDrawerItem, Nameable<PrimaryDrawerIte
         return enabled;
     }
 
-    public PrimaryDrawerItem setEnabled(boolean enabled) {
-        this.enabled = enabled;
-        return this;
+    @Override
+    public boolean isCheckable() {
+        return checkable;
+    }
+
+    @Override
+    public void setCheckable(boolean checkable) {
+        this.checkable = checkable;
     }
 
     @Override
