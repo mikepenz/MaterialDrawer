@@ -22,6 +22,7 @@ import com.mikepenz.iconics.utils.Utils;
 import com.mikepenz.materialdrawer.adapter.BaseDrawerAdapter;
 import com.mikepenz.materialdrawer.adapter.DrawerAdapter;
 import com.mikepenz.materialdrawer.model.interfaces.Badgeable;
+import com.mikepenz.materialdrawer.model.interfaces.Checkable;
 import com.mikepenz.materialdrawer.model.interfaces.IDrawerItem;
 import com.mikepenz.materialdrawer.model.interfaces.Iconable;
 import com.mikepenz.materialdrawer.model.interfaces.Nameable;
@@ -670,17 +671,21 @@ public class Drawer {
         mListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                IDrawerItem i = getDrawerItem(position, true);
+
                 if (mOnDrawerItemClickListener != null) {
-                    if (mDrawerItems != null && mDrawerItems.size() > (position - mHeaderOffset) && (position - mHeaderOffset) > -1) {
-                        mOnDrawerItemClickListener.onItemClick(parent, view, position, id, mDrawerItems.get(position - mHeaderOffset));
-                    } else {
-                        mOnDrawerItemClickListener.onItemClick(parent, view, position, id, null);
-                    }
+                    mOnDrawerItemClickListener.onItemClick(parent, view, position, id, i);
                 }
                 if (mCloseOnClick) {
                     mDrawerLayout.closeDrawers();
                 }
-                mCurrentSelection = position;
+
+                if (i != null && i instanceof Checkable && !((Checkable) i).isCheckable()) {
+                    mListView.setSelection(mCurrentSelection);
+                    mListView.setItemChecked(mCurrentSelection, true);
+                } else {
+                    mCurrentSelection = position;
+                }
             }
         });
 
@@ -689,11 +694,7 @@ public class Drawer {
             mListView.setOnItemLongClickListener(new AdapterView.OnItemLongClickListener() {
                 @Override
                 public boolean onItemLongClick(AdapterView<?> parent, View view, int position, long id) {
-                    if (mDrawerItems != null && mDrawerItems.size() > (position - mHeaderOffset) && (position - mHeaderOffset) > -1) {
-                        return mOnDrawerItemLongClickListener.onItemLongClick(parent, view, position, id, mDrawerItems.get(position - mHeaderOffset));
-                    } else {
-                        return mOnDrawerItemLongClickListener.onItemLongClick(parent, view, position, id, null);
-                    }
+                    return mOnDrawerItemLongClickListener.onItemLongClick(parent, view, position, id, getDrawerItem(position, true));
                 }
             });
         }
@@ -703,11 +704,7 @@ public class Drawer {
             mListView.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
                 @Override
                 public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
-                    if (mDrawerItems != null && mDrawerItems.size() > (position - mHeaderOffset) && (position - mHeaderOffset) > -1) {
-                        mOnDrawerItemSelectedListener.onItemSelected(parent, view, position, id, mDrawerItems.get(position - mHeaderOffset));
-                    } else {
-                        mOnDrawerItemSelectedListener.onItemSelected(parent, view, position, id, null);
-                    }
+                    mOnDrawerItemSelectedListener.onItemSelected(parent, view, position, id, getDrawerItem(position, true));
                     mCurrentSelection = position;
                 }
 
@@ -738,12 +735,45 @@ public class Drawer {
 
         // call initial onClick event to allow the dev to init the first view
         if (mFireInitialOnClick && mOnDrawerItemClickListener != null) {
+            mOnDrawerItemClickListener.onItemClick(null, null, mCurrentSelection, mCurrentSelection, getDrawerItem(mCurrentSelection, false));
+        }
+    }
+
+    /**
+     * @param position
+     * @return
+     */
+    private IDrawerItem getDrawerItem(int position, boolean includeOffset) {
+        if (includeOffset) {
+            if (mDrawerItems != null && mDrawerItems.size() > (position - mHeaderOffset) && (position - mHeaderOffset) > -1) {
+                return mDrawerItems.get(position - mHeaderOffset);
+            }
+        } else {
             if (mDrawerItems != null && mDrawerItems.size() > mCurrentSelection && mCurrentSelection > -1) {
-                mOnDrawerItemClickListener.onItemClick(null, null, mCurrentSelection, mCurrentSelection, mDrawerItems.get(mCurrentSelection));
-            } else {
-                mOnDrawerItemClickListener.onItemClick(null, null, mCurrentSelection, mCurrentSelection, null);
+                return mDrawerItems.get(position);
             }
         }
+        return null;
+    }
+
+    /**
+     * check if the item is within the bounds of the list
+     *
+     * @param position
+     * @param includeOffset
+     * @return
+     */
+    private boolean checkDrawerItem(int position, boolean includeOffset) {
+        if (includeOffset) {
+            if (mDrawerItems != null && mDrawerItems.size() > (position - mHeaderOffset) && (position - mHeaderOffset) > -1) {
+                return true;
+            }
+        } else {
+            if (mDrawerItems != null && mDrawerItems.size() > mCurrentSelection && mCurrentSelection > -1) {
+                return true;
+            }
+        }
+        return false;
     }
 
     /**
@@ -953,11 +983,7 @@ public class Drawer {
                 mDrawer.mListView.setItemChecked(position + mDrawer.mHeaderOffset, true);
 
                 if (fireOnClick && mDrawer.mOnDrawerItemClickListener != null) {
-                    if (mDrawer.mDrawerItems != null && mDrawer.mDrawerItems.size() > position && position > -1) {
-                        mDrawer.mOnDrawerItemClickListener.onItemClick(null, null, position, position, mDrawer.mDrawerItems.get(position));
-                    } else {
-                        mDrawer.mOnDrawerItemClickListener.onItemClick(null, null, position, position, null);
-                    }
+                    mDrawer.mOnDrawerItemClickListener.onItemClick(null, null, position, position, mDrawer.getDrawerItem(position, false));
                 }
 
                 mDrawer.mCurrentSelection = position + mDrawer.mHeaderOffset;
@@ -979,7 +1005,7 @@ public class Drawer {
          * @param position
          */
         public void updateItem(IDrawerItem drawerItem, int position) {
-            if (mDrawer.mDrawerItems != null && mDrawer.mDrawerItems.size() > position && position > -1) {
+            if (mDrawer.checkDrawerItem(position, false)) {
                 mDrawer.mDrawerItems.set(position, drawerItem);
                 mDrawer.mAdapter.dataUpdated();
             }
@@ -1010,7 +1036,7 @@ public class Drawer {
          * @param position
          */
         public void removeItem(int position) {
-            if (mDrawer.mDrawerItems != null && mDrawer.mDrawerItems.size() > position && position > -1) {
+            if (mDrawer.checkDrawerItem(position, false)) {
                 mDrawer.mDrawerItems.remove(position);
                 mDrawer.mAdapter.dataUpdated();
             }
@@ -1039,7 +1065,7 @@ public class Drawer {
          * @param position
          */
         public void updateName(int nameRes, int position) {
-            if (mDrawer.mDrawerItems != null && mDrawer.mDrawerItems.size() > position && position > -1) {
+            if (mDrawer.checkDrawerItem(position, false)) {
                 IDrawerItem drawerItem = mDrawer.mDrawerItems.get(position);
 
                 if (drawerItem instanceof Nameable) {
@@ -1056,7 +1082,7 @@ public class Drawer {
          * @param position
          */
         public void updateName(String name, int position) {
-            if (mDrawer.mDrawerItems != null && mDrawer.mDrawerItems.size() > position && position > -1) {
+            if (mDrawer.checkDrawerItem(position, false)) {
                 IDrawerItem drawerItem = mDrawer.mDrawerItems.get(position);
 
                 if (drawerItem instanceof Nameable) {
@@ -1073,7 +1099,7 @@ public class Drawer {
          * @param position
          */
         public void updateBadge(String badge, int position) {
-            if (mDrawer.mDrawerItems != null && mDrawer.mDrawerItems.size() > position && position > -1) {
+            if (mDrawer.checkDrawerItem(position, false)) {
                 IDrawerItem drawerItem = mDrawer.mDrawerItems.get(position);
 
                 if (drawerItem instanceof Badgeable) {
@@ -1090,7 +1116,7 @@ public class Drawer {
          * @param position
          */
         public void updateIcon(Drawable icon, int position) {
-            if (mDrawer.mDrawerItems != null && mDrawer.mDrawerItems.size() > position && position > -1) {
+            if (mDrawer.checkDrawerItem(position, false)) {
                 IDrawerItem drawerItem = mDrawer.mDrawerItems.get(position);
 
                 if (drawerItem instanceof Iconable) {
@@ -1107,7 +1133,7 @@ public class Drawer {
          * @param position
          */
         public void updateIcon(IIcon icon, int position) {
-            if (mDrawer.mDrawerItems != null && mDrawer.mDrawerItems.size() > position && position > -1) {
+            if (mDrawer.checkDrawerItem(position, false)) {
                 IDrawerItem drawerItem = mDrawer.mDrawerItems.get(position);
 
                 if (drawerItem instanceof Iconable) {
