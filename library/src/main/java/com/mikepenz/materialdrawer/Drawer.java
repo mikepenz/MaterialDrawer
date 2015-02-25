@@ -616,6 +616,7 @@ public class Drawer {
             mListView = new ListView(mActivity);
             mListView.setChoiceMode(AbsListView.CHOICE_MODE_SINGLE);
             mListView.setDivider(null);
+            mListView.setDrawSelectorOnTop(true);
             mListView.setClipToPadding(false);
 
             if (mTranslucentStatusBar) {
