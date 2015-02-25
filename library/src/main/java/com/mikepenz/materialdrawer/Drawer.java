@@ -222,6 +222,12 @@ public class Drawer {
     protected int mHeaderOffset = 0;
     protected boolean mHeaderDivider = true;
 
+    /**
+     * add a header layout from view
+     *
+     * @param headerView
+     * @return
+     */
     public Drawer withHeader(View headerView) {
         this.mHeaderView = headerView;
         //set the header offset
@@ -229,6 +235,12 @@ public class Drawer {
         return this;
     }
 
+    /**
+     * add a header layout from res
+     *
+     * @param headerViewRes
+     * @return
+     */
     public Drawer withHeader(int headerViewRes) {
         if (mActivity == null) {
             throw new RuntimeException("please pass an activity first to use this call");
@@ -244,6 +256,12 @@ public class Drawer {
         return this;
     }
 
+    /**
+     * this method allows you to disable the divider on the bottom of the header
+     *
+     * @param headerDivider
+     * @return
+     */
     public Drawer withHeaderDivider(boolean headerDivider) {
         this.mHeaderDivider = headerDivider;
         return this;
@@ -253,11 +271,23 @@ public class Drawer {
     protected View mFooterView;
     protected boolean mFooterDivider = true;
 
+    /**
+     * add a footer layout from view
+     *
+     * @param footerView
+     * @return
+     */
     public Drawer withFooter(View footerView) {
         this.mFooterView = footerView;
         return this;
     }
 
+    /**
+     * add a footer layout from res
+     *
+     * @param footerViewRes
+     * @return
+     */
     public Drawer withFooter(int footerViewRes) {
         if (mActivity == null) {
             throw new RuntimeException("please pass an activity first to use this call");
@@ -271,6 +301,12 @@ public class Drawer {
         return this;
     }
 
+    /**
+     * this method allows you to disable the divider on top of the footer
+     *
+     * @param footerDivider
+     * @return
+     */
     public Drawer withFooterDivider(boolean footerDivider) {
         this.mFooterDivider = footerDivider;
         return this;
@@ -279,11 +315,25 @@ public class Drawer {
     // sticky view
     protected View mStickyFooterView;
 
+    /**
+     * add a sticky footer layout from view
+     * this view will be always visible on the bottom
+     *
+     * @param stickyFooter
+     * @return
+     */
     public Drawer withStickyFooter(View stickyFooter) {
         this.mStickyFooterView = stickyFooter;
         return this;
     }
 
+    /**
+     * add a sticky footer layout from res
+     * this view will be always visible on the bottom
+     *
+     * @param stickyFooterRes
+     * @return
+     */
     public Drawer withStickyFooter(int stickyFooterRes) {
         if (mActivity == null) {
             throw new RuntimeException("please pass an activity first to use this call");
@@ -301,6 +351,9 @@ public class Drawer {
     protected boolean mFireInitialOnClick = false;
 
     /**
+     * enable this if you would love to receive a onClick event after the build method is called
+     * to be able to show the initial layout.
+     *
      * @param fireOnInitialOnClick
      * @return
      */
@@ -355,6 +408,8 @@ public class Drawer {
     protected ArrayList<IDrawerItem> mDrawerItems;
 
     /**
+     * set the arrayList of DrawerItems for the drawer
+     *
      * @param drawerItems
      * @return
      */
@@ -384,6 +439,8 @@ public class Drawer {
     protected boolean mCloseOnClick = true;
 
     /**
+     * set if the drawer should autoClose if an item is clicked
+     *
      * @param closeOnClick
      * @return this
      */
@@ -396,6 +453,11 @@ public class Drawer {
     protected int mDelayOnDrawerClose = 150;
 
     /**
+     * set the delay for the drawer close operation
+     * this is a small hack to improve the responsivness if you open a new activity within the drawer onClick
+     * else you will see some lag
+     * you can disable this by passing -1
+     *
      * @param delayOnDrawerClose -1 to disable
      * @return this
      */
@@ -409,6 +471,8 @@ public class Drawer {
     protected OnDrawerListener mOnDrawerListener;
 
     /**
+     * set the drawerListener
+     *
      * @param onDrawerListener
      * @return this
      */
@@ -421,6 +485,8 @@ public class Drawer {
     protected OnDrawerItemClickListener mOnDrawerItemClickListener;
 
     /**
+     * set the DrawerItemClickListener
+     *
      * @param onDrawerItemClickListener
      * @return
      */
@@ -433,6 +499,8 @@ public class Drawer {
     protected OnDrawerItemLongClickListener mOnDrawerItemLongClickListener;
 
     /**
+     * set the DrawerItemLongClickListener
+     *
      * @param onDrawerItemLongClickListener
      * @return
      */
@@ -445,6 +513,8 @@ public class Drawer {
     protected OnDrawerItemSelectedListener mOnDrawerItemSelectedListener;
 
     /**
+     * set the ItemSelectedListener
+     *
      * @param onDrawerItemSelectedListener
      * @return
      */
@@ -457,6 +527,8 @@ public class Drawer {
     protected Bundle mSavedInstance;
 
     /**
+     * create the drawer with the values of a savedInstance
+     *
      * @param savedInstance
      * @return
      */
@@ -579,6 +651,12 @@ public class Drawer {
     }
 
 
+    /**
+     * the builder method to append a new drawer to an existing Drawer
+     *
+     * @param result the Drawer.Result of an existing Drawer
+     * @return
+     */
     public Result append(Result result) {
         if (mUsed) {
             throw new RuntimeException("you must not reuse a Drawer builder");
@@ -615,6 +693,9 @@ public class Drawer {
         return new Result(this);
     }
 
+    /**
+     * the helper method to create the content for the drawer
+     */
     private void createContent() {
         // if we have an adapter (either by defining a custom one or the included one add a list :D
         if (mListView == null) {
@@ -775,6 +856,8 @@ public class Drawer {
     }
 
     /**
+     * get the drawerItem at a specific position
+     *
      * @param position
      * @return
      */
@@ -848,30 +931,49 @@ public class Drawer {
 
     public static class Result {
         private final Drawer mDrawer;
-
-        //views
         private FrameLayout mContentView;
 
-        public Result(Drawer drawer) {
+        /**
+         * the protected Constructor for the result
+         *
+         * @param drawer
+         */
+        protected Result(Drawer drawer) {
             this.mDrawer = drawer;
         }
 
+        /**
+         * get the drawerLayout of the current drawer
+         *
+         * @return
+         */
         public DrawerLayout getDrawerLayout() {
             return this.mDrawer.mDrawerLayout;
         }
 
+        /**
+         * open the drawer
+         */
         public void openDrawer() {
             if (mDrawer.mDrawerLayout != null && mDrawer.mSliderLayout != null) {
                 mDrawer.mDrawerLayout.openDrawer(mDrawer.mSliderLayout);
             }
         }
 
+        /**
+         * close the drawer
+         */
         public void closeDrawer() {
             if (mDrawer.mDrawerLayout != null) {
                 mDrawer.mDrawerLayout.closeDrawers();
             }
         }
 
+        /**
+         * get the current state if the drawer is open
+         *
+         * @return
+         */
         public boolean isDrawerOpen() {
             if (mDrawer.mDrawerLayout != null && mDrawer.mSliderLayout != null) {
                 return mDrawer.mDrawerLayout.isDrawerOpen(mDrawer.mSliderLayout);
@@ -879,10 +981,20 @@ public class Drawer {
             return false;
         }
 
+        /**
+         * get the slider layout of the current drawer
+         *
+         * @return
+         */
         public LinearLayout getSlider() {
             return mDrawer.mSliderLayout;
         }
 
+        /**
+         * get the cootainer frameLayout of the current drawer
+         *
+         * @return
+         */
         public FrameLayout getContent() {
             if (mContentView == null) {
                 mContentView = (FrameLayout) this.mDrawer.mDrawerLayout.findViewById(R.id.content_layout);
@@ -890,30 +1002,65 @@ public class Drawer {
             return mContentView;
         }
 
+        /**
+         * get the listView of the current drawer
+         *
+         * @return
+         */
         public ListView getListView() {
             return mDrawer.mListView;
         }
 
+        /**
+         * get the BaseDrawerAdapter of the current drawer
+         *
+         * @return
+         */
         public BaseDrawerAdapter getAdapter() {
             return mDrawer.mAdapter;
         }
 
+        /**
+         * get all drawerItems of the current drawer
+         *
+         * @return
+         */
         public ArrayList<IDrawerItem> getDrawerItems() {
             return mDrawer.mDrawerItems;
         }
 
+        /**
+         * get the Header View if set else NULL
+         *
+         * @return
+         */
         public View getHeader() {
             return mDrawer.mHeaderView;
         }
 
+        /**
+         * get the Footer View if set else NULL
+         *
+         * @return
+         */
         public View getFooter() {
             return mDrawer.mFooterView;
         }
 
+        /**
+         * get the StickyFooter View if set else NULL
+         *
+         * @return
+         */
         public View getStickyFooter() {
             return mDrawer.mStickyFooterView;
         }
 
+        /**
+         * get the ActionBarDrawerToggle
+         *
+         * @return
+         */
         public ActionBarDrawerToggle getActionBarDrawerToggle() {
             return mDrawer.mActionBarDrawerToggle;
         }
@@ -1036,6 +1183,8 @@ public class Drawer {
         }
 
         /**
+         * Update a drawerItem at a specific position
+         *
          * @param drawerItem
          * @param position
          */
@@ -1047,6 +1196,8 @@ public class Drawer {
         }
 
         /**
+         * Add a drawerItem at the end
+         *
          * @param drawerItem
          */
         public void addItem(IDrawerItem drawerItem) {
@@ -1057,6 +1208,8 @@ public class Drawer {
         }
 
         /**
+         * Add a drawerItem at a specific position
+         *
          * @param drawerItem
          * @param position
          */
@@ -1068,6 +1221,8 @@ public class Drawer {
         }
 
         /**
+         * Remove a drawerItem at a specific position
+         *
          * @param position
          */
         public void removeItem(int position) {
@@ -1087,6 +1242,8 @@ public class Drawer {
         }
 
         /**
+         * add new Items to the current DrawerItem List
+         *
          * @param drawerItems
          */
         public void addItems(IDrawerItem... drawerItems) {
@@ -1097,6 +1254,8 @@ public class Drawer {
         }
 
         /**
+         * Replace the current DrawerItems with a new ArrayList of items
+         *
          * @param drawerItems
          */
         public void setItems(ArrayList<IDrawerItem> drawerItems) {
@@ -1105,6 +1264,8 @@ public class Drawer {
         }
 
         /**
+         * Update the name of a drawer item if its an instance of nameable
+         *
          * @param nameRes
          * @param position
          */
@@ -1122,6 +1283,8 @@ public class Drawer {
         }
 
         /**
+         * Update the name of a drawer item if its an instance of nameable
+         *
          * @param name
          * @param position
          */
@@ -1139,6 +1302,8 @@ public class Drawer {
         }
 
         /**
+         * Update the badge of a drawer item if its an instance of badgeable
+         *
          * @param badge
          * @param position
          */
@@ -1156,6 +1321,8 @@ public class Drawer {
         }
 
         /**
+         * Update the icon of a drawer item if its an instance of iconable
+         *
          * @param icon
          * @param position
          */
@@ -1173,6 +1340,8 @@ public class Drawer {
         }
 
         /**
+         * Update the icon of a drawer item if its an instance of iconable
+         *
          * @param icon
          * @param position
          */
@@ -1189,6 +1358,12 @@ public class Drawer {
             }
         }
 
+        /**
+         * add the values to the bundle for saveInstanceState
+         *
+         * @param savedInstanceState
+         * @return
+         */
         public Bundle saveInstanceState(Bundle savedInstanceState) {
             if (savedInstanceState != null) {
                 if (getListView() != null) {
