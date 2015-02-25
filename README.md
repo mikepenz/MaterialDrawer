@@ -31,7 +31,7 @@ You can try it out here [Google Play](https://play.google.com/store/apps/details
 The MaterialDrawer Library is pushed to [Maven Central](http://search.maven.org/#search|ga|1|g%3A%22com.mikepenz.materialdrawer%22), so you just need to add the following dependency to your `build.gradle`.
 
 ```javascript
-compile('com.mikepenz.materialdrawer:library:0.9.9@aar') {
+compile('com.mikepenz.materialdrawer:library:1.0.0@aar') {
 	transitive = true
 }
 ```
@@ -44,20 +44,20 @@ Here's a quick overview what you have to do within your application.
 It's (theoretically) a one-liner :D
 ```java
 new Drawer()
-.withActivity(this)
-.withToolbar(toolbar)
-.addDrawerItems(
-	new PrimaryDrawerItem().withName(R.string.drawer_item_home),
-	new DividerDrawerItem(),
-	new SecondaryDrawerItem().withName(R.string.drawer_item_settings)
-)
-.withOnDrawerItemClickListener(new Drawer.OnDrawerItemClickListener() {
-@Override
-public void onItemClick(AdapterView<?> parent, View view, int position, long id, IDrawerItem drawerItem) {
-	// do something with the clicked item :D
-}
-})
-.build();
+    .withActivity(this)
+    .withToolbar(toolbar)
+    .addDrawerItems(
+	    new PrimaryDrawerItem().withName(R.string.drawer_item_home),
+	    new DividerDrawerItem(),
+	    new SecondaryDrawerItem().withName(R.string.drawer_item_settings)
+    )
+    .withOnDrawerItemClickListener(new Drawer.OnDrawerItemClickListener() {
+    @Override
+    public void onItemClick(AdapterView<?> parent, View view, int position, long id, IDrawerItem drawerItem) {
+    	// do something with the clicked item :D
+    }
+    })
+    .build();
 ```
 
 ###Activity with ActionBar
