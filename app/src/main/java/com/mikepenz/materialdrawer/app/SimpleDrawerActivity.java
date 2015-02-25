@@ -93,6 +93,7 @@ public class SimpleDrawerActivity extends ActionBarActivity {
         result = new Drawer()
                 .withActivity(this)
                 .withToolbar(toolbar)
+                .withHeader(R.layout.header)
                 .withActionBarDrawerToggle(true)
                 .addDrawerItems(
                         new PrimaryDrawerItem().withName(R.string.drawer_item_action_bar).withIcon(FontAwesome.Icon.faw_home).withIdentifier(1).withCheckable(false),
