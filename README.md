@@ -201,6 +201,7 @@ Overwrite following colors to create a quick custom style for your application
 - Mirosław Stanek - [GitHub](https://github.com/frogermcs)
 	- For his InstaMaterial concept and the idea of inflating the drawerLayout [InstaMaterial Concept](http://frogermcs.github.io/InstaMaterial-concept-part-7-navigation-drawer/)
 
+- Lunae Luman - [Behance](https://www.behance.net/gallery/18526001/Material-Wallpaper) for the Header Image
 
 #Developed By
 
