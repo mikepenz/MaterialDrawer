@@ -39,7 +39,7 @@ public class SimpleDrawerActivity extends ActionBarActivity {
                 .withToolbar(toolbar)
                 .withActionBarDrawerToggle(true)
                 .addDrawerItems(
-                        new PrimaryDrawerItem().withName(R.string.drawer_item_action_bar).withIcon(FontAwesome.Icon.faw_home).withIdentifier(1).withCheckable(false),
+                        new PrimaryDrawerItem().withName(R.string.drawer_item_action_bar).withIcon(FontAwesome.Icon.faw_home).withIdentifier(1).withCheckable(false).withTag("Primary"),
                         new PrimaryDrawerItem().withName(R.string.drawer_item_multi_drawer).withIcon(FontAwesome.Icon.faw_gamepad).withIdentifier(2).withCheckable(false),
                         new PrimaryDrawerItem().withName(R.string.drawer_item_non_translucent_status_drawer).withIcon(FontAwesome.Icon.faw_eye).withIdentifier(3).withCheckable(false),
                         new SectionDrawerItem().withName(R.string.drawer_item_section_header),
@@ -51,6 +51,7 @@ public class SimpleDrawerActivity extends ActionBarActivity {
                 .withOnDrawerItemClickListener(new Drawer.OnDrawerItemClickListener() {
                     @Override
                     public void onItemClick(AdapterView<?> parent, View view, int position, long id, IDrawerItem drawerItem) {
+
                         if (drawerItem instanceof Nameable) {
                             Toast.makeText(SimpleDrawerActivity.this, SimpleDrawerActivity.this.getString(((Nameable) drawerItem).getNameRes()), Toast.LENGTH_SHORT).show();
                         }
@@ -64,6 +65,12 @@ public class SimpleDrawerActivity extends ActionBarActivity {
                         } else if (drawerItem.getIdentifier() == 3) {
                             Intent intent = new Intent(SimpleDrawerActivity.this, SimpleNonTranslucentDrawerActivity.class);
                             SimpleDrawerActivity.this.startActivity(intent);
+                        }
+
+                        if (drawerItem.getTag() != null){
+                            String tag = (String)drawerItem.getTag();
+                            Toast.makeText(SimpleDrawerActivity.this,"Tag set on item:" + tag, Toast.LENGTH_LONG).show();
+                            result.removeAllItems();
                         }
 
                     }

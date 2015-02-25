@@ -22,6 +22,11 @@ public class DividerDrawerItem implements IDrawerItem {
     }
 
     @Override
+    public Object getTag() {
+        return null;
+    }
+
+    @Override
     public boolean isEnabled() {
         return false;
     }

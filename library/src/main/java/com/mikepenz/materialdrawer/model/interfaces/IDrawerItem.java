@@ -10,6 +10,8 @@ import android.view.ViewGroup;
 public interface IDrawerItem {
     public int getIdentifier();
 
+    public Object getTag();
+
     public boolean isEnabled();
 
     public String getType();

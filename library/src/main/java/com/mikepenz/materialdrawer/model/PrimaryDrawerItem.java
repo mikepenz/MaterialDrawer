@@ -34,6 +34,7 @@ public class PrimaryDrawerItem implements IDrawerItem, Nameable<PrimaryDrawerIte
     private String badge;
     private boolean enabled = true;
     private boolean checkable = true;
+    private Object tag;
 
     public PrimaryDrawerItem withIdentifier(int identifier) {
         this.identifier = identifier;
@@ -80,6 +81,11 @@ public class PrimaryDrawerItem implements IDrawerItem, Nameable<PrimaryDrawerIte
         return this;
     }
 
+    public PrimaryDrawerItem withTag(Object object) {
+        this.tag = object;
+        return this;
+    }
+
     public PrimaryDrawerItem withCheckable(boolean checkable) {
         this.checkable = checkable;
         return this;
@@ -88,6 +94,10 @@ public class PrimaryDrawerItem implements IDrawerItem, Nameable<PrimaryDrawerIte
     public PrimaryDrawerItem setEnabled(boolean enabled) {
         this.enabled = enabled;
         return this;
+    }
+
+    public Object getTag() {
+        return tag;
     }
 
     public Drawable getIcon() {
@@ -263,6 +273,9 @@ public class PrimaryDrawerItem implements IDrawerItem, Nameable<PrimaryDrawerIte
         } else {
             viewHolder.icon.setVisibility(View.GONE);
         }
+        if (tag != null) {
+            viewHolder.tag = tag;
+        }
 
         return convertView;
     }
@@ -272,6 +285,7 @@ public class PrimaryDrawerItem implements IDrawerItem, Nameable<PrimaryDrawerIte
         private ImageView icon;
         private TextView name;
         private TextView badge;
+        private Object tag;
 
         private ViewHolder(View view) {
             this.view = view;
