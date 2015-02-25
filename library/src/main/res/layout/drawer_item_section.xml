@@ -9,14 +9,16 @@
         android:layout_height="1dp"
         android:layout_marginTop="@dimen/material_drawer_padding"
         android:background="@color/material_drawer_divider"/>
+
     <TextView
+        android:id="@+id/name"
         android:layout_width="match_parent"
         android:layout_height="@dimen/material_drawer_item_primary"
-        android:id="@+id/name"
         android:fontFamily="sans-serif-medium"
-        android:gravity="center_vertical"
+        android:gravity="center_vertical|start"
         android:textSize="@dimen/material_drawer_item_section_text"
         android:textColor="@color/material_drawer_hint_text"
+        android:textDirection="anyRtl"
         android:paddingLeft="@dimen/material_drawer_vertical_padding"
         android:paddingRight="@dimen/material_drawer_vertical_padding"
         android:paddingEnd="@dimen/material_drawer_vertical_padding"/>
