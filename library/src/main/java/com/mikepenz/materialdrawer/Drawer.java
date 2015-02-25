@@ -59,14 +59,17 @@ public class Drawer {
     }
 
     // set actionbar Compatibility mode
-    protected boolean mActionBarCompatibility = false;
+    protected boolean mTranslucentActionBarCompatibility = false;
 
     /**
-     * @param actionBarCompatibility
+     * Just use this parameter if you really want to use a translucent statusbar with an
+     * actionbar
+     *
+     * @param translucentActionBarCompatibility
      * @return
      */
-    public Drawer withActionBarCompatibility(boolean actionBarCompatibility) {
-        this.mActionBarCompatibility = actionBarCompatibility;
+    public Drawer withTranslucentActionBarCompatibility(boolean translucentActionBarCompatibility) {
+        this.mTranslucentActionBarCompatibility = translucentActionBarCompatibility;
         return this;
     }
 
@@ -74,6 +77,8 @@ public class Drawer {
     protected boolean mTranslucentStatusBar = true;
 
     /**
+     * Set or disable this if you use a translucent statusbar
+     *
      * @param translucentStatusBar
      * @return
      */
@@ -825,7 +830,7 @@ public class Drawer {
             }
         }
 
-        if (mActionBarCompatibility) {
+        if (mTranslucentActionBarCompatibility) {
             TypedValue tv = new TypedValue();
             if (mActivity.getTheme().resolveAttribute(android.R.attr.actionBarSize, tv, true)) {
                 params.topMargin = TypedValue.complexToDimensionPixelSize(tv.data, mActivity.getResources().getDisplayMetrics());
