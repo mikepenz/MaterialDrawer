@@ -16,12 +16,13 @@ import com.mikepenz.materialdrawer.model.interfaces.Checkable;
 import com.mikepenz.materialdrawer.model.interfaces.IDrawerItem;
 import com.mikepenz.materialdrawer.model.interfaces.Iconable;
 import com.mikepenz.materialdrawer.model.interfaces.Nameable;
+import com.mikepenz.materialdrawer.model.interfaces.Tagable;
 import com.mikepenz.materialdrawer.util.UIUtils;
 
 /**
  * Created by mikepenz on 03.02.15.
  */
-public class SecondaryDrawerItem implements IDrawerItem, Nameable<SecondaryDrawerItem>, Iconable<SecondaryDrawerItem>, Badgeable<SecondaryDrawerItem>, Checkable<SecondaryDrawerItem> {
+public class SecondaryDrawerItem implements IDrawerItem, Nameable<SecondaryDrawerItem>, Iconable<SecondaryDrawerItem>, Badgeable<SecondaryDrawerItem>, Checkable<SecondaryDrawerItem>, Tagable<SecondaryDrawerItem> {
 
     private int identifier = -1;
     private Drawable icon;
@@ -80,13 +81,25 @@ public class SecondaryDrawerItem implements IDrawerItem, Nameable<SecondaryDrawe
         this.checkable = checkable;
         return this;
     }
+
     public SecondaryDrawerItem withTag(Object object) {
         this.tag = object;
         return this;
     }
+
     public SecondaryDrawerItem setEnabled(boolean enabled) {
         this.enabled = enabled;
         return this;
+    }
+
+    @Override
+    public Object getTag() {
+        return tag;
+    }
+
+    @Override
+    public void setTag(Object tag) {
+        this.tag = tag;
     }
 
     public Drawable getIcon() {
@@ -161,11 +174,6 @@ public class SecondaryDrawerItem implements IDrawerItem, Nameable<SecondaryDrawe
     @Override
     public int getIdentifier() {
         return identifier;
-    }
-
-    @Override
-    public Object getTag() {
-        return tag;
     }
 
     public void setIdentifier(int identifier) {

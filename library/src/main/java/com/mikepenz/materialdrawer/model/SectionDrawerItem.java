@@ -8,11 +8,12 @@ import android.widget.TextView;
 import com.mikepenz.materialdrawer.R;
 import com.mikepenz.materialdrawer.model.interfaces.IDrawerItem;
 import com.mikepenz.materialdrawer.model.interfaces.Nameable;
+import com.mikepenz.materialdrawer.model.interfaces.Tagable;
 
 /**
  * Created by mikepenz on 03.02.15.
  */
-public class SectionDrawerItem implements IDrawerItem, Nameable<SectionDrawerItem> {
+public class SectionDrawerItem implements IDrawerItem, Nameable<SectionDrawerItem>, Tagable<SectionDrawerItem> {
 
     private String name;
     private int nameRes = -1;
@@ -28,6 +29,7 @@ public class SectionDrawerItem implements IDrawerItem, Nameable<SectionDrawerIte
         this.nameRes = nameRes;
         return this;
     }
+
     public SectionDrawerItem withTag(Object object) {
         this.tag = object;
         return this;
@@ -37,10 +39,17 @@ public class SectionDrawerItem implements IDrawerItem, Nameable<SectionDrawerIte
         this.divider = divider;
         return this;
     }
+
     @Override
     public Object getTag() {
         return tag;
     }
+
+    @Override
+    public void setTag(Object tag) {
+        this.tag = tag;
+    }
+
     public boolean hasDivider() {
         return divider;
     }

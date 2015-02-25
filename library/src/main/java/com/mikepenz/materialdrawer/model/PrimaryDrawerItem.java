@@ -16,12 +16,13 @@ import com.mikepenz.materialdrawer.model.interfaces.Checkable;
 import com.mikepenz.materialdrawer.model.interfaces.IDrawerItem;
 import com.mikepenz.materialdrawer.model.interfaces.Iconable;
 import com.mikepenz.materialdrawer.model.interfaces.Nameable;
+import com.mikepenz.materialdrawer.model.interfaces.Tagable;
 import com.mikepenz.materialdrawer.util.UIUtils;
 
 /**
  * Created by mikepenz on 03.02.15.
  */
-public class PrimaryDrawerItem implements IDrawerItem, Nameable<PrimaryDrawerItem>, Iconable<PrimaryDrawerItem>, Badgeable<PrimaryDrawerItem>, Checkable<PrimaryDrawerItem> {
+public class PrimaryDrawerItem implements IDrawerItem, Nameable<PrimaryDrawerItem>, Iconable<PrimaryDrawerItem>, Badgeable<PrimaryDrawerItem>, Checkable<PrimaryDrawerItem>, Tagable<PrimaryDrawerItem> {
 
     private int identifier = -1;
     private Drawable icon;
@@ -96,8 +97,14 @@ public class PrimaryDrawerItem implements IDrawerItem, Nameable<PrimaryDrawerIte
         return this;
     }
 
+    @Override
     public Object getTag() {
         return tag;
+    }
+
+    @Override
+    public void setTag(Object tag) {
+        this.tag = tag;
     }
 
     public Drawable getIcon() {
