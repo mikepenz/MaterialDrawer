@@ -1,13 +1,23 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <!-- Material SAMPLE DARK colors -->
     <!--
+    Material SAMPLE DARK colors
+
+    Just set custom primary and accent color.
+    Looks best with a light theme. see the AndroidManifest
+
+    android:theme="@style/MaterialDrawerTheme.Light.DarkActionBar.TranslucentStatus"
+    -->
     <color name="material_drawer_primary">#4BAE4F</color>
     <color name="material_drawer_primary_dark">#378D3B</color>
     <color name="material_drawer_primary_light">#C8E5C9</color>
     <color name="material_drawer_accent">#FE5621</color>
-    -->
 
+
+    <!--
+    Use these values (or modify them) to get a dark theme within your application
+    Looks best in combination of a dark theme
+    -->
     <!--
     <color name="material_drawer_background">#303030</color>
     - Material SAMPLE DARK text / items colors -

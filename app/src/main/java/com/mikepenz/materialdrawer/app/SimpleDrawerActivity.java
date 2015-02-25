@@ -140,6 +140,7 @@ public class SimpleDrawerActivity extends ActionBarActivity {
 
     @Override
     protected void onSaveInstanceState(Bundle outState) {
+        //add the values which need to be saved from the drawer to the bundle
         outState = result.saveInstanceState(outState);
         super.onSaveInstanceState(outState);
     }
