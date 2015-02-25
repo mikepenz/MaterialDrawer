@@ -34,6 +34,7 @@ public class SecondaryDrawerItem implements IDrawerItem, Nameable<SecondaryDrawe
     private String badge;
     private boolean enabled = true;
     private boolean checkable = true;
+    private Object tag;
 
     public SecondaryDrawerItem withIdentifier(int identifier) {
         this.identifier = identifier;
@@ -79,7 +80,10 @@ public class SecondaryDrawerItem implements IDrawerItem, Nameable<SecondaryDrawe
         this.checkable = checkable;
         return this;
     }
-
+    public SecondaryDrawerItem withTag(Object object) {
+        this.tag = object;
+        return this;
+    }
     public SecondaryDrawerItem setEnabled(boolean enabled) {
         this.enabled = enabled;
         return this;
@@ -157,6 +161,11 @@ public class SecondaryDrawerItem implements IDrawerItem, Nameable<SecondaryDrawe
     @Override
     public int getIdentifier() {
         return identifier;
+    }
+
+    @Override
+    public Object getTag() {
+        return tag;
     }
 
     public void setIdentifier(int identifier) {

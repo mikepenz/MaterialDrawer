@@ -1070,7 +1070,14 @@ public class Drawer {
                 mDrawer.mAdapter.dataUpdated();
             }
         }
+        /**
+         * Removes all items from drawer
+         * */
+        public void removeAllItems() {
+                mDrawer.mDrawerItems.clear();
+                mDrawer.mAdapter.dataUpdated();
 
+        }
         /**
          * @param drawerItems
          */

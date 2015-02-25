@@ -17,6 +17,7 @@ public class SectionDrawerItem implements IDrawerItem, Nameable<SectionDrawerIte
     private String name;
     private int nameRes = -1;
     private boolean divider = true;
+    private Object tag;
 
     public SectionDrawerItem withName(String name) {
         this.name = name;
@@ -27,12 +28,19 @@ public class SectionDrawerItem implements IDrawerItem, Nameable<SectionDrawerIte
         this.nameRes = nameRes;
         return this;
     }
+    public SectionDrawerItem withTag(Object object) {
+        this.tag = object;
+        return this;
+    }
 
     public SectionDrawerItem setDivider(boolean divider) {
         this.divider = divider;
         return this;
     }
-
+    @Override
+    public Object getTag() {
+        return tag;
+    }
     public boolean hasDivider() {
         return divider;
     }
