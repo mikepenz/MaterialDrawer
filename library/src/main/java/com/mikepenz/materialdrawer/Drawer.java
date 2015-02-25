@@ -867,7 +867,7 @@ public class Drawer {
                 return mDrawerItems.get(position - mHeaderOffset);
             }
         } else {
-            if (mDrawerItems != null && mDrawerItems.size() > mCurrentSelection && mCurrentSelection > -1) {
+            if (mDrawerItems != null && mDrawerItems.size() > position && position > -1) {
                 return mDrawerItems.get(position);
             }
         }
@@ -887,7 +887,7 @@ public class Drawer {
                 return true;
             }
         } else {
-            if (mDrawerItems != null && mDrawerItems.size() > mCurrentSelection && mCurrentSelection > -1) {
+            if (mDrawerItems != null && mDrawerItems.size() > position && position > -1) {
                 return true;
             }
         }
