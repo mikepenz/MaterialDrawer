@@ -29,6 +29,7 @@ public class ActionBarDrawerActivity extends ActionBarActivity {
         result = new Drawer()
                 .withActivity(this)
                 .withActionBarDrawerToggle(true)
+                .withTranslucentStatusBar(false)
                 .addDrawerItems(
                         new PrimaryDrawerItem().withName(R.string.drawer_item_home).withIcon(FontAwesome.Icon.faw_home),
                         new PrimaryDrawerItem().withName(R.string.drawer_item_free_play).withIcon(FontAwesome.Icon.faw_gamepad),
