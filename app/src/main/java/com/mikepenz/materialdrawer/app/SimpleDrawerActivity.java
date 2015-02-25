@@ -16,6 +16,7 @@ import com.mikepenz.materialdrawer.model.SecondaryDrawerItem;
 import com.mikepenz.materialdrawer.model.SectionDrawerItem;
 import com.mikepenz.materialdrawer.model.interfaces.IDrawerItem;
 import com.mikepenz.materialdrawer.model.interfaces.Nameable;
+import com.mikepenz.materialdrawer.model.interfaces.Tagable;
 
 public class SimpleDrawerActivity extends ActionBarActivity {
 
@@ -39,14 +40,14 @@ public class SimpleDrawerActivity extends ActionBarActivity {
                 .withToolbar(toolbar)
                 .withActionBarDrawerToggle(true)
                 .addDrawerItems(
-                        new PrimaryDrawerItem().withName(R.string.drawer_item_action_bar).withIcon(FontAwesome.Icon.faw_home).withIdentifier(1).withCheckable(false).withTag("Primary"),
+                        new PrimaryDrawerItem().withName(R.string.drawer_item_action_bar).withIcon(FontAwesome.Icon.faw_home).withIdentifier(1).withCheckable(false),
                         new PrimaryDrawerItem().withName(R.string.drawer_item_multi_drawer).withIcon(FontAwesome.Icon.faw_gamepad).withIdentifier(2).withCheckable(false),
                         new PrimaryDrawerItem().withName(R.string.drawer_item_non_translucent_status_drawer).withIcon(FontAwesome.Icon.faw_eye).withIdentifier(3).withCheckable(false),
                         new SectionDrawerItem().withName(R.string.drawer_item_section_header),
                         new SecondaryDrawerItem().withName(R.string.drawer_item_settings).withIcon(FontAwesome.Icon.faw_cog),
                         new SecondaryDrawerItem().withName(R.string.drawer_item_help).withIcon(FontAwesome.Icon.faw_question).setEnabled(false),
                         new SecondaryDrawerItem().withName(R.string.drawer_item_open_source).withIcon(GoogleMaterial.Icon.gmd_format_color_fill).withIdentifier(5),
-                        new SecondaryDrawerItem().withName(R.string.drawer_item_contact).withIcon(FontAwesome.Icon.faw_bullhorn)
+                        new SecondaryDrawerItem().withName(R.string.drawer_item_contact).withIcon(FontAwesome.Icon.faw_bullhorn).withTag("Bullhorn")
                 )
                 .withOnDrawerItemClickListener(new Drawer.OnDrawerItemClickListener() {
                     @Override
@@ -67,9 +68,11 @@ public class SimpleDrawerActivity extends ActionBarActivity {
                             SimpleDrawerActivity.this.startActivity(intent);
                         }
 
-                        if (drawerItem.getTag() != null){
-                            String tag = (String)drawerItem.getTag();
-                            Toast.makeText(SimpleDrawerActivity.this,"Tag set on item:" + tag, Toast.LENGTH_LONG).show();
+                        if (drawerItem instanceof Tagable && drawerItem.getTag() != null) {
+                            String tag = (String) drawerItem.getTag();
+                            Toast.makeText(SimpleDrawerActivity.this, "Tag set on item:" + tag, Toast.LENGTH_LONG).show();
+
+                            //demonstrate removeAllItems
                             result.removeAllItems();
                         }
 
