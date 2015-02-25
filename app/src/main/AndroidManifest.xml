@@ -18,7 +18,7 @@
         </activity>
         <activity android:name=".ActionBarDrawerActivity"
                   android:configChanges="orientation|keyboardHidden|screenSize"
-                  android:theme="@style/MaterialDrawerTheme.ActionBar.TranslucentStatus"/>
+                  android:theme="@style/MaterialDrawerTheme.ActionBar"/>
         <activity android:name=".SimpleNonTranslucentDrawerActivity"
                   android:configChanges="orientation|keyboardHidden|screenSize"
                   android:theme="@style/MaterialDrawerTheme"/>

@@ -23,12 +23,11 @@ public class ActionBarDrawerActivity extends ActionBarActivity {
         //supportRequestWindowFeature(Window.FEATURE_INDETERMINATE_PROGRESS);
 
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_sample);
+        setContentView(R.layout.activity_sample_actionbar);
 
         // Handle Toolbar
         result = new Drawer()
                 .withActivity(this)
-                .withActionBarCompatibility(true)
                 .withActionBarDrawerToggle(true)
                 .addDrawerItems(
                         new PrimaryDrawerItem().withName(R.string.drawer_item_home).withIcon(FontAwesome.Icon.faw_home),
