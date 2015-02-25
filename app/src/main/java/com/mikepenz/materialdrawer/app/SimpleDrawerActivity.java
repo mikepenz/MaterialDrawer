@@ -35,6 +35,60 @@ public class SimpleDrawerActivity extends ActionBarActivity {
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
 
+        /*
+        new Drawer()
+                //set the activity so we can inflate layouts automatically
+                .withActivity(this)
+                //set the toolbar to use with the drawer. will allow special stuff like ActionBarDrawerToggle
+                .withToolbar(toolbar)
+                //set the layout for the drawer manually. normally handled by the library
+                .withDrawerLayout(VIEW|RES)
+                //set the gravity for the drawer DEFAULT: START
+                .withDrawerGravity(Gravity.END)
+                //set this if you use the translucent statusBar feature DEFAULT: true
+                .withTranslucentStatusBar(true)
+                //set this to disable the ActionBarDrawerToggle, or pass a custom ActionBarDrawerToggle DEFAULT: true
+                .withActionBarDrawerToggle(BOOLEAN|ActionBarDrawerToggle)
+                //set the header for the drawer
+                .withHeader(VIEW|RES)
+                //set this to disable the divider after the header DEFAULT: true
+                .withHeaderDivider(false)
+                //set the footer for the drawer
+                .withFooter(VIEW|RES)
+                //set this to disable the divider before the footer DEFAULT: true
+                .withFooterDivider(false)
+                //set the sticky footer for the drawer (this one is always visible)
+                .withStickyFooter(VIEW|RES)
+                //set this if you want a onClick event as soon as you call .build() for the initial set DEFAULT: false
+                .withFireOnInitialOnClick(true)
+                //set the initial selected item. this is the position of the item. NOT the identifier
+                .withSelectedItem(0)
+                //set this to pass a custom ListView to the drawer. normally handled by the library
+                .withListView(VIEW)
+                //set this to pass a custom BaseDrawerAdapter to the drawer. normally handled by the library
+                .withAdapter(BaseDrawerAdapter)
+                //set one of this parameters to set the items for the drawer. not required if you pass your own adapter or even your own listView
+                .withDrawerItems().addDrawerItems()
+                //set this to disable the auto-close of the drawer after onClick DEFAULT: true
+                .withCloseOnClick(false)
+                //set this to modify the delay to close the drawer. this is a "hack" to prevent lag after onClick DEFAULT: 150 / DISABLE: -1
+                .withDelayOnDrawerClose(-1)
+                //set one of these methods to set listeners for the drawer
+                .withOnDrawerListener().withOnDrawerItemClickListener().withOnDrawerItemLongClickListener().withOnDrawerItemSelectedListener()
+                //set this method if you got a savedInstance (find more details in the sample application)
+                .withSavedInstance()
+                //set the width of the drawer FROM RES/DP/PX (just use one)
+                .withDrawerWidthRes(R.dimen.material_drawer_width)
+                .withDrawerWidthDp(240)
+                .withDrawerWidthPx(1000)
+                //set this if you use an actionBar and want also a translucent statusBar (really rare scenario)
+                .withTranslucentActionBarCompatibility(true)
+                //use one of those methods to finalize the drawer and to build it. append to add a second drawer to an existing drawer
+                .build()
+                .append(Drawer.Result)
+         */
+
+
         result = new Drawer()
                 .withActivity(this)
                 .withToolbar(toolbar)
