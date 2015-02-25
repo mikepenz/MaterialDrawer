@@ -18,19 +18,8 @@
 -->
 
 <resources>
+    <!-- NORMAL -->
     <style name="MaterialDrawerBaseTheme" parent="Theme.AppCompat.NoActionBar">
-        <!-- Here we setting appcompat’s actionBarStyle -->
-        <item name="drawerArrowStyle">@style/MaterialDrawer.DrawerArrowStyle</item>
-
-        <!-- ...and here we setting appcompat’s color theming attrs -->
-        <item name="colorPrimary">@color/material_drawer_primary</item>
-        <item name="colorPrimaryDark">@color/material_drawer_primary_dark</item>
-        <item name="colorAccent">@color/material_drawer_accent</item>
-
-        <item name="android:windowBackground">@color/material_drawer_window_background</item>
-    </style>
-
-    <style name="MaterialDrawerBaseTheme.Light" parent="Theme.AppCompat.Light.NoActionBar">
         <!-- Here we setting appcompat’s actionBarStyle -->
         <item name="drawerArrowStyle">@style/MaterialDrawer.DrawerArrowStyle</item>
 
@@ -55,6 +44,24 @@
     <style name="MaterialDrawerTheme.ActionBar.TranslucentStatus" parent="MaterialDrawerTheme.ActionBar">
     </style>
 
+    <style name="MaterialDrawer.DrawerArrowStyle" parent="Widget.AppCompat.DrawerArrowToggle">
+        <item name="spinBars">false</item>
+        <item name="color">@android:color/white</item>
+    </style>
+
+
+    <!-- LIGHT -->
+    <style name="MaterialDrawerBaseTheme.Light" parent="Theme.AppCompat.Light.NoActionBar">
+        <!-- Here we setting appcompat’s actionBarStyle -->
+        <item name="drawerArrowStyle">@style/MaterialDrawer.Light.DrawerArrowStyle</item>
+
+        <!-- ...and here we setting appcompat’s color theming attrs -->
+        <item name="colorPrimary">@color/material_drawer_primary</item>
+        <item name="colorPrimaryDark">@color/material_drawer_primary_dark</item>
+        <item name="colorAccent">@color/material_drawer_accent</item>
+
+        <item name="android:windowBackground">@color/material_drawer_window_background</item>
+    </style>
 
     <style name="MaterialDrawerTheme.Light" parent="MaterialDrawerBaseTheme.Light">
     </style>
@@ -69,13 +76,48 @@
     <style name="MaterialDrawerTheme.Light.ActionBar.TranslucentStatus" parent="MaterialDrawerTheme.Light.ActionBar">
     </style>
 
-    <style name="MaterialDrawer.DrawerArrowStyle" parent="Widget.AppCompat.DrawerArrowToggle">
+    <style name="MaterialDrawer.Light.DrawerArrowStyle" parent="Widget.AppCompat.DrawerArrowToggle">
         <item name="spinBars">false</item>
-        <item name="color">@android:color/white</item>
+        <item name="color">@android:color/black</item>
+    </style>
+
+
+    <!-- LIGHT DARK ACTIONBAR -->
+    <style name="MaterialDrawerBaseTheme.Light.DarkActionBar" parent="Theme.AppCompat.Light.DarkActionBar">
+        <item name="windowActionBar">false</item>
+
+        <!-- Here we setting appcompat’s actionBarStyle -->
+        <item name="drawerArrowStyle">@style/MaterialDrawer.DrawerArrowStyle</item>
+        <item name="theme">@style/ThemeOverlay.AppCompat.Dark</item>
+
+        <!-- ...and here we setting appcompat’s color theming attrs -->
+        <item name="colorPrimary">@color/material_drawer_primary</item>
+        <item name="colorPrimaryDark">@color/material_drawer_primary_dark</item>
+        <item name="colorAccent">@color/material_drawer_accent</item>
+
+        <item name="android:windowBackground">@color/material_drawer_window_background</item>
+    </style>
+
+    <style name="MaterialDrawerTheme.Light.DarkActionBar" parent="MaterialDrawerBaseTheme.Light.DarkActionBar">
+    </style>
+
+    <style name="MaterialDrawerTheme.Light.DarkActionBar.TranslucentStatus" parent="MaterialDrawerTheme.Light.DarkActionBar">
+    </style>
+
+    <style name="MaterialDrawerTheme.Light.DarkActionBar.ActionBar" parent="MaterialDrawerTheme.Light.DarkActionBar">
+        <item name="windowActionBar">true</item>
+    </style>
+
+    <style name="MaterialDrawerTheme.Light.DarkActionBar.ActionBar.TranslucentStatus" parent="MaterialDrawerTheme.Light.DarkActionBar">
     </style>
 
     <!-- General Theme override to change the Dialog design -->
     <style name="MaterialDrawerBaseTheme.Dialog" parent="Theme.AppCompat.Dialog">
+        <item name="colorPrimary">@color/material_drawer_primary</item>
+        <item name="colorPrimaryDark">@color/material_drawer_primary_dark</item>
+        <item name="colorAccent">@color/material_drawer_accent</item>
+    </style>
+    <style name="MaterialDrawerBaseTheme.Light.Dialog" parent="Theme.AppCompat.Light.Dialog">
         <item name="colorPrimary">@color/material_drawer_primary</item>
         <item name="colorPrimaryDark">@color/material_drawer_primary_dark</item>
         <item name="colorAccent">@color/material_drawer_accent</item>
