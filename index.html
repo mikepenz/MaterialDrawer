@@ -44,7 +44,8 @@
 <li><strong>uses the AppCompat support library</strong></li>
 <li>comes with a basetheme which helps if you want an activity with a colored statusbar</li>
 <li>the navigationdrawer is also under the statusbar</li>
-<li>compatible down to API Level 14</li>
+<li>compatible down to <strong>API Level 10</strong>
+</li>
 <li><strong>supports multiple drawers</strong></li>
 <li>comes with multiple default drawer items</li>
 <li>
@@ -73,7 +74,7 @@
 
 <p>The MaterialDrawer Library is pushed to <a href="http://search.maven.org/#search%7Cga%7C1%7Cg%3A%22com.mikepenz.materialdrawer%22">Maven Central</a>, so you just need to add the following dependency to your <code>build.gradle</code>.</p>
 
-<div class="highlight highlight-javascript"><pre><span class="pl-s3">compile</span>(<span class="pl-s1"><span class="pl-pds">'</span>com.mikepenz.materialdrawer:library:0.9.8@aar<span class="pl-pds">'</span></span>) {
+<div class="highlight highlight-javascript"><pre><span class="pl-s3">compile</span>(<span class="pl-s1"><span class="pl-pds">'</span>com.mikepenz.materialdrawer:library:1.0.0@aar<span class="pl-pds">'</span></span>) {
     transitive <span class="pl-k">=</span> <span class="pl-c1">true</span>
 }</pre></div>
 
@@ -82,50 +83,153 @@
 
 <p>Here's a quick overview what you have to do within your application.</p>
 
-<h4>
-<a id="activity" class="anchor" href="#activity" aria-hidden="true"><span class="octicon octicon-link"></span></a>Activity</h4>
+<h3>
+<a id="activity-with-toolbar" class="anchor" href="#activity-with-toolbar" aria-hidden="true"><span class="octicon octicon-link"></span></a>Activity with Toolbar</h3>
 
-<h5>
-<a id="code" class="anchor" href="#code" aria-hidden="true"><span class="octicon octicon-link"></span></a>Code:</h5>
+<h4>
+<a id="code" class="anchor" href="#code" aria-hidden="true"><span class="octicon octicon-link"></span></a>Code:</h4>
 
 <p>It's (theoretically) a one-liner :D</p>
 
 <div class="highlight highlight-java"><pre><span class="pl-k">new</span> <span class="pl-stj">Drawer</span>()
-.withActivity(<span class="pl-v">this</span>)
-.withToolbar(toolbar)
-.withActionBarDrawerToggle(<span class="pl-c1">true</span>)
-.addDrawerItems(
-    <span class="pl-k">new</span> <span class="pl-stj">PrimaryDrawerItem</span>()<span class="pl-k">.</span>withName(<span class="pl-stj">R</span><span class="pl-k">.</span>string<span class="pl-k">.</span>drawer_item_home),
-    <span class="pl-k">new</span> <span class="pl-stj">PrimaryDrawerItem</span>()<span class="pl-k">.</span>withName(<span class="pl-stj">R</span><span class="pl-k">.</span>string<span class="pl-k">.</span>drawer_item_free_play),
-    <span class="pl-k">new</span> <span class="pl-stj">PrimaryDrawerItem</span>()<span class="pl-k">.</span>withName(<span class="pl-stj">R</span><span class="pl-k">.</span>string<span class="pl-k">.</span>drawer_item_custom),
-    <span class="pl-k">new</span> <span class="pl-stj">DividerDrawerItem</span>(),
-    <span class="pl-k">new</span> <span class="pl-stj">SecondaryDrawerItem</span>()<span class="pl-k">.</span>withName(<span class="pl-stj">R</span><span class="pl-k">.</span>string<span class="pl-k">.</span>drawer_item_settings)<span class="pl-k">.</span>withIcon(<span class="pl-stj">FontAwesome</span><span class="pl-k">.</span><span class="pl-stj">Icon</span><span class="pl-k">.</span>faw_cog),
-    <span class="pl-k">new</span> <span class="pl-stj">SecondaryDrawerItem</span>()<span class="pl-k">.</span>withName(<span class="pl-stj">R</span><span class="pl-k">.</span>string<span class="pl-k">.</span>drawer_item_help)<span class="pl-k">.</span>withIcon(<span class="pl-stj">FontAwesome</span><span class="pl-k">.</span><span class="pl-stj">Icon</span><span class="pl-k">.</span>faw_question)<span class="pl-k">.</span>setEnabled(<span class="pl-c1">false</span>),
-    <span class="pl-k">new</span> <span class="pl-stj">SecondaryDrawerItem</span>()<span class="pl-k">.</span>withName(<span class="pl-stj">R</span><span class="pl-k">.</span>string<span class="pl-k">.</span>drawer_item_open_source)<span class="pl-k">.</span>withIcon(<span class="pl-stj">FontAwesome</span><span class="pl-k">.</span><span class="pl-stj">Icon</span><span class="pl-k">.</span>faw_github),
-    <span class="pl-k">new</span> <span class="pl-stj">SecondaryDrawerItem</span>()<span class="pl-k">.</span>withName(<span class="pl-stj">R</span><span class="pl-k">.</span>string<span class="pl-k">.</span>drawer_item_contact)<span class="pl-k">.</span>withIcon(<span class="pl-stj">FontAwesome</span><span class="pl-k">.</span><span class="pl-stj">Icon</span><span class="pl-k">.</span>faw_bullhorn)
-)
-.withOnDrawerItemClickListener(<span class="pl-k">new</span> <span class="pl-stj">Drawer</span>.<span class="pl-stj">OnDrawerItemClickListener</span>() {
-<span class="pl-st">@Override</span>
-<span class="pl-s">public</span> <span class="pl-st">void</span> <span class="pl-en">onItemClick</span>(<span class="pl-st">AdapterView&lt;?&gt;</span> <span class="pl-v">parent</span>, <span class="pl-stj">View</span> <span class="pl-v">view</span>, <span class="pl-st">int</span> <span class="pl-v">position</span>, <span class="pl-st">long</span> <span class="pl-v">id</span>, <span class="pl-stj">IDrawerItem</span> <span class="pl-v">drawerItem</span>) {
-    <span class="pl-c">// do something with the clicked item :D</span>
-}
-})
-.build();</pre></div>
+    .withActivity(<span class="pl-v">this</span>)
+    .withToolbar(toolbar)
+    .addDrawerItems(
+        <span class="pl-k">new</span> <span class="pl-stj">PrimaryDrawerItem</span>()<span class="pl-k">.</span>withName(<span class="pl-stj">R</span><span class="pl-k">.</span>string<span class="pl-k">.</span>drawer_item_home),
+        <span class="pl-k">new</span> <span class="pl-stj">DividerDrawerItem</span>(),
+        <span class="pl-k">new</span> <span class="pl-stj">SecondaryDrawerItem</span>()<span class="pl-k">.</span>withName(<span class="pl-stj">R</span><span class="pl-k">.</span>string<span class="pl-k">.</span>drawer_item_settings)
+    )
+    .withOnDrawerItemClickListener(<span class="pl-k">new</span> <span class="pl-stj">Drawer</span>.<span class="pl-stj">OnDrawerItemClickListener</span>() {
+    <span class="pl-st">@Override</span>
+    <span class="pl-s">public</span> <span class="pl-st">void</span> <span class="pl-en">onItemClick</span>(<span class="pl-st">AdapterView&lt;?&gt;</span> <span class="pl-v">parent</span>, <span class="pl-stj">View</span> <span class="pl-v">view</span>, <span class="pl-st">int</span> <span class="pl-v">position</span>, <span class="pl-st">long</span> <span class="pl-v">id</span>, <span class="pl-stj">IDrawerItem</span> <span class="pl-v">drawerItem</span>) {
+        <span class="pl-c">// do something with the clicked item :D</span>
+    }
+    })
+    .build();</pre></div>
+
+<h3>
+<a id="activity-with-actionbar" class="anchor" href="#activity-with-actionbar" aria-hidden="true"><span class="octicon octicon-link"></span></a>Activity with ActionBar</h3>
+
+<h4>
+<a id="code-1" class="anchor" href="#code-1" aria-hidden="true"><span class="octicon octicon-link"></span></a>Code:</h4>
+
+<p>It's (theoretically) a one-liner :D</p>
+
+<div class="highlight highlight-java"><pre><span class="pl-k">new</span> <span class="pl-stj">Drawer</span>()
+    .withActivity(<span class="pl-v">this</span>)
+    .withTranslucentStatusBar(<span class="pl-c1">false</span>)
+    .addDrawerItems(
+        <span class="pl-c">//pass your items here</span>
+    )
+    .build();</pre></div>
+
+<h3>
+<a id="activity-with-multiple-drawers" class="anchor" href="#activity-with-multiple-drawers" aria-hidden="true"><span class="octicon octicon-link"></span></a>Activity with Multiple Drawers</h3>
+
+<h4>
+<a id="code-2" class="anchor" href="#code-2" aria-hidden="true"><span class="octicon octicon-link"></span></a>Code:</h4>
+
+<p>It's (theoretically) a one-liner :D</p>
+
+<div class="highlight highlight-java"><pre><span class="pl-stj">Drawer</span><span class="pl-k">.</span><span class="pl-stj">Result</span> result <span class="pl-k">=</span> <span class="pl-k">new</span> <span class="pl-stj">Drawer</span>()
+    .withActivity(<span class="pl-v">this</span>)
+    .withToolbar(toolbar)
+    .withHeader(<span class="pl-stj">R</span><span class="pl-k">.</span>layout<span class="pl-k">.</span>header)
+    .addDrawerItems(
+        <span class="pl-c">//pass your items here</span>
+    )
+    .build();
+
+<span class="pl-k">new</span> <span class="pl-stj">Drawer</span>()
+    .withActivity(<span class="pl-v">this</span>)
+    .withFooter(<span class="pl-stj">R</span><span class="pl-k">.</span>layout<span class="pl-k">.</span>footer)
+    .withStickyFooter(<span class="pl-stj">R</span><span class="pl-k">.</span>layout<span class="pl-k">.</span>sticky_footer)
+    .addDrawerItems(
+        <span class="pl-c">//pass your items here</span>
+    )
+    .withDrawerGravity(<span class="pl-stj">Gravity</span><span class="pl-c1"><span class="pl-k">.</span>END</span>)
+    .append(result);</pre></div>
+
+<h3>
+<a id="method-description" class="anchor" href="#method-description" aria-hidden="true"><span class="octicon octicon-link"></span></a>Method description</h3>
+
+<h4>
+<a id="code-3" class="anchor" href="#code-3" aria-hidden="true"><span class="octicon octicon-link"></span></a>Code:</h4>
+
+<div class="highlight highlight-java"><pre><span class="pl-k">new</span> <span class="pl-stj">Drawer</span>()
+                <span class="pl-c">//set the activity so we can inflate layouts automatically</span>
+                .withActivity(<span class="pl-v">this</span>)
+                <span class="pl-c">//set the toolbar to use with the drawer. will allow special stuff like ActionBarDrawerToggle</span>
+                .withToolbar(toolbar)
+                <span class="pl-c">//set the layout for the drawer manually. normally handled by the library</span>
+                .withDrawerLayout(<span class="pl-c1">VIEW</span><span class="pl-k">|</span><span class="pl-c1">RES</span>)
+                <span class="pl-c">//set the gravity for the drawer DEFAULT: START</span>
+                .withDrawerGravity(<span class="pl-stj">Gravity</span><span class="pl-c1"><span class="pl-k">.</span>END</span>)
+                <span class="pl-c">//set this if you use the translucent statusBar feature DEFAULT: true</span>
+                .withTranslucentStatusBar(<span class="pl-c1">true</span>)
+                <span class="pl-c">//set this to disable the ActionBarDrawerToggle, or pass a custom ActionBarDrawerToggle DEFAULT: true</span>
+                .withActionBarDrawerToggle(<span class="pl-c1">BOOLEAN</span><span class="pl-k">|</span><span class="pl-stj">ActionBarDrawerToggle</span>)
+                <span class="pl-c">//set the header for the drawer</span>
+                .withHeader(<span class="pl-c1">VIEW</span><span class="pl-k">|</span><span class="pl-c1">RES</span>)
+                <span class="pl-c">//set this to disable the divider after the header DEFAULT: true</span>
+                .withHeaderDivider(<span class="pl-c1">false</span>)
+                <span class="pl-c">//set the footer for the drawer</span>
+                .withFooter(<span class="pl-c1">VIEW</span><span class="pl-k">|</span><span class="pl-c1">RES</span>)
+                <span class="pl-c">//set this to disable the divider before the footer DEFAULT: true</span>
+                .withFooterDivider(<span class="pl-c1">false</span>)
+                <span class="pl-c">//set the sticky footer for the drawer (this one is always visible)</span>
+                .withStickyFooter(<span class="pl-c1">VIEW</span><span class="pl-k">|</span><span class="pl-c1">RES</span>)
+                <span class="pl-c">//set this if you want a onClick event as soon as you call .build() for the initial set DEFAULT: false</span>
+                .withFireOnInitialOnClick(<span class="pl-c1">true</span>)
+                <span class="pl-c">//set the initial selected item. this is the position of the item. NOT the identifier</span>
+                .withSelectedItem(<span class="pl-c1">0</span>)
+                <span class="pl-c">//set this to pass a custom ListView to the drawer. normally handled by the library</span>
+                .withListView(<span class="pl-c1">VIEW</span>)
+                <span class="pl-c">//set this to pass a custom BaseDrawerAdapter to the drawer. normally handled by the library</span>
+                .withAdapter(<span class="pl-stj">BaseDrawerAdapter</span>)
+                <span class="pl-c">//set one of this parameters to set the items for the drawer. not required if you pass your own adapter or even your own listView</span>
+                .withDrawerItems()
+                .addDrawerItems()
+                <span class="pl-c">//set this to disable the auto-close of the drawer after onClick DEFAULT: true</span>
+                .withCloseOnClick(<span class="pl-c1">false</span>)
+                <span class="pl-c">//set this to modify the delay to close the drawer. this is a "hack" to prevent lag after onClick DEFAULT: 150 / DISABLE: -1</span>
+                .withDelayOnDrawerClose(<span class="pl-k">-</span><span class="pl-c1">1</span>)
+                <span class="pl-c">//set one of these methods to set listeners for the drawer</span>
+                .withOnDrawerListener()
+                .withOnDrawerItemClickListener()
+                .withOnDrawerItemLongClickListener()
+                .withOnDrawerItemSelectedListener()
+                <span class="pl-c">//set this method if you got a savedInstance (find more details in the sample application)</span>
+                .withSavedInstance()
+                <span class="pl-c">//set the width of the drawer FROM RES/DP/PX (just use one)</span>
+                .withDrawerWidthRes(<span class="pl-stj">R</span><span class="pl-k">.</span>dimen<span class="pl-k">.</span>material_drawer_width)
+                .withDrawerWidthDp(<span class="pl-c1">240</span>)
+                .withDrawerWidthPx(<span class="pl-c1">1000</span>)
+                <span class="pl-c">//set this if you use an actionBar and want also a translucent statusBar (really rare scenario) DEFAULT: false</span>
+                .withTranslucentActionBarCompatibility(<span class="pl-c1">true</span>)
+                <span class="pl-c">//use one of those methods to finalize the drawer and to build it. append to add a second drawer to an existing drawer</span>
+                .build()
+                .append(<span class="pl-stj">Drawer</span><span class="pl-k">.</span><span class="pl-stj">Result</span>)</pre></div>
 
 <h3>
 <a id="androidmanifestxml-optional" class="anchor" href="#androidmanifestxml-optional" aria-hidden="true"><span class="octicon octicon-link"></span></a>AndroidManifest.xml (OPTIONAL)</h3>
 
-<p>You can use (one of) the provided themes, this will allow the drawer to display under the statusbar</p>
+<p>You can and should use (one of) the provided themes for your application or activity which contains the drawer. They contain many special settings for different Android versions.</p>
 
-<div class="highlight highlight-xml"><pre>  android:theme="@style/MaterialDrawerTheme"
-  android:theme="@style/MaterialDrawerTheme.TranslucentStatus"
-  android:theme="@style/MaterialDrawerTheme.ActionBar"
-  android:theme="@style/MaterialDrawerTheme.ActionBar.TranslucentStatus"
-  android:theme="@style/MaterialDrawerTheme.Light"
-  android:theme="@style/MaterialDrawerTheme.Light.TranslucentStatus"
-  android:theme="@style/MaterialDrawerTheme.Light.ActionBar"
-  android:theme="@style/MaterialDrawerTheme.Light.ActionBar.TranslucentStatus"
-</pre></div>
+<ul>
+<li>MaterialDrawerTheme</li>
+<li>MaterialDrawerTheme.TranslucentStatus</li>
+<li>MaterialDrawerTheme.ActionBar</li>
+<li>MaterialDrawerTheme.ActionBar.TranslucentStatus</li>
+<li>MaterialDrawerTheme.Light</li>
+<li>MaterialDrawerTheme.Light.TranslucentStatus</li>
+<li>MaterialDrawerTheme.Light.ActionBar</li>
+<li>MaterialDrawerTheme.Light.ActionBar.TranslucentStatus</li>
+<li>MaterialDrawerTheme.Light.DarkActionBar</li>
+<li>MaterialDrawerTheme.Light.DarkActionBar.TranslucentStatus</li>
+<li>MaterialDrawerTheme.Light.DarkActionBar.ActionBar</li>
+<li>MaterialDrawerTheme.Light.DarkActionBar.ActionBar.TranslucentStatus</li>
+</ul>
 
 <h3>
 <a id="stylesxml-optional" class="anchor" href="#stylesxml-optional" aria-hidden="true"><span class="octicon octicon-link"></span></a>styles.xml (OPTIONAL)</h3>
@@ -133,19 +237,20 @@
 <p>You have to use the provided theme for this to get it working.
 Overwrite following colors to create a quick custom style for your application</p>
 
-<div class="highlight highlight-xml"><pre>    <span class="pl-c">&lt;!-- Material SAMPLE DARK colors --&gt;</span>
-    &lt;<span class="pl-ent">color</span> <span class="pl-e">name</span>=<span class="pl-s1"><span class="pl-pds">"</span>material_drawer_primary<span class="pl-pds">"</span></span>&gt;#9C27B0&lt;/<span class="pl-ent">color</span>&gt;
-    &lt;<span class="pl-ent">color</span> <span class="pl-e">name</span>=<span class="pl-s1"><span class="pl-pds">"</span>material_drawer_primary_dark<span class="pl-pds">"</span></span>&gt;#7B1FA2&lt;/<span class="pl-ent">color</span>&gt;
-    &lt;<span class="pl-ent">color</span> <span class="pl-e">name</span>=<span class="pl-s1"><span class="pl-pds">"</span>material_drawer_primary_light<span class="pl-pds">"</span></span>&gt;#E1BEE7&lt;/<span class="pl-ent">color</span>&gt;
-    &lt;<span class="pl-ent">color</span> <span class="pl-e">name</span>=<span class="pl-s1"><span class="pl-pds">"</span>material_drawer_accent<span class="pl-pds">"</span></span>&gt;#00BCD4&lt;/<span class="pl-ent">color</span>&gt;
-    &lt;<span class="pl-ent">color</span> <span class="pl-e">name</span>=<span class="pl-s1"><span class="pl-pds">"</span>material_drawer_background<span class="pl-pds">"</span></span>&gt;#303030&lt;/<span class="pl-ent">color</span>&gt;
-    <span class="pl-c">&lt;!-- Material SAMPLE DARK text / items colors --&gt;</span>
-    &lt;<span class="pl-ent">color</span> <span class="pl-e">name</span>=<span class="pl-s1"><span class="pl-pds">"</span>material_drawer_icons<span class="pl-pds">"</span></span>&gt;#000&lt;/<span class="pl-ent">color</span>&gt;
-    &lt;<span class="pl-ent">color</span> <span class="pl-e">name</span>=<span class="pl-s1"><span class="pl-pds">"</span>material_drawer_primary_text<span class="pl-pds">"</span></span>&gt;#FFF&lt;/<span class="pl-ent">color</span>&gt;
-    &lt;<span class="pl-ent">color</span> <span class="pl-e">name</span>=<span class="pl-s1"><span class="pl-pds">"</span>material_drawer_secondary_text<span class="pl-pds">"</span></span>&gt;#DEDEDE&lt;/<span class="pl-ent">color</span>&gt;
-    &lt;<span class="pl-ent">color</span> <span class="pl-e">name</span>=<span class="pl-s1"><span class="pl-pds">"</span>material_drawer_hint_text<span class="pl-pds">"</span></span>&gt;#ABABAB&lt;/<span class="pl-ent">color</span>&gt;
-    &lt;<span class="pl-ent">color</span> <span class="pl-e">name</span>=<span class="pl-s1"><span class="pl-pds">"</span>material_drawer_divider<span class="pl-pds">"</span></span>&gt;#555555&lt;/<span class="pl-ent">color</span>&gt;
-    <span class="pl-c">&lt;!-- Material SAMPLE DARK drawer colors --&gt;</span>
+<div class="highlight highlight-xml"><pre>    <span class="pl-c">&lt;!-- Material DEFAULT colors --&gt;</span>
+    &lt;<span class="pl-ent">color</span> <span class="pl-e">name</span>=<span class="pl-s1"><span class="pl-pds">"</span>material_drawer_primary<span class="pl-pds">"</span></span>&gt;#2196F3&lt;/<span class="pl-ent">color</span>&gt;
+    &lt;<span class="pl-ent">color</span> <span class="pl-e">name</span>=<span class="pl-s1"><span class="pl-pds">"</span>material_drawer_primary_dark<span class="pl-pds">"</span></span>&gt;#1976D2&lt;/<span class="pl-ent">color</span>&gt;
+    &lt;<span class="pl-ent">color</span> <span class="pl-e">name</span>=<span class="pl-s1"><span class="pl-pds">"</span>material_drawer_primary_light<span class="pl-pds">"</span></span>&gt;#BBDEFB&lt;/<span class="pl-ent">color</span>&gt;
+    &lt;<span class="pl-ent">color</span> <span class="pl-e">name</span>=<span class="pl-s1"><span class="pl-pds">"</span>material_drawer_accent<span class="pl-pds">"</span></span>&gt;#FF4081&lt;/<span class="pl-ent">color</span>&gt;
+    &lt;<span class="pl-ent">color</span> <span class="pl-e">name</span>=<span class="pl-s1"><span class="pl-pds">"</span>material_drawer_window_background<span class="pl-pds">"</span></span>&gt;#F9F9F9&lt;/<span class="pl-ent">color</span>&gt;
+    &lt;<span class="pl-ent">color</span> <span class="pl-e">name</span>=<span class="pl-s1"><span class="pl-pds">"</span>material_drawer_background<span class="pl-pds">"</span></span>&gt;#F9F9F9&lt;/<span class="pl-ent">color</span>&gt;
+    <span class="pl-c">&lt;!-- Material DEFAULT text / items colors --&gt;</span>
+    &lt;<span class="pl-ent">color</span> <span class="pl-e">name</span>=<span class="pl-s1"><span class="pl-pds">"</span>material_drawer_icons<span class="pl-pds">"</span></span>&gt;#FFF&lt;/<span class="pl-ent">color</span>&gt;
+    &lt;<span class="pl-ent">color</span> <span class="pl-e">name</span>=<span class="pl-s1"><span class="pl-pds">"</span>material_drawer_primary_text<span class="pl-pds">"</span></span>&gt;#212121&lt;/<span class="pl-ent">color</span>&gt;
+    &lt;<span class="pl-ent">color</span> <span class="pl-e">name</span>=<span class="pl-s1"><span class="pl-pds">"</span>material_drawer_secondary_text<span class="pl-pds">"</span></span>&gt;#727272&lt;/<span class="pl-ent">color</span>&gt;
+    &lt;<span class="pl-ent">color</span> <span class="pl-e">name</span>=<span class="pl-s1"><span class="pl-pds">"</span>material_drawer_hint_text<span class="pl-pds">"</span></span>&gt;#B8B8B8&lt;/<span class="pl-ent">color</span>&gt;
+    &lt;<span class="pl-ent">color</span> <span class="pl-e">name</span>=<span class="pl-s1"><span class="pl-pds">"</span>material_drawer_divider<span class="pl-pds">"</span></span>&gt;#B6B6B6&lt;/<span class="pl-ent">color</span>&gt;
+    <span class="pl-c">&lt;!-- Material DEFAULT drawer colors --&gt;</span>
     &lt;<span class="pl-ent">color</span> <span class="pl-e">name</span>=<span class="pl-s1"><span class="pl-pds">"</span>material_drawer_selected<span class="pl-pds">"</span></span>&gt;#E8E8E8&lt;/<span class="pl-ent">color</span>&gt;
     &lt;<span class="pl-ent">color</span> <span class="pl-e">name</span>=<span class="pl-s1"><span class="pl-pds">"</span>material_drawer_selected_text<span class="pl-pds">"</span></span>&gt;#2196F3&lt;/<span class="pl-ent">color</span>&gt;</pre></div>
 
