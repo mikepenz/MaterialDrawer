@@ -39,9 +39,16 @@ compile('com.mikepenz.materialdrawer:library:1.0.0@aar') {
 ##How to use
 Here's a quick overview what you have to do within your application.
 
+###Minimal SetUp
+####Code:
+It's (theoretically) a one-liner :D. This will create an empty drawer.
+```java
+new Drawer().withActivity(this).build()
+```
+
+
 ###Activity with Toolbar
 ####Code:
-It's (theoretically) a one-liner :D
 ```java
 new Drawer()
     .withActivity(this)
@@ -62,7 +69,6 @@ new Drawer()
 
 ###Activity with ActionBar
 ####Code:
-It's (theoretically) a one-liner :D
 ```java
 new Drawer()
 	.withActivity(this)
@@ -75,7 +81,6 @@ new Drawer()
 
 ###Activity with Multiple Drawers
 ####Code:
-It's (theoretically) a one-liner :D
 ```java
 Drawer.Result result = new Drawer()
 	.withActivity(this)
