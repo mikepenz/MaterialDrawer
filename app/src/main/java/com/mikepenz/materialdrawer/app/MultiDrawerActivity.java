@@ -63,17 +63,25 @@ public class MultiDrawerActivity extends ActionBarActivity {
                 .withOnDrawerItemClickListener(new Drawer.OnDrawerItemClickListener() {
                     @Override
                     public void onItemClick(AdapterView<?> parent, View view, int position, long id, IDrawerItem drawerItem) {
-                        if (drawerItem instanceof Nameable) {
-                            Toast.makeText(MultiDrawerActivity.this, MultiDrawerActivity.this.getString(((Nameable) drawerItem).getNameRes()), Toast.LENGTH_SHORT).show();
-                        }
+                        //check if the drawerItem is set.
+                        //there are different reasons for the drawerItem to be null
+                        //--> click on the header
+                        //--> click on the footer
+                        //those items don't contain a drawerItem
 
-                        if (drawerItem instanceof Badgeable) {
-                            Badgeable badgeable = (Badgeable) drawerItem;
-                            if (badgeable.getBadge() != null) {
-                                //note don't do this if your badge contains a "+"
-                                int badge = Integer.valueOf(badgeable.getBadge());
-                                if (badge > 0) {
-                                    result.updateBadge(String.valueOf(badge - 1), position);
+                        if (drawerItem != null) {
+                            if (drawerItem instanceof Nameable) {
+                                Toast.makeText(MultiDrawerActivity.this, MultiDrawerActivity.this.getString(((Nameable) drawerItem).getNameRes()), Toast.LENGTH_SHORT).show();
+                            }
+
+                            if (drawerItem instanceof Badgeable) {
+                                Badgeable badgeable = (Badgeable) drawerItem;
+                                if (badgeable.getBadge() != null) {
+                                    //note don't do this if your badge contains a "+"
+                                    int badge = Integer.valueOf(badgeable.getBadge());
+                                    if (badge > 0) {
+                                        result.updateBadge(String.valueOf(badge - 1), position);
+                                    }
                                 }
                             }
                         }

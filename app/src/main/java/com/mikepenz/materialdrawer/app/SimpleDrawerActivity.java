@@ -108,32 +108,38 @@ public class SimpleDrawerActivity extends ActionBarActivity {
                 .withOnDrawerItemClickListener(new Drawer.OnDrawerItemClickListener() {
                     @Override
                     public void onItemClick(AdapterView<?> parent, View view, int position, long id, IDrawerItem drawerItem) {
+                        //check if the drawerItem is set.
+                        //there are different reasons for the drawerItem to be null
+                        //--> click on the header
+                        //--> click on the footer
+                        //those items don't contain a drawerItem
 
-                        if (drawerItem instanceof Nameable) {
-                            Toast.makeText(SimpleDrawerActivity.this, SimpleDrawerActivity.this.getString(((Nameable) drawerItem).getNameRes()), Toast.LENGTH_SHORT).show();
+                        if (drawerItem != null) {
+                            if (drawerItem instanceof Nameable) {
+                                Toast.makeText(SimpleDrawerActivity.this, SimpleDrawerActivity.this.getString(((Nameable) drawerItem).getNameRes()), Toast.LENGTH_SHORT).show();
+                            }
+
+                            if (drawerItem.getIdentifier() == 1) {
+                                Intent intent = new Intent(SimpleDrawerActivity.this, ActionBarDrawerActivity.class);
+                                SimpleDrawerActivity.this.startActivity(intent);
+                            } else if (drawerItem.getIdentifier() == 2) {
+                                Intent intent = new Intent(SimpleDrawerActivity.this, MultiDrawerActivity.class);
+                                SimpleDrawerActivity.this.startActivity(intent);
+                            } else if (drawerItem.getIdentifier() == 3) {
+                                Intent intent = new Intent(SimpleDrawerActivity.this, SimpleNonTranslucentDrawerActivity.class);
+                                SimpleDrawerActivity.this.startActivity(intent);
+                            } else if (drawerItem.getIdentifier() == 4) {
+                                new Libs.Builder().withActivityTheme(R.style.MaterialDrawerTheme_ActionBar).start(SimpleDrawerActivity.this);
+                            }
+
+                            if (drawerItem instanceof Tagable && drawerItem.getTag() != null) {
+                                String tag = (String) drawerItem.getTag();
+                                Toast.makeText(SimpleDrawerActivity.this, "Tag set on item:" + tag, Toast.LENGTH_LONG).show();
+
+                                //demonstrate removeAllItems
+                                result.removeAllItems();
+                            }
                         }
-
-                        if (drawerItem.getIdentifier() == 1) {
-                            Intent intent = new Intent(SimpleDrawerActivity.this, ActionBarDrawerActivity.class);
-                            SimpleDrawerActivity.this.startActivity(intent);
-                        } else if (drawerItem.getIdentifier() == 2) {
-                            Intent intent = new Intent(SimpleDrawerActivity.this, MultiDrawerActivity.class);
-                            SimpleDrawerActivity.this.startActivity(intent);
-                        } else if (drawerItem.getIdentifier() == 3) {
-                            Intent intent = new Intent(SimpleDrawerActivity.this, SimpleNonTranslucentDrawerActivity.class);
-                            SimpleDrawerActivity.this.startActivity(intent);
-                        } else if (drawerItem.getIdentifier() == 4) {
-                            new Libs.Builder().withActivityTheme(R.style.MaterialDrawerTheme_ActionBar).start(SimpleDrawerActivity.this);
-                        }
-
-                        if (drawerItem instanceof Tagable && drawerItem.getTag() != null) {
-                            String tag = (String) drawerItem.getTag();
-                            Toast.makeText(SimpleDrawerActivity.this, "Tag set on item:" + tag, Toast.LENGTH_LONG).show();
-
-                            //demonstrate removeAllItems
-                            result.removeAllItems();
-                        }
-
                     }
                 })
                 .withSavedInstance(savedInstanceState)
