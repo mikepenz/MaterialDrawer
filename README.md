@@ -121,9 +121,13 @@ new Drawer()
                 //set the header for the drawer
                 .withHeader(VIEW|RES)
                 //set this to disable the divider after the header DEFAULT: true
+                .withHeaderClickable(true)
+                //set this to disable the divider after the header DEFAULT: true
                 .withHeaderDivider(false)
                 //set the footer for the drawer
                 .withFooter(VIEW|RES)
+                //set this to enable the onClick callback for the footer
+                .withFooterClickable(true)
                 //set this to disable the divider before the footer DEFAULT: true
                 .withFooterDivider(false)
                 //set the sticky footer for the drawer (this one is always visible)

@@ -221,6 +221,7 @@ public class Drawer {
     protected View mHeaderView;
     protected int mHeaderOffset = 0;
     protected boolean mHeaderDivider = true;
+    protected boolean mHeaderClickable = false;
 
     /**
      * add a header layout from view
@@ -257,6 +258,17 @@ public class Drawer {
     }
 
     /**
+     * set if the header is clickable
+     *
+     * @param headerClickable
+     * @return
+     */
+    public Drawer withHeaderClickable(boolean headerClickable) {
+        this.mHeaderClickable = headerClickable;
+        return this;
+    }
+
+    /**
      * this method allows you to disable the divider on the bottom of the header
      *
      * @param headerDivider
@@ -270,6 +282,7 @@ public class Drawer {
     // footer view
     protected View mFooterView;
     protected boolean mFooterDivider = true;
+    protected boolean mFooterClickable = false;
 
     /**
      * add a footer layout from view
@@ -298,6 +311,17 @@ public class Drawer {
             this.mFooterView = mActivity.getLayoutInflater().inflate(footerViewRes, null, false);
         }
 
+        return this;
+    }
+
+    /**
+     * set if the footer is clickable
+     *
+     * @param footerClickable
+     * @return
+     */
+    public Drawer withFooterClickable(boolean footerClickable) {
+        this.mFooterClickable = footerClickable;
         return this;
     }
 
@@ -736,10 +760,10 @@ public class Drawer {
             if (mHeaderDivider) {
                 LinearLayout headerContainer = (LinearLayout) mActivity.getLayoutInflater().inflate(R.layout.drawer_item_header, mListView, false);
                 headerContainer.addView(mHeaderView, 0);
-                mListView.addHeaderView(headerContainer);
+                mListView.addHeaderView(headerContainer, null, mHeaderClickable);
                 mListView.setPadding(0, 0, 0, 0);
             } else {
-                mListView.addHeaderView(mHeaderView);
+                mListView.addHeaderView(mHeaderView, null, mHeaderClickable);
                 mListView.setPadding(0, 0, 0, 0);
             }
         }
@@ -753,9 +777,9 @@ public class Drawer {
             if (mFooterDivider) {
                 LinearLayout footerContainer = (LinearLayout) mActivity.getLayoutInflater().inflate(R.layout.drawer_item_footer, mListView, false);
                 footerContainer.addView(mFooterView, 1);
-                mListView.addFooterView(footerContainer);
+                mListView.addFooterView(footerContainer, null, mFooterClickable);
             } else {
-                mListView.addFooterView(mFooterView);
+                mListView.addFooterView(mFooterView, null, mFooterClickable);
             }
         }
 
