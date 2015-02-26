@@ -86,7 +86,6 @@ public class SimpleDrawerActivity extends ActionBarActivity {
                         }
                     }
                 })
-                .withSliderBackgroundColor(Color.RED)
                 .withSavedInstance(savedInstanceState)
                 .build();
 
