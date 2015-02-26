@@ -50,7 +50,7 @@ new Drawer().withActivity(this).build()
 ###Activity with Toolbar
 ####Code:
 ```java
-new Drawer()
+Drawer.Result result = new Drawer()
     .withActivity(this)
     .withToolbar(toolbar)
     .addDrawerItems(
@@ -65,6 +65,15 @@ new Drawer()
     }
     })
     .build();
+
+//use the result object to get different views of the drawer or modify it's data
+//some sample calls
+result.setSelectionByIdentifier(1);
+result.openDrawer();
+result.closeDrawer();
+result.isDrawerOpen();
+result.addItem(..);
+
 ```
 
 ###Activity with ActionBar
