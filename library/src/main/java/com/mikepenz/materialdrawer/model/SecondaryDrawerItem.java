@@ -37,6 +37,18 @@ public class SecondaryDrawerItem implements IDrawerItem, Nameable<SecondaryDrawe
     private boolean checkable = true;
     private Object tag;
 
+    private int selectedColor = -1;
+    private int selectedColorRes = -1;
+
+    private int textColor = -1;
+    private int textColorRes = -1;
+
+    private int selectedTextColor = -1;
+    private int selectedTextColorRes = -1;
+
+    private int disabledColor = -1;
+    private int disabledColorRes = -1;
+
     public SecondaryDrawerItem withIdentifier(int identifier) {
         this.identifier = identifier;
         return this;
@@ -90,6 +102,110 @@ public class SecondaryDrawerItem implements IDrawerItem, Nameable<SecondaryDrawe
     public SecondaryDrawerItem setEnabled(boolean enabled) {
         this.enabled = enabled;
         return this;
+    }
+
+    public SecondaryDrawerItem withSelectedColor(int selectedColor) {
+        this.selectedColor = selectedColor;
+        return this;
+    }
+
+    public SecondaryDrawerItem withSelectedColorRes(int selectedColorRes) {
+        this.selectedColorRes = selectedColorRes;
+        return this;
+    }
+
+    public SecondaryDrawerItem withTextColor(int textColor) {
+        this.textColor = textColor;
+        return this;
+    }
+
+    public SecondaryDrawerItem withTextColorRes(int textColorRes) {
+        this.textColorRes = textColorRes;
+        return this;
+    }
+
+    public SecondaryDrawerItem withSelectedTextColor(int selectedTextColor) {
+        this.selectedTextColor = selectedTextColor;
+        return this;
+    }
+
+    public SecondaryDrawerItem withSelectedTextColorRes(int selectedColorRes) {
+        this.selectedTextColorRes = selectedColorRes;
+        return this;
+    }
+
+    public SecondaryDrawerItem withDisabledColor(int disabledColor) {
+        this.disabledColor = disabledColor;
+        return this;
+    }
+
+    public SecondaryDrawerItem withDisabledColorRes(int disabledColorRes) {
+        this.disabledColorRes = disabledColorRes;
+        return this;
+    }
+
+    public int getSelectedColor() {
+        return selectedColor;
+    }
+
+    public void setSelectedColor(int selectedColor) {
+        this.selectedColor = selectedColor;
+    }
+
+    public int getSelectedColorRes() {
+        return selectedColorRes;
+    }
+
+    public void setSelectedColorRes(int selectedColorRes) {
+        this.selectedColorRes = selectedColorRes;
+    }
+
+    public int getTextColor() {
+        return textColor;
+    }
+
+    public void setTextColor(int textColor) {
+        this.textColor = textColor;
+    }
+
+    public int getTextColorRes() {
+        return textColorRes;
+    }
+
+    public void setTextColorRes(int textColorRes) {
+        this.textColorRes = textColorRes;
+    }
+
+    public int getSelectedTextColor() {
+        return selectedTextColor;
+    }
+
+    public void setSelectedTextColor(int selectedTextColor) {
+        this.selectedTextColor = selectedTextColor;
+    }
+
+    public int getSelectedTextColorRes() {
+        return selectedTextColorRes;
+    }
+
+    public void setSelectedTextColorRes(int selectedTextColorRes) {
+        this.selectedTextColorRes = selectedTextColorRes;
+    }
+
+    public int getDisabledColor() {
+        return disabledColor;
+    }
+
+    public void setDisabledColor(int disabledColor) {
+        this.disabledColor = disabledColor;
+    }
+
+    public int getDisabledColorRes() {
+        return disabledColorRes;
+    }
+
+    public void setDisabledColorRes(int disabledColorRes) {
+        this.disabledColorRes = disabledColorRes;
     }
 
     @Override
@@ -219,7 +335,13 @@ public class SecondaryDrawerItem implements IDrawerItem, Nameable<SecondaryDrawe
             viewHolder = (ViewHolder) convertView.getTag();
         }
 
-        UIUtils.setBackground(viewHolder.view, UIUtils.getDrawerItemBackground(ctx));
+        int selected_color = selectedColor;
+        if (selected_color == -1 && selectedColorRes != -1) {
+            selected_color = ctx.getResources().getColor(selectedColorRes);
+        } else if (selected_color == -1) {
+            selected_color = ctx.getResources().getColor(R.color.material_drawer_selected);
+        }
+        UIUtils.setBackground(viewHolder.view, UIUtils.getDrawerItemBackground(ctx, selected_color));
 
         if (this.getNameRes() != -1) {
             viewHolder.name.setText(this.getNameRes());
@@ -234,14 +356,31 @@ public class SecondaryDrawerItem implements IDrawerItem, Nameable<SecondaryDrawe
             viewHolder.badge.setVisibility(View.GONE);
         }
 
+        int selected_text = selectedTextColor;
+        if (selected_text == -1 && selectedTextColorRes != -1) {
+            selected_text = ctx.getResources().getColor(selectedTextColorRes);
+        } else if (selected_text == -1) {
+            selected_text = ctx.getResources().getColor(R.color.material_drawer_selected_text);
+        }
+
         int color;
-        int selectedColor = ctx.getResources().getColor(R.color.material_drawer_selected_text);
+
         if (this.isEnabled()) {
-            color = ctx.getResources().getColor(R.color.material_drawer_secondary_text);
-            viewHolder.name.setTextColor(UIUtils.getTextColor(color, selectedColor));
-            viewHolder.badge.setTextColor(UIUtils.getTextColor(color, selectedColor));
+            color = textColor;
+            if (color == -1 && textColorRes != -1) {
+                color = ctx.getResources().getColor(textColorRes);
+            } else if (color == -1) {
+                color = ctx.getResources().getColor(R.color.material_drawer_secondary_text);
+            }
+            viewHolder.name.setTextColor(UIUtils.getTextColor(color, selected_text));
+            viewHolder.badge.setTextColor(UIUtils.getTextColor(color, selected_text));
         } else {
-            color = ctx.getResources().getColor(R.color.material_drawer_hint_text);
+            color = disabledColor;
+            if (color == -1 && disabledColorRes != -1) {
+                color = ctx.getResources().getColor(disabledColorRes);
+            } else if (color == -1) {
+                color = ctx.getResources().getColor(R.color.material_drawer_hint_text);
+            }
             viewHolder.name.setTextColor(color);
             viewHolder.badge.setTextColor(color);
         }
@@ -256,7 +395,7 @@ public class SecondaryDrawerItem implements IDrawerItem, Nameable<SecondaryDrawe
             }
         } else if (this.getIIcon() != null) {
             icon = new IconicsDrawable(ctx, this.getIIcon()).color(color).actionBarSize().paddingDp(1);
-            selectedIcon = new IconicsDrawable(ctx, this.getIIcon()).color(selectedColor).actionBarSize().paddingDp(1);
+            selectedIcon = new IconicsDrawable(ctx, this.getIIcon()).color(selected_text).actionBarSize().paddingDp(1);
         } else if (this.getIconRes() > -1) {
             icon = ctx.getResources().getDrawable(iconRes);
 

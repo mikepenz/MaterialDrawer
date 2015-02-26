@@ -1,5 +1,6 @@
 package com.mikepenz.materialdrawer.model;
 
+import android.content.Context;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -20,6 +21,10 @@ public class SectionDrawerItem implements IDrawerItem, Nameable<SectionDrawerIte
     private boolean divider = true;
     private Object tag;
 
+    private int textColor = -1;
+    private int textColorRes = -1;
+
+
     public SectionDrawerItem withName(String name) {
         this.name = name;
         return this;
@@ -39,6 +44,17 @@ public class SectionDrawerItem implements IDrawerItem, Nameable<SectionDrawerIte
         this.divider = divider;
         return this;
     }
+
+    public SectionDrawerItem withTextColor(int textColor) {
+        this.textColor = textColor;
+        return this;
+    }
+
+    public SectionDrawerItem withTextColorRes(int textColorRes) {
+        this.textColorRes = textColorRes;
+        return this;
+    }
+
 
     @Override
     public Object getTag() {
@@ -92,9 +108,27 @@ public class SectionDrawerItem implements IDrawerItem, Nameable<SectionDrawerIte
         return R.layout.drawer_item_section;
     }
 
+    public int getTextColor() {
+        return textColor;
+    }
+
+    public void setTextColor(int textColor) {
+        this.textColor = textColor;
+    }
+
+    public int getTextColorRes() {
+        return textColorRes;
+    }
+
+    public void setTextColorRes(int textColorRes) {
+        this.textColorRes = textColorRes;
+    }
+
 
     @Override
     public View convertView(LayoutInflater inflater, View convertView, ViewGroup parent) {
+        Context ctx = parent.getContext();
+
         ViewHolder viewHolder;
         if (convertView == null) {
             convertView = inflater.inflate(getLayoutRes(), parent, false);
@@ -106,6 +140,14 @@ public class SectionDrawerItem implements IDrawerItem, Nameable<SectionDrawerIte
 
         viewHolder.view.setClickable(false);
         viewHolder.view.setEnabled(false);
+
+        int text_color = textColor;
+        if (text_color == -1 && textColorRes != -1) {
+            text_color = ctx.getResources().getColor(textColorRes);
+        } else if (text_color == -1) {
+            text_color = ctx.getResources().getColor(R.color.material_drawer_hint_text);
+        }
+        viewHolder.name.setTextColor(text_color);
 
         if (this.getNameRes() != -1) {
             viewHolder.name.setText(this.getNameRes());

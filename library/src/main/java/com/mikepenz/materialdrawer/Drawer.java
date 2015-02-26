@@ -136,6 +136,32 @@ public class Drawer {
         return this;
     }
 
+    //the background color for the slider
+    protected int mSliderBackgroundColor = -1;
+    protected int mSliderBackgroundColorRes = -1;
+
+    /**
+     * set the background for the slider as color
+     *
+     * @param sliderBackgroundColor
+     * @return
+     */
+    public Drawer withSliderBackgroundColor(int sliderBackgroundColor) {
+        this.mSliderBackgroundColor = sliderBackgroundColor;
+        return this;
+    }
+
+    /**
+     * set the background for the slider as resource
+     *
+     * @param sliderBackgroundColorRes
+     * @return
+     */
+    public Drawer withSliderBackgroundColorRes(int sliderBackgroundColorRes) {
+        this.mSliderBackgroundColorRes = sliderBackgroundColorRes;
+        return this;
+    }
+
     //the width of the drawer
     protected int mDrawerWidth = -1;
 
@@ -661,6 +687,13 @@ public class Drawer {
         params = processDrawerLayoutParams(params);
         // set the new layout params
         mSliderLayout.setLayoutParams(params);
+
+        // set the background
+        if (mSliderBackgroundColor != -1) {
+            mSliderLayout.setBackgroundColor(mSliderBackgroundColor);
+        } else if (mSliderBackgroundColorRes != -1) {
+            mSliderLayout.setBackgroundColor(mActivity.getResources().getColor(mSliderBackgroundColorRes));
+        }
 
         // add the slider to the drawer
         mDrawerLayout.addView(mSliderLayout, 1);

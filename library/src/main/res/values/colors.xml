@@ -9,7 +9,7 @@
     <color name="material_drawer_background">#F9F9F9</color>
     <!-- Material DEFAULT text / items colors -->
     <color name="material_drawer_icons">#FFF</color>
-    <color name="material_drawer_primary_text">#212121</color>
+    <color name="material_drawer_primary_text">#^212121</color>
     <color name="material_drawer_secondary_text">#727272</color>
     <color name="material_drawer_hint_text">#B8B8B8</color>
     <color name="material_drawer_divider">#B6B6B6</color>

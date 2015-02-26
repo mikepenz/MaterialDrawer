@@ -1,6 +1,7 @@
 package com.mikepenz.materialdrawer.app;
 
 import android.content.Intent;
+import android.graphics.Color;
 import android.os.Bundle;
 import android.support.v7.app.ActionBarActivity;
 import android.support.v7.widget.Toolbar;
@@ -34,6 +35,62 @@ public class SimpleDrawerActivity extends ActionBarActivity {
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+
+
+        result = new Drawer()
+                .withActivity(this)
+                .withToolbar(toolbar)
+                .withHeader(R.layout.header)
+                .withActionBarDrawerToggle(true)
+                .addDrawerItems(
+                        new PrimaryDrawerItem().withName(R.string.drawer_item_action_bar).withIcon(FontAwesome.Icon.faw_home).withIdentifier(1).withCheckable(false),
+                        new PrimaryDrawerItem().withName(R.string.drawer_item_multi_drawer).withIcon(FontAwesome.Icon.faw_gamepad).withIdentifier(2).withCheckable(false),
+                        new PrimaryDrawerItem().withName(R.string.drawer_item_non_translucent_status_drawer).withIcon(FontAwesome.Icon.faw_eye).withIdentifier(3).withCheckable(false),
+                        new SectionDrawerItem().withName(R.string.drawer_item_section_header),
+                        new SecondaryDrawerItem().withName(R.string.drawer_item_settings).withIcon(FontAwesome.Icon.faw_cog).withIdentifier(5).withTextColor(Color.RED),
+                        new SecondaryDrawerItem().withName(R.string.drawer_item_help).withIcon(FontAwesome.Icon.faw_question).setEnabled(false),
+                        new SecondaryDrawerItem().withName(R.string.drawer_item_open_source).withIcon(FontAwesome.Icon.faw_github).withIdentifier(4).withCheckable(false),
+                        new SecondaryDrawerItem().withName(R.string.drawer_item_contact).withIcon(GoogleMaterial.Icon.gmd_format_color_fill).withTag("Bullhorn")
+                )
+                .withOnDrawerItemClickListener(new Drawer.OnDrawerItemClickListener() {
+                    @Override
+                    public void onItemClick(AdapterView<?> parent, View view, int position, long id, IDrawerItem drawerItem) {
+                        //check if the drawerItem is set.
+                        //there are different reasons for the drawerItem to be null
+                        //--> click on the header
+                        //--> click on the footer
+                        //those items don't contain a drawerItem
+
+                        if (drawerItem != null) {
+                            if (drawerItem instanceof Nameable) {
+                                Toast.makeText(SimpleDrawerActivity.this, SimpleDrawerActivity.this.getString(((Nameable) drawerItem).getNameRes()), Toast.LENGTH_SHORT).show();
+                            }
+
+                            if (drawerItem.getIdentifier() == 1) {
+                                Intent intent = new Intent(SimpleDrawerActivity.this, ActionBarDrawerActivity.class);
+                                SimpleDrawerActivity.this.startActivity(intent);
+                            } else if (drawerItem.getIdentifier() == 2) {
+                                Intent intent = new Intent(SimpleDrawerActivity.this, MultiDrawerActivity.class);
+                                SimpleDrawerActivity.this.startActivity(intent);
+                            } else if (drawerItem.getIdentifier() == 3) {
+                                Intent intent = new Intent(SimpleDrawerActivity.this, SimpleNonTranslucentDrawerActivity.class);
+                                SimpleDrawerActivity.this.startActivity(intent);
+                            } else if (drawerItem.getIdentifier() == 4) {
+                                new Libs.Builder().withActivityTheme(R.style.MaterialDrawerTheme_ActionBar).start(SimpleDrawerActivity.this);
+                            }
+
+                            if (drawerItem instanceof Tagable && drawerItem.getTag() != null) {
+                                String tag = (String) drawerItem.getTag();
+                                Toast.makeText(SimpleDrawerActivity.this, "Tag set on item:" + tag, Toast.LENGTH_LONG).show();
+                            }
+                        }
+                    }
+                })
+                .withSliderBackgroundColor(Color.RED)
+                .withSavedInstance(savedInstanceState)
+                .build();
+
+        result.setSelectionByIdentifier(5);
 
 
         /*
@@ -92,64 +149,6 @@ public class SimpleDrawerActivity extends ActionBarActivity {
                 .build()
                 .append(Drawer.Result)
          */
-
-
-        result = new Drawer()
-                .withActivity(this)
-                .withToolbar(toolbar)
-                .withHeader(R.layout.header)
-                .withActionBarDrawerToggle(true)
-                .addDrawerItems(
-                        new PrimaryDrawerItem().withName(R.string.drawer_item_action_bar).withIcon(FontAwesome.Icon.faw_home).withIdentifier(1).withCheckable(false),
-                        new PrimaryDrawerItem().withName(R.string.drawer_item_multi_drawer).withIcon(FontAwesome.Icon.faw_gamepad).withIdentifier(2).withCheckable(false),
-                        new PrimaryDrawerItem().withName(R.string.drawer_item_non_translucent_status_drawer).withIcon(FontAwesome.Icon.faw_eye).withIdentifier(3).withCheckable(false),
-                        new SectionDrawerItem().withName(R.string.drawer_item_section_header),
-                        new SecondaryDrawerItem().withName(R.string.drawer_item_settings).withIcon(FontAwesome.Icon.faw_cog).withIdentifier(5),
-                        new SecondaryDrawerItem().withName(R.string.drawer_item_help).withIcon(FontAwesome.Icon.faw_question).setEnabled(false),
-                        new SecondaryDrawerItem().withName(R.string.drawer_item_open_source).withIcon(FontAwesome.Icon.faw_github).withIdentifier(4).withCheckable(false),
-                        new SecondaryDrawerItem().withName(R.string.drawer_item_contact).withIcon(GoogleMaterial.Icon.gmd_format_color_fill).withTag("Bullhorn")
-                )
-                .withOnDrawerItemClickListener(new Drawer.OnDrawerItemClickListener() {
-                    @Override
-                    public void onItemClick(AdapterView<?> parent, View view, int position, long id, IDrawerItem drawerItem) {
-                        //check if the drawerItem is set.
-                        //there are different reasons for the drawerItem to be null
-                        //--> click on the header
-                        //--> click on the footer
-                        //those items don't contain a drawerItem
-
-                        if (drawerItem != null) {
-                            if (drawerItem instanceof Nameable) {
-                                Toast.makeText(SimpleDrawerActivity.this, SimpleDrawerActivity.this.getString(((Nameable) drawerItem).getNameRes()), Toast.LENGTH_SHORT).show();
-                            }
-
-                            if (drawerItem.getIdentifier() == 1) {
-                                Intent intent = new Intent(SimpleDrawerActivity.this, ActionBarDrawerActivity.class);
-                                SimpleDrawerActivity.this.startActivity(intent);
-                            } else if (drawerItem.getIdentifier() == 2) {
-                                Intent intent = new Intent(SimpleDrawerActivity.this, MultiDrawerActivity.class);
-                                SimpleDrawerActivity.this.startActivity(intent);
-                            } else if (drawerItem.getIdentifier() == 3) {
-                                Intent intent = new Intent(SimpleDrawerActivity.this, SimpleNonTranslucentDrawerActivity.class);
-                                SimpleDrawerActivity.this.startActivity(intent);
-                            } else if (drawerItem.getIdentifier() == 4) {
-                                new Libs.Builder().withActivityTheme(R.style.MaterialDrawerTheme_ActionBar).start(SimpleDrawerActivity.this);
-                            }
-
-                            if (drawerItem instanceof Tagable && drawerItem.getTag() != null) {
-                                String tag = (String) drawerItem.getTag();
-                                Toast.makeText(SimpleDrawerActivity.this, "Tag set on item:" + tag, Toast.LENGTH_LONG).show();
-
-                                //demonstrate removeAllItems
-                                result.removeAllItems();
-                            }
-                        }
-                    }
-                })
-                .withSavedInstance(savedInstanceState)
-                .build();
-
-        result.setSelectionByIdentifier(5);
     }
 
     @Override

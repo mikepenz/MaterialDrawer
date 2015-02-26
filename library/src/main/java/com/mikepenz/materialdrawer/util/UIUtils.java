@@ -8,8 +8,6 @@ import android.graphics.drawable.Drawable;
 import android.graphics.drawable.StateListDrawable;
 import android.view.View;
 
-import com.mikepenz.materialdrawer.R;
-
 /**
  * Created by mikepenz on 15.03.14.
  */
@@ -35,8 +33,8 @@ public class UIUtils {
         return iconStateListDrawable;
     }
 
-    public static StateListDrawable getDrawerItemBackground(Context ctx) {
-        ColorDrawable clrActive = new ColorDrawable(ctx.getResources().getColor(R.color.material_drawer_selected));
+    public static StateListDrawable getDrawerItemBackground(Context ctx, int selected_color) {
+        ColorDrawable clrActive = new ColorDrawable(selected_color);
         StateListDrawable states = new StateListDrawable();
         states.addState(new int[]{android.R.attr.state_activated}, clrActive);
 
