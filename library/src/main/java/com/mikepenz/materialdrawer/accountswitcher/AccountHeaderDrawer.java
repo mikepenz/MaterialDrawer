@@ -400,7 +400,35 @@ public class AccountHeaderDrawer {
         return new Result(this);
     }
 
-    private void buildProfiles() {
+    protected void switchProfiles(Profile newSelection) {
+        if (mCurrentProfile == newSelection) {
+            return;
+        }
+
+        int prevSelection = -1;
+        if (mProfileFirst == newSelection) {
+            prevSelection = 1;
+        } else if (mProfileSecond == newSelection) {
+            prevSelection = 2;
+        } else if (mProfileThird == newSelection) {
+            prevSelection = 3;
+        }
+
+        Profile tmp = mCurrentProfile;
+        mCurrentProfile = newSelection;
+
+        if (prevSelection == 1) {
+            mProfileFirst = tmp;
+        } else if (prevSelection == 2) {
+            mProfileSecond = tmp;
+        } else if (prevSelection == 3) {
+            mProfileThird = tmp;
+        }
+
+        buildProfiles();
+    }
+
+    protected void buildProfiles() {
         mCurrentProfileView.setVisibility(View.GONE);
         mAccountHeaderTextSection.setVisibility(View.GONE);
         mAccountSwitcherArrow.setVisibility(View.GONE);
@@ -444,7 +472,11 @@ public class AccountHeaderDrawer {
         @Override
         public void onClick(View v) {
             if (mOnAccountHeaderClickListener != null) {
-                mOnAccountHeaderClickListener.onProfileClick(v, (Profile) v.getTag());
+                Profile profile = (Profile) v.getTag();
+
+                switchProfiles(profile);
+
+                mOnAccountHeaderClickListener.onProfileClick(v, profile);
             }
         }
     };
