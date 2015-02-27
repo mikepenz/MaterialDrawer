@@ -13,6 +13,8 @@ import com.mikepenz.aboutlibraries.Libs;
 import com.mikepenz.google_material_typeface_library.GoogleMaterial;
 import com.mikepenz.iconics.typeface.FontAwesome;
 import com.mikepenz.materialdrawer.Drawer;
+import com.mikepenz.materialdrawer.accountswitcher.AccountHeaderDrawer;
+import com.mikepenz.materialdrawer.accountswitcher.model.Profile;
 import com.mikepenz.materialdrawer.model.PrimaryDrawerItem;
 import com.mikepenz.materialdrawer.model.SecondaryDrawerItem;
 import com.mikepenz.materialdrawer.model.SectionDrawerItem;
@@ -37,10 +39,17 @@ public class SimpleDrawerActivity extends ActionBarActivity {
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
 
+        Profile profile = new Profile();
+        profile.setName("Mike Penz");
+        profile.setEmail("mikepenz@gmail.com");
+        profile.setImage(getResources().getDrawable(R.drawable.profile));
+        AccountHeaderDrawer.Result headerResult = new AccountHeaderDrawer().withActivity(this).withHeaderBackground(R.drawable.header).addProfiles(profile, profile, profile).build();
+
+
         result = new Drawer()
                 .withActivity(this)
                 .withToolbar(toolbar)
-                .withHeader(R.layout.header)
+                .withHeader(headerResult.getView())
                 .withActionBarDrawerToggle(true)
                 .addDrawerItems(
                         new PrimaryDrawerItem().withName(R.string.drawer_item_action_bar).withIcon(FontAwesome.Icon.faw_home).withIdentifier(1).withCheckable(false),
@@ -90,6 +99,8 @@ public class SimpleDrawerActivity extends ActionBarActivity {
                 .build();
 
         result.setSelectionByIdentifier(5);
+
+
 
 
         /*

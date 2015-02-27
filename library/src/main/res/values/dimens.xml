@@ -11,6 +11,15 @@
     <!-- General vertical padding values -->
     <dimen name="material_drawer_vertical_padding">16dp</dimen>
 
+    <!-- General margins for the drawer account header -->
+    <dimen name="material_drawer_account_header_height">148dp</dimen>
+    <dimen name="material_drawer_account_header_horizontal_top">16dp</dimen>
+    <dimen name="material_drawer_account_header_horizontal_bottom">4dp</dimen>
+    <dimen name="material_drawer_account_header_selected">64dp</dimen>
+    <dimen name="material_drawer_account_header_secondary">40dp</dimen>
+    <dimen name="material_drawer_account_header_text">14sp</dimen>
+    <dimen name="material_drawer_account_header_dropdown">24dp</dimen>
+
     <!-- General icon margins for the drawer item -->
     <dimen name="material_drawer_item_padding">8dp</dimen>
     <!-- Definition for the primary item -->
