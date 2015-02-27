@@ -76,7 +76,7 @@ public class SimpleDrawerActivity extends ActionBarActivity {
                                 Intent intent = new Intent(SimpleDrawerActivity.this, SimpleNonTranslucentDrawerActivity.class);
                                 SimpleDrawerActivity.this.startActivity(intent);
                             } else if (drawerItem.getIdentifier() == 4) {
-                                new Libs.Builder().withActivityTheme(R.style.MaterialDrawerTheme_ActionBar).start(SimpleDrawerActivity.this);
+                                new Libs.Builder().withFields(R.string.class.getFields()).withActivityTheme(R.style.MaterialDrawerTheme_ActionBar).start(SimpleDrawerActivity.this);
                             }
 
                             if (drawerItem instanceof Tagable && drawerItem.getTag() != null) {
