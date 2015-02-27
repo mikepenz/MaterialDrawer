@@ -189,4 +189,14 @@ public class SimpleDrawerActivity extends ActionBarActivity {
         outState = result.saveInstanceState(outState);
         super.onSaveInstanceState(outState);
     }
+
+    @Override
+    public void onBackPressed() {
+        if (result != null && result.isDrawerOpen()) {
+            result.closeDrawer();
+        } else {
+            super.onBackPressed();
+        }
+    }
+
 }
