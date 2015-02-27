@@ -21,7 +21,7 @@
 
     <TextView
         android:id="@+id/name"
-        android:fontFamily="sans-serif"
+        android:fontFamily="sans-serif-medium"
         android:layout_toRightOf="@id/icon"
         android:layout_toEndOf="@id/icon"
         android:layout_toLeftOf="@+id/badge"
