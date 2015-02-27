@@ -30,5 +30,6 @@ apply from: 'gradle-mvn-push.gradle'
 dependencies {
     compile 'com.android.support:support-v4:21.0.3'
     compile "com.android.support:appcompat-v7:21.0.3"
-    compile 'com.mikepenz.iconics:library:0.7.3@aar'
+    compile 'com.mikepenz.iconics:library:0.7.4@aar'
+    compile 'com.mikepenz.iconics:google-material-typeface:1.1.1@aar'
 }

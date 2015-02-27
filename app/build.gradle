@@ -23,8 +23,7 @@ android {
 
 dependencies {
     compile project(':library')
-    compile('com.mikepenz.aboutlibraries:library:4.5.5@aar') {
+    compile('com.mikepenz.aboutlibraries:library:4.5.7@aar') {
         transitive = true
     }
-    compile 'com.mikepenz.iconics:google-material-typeface:1.1.0@aar'
 }
