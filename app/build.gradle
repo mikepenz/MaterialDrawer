@@ -8,8 +8,8 @@ android {
         applicationId "com.mikepenz.materialdrawer.app"
         minSdkVersion 10
         targetSdkVersion 21
-        versionCode 100
-        versionName "1.0.0"
+        versionCode 101
+        versionName "1.0.1"
     }
     buildTypes {
         release {
@@ -23,7 +23,7 @@ android {
 
 dependencies {
     compile project(':library')
-    compile('com.mikepenz.aboutlibraries:library:4.5.5@aar') {
+    compile('com.mikepenz.aboutlibraries:library:4.5.8@aar') {
         transitive = true
     }
 }

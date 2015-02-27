@@ -4,13 +4,13 @@
     <string name="define_materialdrawer">year;owner</string>
     <string name="library_materialdrawer_author">Mike Penz</string>
     <string name="library_materialdrawer_authorWebsite">http://mikepenz.com/</string>
-    <string name="library_materialdrawer_libraryName">materialdrawer</string>
+    <string name="library_materialdrawer_libraryName">MaterialDrawer</string>
     <string name="library_materialdrawer_libraryDescription">
         <![CDATA[
         <b>MaterialDrawer</b> library aims to provide a quick and easy Activity to create and implement a drawer layout in your application.
         ]]>
     </string>
-    <string name="library_materialdrawer_libraryVersion">1.0.0</string>
+    <string name="library_materialdrawer_libraryVersion">1.0.1</string>
     <string name="library_materialdrawer_libraryWebsite">https://github.com/mikepenz/MaterialDrawer</string>
     <string name="library_materialdrawer_licenseId">apache_2_0</string>
     <string name="library_materialdrawer_isOpenSource">true</string>

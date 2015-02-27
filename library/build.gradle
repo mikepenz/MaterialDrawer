@@ -7,8 +7,8 @@ android {
     defaultConfig {
         minSdkVersion 10
         targetSdkVersion 21
-        versionCode 101
-        versionName '1.0.1-SNAPSHOT'
+        versionCode 102
+        versionName '1.0.2-SNAPSHOT'
     }
 
     buildTypes {
@@ -30,6 +30,6 @@ apply from: 'gradle-mvn-push.gradle'
 dependencies {
     compile 'com.android.support:support-v4:21.0.3'
     compile "com.android.support:appcompat-v7:21.0.3"
-    compile 'com.mikepenz.iconics:library:0.7.3@aar'
-    compile 'com.mikepenz.iconics:google-material-typeface:1.1.0@aar'
+    compile 'com.mikepenz.iconics:library:0.7.4@aar'
+    compile 'com.mikepenz.iconics:google-material-typeface:1.1.1@aar'
 }

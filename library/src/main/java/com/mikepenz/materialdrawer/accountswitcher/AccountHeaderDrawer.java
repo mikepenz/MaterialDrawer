@@ -11,7 +11,6 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.mikepenz.google_material_typeface_library.GoogleMaterial;
-import com.mikepenz.iconics.Iconics;
 import com.mikepenz.iconics.IconicsDrawable;
 import com.mikepenz.iconics.utils.Utils;
 import com.mikepenz.materialdrawer.Drawer;
@@ -289,9 +288,6 @@ public class AccountHeaderDrawer {
      * @return
      */
     public Result build() {
-        //register the google material design icons
-        Iconics.registerFont(new GoogleMaterial());
-
         // if the user has not set a accountHeader use the default one :D
         if (mAccountHeaderContainer == null) {
             withAccountHeader(-1);
