@@ -1,5 +1,5 @@
 <FrameLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:android="http://schemas.android.com/apk/res/android" xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="@dimen/material_drawer_account_header_height">
     <ImageView
@@ -24,7 +24,11 @@
             android:layout_marginLeft="@dimen/material_drawer_vertical_padding"
             android:layout_marginStart="@dimen/material_drawer_vertical_padding"
             android:layout_marginTop="@dimen/material_drawer_account_header_horizontal_top"
-            android:layout_marginBottom="@dimen/material_drawer_account_header_horizontal_bottom"/>
+            android:layout_marginBottom="@dimen/material_drawer_account_header_horizontal_bottom"
+            android:clickable="true"
+            app:civ_selector="true"
+            app:civ_selectorColor="@color/primary"
+            app:civ_selectorStrokeColor="@color/primary"/>
 
         <com.mikepenz.materialdrawer.view.CircularImageView
             android:id="@+id/account_header_drawer_small_first"
@@ -35,7 +39,11 @@
             android:layout_alignParentEnd="true"
             android:layout_marginRight="@dimen/material_drawer_vertical_padding"
             android:layout_marginEnd="@dimen/material_drawer_vertical_padding"
-            android:layout_alignTop="@+id/account_header_drawer_current"/>
+            android:layout_alignTop="@+id/account_header_drawer_current"
+            android:clickable="true"
+            app:civ_selector="true"
+            app:civ_selectorColor="@color/primary"
+            app:civ_selectorStrokeColor="@color/primary"/>
 
         <com.mikepenz.materialdrawer.view.CircularImageView
             android:id="@+id/account_header_drawer_small_second"
@@ -45,7 +53,11 @@
             android:elevation="1dp"
             android:layout_alignTop="@+id/account_header_drawer_current"
             android:layout_toLeftOf="@+id/account_header_drawer_small_first"
-            android:layout_toStartOf="@+id/account_header_drawer_small_first"/>
+            android:layout_toStartOf="@+id/account_header_drawer_small_first"
+            android:clickable="true"
+            app:civ_selector="true"
+            app:civ_selectorColor="@color/primary"
+            app:civ_selectorStrokeColor="@color/primary"/>
 
         <com.mikepenz.materialdrawer.view.CircularImageView
             android:id="@+id/account_header_drawer_small_third"
@@ -55,7 +67,11 @@
             android:elevation="1dp"
             android:layout_alignTop="@+id/account_header_drawer_current"
             android:layout_toLeftOf="@+id/account_header_drawer_small_second"
-            android:layout_toStartOf="@+id/account_header_drawer_small_second"/>
+            android:layout_toStartOf="@+id/account_header_drawer_small_second"
+            android:clickable="true"
+            app:civ_selector="true"
+            app:civ_selectorColor="@color/primary"
+            app:civ_selectorStrokeColor="@color/primary"/>
 
         <LinearLayout
             android:id="@+id/account_header_drawer_text_section"

@@ -147,7 +147,9 @@ public class CircularImageView extends ImageView {
         // Set selector properties, if enabled
         if (hasSelector) {
             int defaultSelectorSize = (int) (2 * context.getResources().getDisplayMetrics().density + 0.5f);
-            setSelectorColor(attributes.getColor(R.styleable.CircularImageView_civ_selectorColor, Color.TRANSPARENT));
+
+            int color = attributes.getColor(R.styleable.CircularImageView_civ_selectorColor, Color.TRANSPARENT);
+            setSelectorColor(Color.argb(150, Color.red(color), Color.green(color), Color.blue(color)));
             setSelectorStrokeWidth(attributes.getDimensionPixelOffset(R.styleable.CircularImageView_civ_selectorStrokeWidth, defaultSelectorSize));
             setSelectorStrokeColor(attributes.getColor(R.styleable.CircularImageView_civ_selectorStrokeColor, Color.BLUE));
         }

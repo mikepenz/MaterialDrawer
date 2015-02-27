@@ -7,6 +7,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.mikepenz.google_material_typeface_library.GoogleMaterial;
 import com.mikepenz.iconics.Iconics;
@@ -274,11 +275,18 @@ public class AccountHeaderDrawer {
 
         //get the fields for the name
         CircularImageView selectedProfileText = (CircularImageView) accountHeader.findViewById(R.id.account_header_drawer_current);
+        selectedProfileText.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Toast.makeText(mActivity, "Wuhu", Toast.LENGTH_LONG).show();
+            }
+        });
         TextView selectedProfileName = (TextView) accountHeader.findViewById(R.id.account_header_drawer_name);
         TextView selectedProfileEmail = (TextView) accountHeader.findViewById(R.id.account_header_drawer_email);
 
         CircularImageView civ2 = (CircularImageView) accountHeader.findViewById(R.id.account_header_drawer_small_first);
         CircularImageView civ3 = (CircularImageView) accountHeader.findViewById(R.id.account_header_drawer_small_second);
+        CircularImageView civ4 = (CircularImageView) accountHeader.findViewById(R.id.account_header_drawer_small_third);
 
         if (mProfiles != null && mProfiles.size() > 0) {
             Profile currentProfile = mProfiles.get(0);
