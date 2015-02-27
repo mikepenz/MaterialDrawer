@@ -24,7 +24,7 @@ import java.util.Collections;
 /**
  * Created by mikepenz on 27.02.15.
  */
-public class AccountHeaderDrawer {
+public class AccountHeader {
 
     // global references to views we need later
     protected View mAccountHeader;
@@ -53,7 +53,7 @@ public class AccountHeaderDrawer {
      * @param activity
      * @return
      */
-    public AccountHeaderDrawer withActivity(Activity activity) {
+    public AccountHeader withActivity(Activity activity) {
         this.mActivity = activity;
         return this;
     }
@@ -69,7 +69,7 @@ public class AccountHeaderDrawer {
      * @param heightPx
      * @return
      */
-    public AccountHeaderDrawer withHeightPx(int heightPx) {
+    public AccountHeader withHeightPx(int heightPx) {
         this.mHeightPx = heightPx;
         return this;
     }
@@ -81,7 +81,7 @@ public class AccountHeaderDrawer {
      * @param heightDp
      * @return
      */
-    public AccountHeaderDrawer withHeightDp(int heightDp) {
+    public AccountHeader withHeightDp(int heightDp) {
         this.mHeightDp = heightDp;
         return this;
     }
@@ -92,7 +92,7 @@ public class AccountHeaderDrawer {
      * @param heightRes
      * @return
      */
-    public AccountHeaderDrawer withHeightRes(int heightRes) {
+    public AccountHeader withHeightRes(int heightRes) {
         this.mHeightRes = heightRes;
         return this;
     }
@@ -107,7 +107,7 @@ public class AccountHeaderDrawer {
      * @param textColor
      * @return
      */
-    public AccountHeaderDrawer withTextColor(int textColor) {
+    public AccountHeader withTextColor(int textColor) {
         this.mTextColor = textColor;
         return this;
     }
@@ -118,7 +118,7 @@ public class AccountHeaderDrawer {
      * @param textColorRes
      * @return
      */
-    public AccountHeaderDrawer withTextColorRes(int textColorRes) {
+    public AccountHeader withTextColorRes(int textColorRes) {
         this.mTextColorRes = textColorRes;
         return this;
     }
@@ -132,7 +132,7 @@ public class AccountHeaderDrawer {
      * @param translucentStatusBar
      * @return
      */
-    public AccountHeaderDrawer withTranslucentStatusBar(boolean translucentStatusBar) {
+    public AccountHeader withTranslucentStatusBar(boolean translucentStatusBar) {
         this.mTranslucentStatusBar = translucentStatusBar;
         return this;
     }
@@ -147,7 +147,7 @@ public class AccountHeaderDrawer {
      * @param headerBackground
      * @return
      */
-    public AccountHeaderDrawer withHeaderBackground(Drawable headerBackground) {
+    public AccountHeader withHeaderBackground(Drawable headerBackground) {
         this.mHeaderBackground = headerBackground;
         return this;
     }
@@ -158,7 +158,7 @@ public class AccountHeaderDrawer {
      * @param headerBackgroundRes
      * @return
      */
-    public AccountHeaderDrawer withHeaderBackground(int headerBackgroundRes) {
+    public AccountHeader withHeaderBackground(int headerBackgroundRes) {
         this.mHeaderBackgroundRes = headerBackgroundRes;
         return this;
     }
@@ -173,7 +173,7 @@ public class AccountHeaderDrawer {
      * @param accountHeader
      * @return
      */
-    public AccountHeaderDrawer withAccountHeader(View accountHeader) {
+    public AccountHeader withAccountHeader(View accountHeader) {
         this.mAccountHeaderContainer = accountHeader;
         return this;
     }
@@ -184,7 +184,7 @@ public class AccountHeaderDrawer {
      * @param resLayout
      * @return
      */
-    public AccountHeaderDrawer withAccountHeader(int resLayout) {
+    public AccountHeader withAccountHeader(int resLayout) {
         if (mActivity == null) {
             throw new RuntimeException("please pass an activity first to use this call");
         }
@@ -207,7 +207,7 @@ public class AccountHeaderDrawer {
      * @param profiles
      * @return
      */
-    public AccountHeaderDrawer withProfiles(ArrayList<Profile> profiles) {
+    public AccountHeader withProfiles(ArrayList<Profile> profiles) {
         this.mProfiles = profiles;
         return this;
     }
@@ -218,7 +218,7 @@ public class AccountHeaderDrawer {
      * @param profiles
      * @return
      */
-    public AccountHeaderDrawer addProfiles(Profile... profiles) {
+    public AccountHeader addProfiles(Profile... profiles) {
         if (this.mProfiles == null) {
             this.mProfiles = new ArrayList<>();
         }
@@ -238,7 +238,7 @@ public class AccountHeaderDrawer {
      * @param onAccountHeaderClickListener
      * @return
      */
-    public AccountHeaderDrawer withOnAccountHeaderClickListener(OnAccountHeaderClickListener onAccountHeaderClickListener) {
+    public AccountHeader withOnAccountHeaderClickListener(OnAccountHeaderClickListener onAccountHeaderClickListener) {
         this.mOnAccountHeaderClickListener = onAccountHeaderClickListener;
         return this;
     }
@@ -250,7 +250,7 @@ public class AccountHeaderDrawer {
      * @param drawer
      * @return
      */
-    public AccountHeaderDrawer withDrawer(Drawer.Result drawer) {
+    public AccountHeader withDrawer(Drawer.Result drawer) {
         this.mDrawer = drawer;
         return this;
     }
@@ -487,14 +487,14 @@ public class AccountHeaderDrawer {
     };
 
     public static class Result {
-        private final AccountHeaderDrawer mAccountHeaderDrawer;
+        private final AccountHeader mAccountHeader;
 
-        protected Result(AccountHeaderDrawer accountHeaderDrawer) {
-            this.mAccountHeaderDrawer = accountHeaderDrawer;
+        protected Result(AccountHeader accountHeader) {
+            this.mAccountHeader = accountHeader;
         }
 
         public View getView() {
-            return mAccountHeaderDrawer.mAccountHeaderContainer;
+            return mAccountHeader.mAccountHeaderContainer;
         }
     }
 

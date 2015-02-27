@@ -13,7 +13,7 @@ import com.mikepenz.aboutlibraries.Libs;
 import com.mikepenz.google_material_typeface_library.GoogleMaterial;
 import com.mikepenz.iconics.typeface.FontAwesome;
 import com.mikepenz.materialdrawer.Drawer;
-import com.mikepenz.materialdrawer.accountswitcher.AccountHeaderDrawer;
+import com.mikepenz.materialdrawer.accountswitcher.AccountHeader;
 import com.mikepenz.materialdrawer.accountswitcher.model.Profile;
 import com.mikepenz.materialdrawer.model.PrimaryDrawerItem;
 import com.mikepenz.materialdrawer.model.SecondaryDrawerItem;
@@ -50,11 +50,11 @@ public class SimpleDrawerActivity extends ActionBarActivity {
         profile2.setImage(getResources().getDrawable(R.drawable.profile));
 
 
-        AccountHeaderDrawer.Result headerResult = new AccountHeaderDrawer()
+        AccountHeader.Result headerResult = new AccountHeader()
                 .withActivity(this)
                 .withHeaderBackground(R.drawable.header)
                 .addProfiles(profile, profile2)
-                .withOnAccountHeaderClickListener(new AccountHeaderDrawer.OnAccountHeaderClickListener() {
+                .withOnAccountHeaderClickListener(new AccountHeader.OnAccountHeaderClickListener() {
                     @Override
                     public void onProfileClick(View view, Profile profile) {
                         Toast.makeText(SimpleDrawerActivity.this, profile.getName(), Toast.LENGTH_SHORT).show();
