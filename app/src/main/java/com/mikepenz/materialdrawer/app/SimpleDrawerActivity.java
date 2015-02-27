@@ -43,7 +43,29 @@ public class SimpleDrawerActivity extends ActionBarActivity {
         profile.setName("Mike Penz");
         profile.setEmail("mikepenz@gmail.com");
         profile.setImage(getResources().getDrawable(R.drawable.profile));
-        AccountHeaderDrawer.Result headerResult = new AccountHeaderDrawer().withActivity(this).withHeaderBackground(R.drawable.header).addProfiles(profile, profile, profile).build();
+
+        Profile profile2 = new Profile();
+        profile2.setName("Mike Penz 2");
+        profile2.setEmail("mikepenz2@gmail.com2");
+        profile2.setImage(getResources().getDrawable(R.drawable.profile));
+
+
+        AccountHeaderDrawer.Result headerResult = new AccountHeaderDrawer()
+                .withActivity(this)
+                .withHeaderBackground(R.drawable.header)
+                .addProfiles(profile, profile2)
+                .withOnAccountHeaderClickListener(new AccountHeaderDrawer.OnAccountHeaderClickListener() {
+                    @Override
+                    public void onProfileClick(View view, Profile profile) {
+                        Toast.makeText(SimpleDrawerActivity.this, profile.getName(), Toast.LENGTH_SHORT).show();
+                    }
+
+                    @Override
+                    public void onSelectionClick(View view, Profile currentProfile) {
+                        Toast.makeText(SimpleDrawerActivity.this, currentProfile.getName(), Toast.LENGTH_SHORT).show();
+                    }
+                })
+                .build();
 
 
         result = new Drawer()

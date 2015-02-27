@@ -1,8 +1,9 @@
 package com.mikepenz.materialdrawer.accountswitcher;
 
 import android.app.Activity;
-import android.graphics.Color;
 import android.graphics.drawable.Drawable;
+import android.os.Build;
+import android.util.TypedValue;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
@@ -25,6 +26,24 @@ import java.util.Collections;
  * Created by mikepenz on 27.02.15.
  */
 public class AccountHeaderDrawer {
+
+    // global references to views we need later
+    protected View mAccountHeader;
+    protected CircularImageView mCurrentProfileView;
+    protected View mAccountHeaderTextSection;
+    protected ImageView mAccountSwitcherArrow;
+    protected TextView mCurrentProfileName;
+    protected TextView mCurrentProfileEmail;
+    protected CircularImageView mProfileFirstView;
+    protected CircularImageView mProfileSecondView;
+    protected CircularImageView mProfileThirdView;
+
+    // global references to the profiles
+    protected Profile mCurrentProfile;
+    protected Profile mProfileFirst;
+    protected Profile mProfileSecond;
+    protected Profile mProfileThird;
+
 
     // the activity to use
     protected Activity mActivity;
@@ -79,6 +98,31 @@ public class AccountHeaderDrawer {
         return this;
     }
 
+    //the background color for the slider
+    protected int mTextColor = -1;
+    protected int mTextColorRes = -1;
+
+    /**
+     * set the background for the slider as color
+     *
+     * @param textColor
+     * @return
+     */
+    public AccountHeaderDrawer withTextColor(int textColor) {
+        this.mTextColor = textColor;
+        return this;
+    }
+
+    /**
+     * set the background for the slider as resource
+     *
+     * @param textColorRes
+     * @return
+     */
+    public AccountHeaderDrawer withTextColorRes(int textColorRes) {
+        this.mTextColorRes = textColorRes;
+        return this;
+    }
 
     // set non translucent statusbar mode
     protected boolean mTranslucentStatusBar = true;
@@ -186,6 +230,20 @@ public class AccountHeaderDrawer {
         return this;
     }
 
+    // the click listener to be fired on profile or selection click
+    protected OnAccountHeaderClickListener mOnAccountHeaderClickListener;
+
+    /**
+     * add a click listener for the accountHeader
+     *
+     * @param onAccountHeaderClickListener
+     * @return
+     */
+    public AccountHeaderDrawer withOnAccountHeaderClickListener(OnAccountHeaderClickListener onAccountHeaderClickListener) {
+        this.mOnAccountHeaderClickListener = onAccountHeaderClickListener;
+        return this;
+    }
+
     // the drawer to set the AccountSwitcher for
     protected Drawer.Result mDrawer;
 
@@ -240,7 +298,7 @@ public class AccountHeaderDrawer {
         }
 
         // get the header view within the container
-        View accountHeader = mAccountHeaderContainer.findViewById(R.id.account_header_drawer);
+        mAccountHeader = mAccountHeaderContainer.findViewById(R.id.account_header_drawer);
 
         // handle the height for the header
         int height = -1;
@@ -256,7 +314,7 @@ public class AccountHeaderDrawer {
 
         // handle everything if we don't have a translucent status bar
         if (mTranslucentStatusBar) {
-            accountHeader.setPadding(0, mActivity.getResources().getDimensionPixelSize(R.dimen.tool_bar_top_padding), 0, 0);
+            mAccountHeader.setPadding(0, mActivity.getResources().getDimensionPixelSize(R.dimen.tool_bar_top_padding), 0, 0);
             height = height + mActivity.getResources().getDimensionPixelSize(R.dimen.tool_bar_top_padding);
         }
 
@@ -265,7 +323,6 @@ public class AccountHeaderDrawer {
 
         // get the background view
         ImageView accountHeaderBackground = (ImageView) mAccountHeaderContainer.findViewById(R.id.account_header_drawer_background);
-
         // set the background
         if (mHeaderBackground != null) {
             accountHeaderBackground.setImageDrawable(mHeaderBackground);
@@ -273,41 +330,133 @@ public class AccountHeaderDrawer {
             accountHeaderBackground.setImageResource(mHeaderBackgroundRes);
         }
 
+        // get the text color to use for the text section
+        int textColor = mTextColor;
+        if (textColor == -1 && mTextColorRes != -1) {
+            textColor = mActivity.getResources().getColor(mTextColorRes);
+        } else {
+            textColor = mActivity.getResources().getColor(R.color.material_drawer_icons);
+        }
+
+        // set the background for the section
+        mAccountHeaderTextSection = mAccountHeaderContainer.findViewById(R.id.account_header_drawer_text_section);
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.HONEYCOMB) {
+            // If we're running on Honeycomb or newer, then we can use the Theme's
+            // selectableItemBackground to ensure that the View has a pressed state
+            TypedValue outValue = new TypedValue();
+            mActivity.getTheme().resolveAttribute(android.R.attr.selectableItemBackground, outValue, true);
+            mAccountHeaderTextSection.setBackgroundResource(outValue.resourceId);
+        } else {
+            TypedValue outValue = new TypedValue();
+            mActivity.getTheme().resolveAttribute(android.R.attr.itemBackground, outValue, true);
+            mAccountHeaderTextSection.setBackgroundResource(outValue.resourceId);
+        }
+        mAccountHeaderTextSection.setOnClickListener(onSelectionClickListener);
+
+        // set the arrow :D
+        mAccountSwitcherArrow = (ImageView) mAccountHeaderContainer.findViewById(R.id.account_header_drawer_text_switcher);
+        mAccountSwitcherArrow.setImageDrawable(new IconicsDrawable(mActivity, GoogleMaterial.Icon.gmd_arrow_drop_down).sizeDp(24).paddingDp(6).color(textColor));
+
         //get the fields for the name
-        CircularImageView selectedProfileText = (CircularImageView) accountHeader.findViewById(R.id.account_header_drawer_current);
-        selectedProfileText.setOnClickListener(new View.OnClickListener() {
+        mCurrentProfileView = (CircularImageView) mAccountHeader.findViewById(R.id.account_header_drawer_current);
+        mCurrentProfileView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 Toast.makeText(mActivity, "Wuhu", Toast.LENGTH_LONG).show();
             }
         });
-        TextView selectedProfileName = (TextView) accountHeader.findViewById(R.id.account_header_drawer_name);
-        TextView selectedProfileEmail = (TextView) accountHeader.findViewById(R.id.account_header_drawer_email);
+        mCurrentProfileName = (TextView) mAccountHeader.findViewById(R.id.account_header_drawer_name);
+        mCurrentProfileEmail = (TextView) mAccountHeader.findViewById(R.id.account_header_drawer_email);
 
-        CircularImageView civ2 = (CircularImageView) accountHeader.findViewById(R.id.account_header_drawer_small_first);
-        CircularImageView civ3 = (CircularImageView) accountHeader.findViewById(R.id.account_header_drawer_small_second);
-        CircularImageView civ4 = (CircularImageView) accountHeader.findViewById(R.id.account_header_drawer_small_third);
+        mCurrentProfileName.setTextColor(textColor);
+        mCurrentProfileEmail.setTextColor(textColor);
 
-        if (mProfiles != null && mProfiles.size() > 0) {
-            Profile currentProfile = mProfiles.get(0);
+        mProfileFirstView = (CircularImageView) mAccountHeader.findViewById(R.id.account_header_drawer_small_first);
+        mProfileSecondView = (CircularImageView) mAccountHeader.findViewById(R.id.account_header_drawer_small_second);
+        mProfileThirdView = (CircularImageView) mAccountHeader.findViewById(R.id.account_header_drawer_small_third);
 
-            selectedProfileText.setImageDrawable(currentProfile.getImage());
-            selectedProfileName.setText(currentProfile.getName());
-            selectedProfileEmail.setText(currentProfile.getEmail());
-
-            civ2.setImageDrawable(currentProfile.getImage());
-            civ3.setImageDrawable(currentProfile.getImage());
-
-            //show the arrow down if there is more than 1 account
+        //set the active profiles
+        if (mProfiles != null) {
+            if (mProfiles.size() > 0) {
+                mCurrentProfile = mProfiles.get(0);
+            }
             if (mProfiles.size() > 1) {
-                ImageView accountSwitcherArrow = (ImageView) mAccountHeaderContainer.findViewById(R.id.account_header_drawer_text_switcher);
-                accountSwitcherArrow.setImageDrawable(new IconicsDrawable(mActivity, GoogleMaterial.Icon.gmd_arrow_drop_down).sizeDp(24).paddingDp(6).color(Color.WHITE));
+                mProfileFirst = mProfiles.get(1);
+            }
+            if (mProfiles.size() > 2) {
+                mProfileSecond = mProfiles.get(2);
+            }
+            if (mProfiles.size() > 3) {
+                mProfileThird = mProfiles.get(3);
             }
         }
 
+        //process and build the profiles
+        buildProfiles();
+
+        //forget the reference to the activity
+        mActivity = null;
 
         return new Result(this);
     }
+
+    private void buildProfiles() {
+        mCurrentProfileView.setVisibility(View.GONE);
+        mAccountHeaderTextSection.setVisibility(View.GONE);
+        mAccountSwitcherArrow.setVisibility(View.GONE);
+        mProfileFirstView.setVisibility(View.GONE);
+        mProfileSecondView.setVisibility(View.GONE);
+        mProfileThirdView.setVisibility(View.GONE);
+
+        if (mCurrentProfile != null) {
+            mCurrentProfileView.setImageDrawable(mCurrentProfile.getImage());
+            mCurrentProfileView.setTag(mCurrentProfile);
+            mCurrentProfileView.setOnClickListener(onProfileClickListener);
+            mCurrentProfileView.setVisibility(View.VISIBLE);
+            mAccountHeaderTextSection.setTag(mCurrentProfile);
+            mAccountHeaderTextSection.setVisibility(View.VISIBLE);
+            mCurrentProfileName.setText(mCurrentProfile.getName());
+            mCurrentProfileEmail.setText(mCurrentProfile.getEmail());
+
+            if (mProfileFirst != null) {
+                mAccountSwitcherArrow.setVisibility(View.VISIBLE);
+                mProfileFirstView.setImageDrawable(mProfileFirst.getImage());
+                mProfileFirstView.setTag(mProfileFirst);
+                mProfileFirstView.setOnClickListener(onProfileClickListener);
+                mProfileFirstView.setVisibility(View.VISIBLE);
+            }
+            if (mProfileSecond != null) {
+                mProfileSecondView.setImageDrawable(mProfileSecond.getImage());
+                mProfileSecondView.setTag(mProfileSecond);
+                mProfileSecondView.setOnClickListener(onProfileClickListener);
+                mProfileSecondView.setVisibility(View.VISIBLE);
+            }
+            if (mProfileThird != null) {
+                mProfileThirdView.setImageDrawable(mProfileThird.getImage());
+                mProfileThirdView.setTag(mProfileThird);
+                mProfileThirdView.setOnClickListener(onProfileClickListener);
+                mProfileThirdView.setVisibility(View.VISIBLE);
+            }
+        }
+    }
+
+    private View.OnClickListener onProfileClickListener = new View.OnClickListener() {
+        @Override
+        public void onClick(View v) {
+            if (mOnAccountHeaderClickListener != null) {
+                mOnAccountHeaderClickListener.onProfileClick(v, (Profile) v.getTag());
+            }
+        }
+    };
+
+    private View.OnClickListener onSelectionClickListener = new View.OnClickListener() {
+        @Override
+        public void onClick(View v) {
+            if (mOnAccountHeaderClickListener != null) {
+                mOnAccountHeaderClickListener.onSelectionClick(v, (Profile) v.getTag());
+            }
+        }
+    };
 
     public static class Result {
         private final AccountHeaderDrawer mAccountHeaderDrawer;
@@ -319,5 +468,12 @@ public class AccountHeaderDrawer {
         public View getView() {
             return mAccountHeaderDrawer.mAccountHeaderContainer;
         }
+    }
+
+
+    public interface OnAccountHeaderClickListener {
+        public void onProfileClick(View view, Profile profile);
+
+        public void onSelectionClick(View view, Profile currentProfile);
     }
 }
