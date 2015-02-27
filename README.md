@@ -129,7 +129,7 @@ new Drawer()
                 .withActionBarDrawerToggle(BOOLEAN|ActionBarDrawerToggle)
                 //set the header for the drawer
                 .withHeader(VIEW|RES)
-                //set this to disable the divider after the header DEFAULT: true
+                //set this to enable the onClick callback for the header
                 .withHeaderClickable(true)
                 //set this to disable the divider after the header DEFAULT: true
                 .withHeaderDivider(false)
