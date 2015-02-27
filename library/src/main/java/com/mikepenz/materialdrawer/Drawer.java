@@ -795,6 +795,8 @@ public class Drawer {
                 headerContainer.addView(mHeaderView, 0);
                 mListView.addHeaderView(headerContainer, null, mHeaderClickable);
                 mListView.setPadding(0, 0, 0, 0);
+                //link the view including the container to the headerView field
+                mHeaderView = headerContainer;
             } else {
                 mListView.addHeaderView(mHeaderView, null, mHeaderClickable);
                 mListView.setPadding(0, 0, 0, 0);
@@ -811,6 +813,8 @@ public class Drawer {
                 LinearLayout footerContainer = (LinearLayout) mActivity.getLayoutInflater().inflate(R.layout.drawer_item_footer, mListView, false);
                 footerContainer.addView(mFooterView, 1);
                 mListView.addFooterView(footerContainer, null, mFooterClickable);
+                //link the view including the container to the footerView field
+                mFooterView = footerContainer;
             } else {
                 mListView.addFooterView(mFooterView, null, mFooterClickable);
             }
