@@ -21,5 +21,7 @@
         android:textDirection="anyRtl"
         android:paddingLeft="@dimen/material_drawer_vertical_padding"
         android:paddingRight="@dimen/material_drawer_vertical_padding"
-        android:paddingEnd="@dimen/material_drawer_vertical_padding"/>
+        android:paddingEnd="@dimen/material_drawer_vertical_padding"
+        android:lines="1"
+        android:singleLine="true"/>
 </LinearLayout>
