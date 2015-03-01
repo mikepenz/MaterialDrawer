@@ -227,6 +227,8 @@ public class Drawer {
      */
     public Drawer withAccountHeader(AccountHeader.Result accountHeader) {
         this.mAccountHeader = accountHeader;
+        //set the header offset
+        mHeaderOffset = 1;
         return this;
     }
 
