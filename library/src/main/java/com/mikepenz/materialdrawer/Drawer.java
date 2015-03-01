@@ -88,6 +88,18 @@ public class Drawer {
         return this;
     }
 
+    /**
+     * Set or disable this if you want to show the drawer below the toolbar.
+     * Note this will add a margin above the drawer
+     *
+     * @param displayBelowToolbar
+     * @return
+     */
+    public Drawer withDisplayBelowToolbar(boolean displayBelowToolbar) {
+        this.mTranslucentStatusBar = displayBelowToolbar;
+        return this;
+    }
+
     // the toolbar of the activity
     protected Toolbar mToolbar;
 
