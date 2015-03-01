@@ -20,6 +20,7 @@ import android.widget.ListView;
 
 import com.mikepenz.iconics.typeface.IIcon;
 import com.mikepenz.iconics.utils.Utils;
+import com.mikepenz.materialdrawer.accountswitcher.AccountHeader;
 import com.mikepenz.materialdrawer.adapter.BaseDrawerAdapter;
 import com.mikepenz.materialdrawer.adapter.DrawerAdapter;
 import com.mikepenz.materialdrawer.model.interfaces.Badgeable;
@@ -213,6 +214,22 @@ public class Drawer {
         this.mDrawerGravity = gravity;
         return this;
     }
+
+    //the account selection header to use
+    protected AccountHeader.Result mAccountHeader;
+
+    /**
+     * set the accountHeader to use for this drawer instance
+     * not this will overwrite the mHeaderView if set
+     *
+     * @param accountHeader
+     * @return
+     */
+    public Drawer withAccountHeader(AccountHeader.Result accountHeader) {
+        this.mAccountHeader = accountHeader;
+        return this;
+    }
+
 
     // enable the drawer toggle / if withActionBarDrawerToggle we will autogenerate it
     protected boolean mActionBarDrawerToggleEnabled = true;
@@ -704,7 +721,14 @@ public class Drawer {
         //forget the reference to the activity
         mActivity = null;
 
-        return new Result(this);
+        //create the result object
+        Result result = new Result(this);
+        //set the drawer for the accountHeader if set
+        if (mAccountHeader != null) {
+            mAccountHeader.setDrawer(result);
+        }
+
+        return result;
     }
 
 
@@ -782,6 +806,11 @@ public class Drawer {
         //sticky footer view
         if (mStickyFooterView != null) {
             mSliderLayout.addView(mStickyFooterView);
+        }
+
+        //use the AccountHeader if set
+        if (mAccountHeader != null) {
+            mHeaderView = mAccountHeader.getView();
         }
 
         // set the header (do this before the setAdapter because some devices will crash else
@@ -1100,6 +1129,23 @@ public class Drawer {
         }
 
         /**
+         * method to replace a previous set header
+         *
+         * @param view
+         */
+        public void setHeader(View view) {
+            if (getListView() != null) {
+                BaseDrawerAdapter adapter = getAdapter();
+                getListView().setAdapter(null);
+                if (getHeader() != null) {
+                    getListView().removeHeaderView(getHeader());
+                }
+                getListView().addHeaderView(view);
+                getListView().setAdapter(adapter);
+            }
+        }
+
+        /**
          * get the Footer View if set else NULL
          *
          * @return
@@ -1160,6 +1206,14 @@ public class Drawer {
             return -1;
         }
 
+        /**
+         * get the current selection
+         *
+         * @return
+         */
+        public int getCurrentSelection() {
+            return mDrawer.mCurrentSelection;
+        }
 
         /**
          * set the current selection in the drawer
@@ -1321,6 +1375,7 @@ public class Drawer {
          */
         public void setItems(ArrayList<IDrawerItem> drawerItems) {
             mDrawer.mDrawerItems = drawerItems;
+            mDrawer.mAdapter.setDrawerItems(mDrawer.mDrawerItems);
             mDrawer.mAdapter.dataUpdated();
         }
 
@@ -1417,6 +1472,42 @@ public class Drawer {
                 mDrawer.mDrawerItems.set(position, drawerItem);
                 mDrawer.mAdapter.notifyDataSetChanged();
             }
+        }
+
+        /**
+         * setter for the OnDrawerItemClickListener
+         *
+         * @param onDrawerItemClickListener
+         */
+        public void setOnDrawerItemClickListener(OnDrawerItemClickListener onDrawerItemClickListener) {
+            mDrawer.mOnDrawerItemClickListener = onDrawerItemClickListener;
+        }
+
+        /**
+         * method to get the OnDrawerItemClickListener
+         *
+         * @return
+         */
+        public OnDrawerItemClickListener getOnDrawerItemClickListener() {
+            return mDrawer.mOnDrawerItemClickListener;
+        }
+
+        /**
+         * setter for the OnDrawerItemLongClickListener
+         *
+         * @param onDrawerItemLongClickListener
+         */
+        public void setOnDrawerItemLongClickListener(OnDrawerItemLongClickListener onDrawerItemLongClickListener) {
+            mDrawer.mOnDrawerItemLongClickListener = onDrawerItemLongClickListener;
+        }
+
+        /**
+         * method to get the OnDrawerItemLongClickListener
+         *
+         * @return
+         */
+        public OnDrawerItemLongClickListener getOnDrawerItemLongClickListener() {
+            return mDrawer.mOnDrawerItemLongClickListener;
         }
 
         /**

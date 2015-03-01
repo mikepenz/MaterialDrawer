@@ -39,22 +39,16 @@ public class SimpleDrawerActivity extends ActionBarActivity {
         setSupportActionBar(toolbar);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
-
-        Profile profile = new Profile();
-        profile.setName("Mike Penz");
-        profile.setEmail("mikepenz@gmail.com");
-        profile.setImage(getResources().getDrawable(R.drawable.profile));
-
-        Profile profile2 = new Profile();
-        profile2.setName("Mike Penz 2");
-        profile2.setEmail("mikepenz2@gmail.com2");
-        profile2.setImage(getResources().getDrawable(R.drawable.profile));
-
+        Profile profile = new Profile().withName("Mike Penz").withEmail("mikepenz@gmail.com").withImage(getResources().getDrawable(R.drawable.profile));
+        Profile profile2 = new Profile().withName("Max Muster").withEmail("max.mustermann@gmail.com").withImage(getResources().getDrawable(R.drawable.profile2));
+        Profile profile3 = new Profile().withName("Felix House").withEmail("felix.house@gmail.com").withImage(getResources().getDrawable(R.drawable.profile3));
+        Profile profile4 = new Profile().withName("Mr. X").withEmail("mister.x.super@gmail.com").withImage(getResources().getDrawable(R.drawable.profile4));
+        Profile profile5 = new Profile().withName("Batman").withEmail("batman@gmail.com").withImage(getResources().getDrawable(R.drawable.profile5));
 
         AccountHeader.Result headerResult = new AccountHeader()
                 .withActivity(this)
                 .withHeaderBackground(R.drawable.header)
-                .addProfiles(profile, profile2)
+                .addProfiles(profile, profile2, profile3, profile4, profile5)
                 .withOnAccountHeaderClickListener(new AccountHeader.OnAccountHeaderClickListener() {
                     @Override
                     public void onProfileClick(View view, Profile profile) {
@@ -62,17 +56,16 @@ public class SimpleDrawerActivity extends ActionBarActivity {
                     }
 
                     @Override
-                    public void onSelectionClick(View view, Profile currentProfile) {
+                    public void onSelectionClick(Profile currentProfile) {
                         Toast.makeText(SimpleDrawerActivity.this, currentProfile.getName(), Toast.LENGTH_SHORT).show();
                     }
                 })
                 .build();
 
-
         result = new Drawer()
                 .withActivity(this)
                 .withToolbar(toolbar)
-                .withHeader(headerResult.getView())
+                .withAccountHeader(headerResult)
                 .withActionBarDrawerToggle(true)
                 .addDrawerItems(
                         new PrimaryDrawerItem().withName(R.string.drawer_item_action_bar).withIcon(FontAwesome.Icon.faw_home).withIdentifier(1).withCheckable(false),
@@ -123,9 +116,6 @@ public class SimpleDrawerActivity extends ActionBarActivity {
                 .build();
 
         result.setSelectionByIdentifier(5);
-
-
-
 
         /*
         new Drawer()

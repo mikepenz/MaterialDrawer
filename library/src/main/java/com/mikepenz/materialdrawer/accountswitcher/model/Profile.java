@@ -11,6 +11,21 @@ public class Profile {
     private String name;
     private String email;
 
+    public Profile withImage(Drawable image) {
+        this.image = image;
+        return this;
+    }
+
+    public Profile withName(String name) {
+        this.name = name;
+        return this;
+    }
+
+    public Profile withEmail(String email) {
+        this.email = email;
+        return this;
+    }
+
     public Drawable getImage() {
         return image;
     }

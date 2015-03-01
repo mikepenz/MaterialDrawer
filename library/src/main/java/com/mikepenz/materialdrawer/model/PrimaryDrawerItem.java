@@ -419,9 +419,6 @@ public class PrimaryDrawerItem implements IDrawerItem, Nameable<PrimaryDrawerIte
         } else {
             viewHolder.icon.setVisibility(View.GONE);
         }
-        if (tag != null) {
-            viewHolder.tag = tag;
-        }
 
         return convertView;
     }
@@ -431,7 +428,6 @@ public class PrimaryDrawerItem implements IDrawerItem, Nameable<PrimaryDrawerIte
         private ImageView icon;
         private TextView name;
         private TextView badge;
-        private Object tag;
 
         private ViewHolder(View view) {
             this.view = view;

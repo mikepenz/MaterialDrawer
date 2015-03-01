@@ -196,9 +196,6 @@ public class ProfileDrawerItem implements IDrawerItem, Tagable<ProfileDrawerItem
         } else {
             viewHolder.profileIcon.setVisibility(View.GONE);
         }
-        if (tag != null) {
-            viewHolder.tag = tag;
-        }
 
         return convertView;
     }
@@ -207,7 +204,6 @@ public class ProfileDrawerItem implements IDrawerItem, Tagable<ProfileDrawerItem
         private View view;
         private ImageView profileIcon;
         private TextView email;
-        private Object tag;
 
         private ViewHolder(View view) {
             this.view = view;

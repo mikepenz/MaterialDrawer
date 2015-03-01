@@ -1,11 +1,14 @@
 package com.mikepenz.materialdrawer.accountswitcher;
 
 import android.app.Activity;
+import android.content.Context;
 import android.graphics.drawable.Drawable;
 import android.os.Build;
+import android.os.Handler;
 import android.util.TypedValue;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -16,6 +19,8 @@ import com.mikepenz.iconics.utils.Utils;
 import com.mikepenz.materialdrawer.Drawer;
 import com.mikepenz.materialdrawer.R;
 import com.mikepenz.materialdrawer.accountswitcher.model.Profile;
+import com.mikepenz.materialdrawer.model.ProfileDrawerItem;
+import com.mikepenz.materialdrawer.model.interfaces.IDrawerItem;
 import com.mikepenz.materialdrawer.view.CircularImageView;
 
 import java.util.ArrayList;
@@ -160,6 +165,20 @@ public class AccountHeader {
      */
     public AccountHeader withHeaderBackground(int headerBackgroundRes) {
         this.mHeaderBackgroundRes = headerBackgroundRes;
+        return this;
+    }
+
+    // enable 3 small header previews
+    protected boolean mThreeSmallProfileImages = false;
+
+    /**
+     * enable the extended profile icon view with 3 small header images instead of two
+     *
+     * @param threeSmallProfileImages
+     * @return
+     */
+    public AccountHeader withThreeSmallProfileImages(boolean threeSmallProfileImages) {
+        this.mThreeSmallProfileImages = threeSmallProfileImages;
         return this;
     }
 
@@ -333,6 +352,7 @@ public class AccountHeader {
         } else {
             textColor = mActivity.getResources().getColor(R.color.material_drawer_icons);
         }
+        mTextColor = textColor;
 
         // set the background for the section
         mAccountHeaderTextSection = mAccountHeaderContainer.findViewById(R.id.account_header_drawer_text_section);
@@ -389,6 +409,11 @@ public class AccountHeader {
 
         //process and build the profiles
         buildProfiles();
+
+        //everything created. now set the header
+        if (mDrawer != null) {
+            mDrawer.setHeader(mAccountHeaderContainer);
+        }
 
         //forget the reference to the activity
         mActivity = null;
@@ -455,7 +480,7 @@ public class AccountHeader {
                 mProfileSecondView.setOnClickListener(onProfileClickListener);
                 mProfileSecondView.setVisibility(View.VISIBLE);
             }
-            if (mProfileThird != null) {
+            if (mProfileThird != null && mThreeSmallProfileImages) {
                 mProfileThirdView.setImageDrawable(mProfileThird.getImage());
                 mProfileThirdView.setTag(mProfileThird);
                 mProfileThirdView.setOnClickListener(onProfileClickListener);
@@ -464,27 +489,109 @@ public class AccountHeader {
         }
     }
 
+    /**
+     * onProfileClickListener to notify onClick on a profile image
+     */
     private View.OnClickListener onProfileClickListener = new View.OnClickListener() {
         @Override
         public void onClick(View v) {
+            Profile profile = (Profile) v.getTag();
+            switchProfiles(profile);
+
             if (mOnAccountHeaderClickListener != null) {
-                Profile profile = (Profile) v.getTag();
-
-                switchProfiles(profile);
-
                 mOnAccountHeaderClickListener.onProfileClick(v, profile);
+            }
+
+            if (mDrawer != null) {
+                mDrawer.closeDrawer();
             }
         }
     };
 
+    //variables to store and remember the original list of the drawer
+    private Drawer.OnDrawerItemClickListener originalOnDrawerItemClickListener;
+    private ArrayList<IDrawerItem> originalDrawerItems;
+    private int originalDrawerSelection = -1;
+
+    /**
+     * onSelectionClickListener to notify the onClick on the checkbox
+     */
     private View.OnClickListener onSelectionClickListener = new View.OnClickListener() {
         @Override
         public void onClick(View v) {
-            if (mOnAccountHeaderClickListener != null) {
-                mOnAccountHeaderClickListener.onSelectionClick(v, (Profile) v.getTag());
+            if (mDrawer != null) {
+                //if we already show the list. reset everything instead
+                if (originalOnDrawerItemClickListener != null) {
+                    resetDrawerContent(v.getContext());
+                } else {
+                    //save out previous values
+                    originalOnDrawerItemClickListener = mDrawer.getOnDrawerItemClickListener();
+                    originalDrawerItems = mDrawer.getDrawerItems();
+                    originalDrawerSelection = mDrawer.getCurrentSelection();
+
+                    //set profile switcher values and create the profileList to set for the adapter
+                    mDrawer.setOnDrawerItemClickListener(onDrawerItemClickListener);
+
+                    int selectedPosition = -1;
+                    int position = 0;
+                    ArrayList<IDrawerItem> profileDrawerItems = new ArrayList<>();
+                    for (Profile profile : mProfiles) {
+                        if (profile == mCurrentProfile) {
+                            selectedPosition = position;
+                        }
+                        profileDrawerItems.add(new ProfileDrawerItem().withEmail(profile.getEmail()).withProfileIcon(profile.getImage()).withTag(profile));
+                        position = position + 1;
+                    }
+                    mDrawer.setItems(profileDrawerItems);
+                    mDrawer.setSelection(selectedPosition, false);
+
+                    // update the arrow image within the drawer
+                    mAccountSwitcherArrow.setImageDrawable(new IconicsDrawable(v.getContext(), GoogleMaterial.Icon.gmd_arrow_drop_up).sizeDp(24).paddingDp(6).color(mTextColor));
+                }
             }
         }
     };
+
+    /**
+     * onDrawerItemClickListener to catch the seleciton for the new profile!
+     */
+    private Drawer.OnDrawerItemClickListener onDrawerItemClickListener = new Drawer.OnDrawerItemClickListener() {
+        @Override
+        public void onItemClick(AdapterView<?> parent, final View view, int position, long id, final IDrawerItem drawerItem) {
+            if (drawerItem != null && drawerItem instanceof ProfileDrawerItem) {
+                switchProfiles((Profile) drawerItem.getTag());
+            }
+
+            //wrap the onSelection call and the reset stuff within a handler to prevent lag
+            new Handler().postDelayed(new Runnable() {
+                @Override
+                public void run() {
+                    if (drawerItem != null && drawerItem instanceof ProfileDrawerItem) {
+                        mOnAccountHeaderClickListener.onSelectionClick((Profile) drawerItem.getTag());
+                    }
+                    if (mDrawer != null) {
+                        resetDrawerContent(view.getContext());
+                    }
+
+                }
+            }, 500);
+        }
+    };
+
+    /**
+     * helper method to reset the drawer content
+     */
+    private void resetDrawerContent(Context ctx) {
+        mDrawer.setOnDrawerItemClickListener(originalOnDrawerItemClickListener);
+        mDrawer.setItems(originalDrawerItems);
+        mDrawer.setSelection(originalDrawerSelection, false);
+
+        originalOnDrawerItemClickListener = null;
+        originalDrawerItems = null;
+        originalDrawerSelection = -1;
+
+        mAccountSwitcherArrow.setImageDrawable(new IconicsDrawable(ctx, GoogleMaterial.Icon.gmd_arrow_drop_down).sizeDp(24).paddingDp(6).color(mTextColor));
+    }
 
     public static class Result {
         private final AccountHeader mAccountHeader;
@@ -496,12 +603,21 @@ public class AccountHeader {
         public View getView() {
             return mAccountHeader.mAccountHeaderContainer;
         }
+
+        /**
+         * Set the drawer for the AccountHeader so we can use it for the select
+         *
+         * @param drawer
+         */
+        public void setDrawer(Drawer.Result drawer) {
+            mAccountHeader.mDrawer = drawer;
+        }
     }
 
 
     public interface OnAccountHeaderClickListener {
         public void onProfileClick(View view, Profile profile);
 
-        public void onSelectionClick(View view, Profile currentProfile);
+        public void onSelectionClick(Profile currentProfile);
     }
 }
