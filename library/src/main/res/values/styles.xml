@@ -110,16 +110,4 @@
 
     <style name="MaterialDrawerTheme.Light.DarkActionBar.ActionBar.TranslucentStatus" parent="MaterialDrawerTheme.Light.DarkActionBar">
     </style>
-
-    <!-- General Theme override to change the Dialog design -->
-    <style name="MaterialDrawerBaseTheme.Dialog" parent="Theme.AppCompat.Dialog">
-        <item name="colorPrimary">@color/material_drawer_primary</item>
-        <item name="colorPrimaryDark">@color/material_drawer_primary_dark</item>
-        <item name="colorAccent">@color/material_drawer_accent</item>
-    </style>
-    <style name="MaterialDrawerBaseTheme.Light.Dialog" parent="Theme.AppCompat.Light.Dialog">
-        <item name="colorPrimary">@color/material_drawer_primary</item>
-        <item name="colorPrimaryDark">@color/material_drawer_primary_dark</item>
-        <item name="colorAccent">@color/material_drawer_accent</item>
-    </style>
 </resources>
