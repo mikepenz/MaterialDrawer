@@ -53,7 +53,7 @@ import com.mikepenz.materialdrawer.R;
 
 /**
  * Custom ImageView for circular images in Android while maintaining the
- * best draw performance and supporting custom borders & selectors.
+ * best draw performance and supporting custom borders and selectors.
  */
 public class CircularImageView extends ImageView {
     // For logging purposes
