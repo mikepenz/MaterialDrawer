@@ -31,6 +31,7 @@
         <item name="android:windowBackground">@color/material_drawer_window_background</item>
 
         <item name="android:dialogTheme">@style/MaterialDrawerBaseTheme.Dialog</item>
+        <item name="android:alertDialogTheme">@style/MaterialDrawerBaseTheme.AlertDialog</item>
     </style>
 
     <style name="MaterialDrawerTheme.ActionBar" parent="MaterialDrawerTheme">
@@ -52,6 +53,7 @@
         <item name="android:windowBackground">@color/material_drawer_window_background</item>
 
         <item name="android:dialogTheme">@style/MaterialDrawerBaseTheme.Light.Dialog</item>
+        <item name="android:alertDialogTheme">@style/MaterialDrawerBaseTheme.Light.AlertDialog</item>
     </style>
 
     <style name="MaterialDrawerTheme.Light.ActionBar" parent="MaterialDrawerTheme.Light">
@@ -77,6 +79,7 @@
         <item name="android:windowBackground">@color/material_drawer_window_background</item>
 
         <item name="android:dialogTheme">@style/MaterialDrawerBaseTheme.Light.Dialog</item>
+        <item name="android:alertDialogTheme">@style/MaterialDrawerBaseTheme.Light.AlertDialog</item>
     </style>
 
     <style name="MaterialDrawerTheme.Light.DarkActionBar.ActionBar" parent="MaterialDrawerTheme.Light.DarkActionBar">
@@ -90,9 +93,17 @@
         <item name="colorPrimaryDark">@color/material_drawer_primary_dark</item>
         <item name="colorAccent">@color/material_drawer_accent</item>
     </style>
+    <style name="MaterialDrawerBaseTheme.AlertDialog" parent="MaterialDrawerBaseTheme.Dialog">
+        <item name="android:windowMinWidthMajor">@android:dimen/dialog_min_width_major</item>
+        <item name="android:windowMinWidthMinor">@android:dimen/dialog_min_width_minor</item>
+    </style>
     <style name="MaterialDrawerBaseTheme.Light.Dialog" parent="Theme.AppCompat.Light.Dialog">
         <item name="colorPrimary">@color/material_drawer_primary</item>
         <item name="colorPrimaryDark">@color/material_drawer_primary_dark</item>
         <item name="colorAccent">@color/material_drawer_accent</item>
+    </style>
+    <style name="MaterialDrawerBaseTheme.Light.AlertDialog" parent="MaterialDrawerBaseTheme.Light.Dialog">
+        <item name="android:windowMinWidthMajor">@android:dimen/dialog_min_width_major</item>
+        <item name="android:windowMinWidthMinor">@android:dimen/dialog_min_width_minor</item>
     </style>
 </resources>
