@@ -318,7 +318,7 @@ public class SecondaryDrawerItem implements IDrawerItem, Nameable<SecondaryDrawe
 
     @Override
     public int getLayoutRes() {
-        return R.layout.drawer_item_secondary;
+        return R.layout.material_drawer_item_secondary;
     }
 
 

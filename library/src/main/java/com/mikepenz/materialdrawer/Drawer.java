@@ -143,7 +143,7 @@ public class Drawer {
         if (resLayout != -1) {
             this.mDrawerLayout = (DrawerLayout) mActivity.getLayoutInflater().inflate(resLayout, mRootView, false);
         } else {
-            this.mDrawerLayout = (DrawerLayout) mActivity.getLayoutInflater().inflate(R.layout.drawer, mRootView, false);
+            this.mDrawerLayout = (DrawerLayout) mActivity.getLayoutInflater().inflate(R.layout.material_drawer, mRootView, false);
         }
 
         return this;
@@ -707,7 +707,7 @@ public class Drawer {
         }
 
         // get the slider view
-        mSliderLayout = (LinearLayout) mActivity.getLayoutInflater().inflate(R.layout.drawer_slider, mDrawerLayout, false);
+        mSliderLayout = (LinearLayout) mActivity.getLayoutInflater().inflate(R.layout.material_drawer_slider, mDrawerLayout, false);
         // get the layout params
         DrawerLayout.LayoutParams params = (DrawerLayout.LayoutParams) mSliderLayout.getLayoutParams();
         // if we've set a custom gravity set it
@@ -767,7 +767,7 @@ public class Drawer {
         mDrawerLayout = result.getDrawerLayout();
 
         // get the slider view
-        mSliderLayout = (LinearLayout) mActivity.getLayoutInflater().inflate(R.layout.drawer_slider, mDrawerLayout, false);
+        mSliderLayout = (LinearLayout) mActivity.getLayoutInflater().inflate(R.layout.material_drawer_slider, mDrawerLayout, false);
         // get the layout params
         DrawerLayout.LayoutParams params = (DrawerLayout.LayoutParams) mSliderLayout.getLayoutParams();
         // set the gravity of this drawerGravity
@@ -834,7 +834,7 @@ public class Drawer {
             }
 
             if (mHeaderDivider) {
-                LinearLayout headerContainer = (LinearLayout) mActivity.getLayoutInflater().inflate(R.layout.drawer_item_header, mListView, false);
+                LinearLayout headerContainer = (LinearLayout) mActivity.getLayoutInflater().inflate(R.layout.material_drawer_item_header, mListView, false);
                 headerContainer.addView(mHeaderView, 0);
                 mListView.addHeaderView(headerContainer, null, mHeaderClickable);
                 mListView.setPadding(0, 0, 0, 0);
@@ -853,7 +853,7 @@ public class Drawer {
             }
 
             if (mFooterDivider) {
-                LinearLayout footerContainer = (LinearLayout) mActivity.getLayoutInflater().inflate(R.layout.drawer_item_footer, mListView, false);
+                LinearLayout footerContainer = (LinearLayout) mActivity.getLayoutInflater().inflate(R.layout.material_drawer_item_footer, mListView, false);
                 footerContainer.addView(mFooterView, 1);
                 mListView.addFooterView(footerContainer, null, mFooterClickable);
                 //link the view including the container to the footerView field

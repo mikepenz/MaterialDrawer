@@ -38,7 +38,7 @@ public class DividerDrawerItem implements IDrawerItem {
 
     @Override
     public int getLayoutRes() {
-        return R.layout.drawer_item_divider;
+        return R.layout.material_drawer_item_divider;
     }
 
     @Override

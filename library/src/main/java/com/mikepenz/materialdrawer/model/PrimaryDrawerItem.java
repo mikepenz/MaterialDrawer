@@ -323,7 +323,7 @@ public class PrimaryDrawerItem implements IDrawerItem, Nameable<PrimaryDrawerIte
 
     @Override
     public int getLayoutRes() {
-        return R.layout.drawer_item_primary;
+        return R.layout.material_drawer_item_primary;
     }
 
     @Override

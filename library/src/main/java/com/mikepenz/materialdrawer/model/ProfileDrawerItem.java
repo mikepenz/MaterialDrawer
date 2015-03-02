@@ -156,7 +156,7 @@ public class ProfileDrawerItem implements IDrawerItem, Tagable<ProfileDrawerItem
 
     @Override
     public int getLayoutRes() {
-        return R.layout.drawer_item_profile;
+        return R.layout.material_drawer_item_profile;
     }
 
     @Override

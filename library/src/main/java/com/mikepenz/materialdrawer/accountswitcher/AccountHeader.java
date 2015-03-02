@@ -211,7 +211,7 @@ public class AccountHeader {
         if (resLayout != -1) {
             this.mAccountHeaderContainer = mActivity.getLayoutInflater().inflate(resLayout, null, false);
         } else {
-            this.mAccountHeaderContainer = mActivity.getLayoutInflater().inflate(R.layout.drawer_header, null, false);
+            this.mAccountHeaderContainer = mActivity.getLayoutInflater().inflate(R.layout.material_drawer_header, null, false);
         }
 
         return this;

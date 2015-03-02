@@ -105,7 +105,7 @@ public class SectionDrawerItem implements IDrawerItem, Nameable<SectionDrawerIte
 
     @Override
     public int getLayoutRes() {
-        return R.layout.drawer_item_section;
+        return R.layout.material_drawer_item_section;
     }
 
     public int getTextColor() {
