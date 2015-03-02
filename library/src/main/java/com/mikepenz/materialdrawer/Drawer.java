@@ -244,8 +244,22 @@ public class Drawer {
         return this;
     }
 
+    // enable/disable the actionBarDrawerToggle animation
+    protected boolean mAnimateActionBarDrawerToggle = false;
 
-    // enable the drawer toggle / if withActionBarDrawerToggle we will autogenerate it
+    /**
+     * set this to enable/disable the actionBarDrawerToggle animation
+     *
+     * @param actionBarDrawerToggleAnimated
+     * @return
+     */
+    public Drawer withActionBarDrawerToggleAnimated(boolean actionBarDrawerToggleAnimated) {
+        this.mAnimateActionBarDrawerToggle = actionBarDrawerToggleAnimated;
+        return this;
+    }
+
+
+    // enable the drawer toggle / if withActionBarDrawerToggle we will autoGenerate it
     protected boolean mActionBarDrawerToggleEnabled = true;
 
     /**
@@ -678,6 +692,15 @@ public class Drawer {
                         }
                         super.onDrawerClosed(drawerView);
                     }
+
+                    @Override
+                    public void onDrawerSlide(View drawerView, float slideOffset) {
+                        if (!mAnimateActionBarDrawerToggle) {
+                            super.onDrawerSlide(drawerView, 0);
+                        } else {
+                            super.onDrawerSlide(drawerView, slideOffset);
+                        }
+                    }
                 };
             } else {
                 this.mActionBarDrawerToggle = new ActionBarDrawerToggle(mActivity, mDrawerLayout, mToolbar, R.string.drawer_open, R.string.drawer_close) {
@@ -695,6 +718,15 @@ public class Drawer {
                             mOnDrawerListener.onDrawerClosed(drawerView);
                         }
                         super.onDrawerClosed(drawerView);
+                    }
+
+                    @Override
+                    public void onDrawerSlide(View drawerView, float slideOffset) {
+                        if (!mAnimateActionBarDrawerToggle) {
+                            super.onDrawerSlide(drawerView, 0);
+                        } else {
+                            super.onDrawerSlide(drawerView, slideOffset);
+                        }
                     }
                 };
             }
