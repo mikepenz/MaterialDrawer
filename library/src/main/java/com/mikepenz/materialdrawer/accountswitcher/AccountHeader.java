@@ -553,7 +553,7 @@ public class AccountHeader {
     };
 
     /**
-     * onDrawerItemClickListener to catch the seleciton for the new profile!
+     * onDrawerItemClickListener to catch the selection for the new profile!
      */
     private Drawer.OnDrawerItemClickListener onDrawerItemClickListener = new Drawer.OnDrawerItemClickListener() {
         @Override
