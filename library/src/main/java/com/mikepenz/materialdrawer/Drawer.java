@@ -872,7 +872,7 @@ public class Drawer {
             if (mListView != null && (mSelectedItem + mHeaderOffset) > -1) {
                 mListView.setSelection(mSelectedItem + mHeaderOffset);
                 mListView.setItemChecked(mSelectedItem + mHeaderOffset, true);
-                mCurrentSelection = mSelectedItem + mHeaderOffset;
+                mCurrentSelection = mSelectedItem;
             }
         }
 
@@ -896,10 +896,10 @@ public class Drawer {
                 }
 
                 if (i != null && i instanceof Checkable && !((Checkable) i).isCheckable()) {
-                    mListView.setSelection(mCurrentSelection);
-                    mListView.setItemChecked(mCurrentSelection, true);
+                    mListView.setSelection(mCurrentSelection + mHeaderOffset);
+                    mListView.setItemChecked(mCurrentSelection + mHeaderOffset, true);
                 } else {
-                    mCurrentSelection = position;
+                    mCurrentSelection = position - mHeaderOffset;
                 }
 
 
@@ -925,7 +925,7 @@ public class Drawer {
                 @Override
                 public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
                     mOnDrawerItemSelectedListener.onItemSelected(parent, view, position, id, getDrawerItem(position, true));
-                    mCurrentSelection = position;
+                    mCurrentSelection = position - mHeaderOffset;
                 }
 
                 @Override
@@ -948,7 +948,7 @@ public class Drawer {
                 if (mListView != null && (selection) > -1) {
                     mListView.setSelection(selection);
                     mListView.setItemChecked(selection, true);
-                    mCurrentSelection = selection;
+                    mCurrentSelection = selection - mHeaderOffset;
                 }
             }
         }
@@ -1297,7 +1297,7 @@ public class Drawer {
                     mDrawer.mOnDrawerItemClickListener.onItemClick(null, null, position, position, mDrawer.getDrawerItem(position, false));
                 }
 
-                mDrawer.mCurrentSelection = position + mDrawer.mHeaderOffset;
+                mDrawer.mCurrentSelection = position;
             }
         }
 
