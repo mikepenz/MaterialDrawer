@@ -7,7 +7,7 @@
         android:icon="@drawable/ic_launcher">
         <activity
             android:name=".SimpleDrawerActivity"
-            android:theme="@style/MaterialDrawerTheme.TranslucentStatus"
+            android:theme="@style/MaterialDrawerTheme.Light.DarkActionBar.TranslucentStatus"
             android:label="@string/app_name">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN"/>

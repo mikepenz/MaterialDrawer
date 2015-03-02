@@ -1,8 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <!--
-    Material SAMPLE DARK colors
-
     Just set custom primary and accent color.
     Looks best with a light theme. see the AndroidManifest
 
@@ -19,17 +17,6 @@
     Looks best in combination of a dark theme
     -->
     <!--
-    <color name="material_drawer_background">#303030</color>
-    - Material SAMPLE DARK text / items colors -
-    <color name="material_drawer_icons">#000</color>
-    <color name="material_drawer_primary_text">#FFF</color>
-    <color name="material_drawer_secondary_text">#DEDEDE</color>
-    <color name="material_drawer_hint_text">#ABABAB</color>
-    <color name="material_drawer_contrast_text">#000</color>
-    <color name="material_drawer_divider">#555555</color>
-    - Material SAMPLE DARK drawer colors -
-    <color name="material_drawer_selected">#262626</color>
-
     - AboutLibraries colors -
     <color name="theme_window_background">#303030</color>
     <color name="about_libraries_card">#666666</color>
