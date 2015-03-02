@@ -25,6 +25,7 @@ import com.mikepenz.materialdrawer.model.interfaces.Tagable;
 
 public class SimpleDrawerActivity extends ActionBarActivity {
 
+    private AccountHeader.Result headerResult = null;
     private Drawer.Result result = null;
 
     @Override
@@ -45,7 +46,7 @@ public class SimpleDrawerActivity extends ActionBarActivity {
         Profile profile4 = new Profile().withName("Mr. X").withEmail("mister.x.super@gmail.com").withImage(getResources().getDrawable(R.drawable.profile4));
         Profile profile5 = new Profile().withName("Batman").withEmail("batman@gmail.com").withImage(getResources().getDrawable(R.drawable.profile5));
 
-        AccountHeader.Result headerResult = new AccountHeader()
+        headerResult = new AccountHeader()
                 .withActivity(this)
                 .withHeaderBackground(R.drawable.header)
                 .addProfiles(profile, profile2, profile3, profile4, profile5)
@@ -60,6 +61,7 @@ public class SimpleDrawerActivity extends ActionBarActivity {
                         Toast.makeText(SimpleDrawerActivity.this, currentProfile.getName(), Toast.LENGTH_SHORT).show();
                     }
                 })
+                .withSavedInstance(savedInstanceState)
                 .build();
 
         result = new Drawer()
@@ -179,6 +181,7 @@ public class SimpleDrawerActivity extends ActionBarActivity {
     protected void onSaveInstanceState(Bundle outState) {
         //add the values which need to be saved from the drawer to the bundle
         outState = result.saveInstanceState(outState);
+        outState = headerResult.saveInstanceState(outState);
         super.onSaveInstanceState(outState);
     }
 

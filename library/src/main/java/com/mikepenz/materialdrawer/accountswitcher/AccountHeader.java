@@ -4,6 +4,7 @@ import android.app.Activity;
 import android.content.Context;
 import android.graphics.drawable.Drawable;
 import android.os.Build;
+import android.os.Bundle;
 import android.os.Handler;
 import android.util.TypedValue;
 import android.view.View;
@@ -11,7 +12,6 @@ import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ImageView;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.mikepenz.google_material_typeface_library.GoogleMaterial;
 import com.mikepenz.iconics.IconicsDrawable;
@@ -30,6 +30,7 @@ import java.util.Collections;
  * Created by mikepenz on 27.02.15.
  */
 public class AccountHeader {
+    private static final String BUNDLE_SELECTION_HEADER = "bundle_selection_header";
 
     // global references to views we need later
     protected View mAccountHeader;
@@ -274,6 +275,20 @@ public class AccountHeader {
         return this;
     }
 
+    // savedInstance to restore state
+    protected Bundle mSavedInstance;
+
+    /**
+     * create the drawer with the values of a savedInstance
+     *
+     * @param savedInstance
+     * @return
+     */
+    public AccountHeader withSavedInstance(Bundle savedInstance) {
+        this.mSavedInstance = savedInstance;
+        return this;
+    }
+
     /**
      * helper method to set the height for the header!
      *
@@ -375,12 +390,6 @@ public class AccountHeader {
 
         //get the fields for the name
         mCurrentProfileView = (CircularImageView) mAccountHeader.findViewById(R.id.account_header_drawer_current);
-        mCurrentProfileView.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Toast.makeText(mActivity, "Wuhu", Toast.LENGTH_LONG).show();
-            }
-        });
         mCurrentProfileName = (TextView) mAccountHeader.findViewById(R.id.account_header_drawer_name);
         mCurrentProfileEmail = (TextView) mAccountHeader.findViewById(R.id.account_header_drawer_email);
 
@@ -409,6 +418,17 @@ public class AccountHeader {
 
         //process and build the profiles
         buildProfiles();
+
+        // try to restore all saved values again
+        if (mSavedInstance != null) {
+            int selection = mSavedInstance.getInt(BUNDLE_SELECTION_HEADER, -1);
+            if (selection != -1) {
+                //predefine selection (should be the first element
+                if (mProfiles != null && (selection) > -1 && selection < mProfiles.size()) {
+                    switchProfiles(mProfiles.get(selection));
+                }
+            }
+        }
 
         //everything created. now set the header
         if (mDrawer != null) {
@@ -507,6 +527,24 @@ public class AccountHeader {
             }
         }
     };
+
+    /**
+     * get the current selectoin
+     *
+     * @return
+     */
+    private int getCurrentSelection() {
+        if (mCurrentProfile != null && mProfiles != null) {
+            int i = 0;
+            for (Profile profile : mProfiles) {
+                if (profile == mCurrentProfile) {
+                    return i;
+                }
+                i++;
+            }
+        }
+        return -1;
+    }
 
     //variables to store and remember the original list of the drawer
     private Drawer.OnDrawerItemClickListener originalOnDrawerItemClickListener;
@@ -611,6 +649,19 @@ public class AccountHeader {
          */
         public void setDrawer(Drawer.Result drawer) {
             mAccountHeader.mDrawer = drawer;
+        }
+
+        /**
+         * add the values to the bundle for saveInstanceState
+         *
+         * @param savedInstanceState
+         * @return
+         */
+        public Bundle saveInstanceState(Bundle savedInstanceState) {
+            if (savedInstanceState != null) {
+                savedInstanceState.putInt(BUNDLE_SELECTION_HEADER, mAccountHeader.getCurrentSelection());
+            }
+            return savedInstanceState;
         }
     }
 
