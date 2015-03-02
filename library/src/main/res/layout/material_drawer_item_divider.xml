@@ -6,5 +6,5 @@
                 android:paddingBottom="@dimen/material_drawer_padding">
     <View android:layout_width="match_parent"
           android:layout_height="1dp"
-          android:background="@color/material_drawer_divider"/>
+          android:background="?material_drawer_divider"/>
 </RelativeLayout>

@@ -21,6 +21,7 @@ import com.mikepenz.materialdrawer.R;
 import com.mikepenz.materialdrawer.accountswitcher.model.Profile;
 import com.mikepenz.materialdrawer.model.ProfileDrawerItem;
 import com.mikepenz.materialdrawer.model.interfaces.IDrawerItem;
+import com.mikepenz.materialdrawer.util.UIUtils;
 import com.mikepenz.materialdrawer.view.CircularImageView;
 
 import java.util.ArrayList;
@@ -365,7 +366,7 @@ public class AccountHeader {
         if (textColor == -1 && mTextColorRes != -1) {
             textColor = mActivity.getResources().getColor(mTextColorRes);
         } else {
-            textColor = mActivity.getResources().getColor(R.color.material_drawer_icons);
+            textColor = UIUtils.getThemeColor(mActivity, R.attr.material_drawer_header_selection_text);
         }
         mTextColor = textColor;
 

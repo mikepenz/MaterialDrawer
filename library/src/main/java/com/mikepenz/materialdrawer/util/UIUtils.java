@@ -6,6 +6,7 @@ import android.content.res.ColorStateList;
 import android.graphics.drawable.ColorDrawable;
 import android.graphics.drawable.Drawable;
 import android.graphics.drawable.StateListDrawable;
+import android.util.TypedValue;
 import android.view.View;
 
 /**
@@ -39,6 +40,14 @@ public class UIUtils {
         states.addState(new int[]{android.R.attr.state_activated}, clrActive);
 
         return states;
+    }
+
+    public static int getThemeColor(Context ctx, int attr) {
+        TypedValue tv = new TypedValue();
+        if (ctx.getTheme().resolveAttribute(attr, tv, true)) {
+            return tv.data;
+        }
+        return -1;
     }
 
     @SuppressLint("NewApi")

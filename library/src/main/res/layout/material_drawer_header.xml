@@ -28,8 +28,8 @@
             android:layout_marginBottom="@dimen/material_drawer_account_header_horizontal_bottom"
             android:clickable="true"
             app:civ_selector="true"
-            app:civ_selectorColor="@color/primary"
-            app:civ_selectorStrokeColor="@color/primary"/>
+            app:civ_selectorColor="@color/material_drawer_primary"
+            app:civ_selectorStrokeColor="@color/material_drawer_primary"/>
 
         <com.mikepenz.materialdrawer.view.CircularImageView
             android:id="@+id/account_header_drawer_small_first"
@@ -44,8 +44,8 @@
             android:visibility="gone"
             android:clickable="true"
             app:civ_selector="true"
-            app:civ_selectorColor="@color/primary"
-            app:civ_selectorStrokeColor="@color/primary"/>
+            app:civ_selectorColor="@color/material_drawer_primary"
+            app:civ_selectorStrokeColor="@color/material_drawer_primary"/>
 
         <com.mikepenz.materialdrawer.view.CircularImageView
             android:id="@+id/account_header_drawer_small_second"
@@ -60,8 +60,8 @@
             android:visibility="gone"
             android:clickable="true"
             app:civ_selector="true"
-            app:civ_selectorColor="@color/primary"
-            app:civ_selectorStrokeColor="@color/primary"/>
+            app:civ_selectorColor="@color/material_drawer_primary"
+            app:civ_selectorStrokeColor="@color/material_drawer_primary"/>
 
         <com.mikepenz.materialdrawer.view.CircularImageView
             android:id="@+id/account_header_drawer_small_third"
@@ -76,8 +76,8 @@
             android:visibility="gone"
             android:clickable="true"
             app:civ_selector="true"
-            app:civ_selectorColor="@color/primary"
-            app:civ_selectorStrokeColor="@color/primary"/>
+            app:civ_selectorColor="@color/material_drawer_primary"
+            app:civ_selectorStrokeColor="@color/material_drawer_primary"/>
 
         <LinearLayout
             android:id="@+id/account_header_drawer_text_section"
@@ -108,7 +108,7 @@
                 android:lines="1"
                 android:singleLine="true"
                 android:textSize="@dimen/material_drawer_account_header_text"
-                android:textColor="#FFFFFF"/>
+                android:textColor="?material_drawer_header_selection_text"/>
 
             <TextView
                 android:id="@+id/account_header_drawer_email"
@@ -118,7 +118,7 @@
                 android:lines="1"
                 android:singleLine="true"
                 android:textSize="@dimen/material_drawer_account_header_text"
-                android:textColor="#FFFFFF"/>
+                android:textColor="?material_drawer_header_selection_text"/>
 
         </LinearLayout>
 

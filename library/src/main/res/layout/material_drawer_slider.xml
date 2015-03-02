@@ -5,7 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:layout_gravity="start"
-    android:background="@color/material_drawer_background"
+    android:background="?material_drawer_background"
     android:elevation="10dp"
     android:orientation="vertical"
     android:layout_marginRight="@dimen/material_drawer_margin"

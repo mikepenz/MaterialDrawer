@@ -10,6 +10,7 @@ import com.mikepenz.materialdrawer.R;
 import com.mikepenz.materialdrawer.model.interfaces.IDrawerItem;
 import com.mikepenz.materialdrawer.model.interfaces.Nameable;
 import com.mikepenz.materialdrawer.model.interfaces.Tagable;
+import com.mikepenz.materialdrawer.util.UIUtils;
 
 /**
  * Created by mikepenz on 03.02.15.
@@ -145,7 +146,7 @@ public class SectionDrawerItem implements IDrawerItem, Nameable<SectionDrawerIte
         if (text_color == -1 && textColorRes != -1) {
             text_color = ctx.getResources().getColor(textColorRes);
         } else if (text_color == -1) {
-            text_color = ctx.getResources().getColor(R.color.material_drawer_hint_text);
+            text_color = UIUtils.getThemeColor(ctx, R.attr.material_drawer_hint_text);
         }
         viewHolder.name.setTextColor(text_color);
 
@@ -160,8 +161,6 @@ public class SectionDrawerItem implements IDrawerItem, Nameable<SectionDrawerIte
         } else {
             viewHolder.divider.setVisibility(View.GONE);
         }
-
-        //viewHolder.name.setTextColor(UIUtils.getTextColor(activity, activity.getResources().getColor(R.color.material_drawer_secondary_text)));
 
         return convertView;
     }

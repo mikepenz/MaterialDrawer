@@ -343,7 +343,7 @@ public class PrimaryDrawerItem implements IDrawerItem, Nameable<PrimaryDrawerIte
         if (selected_color == -1 && selectedColorRes != -1) {
             selected_color = ctx.getResources().getColor(selectedColorRes);
         } else if (selected_color == -1) {
-            selected_color = ctx.getResources().getColor(R.color.material_drawer_selected);
+            selected_color = UIUtils.getThemeColor(ctx, R.attr.material_drawer_selected);
         }
         UIUtils.setBackground(viewHolder.view, UIUtils.getDrawerItemBackground(ctx, selected_color));
 
@@ -364,7 +364,7 @@ public class PrimaryDrawerItem implements IDrawerItem, Nameable<PrimaryDrawerIte
         if (selected_text == -1 && selectedTextColorRes != -1) {
             selected_text = ctx.getResources().getColor(selectedTextColorRes);
         } else if (selected_text == -1) {
-            selected_text = ctx.getResources().getColor(R.color.material_drawer_selected_text);
+            selected_text = UIUtils.getThemeColor(ctx, R.attr.material_drawer_selected_text);
         }
 
         int color;
@@ -374,7 +374,7 @@ public class PrimaryDrawerItem implements IDrawerItem, Nameable<PrimaryDrawerIte
             if (color == -1 && textColorRes != -1) {
                 color = ctx.getResources().getColor(textColorRes);
             } else if (color == -1) {
-                color = ctx.getResources().getColor(R.color.material_drawer_primary_text);
+                color = UIUtils.getThemeColor(ctx, R.attr.material_drawer_primary_text);
             }
             viewHolder.name.setTextColor(UIUtils.getTextColor(color, selected_text));
             viewHolder.badge.setTextColor(UIUtils.getTextColor(color, selected_text));
@@ -383,7 +383,7 @@ public class PrimaryDrawerItem implements IDrawerItem, Nameable<PrimaryDrawerIte
             if (color == -1 && disabledColorRes != -1) {
                 color = ctx.getResources().getColor(disabledColorRes);
             } else if (color == -1) {
-                color = ctx.getResources().getColor(R.color.material_drawer_hint_text);
+                color = UIUtils.getThemeColor(ctx, R.attr.material_drawer_hint_text);
             }
             viewHolder.name.setTextColor(color);
             viewHolder.badge.setTextColor(color);
