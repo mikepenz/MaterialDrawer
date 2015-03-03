@@ -14,25 +14,47 @@
   </head>
   <body>
     <div class="wrapper">
-      <header>
-        <h1>Materialdrawer</h1>
-        <p>A simple take on creating a easy to use and fast material drawer implementation</p>
 
-        <p class="view"><a href="https://github.com/mikepenz/MaterialDrawer">View the Project on GitHub <small>mikepenz/MaterialDrawer</small></a></p>
+        <header>
+            <div class="container">
+                <h1>Materialdrawer</h1>
+                <p>A simple take on creating a easy to use and fast material drawer implementation</p>
+
+                <p class="view">
+                   
+                </p>
+
+                <ul>
+                    <li>
+                        <a href="https://github.com/mikepenz/MaterialDrawer/zipball/master">
+                            Download <strong>ZIP File</strong>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="https://github.com/mikepenz/MaterialDrawer/tarball/master">
+                            Download <strong>TAR Ball</strong>
+                        </a>
+                    </li>
+                    <li>
+                         <a href="https://github.com/mikepenz/MaterialDrawer">
+                            Project on GitHub 
+                        </a>
+                    </li>
+                </ul>
+            </div>
+        </header>
+
+        <div class="container">
+            
+        </div>
 
 
-        <ul>
-          <li><a href="https://github.com/mikepenz/MaterialDrawer/zipball/master">Download <strong>ZIP File</strong></a></li>
-          <li><a href="https://github.com/mikepenz/MaterialDrawer/tarball/master">Download <strong>TAR Ball</strong></a></li>
-          <li><a href="https://github.com/mikepenz/MaterialDrawer">View On <strong>GitHub</strong></a></li>
-        </ul>
-      </header>
-      <section>
+      <section class="container">
         <h1>
-<a id="materialdrawer---" class="anchor" href="#materialdrawer---" aria-hidden="true"><span class="octicon octicon-link"></span></a>MaterialDrawer  <a href="https://maven-badges.herokuapp.com/maven-central/com.mikepenz.materialdrawer/library"><img src="https://maven-badges.herokuapp.com/maven-central/com.mikepenz.materialdrawer/library/badge.svg?style=flat" alt="Maven Central"></a> <a href="https://android-arsenal.com/details/1/1526"><img src="https://img.shields.io/badge/Android%20Arsenal-MaterialDrawer-brightgreen.svg?style=flat" alt="Android Arsenal"></a>
-</h1>
+            <a id="materialdrawer---" class="anchor" href="#materialdrawer---" aria-hidden="true"><span class="octicon octicon-link"></span></a>MaterialDrawer  <a href="https://maven-badges.herokuapp.com/maven-central/com.mikepenz.materialdrawer/library"><img src="https://maven-badges.herokuapp.com/maven-central/com.mikepenz.materialdrawer/library/badge.svg?style=flat" alt="Maven Central"></a> <a href="https://android-arsenal.com/details/1/1526"><img src="https://img.shields.io/badge/Android%20Arsenal-MaterialDrawer-brightgreen.svg?style=flat" alt="Android Arsenal"></a>
+        </h1>
 
-<p>The <strong>MaterialDrawer</strong> library aims to provide a quick and easy Activity to create and implement a navigation drawer layout in your application.</p>
+<p>The <strong>MaterialDrawer</strong> library aims to provide a quick and easy Activity to create and implement a drawer layout in your application.</p>
 
 <p>Here's a quick overview of functions it include:</p>
 
@@ -63,7 +85,7 @@
 <h2>
 <a id="screenshots" class="anchor" href="#screenshots" aria-hidden="true"><span class="octicon octicon-link"></span></a>Screenshots</h2>
 
-<p><img src="https://raw.githubusercontent.com/mikepenz/MaterialDrawer/master/DEV/screenshots/screenshot1_small.png" alt="Image">
+<p class="center"><img src="https://raw.githubusercontent.com/mikepenz/MaterialDrawer/master/DEV/screenshots/screenshot1_small.png" alt="Image">
 <img src="https://raw.githubusercontent.com/mikepenz/MaterialDrawer/master/DEV/screenshots/screenshot2_small.png" alt="Image"></p>
 
 <h1>
@@ -74,7 +96,7 @@
 
 <p>The MaterialDrawer Library is pushed to <a href="http://search.maven.org/#search%7Cga%7C1%7Cg%3A%22com.mikepenz.materialdrawer%22">Maven Central</a>, so you just need to add the following dependency to your <code>build.gradle</code>.</p>
 
-<div class="highlight highlight-javascript"><pre><span class="pl-s3">compile</span>(<span class="pl-s1"><span class="pl-pds">'</span>com.mikepenz.materialdrawer:library:1.0.2@aar<span class="pl-pds">'</span></span>) {
+<div class="highlight highlight-javascript"><pre><span class="pl-s3">compile</span>(<span class="pl-s1"><span class="pl-pds">'</span>com.mikepenz.materialdrawer:library:1.0.0@aar<span class="pl-pds">'</span></span>) {
     transitive <span class="pl-k">=</span> <span class="pl-c1">true</span>
 }</pre></div>
 
@@ -84,22 +106,14 @@
 <p>Here's a quick overview what you have to do within your application.</p>
 
 <h3>
-<a id="minimal-setup" class="anchor" href="#minimal-setup" aria-hidden="true"><span class="octicon octicon-link"></span></a>Minimal SetUp</h3>
+<a id="activity-with-toolbar" class="anchor" href="#activity-with-toolbar" aria-hidden="true"><span class="octicon octicon-link"></span></a>Activity with Toolbar</h3>
 
 <h4>
 <a id="code" class="anchor" href="#code" aria-hidden="true"><span class="octicon octicon-link"></span></a>Code:</h4>
 
-<p>It's (theoretically) a one-liner :D. This will create an empty drawer.</p>
+<p>It's (theoretically) a one-liner :D</p>
 
-<div class="highlight highlight-java"><pre><span class="pl-k">new</span> <span class="pl-stj">Drawer</span>()<span class="pl-k">.</span>withActivity(<span class="pl-v">this</span>)<span class="pl-k">.</span>build()</pre></div>
-
-<h3>
-<a id="activity-with-toolbar" class="anchor" href="#activity-with-toolbar" aria-hidden="true"><span class="octicon octicon-link"></span></a>Activity with Toolbar</h3>
-
-<h4>
-<a id="code-1" class="anchor" href="#code-1" aria-hidden="true"><span class="octicon octicon-link"></span></a>Code:</h4>
-
-<div class="highlight highlight-java"><pre><span class="pl-stj">Drawer</span><span class="pl-k">.</span><span class="pl-stj">Result</span> result <span class="pl-k">=</span> <span class="pl-k">new</span> <span class="pl-stj">Drawer</span>()
+<div class="highlight highlight-java"><pre><span class="pl-k">new</span> <span class="pl-stj">Drawer</span>()
     .withActivity(<span class="pl-v">this</span>)
     .withToolbar(toolbar)
     .addDrawerItems(
@@ -113,22 +127,15 @@
         <span class="pl-c">// do something with the clicked item :D</span>
     }
     })
-    .build();
-
-<span class="pl-c">//use the result object to get different views of the drawer or modify it's data</span>
-<span class="pl-c">//some sample calls</span>
-result<span class="pl-k">.</span>setSelectionByIdentifier(<span class="pl-c1">1</span>);
-result<span class="pl-k">.</span>openDrawer();
-result<span class="pl-k">.</span>closeDrawer();
-result<span class="pl-k">.</span>isDrawerOpen();
-result<span class="pl-k">.</span>addItem(<span class="pl-c1">..</span>);
-</pre></div>
+    .build();</pre></div>
 
 <h3>
 <a id="activity-with-actionbar" class="anchor" href="#activity-with-actionbar" aria-hidden="true"><span class="octicon octicon-link"></span></a>Activity with ActionBar</h3>
 
 <h4>
-<a id="code-2" class="anchor" href="#code-2" aria-hidden="true"><span class="octicon octicon-link"></span></a>Code:</h4>
+<a id="code-1" class="anchor" href="#code-1" aria-hidden="true"><span class="octicon octicon-link"></span></a>Code:</h4>
+
+<p>It's (theoretically) a one-liner :D</p>
 
 <div class="highlight highlight-java"><pre><span class="pl-k">new</span> <span class="pl-stj">Drawer</span>()
     .withActivity(<span class="pl-v">this</span>)
@@ -142,7 +149,9 @@ result<span class="pl-k">.</span>addItem(<span class="pl-c1">..</span>);
 <a id="activity-with-multiple-drawers" class="anchor" href="#activity-with-multiple-drawers" aria-hidden="true"><span class="octicon octicon-link"></span></a>Activity with Multiple Drawers</h3>
 
 <h4>
-<a id="code-3" class="anchor" href="#code-3" aria-hidden="true"><span class="octicon octicon-link"></span></a>Code:</h4>
+<a id="code-2" class="anchor" href="#code-2" aria-hidden="true"><span class="octicon octicon-link"></span></a>Code:</h4>
+
+<p>It's (theoretically) a one-liner :D</p>
 
 <div class="highlight highlight-java"><pre><span class="pl-stj">Drawer</span><span class="pl-k">.</span><span class="pl-stj">Result</span> result <span class="pl-k">=</span> <span class="pl-k">new</span> <span class="pl-stj">Drawer</span>()
     .withActivity(<span class="pl-v">this</span>)
@@ -167,7 +176,7 @@ result<span class="pl-k">.</span>addItem(<span class="pl-c1">..</span>);
 <a id="method-description" class="anchor" href="#method-description" aria-hidden="true"><span class="octicon octicon-link"></span></a>Method description</h3>
 
 <h4>
-<a id="code-4" class="anchor" href="#code-4" aria-hidden="true"><span class="octicon octicon-link"></span></a>Code:</h4>
+<a id="code-3" class="anchor" href="#code-3" aria-hidden="true"><span class="octicon octicon-link"></span></a>Code:</h4>
 
 <div class="highlight highlight-java"><pre><span class="pl-k">new</span> <span class="pl-stj">Drawer</span>()
                 <span class="pl-c">//set the activity so we can inflate layouts automatically</span>
@@ -184,14 +193,10 @@ result<span class="pl-k">.</span>addItem(<span class="pl-c1">..</span>);
                 .withActionBarDrawerToggle(<span class="pl-c1">BOOLEAN</span><span class="pl-k">|</span><span class="pl-stj">ActionBarDrawerToggle</span>)
                 <span class="pl-c">//set the header for the drawer</span>
                 .withHeader(<span class="pl-c1">VIEW</span><span class="pl-k">|</span><span class="pl-c1">RES</span>)
-                <span class="pl-c">//set this to enable the onClick callback for the header</span>
-                .withHeaderClickable(<span class="pl-c1">true</span>)
                 <span class="pl-c">//set this to disable the divider after the header DEFAULT: true</span>
                 .withHeaderDivider(<span class="pl-c1">false</span>)
                 <span class="pl-c">//set the footer for the drawer</span>
                 .withFooter(<span class="pl-c1">VIEW</span><span class="pl-k">|</span><span class="pl-c1">RES</span>)
-                <span class="pl-c">//set this to enable the onClick callback for the footer</span>
-                .withFooterClickable(<span class="pl-c1">true</span>)
                 <span class="pl-c">//set this to disable the divider before the footer DEFAULT: true</span>
                 .withFooterDivider(<span class="pl-c1">false</span>)
                 <span class="pl-c">//set the sticky footer for the drawer (this one is always visible)</span>
@@ -274,50 +279,69 @@ Overwrite following colors to create a quick custom style for your application</
 <h1>
 <a id="credits" class="anchor" href="#credits" aria-hidden="true"><span class="octicon octicon-link"></span></a>Credits</h1>
 
-<ul>
-<li>
-<p>Mirosław Stanek - <a href="https://github.com/frogermcs">GitHub</a></p>
+    <ul>
+        <li>Mirosław Stanek - <a href="https://github.com/frogermcs">GitHub</a>
 
-<ul>
-<li>For his InstaMaterial concept and the idea of inflating the drawerLayout <a href="http://frogermcs.github.io/InstaMaterial-concept-part-7-navigation-drawer/">InstaMaterial Concept</a>
-</li>
-</ul>
-</li>
-<li><p>Lunae Luman - <a href="https://www.behance.net/gallery/18526001/Material-Wallpaper">Behance</a> for the Header Image</p></li>
-</ul>
+        <ul>
+        <li>For his InstaMaterial concept and the idea of inflating the drawerLayout <a href="http://frogermcs.github.io/InstaMaterial-concept-part-7-navigation-drawer/">InstaMaterial Concept</a>
+        </li>
+        </ul>
+        </li>
+    </ul>
 
-<h1>
-<a id="developed-by" class="anchor" href="#developed-by" aria-hidden="true"><span class="octicon octicon-link"></span></a>Developed By</h1>
+    <h1>
+    <a id="developed-by" class="anchor" href="#developed-by" aria-hidden="true"><span class="octicon octicon-link"></span></a>Developed By</h1>
 
-<ul>
-<li>Mike Penz - <a href="http://mikepenz.com">http://mikepenz.com</a> - <a href="mailto:mikepenz@gmail.com">mikepenz@gmail.com</a>
-</li>
-</ul>
-
-<h1>
-<a id="license" class="anchor" href="#license" aria-hidden="true"><span class="octicon octicon-link"></span></a>License</h1>
-
-<pre><code>Copyright 2015 Mike Penz
-
-Licensed under the Apache License, Version 2.0 (the "License");
-you may not use this file except in compliance with the License.
-You may obtain a copy of the License at
-
-   http://www.apache.org/licenses/LICENSE-2.0
-
-Unless required by applicable law or agreed to in writing, software
-distributed under the License is distributed on an "AS IS" BASIS,
-WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
-See the License for the specific language governing permissions and
-limitations under the License.
-</code></pre>
+    <ul>
+        <li>Mike Penz - <a href="http://mikepenz.com">http://mikepenz.com</a> - <a href="mailto:mikepenz@gmail.com">mikepenz@gmail.com</a>
+        </li>
+    </ul>
+    
       </section>
-      <footer>
-        <p>This project is maintained by <a href="https://github.com/mikepenz">mikepenz</a></p>
-        <p><small>Hosted on GitHub Pages &mdash; Theme by <a href="https://github.com/orderedlist">orderedlist</a></small></p>
-      </footer>
+    <div class="license">
+        <div class="container">
+            
+            <h1>License</h1>
+            
+            <p>
+                Copyright 2015 Mike Penz
+            </p>
+            <p>
+                Licensed under the Apache License, Version 2.0 (the "License");
+                you may not use this file except in compliance with the License.
+                You may obtain a copy of the License at
+            </p>
+            <p>
+                http://www.apache.org/licenses/LICENSE-2.0
+            </p>
+            <p>
+                Unless required by applicable law or agreed to in writing, software
+                distributed under the License is distributed on an "AS IS" BASIS,
+                WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+                See the License for the specific language governing permissions and
+                limitations under the License.
+            </p>
+            
+            
+        </div>
     </div>
-    <script src="javascripts/scale.fix.js"></script>
+
+    <footer>
+        <div class="container">
+            <p>
+                This project is maintained by 
+                <a title="mikepenz" href="https://github.com/mikepenz">mikepenz</a>
+            </p>
+            <p>
+                <small>
+                    GitHub Pages &mdash; 
+                    Theme by <a title="Luan Ramos" href="https://github.com/Luanramos">Luan Ramos</a>
+                </small>
+            </p>
+        </div>
+    </footer>
+
+    </div>
     
   </body>
 </html>
