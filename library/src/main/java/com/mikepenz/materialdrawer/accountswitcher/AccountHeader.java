@@ -562,7 +562,7 @@ public class AccountHeader {
     }
 
     protected void buildProfiles() {
-        mCurrentProfileView.setVisibility(View.GONE);
+        mCurrentProfileView.setVisibility(View.INVISIBLE);
         mAccountHeaderTextSection.setVisibility(View.GONE);
         mAccountSwitcherArrow.setVisibility(View.GONE);
         mProfileFirstView.setVisibility(View.GONE);
@@ -614,9 +614,11 @@ public class AccountHeader {
 
         if (!TextUtils.isEmpty(mSelectionFirstLine)) {
             mCurrentProfileName.setText(mSelectionFirstLine);
+            mAccountHeaderTextSection.setVisibility(View.VISIBLE);
         }
         if (!TextUtils.isEmpty(mSelectionSecondLine)) {
             mCurrentProfileEmail.setText(mSelectionSecondLine);
+            mAccountHeaderTextSection.setVisibility(View.VISIBLE);
         }
     }
 
