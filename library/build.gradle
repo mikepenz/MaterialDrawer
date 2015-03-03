@@ -8,7 +8,7 @@ android {
         minSdkVersion 10
         targetSdkVersion 21
         versionCode 150
-        versionName '1.5.0.PREVIEW.2-SNAPSHOT'
+        versionName '1.5.0.PREVIEW.3-SNAPSHOT'
     }
 
     buildTypes {
