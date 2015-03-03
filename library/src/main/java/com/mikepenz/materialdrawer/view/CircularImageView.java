@@ -35,6 +35,7 @@ import android.graphics.Canvas;
 import android.graphics.Color;
 import android.graphics.ColorFilter;
 import android.graphics.Matrix;
+import android.graphics.Outline;
 import android.graphics.Paint;
 import android.graphics.PorterDuff;
 import android.graphics.PorterDuffColorFilter;
@@ -47,6 +48,7 @@ import android.os.Build;
 import android.util.AttributeSet;
 import android.util.Log;
 import android.view.MotionEvent;
+import android.view.View;
 import android.widget.ImageView;
 
 import com.mikepenz.materialdrawer.R;
@@ -165,6 +167,22 @@ public class CircularImageView extends ImageView {
 
         // We no longer need our attributes TypedArray, give it back to cache
         attributes.recycle();
+
+        if (android.os.Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+            addElevationSupport();
+        }
+    }
+
+    @TargetApi(Build.VERSION_CODES.LOLLIPOP)
+    private void addElevationSupport() {
+        android.view.ViewOutlineProvider outlineProvider = new android.view.ViewOutlineProvider() {
+            @Override
+            public void getOutline(View view, Outline outline) {
+                int size = view.getHeight();
+                outline.setOval(0, 0, size, size);
+            }
+        };
+        setOutlineProvider(outlineProvider);
     }
 
     /**
@@ -172,6 +190,7 @@ public class CircularImageView extends ImageView {
      *
      * @param borderWidth Width in pixels for the border.
      */
+
     public void setBorderWidth(int borderWidth) {
         this.borderWidth = borderWidth;
         if (paintBorder != null)

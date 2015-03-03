@@ -5,7 +5,7 @@ import android.widget.BaseAdapter;
 import com.mikepenz.materialdrawer.model.interfaces.IDrawerItem;
 
 import java.util.ArrayList;
-import java.util.List;
+import java.util.LinkedHashSet;
 
 public abstract class BaseDrawerAdapter extends BaseAdapter {
 
@@ -16,7 +16,7 @@ public abstract class BaseDrawerAdapter extends BaseAdapter {
 
     public void mapTypes() {
         if (getTypeMapper() == null) {
-            setTypeMapper(new ArrayList<String>());
+            setTypeMapper(new LinkedHashSet<String>());
         }
 
         if (getDrawerItems() != null) {
@@ -29,20 +29,29 @@ public abstract class BaseDrawerAdapter extends BaseAdapter {
     @Override
     public int getItemViewType(int position) {
         if (getDrawerItems() != null && getDrawerItems().size() > position && getTypeMapper() != null) {
-            return getTypeMapper().indexOf(getDrawerItems().get(position).getType());
-        } else {
-            return -1;
+            int i = 0;
+            for (String type : getTypeMapper()) {
+                if (type.equals(getDrawerItems().get(position).getType())) {
+                    return i;
+                }
+                i++;
+            }
         }
-
+        return -1;
     }
 
     @Override
     public int getViewTypeCount() {
+        //WTF this is only called once ?!
+        //This means for now i only allow 50 viewtTypes^
+        return 50;
+        /*
         if (getTypeMapper() != null) {
             return getTypeMapper().size();
         } else {
             return -1;
         }
+        */
     }
 
 
@@ -50,7 +59,7 @@ public abstract class BaseDrawerAdapter extends BaseAdapter {
 
     public abstract void setDrawerItems(ArrayList<IDrawerItem> drawerItems);
 
-    public abstract List<String> getTypeMapper();
+    public abstract LinkedHashSet<String> getTypeMapper();
 
-    public abstract void setTypeMapper(List<String> typeMapper);
+    public abstract void setTypeMapper(LinkedHashSet<String> typeMapper);
 }

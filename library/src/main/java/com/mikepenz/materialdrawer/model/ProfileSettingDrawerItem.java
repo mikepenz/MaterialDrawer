@@ -8,6 +8,8 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.mikepenz.iconics.IconicsDrawable;
+import com.mikepenz.iconics.typeface.IIcon;
 import com.mikepenz.materialdrawer.R;
 import com.mikepenz.materialdrawer.model.interfaces.IDrawerItem;
 import com.mikepenz.materialdrawer.model.interfaces.IProfile;
@@ -17,13 +19,14 @@ import com.mikepenz.materialdrawer.util.UIUtils;
 /**
  * Created by mikepenz on 03.02.15.
  */
-public class ProfileDrawerItem implements IDrawerItem, IProfile<ProfileDrawerItem>, Tagable<ProfileDrawerItem> {
+public class ProfileSettingDrawerItem implements IDrawerItem, IProfile<ProfileSettingDrawerItem>, Tagable<ProfileSettingDrawerItem> {
 
     private int identifier = -1;
 
-    private boolean selectable = true;
+    private boolean selectable = false;
 
     private Drawable icon;
+    private IIcon iicon;
 
     private String name;
     private String email;
@@ -37,58 +40,63 @@ public class ProfileDrawerItem implements IDrawerItem, IProfile<ProfileDrawerIte
     private int textColor = -1;
     private int textColorRes = -1;
 
-    public ProfileDrawerItem withIdentifier(int identifier) {
+    public ProfileSettingDrawerItem withIdentifier(int identifier) {
         this.identifier = identifier;
         return this;
     }
 
-    public ProfileDrawerItem withIcon(Drawable icon) {
+    public ProfileSettingDrawerItem withIcon(Drawable icon) {
         this.icon = icon;
         return this;
     }
 
-    public ProfileDrawerItem withName(String name) {
+    public ProfileSettingDrawerItem withIcon(IIcon iicon) {
+        this.iicon = iicon;
+        return this;
+    }
+
+    public ProfileSettingDrawerItem withName(String name) {
         this.name = name;
         return this;
     }
 
-    public ProfileDrawerItem withEmail(String email) {
+    public ProfileSettingDrawerItem withEmail(String email) {
         this.email = email;
         return this;
     }
 
-    public ProfileDrawerItem withTag(Object object) {
+    public ProfileSettingDrawerItem withTag(Object object) {
         this.tag = object;
         return this;
     }
 
-    public ProfileDrawerItem setEnabled(boolean enabled) {
+    public ProfileSettingDrawerItem setEnabled(boolean enabled) {
         this.enabled = enabled;
         return this;
     }
 
-    public ProfileDrawerItem withSelectedColor(int selectedColor) {
+    public ProfileSettingDrawerItem withSelectedColor(int selectedColor) {
         this.selectedColor = selectedColor;
         return this;
     }
 
-    public ProfileDrawerItem withSelectedColorRes(int selectedColorRes) {
+    public ProfileSettingDrawerItem withSelectedColorRes(int selectedColorRes) {
         this.selectedColorRes = selectedColorRes;
         return this;
     }
 
-    public ProfileDrawerItem withTextColor(int textColor) {
+    public ProfileSettingDrawerItem withTextColor(int textColor) {
         this.textColor = textColor;
         return this;
     }
 
-    public ProfileDrawerItem withTextColorRes(int textColorRes) {
+    public ProfileSettingDrawerItem withTextColorRes(int textColorRes) {
         this.textColorRes = textColorRes;
         return this;
     }
 
     @Override
-    public ProfileDrawerItem withSelectable(boolean selectable) {
+    public ProfileSettingDrawerItem withSelectable(boolean selectable) {
         this.selectable = selectable;
         return this;
     }
@@ -143,13 +151,21 @@ public class ProfileDrawerItem implements IDrawerItem, IProfile<ProfileDrawerIte
         this.icon = icon;
     }
 
+    public IIcon getIIcon() {
+        return iicon;
+    }
+
+    public void setIIcon(IIcon iicon) {
+        this.iicon = iicon;
+    }
+
     @Override
     public boolean isSelectable() {
         return selectable;
     }
 
     @Override
-    public ProfileDrawerItem setSelectable(boolean selectable) {
+    public ProfileSettingDrawerItem setSelectable(boolean selectable) {
         this.selectable = selectable;
         return this;
     }
@@ -188,12 +204,12 @@ public class ProfileDrawerItem implements IDrawerItem, IProfile<ProfileDrawerIte
 
     @Override
     public String getType() {
-        return "PROFILE_ITEM";
+        return "PROFILE_SETTING2_ITEM";
     }
 
     @Override
     public int getLayoutRes() {
-        return R.layout.material_drawer_item_profile;
+        return R.layout.material_drawer_item_profile_setting;
     }
 
     @Override
@@ -228,10 +244,13 @@ public class ProfileDrawerItem implements IDrawerItem, IProfile<ProfileDrawerIte
         viewHolder.email.setTextColor(color);
 
         if (this.getIcon() != null) {
-            viewHolder.profileIcon.setImageDrawable(this.getIcon());
-            viewHolder.profileIcon.setVisibility(View.VISIBLE);
+            viewHolder.icon.setImageDrawable(this.getIcon());
+            viewHolder.icon.setVisibility(View.VISIBLE);
+        } else if (this.getIIcon() != null) {
+            viewHolder.icon.setImageDrawable(new IconicsDrawable(ctx, this.getIIcon()).color(color).actionBarSize().paddingDp(2));
+            viewHolder.icon.setVisibility(View.VISIBLE);
         } else {
-            viewHolder.profileIcon.setVisibility(View.GONE);
+            viewHolder.icon.setVisibility(View.GONE);
         }
 
         return convertView;
@@ -239,12 +258,12 @@ public class ProfileDrawerItem implements IDrawerItem, IProfile<ProfileDrawerIte
 
     private static class ViewHolder {
         private View view;
-        private ImageView profileIcon;
+        private ImageView icon;
         private TextView email;
 
         private ViewHolder(View view) {
             this.view = view;
-            this.profileIcon = (ImageView) view.findViewById(R.id.profileIcon);
+            this.icon = (ImageView) view.findViewById(R.id.icon);
             this.email = (TextView) view.findViewById(R.id.email);
         }
     }

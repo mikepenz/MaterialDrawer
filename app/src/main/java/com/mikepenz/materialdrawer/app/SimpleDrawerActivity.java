@@ -5,21 +5,24 @@ import android.graphics.Color;
 import android.os.Bundle;
 import android.support.v7.app.ActionBarActivity;
 import android.support.v7.widget.Toolbar;
+import android.text.TextUtils;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.Toast;
 
 import com.mikepenz.aboutlibraries.Libs;
 import com.mikepenz.google_material_typeface_library.GoogleMaterial;
+import com.mikepenz.iconics.IconicsDrawable;
 import com.mikepenz.iconics.typeface.FontAwesome;
 import com.mikepenz.materialdrawer.Drawer;
 import com.mikepenz.materialdrawer.accountswitcher.AccountHeader;
-import com.mikepenz.materialdrawer.accountswitcher.model.Profile;
 import com.mikepenz.materialdrawer.model.PrimaryDrawerItem;
 import com.mikepenz.materialdrawer.model.ProfileDrawerItem;
+import com.mikepenz.materialdrawer.model.ProfileSettingDrawerItem;
 import com.mikepenz.materialdrawer.model.SecondaryDrawerItem;
 import com.mikepenz.materialdrawer.model.SectionDrawerItem;
 import com.mikepenz.materialdrawer.model.interfaces.IDrawerItem;
+import com.mikepenz.materialdrawer.model.interfaces.IProfile;
 import com.mikepenz.materialdrawer.model.interfaces.Nameable;
 import com.mikepenz.materialdrawer.model.interfaces.Tagable;
 
@@ -40,25 +43,36 @@ public class SimpleDrawerActivity extends ActionBarActivity {
         setSupportActionBar(toolbar);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
-        Profile profile = new Profile().withName("Mike Penz").withEmail("mikepenz@gmail.com").withImage(getResources().getDrawable(R.drawable.profile));
-        Profile profile2 = new Profile().withName("Max Muster").withEmail("max.mustermann@gmail.com").withImage(getResources().getDrawable(R.drawable.profile2));
-        Profile profile3 = new Profile().withName("Felix House").withEmail("felix.house@gmail.com").withImage(getResources().getDrawable(R.drawable.profile3));
-        Profile profile4 = new Profile().withName("Mr. X").withEmail("mister.x.super@gmail.com").withImage(getResources().getDrawable(R.drawable.profile4));
-        Profile profile5 = new Profile().withName("Batman").withEmail("batman@gmail.com").withImage(getResources().getDrawable(R.drawable.profile5));
+        IProfile profile = new ProfileDrawerItem().withName("Mike Penz").withEmail("mikepenz@gmail.com").withIcon(getResources().getDrawable(R.drawable.profile));
+        IProfile profile2 = new ProfileDrawerItem().withName("Max Muster").withEmail("max.mustermann@gmail.com").withIcon(getResources().getDrawable(R.drawable.profile2));
+        IProfile profile3 = new ProfileDrawerItem().withName("Felix House").withEmail("felix.house@gmail.com").withIcon(getResources().getDrawable(R.drawable.profile3));
+        IProfile profile4 = new ProfileDrawerItem().withName("Mr. X").withEmail("mister.x.super@gmail.com").withIcon(getResources().getDrawable(R.drawable.profile4));
+        IProfile profile5 = new ProfileDrawerItem().withName("Batman").withEmail("batman@gmail.com").withIcon(getResources().getDrawable(R.drawable.profile5));
 
         headerResult = new AccountHeader()
                 .withActivity(this)
                 .withHeaderBackground(R.drawable.header)
-                .addProfiles(profile, profile2, profile3, profile4, profile5)
+                .addProfiles(
+                        profile,
+                        profile2,
+                        profile3,
+                        profile4,
+                        profile5,
+                        //don't ask but google uses 14dp for the add account icon in gmail but 20dp for the normal icons (like manage account)
+                        new ProfileSettingDrawerItem().withEmail("Add Account").withIcon(new IconicsDrawable(this, GoogleMaterial.Icon.gmd_add).paddingDp(5)),
+                        new ProfileSettingDrawerItem().withEmail("Manage Account").withIcon(GoogleMaterial.Icon.gmd_settings)
+                )
                 .withOnAccountHeaderClickListener(new AccountHeader.OnAccountHeaderClickListener() {
                     @Override
-                    public void onProfileClick(View view, Profile profile) {
+                    public void onProfileClick(View view, IProfile profile) {
                         Toast.makeText(SimpleDrawerActivity.this, profile.getName(), Toast.LENGTH_SHORT).show();
                     }
 
                     @Override
-                    public void onSelectionClick(Profile currentProfile) {
-                        Toast.makeText(SimpleDrawerActivity.this, currentProfile.getName(), Toast.LENGTH_SHORT).show();
+                    public void onSelectionClick(IProfile currentProfile) {
+                        if (!TextUtils.isEmpty(currentProfile.getName())) {
+                            Toast.makeText(SimpleDrawerActivity.this, currentProfile.getName(), Toast.LENGTH_SHORT).show();
+                        }
                     }
                 })
                 .withSavedInstance(savedInstanceState)
@@ -77,8 +91,7 @@ public class SimpleDrawerActivity extends ActionBarActivity {
                         new SecondaryDrawerItem().withName(R.string.drawer_item_settings).withIcon(FontAwesome.Icon.faw_cog).withIdentifier(5).withTextColor(Color.RED),
                         new SecondaryDrawerItem().withName(R.string.drawer_item_help).withIcon(FontAwesome.Icon.faw_question).setEnabled(false),
                         new SecondaryDrawerItem().withName(R.string.drawer_item_open_source).withIcon(FontAwesome.Icon.faw_github).withIdentifier(4).withCheckable(false),
-                        new SecondaryDrawerItem().withName(R.string.drawer_item_contact).withIcon(GoogleMaterial.Icon.gmd_format_color_fill).withTag("Bullhorn"),
-                        new ProfileDrawerItem().withEmail("mikepenz@gmail.com").withProfileIcon(getResources().getDrawable(R.drawable.profile))
+                        new SecondaryDrawerItem().withName(R.string.drawer_item_contact).withIcon(GoogleMaterial.Icon.gmd_format_color_fill).withTag("Bullhorn")
                 )
                 .withOnDrawerItemClickListener(new Drawer.OnDrawerItemClickListener() {
                     @Override
