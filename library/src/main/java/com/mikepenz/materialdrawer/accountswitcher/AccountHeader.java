@@ -681,40 +681,57 @@ public class AccountHeader {
     private View.OnClickListener onSelectionClickListener = new View.OnClickListener() {
         @Override
         public void onClick(View v) {
-            if (mDrawer != null) {
-                //if we already show the list. reset everything instead
-                if (originalOnDrawerItemClickListener != null) {
-                    resetDrawerContent(v.getContext());
-                } else {
-                    //save out previous values
-                    originalOnDrawerItemClickListener = mDrawer.getOnDrawerItemClickListener();
-                    originalDrawerItems = mDrawer.getDrawerItems();
-                    originalDrawerSelection = mDrawer.getCurrentSelection();
-
-                    //set profile switcher values and create the profileList to set for the adapter
-                    mDrawer.setOnDrawerItemClickListener(onDrawerItemClickListener);
-
-                    int selectedPosition = -1;
-                    int position = 0;
-                    ArrayList<IDrawerItem> profileDrawerItems = new ArrayList<>();
-                    for (IProfile profile : mProfiles) {
-                        if (profile == mCurrentProfile) {
-                            selectedPosition = position;
-                        }
-                        if (profile instanceof IDrawerItem) {
-                            profileDrawerItems.add((IDrawerItem) profile);
-                        }
-                        position = position + 1;
-                    }
-                    mDrawer.setItems(profileDrawerItems);
-                    mDrawer.setSelection(selectedPosition, false);
-
-                    // update the arrow image within the drawer
-                    mAccountSwitcherArrow.setImageDrawable(new IconicsDrawable(v.getContext(), GoogleMaterial.Icon.gmd_arrow_drop_up).sizeDp(24).paddingDp(6).color(mTextColor));
-                }
-            }
+            toggleSelectionList(v.getContext());
         }
     };
+
+    /**
+     * helper method to toggle the collection
+     *
+     * @param ctx
+     */
+    protected void toggleSelectionList(Context ctx) {
+        if (mDrawer != null) {
+            //if we already show the list. reset everything instead
+            if (originalOnDrawerItemClickListener != null) {
+                resetDrawerContent(ctx);
+            } else {
+                //save out previous values
+                originalOnDrawerItemClickListener = mDrawer.getOnDrawerItemClickListener();
+                originalDrawerItems = mDrawer.getDrawerItems();
+                originalDrawerSelection = mDrawer.getCurrentSelection();
+
+                //set profile switcher values and create the profileList to set for the adapter
+                mDrawer.setOnDrawerItemClickListener(onDrawerItemClickListener);
+
+                //build and set the drawer selection list
+                buildDrawerSelectionList();
+
+                // update the arrow image within the drawer
+                mAccountSwitcherArrow.setImageDrawable(new IconicsDrawable(ctx, GoogleMaterial.Icon.gmd_arrow_drop_up).sizeDp(24).paddingDp(6).color(mTextColor));
+            }
+        }
+    }
+
+    /**
+     * helper method to build and set the drawer selection list
+     */
+    protected void buildDrawerSelectionList() {
+        int selectedPosition = -1;
+        int position = 0;
+        ArrayList<IDrawerItem> profileDrawerItems = new ArrayList<>();
+        for (IProfile profile : mProfiles) {
+            if (profile == mCurrentProfile) {
+                selectedPosition = position;
+            }
+            if (profile instanceof IDrawerItem) {
+                profileDrawerItems.add((IDrawerItem) profile);
+            }
+            position = position + 1;
+        }
+        mDrawer.setItems(profileDrawerItems);
+        mDrawer.setSelection(selectedPosition, false);
+    }
 
     /**
      * onDrawerItemClickListener to catch the selection for the new profile!
