@@ -73,6 +73,10 @@ public class SimpleDrawerActivity extends ActionBarActivity {
                         if (!TextUtils.isEmpty(currentProfile.getName())) {
                             Toast.makeText(SimpleDrawerActivity.this, currentProfile.getName(), Toast.LENGTH_SHORT).show();
                         }
+
+                        if (currentProfile instanceof IDrawerItem && ((IDrawerItem) currentProfile).getIdentifier() == 1) {
+                            headerResult.addProfiles(new ProfileDrawerItem().withName("Batman").withEmail("batman@gmail.com").withIcon(getResources().getDrawable(R.drawable.profile5)));
+                        }
                     }
                 })
                 .withSavedInstance(savedInstanceState)
