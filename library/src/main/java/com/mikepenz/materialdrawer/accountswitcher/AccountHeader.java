@@ -488,25 +488,8 @@ public class AccountHeader {
         mProfileSecondView = (CircularImageView) mAccountHeader.findViewById(R.id.account_header_drawer_small_second);
         mProfileThirdView = (CircularImageView) mAccountHeader.findViewById(R.id.account_header_drawer_small_third);
 
-        //set the active profiles
-        if (mProfiles != null) {
-            int setCount = 0;
-            for (int i = 0; i < mProfiles.size(); i++) {
-                if (mProfiles.size() > i && mProfiles.get(i).isSelectable()) {
-                    if (setCount == 0) {
-                        mCurrentProfile = mProfiles.get(i);
-                    } else if (setCount == 1) {
-                        mProfileFirst = mProfiles.get(i);
-                    } else if (setCount == 2) {
-                        mProfileSecond = mProfiles.get(i);
-                    } else if (setCount == 3) {
-                        mProfileThird = mProfiles.get(i);
-                        break;
-                    }
-                    setCount++;
-                }
-            }
-        }
+        //calculate the profiles to set
+        calculateProfiles(true);
 
         //process and build the profiles
         buildProfiles();
@@ -531,6 +514,28 @@ public class AccountHeader {
         mActivity = null;
 
         return new Result(this);
+    }
+
+    protected void calculateProfiles(boolean overwrite) {
+        //set the active profiles
+        if (mProfiles != null) {
+            int setCount = 0;
+            for (int i = 0; i < mProfiles.size(); i++) {
+                if (mProfiles.size() > i && mProfiles.get(i).isSelectable()) {
+                    if (setCount == 0 && (overwrite || mCurrentProfile == null)) {
+                        mCurrentProfile = mProfiles.get(i);
+                    } else if (setCount == 1 && (overwrite || mProfileFirst == null)) {
+                        mProfileFirst = mProfiles.get(i);
+                    } else if (setCount == 2 && (overwrite || mProfileSecond == null)) {
+                        mProfileSecond = mProfiles.get(i);
+                    } else if (setCount == 3 && (overwrite || mProfileThird == null)) {
+                        mProfileThird = mProfiles.get(i);
+                        break;
+                    }
+                    setCount++;
+                }
+            }
+        }
     }
 
     protected void switchProfiles(IProfile newSelection) {
