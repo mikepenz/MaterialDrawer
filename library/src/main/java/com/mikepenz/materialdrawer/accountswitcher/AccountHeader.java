@@ -471,10 +471,6 @@ public class AccountHeader {
             mActivity.getTheme().resolveAttribute(android.R.attr.itemBackground, outValue, true);
             mAccountHeaderTextSection.setBackgroundResource(outValue.resourceId);
         }
-        // just set the header section selection
-        if ((mSelectionListEnabledForSingleProfile) || (mSelectionListEnabled && mProfiles != null && mProfiles.size() > 1)) {
-            mAccountHeaderTextSection.setOnClickListener(onSelectionClickListener);
-        }
 
         // set the arrow :D
         mAccountSwitcherArrow = (ImageView) mAccountHeaderContainer.findViewById(R.id.account_header_drawer_text_switcher);
@@ -563,12 +559,15 @@ public class AccountHeader {
 
     protected void buildProfiles() {
         mCurrentProfileView.setVisibility(View.INVISIBLE);
-        mAccountHeaderTextSection.setVisibility(View.GONE);
-        mAccountSwitcherArrow.setVisibility(View.GONE);
-        mProfileFirstView.setVisibility(View.GONE);
-        mProfileSecondView.setVisibility(View.GONE);
-        mProfileThirdView.setVisibility(View.GONE);
-
+        mAccountHeaderTextSection.setVisibility(View.INVISIBLE);
+        mAccountHeaderTextSection.setOnClickListener(null);
+        mAccountSwitcherArrow.setVisibility(View.INVISIBLE);
+        mProfileFirstView.setVisibility(View.INVISIBLE);
+        mProfileFirstView.setOnClickListener(null);
+        mProfileSecondView.setVisibility(View.INVISIBLE);
+        mProfileSecondView.setOnClickListener(null);
+        mProfileThirdView.setVisibility(View.INVISIBLE);
+        mProfileThirdView.setOnClickListener(null);
 
         if (mSelectionListEnabledForSingleProfile || (mProfileFirst != null && mSelectionListEnabled)) {
             mAccountSwitcherArrow.setVisibility(View.VISIBLE);
@@ -583,6 +582,7 @@ public class AccountHeader {
             mCurrentProfileView.setVisibility(View.VISIBLE);
             mAccountHeaderTextSection.setTag(mCurrentProfile);
             mAccountHeaderTextSection.setVisibility(View.VISIBLE);
+            mAccountHeaderTextSection.setOnClickListener(onSelectionClickListener);
             mCurrentProfileName.setText(mCurrentProfile.getName());
             mCurrentProfileEmail.setText(mCurrentProfile.getEmail());
 
@@ -615,10 +615,12 @@ public class AccountHeader {
         if (!TextUtils.isEmpty(mSelectionFirstLine)) {
             mCurrentProfileName.setText(mSelectionFirstLine);
             mAccountHeaderTextSection.setVisibility(View.VISIBLE);
+            mAccountHeaderTextSection.setOnClickListener(onSelectionClickListener);
         }
         if (!TextUtils.isEmpty(mSelectionSecondLine)) {
             mCurrentProfileEmail.setText(mSelectionSecondLine);
             mAccountHeaderTextSection.setVisibility(View.VISIBLE);
+            mAccountHeaderTextSection.setOnClickListener(onSelectionClickListener);
         }
     }
 
