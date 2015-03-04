@@ -714,7 +714,7 @@ public class AccountHeader {
             if (drawerItem != null && drawerItem instanceof IProfile && ((IProfile) drawerItem).isSelectable()) {
                 switchProfiles((IProfile) drawerItem);
             }
-
+            mDrawer.setOnDrawerItemClickListener(null);
             //wrap the onSelection call and the reset stuff within a handler to prevent lag
             new Handler().postDelayed(new Runnable() {
                 @Override
