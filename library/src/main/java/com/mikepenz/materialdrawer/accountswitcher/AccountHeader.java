@@ -854,6 +854,15 @@ public class AccountHeader {
         }
 
         /**
+         * returns the current list of profiles set for this header
+         *
+         * @return
+         */
+        public ArrayList<IProfile> getProfiles() {
+            return mAccountHeader.mProfiles;
+        }
+
+        /**
          * @param profiles
          */
         public void setProfiles(ArrayList<IProfile> profiles) {
