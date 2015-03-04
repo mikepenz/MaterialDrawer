@@ -28,8 +28,6 @@
         <item name="colorPrimaryDark">@color/material_drawer_primary_dark</item>
         <item name="colorAccent">@color/material_drawer_accent</item>
 
-        <item name="android:windowBackground">?material_drawer_window_background</item>
-
         <!-- MaterialDrawer specific values -->
         <item name="material_drawer_window_background">@color/material_drawer_dark_window_background</item>
         <item name="material_drawer_background">@color/material_drawer_dark_background</item>
@@ -74,8 +72,6 @@
         <item name="colorPrimary">@color/material_drawer_primary</item>
         <item name="colorPrimaryDark">@color/material_drawer_primary_dark</item>
         <item name="colorAccent">@color/material_drawer_accent</item>
-
-        <item name="android:windowBackground">?material_drawer_window_background</item>
 
         <!-- MaterialDrawer specific values -->
         <item name="material_drawer_window_background">@color/material_drawer_window_background</item>
@@ -124,8 +120,6 @@
         <item name="colorPrimary">@color/material_drawer_primary</item>
         <item name="colorPrimaryDark">@color/material_drawer_primary_dark</item>
         <item name="colorAccent">@color/material_drawer_accent</item>
-
-        <item name="android:windowBackground">?material_drawer_window_background</item>
 
         <!-- MaterialDrawer specific values -->
         <item name="material_drawer_window_background">@color/material_drawer_window_background</item>

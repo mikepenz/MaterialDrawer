@@ -20,8 +20,10 @@
 <resources>
     <!-- NORMAL -->
     <style name="MaterialDrawerBaseTheme" parent="MaterialDrawerBaseBaseTheme">
+        <!--
         <item name="android:dialogTheme">@style/MaterialDrawerBaseTheme.Dialog</item>
         <item name="android:alertDialogTheme">@style/MaterialDrawerBaseTheme.AlertDialog</item>
+        -->
     </style>
 
     <style name="MaterialDrawerTheme.ActionBar" parent="MaterialDrawerTheme">
@@ -32,8 +34,10 @@
 
     <!-- LIGHT -->
     <style name="MaterialDrawerBaseTheme.Light" parent="MaterialDrawerBaseBaseTheme.Light">
+        <!--
         <item name="android:dialogTheme">@style/MaterialDrawerBaseTheme.Light.Dialog</item>
         <item name="android:alertDialogTheme">@style/MaterialDrawerBaseTheme.Light.AlertDialog</item>
+        -->
     </style>
 
     <style name="MaterialDrawerTheme.Light.ActionBar" parent="MaterialDrawerTheme.Light">
@@ -46,8 +50,10 @@
     <style name="MaterialDrawerBaseTheme.Light.DarkActionBar" parent="MaterialDrawerBaseBaseTheme.Light.DarkActionBar">
         <item name="android:windowActionBar">false</item>
 
+        <!--
         <item name="android:dialogTheme">@style/MaterialDrawerBaseTheme.Light.Dialog</item>
         <item name="android:alertDialogTheme">@style/MaterialDrawerBaseTheme.Light.AlertDialog</item>
+        -->
     </style>
 
     <style name="MaterialDrawerTheme.Light.DarkActionBar.ActionBar" parent="MaterialDrawerTheme.Light.DarkActionBar">
