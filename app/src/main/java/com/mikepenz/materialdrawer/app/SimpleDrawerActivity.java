@@ -59,7 +59,7 @@ public class SimpleDrawerActivity extends ActionBarActivity {
                         profile4,
                         profile5,
                         //don't ask but google uses 14dp for the add account icon in gmail but 20dp for the normal icons (like manage account)
-                        new ProfileSettingDrawerItem().withEmail("Add Account").withIcon(new IconicsDrawable(this, GoogleMaterial.Icon.gmd_add).paddingDp(5)),
+                        new ProfileSettingDrawerItem().withEmail("Add Account").withIcon(new IconicsDrawable(this, GoogleMaterial.Icon.gmd_add).actionBarSize().paddingDp(5)).withIdentifier(1),
                         new ProfileSettingDrawerItem().withEmail("Manage Account").withIcon(GoogleMaterial.Icon.gmd_settings)
                 )
                 .withOnAccountHeaderClickListener(new AccountHeader.OnAccountHeaderClickListener() {
@@ -75,7 +75,14 @@ public class SimpleDrawerActivity extends ActionBarActivity {
                         }
 
                         if (currentProfile instanceof IDrawerItem && ((IDrawerItem) currentProfile).getIdentifier() == 1) {
-                            headerResult.addProfiles(new ProfileDrawerItem().withName("Batman").withEmail("batman@gmail.com").withIcon(getResources().getDrawable(R.drawable.profile5)));
+
+                            IProfile newProfile = new ProfileDrawerItem().withName("Batman").withEmail("batman@gmail.com").withIcon(getResources().getDrawable(R.drawable.profile5));
+                            if (headerResult.getProfiles() != null) {
+                                //we know that there are 2 setting elements. set the new profile above them ;)
+                                headerResult.addProfile(newProfile, headerResult.getProfiles().size() - 2);
+                            } else {
+                                headerResult.addProfiles(newProfile);
+                            }
                         }
                     }
                 })
