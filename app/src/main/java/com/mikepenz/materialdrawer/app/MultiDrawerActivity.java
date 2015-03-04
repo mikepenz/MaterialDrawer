@@ -4,6 +4,7 @@ import android.os.Bundle;
 import android.support.v7.app.ActionBarActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.Gravity;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.Toast;
@@ -37,7 +38,7 @@ public class MultiDrawerActivity extends ActionBarActivity {
         result = new Drawer()
                 .withActivity(this)
                 .withToolbar(toolbar)
-                .withActionBarDrawerToggle(true)
+                .withActionBarDrawerToggle(false)
                 .withHeader(R.layout.header)
                 .addDrawerItems(
                         new PrimaryDrawerItem().withName(R.string.drawer_item_home).withIcon(FontAwesome.Icon.faw_home).withBadge("99").withIdentifier(1),
@@ -116,5 +117,20 @@ public class MultiDrawerActivity extends ActionBarActivity {
                 )
                 .withDrawerGravity(Gravity.END)
                 .append(result);
+
+
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        switch (item.getItemId()) {
+            case android.R.id.home:
+                onBackPressed();
+                return true;
+
+            default:
+                return super.onOptionsItemSelected(item);
+        }
     }
 }

@@ -48,5 +48,7 @@ public class ActionBarDrawerActivity extends ActionBarActivity {
                         }
                     }
                 }).build();
+
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
     }
 }
