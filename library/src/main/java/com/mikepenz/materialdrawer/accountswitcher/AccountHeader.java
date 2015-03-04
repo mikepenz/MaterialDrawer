@@ -66,6 +66,20 @@ public class AccountHeader {
         return this;
     }
 
+    // defines if we use the compactStyle
+    protected boolean mCompactStyle = false;
+
+    /**
+     * Defines if we should use the compact style for the header.
+     *
+     * @param compactStyle
+     * @return
+     */
+    public AccountHeader withCompactStyle(boolean compactStyle) {
+        this.mCompactStyle = compactStyle;
+        return this;
+    }
+
     // set the account header height
     protected int mHeightPx = -1;
     protected int mHeightDp = -1;
@@ -297,7 +311,11 @@ public class AccountHeader {
         if (resLayout != -1) {
             this.mAccountHeaderContainer = mActivity.getLayoutInflater().inflate(resLayout, null, false);
         } else {
-            this.mAccountHeaderContainer = mActivity.getLayoutInflater().inflate(R.layout.material_drawer_header, null, false);
+            if (mCompactStyle) {
+                this.mAccountHeaderContainer = mActivity.getLayoutInflater().inflate(R.layout.material_drawer_compact_header, null, false);
+            } else {
+                this.mAccountHeaderContainer = mActivity.getLayoutInflater().inflate(R.layout.material_drawer_header, null, false);
+            }
         }
 
         return this;
@@ -424,7 +442,11 @@ public class AccountHeader {
         } else if (mHeightRes != -1) {
             height = mActivity.getResources().getDimensionPixelSize(mHeightRes);
         } else {
-            height = mActivity.getResources().getDimensionPixelSize(R.dimen.material_drawer_account_header_height);
+            if (mCompactStyle) {
+                height = mActivity.getResources().getDimensionPixelSize(R.dimen.material_drawer_account_header_height_compact);
+            } else {
+                height = mActivity.getResources().getDimensionPixelSize(R.dimen.material_drawer_account_header_height);
+            }
         }
 
         // handle everything if we don't have a translucent status bar
@@ -459,7 +481,11 @@ public class AccountHeader {
         mTextColor = textColor;
 
         // set the background for the section
-        mAccountHeaderTextSection = mAccountHeaderContainer.findViewById(R.id.account_header_drawer_text_section);
+        if (mCompactStyle) {
+            mAccountHeaderTextSection = mAccountHeaderContainer.findViewById(R.id.account_header_drawer);
+        } else {
+            mAccountHeaderTextSection = mAccountHeaderContainer.findViewById(R.id.account_header_drawer_text_section);
+        }
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.HONEYCOMB) {
             // If we're running on Honeycomb or newer, then we can use the Theme's
             // selectableItemBackground to ensure that the View has a pressed state

@@ -1,0 +1,107 @@
+<FrameLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="@dimen/material_drawer_account_header_height_compact">
+    <ImageView
+        android:id="@+id/account_header_drawer_background"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/material_drawer_account_header_height_compact"
+        android:scaleType="fitXY"/>
+
+    <RelativeLayout
+        android:id="@+id/account_header_drawer"
+        android:layout_width="match_parent"
+        android:clickable="true"
+        android:layout_height="@dimen/material_drawer_account_header_height_compact">
+
+        <com.mikepenz.materialdrawer.view.CircularImageView
+            android:id="@+id/account_header_drawer_small_first"
+            android:layout_width="1dp"
+            android:layout_height="1dp"
+            android:visibility="gone"/>
+
+        <com.mikepenz.materialdrawer.view.CircularImageView
+            android:id="@+id/account_header_drawer_small_second"
+            android:layout_width="1dp"
+            android:layout_height="1dp"
+            android:visibility="gone"/>
+
+        <com.mikepenz.materialdrawer.view.CircularImageView
+            android:id="@+id/account_header_drawer_small_third"
+            android:layout_width="1dp"
+            android:layout_height="1dp"
+            android:visibility="gone"/>
+
+        <com.mikepenz.materialdrawer.view.CircularImageView
+            android:id="@+id/account_header_drawer_current"
+            android:layout_width="@dimen/material_drawer_account_header_compact"
+            android:layout_height="@dimen/material_drawer_account_header_compact"
+            android:elevation="2dp"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentStart="true"
+            android:layout_alignParentBottom="true"
+            android:layout_marginLeft="@dimen/material_drawer_vertical_padding"
+            android:layout_marginStart="@dimen/material_drawer_vertical_padding"
+            android:layout_marginBottom="@dimen/material_drawer_padding"
+            android:clickable="true"
+            app:civ_selector="true"
+            app:civ_selectorColor="@color/material_drawer_primary"
+            app:civ_selectorStrokeColor="@color/material_drawer_primary"/>
+
+        <LinearLayout
+            android:id="@+id/account_header_drawer_text_section"
+            android:layout_width="match_parent"
+            android:layout_height="56dp"
+            android:clickable="false"
+            android:paddingLeft="@dimen/material_drawer_vertical_padding"
+            android:paddingStart="@dimen/material_drawer_vertical_padding"
+            android:paddingRight="@dimen/material_drawer_vertical_padding"
+            android:paddingEnd="@dimen/material_drawer_vertical_padding"
+            android:paddingTop="@dimen/material_drawer_padding"
+            android:paddingBottom="@dimen/material_drawer_padding"
+            android:layout_toRightOf="@+id/account_header_drawer_current"
+            android:layout_toEndOf="@+id/account_header_drawer_current"
+            android:layout_toLeftOf="@+id/account_header_drawer_text_switcher"
+            android:layout_toStartOf="@+id/account_header_drawer_text_switcher"
+            android:layout_alignParentBottom="true"
+            android:layout_marginBottom="@dimen/material_drawer_padding"
+            android:gravity="center_vertical"
+            android:orientation="vertical">
+
+            <TextView
+                android:id="@+id/account_header_drawer_name"
+                android:fontFamily="sans-serif-medium"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:lines="1"
+                android:singleLine="true"
+                android:textSize="@dimen/material_drawer_account_header_text"
+                android:textColor="?material_drawer_header_selection_text"/>
+
+            <TextView
+                android:id="@+id/account_header_drawer_email"
+                android:fontFamily="sans-serif"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:lines="1"
+                android:singleLine="true"
+                android:textSize="@dimen/material_drawer_account_header_text"
+                android:textColor="?material_drawer_header_selection_text"/>
+
+        </LinearLayout>
+
+        <ImageView
+            android:id="@+id/account_header_drawer_text_switcher"
+            android:layout_marginTop="@dimen/material_drawer_account_header_dropdown"
+            android:layout_width="@dimen/material_drawer_account_header_dropdown"
+            android:layout_height="@dimen/material_drawer_account_header_dropdown"
+            android:layout_marginRight="@dimen/material_drawer_vertical_padding"
+            android:layout_marginEnd="@dimen/material_drawer_vertical_padding"
+            android:layout_marginBottom="@dimen/material_drawer_padding"
+            android:layout_alignParentBottom="true"
+            android:layout_alignParentEnd="true"
+            android:layout_alignParentRight="true"/>
+
+    </RelativeLayout>
+</FrameLayout>
