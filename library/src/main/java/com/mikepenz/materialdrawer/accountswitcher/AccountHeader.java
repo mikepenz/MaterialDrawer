@@ -836,6 +836,60 @@ public class AccountHeader {
         }
 
         /**
+         * Toggle the selection list (show or hide it)
+         *
+         * @param ctx
+         */
+        public void toggleSelectionList(Context ctx) {
+            mAccountHeader.toggleSelectionList(ctx);
+        }
+
+        /**
+         * returns if the selection list is currently shown
+         *
+         * @return
+         */
+        public boolean isSelectionListShown() {
+            return mAccountHeader.originalOnDrawerItemClickListener != null;
+        }
+
+        /**
+         * @param profiles
+         */
+        public void setProfiles(ArrayList<IProfile> profiles) {
+            mAccountHeader.mProfiles = profiles;
+
+            mAccountHeader.updateHeaderAndList();
+        }
+
+        /**
+         * @param profiles
+         */
+        public void addProfiles(IProfile... profiles) {
+            if (mAccountHeader.mProfiles == null) {
+                mAccountHeader.mProfiles = new ArrayList<IProfile>();
+            }
+            if (profiles != null) {
+                Collections.addAll(mAccountHeader.mProfiles, profiles);
+            }
+
+            mAccountHeader.updateHeaderAndList();
+        }
+
+        /**
+         * @param profile
+         * @param position
+         */
+        public void addProfile(IProfile profile, int position) {
+            if (mAccountHeader.mProfiles == null) {
+                mAccountHeader.mProfiles = new ArrayList<IProfile>();
+            }
+            mAccountHeader.mProfiles.add(position, profile);
+
+            mAccountHeader.updateHeaderAndList();
+        }
+
+        /**
          * add the values to the bundle for saveInstanceState
          *
          * @param savedInstanceState
