@@ -51,6 +51,7 @@ public class SimpleDrawerActivity extends ActionBarActivity {
 
         headerResult = new AccountHeader()
                 .withActivity(this)
+                        //.withCompactStyle(true) WUHU SIMPLE QUICK COMPACT STYLE ;)
                 .withHeaderBackground(R.drawable.header)
                 .addProfiles(
                         profile,
