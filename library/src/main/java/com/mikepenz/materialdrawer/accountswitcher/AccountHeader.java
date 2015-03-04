@@ -774,6 +774,20 @@ public class AccountHeader {
         mAccountSwitcherArrow.setImageDrawable(new IconicsDrawable(ctx, GoogleMaterial.Icon.gmd_arrow_drop_down).sizeDp(24).paddingDp(6).color(mTextColor));
     }
 
+    /**
+     * small helper class to update the header and the list
+     */
+    protected void updateHeaderAndList() {
+        //recalculate the profiles
+        calculateProfiles(false);
+        //update the profiles in the header
+        buildProfiles();
+        //if we currently show the list add the new item directly to it
+        if (originalOnDrawerItemClickListener != null) {
+            buildDrawerSelectionList();
+        }
+    }
+
     public static class Result {
         private final AccountHeader mAccountHeader;
 
