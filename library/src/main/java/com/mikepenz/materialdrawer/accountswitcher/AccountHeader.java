@@ -490,17 +490,21 @@ public class AccountHeader {
 
         //set the active profiles
         if (mProfiles != null) {
-            if (mProfiles.size() > 0) {
-                mCurrentProfile = mProfiles.get(0);
-            }
-            if (mProfiles.size() > 1) {
-                mProfileFirst = mProfiles.get(1);
-            }
-            if (mProfiles.size() > 2) {
-                mProfileSecond = mProfiles.get(2);
-            }
-            if (mProfiles.size() > 3) {
-                mProfileThird = mProfiles.get(3);
+            int setCount = 0;
+            for (int i = 0; i < mProfiles.size(); i++) {
+                if (mProfiles.size() > i && mProfiles.get(i).isSelectable()) {
+                    if (setCount == 0) {
+                        mCurrentProfile = mProfiles.get(i);
+                    } else if (setCount == 1) {
+                        mProfileFirst = mProfiles.get(i);
+                    } else if (setCount == 2) {
+                        mProfileSecond = mProfiles.get(i);
+                    } else if (setCount == 3) {
+                        mProfileThird = mProfiles.get(i);
+                        break;
+                    }
+                    setCount++;
+                }
             }
         }
 
