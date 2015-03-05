@@ -1044,6 +1044,32 @@ public class AccountHeader {
         }
 
         /**
+         * remove a profile from the given position
+         *
+         * @param position
+         */
+        public void removeProfile(int position) {
+            if (mAccountHeader.mProfiles != null && mAccountHeader.mProfiles.size() > position) {
+                mAccountHeader.mProfiles.remove(position);
+            }
+
+            mAccountHeader.updateHeaderAndList();
+        }
+
+        /**
+         * try to remove the given profile
+         *
+         * @param profile
+         */
+        public void removeProfile(IProfile profile) {
+            if (mAccountHeader.mProfiles != null) {
+                mAccountHeader.mProfiles.remove(profile);
+            }
+
+            mAccountHeader.updateHeaderAndList();
+        }
+
+        /**
          * add the values to the bundle for saveInstanceState
          *
          * @param savedInstanceState
