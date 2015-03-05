@@ -630,43 +630,23 @@ public class Drawer {
 
         // create the ActionBarDrawerToggle if not set and enabled
         if (mActionBarDrawerToggleEnabled && mActionBarDrawerToggle == null) {
-            if (mToolbar == null) {
-                this.mActionBarDrawerToggle = new ActionBarDrawerToggle(mActivity, mDrawerLayout, R.string.drawer_open, R.string.drawer_close) {
-                    @Override
-                    public void onDrawerOpened(View drawerView) {
-                        if (mOnDrawerListener != null) {
-                            mOnDrawerListener.onDrawerOpened(drawerView);
-                        }
-                        super.onDrawerOpened(drawerView);
+            this.mActionBarDrawerToggle = new ActionBarDrawerToggle(mActivity, mDrawerLayout, R.string.drawer_open, R.string.drawer_close) {
+                @Override
+                public void onDrawerOpened(View drawerView) {
+                    if (mOnDrawerListener != null) {
+                        mOnDrawerListener.onDrawerOpened(drawerView);
                     }
+                    super.onDrawerOpened(drawerView);
+                }
 
-                    @Override
-                    public void onDrawerClosed(View drawerView) {
-                        if (mOnDrawerListener != null) {
-                            mOnDrawerListener.onDrawerClosed(drawerView);
-                        }
-                        super.onDrawerClosed(drawerView);
+                @Override
+                public void onDrawerClosed(View drawerView) {
+                    if (mOnDrawerListener != null) {
+                        mOnDrawerListener.onDrawerClosed(drawerView);
                     }
-                };
-            } else {
-                this.mActionBarDrawerToggle = new ActionBarDrawerToggle(mActivity, mDrawerLayout, mToolbar, R.string.drawer_open, R.string.drawer_close) {
-                    @Override
-                    public void onDrawerOpened(View drawerView) {
-                        if (mOnDrawerListener != null) {
-                            mOnDrawerListener.onDrawerOpened(drawerView);
-                        }
-                        super.onDrawerOpened(drawerView);
-                    }
-
-                    @Override
-                    public void onDrawerClosed(View drawerView) {
-                        if (mOnDrawerListener != null) {
-                            mOnDrawerListener.onDrawerClosed(drawerView);
-                        }
-                        super.onDrawerClosed(drawerView);
-                    }
-                };
-            }
+                    super.onDrawerClosed(drawerView);
+                }
+            };
             this.mActionBarDrawerToggle.syncState();
         }
 
