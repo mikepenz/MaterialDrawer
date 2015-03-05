@@ -1206,7 +1206,7 @@ public class Drawer {
          * @return
          */
         public int getPositionFromIdentifier(int identifier) {
-            if (identifier > 0) {
+            if (identifier >= 0) {
                 if (mDrawer.mDrawerItems != null) {
                     int position = 0;
                     for (IDrawerItem i : mDrawer.mDrawerItems) {
