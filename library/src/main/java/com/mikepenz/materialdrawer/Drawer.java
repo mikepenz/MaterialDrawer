@@ -1473,6 +1473,25 @@ public class Drawer {
         }
 
         /**
+         * Update the icon of a drawer item from an iconRes
+         *
+         * @param iconRes
+         * @param position
+         */
+        public void updateIcon(int iconRes, int position) {
+            if (mDrawer.mRootView != null && mDrawer.checkDrawerItem(position, false)) {
+                IDrawerItem drawerItem = mDrawer.mDrawerItems.get(position);
+
+                if (drawerItem instanceof Iconable) {
+                    ((Iconable) drawerItem).setIcon(mDrawer.mRootView.getContext().getResources().getDrawable(iconRes));
+                }
+
+                mDrawer.mDrawerItems.set(position, drawerItem);
+                mDrawer.mAdapter.notifyDataSetChanged();
+            }
+        }
+
+        /**
          * Update the icon of a drawer item if its an instance of iconable
          *
          * @param icon
