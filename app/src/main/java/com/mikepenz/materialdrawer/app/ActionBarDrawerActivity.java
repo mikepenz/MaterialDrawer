@@ -2,6 +2,7 @@ package com.mikepenz.materialdrawer.app;
 
 import android.os.Bundle;
 import android.support.v7.app.ActionBarActivity;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.Toast;
@@ -28,8 +29,8 @@ public class ActionBarDrawerActivity extends ActionBarActivity {
         // Handle Toolbar
         result = new Drawer()
                 .withActivity(this)
-                .withActionBarDrawerToggle(true)
                 .withTranslucentStatusBar(false)
+                .withActionBarDrawerToggle(false)
                 .addDrawerItems(
                         new PrimaryDrawerItem().withName(R.string.drawer_item_home).withIcon(FontAwesome.Icon.faw_home),
                         new PrimaryDrawerItem().withName(R.string.drawer_item_free_play).withIcon(FontAwesome.Icon.faw_gamepad),
@@ -50,5 +51,18 @@ public class ActionBarDrawerActivity extends ActionBarActivity {
                 }).build();
 
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        getSupportActionBar().setHomeButtonEnabled(false);
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        switch (item.getItemId()) {
+            case android.R.id.home:
+                onBackPressed();
+                return true;
+
+            default:
+                return super.onOptionsItemSelected(item);
+        }
     }
 }

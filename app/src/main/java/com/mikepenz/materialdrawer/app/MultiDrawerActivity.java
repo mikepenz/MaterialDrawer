@@ -33,12 +33,9 @@ public class MultiDrawerActivity extends ActionBarActivity {
         // Handle Toolbar
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
-        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
         result = new Drawer()
                 .withActivity(this)
-                .withToolbar(toolbar)
-                .withActionBarDrawerToggle(false)
                 .withHeader(R.layout.header)
                 .addDrawerItems(
                         new PrimaryDrawerItem().withName(R.string.drawer_item_home).withIcon(FontAwesome.Icon.faw_home).withBadge("99").withIdentifier(1),
@@ -118,8 +115,8 @@ public class MultiDrawerActivity extends ActionBarActivity {
                 .withDrawerGravity(Gravity.END)
                 .append(result);
 
-
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        getSupportActionBar().setHomeButtonEnabled(false);
     }
 
     @Override

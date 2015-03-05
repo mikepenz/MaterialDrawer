@@ -673,9 +673,23 @@ public class Drawer {
                 ViewGroup.LayoutParams.MATCH_PARENT
         ));
 
+        //set the navigationOnClickListener
+        if (mToolbar != null) {
+            this.mToolbar.setNavigationOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    if (mDrawerLayout.isDrawerOpen(mSliderLayout)) {
+                        mDrawerLayout.closeDrawer(mSliderLayout);
+                    } else {
+                        mDrawerLayout.openDrawer(mSliderLayout);
+                    }
+                }
+            });
+        }
+
         // create the ActionBarDrawerToggle if not set and enabled and if we have a toolbar
-        if (mActionBarDrawerToggleEnabled && mActionBarDrawerToggle == null && mToolbar != null) {
-            this.mActionBarDrawerToggle = new ActionBarDrawerToggle(mActivity, mDrawerLayout, mToolbar, R.string.drawer_open, R.string.drawer_close) {
+        if (mActionBarDrawerToggleEnabled && mActionBarDrawerToggle == null) {
+            this.mActionBarDrawerToggle = new ActionBarDrawerToggle(mActivity, mDrawerLayout, R.string.drawer_open, R.string.drawer_close) {
                 @Override
                 public void onDrawerOpened(View drawerView) {
                     if (mOnDrawerListener != null) {
@@ -702,6 +716,7 @@ public class Drawer {
                 }
             };
             this.mActionBarDrawerToggle.syncState();
+
         }
 
         //handle the ActionBarDrawerToggle
