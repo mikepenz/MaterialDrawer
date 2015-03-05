@@ -22,6 +22,7 @@ public class ProfileDrawerItem implements IDrawerItem, IProfile<ProfileDrawerIte
     private int identifier = -1;
 
     private boolean selectable = true;
+    private boolean nameShown = false;
 
     private Drawable icon;
 
@@ -67,6 +68,11 @@ public class ProfileDrawerItem implements IDrawerItem, IProfile<ProfileDrawerIte
         return this;
     }
 
+    public ProfileDrawerItem withNameShown(boolean nameShown) {
+        this.nameShown = nameShown;
+        return this;
+    }
+
     public ProfileDrawerItem withSelectedColor(int selectedColor) {
         this.selectedColor = selectedColor;
         return this;
@@ -91,6 +97,14 @@ public class ProfileDrawerItem implements IDrawerItem, IProfile<ProfileDrawerIte
     public ProfileDrawerItem withSelectable(boolean selectable) {
         this.selectable = selectable;
         return this;
+    }
+
+    public boolean isNameShown() {
+        return nameShown;
+    }
+
+    public void setNameShown(boolean nameShown) {
+        this.nameShown = nameShown;
     }
 
     public int getSelectedColor() {
@@ -217,6 +231,12 @@ public class ProfileDrawerItem implements IDrawerItem, IProfile<ProfileDrawerIte
         }
         UIUtils.setBackground(viewHolder.view, UIUtils.getDrawerItemBackground(ctx, selected_color));
 
+        if (nameShown) {
+            viewHolder.name.setVisibility(View.VISIBLE);
+            viewHolder.name.setText(this.getName());
+        } else {
+            viewHolder.name.setVisibility(View.GONE);
+        }
         viewHolder.email.setText(this.getEmail());
 
         int color = textColor;
@@ -224,6 +244,9 @@ public class ProfileDrawerItem implements IDrawerItem, IProfile<ProfileDrawerIte
             color = ctx.getResources().getColor(textColorRes);
         } else if (color == -1) {
             color = UIUtils.getThemeColor(ctx, R.attr.material_drawer_primary_text);
+        }
+        if (nameShown) {
+            viewHolder.name.setTextColor(color);
         }
         viewHolder.email.setTextColor(color);
 
@@ -240,11 +263,13 @@ public class ProfileDrawerItem implements IDrawerItem, IProfile<ProfileDrawerIte
     private static class ViewHolder {
         private View view;
         private ImageView profileIcon;
+        private TextView name;
         private TextView email;
 
         private ViewHolder(View view) {
             this.view = view;
             this.profileIcon = (ImageView) view.findViewById(R.id.profileIcon);
+            this.name = (TextView) view.findViewById(R.id.name);
             this.email = (TextView) view.findViewById(R.id.email);
         }
     }

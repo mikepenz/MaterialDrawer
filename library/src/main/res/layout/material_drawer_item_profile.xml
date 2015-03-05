@@ -19,18 +19,36 @@
         android:layout_marginEnd="@dimen/material_drawer_item_profile_icon_padding"
         android:layout_gravity="center_vertical"/>
 
-    <TextView
-        android:id="@+id/email"
-        android:fontFamily="sans-serif"
+    <LinearLayout
         android:layout_toRightOf="@id/profileIcon"
         android:layout_toEndOf="@id/profileIcon"
         android:layout_width="wrap_content"
-        android:layout_height="match_parent"
-        android:textSize="@dimen/material_drawer_item_profile_text"
-        android:gravity="center_vertical|start"
-        android:textColor="?material_drawer_primary_text"
-        android:textDirection="anyRtl"
-        android:lines="1"
-        android:singleLine="true"
-        tools:text="Some drawer text"/>
+        android:layout_height="wrap_content"
+        android:layout_centerInParent="true"
+        android:orientation="vertical">
+        <TextView
+            android:id="@+id/name"
+            android:fontFamily="sans-serif-medium"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:textSize="@dimen/material_drawer_item_profile_text"
+            android:gravity="center_vertical|start"
+            android:textColor="?material_drawer_primary_text"
+            android:textDirection="anyRtl"
+            android:lines="1"
+            android:singleLine="true"
+            tools:text="Some drawer text"/>
+        <TextView
+            android:id="@+id/email"
+            android:fontFamily="sans-serif"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textSize="@dimen/material_drawer_item_profile_text"
+            android:gravity="center_vertical|start"
+            android:textColor="?material_drawer_primary_text"
+            android:textDirection="anyRtl"
+            android:lines="1"
+            android:singleLine="true"
+            tools:text="Some drawer text"/>
+    </LinearLayout>
 </RelativeLayout>
