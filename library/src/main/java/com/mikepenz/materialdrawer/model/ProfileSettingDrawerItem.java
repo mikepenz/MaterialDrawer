@@ -60,6 +60,12 @@ public class ProfileSettingDrawerItem implements IDrawerItem, IProfile<ProfileSe
         return this;
     }
 
+    public ProfileSettingDrawerItem withDescription(String description) {
+        this.email = description;
+        return this;
+    }
+
+    //NOTE we reuse the IProfile here to allow custom items within the AccountSwitcher. There is an alias method withDescription for this
     public ProfileSettingDrawerItem withEmail(String email) {
         this.email = email;
         return this;
@@ -188,6 +194,14 @@ public class ProfileSettingDrawerItem implements IDrawerItem, IProfile<ProfileSe
         this.email = email;
     }
 
+    public String getDescription() {
+        return email;
+    }
+
+    public void setDescription(String description) {
+        this.email = email;
+    }
+
     @Override
     public int getIdentifier() {
         return identifier;
@@ -233,7 +247,7 @@ public class ProfileSettingDrawerItem implements IDrawerItem, IProfile<ProfileSe
         }
         UIUtils.setBackground(viewHolder.view, UIUtils.getDrawerItemBackground(ctx, selected_color));
 
-        viewHolder.email.setText(this.getEmail());
+        viewHolder.name.setText(this.getName());
 
         int color = textColor;
         if (color == -1 && textColorRes != -1) {
@@ -241,7 +255,7 @@ public class ProfileSettingDrawerItem implements IDrawerItem, IProfile<ProfileSe
         } else if (color == -1) {
             color = UIUtils.getThemeColor(ctx, R.attr.material_drawer_primary_text);
         }
-        viewHolder.email.setTextColor(color);
+        viewHolder.name.setTextColor(color);
 
         if (this.getIcon() != null) {
             viewHolder.icon.setImageDrawable(this.getIcon());
@@ -259,12 +273,12 @@ public class ProfileSettingDrawerItem implements IDrawerItem, IProfile<ProfileSe
     private static class ViewHolder {
         private View view;
         private ImageView icon;
-        private TextView email;
+        private TextView name;
 
         private ViewHolder(View view) {
             this.view = view;
             this.icon = (ImageView) view.findViewById(R.id.icon);
-            this.email = (TextView) view.findViewById(R.id.email);
+            this.name = (TextView) view.findViewById(R.id.name);
         }
     }
 }
