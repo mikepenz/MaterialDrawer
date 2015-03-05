@@ -26,6 +26,7 @@ import com.mikepenz.materialdrawer.view.CircularImageView;
 
 import java.util.ArrayList;
 import java.util.Collections;
+import java.util.Stack;
 
 /**
  * Created by mikepenz on 27.02.15.
@@ -227,6 +228,20 @@ public class AccountHeader {
         return this;
     }
 
+    //profile images in the header are shown or not
+    protected boolean mProfileImagesVisible = true;
+
+    /**
+     * define if the profile images in the header are shown or not
+     *
+     * @param profileImagesVisible
+     * @return
+     */
+    public AccountHeader withProfileImagesVisible(boolean profileImagesVisible) {
+        this.mProfileImagesVisible = profileImagesVisible;
+        return this;
+    }
+
     // set the profile images clickable or not
     protected boolean mProfileImagesClickable = true;
 
@@ -252,6 +267,20 @@ public class AccountHeader {
      */
     public AccountHeader withThreeSmallProfileImages(boolean threeSmallProfileImages) {
         this.mThreeSmallProfileImages = threeSmallProfileImages;
+        return this;
+    }
+
+    // the onAccountHeaderSelectionListener to set
+    protected OnAccountHeaderSelectionListener mOnAccountHeaderSelectionListener;
+
+    /**
+     * set a onSelection listener for the selection box
+     *
+     * @param onAccountSelectionListener
+     * @return
+     */
+    public AccountHeader withOnAccountSelectionListener(OnAccountHeaderSelectionListener onAccountSelectionListener) {
+        this.mOnAccountHeaderSelectionListener = onAccountSelectionListener;
         return this;
     }
 
@@ -515,7 +544,7 @@ public class AccountHeader {
         mProfileThirdView = (CircularImageView) mAccountHeader.findViewById(R.id.account_header_drawer_small_third);
 
         //calculate the profiles to set
-        calculateProfiles(true);
+        calculateProfiles();
 
         //process and build the profiles
         buildProfiles();
@@ -542,25 +571,73 @@ public class AccountHeader {
         return new Result(this);
     }
 
-    protected void calculateProfiles(boolean overwrite) {
-        //set the active profiles
-        if (mProfiles != null) {
-            int setCount = 0;
-            for (int i = 0; i < mProfiles.size(); i++) {
-                if (mProfiles.size() > i && mProfiles.get(i).isSelectable()) {
-                    if (setCount == 0 && (overwrite || mCurrentProfile == null)) {
-                        mCurrentProfile = mProfiles.get(i);
-                    } else if (setCount == 1 && (overwrite || mProfileFirst == null)) {
-                        mProfileFirst = mProfiles.get(i);
-                    } else if (setCount == 2 && (overwrite || mProfileSecond == null)) {
-                        mProfileSecond = mProfiles.get(i);
-                    } else if (setCount == 3 && (overwrite || mProfileThird == null)) {
-                        mProfileThird = mProfiles.get(i);
+    /**
+     *
+     */
+    protected void calculateProfiles() {
+        IProfile[] previousActiveProfiles = new IProfile[]{
+                mCurrentProfile,
+                mProfileFirst,
+                mProfileSecond,
+                mProfileThird
+        };
+
+        IProfile[] newActiveProfiles = new IProfile[4];
+        Stack<IProfile> unusedProfiles = new Stack<>();
+
+        // try to keep existing active profiles in the same positions
+        for (int i = 0; i < mProfiles.size(); i++) {
+            IProfile p = mProfiles.get(i);
+            if (p.isSelectable()) {
+                boolean used = false;
+                for (int j = 0; j < 4; j++) {
+                    if (previousActiveProfiles[j] == p) {
+                        newActiveProfiles[j] = p;
+                        used = true;
                         break;
                     }
-                    setCount++;
+                }
+                if (!used) {
+                    unusedProfiles.push(p);
                 }
             }
+        }
+
+        Stack<IProfile> activeProfiles = new Stack<>();
+        // try to fill the gaps with new available profiles
+        for (int i = 0; i < 4; i++) {
+            if (newActiveProfiles[i] != null) {
+                activeProfiles.push(newActiveProfiles[i]);
+            } else if (!unusedProfiles.isEmpty()) {
+                activeProfiles.push(unusedProfiles.pop());
+            }
+        }
+
+        Stack<IProfile> reversedActiveProfiles = new Stack<IProfile>();
+        while (!activeProfiles.empty()) {
+            reversedActiveProfiles.push(activeProfiles.pop());
+        }
+
+        // reassign active profiles
+        if (reversedActiveProfiles.isEmpty()) {
+            mCurrentProfile = null;
+        } else {
+            mCurrentProfile = reversedActiveProfiles.pop();
+        }
+        if (reversedActiveProfiles.isEmpty()) {
+            mProfileFirst = null;
+        } else {
+            mProfileFirst = reversedActiveProfiles.pop();
+        }
+        if (reversedActiveProfiles.isEmpty()) {
+            mProfileSecond = null;
+        } else {
+            mProfileSecond = reversedActiveProfiles.pop();
+        }
+        if (reversedActiveProfiles.isEmpty()) {
+            mProfileThird = null;
+        } else {
+            mProfileThird = reversedActiveProfiles.pop();
         }
     }
 
@@ -592,10 +669,13 @@ public class AccountHeader {
         buildProfiles();
     }
 
+    /**
+     *
+     */
     protected void buildProfiles() {
         mCurrentProfileView.setVisibility(View.INVISIBLE);
         mAccountHeaderTextSection.setVisibility(View.INVISIBLE);
-        mAccountHeaderTextSection.setOnClickListener(null);
+        mAccountHeaderTextSection.setOnClickListener(onSelectionClickListener);
         mAccountSwitcherArrow.setVisibility(View.INVISIBLE);
         mProfileFirstView.setVisibility(View.INVISIBLE);
         mProfileFirstView.setOnClickListener(null);
@@ -604,58 +684,86 @@ public class AccountHeader {
         mProfileThirdView.setVisibility(View.INVISIBLE);
         mProfileThirdView.setOnClickListener(null);
 
-        if (mSelectionListEnabledForSingleProfile || (mProfileFirst != null && mSelectionListEnabled)) {
-            mAccountSwitcherArrow.setVisibility(View.VISIBLE);
-        }
-
         if (mCurrentProfile != null) {
-            mCurrentProfileView.setImageDrawable(mCurrentProfile.getIcon());
-            mCurrentProfileView.setTag(mCurrentProfile);
-            if (mProfileImagesClickable) {
-                mCurrentProfileView.setOnClickListener(onProfileClickListener);
+            if (mProfileImagesVisible) {
+                setImageOrPlaceholder(mCurrentProfileView, mCurrentProfile.getIcon());
+                mCurrentProfileView.setTag(mCurrentProfile);
+                if (mProfileImagesClickable) {
+                    mCurrentProfileView.setOnClickListener(onProfileClickListener);
+                }
+                mCurrentProfileView.setVisibility(View.VISIBLE);
+            } else if (mCompactStyle) {
+                mCurrentProfileView.setVisibility(View.GONE);
             }
-            mCurrentProfileView.setVisibility(View.VISIBLE);
+
             mAccountHeaderTextSection.setTag(mCurrentProfile);
             mAccountHeaderTextSection.setVisibility(View.VISIBLE);
-            mAccountHeaderTextSection.setOnClickListener(onSelectionClickListener);
+            mAccountSwitcherArrow.setVisibility(View.VISIBLE);
             mCurrentProfileName.setText(mCurrentProfile.getName());
             mCurrentProfileEmail.setText(mCurrentProfile.getEmail());
 
-            if (mProfileFirst != null) {
-                mProfileFirstView.setImageDrawable(mProfileFirst.getIcon());
+            if (mProfileFirst != null && mProfileImagesVisible) {
+                setImageOrPlaceholder(mProfileFirstView, mProfileFirst.getIcon());
                 mProfileFirstView.setTag(mProfileFirst);
                 if (mProfileImagesClickable) {
                     mProfileFirstView.setOnClickListener(onProfileClickListener);
                 }
                 mProfileFirstView.setVisibility(View.VISIBLE);
             }
-            if (mProfileSecond != null) {
-                mProfileSecondView.setImageDrawable(mProfileSecond.getIcon());
+            if (mProfileSecond != null && mProfileImagesVisible) {
+                setImageOrPlaceholder(mProfileSecondView, mProfileSecond.getIcon());
                 mProfileSecondView.setTag(mProfileSecond);
                 if (mProfileImagesClickable) {
                     mProfileSecondView.setOnClickListener(onProfileClickListener);
                 }
                 mProfileSecondView.setVisibility(View.VISIBLE);
             }
-            if (mProfileThird != null && mThreeSmallProfileImages) {
-                mProfileThirdView.setImageDrawable(mProfileThird.getIcon());
+            if (mProfileThird != null && mThreeSmallProfileImages && mProfileImagesVisible) {
+                setImageOrPlaceholder(mProfileThirdView, mProfileThird.getIcon());
                 mProfileThirdView.setTag(mProfileThird);
                 if (mProfileImagesClickable) {
                     mProfileThirdView.setOnClickListener(onProfileClickListener);
                 }
                 mProfileThirdView.setVisibility(View.VISIBLE);
             }
+        } else if (mProfiles != null && mProfiles.size() > 0) {
+            IProfile profile = mProfiles.get(0);
+            mAccountHeaderTextSection.setTag(profile);
+            mAccountHeaderTextSection.setVisibility(View.VISIBLE);
+            mAccountSwitcherArrow.setVisibility(View.VISIBLE);
+            mCurrentProfileName.setText(profile.getName());
+            mCurrentProfileEmail.setText(profile.getEmail());
         }
 
         if (!TextUtils.isEmpty(mSelectionFirstLine)) {
             mCurrentProfileName.setText(mSelectionFirstLine);
             mAccountHeaderTextSection.setVisibility(View.VISIBLE);
-            mAccountHeaderTextSection.setOnClickListener(onSelectionClickListener);
         }
         if (!TextUtils.isEmpty(mSelectionSecondLine)) {
             mCurrentProfileEmail.setText(mSelectionSecondLine);
             mAccountHeaderTextSection.setVisibility(View.VISIBLE);
-            mAccountHeaderTextSection.setOnClickListener(onSelectionClickListener);
+        }
+
+        //if we disabled the list
+        if (!mSelectionListEnabled) {
+            mAccountSwitcherArrow.setVisibility(View.INVISIBLE);
+        }
+        if (!mSelectionListEnabledForSingleProfile && mProfileFirst == null) {
+            mAccountSwitcherArrow.setVisibility(View.INVISIBLE);
+        }
+    }
+
+    /**
+     * small helper class to set an profile image or a placeholder
+     *
+     * @param iv
+     * @param d
+     */
+    private void setImageOrPlaceholder(ImageView iv, Drawable d) {
+        if (d == null) {
+            iv.setImageDrawable(new IconicsDrawable(iv.getContext(), GoogleMaterial.Icon.gmd_person).color(mTextColor).backgroundColorRes(R.color.primary).iconOffsetYDp(2).paddingDp(2).sizeDp(56));
+        } else {
+            iv.setImageDrawable(d);
         }
     }
 
@@ -712,7 +820,13 @@ public class AccountHeader {
     private View.OnClickListener onSelectionClickListener = new View.OnClickListener() {
         @Override
         public void onClick(View v) {
-            toggleSelectionList(v.getContext());
+            if (mOnAccountHeaderSelectionListener != null) {
+                mOnAccountHeaderSelectionListener.onSelection(v, (IProfile) v.getTag());
+            }
+
+            if (mAccountSwitcherArrow.getVisibility() == View.VISIBLE) {
+                toggleSelectionList(v.getContext());
+            }
         }
     };
 
@@ -810,7 +924,7 @@ public class AccountHeader {
      */
     protected void updateHeaderAndList() {
         //recalculate the profiles
-        calculateProfiles(false);
+        calculateProfiles();
         //update the profiles in the header
         buildProfiles();
         //if we currently show the list add the new item directly to it
@@ -948,5 +1062,9 @@ public class AccountHeader {
         public void onProfileClick(View view, IProfile profile);
 
         public void onSelectionClick(IProfile currentProfile);
+    }
+
+    public interface OnAccountHeaderSelectionListener {
+        public void onSelection(View view, IProfile profile);
     }
 }
