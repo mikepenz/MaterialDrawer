@@ -664,17 +664,22 @@ public class AccountHeader {
      */
     private View.OnClickListener onProfileClickListener = new View.OnClickListener() {
         @Override
-        public void onClick(View v) {
-            IProfile profile = (IProfile) v.getTag();
+        public void onClick(final View v) {
+            final IProfile profile = (IProfile) v.getTag();
             switchProfiles(profile);
 
-            if (mOnAccountHeaderClickListener != null) {
-                mOnAccountHeaderClickListener.onProfileClick(v, profile);
-            }
+            new Handler().postDelayed(new Runnable() {
+                @Override
+                public void run() {
+                    if (mOnAccountHeaderClickListener != null) {
+                        mOnAccountHeaderClickListener.onProfileClick(v, profile);
+                    }
 
-            if (mDrawer != null) {
-                mDrawer.closeDrawer();
-            }
+                    if (mDrawer != null) {
+                        mDrawer.closeDrawer();
+                    }
+                }
+            }, 200);
         }
     };
 
@@ -781,7 +786,7 @@ public class AccountHeader {
                     }
 
                 }
-            }, 500);
+            }, 350);
         }
     };
 
