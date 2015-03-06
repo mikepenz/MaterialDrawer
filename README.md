@@ -164,7 +164,7 @@ new Drawer()
 ###AndroidManifest.xml
 Use one of the provided themes. They all use the AppCompat theme as parent and define the color values for the drawer.
 
-**NOTE: **The theme states ActionBar and not NoActionBar like the Appcompat style
+**NOTE:** The theme states ActionBar and not NoActionBar like the Appcompat style
 
 - MaterialDrawerTheme
 - MaterialDrawerTheme.TranslucentStatus
