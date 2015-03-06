@@ -174,10 +174,10 @@ Use one of the provided themes. They all use the AppCompat theme as parent and d
 - MaterialDrawerTheme.Light.TranslucentStatus
 - MaterialDrawerTheme.Light.ActionBar
 - MaterialDrawerTheme.Light.ActionBar.TranslucentStatus
-- MaterialDrawerTheme.Light.DarkActionBar
-- MaterialDrawerTheme.Light.DarkActionBar.TranslucentStatus
-- MaterialDrawerTheme.Light.DarkActionBar.ActionBar
-- MaterialDrawerTheme.Light.DarkActionBar.ActionBar.TranslucentStatus
+- MaterialDrawerTheme.Light.DarkToolbar
+- MaterialDrawerTheme.Light.DarkToolbar.TranslucentStatus
+- MaterialDrawerTheme.Light.DarkToolbar.ActionBar
+- MaterialDrawerTheme.Light.DarkToolbar.ActionBar.TranslucentStatus
   
 
 ###Style the drawer
