@@ -34,6 +34,7 @@ public class MultiDrawerActivity extends ActionBarActivity {
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
+        //first create the main drawer (this one will be used to add the second drawer on the other side)
         result = new Drawer()
                 .withActivity(this)
                 .withHeader(R.layout.header)
@@ -96,10 +97,11 @@ public class MultiDrawerActivity extends ActionBarActivity {
                 })
                 .build();
 
+        //now we add the second drawer on the other site.
+        //use the .append method to add this drawer to the first one
         new Drawer()
                 .withActivity(this)
                 .withFooter(R.layout.footer)
-                .withStickyFooter(R.layout.footer)
                 .addDrawerItems(
                         new PrimaryDrawerItem().withName(R.string.drawer_item_custom).withIcon(FontAwesome.Icon.faw_eye),
                         new PrimaryDrawerItem().withName(R.string.drawer_item_home).withIcon(FontAwesome.Icon.faw_home),
@@ -115,12 +117,14 @@ public class MultiDrawerActivity extends ActionBarActivity {
                 .withDrawerGravity(Gravity.END)
                 .append(result);
 
+        //set the back arrow in the toolbar
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         getSupportActionBar().setHomeButtonEnabled(false);
     }
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
+        //handle the click on the back arrow click
         switch (item.getItemId()) {
             case android.R.id.home:
                 onBackPressed();
@@ -128,6 +132,16 @@ public class MultiDrawerActivity extends ActionBarActivity {
 
             default:
                 return super.onOptionsItemSelected(item);
+        }
+    }
+
+    @Override
+    public void onBackPressed() {
+        //handle the back press :D close the drawer first and if the drawer is closed close the activity
+        if (result != null && result.isDrawerOpen()) {
+            result.closeDrawer();
+        } else {
+            super.onBackPressed();
         }
     }
 }

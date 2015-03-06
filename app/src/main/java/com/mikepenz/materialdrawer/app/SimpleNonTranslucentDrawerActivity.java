@@ -3,6 +3,7 @@ package com.mikepenz.materialdrawer.app;
 import android.os.Bundle;
 import android.support.v7.app.ActionBarActivity;
 import android.support.v7.widget.Toolbar;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.Toast;
@@ -29,13 +30,10 @@ public class SimpleNonTranslucentDrawerActivity extends ActionBarActivity {
         // Handle Toolbar
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
-        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
-
+        // Create a few sample profile
         result = new Drawer()
                 .withActivity(this)
-                .withToolbar(toolbar)
-                .withActionBarDrawerToggle(true)
                 .withTranslucentStatusBar(false)
                 .addDrawerItems(
                         new PrimaryDrawerItem().withName(R.string.drawer_item_action_bar).withIcon(FontAwesome.Icon.faw_home).withIdentifier(1),
@@ -58,6 +56,10 @@ public class SimpleNonTranslucentDrawerActivity extends ActionBarActivity {
                 .withSelectedItem(2)
                 .withSavedInstance(savedInstanceState)
                 .build();
+
+        //set the back arrow in the toolbar
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        getSupportActionBar().setHomeButtonEnabled(false);
     }
 
     @Override
@@ -65,5 +67,28 @@ public class SimpleNonTranslucentDrawerActivity extends ActionBarActivity {
         //add the values which need to be saved from the drawer to the bundle
         outState = result.saveInstanceState(outState);
         super.onSaveInstanceState(outState);
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        //handle the click on the back arrow click
+        switch (item.getItemId()) {
+            case android.R.id.home:
+                onBackPressed();
+                return true;
+
+            default:
+                return super.onOptionsItemSelected(item);
+        }
+    }
+
+    @Override
+    public void onBackPressed() {
+        //handle the back press :D close the drawer first and if the drawer is closed close the activity
+        if (result != null && result.isDrawerOpen()) {
+            result.closeDrawer();
+        } else {
+            super.onBackPressed();
+        }
     }
 }
