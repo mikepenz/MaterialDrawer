@@ -113,7 +113,7 @@ public class AccountHeader {
     }
 
     /**
-     * set the height for the header by ressource
+     * set the height for the header by resource
      *
      * @param heightRes
      * @return
@@ -925,6 +925,11 @@ public class AccountHeader {
             this.mAccountHeader = accountHeader;
         }
 
+        /**
+         * Get the Root view for the Header
+         *
+         * @return
+         */
         public View getView() {
             return mAccountHeader.mAccountHeaderContainer;
         }
@@ -993,6 +998,8 @@ public class AccountHeader {
         }
 
         /**
+         * Set a new list of profiles for the header
+         *
          * @param profiles
          */
         public void setProfiles(ArrayList<IProfile> profiles) {
@@ -1001,6 +1008,8 @@ public class AccountHeader {
         }
 
         /**
+         * Add new profiles to the existing list of profiles
+         *
          * @param profiles
          */
         public void addProfiles(IProfile... profiles) {
@@ -1015,6 +1024,8 @@ public class AccountHeader {
         }
 
         /**
+         * Add a new profile at a specific position to the list
+         *
          * @param profile
          * @param position
          */
