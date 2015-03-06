@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="@dimen/material_drawer_item_profile"
+    android:paddingLeft="@dimen/material_drawer_vertical_padding"
+    android:paddingStart="@dimen/material_drawer_vertical_padding"
+    android:paddingRight="@dimen/material_drawer_vertical_padding"
+    android:paddingEnd="@dimen/material_drawer_vertical_padding">
+
+    <ImageView
+        android:id="@+id/icon"
+        android:layout_width="@dimen/material_drawer_item_profile_setting_icon"
+        android:layout_height="@dimen/material_drawer_item_profile_setting_icon"
+        android:layout_marginTop="@dimen/material_drawer_item_profile_setting_icon_padding"
+        android:layout_marginBottom="@dimen/material_drawer_item_profile_setting_icon_padding"
+        android:layout_marginRight="@dimen/material_drawer_item_profile_setting_icon_padding_right"
+        android:layout_marginEnd="@dimen/material_drawer_item_profile_setting_icon_padding_right"
+        android:layout_gravity="center_vertical"/>
+
+    <TextView
+        android:id="@+id/name"
+        android:fontFamily="sans-serif"
+        android:layout_toRightOf="@id/icon"
+        android:layout_toEndOf="@id/icon"
+        android:layout_width="wrap_content"
+        android:layout_height="match_parent"
+        android:textSize="@dimen/material_drawer_item_profile_text"
+        android:gravity="center_vertical|start"
+        android:textColor="?material_drawer_primary_text"
+        android:textDirection="anyRtl"
+        android:lines="1"
+        android:singleLine="true"
+        tools:text="Some drawer text"/>
+</RelativeLayout>

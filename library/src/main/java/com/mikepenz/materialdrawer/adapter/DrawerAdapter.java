@@ -9,14 +9,14 @@ import com.mikepenz.materialdrawer.model.interfaces.IDrawerItem;
 
 import java.util.ArrayList;
 import java.util.Collections;
-import java.util.List;
+import java.util.LinkedHashSet;
 
 public class DrawerAdapter extends BaseDrawerAdapter {
 
     private ArrayList<IDrawerItem> mDrawerItems;
     private LayoutInflater mInflater;
 
-    private List<String> mTypeMapper;
+    private LinkedHashSet<String> mTypeMapper;
 
     public DrawerAdapter(Activity activity) {
         this.mInflater = (LayoutInflater) activity.getSystemService(Activity.LAYOUT_INFLATER_SERVICE);
@@ -97,15 +97,16 @@ public class DrawerAdapter extends BaseDrawerAdapter {
     @Override
     public void setDrawerItems(ArrayList<IDrawerItem> drawerItems) {
         this.mDrawerItems = drawerItems;
+        mapTypes();
     }
 
     @Override
-    public List<String> getTypeMapper() {
+    public LinkedHashSet<String> getTypeMapper() {
         return mTypeMapper;
     }
 
     @Override
-    public void setTypeMapper(List<String> typeMapper) {
+    public void setTypeMapper(LinkedHashSet<String> typeMapper) {
         this.mTypeMapper = typeMapper;
     }
 

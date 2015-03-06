@@ -7,8 +7,8 @@ android {
     defaultConfig {
         minSdkVersion 10
         targetSdkVersion 21
-        versionCode 103
-        versionName '1.0.3-SNAPSHOT'
+        versionCode 200
+        versionName '2.0.0'
     }
 
     buildTypes {
@@ -31,7 +31,7 @@ dependencies {
     compile 'com.android.support:support-v4:21.0.3'
     compile "com.android.support:appcompat-v7:21.0.3"
 
-    compile('com.mikepenz.iconics:library:0.7.5@aar') {
+    compile('com.mikepenz.iconics:library:0.7.6@aar') {
         transitive = true
     }
 }

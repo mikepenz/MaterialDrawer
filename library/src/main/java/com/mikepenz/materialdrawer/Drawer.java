@@ -20,6 +20,7 @@ import android.widget.ListView;
 
 import com.mikepenz.iconics.typeface.IIcon;
 import com.mikepenz.iconics.utils.Utils;
+import com.mikepenz.materialdrawer.accountswitcher.AccountHeader;
 import com.mikepenz.materialdrawer.adapter.BaseDrawerAdapter;
 import com.mikepenz.materialdrawer.adapter.DrawerAdapter;
 import com.mikepenz.materialdrawer.model.interfaces.Badgeable;
@@ -48,6 +49,7 @@ public class Drawer {
 
     /**
      * Pass the activity you use the drawer in ;)
+     * This is required if you want to set any values by ressource
      *
      * @param activity
      * @return
@@ -62,8 +64,8 @@ public class Drawer {
     protected boolean mTranslucentActionBarCompatibility = false;
 
     /**
-     * Just use this parameter if you really want to use a translucent statusbar with an
-     * actionbar
+     * Set this to true to use a translucent StatusBar in an activity with a good old
+     * ActionBar. Should be a rare scenario.
      *
      * @param translucentActionBarCompatibility
      * @return
@@ -73,11 +75,23 @@ public class Drawer {
         return this;
     }
 
-    // set non translucent statusbar mode
+    /**
+     * Set this to true if you want your drawer to be displayed below the toolbar.
+     * Note this will add a margin above the drawer
+     *
+     * @param displayBelowToolbar
+     * @return
+     */
+    public Drawer withDisplayBelowToolbar(boolean displayBelowToolbar) {
+        this.mTranslucentActionBarCompatibility = displayBelowToolbar;
+        return this;
+    }
+
+    // set non translucent statusBar mode
     protected boolean mTranslucentStatusBar = true;
 
     /**
-     * Set or disable this if you use a translucent statusbar
+     * Set to false to disable the use of a translucent statusBar
      *
      * @param translucentStatusBar
      * @return
@@ -91,7 +105,9 @@ public class Drawer {
     protected Toolbar mToolbar;
 
     /**
-     * Pass the toolbar you would love to use with this drawer
+     * Add the toolbar which is used in combination with this drawer.
+     * NOTE: if you use the drawer in a subActivity you don't need this, if you
+     * want to display the back arrow.
      *
      * @param toolbar
      * @return
@@ -106,7 +122,8 @@ public class Drawer {
     protected LinearLayout mSliderLayout;
 
     /**
-     * You can pass a custom view for the drawer lib. note this requires the same structure as the drawer.xml
+     * Pass a custom DrawerLayout which will be used.
+     * NOTE: This requires the same structure as the drawer.xml
      *
      * @param drawerLayout
      * @return
@@ -117,7 +134,8 @@ public class Drawer {
     }
 
     /**
-     * You can pass a custom layout for the drawer lib. see the drawer.xml in layouts of this lib on GitHub
+     * Pass a custom DrawerLayout Resource which will be used.
+     * NOTE: This requires the same structure as the drawer.xml
      *
      * @param resLayout
      * @return
@@ -130,7 +148,7 @@ public class Drawer {
         if (resLayout != -1) {
             this.mDrawerLayout = (DrawerLayout) mActivity.getLayoutInflater().inflate(resLayout, mRootView, false);
         } else {
-            this.mDrawerLayout = (DrawerLayout) mActivity.getLayoutInflater().inflate(R.layout.drawer, mRootView, false);
+            this.mDrawerLayout = (DrawerLayout) mActivity.getLayoutInflater().inflate(R.layout.material_drawer, mRootView, false);
         }
 
         return this;
@@ -141,7 +159,8 @@ public class Drawer {
     protected int mSliderBackgroundColorRes = -1;
 
     /**
-     * set the background for the slider as color
+     * Set the background color for the Slider.
+     * This is the view containing the list.
      *
      * @param sliderBackgroundColor
      * @return
@@ -152,7 +171,8 @@ public class Drawer {
     }
 
     /**
-     * set the background for the slider as resource
+     * Set the background color for the Slider from a Resource.
+     * This is the view containing the list.
      *
      * @param sliderBackgroundColorRes
      * @return
@@ -166,7 +186,7 @@ public class Drawer {
     protected int mDrawerWidth = -1;
 
     /**
-     * set the drawer width as px
+     * Set the Drawer width with a pixel value
      *
      * @param drawerWidthPx
      * @return
@@ -177,7 +197,7 @@ public class Drawer {
     }
 
     /**
-     * set the drawer width as dp
+     * Set the Drawer width with a dp value
      *
      * @param drawerWidthDp
      * @return
@@ -192,7 +212,7 @@ public class Drawer {
     }
 
     /**
-     * set the drawer width from resource
+     * Set the Drawer width with a dimension resource
      *
      * @param drawerWidthRes
      * @return
@@ -209,16 +229,56 @@ public class Drawer {
     //the gravity of the drawer
     protected Integer mDrawerGravity = null;
 
+    /**
+     * Set the gravity for the drawer. START, LEFT | RIGHT, END
+     *
+     * @param gravity
+     * @return
+     */
     public Drawer withDrawerGravity(int gravity) {
         this.mDrawerGravity = gravity;
         return this;
     }
 
-    // enable the drawer toggle / if withActionBarDrawerToggle we will autogenerate it
+    //the account selection header to use
+    protected AccountHeader.Result mAccountHeader;
+
+    /**
+     * Add a AccountSwitcherHeader which will be used in this drawer instance.
+     * NOTE: This will overwrite any set headerView.
+     *
+     * @param accountHeader
+     * @return
+     */
+    public Drawer withAccountHeader(AccountHeader.Result accountHeader) {
+        this.mAccountHeader = accountHeader;
+        //set the header offset
+        mHeaderOffset = 1;
+        return this;
+    }
+
+    // enable/disable the actionBarDrawerToggle animation
+    protected boolean mAnimateActionBarDrawerToggle = false;
+
+    /**
+     * Set this to true if you want the ActionBarDrawerToggle to be animated.
+     * NOTE: This will only work if the built in ActionBarDrawerToggle is used.
+     * Enable it by setting withActionBarDrawerToggle to true
+     *
+     * @param actionBarDrawerToggleAnimated
+     * @return
+     */
+    public Drawer withActionBarDrawerToggleAnimated(boolean actionBarDrawerToggleAnimated) {
+        this.mAnimateActionBarDrawerToggle = actionBarDrawerToggleAnimated;
+        return this;
+    }
+
+
+    // enable the drawer toggle / if withActionBarDrawerToggle we will autoGenerate it
     protected boolean mActionBarDrawerToggleEnabled = true;
 
     /**
-     * set to true if you want a ActionBarDrawerToggle handled by the lib
+     * Set this to false if you don't need the included ActionBarDrawerToggle
      *
      * @param actionBarDrawerToggleEnabled
      * @return
@@ -232,7 +292,7 @@ public class Drawer {
     protected ActionBarDrawerToggle mActionBarDrawerToggle;
 
     /**
-     * pass an ActionBarDrawerToggle you would love to use with this drawer
+     * Add a custom ActionBarDrawerToggle which will be used in combination with this drawer.
      *
      * @param actionBarDrawerToggle
      * @return
@@ -250,7 +310,7 @@ public class Drawer {
     protected boolean mHeaderClickable = false;
 
     /**
-     * add a header layout from view
+     * Add a header to the Drawer ListView. This can be any view
      *
      * @param headerView
      * @return
@@ -263,7 +323,7 @@ public class Drawer {
     }
 
     /**
-     * add a header layout from res
+     * Add a header to the Drawer ListView defined by a resource.
      *
      * @param headerViewRes
      * @return
@@ -284,7 +344,7 @@ public class Drawer {
     }
 
     /**
-     * set if the header is clickable
+     * Set this to true if you want the header to be clickable
      *
      * @param headerClickable
      * @return
@@ -295,7 +355,7 @@ public class Drawer {
     }
 
     /**
-     * this method allows you to disable the divider on the bottom of the header
+     * Set this to false if you don't need the divider below the header
      *
      * @param headerDivider
      * @return
@@ -311,7 +371,7 @@ public class Drawer {
     protected boolean mFooterClickable = false;
 
     /**
-     * add a footer layout from view
+     * Add a footer to the Drawer ListView. This can be any view
      *
      * @param footerView
      * @return
@@ -322,7 +382,7 @@ public class Drawer {
     }
 
     /**
-     * add a footer layout from res
+     * Add a footer to the Drawer ListView defined by a resource.
      *
      * @param footerViewRes
      * @return
@@ -341,7 +401,7 @@ public class Drawer {
     }
 
     /**
-     * set if the footer is clickable
+     * Set this to true if you want the footer to be clickable
      *
      * @param footerClickable
      * @return
@@ -352,7 +412,7 @@ public class Drawer {
     }
 
     /**
-     * this method allows you to disable the divider on top of the footer
+     * Set this to false if you don't need the divider above the footer
      *
      * @param footerDivider
      * @return
@@ -366,8 +426,7 @@ public class Drawer {
     protected View mStickyFooterView;
 
     /**
-     * add a sticky footer layout from view
-     * this view will be always visible on the bottom
+     * Add a sticky footer below the Drawer ListView. This can be any view
      *
      * @param stickyFooter
      * @return
@@ -378,8 +437,7 @@ public class Drawer {
     }
 
     /**
-     * add a sticky footer layout from res
-     * this view will be always visible on the bottom
+     * Add a sticky footer below the Drawer ListView defined by a resource.
      *
      * @param stickyFooterRes
      * @return
@@ -401,8 +459,7 @@ public class Drawer {
     protected boolean mFireInitialOnClick = false;
 
     /**
-     * enable this if you would love to receive a onClick event after the build method is called
-     * to be able to show the initial layout.
+     * Set this to true if you love to get an initial onClick event after the build method is called
      *
      * @param fireOnInitialOnClick
      * @return
@@ -416,7 +473,7 @@ public class Drawer {
     protected int mSelectedItem = 0;
 
     /**
-     * pass the item which should be selected on start
+     * Set this to the index of the item, you would love to select upon start
      *
      * @param selectedItem
      * @return
@@ -430,7 +487,8 @@ public class Drawer {
     protected ListView mListView;
 
     /**
-     * Set the list which is added within the slider
+     * Define a custom ListView which will be used in the drawer
+     * NOTE: this is not recommended
      *
      * @param listView
      * @return
@@ -444,7 +502,8 @@ public class Drawer {
     protected BaseDrawerAdapter mAdapter;
 
     /**
-     * Set the adapter to be used with the list
+     * Define a custom Adapter which will be used in the drawer
+     * NOTE: this is not recommended
      *
      * @param adapter
      * @return
@@ -458,7 +517,7 @@ public class Drawer {
     protected ArrayList<IDrawerItem> mDrawerItems;
 
     /**
-     * set the arrayList of DrawerItems for the drawer
+     * Set the initial List of IDrawerItems for the Drawer
      *
      * @param drawerItems
      * @return
@@ -469,7 +528,7 @@ public class Drawer {
     }
 
     /**
-     * add single ore more DrawerItems to the Drawer
+     * Add a initial DrawerItem or a DrawerItem Array  for the Drawer
      *
      * @param drawerItems
      * @return
@@ -489,7 +548,7 @@ public class Drawer {
     protected boolean mCloseOnClick = true;
 
     /**
-     * set if the drawer should autoClose if an item is clicked
+     * Set this to false if the drawer should stay opened after an item was clicked
      *
      * @param closeOnClick
      * @return this
@@ -503,10 +562,10 @@ public class Drawer {
     protected int mDelayOnDrawerClose = 150;
 
     /**
-     * set the delay for the drawer close operation
-     * this is a small hack to improve the responsivness if you open a new activity within the drawer onClick
-     * else you will see some lag
-     * you can disable this by passing -1
+     * Define the delay for the drawer close operation after a click.
+     * This is a small trick to improve the speed (and remove lag) if you open a new activity after a DrawerItem
+     * was selected.
+     * NOTE: Disable this by passing -1
      *
      * @param delayOnDrawerClose -1 to disable
      * @return this
@@ -521,7 +580,7 @@ public class Drawer {
     protected OnDrawerListener mOnDrawerListener;
 
     /**
-     * set the drawerListener
+     * Define a OnDrawerListener for this Drawer
      *
      * @param onDrawerListener
      * @return this
@@ -535,7 +594,7 @@ public class Drawer {
     protected OnDrawerItemClickListener mOnDrawerItemClickListener;
 
     /**
-     * set the DrawerItemClickListener
+     * Define a OnDrawerItemClickListener for this Drawer
      *
      * @param onDrawerItemClickListener
      * @return
@@ -549,7 +608,7 @@ public class Drawer {
     protected OnDrawerItemLongClickListener mOnDrawerItemLongClickListener;
 
     /**
-     * set the DrawerItemLongClickListener
+     * Define a OnDrawerItemLongClickListener for this Drawer
      *
      * @param onDrawerItemLongClickListener
      * @return
@@ -563,7 +622,7 @@ public class Drawer {
     protected OnDrawerItemSelectedListener mOnDrawerItemSelectedListener;
 
     /**
-     * set the ItemSelectedListener
+     * Define a OnDrawerItemSelectedListener for this Drawer
      *
      * @param onDrawerItemSelectedListener
      * @return
@@ -577,7 +636,8 @@ public class Drawer {
     protected Bundle mSavedInstance;
 
     /**
-     * create the drawer with the values of a savedInstance
+     * Set the Bundle (savedInstance) which is passed by the activity.
+     * No need to null-check everything is handled automatically
      *
      * @param savedInstance
      * @return
@@ -588,7 +648,7 @@ public class Drawer {
     }
 
     /**
-     * Build everything and get a Result
+     * Build and add the Drawer to your activity
      *
      * @return
      */
@@ -628,7 +688,21 @@ public class Drawer {
                 ViewGroup.LayoutParams.MATCH_PARENT
         ));
 
-        // create the ActionBarDrawerToggle if not set and enabled
+        //set the navigationOnClickListener
+        if (mToolbar != null) {
+            this.mToolbar.setNavigationOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    if (mDrawerLayout.isDrawerOpen(mSliderLayout)) {
+                        mDrawerLayout.closeDrawer(mSliderLayout);
+                    } else {
+                        mDrawerLayout.openDrawer(mSliderLayout);
+                    }
+                }
+            });
+        }
+
+        // create the ActionBarDrawerToggle if not set and enabled and if we have a toolbar
         if (mActionBarDrawerToggleEnabled && mActionBarDrawerToggle == null) {
             this.mActionBarDrawerToggle = new ActionBarDrawerToggle(mActivity, mDrawerLayout, R.string.drawer_open, R.string.drawer_close) {
                 @Override
@@ -646,8 +720,18 @@ public class Drawer {
                     }
                     super.onDrawerClosed(drawerView);
                 }
+
+                @Override
+                public void onDrawerSlide(View drawerView, float slideOffset) {
+                    if (!mAnimateActionBarDrawerToggle) {
+                        super.onDrawerSlide(drawerView, 0);
+                    } else {
+                        super.onDrawerSlide(drawerView, slideOffset);
+                    }
+                }
             };
             this.mActionBarDrawerToggle.syncState();
+
         }
 
         //handle the ActionBarDrawerToggle
@@ -656,7 +740,7 @@ public class Drawer {
         }
 
         // get the slider view
-        mSliderLayout = (LinearLayout) mActivity.getLayoutInflater().inflate(R.layout.drawer_slider, mDrawerLayout, false);
+        mSliderLayout = (LinearLayout) mActivity.getLayoutInflater().inflate(R.layout.material_drawer_slider, mDrawerLayout, false);
         // get the layout params
         DrawerLayout.LayoutParams params = (DrawerLayout.LayoutParams) mSliderLayout.getLayoutParams();
         // if we've set a custom gravity set it
@@ -684,12 +768,19 @@ public class Drawer {
         //forget the reference to the activity
         mActivity = null;
 
-        return new Result(this);
+        //create the result object
+        Result result = new Result(this);
+        //set the drawer for the accountHeader if set
+        if (mAccountHeader != null) {
+            mAccountHeader.setDrawer(result);
+        }
+
+        return result;
     }
 
 
     /**
-     * the builder method to append a new drawer to an existing Drawer
+     * Call this method to append a new Drawer to a existing Drawer.
      *
      * @param result the Drawer.Result of an existing Drawer
      * @return
@@ -709,7 +800,7 @@ public class Drawer {
         mDrawerLayout = result.getDrawerLayout();
 
         // get the slider view
-        mSliderLayout = (LinearLayout) mActivity.getLayoutInflater().inflate(R.layout.drawer_slider, mDrawerLayout, false);
+        mSliderLayout = (LinearLayout) mActivity.getLayoutInflater().inflate(R.layout.material_drawer_slider, mDrawerLayout, false);
         // get the layout params
         DrawerLayout.LayoutParams params = (DrawerLayout.LayoutParams) mSliderLayout.getLayoutParams();
         // set the gravity of this drawerGravity
@@ -742,7 +833,7 @@ public class Drawer {
             mListView.setDrawSelectorOnTop(true);
             mListView.setClipToPadding(false);
 
-            if (mTranslucentStatusBar) {
+            if (mTranslucentStatusBar && !mTranslucentActionBarCompatibility) {
                 mListView.setPadding(0, mActivity.getResources().getDimensionPixelSize(R.dimen.tool_bar_top_padding), 0, 0);
             }
         }
@@ -764,6 +855,11 @@ public class Drawer {
             mSliderLayout.addView(mStickyFooterView);
         }
 
+        //use the AccountHeader if set
+        if (mAccountHeader != null) {
+            mHeaderView = mAccountHeader.getView();
+        }
+
         // set the header (do this before the setAdapter because some devices will crash else
         if (mHeaderView != null) {
             if (mListView == null) {
@@ -771,7 +867,7 @@ public class Drawer {
             }
 
             if (mHeaderDivider) {
-                LinearLayout headerContainer = (LinearLayout) mActivity.getLayoutInflater().inflate(R.layout.drawer_item_header, mListView, false);
+                LinearLayout headerContainer = (LinearLayout) mActivity.getLayoutInflater().inflate(R.layout.material_drawer_item_header, mListView, false);
                 headerContainer.addView(mHeaderView, 0);
                 mListView.addHeaderView(headerContainer, null, mHeaderClickable);
                 mListView.setPadding(0, 0, 0, 0);
@@ -790,7 +886,7 @@ public class Drawer {
             }
 
             if (mFooterDivider) {
-                LinearLayout footerContainer = (LinearLayout) mActivity.getLayoutInflater().inflate(R.layout.drawer_item_footer, mListView, false);
+                LinearLayout footerContainer = (LinearLayout) mActivity.getLayoutInflater().inflate(R.layout.material_drawer_item_footer, mListView, false);
                 footerContainer.addView(mFooterView, 1);
                 mListView.addFooterView(footerContainer, null, mFooterClickable);
                 //link the view including the container to the footerView field
@@ -809,7 +905,7 @@ public class Drawer {
             if (mListView != null && (mSelectedItem + mHeaderOffset) > -1) {
                 mListView.setSelection(mSelectedItem + mHeaderOffset);
                 mListView.setItemChecked(mSelectedItem + mHeaderOffset, true);
-                mCurrentSelection = mSelectedItem + mHeaderOffset;
+                mCurrentSelection = mSelectedItem;
             }
         }
 
@@ -833,10 +929,10 @@ public class Drawer {
                 }
 
                 if (i != null && i instanceof Checkable && !((Checkable) i).isCheckable()) {
-                    mListView.setSelection(mCurrentSelection);
-                    mListView.setItemChecked(mCurrentSelection, true);
+                    mListView.setSelection(mCurrentSelection + mHeaderOffset);
+                    mListView.setItemChecked(mCurrentSelection + mHeaderOffset, true);
                 } else {
-                    mCurrentSelection = position;
+                    mCurrentSelection = position - mHeaderOffset;
                 }
 
 
@@ -862,7 +958,7 @@ public class Drawer {
                 @Override
                 public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
                     mOnDrawerItemSelectedListener.onItemSelected(parent, view, position, id, getDrawerItem(position, true));
-                    mCurrentSelection = position;
+                    mCurrentSelection = position - mHeaderOffset;
                 }
 
                 @Override
@@ -885,7 +981,7 @@ public class Drawer {
                 if (mListView != null && (selection) > -1) {
                     mListView.setSelection(selection);
                     mListView.setItemChecked(selection, true);
-                    mCurrentSelection = selection;
+                    mCurrentSelection = selection - mHeaderOffset;
                 }
             }
         }
@@ -957,7 +1053,12 @@ public class Drawer {
         if (mTranslucentActionBarCompatibility) {
             TypedValue tv = new TypedValue();
             if (mActivity.getTheme().resolveAttribute(android.R.attr.actionBarSize, tv, true)) {
-                params.topMargin = TypedValue.complexToDimensionPixelSize(tv.data, mActivity.getResources().getDisplayMetrics());
+
+                int topMargin = TypedValue.complexToDimensionPixelSize(tv.data, mActivity.getResources().getDisplayMetrics());
+                if (mTranslucentStatusBar) {
+                    topMargin = topMargin + mActivity.getResources().getDimensionPixelSize(R.dimen.tool_bar_top_padding);
+                }
+                params.topMargin = topMargin;
             }
         }
 
@@ -970,6 +1071,9 @@ public class Drawer {
         return params;
     }
 
+    /**
+     * The result object used for the Drawer
+     */
     public static class Result {
         private final Drawer mDrawer;
         private FrameLayout mContentView;
@@ -984,7 +1088,7 @@ public class Drawer {
         }
 
         /**
-         * get the drawerLayout of the current drawer
+         * Get the DrawerLayout of the current drawer
          *
          * @return
          */
@@ -993,7 +1097,7 @@ public class Drawer {
         }
 
         /**
-         * open the drawer
+         * Open the drawer
          */
         public void openDrawer() {
             if (mDrawer.mDrawerLayout != null && mDrawer.mSliderLayout != null) {
@@ -1011,7 +1115,8 @@ public class Drawer {
         }
 
         /**
-         * get the current state if the drawer is open
+         * Get the current state of the drawer.
+         * True if the drawer is currently open.
          *
          * @return
          */
@@ -1023,7 +1128,8 @@ public class Drawer {
         }
 
         /**
-         * get the slider layout of the current drawer
+         * get the slider layout of the current drawer.
+         * This is the layout containing the ListView
          *
          * @return
          */
@@ -1032,7 +1138,7 @@ public class Drawer {
         }
 
         /**
-         * get the cootainer frameLayout of the current drawer
+         * get the container frameLayout of the current drawer
          *
          * @return
          */
@@ -1080,6 +1186,23 @@ public class Drawer {
         }
 
         /**
+         * method to replace a previous set header
+         *
+         * @param view
+         */
+        public void setHeader(View view) {
+            if (getListView() != null) {
+                BaseDrawerAdapter adapter = getAdapter();
+                getListView().setAdapter(null);
+                if (getHeader() != null) {
+                    getListView().removeHeaderView(getHeader());
+                }
+                getListView().addHeaderView(view);
+                getListView().setAdapter(adapter);
+            }
+        }
+
+        /**
          * get the Footer View if set else NULL
          *
          * @return
@@ -1123,7 +1246,7 @@ public class Drawer {
          * @return
          */
         public int getPositionFromIdentifier(int identifier) {
-            if (identifier > 0) {
+            if (identifier >= 0) {
                 if (mDrawer.mDrawerItems != null) {
                     int position = 0;
                     for (IDrawerItem i : mDrawer.mDrawerItems) {
@@ -1140,6 +1263,14 @@ public class Drawer {
             return -1;
         }
 
+        /**
+         * get the current selection
+         *
+         * @return
+         */
+        public int getCurrentSelection() {
+            return mDrawer.mCurrentSelection;
+        }
 
         /**
          * set the current selection in the drawer
@@ -1209,7 +1340,7 @@ public class Drawer {
                     mDrawer.mOnDrawerItemClickListener.onItemClick(null, null, position, position, mDrawer.getDrawerItem(position, false));
                 }
 
-                mDrawer.mCurrentSelection = position + mDrawer.mHeaderOffset;
+                mDrawer.mCurrentSelection = position;
             }
         }
 
@@ -1279,7 +1410,6 @@ public class Drawer {
         public void removeAllItems() {
             mDrawer.mDrawerItems.clear();
             mDrawer.mAdapter.dataUpdated();
-
         }
 
         /**
@@ -1300,7 +1430,25 @@ public class Drawer {
          * @param drawerItems
          */
         public void setItems(ArrayList<IDrawerItem> drawerItems) {
+            setItems(drawerItems, false);
+        }
+
+        /**
+         * replace the current DrawerItems with the new ArrayList.
+         *
+         * @param drawerItems
+         * @param switchedItems
+         */
+        public void setItems(ArrayList<IDrawerItem> drawerItems, boolean switchedItems) {
             mDrawer.mDrawerItems = drawerItems;
+
+            //if we are currently at a switched list set the new reference
+            if (originalDrawerItems != null && !switchedItems) {
+                originalDrawerItems = drawerItems;
+            } else {
+                mDrawer.mAdapter.setDrawerItems(mDrawer.mDrawerItems);
+            }
+
             mDrawer.mAdapter.dataUpdated();
         }
 
@@ -1381,6 +1529,25 @@ public class Drawer {
         }
 
         /**
+         * Update the icon of a drawer item from an iconRes
+         *
+         * @param iconRes
+         * @param position
+         */
+        public void updateIcon(int iconRes, int position) {
+            if (mDrawer.mRootView != null && mDrawer.checkDrawerItem(position, false)) {
+                IDrawerItem drawerItem = mDrawer.mDrawerItems.get(position);
+
+                if (drawerItem instanceof Iconable) {
+                    ((Iconable) drawerItem).setIcon(mDrawer.mRootView.getContext().getResources().getDrawable(iconRes));
+                }
+
+                mDrawer.mDrawerItems.set(position, drawerItem);
+                mDrawer.mAdapter.notifyDataSetChanged();
+            }
+        }
+
+        /**
          * Update the icon of a drawer item if its an instance of iconable
          *
          * @param icon
@@ -1396,6 +1563,90 @@ public class Drawer {
 
                 mDrawer.mDrawerItems.set(position, drawerItem);
                 mDrawer.mAdapter.notifyDataSetChanged();
+            }
+        }
+
+        /**
+         * setter for the OnDrawerItemClickListener
+         *
+         * @param onDrawerItemClickListener
+         */
+        public void setOnDrawerItemClickListener(OnDrawerItemClickListener onDrawerItemClickListener) {
+            mDrawer.mOnDrawerItemClickListener = onDrawerItemClickListener;
+        }
+
+        /**
+         * method to get the OnDrawerItemClickListener
+         *
+         * @return
+         */
+        public OnDrawerItemClickListener getOnDrawerItemClickListener() {
+            return mDrawer.mOnDrawerItemClickListener;
+        }
+
+        /**
+         * setter for the OnDrawerItemLongClickListener
+         *
+         * @param onDrawerItemLongClickListener
+         */
+        public void setOnDrawerItemLongClickListener(OnDrawerItemLongClickListener onDrawerItemLongClickListener) {
+            mDrawer.mOnDrawerItemLongClickListener = onDrawerItemLongClickListener;
+        }
+
+        /**
+         * method to get the OnDrawerItemLongClickListener
+         *
+         * @return
+         */
+        public OnDrawerItemLongClickListener getOnDrawerItemLongClickListener() {
+            return mDrawer.mOnDrawerItemLongClickListener;
+        }
+
+
+        //variables to store and remember the original list of the drawer
+        private Drawer.OnDrawerItemClickListener originalOnDrawerItemClickListener;
+        private ArrayList<IDrawerItem> originalDrawerItems;
+        private int originalDrawerSelection = -1;
+
+        public boolean switchedDrawerContent() {
+            return !(originalOnDrawerItemClickListener == null && originalDrawerItems == null && originalDrawerSelection == -1);
+        }
+
+        /**
+         * method to switch the drawer content to new elements
+         *
+         * @param onDrawerItemClickListener
+         * @param drawerItems
+         * @param drawerSelection
+         */
+        public void switchDrawerContent(OnDrawerItemClickListener onDrawerItemClickListener, ArrayList<IDrawerItem> drawerItems, int drawerSelection) {
+            //just allow a single switched drawer
+            if (!switchedDrawerContent()) {
+                //save out previous values
+                originalOnDrawerItemClickListener = getOnDrawerItemClickListener();
+                originalDrawerItems = getDrawerItems();
+                originalDrawerSelection = getCurrentSelection();
+
+                //set the new items
+                setOnDrawerItemClickListener(onDrawerItemClickListener);
+                setItems(drawerItems, true);
+                setSelection(drawerSelection, false);
+            }
+        }
+
+        /**
+         * helper method to reset to the original drawerContent
+         */
+        public void resetDrawerContent() {
+            if (switchedDrawerContent()) {
+                //set the new items
+                setOnDrawerItemClickListener(originalOnDrawerItemClickListener);
+                setItems(originalDrawerItems, true);
+                setSelection(originalDrawerSelection, false);
+                //remove the references
+                originalOnDrawerItemClickListener = null;
+                originalDrawerItems = null;
+                originalDrawerSelection = -1;
             }
         }
 

@@ -18,11 +18,11 @@
     </style>
 
 
-    <!-- LIGHT DARK ACTIONBAR -->
-    <style name="MaterialDrawerTheme.Light.DarkActionBar.TranslucentStatus" parent="MaterialDrawerTheme.Light.DarkActionBar">
+    <!-- LIGHT DARK TOOLBAR -->
+    <style name="MaterialDrawerTheme.Light.DarkToolbar.TranslucentStatus" parent="MaterialDrawerTheme.Light.DarkToolbar">
         <item name="android:windowTranslucentStatus">true</item>
     </style>
-    <style name="MaterialDrawerTheme.Light.DarkActionBar.ActionBar.TranslucentStatus" parent="MaterialDrawerTheme.Light.DarkActionBar.ActionBar">
+    <style name="MaterialDrawerTheme.Light.DarkToolbar.ActionBar.TranslucentStatus" parent="MaterialDrawerTheme.Light.DarkToolbar.ActionBar">
         <item name="android:windowTranslucentStatus">true</item>
     </style>
 </resources>
