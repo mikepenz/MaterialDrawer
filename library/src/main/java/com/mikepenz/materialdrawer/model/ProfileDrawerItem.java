@@ -254,7 +254,7 @@ public class ProfileDrawerItem implements IDrawerItem, IProfile<ProfileDrawerIte
             viewHolder.profileIcon.setImageDrawable(this.getIcon());
             viewHolder.profileIcon.setVisibility(View.VISIBLE);
         } else {
-            viewHolder.profileIcon.setVisibility(View.GONE);
+            viewHolder.profileIcon.setVisibility(View.INVISIBLE);
         }
 
         return convertView;
