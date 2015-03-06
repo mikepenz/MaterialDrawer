@@ -109,7 +109,7 @@
 
 
     <!-- LIGHT DARK ACTIONBAR -->
-    <style name="MaterialDrawerBaseBaseTheme.Light.DarkActionBar" parent="Theme.AppCompat.Light.DarkActionBar">
+    <style name="MaterialDrawerBaseBaseTheme.Light.DarkToolbar" parent="Theme.AppCompat.Light.DarkActionBar">
         <item name="windowActionBar">false</item>
 
         <!-- Here we setting appcompat’s actionBarStyle -->
@@ -134,19 +134,19 @@
         <item name="material_drawer_header_selection_text">@color/material_drawer_icons</item>
     </style>
 
-    <style name="MaterialDrawerBaseTheme.Light.DarkActionBar" parent="MaterialDrawerBaseBaseTheme.Light.DarkActionBar">
+    <style name="MaterialDrawerBaseTheme.Light.DarkToolbar" parent="MaterialDrawerBaseBaseTheme.Light.DarkToolbar">
     </style>
 
-    <style name="MaterialDrawerTheme.Light.DarkActionBar" parent="MaterialDrawerBaseTheme.Light.DarkActionBar">
+    <style name="MaterialDrawerTheme.Light.DarkToolbar" parent="MaterialDrawerBaseTheme.Light.DarkToolbar">
     </style>
 
-    <style name="MaterialDrawerTheme.Light.DarkActionBar.TranslucentStatus" parent="MaterialDrawerTheme.Light.DarkActionBar">
+    <style name="MaterialDrawerTheme.Light.DarkToolbar.TranslucentStatus" parent="MaterialDrawerTheme.Light.DarkToolbar">
     </style>
 
-    <style name="MaterialDrawerTheme.Light.DarkActionBar.ActionBar" parent="MaterialDrawerTheme.Light.DarkActionBar">
+    <style name="MaterialDrawerTheme.Light.DarkToolbar.ActionBar" parent="MaterialDrawerTheme.Light.DarkToolbar">
         <item name="windowActionBar">true</item>
     </style>
 
-    <style name="MaterialDrawerTheme.Light.DarkActionBar.ActionBar.TranslucentStatus" parent="MaterialDrawerTheme.Light.DarkActionBar">
+    <style name="MaterialDrawerTheme.Light.DarkToolbar.ActionBar.TranslucentStatus" parent="MaterialDrawerTheme.Light.DarkToolbar">
     </style>
 </resources>

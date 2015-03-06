@@ -46,8 +46,8 @@
     </style>
 
 
-    <!-- LIGHT DARK ACTIONBAR -->
-    <style name="MaterialDrawerBaseTheme.Light.DarkActionBar" parent="MaterialDrawerBaseBaseTheme.Light.DarkActionBar">
+    <!-- LIGHT DARK TOOLBAR -->
+    <style name="MaterialDrawerBaseTheme.Light.DarkToolbar" parent="MaterialDrawerBaseBaseTheme.Light.DarkToolbar">
         <item name="android:windowActionBar">false</item>
 
         <!--
@@ -56,7 +56,7 @@
         -->
     </style>
 
-    <style name="MaterialDrawerTheme.Light.DarkActionBar.ActionBar" parent="MaterialDrawerTheme.Light.DarkActionBar">
+    <style name="MaterialDrawerTheme.Light.DarkToolbar.ActionBar" parent="MaterialDrawerTheme.Light.DarkToolbar">
         <item name="windowActionBar">true</item>
         <item name="android:windowActionBar">true</item>
     </style>
