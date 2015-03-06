@@ -64,7 +64,8 @@ public class SimpleDrawerActivity extends ActionBarActivity {
                 .withOnAccountHeaderClickListener(new AccountHeader.OnAccountHeaderClickListener() {
                     @Override
                     public void onProfileClick(View view, IProfile profile) {
-                        Toast.makeText(SimpleDrawerActivity.this, profile.getName(), Toast.LENGTH_SHORT).show();
+                        //NOTE: don't use a toast here. Some Samsung devices won't like Toasts :D (Samsung Galaxy S3 - Android 4.3)
+                        //Toast.makeText(SimpleDrawerActivity.this, profile.getName(), Toast.LENGTH_SHORT).show();
                     }
 
                     @Override
