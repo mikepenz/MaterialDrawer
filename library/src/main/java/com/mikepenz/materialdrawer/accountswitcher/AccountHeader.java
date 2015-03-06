@@ -885,7 +885,9 @@ public class AccountHeader {
                 @Override
                 public void run() {
                     if (drawerItem != null && drawerItem instanceof IProfile) {
-                        mOnAccountHeaderListener.onProfileChanged(view, (IProfile) drawerItem);
+                        if (mOnAccountHeaderListener != null) {
+                            mOnAccountHeaderListener.onProfileChanged(view, (IProfile) drawerItem);
+                        }
                     }
                     if (mDrawer != null) {
                         resetDrawerContent(view.getContext());
