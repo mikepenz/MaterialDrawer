@@ -274,16 +274,16 @@ public class AccountHeader {
     }
 
     // the onAccountHeaderSelectionListener to set
-    protected OnAccountHeaderSelectionListener mOnAccountHeaderSelectionListener;
+    protected OnAccountHeaderSelectionViewClickListener mOnAccountHeaderSelectionViewClickListener;
 
     /**
      * set a onSelection listener for the selection box
      *
-     * @param onAccountSelectionListener
+     * @param onAccountHeaderSelectionViewClickListener
      * @return
      */
-    public AccountHeader withOnAccountSelectionListener(OnAccountHeaderSelectionListener onAccountSelectionListener) {
-        this.mOnAccountHeaderSelectionListener = onAccountSelectionListener;
+    public AccountHeader withOnAccountHeaderSelectionViewClickListener(OnAccountHeaderSelectionViewClickListener onAccountHeaderSelectionViewClickListener) {
+        this.mOnAccountHeaderSelectionViewClickListener = onAccountHeaderSelectionViewClickListener;
         return this;
     }
 
@@ -385,16 +385,16 @@ public class AccountHeader {
     }
 
     // the click listener to be fired on profile or selection click
-    protected OnAccountHeaderClickListener mOnAccountHeaderClickListener;
+    protected OnAccountHeaderListener mOnAccountHeaderListener;
 
     /**
-     * add a click listener for the accountHeader
+     * add a listener for the accountHeader
      *
-     * @param onAccountHeaderClickListener
+     * @param onAccountHeaderListener
      * @return
      */
-    public AccountHeader withOnAccountHeaderClickListener(OnAccountHeaderClickListener onAccountHeaderClickListener) {
-        this.mOnAccountHeaderClickListener = onAccountHeaderClickListener;
+    public AccountHeader withOnAccountHeaderListener(OnAccountHeaderListener onAccountHeaderListener) {
+        this.mOnAccountHeaderListener = onAccountHeaderListener;
         return this;
     }
 
@@ -782,8 +782,8 @@ public class AccountHeader {
             new Handler().postDelayed(new Runnable() {
                 @Override
                 public void run() {
-                    if (mOnAccountHeaderClickListener != null) {
-                        mOnAccountHeaderClickListener.onProfileClick(v, profile);
+                    if (mOnAccountHeaderListener != null) {
+                        mOnAccountHeaderListener.onProfileChanged(v, profile);
                     }
 
                     if (mDrawer != null) {
@@ -818,8 +818,8 @@ public class AccountHeader {
     private View.OnClickListener onSelectionClickListener = new View.OnClickListener() {
         @Override
         public void onClick(View v) {
-            if (mOnAccountHeaderSelectionListener != null) {
-                mOnAccountHeaderSelectionListener.onSelection(v, (IProfile) v.getTag());
+            if (mOnAccountHeaderSelectionViewClickListener != null) {
+                mOnAccountHeaderSelectionViewClickListener.onClick(v, (IProfile) v.getTag());
             }
 
             if (mAccountSwitcherArrow.getVisibility() == View.VISIBLE) {
@@ -885,7 +885,7 @@ public class AccountHeader {
                 @Override
                 public void run() {
                     if (drawerItem != null && drawerItem instanceof IProfile) {
-                        mOnAccountHeaderClickListener.onSelectionClick((IProfile) drawerItem);
+                        mOnAccountHeaderListener.onProfileChanged(view, (IProfile) drawerItem);
                     }
                     if (mDrawer != null) {
                         resetDrawerContent(view.getContext());
@@ -1068,13 +1068,11 @@ public class AccountHeader {
     }
 
 
-    public interface OnAccountHeaderClickListener {
-        public void onProfileClick(View view, IProfile profile);
-
-        public void onSelectionClick(IProfile currentProfile);
+    public interface OnAccountHeaderListener {
+        public void onProfileChanged(View view, IProfile profile);
     }
 
-    public interface OnAccountHeaderSelectionListener {
-        public void onSelection(View view, IProfile profile);
+    public interface OnAccountHeaderSelectionViewClickListener {
+        public void onClick(View view, IProfile profile);
     }
 }

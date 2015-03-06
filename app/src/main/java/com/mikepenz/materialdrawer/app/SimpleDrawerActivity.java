@@ -46,7 +46,7 @@ public class SimpleDrawerActivity extends ActionBarActivity {
         final IProfile profile2 = new ProfileDrawerItem().withName("Max Muster").withEmail("max.mustermann@gmail.com");
         IProfile profile3 = new ProfileDrawerItem().withName("Felix House").withEmail("felix.house@gmail.com").withIcon(getResources().getDrawable(R.drawable.profile3));
         IProfile profile4 = new ProfileDrawerItem().withName("Mr. X").withEmail("mister.x.super@gmail.com").withIcon(getResources().getDrawable(R.drawable.profile4));
-        IProfile profile5 = new ProfileDrawerItem().withName("Batman").withEmail("batman@gmail.com").withIcon(getResources().getDrawable(R.drawable.profile5));
+        final IProfile profile5 = new ProfileDrawerItem().withName("Batman").withEmail("batman@gmail.com").withIcon(getResources().getDrawable(R.drawable.profile5));
 
         headerResult = new AccountHeader()
                 .withActivity(this)
@@ -61,21 +61,15 @@ public class SimpleDrawerActivity extends ActionBarActivity {
                         new ProfileSettingDrawerItem().withName("Add Account").withDescription("Add new GitHub Account").withIcon(new IconicsDrawable(this, GoogleMaterial.Icon.gmd_add).actionBarSize().paddingDp(5)).withIdentifier(1),
                         new ProfileSettingDrawerItem().withName("Manage Account").withIcon(GoogleMaterial.Icon.gmd_settings).withIdentifier(2)
                 )
-                .withOnAccountHeaderClickListener(new AccountHeader.OnAccountHeaderClickListener() {
+                .withOnAccountHeaderListener(new AccountHeader.OnAccountHeaderListener() {
                     @Override
-                    public void onProfileClick(View view, IProfile profile) {
-                        //NOTE: don't use a toast here. Some Samsung devices won't like Toasts :D (Samsung Galaxy S3 - Android 4.3)
-                        //Toast.makeText(SimpleDrawerActivity.this, profile.getName(), Toast.LENGTH_SHORT).show();
-                    }
-
-                    @Override
-                    public void onSelectionClick(IProfile currentProfile) {
-                        if (!TextUtils.isEmpty(currentProfile.getName())) {
-                            Toast.makeText(SimpleDrawerActivity.this, currentProfile.getName(), Toast.LENGTH_SHORT).show();
+                    public void onProfileChanged(View view, IProfile profile) {
+                        if (!TextUtils.isEmpty(profile.getName())) {
+                            Toast.makeText(SimpleDrawerActivity.this, profile.getName(), Toast.LENGTH_SHORT).show();
                         }
 
-                        if (currentProfile instanceof IDrawerItem) {
-                            if (((IDrawerItem) currentProfile).getIdentifier() == 1) {
+                        if (profile instanceof IDrawerItem) {
+                            if (((IDrawerItem) profile).getIdentifier() == 1) {
                                 IProfile newProfile = new ProfileDrawerItem().withNameShown(true).withName("Batman").withEmail("batman@gmail.com").withIcon(getResources().getDrawable(R.drawable.profile5));
                                 if (headerResult.getProfiles() != null) {
                                     //we know that there are 2 setting elements. set the new profile above them ;)
@@ -83,7 +77,7 @@ public class SimpleDrawerActivity extends ActionBarActivity {
                                 } else {
                                     headerResult.addProfiles(newProfile);
                                 }
-                            } else if (((IDrawerItem) currentProfile).getIdentifier() == 2) {
+                            } else if (((IDrawerItem) profile).getIdentifier() == 2) {
                                 headerResult.removeProfile(profile2);
                             }
                         }
@@ -143,7 +137,7 @@ public class SimpleDrawerActivity extends ActionBarActivity {
                 .withSavedInstance(savedInstanceState)
                 .build();
 
-        result.setSelectionByIdentifier(5);
+        result.setSelectionByIdentifier(5, false);
 
         /*
         new Drawer()
