@@ -812,11 +812,6 @@ public class AccountHeader {
         return -1;
     }
 
-    //variables to store and remember the original list of the drawer
-    private Drawer.OnDrawerItemClickListener originalOnDrawerItemClickListener;
-    private ArrayList<IDrawerItem> originalDrawerItems;
-    private int originalDrawerSelection = -1;
-
     /**
      * onSelectionClickListener to notify the onClick on the checkbox
      */
@@ -841,18 +836,10 @@ public class AccountHeader {
     protected void toggleSelectionList(Context ctx) {
         if (mDrawer != null) {
             //if we already show the list. reset everything instead
-            if (originalOnDrawerItemClickListener != null) {
+            if (mDrawer.switchedDrawerContent()) {
                 resetDrawerContent(ctx);
                 mSelectionListShown = false;
             } else {
-                //save out previous values
-                originalOnDrawerItemClickListener = mDrawer.getOnDrawerItemClickListener();
-                originalDrawerItems = mDrawer.getDrawerItems();
-                originalDrawerSelection = mDrawer.getCurrentSelection();
-
-                //set profile switcher values and create the profileList to set for the adapter
-                mDrawer.setOnDrawerItemClickListener(onDrawerItemClickListener);
-
                 //build and set the drawer selection list
                 buildDrawerSelectionList();
 
@@ -879,8 +866,8 @@ public class AccountHeader {
             }
             position = position + 1;
         }
-        mDrawer.setItems(profileDrawerItems);
-        mDrawer.setSelection(selectedPosition, false);
+
+        mDrawer.switchDrawerContent(onDrawerItemClickListener, profileDrawerItems, selectedPosition);
     }
 
     /**
@@ -913,14 +900,7 @@ public class AccountHeader {
      * helper method to reset the drawer content
      */
     private void resetDrawerContent(Context ctx) {
-        mDrawer.setOnDrawerItemClickListener(originalOnDrawerItemClickListener);
-        mDrawer.setItems(originalDrawerItems);
-        mDrawer.setSelection(originalDrawerSelection, false);
-
-        originalOnDrawerItemClickListener = null;
-        originalDrawerItems = null;
-        originalDrawerSelection = -1;
-
+        mDrawer.resetDrawerContent();
         mAccountSwitcherArrow.setImageDrawable(new IconicsDrawable(ctx, GoogleMaterial.Icon.gmd_arrow_drop_down).sizeDp(24).paddingDp(6).color(mTextColor));
     }
 
@@ -1017,7 +997,6 @@ public class AccountHeader {
          */
         public void setProfiles(ArrayList<IProfile> profiles) {
             mAccountHeader.mProfiles = profiles;
-
             mAccountHeader.updateHeaderAndList();
         }
 

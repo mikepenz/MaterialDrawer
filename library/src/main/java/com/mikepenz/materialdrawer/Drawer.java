@@ -1385,7 +1385,6 @@ public class Drawer {
         public void removeAllItems() {
             mDrawer.mDrawerItems.clear();
             mDrawer.mAdapter.dataUpdated();
-
         }
 
         /**
@@ -1406,8 +1405,25 @@ public class Drawer {
          * @param drawerItems
          */
         public void setItems(ArrayList<IDrawerItem> drawerItems) {
+            setItems(drawerItems, false);
+        }
+
+        /**
+         * replace the current DrawerItems with the new ArrayList.
+         *
+         * @param drawerItems
+         * @param switchedItems
+         */
+        public void setItems(ArrayList<IDrawerItem> drawerItems, boolean switchedItems) {
             mDrawer.mDrawerItems = drawerItems;
-            mDrawer.mAdapter.setDrawerItems(mDrawer.mDrawerItems);
+
+            //if we are currently at a switched list set the new reference
+            if (originalDrawerItems != null && !switchedItems) {
+                originalDrawerItems = drawerItems;
+            } else {
+                mDrawer.mAdapter.setDrawerItems(mDrawer.mDrawerItems);
+            }
+
             mDrawer.mAdapter.dataUpdated();
         }
 
@@ -1559,6 +1575,54 @@ public class Drawer {
          */
         public OnDrawerItemLongClickListener getOnDrawerItemLongClickListener() {
             return mDrawer.mOnDrawerItemLongClickListener;
+        }
+
+
+        //variables to store and remember the original list of the drawer
+        private Drawer.OnDrawerItemClickListener originalOnDrawerItemClickListener;
+        private ArrayList<IDrawerItem> originalDrawerItems;
+        private int originalDrawerSelection = -1;
+
+        public boolean switchedDrawerContent() {
+            return !(originalOnDrawerItemClickListener == null && originalDrawerItems == null && originalDrawerSelection == -1);
+        }
+
+        /**
+         * method to switch the drawer content to new elements
+         *
+         * @param onDrawerItemClickListener
+         * @param drawerItems
+         * @param drawerSelection
+         */
+        public void switchDrawerContent(OnDrawerItemClickListener onDrawerItemClickListener, ArrayList<IDrawerItem> drawerItems, int drawerSelection) {
+            //just allow a single switched drawer
+            if (!switchedDrawerContent()) {
+                //save out previous values
+                originalOnDrawerItemClickListener = getOnDrawerItemClickListener();
+                originalDrawerItems = getDrawerItems();
+                originalDrawerSelection = getCurrentSelection();
+
+                //set the new items
+                setOnDrawerItemClickListener(onDrawerItemClickListener);
+                setItems(drawerItems, true);
+                setSelection(drawerSelection, false);
+            }
+        }
+
+        /**
+         * helper method to reset to the original drawerContent
+         */
+        public void resetDrawerContent() {
+            if (switchedDrawerContent()) {
+                //set the new items
+                setOnDrawerItemClickListener(originalOnDrawerItemClickListener);
+                setItems(originalDrawerItems, true);
+                setSelection(originalDrawerSelection, false);
+                //remove the references
+                originalOnDrawerItemClickListener = null;
+                originalDrawerItems = null;
+                originalDrawerSelection = -1;
+            }
         }
 
         /**
