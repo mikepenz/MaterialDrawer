@@ -49,6 +49,7 @@ public class Drawer {
 
     /**
      * Pass the activity you use the drawer in ;)
+     * This is required if you want to set any values by ressource
      *
      * @param activity
      * @return
@@ -63,8 +64,8 @@ public class Drawer {
     protected boolean mTranslucentActionBarCompatibility = false;
 
     /**
-     * Just use this parameter if you really want to use a translucent statusbar with an
-     * actionbar
+     * Set this to true to use a translucent StatusBar in an activity with a good old
+     * ActionBar. Should be a rare scenario.
      *
      * @param translucentActionBarCompatibility
      * @return
@@ -74,11 +75,23 @@ public class Drawer {
         return this;
     }
 
-    // set non translucent statusbar mode
+    /**
+     * Set this to true if you want your drawer to be displayed below the toolbar.
+     * Note this will add a margin above the drawer
+     *
+     * @param displayBelowToolbar
+     * @return
+     */
+    public Drawer withDisplayBelowToolbar(boolean displayBelowToolbar) {
+        this.mTranslucentActionBarCompatibility = displayBelowToolbar;
+        return this;
+    }
+
+    // set non translucent statusBar mode
     protected boolean mTranslucentStatusBar = true;
 
     /**
-     * Set or disable this if you use a translucent statusbar
+     * Set to false to disable the use of a translucent statusBar
      *
      * @param translucentStatusBar
      * @return
@@ -88,23 +101,13 @@ public class Drawer {
         return this;
     }
 
-    /**
-     * Set or disable this if you want to show the drawer below the toolbar.
-     * Note this will add a margin above the drawer
-     *
-     * @param displayBelowToolbar
-     * @return
-     */
-    public Drawer withDisplayBelowToolbar(boolean displayBelowToolbar) {
-        this.mTranslucentStatusBar = displayBelowToolbar;
-        return this;
-    }
-
     // the toolbar of the activity
     protected Toolbar mToolbar;
 
     /**
-     * Pass the toolbar you would love to use with this drawer
+     * Add the toolbar which is used in combination with this drawer.
+     * NOTE: if you use the drawer in a subActivity you don't need this, if you
+     * want to display the back arrow.
      *
      * @param toolbar
      * @return
@@ -119,7 +122,8 @@ public class Drawer {
     protected LinearLayout mSliderLayout;
 
     /**
-     * You can pass a custom view for the drawer lib. note this requires the same structure as the drawer.xml
+     * Pass a custom DrawerLayout which will be used.
+     * NOTE: This requires the same structure as the drawer.xml
      *
      * @param drawerLayout
      * @return
@@ -130,7 +134,8 @@ public class Drawer {
     }
 
     /**
-     * You can pass a custom layout for the drawer lib. see the drawer.xml in layouts of this lib on GitHub
+     * Pass a custom DrawerLayout Resource which will be used.
+     * NOTE: This requires the same structure as the drawer.xml
      *
      * @param resLayout
      * @return
@@ -154,7 +159,8 @@ public class Drawer {
     protected int mSliderBackgroundColorRes = -1;
 
     /**
-     * set the background for the slider as color
+     * Set the background color for the Slider.
+     * This is the view containing the list.
      *
      * @param sliderBackgroundColor
      * @return
@@ -165,7 +171,8 @@ public class Drawer {
     }
 
     /**
-     * set the background for the slider as resource
+     * Set the background color for the Slider from a Resource.
+     * This is the view containing the list.
      *
      * @param sliderBackgroundColorRes
      * @return
@@ -179,7 +186,7 @@ public class Drawer {
     protected int mDrawerWidth = -1;
 
     /**
-     * set the drawer width as px
+     * Set the Drawer width with a pixel value
      *
      * @param drawerWidthPx
      * @return
@@ -190,7 +197,7 @@ public class Drawer {
     }
 
     /**
-     * set the drawer width as dp
+     * Set the Drawer width with a dp value
      *
      * @param drawerWidthDp
      * @return
@@ -205,7 +212,7 @@ public class Drawer {
     }
 
     /**
-     * set the drawer width from resource
+     * Set the Drawer width with a dimension resource
      *
      * @param drawerWidthRes
      * @return
@@ -222,6 +229,12 @@ public class Drawer {
     //the gravity of the drawer
     protected Integer mDrawerGravity = null;
 
+    /**
+     * Set the gravity for the drawer. START, LEFT | RIGHT, END
+     *
+     * @param gravity
+     * @return
+     */
     public Drawer withDrawerGravity(int gravity) {
         this.mDrawerGravity = gravity;
         return this;
@@ -231,8 +244,8 @@ public class Drawer {
     protected AccountHeader.Result mAccountHeader;
 
     /**
-     * set the accountHeader to use for this drawer instance
-     * not this will overwrite the mHeaderView if set
+     * Add a AccountSwitcherHeader which will be used in this drawer instance.
+     * NOTE: This will overwrite any set headerView.
      *
      * @param accountHeader
      * @return
@@ -248,7 +261,9 @@ public class Drawer {
     protected boolean mAnimateActionBarDrawerToggle = false;
 
     /**
-     * set this to enable/disable the actionBarDrawerToggle animation
+     * Set this to true if you want the ActionBarDrawerToggle to be animated.
+     * NOTE: This will only work if the built in ActionBarDrawerToggle is used.
+     * Enable it by setting withActionBarDrawerToggle to true
      *
      * @param actionBarDrawerToggleAnimated
      * @return
@@ -263,7 +278,7 @@ public class Drawer {
     protected boolean mActionBarDrawerToggleEnabled = true;
 
     /**
-     * set to true if you want a ActionBarDrawerToggle handled by the lib
+     * Set this to false if you don't need the included ActionBarDrawerToggle
      *
      * @param actionBarDrawerToggleEnabled
      * @return
@@ -277,7 +292,7 @@ public class Drawer {
     protected ActionBarDrawerToggle mActionBarDrawerToggle;
 
     /**
-     * pass an ActionBarDrawerToggle you would love to use with this drawer
+     * Add a custom ActionBarDrawerToggle which will be used in combination with this drawer.
      *
      * @param actionBarDrawerToggle
      * @return
@@ -295,7 +310,7 @@ public class Drawer {
     protected boolean mHeaderClickable = false;
 
     /**
-     * add a header layout from view
+     * Add a header to the Drawer ListView. This can be any view
      *
      * @param headerView
      * @return
@@ -308,7 +323,7 @@ public class Drawer {
     }
 
     /**
-     * add a header layout from res
+     * Add a header to the Drawer ListView defined by a resource.
      *
      * @param headerViewRes
      * @return
@@ -329,7 +344,7 @@ public class Drawer {
     }
 
     /**
-     * set if the header is clickable
+     * Set this to true if you want the header to be clickable
      *
      * @param headerClickable
      * @return
@@ -340,7 +355,7 @@ public class Drawer {
     }
 
     /**
-     * this method allows you to disable the divider on the bottom of the header
+     * Set this to false if you don't need the divider below the header
      *
      * @param headerDivider
      * @return
@@ -356,7 +371,7 @@ public class Drawer {
     protected boolean mFooterClickable = false;
 
     /**
-     * add a footer layout from view
+     * Add a footer to the Drawer ListView. This can be any view
      *
      * @param footerView
      * @return
@@ -367,7 +382,7 @@ public class Drawer {
     }
 
     /**
-     * add a footer layout from res
+     * Add a footer to the Drawer ListView defined by a resource.
      *
      * @param footerViewRes
      * @return
@@ -386,7 +401,7 @@ public class Drawer {
     }
 
     /**
-     * set if the footer is clickable
+     * Set this to true if you want the footer to be clickable
      *
      * @param footerClickable
      * @return
@@ -397,7 +412,7 @@ public class Drawer {
     }
 
     /**
-     * this method allows you to disable the divider on top of the footer
+     * Set this to false if you don't need the divider above the footer
      *
      * @param footerDivider
      * @return
@@ -411,8 +426,7 @@ public class Drawer {
     protected View mStickyFooterView;
 
     /**
-     * add a sticky footer layout from view
-     * this view will be always visible on the bottom
+     * Add a sticky footer below the Drawer ListView. This can be any view
      *
      * @param stickyFooter
      * @return
@@ -423,8 +437,7 @@ public class Drawer {
     }
 
     /**
-     * add a sticky footer layout from res
-     * this view will be always visible on the bottom
+     * Add a sticky footer below the Drawer ListView defined by a resource.
      *
      * @param stickyFooterRes
      * @return
@@ -446,8 +459,7 @@ public class Drawer {
     protected boolean mFireInitialOnClick = false;
 
     /**
-     * enable this if you would love to receive a onClick event after the build method is called
-     * to be able to show the initial layout.
+     * Set this to true if you love to get an initial onClick event after the build method is called
      *
      * @param fireOnInitialOnClick
      * @return
@@ -461,7 +473,7 @@ public class Drawer {
     protected int mSelectedItem = 0;
 
     /**
-     * pass the item which should be selected on start
+     * Set this to the index of the item, you would love to select upon start
      *
      * @param selectedItem
      * @return
@@ -475,7 +487,8 @@ public class Drawer {
     protected ListView mListView;
 
     /**
-     * Set the list which is added within the slider
+     * Define a custom ListView which will be used in the drawer
+     * NOTE: this is not recommended
      *
      * @param listView
      * @return
@@ -489,7 +502,8 @@ public class Drawer {
     protected BaseDrawerAdapter mAdapter;
 
     /**
-     * Set the adapter to be used with the list
+     * Define a custom Adapter which will be used in the drawer
+     * NOTE: this is not recommended
      *
      * @param adapter
      * @return
@@ -503,7 +517,7 @@ public class Drawer {
     protected ArrayList<IDrawerItem> mDrawerItems;
 
     /**
-     * set the arrayList of DrawerItems for the drawer
+     * Set the initial List of IDrawerItems for the Drawer
      *
      * @param drawerItems
      * @return
@@ -514,7 +528,7 @@ public class Drawer {
     }
 
     /**
-     * add single ore more DrawerItems to the Drawer
+     * Add a initial DrawerItem or a DrawerItem Array  for the Drawer
      *
      * @param drawerItems
      * @return
@@ -534,7 +548,7 @@ public class Drawer {
     protected boolean mCloseOnClick = true;
 
     /**
-     * set if the drawer should autoClose if an item is clicked
+     * Set this to false if the drawer should stay opened after an item was clicked
      *
      * @param closeOnClick
      * @return this
@@ -548,10 +562,10 @@ public class Drawer {
     protected int mDelayOnDrawerClose = 150;
 
     /**
-     * set the delay for the drawer close operation
-     * this is a small hack to improve the responsivness if you open a new activity within the drawer onClick
-     * else you will see some lag
-     * you can disable this by passing -1
+     * Define the delay for the drawer close operation after a click.
+     * This is a small trick to improve the speed (and remove lag) if you open a new activity after a DrawerItem
+     * was selected.
+     * NOTE: Disable this by passing -1
      *
      * @param delayOnDrawerClose -1 to disable
      * @return this
@@ -566,7 +580,7 @@ public class Drawer {
     protected OnDrawerListener mOnDrawerListener;
 
     /**
-     * set the drawerListener
+     * Define a OnDrawerListener for this Drawer
      *
      * @param onDrawerListener
      * @return this
@@ -580,7 +594,7 @@ public class Drawer {
     protected OnDrawerItemClickListener mOnDrawerItemClickListener;
 
     /**
-     * set the DrawerItemClickListener
+     * Define a OnDrawerItemClickListener for this Drawer
      *
      * @param onDrawerItemClickListener
      * @return
@@ -594,7 +608,7 @@ public class Drawer {
     protected OnDrawerItemLongClickListener mOnDrawerItemLongClickListener;
 
     /**
-     * set the DrawerItemLongClickListener
+     * Define a OnDrawerItemLongClickListener for this Drawer
      *
      * @param onDrawerItemLongClickListener
      * @return
@@ -608,7 +622,7 @@ public class Drawer {
     protected OnDrawerItemSelectedListener mOnDrawerItemSelectedListener;
 
     /**
-     * set the ItemSelectedListener
+     * Define a OnDrawerItemSelectedListener for this Drawer
      *
      * @param onDrawerItemSelectedListener
      * @return
@@ -622,7 +636,8 @@ public class Drawer {
     protected Bundle mSavedInstance;
 
     /**
-     * create the drawer with the values of a savedInstance
+     * Set the Bundle (savedInstance) which is passed by the activity.
+     * No need to null-check everything is handled automatically
      *
      * @param savedInstance
      * @return
@@ -633,7 +648,7 @@ public class Drawer {
     }
 
     /**
-     * Build everything and get a Result
+     * Build and add the Drawer to your activity
      *
      * @return
      */
@@ -765,7 +780,7 @@ public class Drawer {
 
 
     /**
-     * the builder method to append a new drawer to an existing Drawer
+     * Call this method to append a new Drawer to a existing Drawer.
      *
      * @param result the Drawer.Result of an existing Drawer
      * @return
@@ -818,7 +833,7 @@ public class Drawer {
             mListView.setDrawSelectorOnTop(true);
             mListView.setClipToPadding(false);
 
-            if (mTranslucentStatusBar) {
+            if (mTranslucentStatusBar && !mTranslucentActionBarCompatibility) {
                 mListView.setPadding(0, mActivity.getResources().getDimensionPixelSize(R.dimen.tool_bar_top_padding), 0, 0);
             }
         }
@@ -1038,7 +1053,12 @@ public class Drawer {
         if (mTranslucentActionBarCompatibility) {
             TypedValue tv = new TypedValue();
             if (mActivity.getTheme().resolveAttribute(android.R.attr.actionBarSize, tv, true)) {
-                params.topMargin = TypedValue.complexToDimensionPixelSize(tv.data, mActivity.getResources().getDisplayMetrics());
+
+                int topMargin = TypedValue.complexToDimensionPixelSize(tv.data, mActivity.getResources().getDisplayMetrics());
+                if (mTranslucentStatusBar) {
+                    topMargin = topMargin + mActivity.getResources().getDimensionPixelSize(R.dimen.tool_bar_top_padding);
+                }
+                params.topMargin = topMargin;
             }
         }
 
@@ -1051,6 +1071,9 @@ public class Drawer {
         return params;
     }
 
+    /**
+     * The result object used for the Drawer
+     */
     public static class Result {
         private final Drawer mDrawer;
         private FrameLayout mContentView;
@@ -1065,7 +1088,7 @@ public class Drawer {
         }
 
         /**
-         * get the drawerLayout of the current drawer
+         * Get the DrawerLayout of the current drawer
          *
          * @return
          */
@@ -1074,7 +1097,7 @@ public class Drawer {
         }
 
         /**
-         * open the drawer
+         * Open the drawer
          */
         public void openDrawer() {
             if (mDrawer.mDrawerLayout != null && mDrawer.mSliderLayout != null) {
@@ -1092,7 +1115,8 @@ public class Drawer {
         }
 
         /**
-         * get the current state if the drawer is open
+         * Get the current state of the drawer.
+         * True if the drawer is currently open.
          *
          * @return
          */
@@ -1104,7 +1128,8 @@ public class Drawer {
         }
 
         /**
-         * get the slider layout of the current drawer
+         * get the slider layout of the current drawer.
+         * This is the layout containing the ListView
          *
          * @return
          */
@@ -1113,7 +1138,7 @@ public class Drawer {
         }
 
         /**
-         * get the cootainer frameLayout of the current drawer
+         * get the container frameLayout of the current drawer
          *
          * @return
          */
