@@ -53,6 +53,9 @@ public class AccountHeader {
     protected IProfile mProfileThird;
 
 
+    // global stuff
+    protected boolean mSelectionListShown = false;
+
     // the activity to use
     protected Activity mActivity;
 
@@ -840,6 +843,7 @@ public class AccountHeader {
             //if we already show the list. reset everything instead
             if (originalOnDrawerItemClickListener != null) {
                 resetDrawerContent(ctx);
+                mSelectionListShown = false;
             } else {
                 //save out previous values
                 originalOnDrawerItemClickListener = mDrawer.getOnDrawerItemClickListener();
@@ -854,6 +858,7 @@ public class AccountHeader {
 
                 // update the arrow image within the drawer
                 mAccountSwitcherArrow.setImageDrawable(new IconicsDrawable(ctx, GoogleMaterial.Icon.gmd_arrow_drop_up).sizeDp(24).paddingDp(6).color(mTextColor));
+                mSelectionListShown = true;
             }
         }
     }
@@ -928,7 +933,7 @@ public class AccountHeader {
         //update the profiles in the header
         buildProfiles();
         //if we currently show the list add the new item directly to it
-        if (originalOnDrawerItemClickListener != null) {
+        if (mSelectionListShown) {
             buildDrawerSelectionList();
         }
     }
@@ -995,7 +1000,7 @@ public class AccountHeader {
          * @return
          */
         public boolean isSelectionListShown() {
-            return mAccountHeader.originalOnDrawerItemClickListener != null;
+            return mAccountHeader.mSelectionListShown;
         }
 
         /**
