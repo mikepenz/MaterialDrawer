@@ -53,15 +53,16 @@ compile('com.mikepenz.materialdrawer:library:2.0.0@aar') {
 Here's a quick overview what you have to do within your application.
 You can find a detailed description of all methods in the [WIKI](https://github.com/mikepenz/MaterialDrawer/wiki).
 
+#####IMPORTANT
+**Please also read the section about styles. You have to either use one of the provided themes or add the MaterialDrawer attributes to your theme. Read more here:** <https://github.com/mikepenz/MaterialDrawer/#style-the-drawer>
+
 ###Minimal SetUp
+
 ####Code:
 It's (theoretically) a one-liner :D. This will create an empty drawer.
 ```java
 new Drawer().withActivity(this).build()
 ```
-
-**Please also read the section about styles. You have to either use one of the provided themes or add the MaterialDrawer attributes to your theme. Read more here:** <https://github.com/mikepenz/MaterialDrawer/#style-the-drawer>
-
 
 ###Activity with Toolbar
 ####Code:
