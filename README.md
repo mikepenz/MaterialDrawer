@@ -182,6 +182,9 @@ Use one of the provided themes. They all use the AppCompat theme as parent and d
   
 
 ###Style the drawer
+#### Use of a none MaterialDrawer.* style
+If you don't use one of the provided styles you have to add the style values to your style. Here's a simple sample. 
+This is the same as the Custom style just with a parent like `parent="Theme.AppCompat.Light.DarkActionBar"`
 #### Custom style - styles.xml
 Create your custom style and use one of the provided themes as parent. If you don't need a custom theme see the next section, how you can set the colors just by overwriting the original colors.
 
