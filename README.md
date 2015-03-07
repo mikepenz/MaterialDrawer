@@ -60,6 +60,8 @@ It's (theoretically) a one-liner :D. This will create an empty drawer.
 new Drawer().withActivity(this).build()
 ```
 
+**Please also read the section about styles. You have to either use one of the provided themes or add the MaterialDrawer attributes to your theme. Read more here:** <https://github.com/mikepenz/MaterialDrawer/#style-the-drawer>
+
 
 ###Activity with Toolbar
 ####Code:
