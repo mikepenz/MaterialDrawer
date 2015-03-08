@@ -53,8 +53,8 @@ compile('com.mikepenz.materialdrawer:library:2.0.1@aar') {
 Here's a quick overview what you have to do within your application.
 You can find a detailed description of all methods in the [WIKI](https://github.com/mikepenz/MaterialDrawer/wiki).
 
-#####IMPORTANT
-**Please also read the section about styles. You have to either use one of the provided themes or add the MaterialDrawer attributes to your theme. Read more here:** <https://github.com/mikepenz/MaterialDrawer/#style-the-drawer>
+###IMPORTANT
+**PLEASE also read the section about styles. You have to either use one of the provided themes or add the MaterialDrawer attributes to your theme. Read more here:** <https://github.com/mikepenz/MaterialDrawer/#style-the-drawer>
 
 ###Minimal SetUp
 
