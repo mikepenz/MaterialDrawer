@@ -12,6 +12,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ImageView;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.mikepenz.google_material_typeface_library.GoogleMaterial;
@@ -25,6 +26,7 @@ import com.mikepenz.materialdrawer.util.UIUtils;
 import com.mikepenz.materialdrawer.view.CircularImageView;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Collections;
 import java.util.Stack;
 
@@ -259,6 +261,20 @@ public class AccountHeader {
         return this;
     }
 
+    // set to use the alternative profile header switching
+    protected boolean mAlternativeProfileHeaderSwitching = false;
+
+    /**
+     * enable the alternative profile header switching
+     *
+     * @param alternativeProfileHeaderSwitching
+     * @return
+     */
+    public AccountHeader withAlternativeProfileHeaderSwitching(boolean alternativeProfileHeaderSwitching) {
+        this.mAlternativeProfileHeaderSwitching = alternativeProfileHeaderSwitching;
+        return this;
+    }
+
     // enable 3 small header previews
     protected boolean mThreeSmallProfileImages = false;
 
@@ -454,6 +470,8 @@ public class AccountHeader {
     }
 
     /**
+     * method to build the header view
+     *
      * @return
      */
     public Result build() {
@@ -514,7 +532,7 @@ public class AccountHeader {
 
         // set the background for the section
         if (mCompactStyle) {
-            mAccountHeaderTextSection = mAccountHeaderContainer.findViewById(R.id.account_header_drawer);
+            mAccountHeaderTextSection = mAccountHeader;
         } else {
             mAccountHeaderTextSection = mAccountHeaderContainer.findViewById(R.id.account_header_drawer_text_section);
         }
@@ -575,10 +593,31 @@ public class AccountHeader {
     }
 
     /**
-     *
+     * helper method to calculate the order of the profiles
      */
     protected void calculateProfiles() {
         if (mProfiles != null) {
+            if (mCurrentProfile == null) {
+
+                int setCount = 0;
+                for (int i = 0; i < mProfiles.size(); i++) {
+                    if (mProfiles.size() > i && mProfiles.get(i).isSelectable()) {
+                        if (setCount == 0 && (mCurrentProfile == null)) {
+                            mCurrentProfile = mProfiles.get(i);
+                        } else if (setCount == 1 && (mProfileFirst == null)) {
+                            mProfileFirst = mProfiles.get(i);
+                        } else if (setCount == 2 && (mProfileSecond == null)) {
+                            mProfileSecond = mProfiles.get(i);
+                        } else if (setCount == 3 && (mProfileThird == null)) {
+                            mProfileThird = mProfiles.get(i);
+                        }
+                        setCount++;
+                    }
+                }
+
+                return;
+            }
+
             IProfile[] previousActiveProfiles = new IProfile[]{
                     mCurrentProfile,
                     mProfileFirst,
@@ -646,36 +685,76 @@ public class AccountHeader {
         }
     }
 
+    /**
+     * helper method to switch the profiles
+     *
+     * @param newSelection
+     */
     protected void switchProfiles(IProfile newSelection) {
+        if (newSelection == null) {
+            return;
+        }
         if (mCurrentProfile == newSelection) {
             return;
         }
 
-        int prevSelection = -1;
-        if (mProfileFirst == newSelection) {
-            prevSelection = 1;
-        } else if (mProfileSecond == newSelection) {
-            prevSelection = 2;
-        } else if (mProfileThird == newSelection) {
-            prevSelection = 3;
-        }
+        if (mAlternativeProfileHeaderSwitching) {
+            int prevSelection = -1;
+            if (mProfileFirst == newSelection) {
+                prevSelection = 1;
+            } else if (mProfileSecond == newSelection) {
+                prevSelection = 2;
+            } else if (mProfileThird == newSelection) {
+                prevSelection = 3;
+            }
 
-        IProfile tmp = mCurrentProfile;
-        mCurrentProfile = newSelection;
+            IProfile tmp = mCurrentProfile;
+            mCurrentProfile = newSelection;
 
-        if (prevSelection == 1) {
-            mProfileFirst = tmp;
-        } else if (prevSelection == 2) {
-            mProfileSecond = tmp;
-        } else if (prevSelection == 3) {
-            mProfileThird = tmp;
+            if (prevSelection == 1) {
+                mProfileFirst = tmp;
+            } else if (prevSelection == 2) {
+                mProfileSecond = tmp;
+            } else if (prevSelection == 3) {
+                mProfileThird = tmp;
+            }
+        } else {
+            if (mProfiles != null) {
+                ArrayList<IProfile> previousActiveProfiles = new ArrayList<>(Arrays.asList(mCurrentProfile, mProfileFirst, mProfileSecond, mProfileThird));
+
+                if (previousActiveProfiles.contains(newSelection)) {
+                    int position = -1;
+
+                    for (int i = 0; i < 4; i++) {
+                        if (previousActiveProfiles.get(i) == newSelection) {
+                            position = i;
+                            break;
+                        }
+                    }
+
+                    if (position != -1) {
+                        previousActiveProfiles.remove(position);
+                        previousActiveProfiles.add(0, newSelection);
+
+                        mCurrentProfile = previousActiveProfiles.get(0);
+                        mProfileFirst = previousActiveProfiles.get(1);
+                        mProfileSecond = previousActiveProfiles.get(2);
+                        mProfileThird = previousActiveProfiles.get(3);
+                    }
+                } else {
+                    mProfileThird = mProfileSecond;
+                    mProfileSecond = mProfileFirst;
+                    mProfileFirst = mCurrentProfile;
+                    mCurrentProfile = newSelection;
+                }
+            }
         }
 
         buildProfiles();
     }
 
     /**
-     *
+     * helper method to build the views for the ui
      */
     protected void buildProfiles() {
         mCurrentProfileView.setVisibility(View.INVISIBLE);
@@ -722,6 +801,9 @@ public class AccountHeader {
                     mProfileSecondView.setOnClickListener(onProfileClickListener);
                 }
                 mProfileSecondView.setVisibility(View.VISIBLE);
+                alignParentLayoutParam(mProfileFirstView, 0);
+            } else {
+                alignParentLayoutParam(mProfileFirstView, 1);
             }
             if (mProfileThird != null && mThreeSmallProfileImages && mProfileImagesVisible) {
                 setImageOrPlaceholder(mProfileThirdView, mProfileThird.getIcon());
@@ -730,6 +812,9 @@ public class AccountHeader {
                     mProfileThirdView.setOnClickListener(onProfileClickListener);
                 }
                 mProfileThirdView.setVisibility(View.VISIBLE);
+                alignParentLayoutParam(mProfileSecondView, 0);
+            } else {
+                alignParentLayoutParam(mProfileSecondView, 1);
             }
         } else if (mProfiles != null && mProfiles.size() > 0) {
             IProfile profile = mProfiles.get(0);
@@ -759,7 +844,22 @@ public class AccountHeader {
     }
 
     /**
-     * small helper class to set an profile image or a placeholder
+     * small helper method to change the align parent lp for the view
+     *
+     * @param view
+     * @param add
+     */
+    private void alignParentLayoutParam(View view, int add) {
+        RelativeLayout.LayoutParams lp = (RelativeLayout.LayoutParams) view.getLayoutParams();
+        lp.addRule(RelativeLayout.ALIGN_PARENT_RIGHT, add);
+        if (Build.VERSION.SDK_INT >= 17) {
+            lp.addRule(RelativeLayout.ALIGN_PARENT_END, add);
+        }
+        view.setLayoutParams(lp);
+    }
+
+    /**
+     * small helper method to set an profile image or a placeholder
      *
      * @param iv
      * @param d
