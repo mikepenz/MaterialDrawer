@@ -146,7 +146,7 @@ public class SectionDrawerItem implements IDrawerItem, Nameable<SectionDrawerIte
         if (text_color == -1 && textColorRes != -1) {
             text_color = ctx.getResources().getColor(textColorRes);
         } else if (text_color == -1) {
-            text_color = UIUtils.getThemeColor(ctx, R.attr.material_drawer_hint_text);
+            text_color = UIUtils.getThemeColorFromAttrOrRes(ctx, R.attr.material_drawer_hint_text, R.color.material_drawer_hint_text);
         }
         viewHolder.name.setTextColor(text_color);
 
@@ -161,6 +161,8 @@ public class SectionDrawerItem implements IDrawerItem, Nameable<SectionDrawerIte
         } else {
             viewHolder.divider.setVisibility(View.GONE);
         }
+        //set the color for the divider
+        viewHolder.divider.setBackgroundColor(UIUtils.getThemeColorFromAttrOrRes(parent.getContext(), R.attr.material_drawer_divider, R.color.material_drawer_divider));
 
         return convertView;
     }

@@ -7,8 +7,7 @@
         android:id="@+id/divider"
         android:layout_width="match_parent"
         android:layout_height="1dp"
-        android:layout_marginTop="@dimen/material_drawer_padding"
-        android:background="?material_drawer_divider"/>
+        android:layout_marginTop="@dimen/material_drawer_padding"/>
 
     <TextView
         android:id="@+id/name"
@@ -17,7 +16,6 @@
         android:fontFamily="sans-serif-medium"
         android:gravity="center_vertical|start"
         android:textSize="@dimen/material_drawer_item_section_text"
-        android:textColor="?material_drawer_hint_text"
         android:textDirection="anyRtl"
         android:paddingLeft="@dimen/material_drawer_vertical_padding"
         android:paddingRight="@dimen/material_drawer_vertical_padding"

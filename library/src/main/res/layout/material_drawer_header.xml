@@ -106,8 +106,7 @@
                 android:singleLine="true"
                 android:textSize="@dimen/material_drawer_account_header_text"
                 android:layout_marginLeft="@dimen/material_drawer_vertical_padding"
-                android:layout_marginStart="@dimen/material_drawer_vertical_padding"
-                android:textColor="?material_drawer_header_selection_text"/>
+                android:layout_marginStart="@dimen/material_drawer_vertical_padding"/>
 
             <TextView
                 android:id="@+id/account_header_drawer_email"
@@ -118,8 +117,7 @@
                 android:singleLine="true"
                 android:textSize="@dimen/material_drawer_account_header_text"
                 android:layout_marginLeft="@dimen/material_drawer_vertical_padding"
-                android:layout_marginStart="@dimen/material_drawer_vertical_padding"
-                android:textColor="?material_drawer_header_selection_text"/>
+                android:layout_marginStart="@dimen/material_drawer_vertical_padding"/>
 
         </LinearLayout>
 

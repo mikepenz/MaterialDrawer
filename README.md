@@ -53,9 +53,6 @@ compile('com.mikepenz.materialdrawer:library:2.0.1@aar') {
 Here's a quick overview what you have to do within your application.
 You can find a detailed description of all methods in the [WIKI](https://github.com/mikepenz/MaterialDrawer/wiki).
 
-###IMPORTANT
-**PLEASE also read the section about styles. You have to either use one of the provided themes or add the MaterialDrawer attributes to your theme. Read more here:** <https://github.com/mikepenz/MaterialDrawer/#style-the-drawer>
-
 ###Minimal SetUp
 
 ####Code:
@@ -208,7 +205,7 @@ Create your custom style and use one of the provided themes as parent. If you do
         <item name="material_drawer_divider">@color/material_drawer_divider</item>
         <item name="material_drawer_selected">@color/material_drawer_selected</item>
         <item name="material_drawer_selected_text">@color/material_drawer_selected_text</item>
-        <item name="material_drawer_header_selection_text">@color/material_drawer_icons</item>
+        <item name="material_drawer_header_selection_text">@color/material_drawer_header_selection_text</item>
     </style>
 ```
 
@@ -234,6 +231,7 @@ No need to create a custom theme. Just set these colors (or some of them) and yo
     <!-- Material DEFAULT drawer colors -->
     <color name="material_drawer_selected">#E8E8E8</color>
     <color name="material_drawer_selected_text">#2196F3</color>
+    <color name="material_drawer_header_selection_text">#FFF</color>
     
     <!-- OVERWRITE THESE COLORS FOR A DARK THEME -->
     <!-- MaterialDrawer DEFAULT DARK colors -->
@@ -248,6 +246,7 @@ No need to create a custom theme. Just set these colors (or some of them) and yo
     <!-- MaterialDrawer DEFAULT DARK drawer colors -->
     <color name="material_drawer_dark_selected">#202020</color>
     <color name="material_drawer_dark_selected_text">@color/material_drawer_primary</color>
+    <color name="material_drawer_dark_header_selection_text">#FFF</color>
 ```
 
 #Credits

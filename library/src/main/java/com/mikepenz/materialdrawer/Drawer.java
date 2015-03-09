@@ -28,6 +28,7 @@ import com.mikepenz.materialdrawer.model.interfaces.Checkable;
 import com.mikepenz.materialdrawer.model.interfaces.IDrawerItem;
 import com.mikepenz.materialdrawer.model.interfaces.Iconable;
 import com.mikepenz.materialdrawer.model.interfaces.Nameable;
+import com.mikepenz.materialdrawer.util.UIUtils;
 
 import java.util.ArrayList;
 import java.util.Collections;
@@ -741,6 +742,7 @@ public class Drawer {
 
         // get the slider view
         mSliderLayout = (LinearLayout) mActivity.getLayoutInflater().inflate(R.layout.material_drawer_slider, mDrawerLayout, false);
+        mSliderLayout.setBackgroundColor(UIUtils.getThemeColorFromAttrOrRes(mActivity, R.attr.material_drawer_background, R.color.material_drawer_background));
         // get the layout params
         DrawerLayout.LayoutParams params = (DrawerLayout.LayoutParams) mSliderLayout.getLayoutParams();
         // if we've set a custom gravity set it
@@ -801,6 +803,7 @@ public class Drawer {
 
         // get the slider view
         mSliderLayout = (LinearLayout) mActivity.getLayoutInflater().inflate(R.layout.material_drawer_slider, mDrawerLayout, false);
+        mSliderLayout.setBackgroundColor(UIUtils.getThemeColorFromAttrOrRes(mActivity, R.attr.material_drawer_background, R.color.material_drawer_background));
         // get the layout params
         DrawerLayout.LayoutParams params = (DrawerLayout.LayoutParams) mSliderLayout.getLayoutParams();
         // set the gravity of this drawerGravity
@@ -869,6 +872,9 @@ public class Drawer {
             if (mHeaderDivider) {
                 LinearLayout headerContainer = (LinearLayout) mActivity.getLayoutInflater().inflate(R.layout.material_drawer_item_header, mListView, false);
                 headerContainer.addView(mHeaderView, 0);
+                //set the color for the divider
+                headerContainer.findViewById(R.id.divider).setBackgroundColor(UIUtils.getThemeColorFromAttrOrRes(mActivity, R.attr.material_drawer_divider, R.color.material_drawer_divider));
+                //add the headerContainer to the list
                 mListView.addHeaderView(headerContainer, null, mHeaderClickable);
                 mListView.setPadding(0, 0, 0, 0);
                 //link the view including the container to the headerView field
@@ -888,6 +894,9 @@ public class Drawer {
             if (mFooterDivider) {
                 LinearLayout footerContainer = (LinearLayout) mActivity.getLayoutInflater().inflate(R.layout.material_drawer_item_footer, mListView, false);
                 footerContainer.addView(mFooterView, 1);
+                //set the color for the divider
+                footerContainer.findViewById(R.id.divider).setBackgroundColor(UIUtils.getThemeColorFromAttrOrRes(mActivity, R.attr.material_drawer_divider, R.color.material_drawer_divider));
+                //add the footerContainer to the list
                 mListView.addFooterView(footerContainer, null, mFooterClickable);
                 //link the view including the container to the footerView field
                 mFooterView = footerContainer;

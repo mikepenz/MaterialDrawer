@@ -50,6 +50,22 @@ public class UIUtils {
         return -1;
     }
 
+    /**
+     * helper method to get the color by attr (which is defined in the style) or by resource.
+     *
+     * @param ctx
+     * @param attr
+     * @param res
+     * @return
+     */
+    public static int getThemeColorFromAttrOrRes(Context ctx, int attr, int res) {
+        int color = getThemeColor(ctx, attr);
+        if (color == -1) {
+            color = ctx.getResources().getColor(res);
+        }
+        return color;
+    }
+
     @SuppressLint("NewApi")
     public static void setBackground(View v, Drawable d) {
         int sdk = android.os.Build.VERSION.SDK_INT;

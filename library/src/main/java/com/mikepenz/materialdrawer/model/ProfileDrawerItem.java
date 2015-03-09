@@ -227,7 +227,7 @@ public class ProfileDrawerItem implements IDrawerItem, IProfile<ProfileDrawerIte
         if (selected_color == -1 && selectedColorRes != -1) {
             selected_color = ctx.getResources().getColor(selectedColorRes);
         } else if (selected_color == -1) {
-            selected_color = UIUtils.getThemeColor(ctx, R.attr.material_drawer_selected);
+            selected_color = UIUtils.getThemeColorFromAttrOrRes(ctx, R.attr.material_drawer_selected, R.color.material_drawer_selected);
         }
         UIUtils.setBackground(viewHolder.view, UIUtils.getDrawerItemBackground(ctx, selected_color));
 
@@ -243,7 +243,7 @@ public class ProfileDrawerItem implements IDrawerItem, IProfile<ProfileDrawerIte
         if (color == -1 && textColorRes != -1) {
             color = ctx.getResources().getColor(textColorRes);
         } else if (color == -1) {
-            color = UIUtils.getThemeColor(ctx, R.attr.material_drawer_primary_text);
+            color = UIUtils.getThemeColorFromAttrOrRes(ctx, R.attr.material_drawer_primary_text, R.color.material_drawer_primary_text);
         }
         if (nameShown) {
             viewHolder.name.setTextColor(color);

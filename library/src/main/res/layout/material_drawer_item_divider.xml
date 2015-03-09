@@ -4,7 +4,8 @@
                 android:layout_height="wrap_content"
                 android:paddingTop="@dimen/material_drawer_padding"
                 android:paddingBottom="@dimen/material_drawer_padding">
-    <View android:layout_width="match_parent"
-          android:layout_height="1dp"
-          android:background="?material_drawer_divider"/>
+    <View
+        android:id="@+id/divider"
+        android:layout_width="match_parent"
+        android:layout_height="1dp"/>
 </RelativeLayout>
