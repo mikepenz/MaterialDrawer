@@ -29,4 +29,7 @@ public interface IProfile<T> {
     public boolean isSelectable();
 
     public T setSelectable(boolean selectable);
+
+    public int getIdentifier();
+
 }

@@ -22,6 +22,7 @@ import com.mikepenz.materialdrawer.Drawer;
 import com.mikepenz.materialdrawer.R;
 import com.mikepenz.materialdrawer.model.interfaces.IDrawerItem;
 import com.mikepenz.materialdrawer.model.interfaces.IProfile;
+import com.mikepenz.materialdrawer.model.interfaces.Identifyable;
 import com.mikepenz.materialdrawer.util.UIUtils;
 import com.mikepenz.materialdrawer.view.CircularImageView;
 
@@ -1109,6 +1110,33 @@ public class AccountHeader {
         public void setProfiles(ArrayList<IProfile> profiles) {
             mAccountHeader.mProfiles = profiles;
             mAccountHeader.updateHeaderAndList();
+        }
+
+        /**
+         * Selects the given profile and sets it to the new active profile
+         *
+         * @param profile
+         */
+        public void setActiveProfile(IProfile profile) {
+            mAccountHeader.switchProfiles(profile);
+        }
+
+        /**
+         * Selects a profile by its identifier
+         *
+         * @param identifier
+         */
+        public void setActiveProfile(int identifier) {
+            if (mAccountHeader.mProfiles != null) {
+                for (IProfile profile : mAccountHeader.mProfiles) {
+                    if (profile instanceof Identifyable) {
+                        if (profile.getIdentifier() == identifier) {
+                            mAccountHeader.switchProfiles(profile);
+                            return;
+                        }
+                    }
+                }
+            }
         }
 
         /**

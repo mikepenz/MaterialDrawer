@@ -15,6 +15,7 @@ import com.mikepenz.materialdrawer.model.interfaces.Badgeable;
 import com.mikepenz.materialdrawer.model.interfaces.Checkable;
 import com.mikepenz.materialdrawer.model.interfaces.IDrawerItem;
 import com.mikepenz.materialdrawer.model.interfaces.Iconable;
+import com.mikepenz.materialdrawer.model.interfaces.Identifyable;
 import com.mikepenz.materialdrawer.model.interfaces.Nameable;
 import com.mikepenz.materialdrawer.model.interfaces.Tagable;
 import com.mikepenz.materialdrawer.util.UIUtils;
@@ -22,7 +23,7 @@ import com.mikepenz.materialdrawer.util.UIUtils;
 /**
  * Created by mikepenz on 03.02.15.
  */
-public class SecondaryDrawerItem implements IDrawerItem, Nameable<SecondaryDrawerItem>, Iconable<SecondaryDrawerItem>, Badgeable<SecondaryDrawerItem>, Checkable<SecondaryDrawerItem>, Tagable<SecondaryDrawerItem> {
+public class SecondaryDrawerItem implements IDrawerItem, Nameable<SecondaryDrawerItem>, Iconable<SecondaryDrawerItem>, Badgeable<SecondaryDrawerItem>, Checkable<SecondaryDrawerItem>, Tagable<SecondaryDrawerItem>, Identifyable<SecondaryDrawerItem> {
 
     private int identifier = -1;
     private Drawable icon;
