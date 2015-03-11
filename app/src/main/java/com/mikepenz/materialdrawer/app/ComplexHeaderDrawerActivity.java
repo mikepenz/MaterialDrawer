@@ -5,6 +5,7 @@ import android.graphics.Color;
 import android.os.Bundle;
 import android.support.v7.app.ActionBarActivity;
 import android.support.v7.widget.Toolbar;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
@@ -129,12 +130,19 @@ public class ComplexHeaderDrawerActivity extends ActionBarActivity {
                         }
                     }
                 })
+                .withOnDrawerNavigationListener(new Drawer.OnDrawerNavigationListener() {
+                    @Override
+                    public boolean onNavigationClickListener(View clickedView) {
+                        Log.i("materialdrawer", "onNavigationClick");
+
+                        return false;
+                    }
+                })
                 .withSavedInstance(savedInstanceState)
                 .build();
 
         // set the selection to the item with the identifier 5
         result.setSelectionByIdentifier(5, false);
-
 
         headerResult.setActiveProfile(profile3);
     }
