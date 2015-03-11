@@ -633,6 +633,21 @@ public class Drawer {
         return this;
     }
 
+    // onDrawerListener
+    protected OnDrawerNavigationListener mOnDrawerNavigationListener;
+
+    /**
+     * Define a OnDrawerNavigationListener for this Drawer
+     *
+     * @param onDrawerNavigationListener
+     * @return this
+     */
+    public Drawer withOnDrawerNavigationListener(OnDrawerNavigationListener onDrawerNavigationListener) {
+        this.mOnDrawerNavigationListener = onDrawerNavigationListener;
+        return this;
+    }
+
+
     // savedInstance to restore state
     protected Bundle mSavedInstance;
 
@@ -694,10 +709,18 @@ public class Drawer {
             this.mToolbar.setNavigationOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    if (mDrawerLayout.isDrawerOpen(mSliderLayout)) {
-                        mDrawerLayout.closeDrawer(mSliderLayout);
-                    } else {
-                        mDrawerLayout.openDrawer(mSliderLayout);
+                    boolean handled = false;
+
+                    if (!mActionBarDrawerToggle.isDrawerIndicatorEnabled() && mOnDrawerNavigationListener!= null)
+                    {
+                        handled = mOnDrawerNavigationListener.onNavigationClickListener(v);
+                    }
+                    if (!handled) {
+                        if (mDrawerLayout.isDrawerOpen(mSliderLayout)) {
+                            mDrawerLayout.closeDrawer(mSliderLayout);
+                        } else {
+                            mDrawerLayout.openDrawer(mSliderLayout);
+                        }
                     }
                 }
             });
@@ -1673,6 +1696,10 @@ public class Drawer {
             }
             return savedInstanceState;
         }
+    }
+
+    public interface OnDrawerNavigationListener {
+        public boolean onNavigationClickListener(View clickedView);
     }
 
 
