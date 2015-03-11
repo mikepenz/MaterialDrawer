@@ -5,6 +5,9 @@ import android.graphics.Color;
 import android.os.Bundle;
 import android.support.v7.app.ActionBarActivity;
 import android.support.v7.widget.Toolbar;
+import android.view.Menu;
+import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
 
@@ -23,12 +26,14 @@ import com.mikepenz.materialdrawer.model.SectionDrawerItem;
 import com.mikepenz.materialdrawer.model.interfaces.IDrawerItem;
 import com.mikepenz.materialdrawer.model.interfaces.IProfile;
 
-public class SimpleHeaderDrawerActivity extends ActionBarActivity {
+public class ComplexHeaderDrawerActivity extends ActionBarActivity {
     private static final int PROFILE_SETTING = 1;
 
     //save our header or result
     private AccountHeader.Result headerResult = null;
     private Drawer.Result result = null;
+
+    private IProfile profile2;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -41,7 +46,7 @@ public class SimpleHeaderDrawerActivity extends ActionBarActivity {
 
         // Create a few sample profile
         final IProfile profile = new ProfileDrawerItem().withName("Mike Penz").withEmail("mikepenz@gmail.com").withIcon(getResources().getDrawable(R.drawable.profile));
-        final IProfile profile2 = new ProfileDrawerItem().withName("Max Muster").withEmail("max.mustermann@gmail.com").withIcon(getResources().getDrawable(R.drawable.profile2));
+        profile2 = new ProfileDrawerItem().withName("Max Muster").withEmail("max.mustermann@gmail.com").withIcon(getResources().getDrawable(R.drawable.profile2)).withIdentifier(2);
         final IProfile profile3 = new ProfileDrawerItem().withName("Felix House").withEmail("felix.house@gmail.com").withIcon(getResources().getDrawable(R.drawable.profile3));
         final IProfile profile4 = new ProfileDrawerItem().withName("Mr. X").withEmail("mister.x.super@gmail.com").withIcon(getResources().getDrawable(R.drawable.profile4)).withIdentifier(4);
         final IProfile profile5 = new ProfileDrawerItem().withName("Batman").withEmail("batman@gmail.com").withIcon(getResources().getDrawable(R.drawable.profile5));
@@ -89,7 +94,6 @@ public class SimpleHeaderDrawerActivity extends ActionBarActivity {
                         new PrimaryDrawerItem().withName(R.string.drawer_item_action_bar).withIcon(FontAwesome.Icon.faw_home).withIdentifier(1).withCheckable(false),
                         new PrimaryDrawerItem().withName(R.string.drawer_item_multi_drawer).withIcon(FontAwesome.Icon.faw_gamepad).withIdentifier(2).withCheckable(false),
                         new PrimaryDrawerItem().withName(R.string.drawer_item_non_translucent_status_drawer).withIcon(FontAwesome.Icon.faw_eye).withIdentifier(3).withCheckable(false),
-                        new PrimaryDrawerItem().withName(R.string.drawer_item_complex_header_drawer).withIcon(GoogleMaterial.Icon.gmd_adb).withIdentifier(6).withCheckable(false),
                         new SectionDrawerItem().withName(R.string.drawer_item_section_header),
                         new SecondaryDrawerItem().withName(R.string.drawer_item_settings).withIcon(FontAwesome.Icon.faw_cog).withIdentifier(5).withTextColor(Color.RED),
                         new SecondaryDrawerItem().withName(R.string.drawer_item_help).withIcon(FontAwesome.Icon.faw_question).setEnabled(false),
@@ -108,22 +112,19 @@ public class SimpleHeaderDrawerActivity extends ActionBarActivity {
 
                         if (drawerItem != null) {
                             if (drawerItem.getIdentifier() == 100) {
-                                Intent intent = new Intent(SimpleHeaderDrawerActivity.this, SimpleCompactHeaderDrawerActivity.class);
-                                SimpleHeaderDrawerActivity.this.startActivity(intent);
+                                Intent intent = new Intent(ComplexHeaderDrawerActivity.this, SimpleCompactHeaderDrawerActivity.class);
+                                ComplexHeaderDrawerActivity.this.startActivity(intent);
                             } else if (drawerItem.getIdentifier() == 1) {
-                                Intent intent = new Intent(SimpleHeaderDrawerActivity.this, ActionBarDrawerActivity.class);
-                                SimpleHeaderDrawerActivity.this.startActivity(intent);
+                                Intent intent = new Intent(ComplexHeaderDrawerActivity.this, ActionBarDrawerActivity.class);
+                                ComplexHeaderDrawerActivity.this.startActivity(intent);
                             } else if (drawerItem.getIdentifier() == 2) {
-                                Intent intent = new Intent(SimpleHeaderDrawerActivity.this, MultiDrawerActivity.class);
-                                SimpleHeaderDrawerActivity.this.startActivity(intent);
+                                Intent intent = new Intent(ComplexHeaderDrawerActivity.this, MultiDrawerActivity.class);
+                                ComplexHeaderDrawerActivity.this.startActivity(intent);
                             } else if (drawerItem.getIdentifier() == 3) {
-                                Intent intent = new Intent(SimpleHeaderDrawerActivity.this, SimpleNonTranslucentDrawerActivity.class);
-                                SimpleHeaderDrawerActivity.this.startActivity(intent);
-                            } else if (drawerItem.getIdentifier() == 6) {
-                                Intent intent = new Intent(SimpleHeaderDrawerActivity.this, ComplexHeaderDrawerActivity.class);
-                                SimpleHeaderDrawerActivity.this.startActivity(intent);
+                                Intent intent = new Intent(ComplexHeaderDrawerActivity.this, SimpleNonTranslucentDrawerActivity.class);
+                                ComplexHeaderDrawerActivity.this.startActivity(intent);
                             } else if (drawerItem.getIdentifier() == 4) {
-                                new Libs.Builder().withFields(R.string.class.getFields()).withActivityTheme(R.style.MaterialDrawerTheme_ActionBar).start(SimpleHeaderDrawerActivity.this);
+                                new Libs.Builder().withFields(R.string.class.getFields()).withActivityTheme(R.style.MaterialDrawerTheme_ActionBar).start(ComplexHeaderDrawerActivity.this);
                             }
                         }
                     }
@@ -134,7 +135,29 @@ public class SimpleHeaderDrawerActivity extends ActionBarActivity {
         // set the selection to the item with the identifier 5
         result.setSelectionByIdentifier(5, false);
 
+
         headerResult.setActiveProfile(profile3);
+    }
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        MenuInflater inflater = getMenuInflater();
+        inflater.inflate(R.menu.main, menu);
+        return true;
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        // Handle item selection
+        switch (item.getItemId()) {
+            case R.id.menu_1:
+                //update the profile2 and set a new image.
+                profile2.setIcon(new IconicsDrawable(this, GoogleMaterial.Icon.gmd_android).backgroundColorRes(R.color.accent).sizeDp(48).paddingDp(4));
+                headerResult.updateProfileByIdentifier(profile2);
+                return true;
+            default:
+                return super.onOptionsItemSelected(item);
+        }
     }
 
     @Override
