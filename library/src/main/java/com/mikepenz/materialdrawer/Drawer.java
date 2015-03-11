@@ -1448,7 +1448,7 @@ public class Drawer {
          * @param drawerItems
          * @param switchedItems
          */
-        public void setItems(ArrayList<IDrawerItem> drawerItems, boolean switchedItems) {
+        private void setItems(ArrayList<IDrawerItem> drawerItems, boolean switchedItems) {
             mDrawer.mDrawerItems = drawerItems;
 
             //if we are currently at a switched list set the new reference
