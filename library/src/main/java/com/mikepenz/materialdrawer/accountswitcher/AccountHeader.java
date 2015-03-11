@@ -127,7 +127,7 @@ public class AccountHeader {
     }
 
     //the background color for the slider
-    protected int mTextColor = -1;
+    protected int mTextColor = 0;
     protected int mTextColorRes = -1;
 
     /**
@@ -524,7 +524,7 @@ public class AccountHeader {
 
         // get the text color to use for the text section
         int textColor = mTextColor;
-        if (textColor == -1 && mTextColorRes != -1) {
+        if (textColor == 0 && mTextColorRes != -1) {
             textColor = mActivity.getResources().getColor(mTextColorRes);
         } else {
             textColor = UIUtils.getThemeColorFromAttrOrRes(mActivity, R.attr.material_drawer_header_selection_text, R.color.material_drawer_header_selection_text);

@@ -156,7 +156,7 @@ public class Drawer {
     }
 
     //the background color for the slider
-    protected int mSliderBackgroundColor = -1;
+    protected int mSliderBackgroundColor = 0;
     protected int mSliderBackgroundColorRes = -1;
 
     /**
@@ -755,7 +755,7 @@ public class Drawer {
         mSliderLayout.setLayoutParams(params);
 
         // set the background
-        if (mSliderBackgroundColor != -1) {
+        if (mSliderBackgroundColor != 0) {
             mSliderLayout.setBackgroundColor(mSliderBackgroundColor);
         } else if (mSliderBackgroundColorRes != -1) {
             mSliderLayout.setBackgroundColor(mActivity.getResources().getColor(mSliderBackgroundColorRes));

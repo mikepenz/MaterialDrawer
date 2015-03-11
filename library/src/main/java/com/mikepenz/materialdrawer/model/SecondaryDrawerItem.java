@@ -38,16 +38,16 @@ public class SecondaryDrawerItem implements IDrawerItem, Nameable<SecondaryDrawe
     private boolean checkable = true;
     private Object tag;
 
-    private int selectedColor = -1;
+    private int selectedColor = 0;
     private int selectedColorRes = -1;
 
-    private int textColor = -1;
+    private int textColor = 0;
     private int textColorRes = -1;
 
-    private int selectedTextColor = -1;
+    private int selectedTextColor = 0;
     private int selectedTextColorRes = -1;
 
-    private int disabledColor = -1;
+    private int disabledColor = 0;
     private int disabledColorRes = -1;
 
     public SecondaryDrawerItem withIdentifier(int identifier) {
@@ -337,9 +337,9 @@ public class SecondaryDrawerItem implements IDrawerItem, Nameable<SecondaryDrawe
         }
 
         int selected_color = selectedColor;
-        if (selected_color == -1 && selectedColorRes != -1) {
+        if (selected_color == 0 && selectedColorRes != -1) {
             selected_color = ctx.getResources().getColor(selectedColorRes);
-        } else if (selected_color == -1) {
+        } else if (selected_color == 0) {
             selected_color = UIUtils.getThemeColorFromAttrOrRes(ctx, R.attr.material_drawer_selected, R.color.material_drawer_selected);
         }
         UIUtils.setBackground(viewHolder.view, UIUtils.getDrawerItemBackground(ctx, selected_color));
@@ -358,9 +358,9 @@ public class SecondaryDrawerItem implements IDrawerItem, Nameable<SecondaryDrawe
         }
 
         int selected_text = selectedTextColor;
-        if (selected_text == -1 && selectedTextColorRes != -1) {
+        if (selected_text == 0 && selectedTextColorRes != -1) {
             selected_text = ctx.getResources().getColor(selectedTextColorRes);
-        } else if (selected_text == -1) {
+        } else if (selected_text == 0) {
             selected_text = UIUtils.getThemeColorFromAttrOrRes(ctx, R.attr.material_drawer_selected_text, R.color.material_drawer_selected_text);
         }
 
@@ -368,18 +368,18 @@ public class SecondaryDrawerItem implements IDrawerItem, Nameable<SecondaryDrawe
 
         if (this.isEnabled()) {
             color = textColor;
-            if (color == -1 && textColorRes != -1) {
+            if (color == 0 && textColorRes != -1) {
                 color = ctx.getResources().getColor(textColorRes);
-            } else if (color == -1) {
+            } else if (color == 0) {
                 color = UIUtils.getThemeColorFromAttrOrRes(ctx, R.attr.material_drawer_secondary_text, R.color.material_drawer_secondary_text);
             }
             viewHolder.name.setTextColor(UIUtils.getTextColor(color, selected_text));
             viewHolder.badge.setTextColor(UIUtils.getTextColor(color, selected_text));
         } else {
             color = disabledColor;
-            if (color == -1 && disabledColorRes != -1) {
+            if (color == 0 && disabledColorRes != -1) {
                 color = ctx.getResources().getColor(disabledColorRes);
-            } else if (color == -1) {
+            } else if (color == 0) {
                 color = UIUtils.getThemeColorFromAttrOrRes(ctx, R.attr.material_drawer_hint_text, R.color.material_drawer_hint_text);
             }
             viewHolder.name.setTextColor(color);

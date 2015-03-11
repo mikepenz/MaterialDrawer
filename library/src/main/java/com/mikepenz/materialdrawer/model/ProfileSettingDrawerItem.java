@@ -35,10 +35,10 @@ public class ProfileSettingDrawerItem implements IDrawerItem, IProfile<ProfileSe
     private boolean enabled = true;
     private Object tag;
 
-    private int selectedColor = -1;
+    private int selectedColor = 0;
     private int selectedColorRes = -1;
 
-    private int textColor = -1;
+    private int textColor = 0;
     private int textColorRes = -1;
 
     public ProfileSettingDrawerItem withIdentifier(int identifier) {
@@ -241,9 +241,9 @@ public class ProfileSettingDrawerItem implements IDrawerItem, IProfile<ProfileSe
         }
 
         int selected_color = selectedColor;
-        if (selected_color == -1 && selectedColorRes != -1) {
+        if (selected_color == 0 && selectedColorRes != -1) {
             selected_color = ctx.getResources().getColor(selectedColorRes);
-        } else if (selected_color == -1) {
+        } else if (selected_color == 0) {
             selected_color = UIUtils.getThemeColorFromAttrOrRes(ctx, R.attr.material_drawer_selected, R.color.material_drawer_selected);
         }
         UIUtils.setBackground(viewHolder.view, UIUtils.getDrawerItemBackground(ctx, selected_color));
@@ -251,9 +251,9 @@ public class ProfileSettingDrawerItem implements IDrawerItem, IProfile<ProfileSe
         viewHolder.name.setText(this.getName());
 
         int color = textColor;
-        if (color == -1 && textColorRes != -1) {
+        if (color == 0 && textColorRes != -1) {
             color = ctx.getResources().getColor(textColorRes);
-        } else if (color == -1) {
+        } else if (color == 0) {
             color = UIUtils.getThemeColorFromAttrOrRes(ctx, R.attr.material_drawer_primary_text, R.color.material_drawer_primary_text);
         }
         viewHolder.name.setTextColor(color);

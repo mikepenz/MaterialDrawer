@@ -47,7 +47,7 @@ public class UIUtils {
         if (ctx.getTheme().resolveAttribute(attr, tv, true)) {
             return tv.data;
         }
-        return -1;
+        return 0;
     }
 
     /**
@@ -60,7 +60,7 @@ public class UIUtils {
      */
     public static int getThemeColorFromAttrOrRes(Context ctx, int attr, int res) {
         int color = getThemeColor(ctx, attr);
-        if (color == -1) {
+        if (color == 0) {
             color = ctx.getResources().getColor(res);
         }
         return color;

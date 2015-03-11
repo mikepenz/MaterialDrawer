@@ -22,7 +22,7 @@ public class SectionDrawerItem implements IDrawerItem, Nameable<SectionDrawerIte
     private boolean divider = true;
     private Object tag;
 
-    private int textColor = -1;
+    private int textColor = 0;
     private int textColorRes = -1;
 
 
@@ -143,9 +143,9 @@ public class SectionDrawerItem implements IDrawerItem, Nameable<SectionDrawerIte
         viewHolder.view.setEnabled(false);
 
         int text_color = textColor;
-        if (text_color == -1 && textColorRes != -1) {
+        if (text_color == 0 && textColorRes != -1) {
             text_color = ctx.getResources().getColor(textColorRes);
-        } else if (text_color == -1) {
+        } else if (text_color == 0) {
             text_color = UIUtils.getThemeColorFromAttrOrRes(ctx, R.attr.material_drawer_hint_text, R.color.material_drawer_hint_text);
         }
         viewHolder.name.setTextColor(text_color);
