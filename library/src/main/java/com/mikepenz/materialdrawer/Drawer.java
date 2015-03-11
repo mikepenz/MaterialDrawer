@@ -711,8 +711,7 @@ public class Drawer {
                 public void onClick(View v) {
                     boolean handled = false;
 
-                    if (!mActionBarDrawerToggle.isDrawerIndicatorEnabled() && mOnDrawerNavigationListener!= null)
-                    {
+                    if ((mActionBarDrawerToggle != null && !mActionBarDrawerToggle.isDrawerIndicatorEnabled()) || mOnDrawerNavigationListener != null) {
                         handled = mOnDrawerNavigationListener.onNavigationClickListener(v);
                     }
                     if (!handled) {
@@ -1701,7 +1700,6 @@ public class Drawer {
     public interface OnDrawerNavigationListener {
         public boolean onNavigationClickListener(View clickedView);
     }
-
 
     public interface OnDrawerItemClickListener {
         public void onItemClick(AdapterView<?> parent, View view, int position, long id, IDrawerItem drawerItem);
