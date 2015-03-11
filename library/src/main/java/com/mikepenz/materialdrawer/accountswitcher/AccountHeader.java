@@ -1140,6 +1140,25 @@ public class AccountHeader {
         }
 
         /**
+         * Helper method to update a profile using it's identifier
+         *
+         * @param newProfile
+         */
+        public void updateProfileByIdentifier(IProfile newProfile) {
+            if (mAccountHeader.mProfiles != null) {
+                for (IProfile profile : mAccountHeader.mProfiles) {
+                    if (profile instanceof Identifyable) {
+                        if (profile.getIdentifier() == newProfile.getIdentifier()) {
+                            profile = newProfile;
+                            mAccountHeader.updateHeaderAndList();
+                            return;
+                        }
+                    }
+                }
+            }
+        }
+
+        /**
          * Add new profiles to the existing list of profiles
          *
          * @param profiles
