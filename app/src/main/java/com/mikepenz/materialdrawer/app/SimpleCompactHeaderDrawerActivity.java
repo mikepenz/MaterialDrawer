@@ -3,6 +3,7 @@ package com.mikepenz.materialdrawer.app;
 import android.os.Bundle;
 import android.support.v7.app.ActionBarActivity;
 import android.support.v7.widget.Toolbar;
+import android.view.MenuItem;
 
 import com.mikepenz.google_material_typeface_library.GoogleMaterial;
 import com.mikepenz.iconics.IconicsDrawable;
@@ -60,7 +61,6 @@ public class SimpleCompactHeaderDrawerActivity extends ActionBarActivity {
         //Create the drawer
         result = new Drawer()
                 .withActivity(this)
-                .withToolbar(toolbar)
                 .withAccountHeader(headerResult) //set the AccountHeader we created earlier for the header
                 .addDrawerItems(
                         new PrimaryDrawerItem().withName(R.string.drawer_item_home).withIcon(FontAwesome.Icon.faw_home),
@@ -77,6 +77,10 @@ public class SimpleCompactHeaderDrawerActivity extends ActionBarActivity {
 
         // set the selection to the item with the identifier 5
         result.setSelectionByIdentifier(5, false);
+
+        //set the back arrow in the toolbar
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        getSupportActionBar().setHomeButtonEnabled(false);
     }
 
     @Override
@@ -86,6 +90,19 @@ public class SimpleCompactHeaderDrawerActivity extends ActionBarActivity {
         //add the values which need to be saved from the accountHeader to the bundle
         outState = headerResult.saveInstanceState(outState);
         super.onSaveInstanceState(outState);
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        //handle the click on the back arrow click
+        switch (item.getItemId()) {
+            case android.R.id.home:
+                onBackPressed();
+                return true;
+
+            default:
+                return super.onOptionsItemSelected(item);
+        }
     }
 
     @Override
