@@ -18,7 +18,7 @@ public class UIUtils {
         return new ColorStateList(
                 new int[][]{
                         new int[]{android.R.attr.state_activated},
-                        new int[]{android.R.attr.state_enabled}
+                        new int[]{}
                 },
                 new int[]{
                         selected_text_color,
@@ -30,15 +30,14 @@ public class UIUtils {
     public static StateListDrawable getIconColor(Drawable icon, Drawable selectedIcon) {
         StateListDrawable iconStateListDrawable = new StateListDrawable();
         iconStateListDrawable.addState(new int[]{android.R.attr.state_activated}, selectedIcon);
-        iconStateListDrawable.addState(new int[]{android.R.attr.state_enabled}, icon);
+        iconStateListDrawable.addState(new int[]{}, icon);
         return iconStateListDrawable;
     }
 
-    public static StateListDrawable getDrawerItemBackground(Context ctx, int selected_color) {
+    public static StateListDrawable getDrawerItemBackground(int selected_color) {
         ColorDrawable clrActive = new ColorDrawable(selected_color);
         StateListDrawable states = new StateListDrawable();
         states.addState(new int[]{android.R.attr.state_activated}, clrActive);
-
         return states;
     }
 

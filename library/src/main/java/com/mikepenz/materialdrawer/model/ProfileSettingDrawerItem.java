@@ -246,7 +246,7 @@ public class ProfileSettingDrawerItem implements IDrawerItem, IProfile<ProfileSe
         } else if (selected_color == 0) {
             selected_color = UIUtils.getThemeColorFromAttrOrRes(ctx, R.attr.material_drawer_selected, R.color.material_drawer_selected);
         }
-        UIUtils.setBackground(viewHolder.view, UIUtils.getDrawerItemBackground(ctx, selected_color));
+        UIUtils.setBackground(viewHolder.view, UIUtils.getDrawerItemBackground(selected_color));
 
         viewHolder.name.setText(this.getName());
 

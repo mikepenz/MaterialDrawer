@@ -18,6 +18,7 @@ import com.mikepenz.materialdrawer.model.interfaces.Iconable;
 import com.mikepenz.materialdrawer.model.interfaces.Identifyable;
 import com.mikepenz.materialdrawer.model.interfaces.Nameable;
 import com.mikepenz.materialdrawer.model.interfaces.Tagable;
+import com.mikepenz.materialdrawer.util.PressedEffectStateListDrawable;
 import com.mikepenz.materialdrawer.util.UIUtils;
 
 /**
@@ -40,6 +41,7 @@ public class PrimaryDrawerItem implements IDrawerItem, Nameable<PrimaryDrawerIte
 
     private int selectedColor = 0;
     private int selectedColorRes = -1;
+    private boolean selectedIconTinted = false;
 
     private int textColor = 0;
     private int textColorRes = -1;
@@ -150,6 +152,11 @@ public class PrimaryDrawerItem implements IDrawerItem, Nameable<PrimaryDrawerIte
         return this;
     }
 
+    public PrimaryDrawerItem withTintSelectedIcon(boolean tintSelectedIcon) {
+        this.selectedIconTinted = tintSelectedIcon;
+        return this;
+    }
+
     public int getSelectedColor() {
         return selectedColor;
     }
@@ -212,6 +219,14 @@ public class PrimaryDrawerItem implements IDrawerItem, Nameable<PrimaryDrawerIte
 
     public void setDisabledColorRes(int disabledColorRes) {
         this.disabledColorRes = disabledColorRes;
+    }
+
+    public boolean isSelectedIconTinted() {
+        return selectedIconTinted;
+    }
+
+    public void setSelectedIconTinted(boolean selectedIconTinted) {
+        this.selectedIconTinted = selectedIconTinted;
     }
 
     @Override
@@ -346,7 +361,7 @@ public class PrimaryDrawerItem implements IDrawerItem, Nameable<PrimaryDrawerIte
         } else if (selected_color == 0) {
             selected_color = UIUtils.getThemeColorFromAttrOrRes(ctx, R.attr.material_drawer_selected, R.color.material_drawer_selected);
         }
-        UIUtils.setBackground(viewHolder.view, UIUtils.getDrawerItemBackground(ctx, selected_color));
+        UIUtils.setBackground(viewHolder.view, UIUtils.getDrawerItemBackground(selected_color));
 
         if (this.getNameRes() != -1) {
             viewHolder.name.setText(this.getNameRes());
@@ -397,6 +412,8 @@ public class PrimaryDrawerItem implements IDrawerItem, Nameable<PrimaryDrawerIte
 
             if (this.getSelectedIcon() != null) {
                 selectedIcon = this.getSelectedIcon();
+            } else if (this.isSelectedIconTinted()) {
+                icon = new PressedEffectStateListDrawable(icon, selected_text);
             }
         } else if (this.getIIcon() != null) {
             icon = new IconicsDrawable(ctx, this.getIIcon()).color(color).actionBarSize().paddingDp(1);
