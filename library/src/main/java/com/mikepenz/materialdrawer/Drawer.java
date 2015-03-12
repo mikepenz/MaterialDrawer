@@ -711,7 +711,7 @@ public class Drawer {
                 public void onClick(View v) {
                     boolean handled = false;
 
-                    if ((mActionBarDrawerToggle != null && !mActionBarDrawerToggle.isDrawerIndicatorEnabled()) || mOnDrawerNavigationListener != null) {
+                    if (mOnDrawerNavigationListener != null && (mActionBarDrawerToggle != null && !mActionBarDrawerToggle.isDrawerIndicatorEnabled())) {
                         handled = mOnDrawerNavigationListener.onNavigationClickListener(v);
                     }
                     if (!handled) {
@@ -720,7 +720,7 @@ public class Drawer {
                         } else {
                             mDrawerLayout.openDrawer(mSliderLayout);
                         }
-                    }
+                    }   
                 }
             });
         }
