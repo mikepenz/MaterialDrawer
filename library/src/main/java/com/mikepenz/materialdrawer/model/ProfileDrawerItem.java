@@ -238,7 +238,15 @@ public class ProfileDrawerItem implements IDrawerItem, IProfile<ProfileDrawerIte
         } else {
             viewHolder.name.setVisibility(View.GONE);
         }
-        viewHolder.email.setText(this.getEmail());
+        //the MaterialDrawer follows the Google Apps. those only show the e-mail
+        //within the profile switcher. The problem this causes some confusion for
+        //some developers. And if you only set the name, the item would be empty
+        //so here's a small fallback which will prevent this issue of empty items ;)
+        if (!nameShown && this.getEmail() == null && this.getName() != null) {
+            viewHolder.email.setText(this.getName());
+        } else {
+            viewHolder.email.setText(this.getEmail());
+        }
 
         int color = textColor;
         if (color == 0 && textColorRes != -1) {
