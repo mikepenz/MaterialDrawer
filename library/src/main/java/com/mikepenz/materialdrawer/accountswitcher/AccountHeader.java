@@ -526,7 +526,7 @@ public class AccountHeader {
         int textColor = mTextColor;
         if (textColor == 0 && mTextColorRes != -1) {
             textColor = mActivity.getResources().getColor(mTextColorRes);
-        } else {
+        } else if (textColor == 0) {
             textColor = UIUtils.getThemeColorFromAttrOrRes(mActivity, R.attr.material_drawer_header_selection_text, R.color.material_drawer_header_selection_text);
         }
         mTextColor = textColor;
