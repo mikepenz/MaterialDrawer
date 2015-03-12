@@ -423,6 +423,8 @@ public class PrimaryDrawerItem implements IDrawerItem, Nameable<PrimaryDrawerIte
 
             if (this.getSelectedIconRes() > -1) {
                 selectedIcon = ctx.getResources().getDrawable(selectedIconRes);
+            } else if (this.isSelectedIconTinted()) {
+                icon = new PressedEffectStateListDrawable(icon, selected_text);
             }
         }
 
