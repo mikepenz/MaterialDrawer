@@ -53,4 +53,8 @@
         <attr name="siv_insetForeground" format="reference|color"/>
     </declare-styleable>
 
+    <declare-styleable name="BezelImageView">
+        <attr name="biv_maskDrawable" format="reference"/>
+        <attr name="biv_selectorOnPress" format="color|reference"/>
+    </declare-styleable>
 </resources>
