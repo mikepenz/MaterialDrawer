@@ -9,8 +9,10 @@
     <color name="drawer_background">#F9F9F9</color>
     <!-- Material DEFAULT text / items colors -->
     <color name="icons">#FFF</color>
-    <color name="primary_text">#212121</color>
-    <color name="secondary_text">#727272</color>
+    <!-- 87% von #000000 -> DE -->
+    <color name="primary_text">#de000000</color>
+    <!-- 54% von #000000 -> 8A -->
+    <color name="secondary_text">#8a000000</color>
     <color name="hint_text">#B8B8B8</color>
     <color name="divider">#B6B6B6</color>
 
@@ -40,8 +42,8 @@
     <color name="material_drawer_dark_background">#303030</color>
     <!-- MaterialDrawer DEFAULT DARK text / items colors -->
     <color name="material_drawer_dark_icons">#000</color>
-    <color name="material_drawer_dark_primary_text">#FFF</color>
-    <color name="material_drawer_dark_secondary_text">#DEDEDE</color>
+    <color name="material_drawer_dark_primary_text">#deFFFFFF</color>
+    <color name="material_drawer_dark_secondary_text">#8aFFFFFF</color>
     <color name="material_drawer_dark_hint_text">#ABABAB</color>
     <color name="material_drawer_dark_divider">#555555</color>
     <!-- MaterialDrawer DEFAULT DARK drawer colors -->
