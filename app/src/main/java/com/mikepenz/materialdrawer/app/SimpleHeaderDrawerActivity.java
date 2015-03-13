@@ -131,10 +131,14 @@ public class SimpleHeaderDrawerActivity extends ActionBarActivity {
                 .withSavedInstance(savedInstanceState)
                 .build();
 
-        // set the selection to the item with the identifier 5
-        result.setSelectionByIdentifier(5, false);
+        //only set the active selection or active profile if we do not recreate the activity
+        if (savedInstanceState == null) {
+            // set the selection to the item with the identifier 5
+            result.setSelectionByIdentifier(5, false);
 
-        headerResult.setActiveProfile(profile3);
+            //set the active profile
+            headerResult.setActiveProfile(profile3);
+        }
     }
 
     @Override
