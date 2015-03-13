@@ -41,6 +41,9 @@ public class ProfileSettingDrawerItem implements IDrawerItem, IProfile<ProfileSe
     private int textColor = 0;
     private int textColorRes = -1;
 
+    private int iconColor = 0;
+    private int iconColorRes = -1;
+
     public ProfileSettingDrawerItem withIdentifier(int identifier) {
         this.identifier = identifier;
         return this;
@@ -102,6 +105,16 @@ public class ProfileSettingDrawerItem implements IDrawerItem, IProfile<ProfileSe
         return this;
     }
 
+    public ProfileSettingDrawerItem withIconColor(int iconColor) {
+        this.iconColor = iconColor;
+        return this;
+    }
+
+    public ProfileSettingDrawerItem withIconColorRes(int iconColorRes) {
+        this.iconColorRes = iconColorRes;
+        return this;
+    }
+
     @Override
     public ProfileSettingDrawerItem withSelectable(boolean selectable) {
         this.selectable = selectable;
@@ -138,6 +151,22 @@ public class ProfileSettingDrawerItem implements IDrawerItem, IProfile<ProfileSe
 
     public void setTextColorRes(int textColorRes) {
         this.textColorRes = textColorRes;
+    }
+
+    public int getIconColorRes() {
+        return iconColorRes;
+    }
+
+    public void setIconColorRes(int iconColorRes) {
+        this.iconColorRes = iconColorRes;
+    }
+
+    public int getIconColor() {
+        return iconColor;
+    }
+
+    public void setIconColor(int iconColor) {
+        this.iconColor = iconColor;
     }
 
     @Override
@@ -258,11 +287,18 @@ public class ProfileSettingDrawerItem implements IDrawerItem, IProfile<ProfileSe
         }
         viewHolder.name.setTextColor(color);
 
+        int icon_color = iconColor;
+        if (icon_color == 0 && iconColorRes != -1) {
+            icon_color = ctx.getResources().getColor(iconColorRes);
+        } else if (icon_color == 0) {
+            icon_color = UIUtils.getThemeColorFromAttrOrRes(ctx, R.attr.material_drawer_primary_text, R.color.material_drawer_primary_text);
+        }
+
         if (this.getIcon() != null) {
             viewHolder.icon.setImageDrawable(this.getIcon());
             viewHolder.icon.setVisibility(View.VISIBLE);
         } else if (this.getIIcon() != null) {
-            viewHolder.icon.setImageDrawable(new IconicsDrawable(ctx, this.getIIcon()).color(color).actionBarSize().paddingDp(2));
+            viewHolder.icon.setImageDrawable(new IconicsDrawable(ctx, this.getIIcon()).color(icon_color).actionBarSize().paddingDp(2));
             viewHolder.icon.setVisibility(View.VISIBLE);
         } else {
             viewHolder.icon.setVisibility(View.GONE);
