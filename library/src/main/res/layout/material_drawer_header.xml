@@ -14,7 +14,7 @@
         android:layout_width="match_parent"
         android:layout_height="@dimen/material_drawer_account_header_height">
 
-        <com.mikepenz.materialdrawer.view.CircularImageView
+        <com.mikepenz.materialdrawer.view.BezelImageView
             android:id="@+id/account_header_drawer_current"
             android:layout_width="@dimen/material_drawer_account_header_selected"
             android:layout_height="@dimen/material_drawer_account_header_selected"
@@ -27,11 +27,10 @@
             android:layout_marginTop="@dimen/material_drawer_account_header_horizontal_top"
             android:layout_marginBottom="@dimen/material_drawer_account_header_horizontal_bottom"
             android:clickable="true"
-            app:civ_selector="true"
-            app:civ_selectorColor="@color/material_drawer_primary"
-            app:civ_selectorStrokeColor="@color/material_drawer_primary"/>
+            app:biv_maskDrawable="@drawable/circle_mask"
+            app:biv_selectorOnPress="@color/material_drawer_primary"/>
 
-        <com.mikepenz.materialdrawer.view.CircularImageView
+        <com.mikepenz.materialdrawer.view.BezelImageView
             android:id="@+id/account_header_drawer_small_first"
             android:layout_width="@dimen/material_drawer_account_header_secondary"
             android:layout_height="@dimen/material_drawer_account_header_secondary"
@@ -43,11 +42,10 @@
             android:layout_toStartOf="@+id/account_header_drawer_small_second"
             android:visibility="gone"
             android:clickable="true"
-            app:civ_selector="true"
-            app:civ_selectorColor="@color/material_drawer_primary"
-            app:civ_selectorStrokeColor="@color/material_drawer_primary"/>
+            app:biv_maskDrawable="@drawable/circle_mask"
+            app:biv_selectorOnPress="@color/material_drawer_primary"/>
 
-        <com.mikepenz.materialdrawer.view.CircularImageView
+        <com.mikepenz.materialdrawer.view.BezelImageView
             android:id="@+id/account_header_drawer_small_second"
             android:layout_marginRight="@dimen/material_drawer_vertical_padding"
             android:layout_marginEnd="@dimen/material_drawer_vertical_padding"
@@ -59,11 +57,10 @@
             android:layout_toStartOf="@+id/account_header_drawer_small_third"
             android:visibility="gone"
             android:clickable="true"
-            app:civ_selector="true"
-            app:civ_selectorColor="@color/material_drawer_primary"
-            app:civ_selectorStrokeColor="@color/material_drawer_primary"/>
+            app:biv_maskDrawable="@drawable/circle_mask"
+            app:biv_selectorOnPress="@color/material_drawer_primary"/>
 
-        <com.mikepenz.materialdrawer.view.CircularImageView
+        <com.mikepenz.materialdrawer.view.BezelImageView
             android:id="@+id/account_header_drawer_small_third"
             android:layout_marginRight="@dimen/material_drawer_vertical_padding"
             android:layout_marginEnd="@dimen/material_drawer_vertical_padding"
@@ -75,9 +72,8 @@
             android:layout_alignTop="@+id/account_header_drawer_current"
             android:visibility="gone"
             android:clickable="true"
-            app:civ_selector="true"
-            app:civ_selectorColor="@color/material_drawer_primary"
-            app:civ_selectorStrokeColor="@color/material_drawer_primary"/>
+            app:biv_maskDrawable="@drawable/circle_mask"
+            app:biv_selectorOnPress="@color/material_drawer_primary"/>
 
         <LinearLayout
             android:id="@+id/account_header_drawer_text_section"

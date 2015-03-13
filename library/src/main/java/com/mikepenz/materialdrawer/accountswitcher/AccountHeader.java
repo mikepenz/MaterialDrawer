@@ -24,7 +24,7 @@ import com.mikepenz.materialdrawer.model.interfaces.IDrawerItem;
 import com.mikepenz.materialdrawer.model.interfaces.IProfile;
 import com.mikepenz.materialdrawer.model.interfaces.Identifyable;
 import com.mikepenz.materialdrawer.util.UIUtils;
-import com.mikepenz.materialdrawer.view.CircularImageView;
+import com.mikepenz.materialdrawer.view.BezelImageView;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -42,14 +42,14 @@ public class AccountHeader {
     // global references to views we need later
     protected View mAccountHeader;
     protected ImageView mAccountHeaderBackground;
-    protected CircularImageView mCurrentProfileView;
+    protected BezelImageView mCurrentProfileView;
     protected View mAccountHeaderTextSection;
     protected ImageView mAccountSwitcherArrow;
     protected TextView mCurrentProfileName;
     protected TextView mCurrentProfileEmail;
-    protected CircularImageView mProfileFirstView;
-    protected CircularImageView mProfileSecondView;
-    protected CircularImageView mProfileThirdView;
+    protected BezelImageView mProfileFirstView;
+    protected BezelImageView mProfileSecondView;
+    protected BezelImageView mProfileThirdView;
 
     // global references to the profiles
     protected IProfile mCurrentProfile;
@@ -556,16 +556,16 @@ public class AccountHeader {
         mAccountSwitcherArrow.setImageDrawable(new IconicsDrawable(mActivity, GoogleMaterial.Icon.gmd_arrow_drop_down).sizeDp(24).paddingDp(6).color(mTextColor));
 
         //get the fields for the name
-        mCurrentProfileView = (CircularImageView) mAccountHeader.findViewById(R.id.account_header_drawer_current);
+        mCurrentProfileView = (BezelImageView) mAccountHeader.findViewById(R.id.account_header_drawer_current);
         mCurrentProfileName = (TextView) mAccountHeader.findViewById(R.id.account_header_drawer_name);
         mCurrentProfileEmail = (TextView) mAccountHeader.findViewById(R.id.account_header_drawer_email);
 
         mCurrentProfileName.setTextColor(mTextColor);
         mCurrentProfileEmail.setTextColor(mTextColor);
 
-        mProfileFirstView = (CircularImageView) mAccountHeader.findViewById(R.id.account_header_drawer_small_first);
-        mProfileSecondView = (CircularImageView) mAccountHeader.findViewById(R.id.account_header_drawer_small_second);
-        mProfileThirdView = (CircularImageView) mAccountHeader.findViewById(R.id.account_header_drawer_small_third);
+        mProfileFirstView = (BezelImageView) mAccountHeader.findViewById(R.id.account_header_drawer_small_first);
+        mProfileSecondView = (BezelImageView) mAccountHeader.findViewById(R.id.account_header_drawer_small_second);
+        mProfileThirdView = (BezelImageView) mAccountHeader.findViewById(R.id.account_header_drawer_small_third);
 
         //calculate the profiles to set
         calculateProfiles();

@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools"
+    xmlns:tools="http://schemas.android.com/tools" xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="@dimen/material_drawer_item_profile"
     android:paddingLeft="@dimen/material_drawer_vertical_padding"
@@ -9,7 +9,7 @@
     android:paddingRight="@dimen/material_drawer_vertical_padding"
     android:paddingEnd="@dimen/material_drawer_vertical_padding">
 
-    <com.mikepenz.materialdrawer.view.CircularImageView
+    <com.mikepenz.materialdrawer.view.BezelImageView
         android:id="@+id/profileIcon"
         android:layout_width="@dimen/material_drawer_item_profile_icon"
         android:layout_height="@dimen/material_drawer_item_profile_icon"
@@ -17,7 +17,10 @@
         android:layout_marginBottom="@dimen/material_drawer_item_profile_icon_padding"
         android:layout_marginRight="@dimen/material_drawer_item_profile_icon_padding"
         android:layout_marginEnd="@dimen/material_drawer_item_profile_icon_padding"
-        android:layout_gravity="center_vertical"/>
+        android:layout_gravity="center_vertical"
+        android:clickable="false"
+        android:elevation="1dp"
+        app:biv_maskDrawable="@drawable/circle_mask"/>
 
     <LinearLayout
         android:layout_toRightOf="@id/profileIcon"
