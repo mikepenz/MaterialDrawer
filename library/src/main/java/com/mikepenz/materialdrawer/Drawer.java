@@ -799,8 +799,8 @@ public class Drawer {
         }
 
         // create the ActionBarDrawerToggle if not set and enabled and if we have a toolbar
-        if (mActionBarDrawerToggleEnabled && mActionBarDrawerToggle == null) {
-            this.mActionBarDrawerToggle = new ActionBarDrawerToggle(mActivity, mDrawerLayout, R.string.drawer_open, R.string.drawer_close) {
+        if (mActionBarDrawerToggleEnabled && mActionBarDrawerToggle == null && mToolbar != null) {
+            this.mActionBarDrawerToggle = new ActionBarDrawerToggle(mActivity, mDrawerLayout, mToolbar, R.string.drawer_open, R.string.drawer_close) {
                 @Override
                 public void onDrawerOpened(View drawerView) {
                     if (mOnDrawerListener != null) {
