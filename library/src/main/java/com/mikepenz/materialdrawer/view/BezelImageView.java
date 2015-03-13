@@ -289,4 +289,22 @@ public class BezelImageView extends ImageView {
     }
 
 
+    private ColorMatrixColorFilter mTempDesaturateColorFilter;
+    private ColorFilter mTempSelectorFilter;
+
+    public void disableTouchFeedback(boolean disable) {
+        if (disable) {
+            mTempDesaturateColorFilter = this.mDesaturateColorFilter;
+            mTempSelectorFilter = this.mSelectorFilter;
+            this.mSelectorFilter = null;
+            this.mDesaturateColorFilter = null;
+        } else {
+            if (mTempDesaturateColorFilter != null) {
+                this.mDesaturateColorFilter = mTempDesaturateColorFilter;
+            }
+            if (mTempSelectorFilter != null) {
+                this.mSelectorFilter = mTempSelectorFilter;
+            }
+        }
+    }
 }
