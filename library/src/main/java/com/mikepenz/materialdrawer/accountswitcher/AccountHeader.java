@@ -154,7 +154,34 @@ public class AccountHeader {
         return this;
     }
 
-    //set one of these to define the text in the first or second line withint the account selector
+    //set to hide the first or second line
+    protected boolean mSelectionFirstLineShown = true;
+    protected boolean mSelectionSecondLineShown = true;
+
+    /**
+     * set this to false if you want to hide the first line of the selection box in the header (first line would be the name)
+     *
+     * @param selectionFirstLineShown
+     * @return
+     */
+    public AccountHeader withSelectionFistLineShown(boolean selectionFirstLineShown) {
+        this.mSelectionFirstLineShown = selectionFirstLineShown;
+        return this;
+    }
+
+    /**
+     * set this to false if you want to hide the second line of the selection box in the header (second line would be the e-mail)
+     *
+     * @param selectionSecondLineShown
+     * @return
+     */
+    public AccountHeader withSelectionSecondLineShown(boolean selectionSecondLineShown) {
+        this.mSelectionSecondLineShown = selectionSecondLineShown;
+        return this;
+    }
+
+
+    //set one of these to define the text in the first or second line with in the account selector
     protected String mSelectionFirstLine;
     protected String mSelectionSecondLine;
 
@@ -828,9 +855,15 @@ public class AccountHeader {
             mCurrentProfileEmail.setText(profile.getEmail());
         }
 
+        if (!mSelectionFirstLineShown) {
+            mCurrentProfileName.setVisibility(View.GONE);
+        }
         if (!TextUtils.isEmpty(mSelectionFirstLine)) {
             mCurrentProfileName.setText(mSelectionFirstLine);
             mAccountHeaderTextSection.setVisibility(View.VISIBLE);
+        }
+        if (!mSelectionSecondLineShown) {
+            mCurrentProfileEmail.setVisibility(View.GONE);
         }
         if (!TextUtils.isEmpty(mSelectionSecondLine)) {
             mCurrentProfileEmail.setText(mSelectionSecondLine);
