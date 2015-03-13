@@ -1101,10 +1101,10 @@ public class Drawer {
             int selection = mSavedInstance.getInt(BUNDLE_SELECTION, -1);
             if (selection != -1) {
                 //predefine selection (should be the first element
-                if (mListView != null && (selection) > -1) {
-                    mListView.setSelection(selection);
-                    mListView.setItemChecked(selection, true);
-                    mCurrentSelection = selection - mHeaderOffset;
+                if (mListView != null && (selection + mHeaderOffset) > -1) {
+                    mListView.setSelection(selection + mHeaderOffset);
+                    mListView.setItemChecked(selection + mHeaderOffset, true);
+                    mCurrentSelection = selection;
                 }
             }
         }
