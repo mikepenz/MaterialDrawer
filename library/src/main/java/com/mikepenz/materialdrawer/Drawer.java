@@ -1,6 +1,7 @@
 package com.mikepenz.materialdrawer;
 
 import android.app.Activity;
+import android.graphics.Color;
 import android.graphics.drawable.Drawable;
 import android.os.Build;
 import android.os.Bundle;
@@ -12,11 +13,14 @@ import android.util.TypedValue;
 import android.view.Gravity;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.Window;
+import android.view.WindowManager;
 import android.widget.AbsListView;
 import android.widget.AdapterView;
 import android.widget.FrameLayout;
 import android.widget.LinearLayout;
 import android.widget.ListView;
+import android.widget.RelativeLayout;
 
 import com.mikepenz.iconics.typeface.IIcon;
 import com.mikepenz.iconics.utils.Utils;
@@ -29,6 +33,7 @@ import com.mikepenz.materialdrawer.model.interfaces.IDrawerItem;
 import com.mikepenz.materialdrawer.model.interfaces.Iconable;
 import com.mikepenz.materialdrawer.model.interfaces.Nameable;
 import com.mikepenz.materialdrawer.util.UIUtils;
+import com.mikepenz.materialdrawer.view.ScrimInsetsFrameLayout;
 
 import java.util.ArrayList;
 import java.util.Collections;
@@ -120,7 +125,7 @@ public class Drawer {
 
     // the drawerLayout to use
     protected DrawerLayout mDrawerLayout;
-    protected LinearLayout mSliderLayout;
+    protected RelativeLayout mSliderLayout;
 
     /**
      * Pass a custom DrawerLayout which will be used.
@@ -664,6 +669,25 @@ public class Drawer {
     }
 
     /**
+     * helper method to set the TranslucenStatusFlag
+     *
+     * @param on
+     */
+    private void setTranslucentStatusFlag(boolean on) {
+        if (Build.VERSION.SDK_INT >= 19) {
+            Window win = mActivity.getWindow();
+            WindowManager.LayoutParams winParams = win.getAttributes();
+            final int bits = WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS;
+            if (on) {
+                winParams.flags |= bits;
+            } else {
+                winParams.flags &= ~bits;
+            }
+            win.setAttributes(winParams);
+        }
+    }
+
+    /**
      * Build and add the Drawer to your activity
      *
      * @return
@@ -685,7 +709,23 @@ public class Drawer {
         }
 
         //get the drawer root
-        ViewGroup drawerContentRoot = (ViewGroup) mDrawerLayout.getChildAt(0);
+        ScrimInsetsFrameLayout drawerContentRoot = (ScrimInsetsFrameLayout) mDrawerLayout.getChildAt(0);
+        if (mTranslucentStatusBar && !mTranslucentActionBarCompatibility) {
+            if (Build.VERSION.SDK_INT >= 19 && Build.VERSION.SDK_INT < 21) {
+                setTranslucentStatusFlag(true);
+            }
+            if (Build.VERSION.SDK_INT >= 19) {
+                mActivity.getWindow().getDecorView().setSystemUiVisibility(View.SYSTEM_UI_FLAG_LAYOUT_STABLE | View.SYSTEM_UI_FLAG_LAYOUT_FULLSCREEN);
+            }
+            if (Build.VERSION.SDK_INT >= 21) {
+                setTranslucentStatusFlag(false);
+                mActivity.getWindow().setStatusBarColor(Color.TRANSPARENT);
+            }
+
+            drawerContentRoot.setPadding(0, mActivity.getResources().getDimensionPixelSize(R.dimen.tool_bar_top_padding), 0, 0);
+            drawerContentRoot.setInsetForeground(UIUtils.getThemeColorFromAttrOrRes(mActivity, R.attr.colorPrimaryDark, R.color.material_drawer_primary_dark));
+        }
+
         //get the content view
         View contentView = mRootView.getChildAt(0);
 
@@ -720,7 +760,7 @@ public class Drawer {
                         } else {
                             mDrawerLayout.openDrawer(mSliderLayout);
                         }
-                    }   
+                    }
                 }
             });
         }
@@ -763,7 +803,7 @@ public class Drawer {
         }
 
         // get the slider view
-        mSliderLayout = (LinearLayout) mActivity.getLayoutInflater().inflate(R.layout.material_drawer_slider, mDrawerLayout, false);
+        mSliderLayout = (RelativeLayout) mActivity.getLayoutInflater().inflate(R.layout.material_drawer_slider, mDrawerLayout, false);
         mSliderLayout.setBackgroundColor(UIUtils.getThemeColorFromAttrOrRes(mActivity, R.attr.material_drawer_background, R.color.material_drawer_background));
         // get the layout params
         DrawerLayout.LayoutParams params = (DrawerLayout.LayoutParams) mSliderLayout.getLayoutParams();
@@ -824,7 +864,7 @@ public class Drawer {
         mDrawerLayout = result.getDrawerLayout();
 
         // get the slider view
-        mSliderLayout = (LinearLayout) mActivity.getLayoutInflater().inflate(R.layout.material_drawer_slider, mDrawerLayout, false);
+        mSliderLayout = (RelativeLayout) mActivity.getLayoutInflater().inflate(R.layout.material_drawer_slider, mDrawerLayout, false);
         mSliderLayout.setBackgroundColor(UIUtils.getThemeColorFromAttrOrRes(mActivity, R.attr.material_drawer_background, R.color.material_drawer_background));
         // get the layout params
         DrawerLayout.LayoutParams params = (DrawerLayout.LayoutParams) mSliderLayout.getLayoutParams();
@@ -870,6 +910,16 @@ public class Drawer {
         params.weight = 1f;
         mSliderLayout.addView(mListView, params);
 
+        //some extra stuff to beautify the whole thing ;)
+        if (!mTranslucentStatusBar) {
+            //disable the shadow if we don't use a translucent activity
+            mSliderLayout.getChildAt(0).setVisibility(View.GONE);
+        } else {
+            //bring shadow bar to front again
+            mSliderLayout.getChildAt(0).bringToFront();
+        }
+
+
         // initialize list if there is an adapter or set items
         if (mDrawerItems != null && mAdapter == null) {
             mAdapter = new DrawerAdapter(mActivity, mDrawerItems);
@@ -877,7 +927,16 @@ public class Drawer {
 
         //sticky footer view
         if (mStickyFooterView != null) {
-            mSliderLayout.addView(mStickyFooterView);
+            //add the sticky footer view and align it to the bottom
+            RelativeLayout.LayoutParams layoutParams = new RelativeLayout.LayoutParams(RelativeLayout.LayoutParams.MATCH_PARENT, RelativeLayout.LayoutParams.WRAP_CONTENT);
+            layoutParams.addRule(RelativeLayout.ALIGN_PARENT_BOTTOM, 1);
+            mStickyFooterView.setId(R.id.sticky_footer);
+            mSliderLayout.addView(mStickyFooterView, layoutParams);
+
+            //now align the listView above the stickyFooterView ;)
+            RelativeLayout.LayoutParams layoutParamsListView = (RelativeLayout.LayoutParams) mListView.getLayoutParams();
+            layoutParamsListView.addRule(RelativeLayout.ABOVE, R.id.sticky_footer);
+            mListView.setLayoutParams(layoutParamsListView);
         }
 
         //use the AccountHeader if set
@@ -1164,7 +1223,7 @@ public class Drawer {
          *
          * @return
          */
-        public LinearLayout getSlider() {
+        public RelativeLayout getSlider() {
             return mDrawer.mSliderLayout;
         }
 

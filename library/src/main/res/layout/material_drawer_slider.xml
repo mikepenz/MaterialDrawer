@@ -1,12 +1,17 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout
+<RelativeLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
     android:id="@+id/slider_layout"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:layout_gravity="start"
-    android:elevation="10dp"
+    android:elevation="8dp"
     android:orientation="vertical"
     android:layout_marginRight="@dimen/material_drawer_margin"
     android:layout_marginEnd="@dimen/material_drawer_margin">
-</LinearLayout>
+    <View android:layout_height="@dimen/tool_bar_top_padding"
+          android:layout_width="match_parent"
+          android:background="#59000000"
+          android:layout_alignParentTop="true"
+          android:id="@+id/shadow_top"/>
+</RelativeLayout>

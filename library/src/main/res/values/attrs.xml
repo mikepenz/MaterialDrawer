@@ -49,4 +49,8 @@
         <attr name="circularImageViewDefault" format="reference"/>
     </declare-styleable>
 
+    <declare-styleable name="ScrimInsetsView">
+        <attr name="siv_insetForeground" format="reference|color"/>
+    </declare-styleable>
+
 </resources>
