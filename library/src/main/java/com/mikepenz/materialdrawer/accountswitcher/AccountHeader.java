@@ -523,13 +523,11 @@ public class AccountHeader {
         }
 
         // get the text color to use for the text section
-        int textColor = mTextColor;
-        if (textColor == 0 && mTextColorRes != -1) {
-            textColor = mActivity.getResources().getColor(mTextColorRes);
-        } else if (textColor == 0) {
-            textColor = UIUtils.getThemeColorFromAttrOrRes(mActivity, R.attr.material_drawer_header_selection_text, R.color.material_drawer_header_selection_text);
+        if (mTextColor == 0 && mTextColorRes != -1) {
+            mTextColor = mActivity.getResources().getColor(mTextColorRes);
+        } else if (mTextColor == 0) {
+            mTextColor = UIUtils.getThemeColorFromAttrOrRes(mActivity, R.attr.material_drawer_header_selection_text, R.color.material_drawer_header_selection_text);
         }
-        mTextColor = textColor;
 
         // set the background for the section
         if (mCompactStyle) {
@@ -551,15 +549,15 @@ public class AccountHeader {
 
         // set the arrow :D
         mAccountSwitcherArrow = (ImageView) mAccountHeaderContainer.findViewById(R.id.account_header_drawer_text_switcher);
-        mAccountSwitcherArrow.setImageDrawable(new IconicsDrawable(mActivity, GoogleMaterial.Icon.gmd_arrow_drop_down).sizeDp(24).paddingDp(6).color(textColor));
+        mAccountSwitcherArrow.setImageDrawable(new IconicsDrawable(mActivity, GoogleMaterial.Icon.gmd_arrow_drop_down).sizeDp(24).paddingDp(6).color(mTextColor));
 
         //get the fields for the name
         mCurrentProfileView = (CircularImageView) mAccountHeader.findViewById(R.id.account_header_drawer_current);
         mCurrentProfileName = (TextView) mAccountHeader.findViewById(R.id.account_header_drawer_name);
         mCurrentProfileEmail = (TextView) mAccountHeader.findViewById(R.id.account_header_drawer_email);
 
-        mCurrentProfileName.setTextColor(textColor);
-        mCurrentProfileEmail.setTextColor(textColor);
+        mCurrentProfileName.setTextColor(mTextColor);
+        mCurrentProfileEmail.setTextColor(mTextColor);
 
         mProfileFirstView = (CircularImageView) mAccountHeader.findViewById(R.id.account_header_drawer_small_first);
         mProfileSecondView = (CircularImageView) mAccountHeader.findViewById(R.id.account_header_drawer_small_second);
