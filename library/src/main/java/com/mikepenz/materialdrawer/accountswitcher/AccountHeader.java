@@ -8,6 +8,7 @@ import android.os.Bundle;
 import android.os.Handler;
 import android.text.TextUtils;
 import android.util.TypedValue;
+import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
@@ -31,9 +32,6 @@ import java.util.Arrays;
 import java.util.Collections;
 import java.util.Stack;
 
-/**
- * Created by mikepenz on 27.02.15.
- */
 public class AccountHeader {
     private static final String BUNDLE_SELECTION_HEADER = "bundle_selection_header";
 
@@ -357,13 +355,14 @@ public class AccountHeader {
             throw new RuntimeException("please pass an activity first to use this call");
         }
 
+        LayoutInflater layoutInflater = mActivity.getLayoutInflater();
         if (resLayout != -1) {
-            this.mAccountHeaderContainer = mActivity.getLayoutInflater().inflate(resLayout, null, false);
+            this.mAccountHeaderContainer = layoutInflater.inflate(resLayout, null, false);
         } else {
             if (mCompactStyle) {
-                this.mAccountHeaderContainer = mActivity.getLayoutInflater().inflate(R.layout.material_drawer_compact_header, null, false);
+                this.mAccountHeaderContainer = layoutInflater.inflate(R.layout.material_drawer_compact_header, null, false);
             } else {
-                this.mAccountHeaderContainer = mActivity.getLayoutInflater().inflate(R.layout.material_drawer_header, null, false);
+                this.mAccountHeaderContainer = layoutInflater.inflate(R.layout.material_drawer_header, null, false);
             }
         }
 
@@ -655,7 +654,7 @@ public class AccountHeader {
                 }
             }
 
-            Stack<IProfile> reversedActiveProfiles = new Stack<IProfile>();
+            Stack<IProfile> reversedActiveProfiles = new Stack<>();
             while (!activeProfiles.empty()) {
                 reversedActiveProfiles.push(activeProfiles.pop());
             }
@@ -1022,6 +1021,7 @@ public class AccountHeader {
     }
 
     public static class Result {
+
         private final AccountHeader mAccountHeader;
 
         protected Result(AccountHeader accountHeader) {
@@ -1163,7 +1163,7 @@ public class AccountHeader {
          */
         public void addProfiles(IProfile... profiles) {
             if (mAccountHeader.mProfiles == null) {
-                mAccountHeader.mProfiles = new ArrayList<IProfile>();
+                mAccountHeader.mProfiles = new ArrayList<>();
             }
             if (profiles != null) {
                 Collections.addAll(mAccountHeader.mProfiles, profiles);
@@ -1180,7 +1180,7 @@ public class AccountHeader {
          */
         public void addProfile(IProfile profile, int position) {
             if (mAccountHeader.mProfiles == null) {
-                mAccountHeader.mProfiles = new ArrayList<IProfile>();
+                mAccountHeader.mProfiles = new ArrayList<>();
             }
             mAccountHeader.mProfiles.add(position, profile);
 
@@ -1229,10 +1229,10 @@ public class AccountHeader {
 
 
     public interface OnAccountHeaderListener {
-        public void onProfileChanged(View view, IProfile profile);
+        void onProfileChanged(View view, IProfile profile);
     }
 
     public interface OnAccountHeaderSelectionViewClickListener {
-        public void onClick(View view, IProfile profile);
+        void onClick(View view, IProfile profile);
     }
 }

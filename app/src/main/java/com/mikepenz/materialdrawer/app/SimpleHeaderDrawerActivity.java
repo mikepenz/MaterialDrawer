@@ -3,6 +3,7 @@ package com.mikepenz.materialdrawer.app;
 import android.content.Intent;
 import android.graphics.Color;
 import android.os.Bundle;
+import android.support.v4.content.res.ResourcesCompat;
 import android.support.v7.app.ActionBarActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.View;
@@ -40,11 +41,27 @@ public class SimpleHeaderDrawerActivity extends ActionBarActivity {
         setSupportActionBar(toolbar);
 
         // Create a few sample profile
-        final IProfile profile = new ProfileDrawerItem().withName("Mike Penz").withEmail("mikepenz@gmail.com").withIcon(getResources().getDrawable(R.drawable.profile));
-        final IProfile profile2 = new ProfileDrawerItem().withName("Max Muster").withEmail("max.mustermann@gmail.com").withIcon(getResources().getDrawable(R.drawable.profile2));
-        final IProfile profile3 = new ProfileDrawerItem().withName("Felix House").withEmail("felix.house@gmail.com").withIcon(getResources().getDrawable(R.drawable.profile3));
-        final IProfile profile4 = new ProfileDrawerItem().withName("Mr. X").withEmail("mister.x.super@gmail.com").withIcon(getResources().getDrawable(R.drawable.profile4)).withIdentifier(4);
-        final IProfile profile5 = new ProfileDrawerItem().withName("Batman").withEmail("batman@gmail.com").withIcon(getResources().getDrawable(R.drawable.profile5));
+        final IProfile profile = new ProfileDrawerItem()
+                .withName("Mike Penz")
+                .withEmail("mikepenz@gmail.com")
+                .withIcon(ResourcesCompat.getDrawable(getResources(), R.drawable.profile, null));
+        final IProfile profile2 = new ProfileDrawerItem()
+                .withName("Max Muster")
+                .withEmail("max.mustermann@gmail.com")
+                .withIcon(ResourcesCompat.getDrawable(getResources(), R.drawable.profile2, null));
+        final IProfile profile3 = new ProfileDrawerItem()
+                .withName("Felix House")
+                .withEmail("felix.house@gmail.com")
+                .withIcon(ResourcesCompat.getDrawable(getResources(), R.drawable.profile3, null));
+        final IProfile profile4 = new ProfileDrawerItem()
+                .withName("Mr. X")
+                .withEmail("mister.x.super@gmail.com")
+                .withIcon(ResourcesCompat.getDrawable(getResources(), R.drawable.profile4, null))
+                .withIdentifier(4);
+        final IProfile profile5 = new ProfileDrawerItem()
+                .withName("Batman")
+                .withEmail("batman@gmail.com")
+                .withIcon(ResourcesCompat.getDrawable(getResources(), R.drawable.profile5, null));
 
         // Create the AccountHeader
         headerResult = new AccountHeader()
@@ -105,27 +122,44 @@ public class SimpleHeaderDrawerActivity extends ActionBarActivity {
                         //--> click on the header
                         //--> click on the footer
                         //those items don't contain a drawerItem
-
-                        if (drawerItem != null) {
-                            if (drawerItem.getIdentifier() == 100) {
-                                Intent intent = new Intent(SimpleHeaderDrawerActivity.this, SimpleCompactHeaderDrawerActivity.class);
-                                SimpleHeaderDrawerActivity.this.startActivity(intent);
-                            } else if (drawerItem.getIdentifier() == 1) {
-                                Intent intent = new Intent(SimpleHeaderDrawerActivity.this, ActionBarDrawerActivity.class);
-                                SimpleHeaderDrawerActivity.this.startActivity(intent);
-                            } else if (drawerItem.getIdentifier() == 2) {
-                                Intent intent = new Intent(SimpleHeaderDrawerActivity.this, MultiDrawerActivity.class);
-                                SimpleHeaderDrawerActivity.this.startActivity(intent);
-                            } else if (drawerItem.getIdentifier() == 3) {
-                                Intent intent = new Intent(SimpleHeaderDrawerActivity.this, SimpleNonTranslucentDrawerActivity.class);
-                                SimpleHeaderDrawerActivity.this.startActivity(intent);
-                            } else if (drawerItem.getIdentifier() == 6) {
-                                Intent intent = new Intent(SimpleHeaderDrawerActivity.this, ComplexHeaderDrawerActivity.class);
-                                SimpleHeaderDrawerActivity.this.startActivity(intent);
-                            } else if (drawerItem.getIdentifier() == 4) {
-                                new Libs.Builder().withFields(R.string.class.getFields()).withActivityTheme(R.style.MaterialDrawerTheme_ActionBar).start(SimpleHeaderDrawerActivity.this);
-                            }
+                        if (drawerItem == null) {
+                            return;
                         }
+
+                        int identifier = drawerItem.getIdentifier();
+                        if (identifier == 4) {
+                            new Libs.Builder().withFields(R.string.class.getFields())
+                                    .withActivityTheme(R.style.MaterialDrawerTheme_ActionBar)
+                                    .start(SimpleHeaderDrawerActivity.this);
+                            return;
+                        }
+
+                        final Intent intent;
+                        switch (identifier) {
+                            case 100:
+                                intent = new Intent(SimpleHeaderDrawerActivity.this,
+                                        SimpleCompactHeaderDrawerActivity.class);
+                                break;
+                            case 1:
+                                intent = new Intent(SimpleHeaderDrawerActivity.this,
+                                        ActionBarDrawerActivity.class);
+                                break;
+                            case 2:
+                                intent = new Intent(SimpleHeaderDrawerActivity.this,
+                                        MultiDrawerActivity.class);
+                                break;
+                            case 3:
+                                intent = new Intent(SimpleHeaderDrawerActivity.this,
+                                        SimpleNonTranslucentDrawerActivity.class);
+                                break;
+                            case 6:
+                                intent = new Intent(SimpleHeaderDrawerActivity.this,
+                                        ComplexHeaderDrawerActivity.class);
+                                break;
+                            default:
+                                return;
+                        }
+                        startActivity(intent);
                     }
                 })
                 .withSavedInstance(savedInstanceState)
