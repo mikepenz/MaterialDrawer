@@ -160,6 +160,32 @@ public class Drawer {
         return this;
     }
 
+    //the statusBar color
+    protected int mStatusBarColor = 0;
+    protected int mStatusBarColorRes = -1;
+
+    /**
+     * Set the statusBarColor color for this activity
+     *
+     * @param statusBarColor
+     * @return
+     */
+    public Drawer withStatusBarColor(int statusBarColor) {
+        this.mStatusBarColor = statusBarColor;
+        return this;
+    }
+
+    /**
+     * Set the statusBarColor color for this activity from a resource
+     *
+     * @param statusBarColorRes
+     * @return
+     */
+    public Drawer withStatusBarColorRes(int statusBarColorRes) {
+        this.mStatusBarColorRes = statusBarColorRes;
+        return this;
+    }
+
     //the background color for the slider
     protected int mSliderBackgroundColor = 0;
     protected int mSliderBackgroundColorRes = -1;
@@ -723,7 +749,14 @@ public class Drawer {
             }
 
             drawerContentRoot.setPadding(0, mActivity.getResources().getDimensionPixelSize(R.dimen.tool_bar_top_padding), 0, 0);
-            drawerContentRoot.setInsetForeground(UIUtils.getThemeColorFromAttrOrRes(mActivity, R.attr.colorPrimaryDark, R.color.material_drawer_primary_dark));
+
+            // define the statusBarColor
+            if (mStatusBarColor == 0 && mStatusBarColorRes != -1) {
+                mStatusBarColor = mActivity.getResources().getColor(mStatusBarColorRes);
+            } else if (mStatusBarColor == 0) {
+                mStatusBarColor = UIUtils.getThemeColorFromAttrOrRes(mActivity, R.attr.colorPrimaryDark, R.color.material_drawer_primary_dark);
+            }
+            drawerContentRoot.setInsetForeground(mStatusBarColor);
         }
 
         //get the content view
@@ -1143,7 +1176,6 @@ public class Drawer {
         if (mTranslucentActionBarCompatibility) {
             TypedValue tv = new TypedValue();
             if (mActivity.getTheme().resolveAttribute(android.R.attr.actionBarSize, tv, true)) {
-
                 int topMargin = TypedValue.complexToDimensionPixelSize(tv.data, mActivity.getResources().getDisplayMetrics());
                 if (mTranslucentStatusBar) {
                     topMargin = topMargin + mActivity.getResources().getDimensionPixelSize(R.dimen.tool_bar_top_padding);
@@ -1155,7 +1187,7 @@ public class Drawer {
         if (mDrawerWidth > -1) {
             params.width = mDrawerWidth;
         } else {
-            params.width = mActivity.getResources().getDimensionPixelSize(R.dimen.material_drawer_width);
+            params.width = UIUtils.getOptimalDrawerWidth(mActivity);
         }
 
         return params;

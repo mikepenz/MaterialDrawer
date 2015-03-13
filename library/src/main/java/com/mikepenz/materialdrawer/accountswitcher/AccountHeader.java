@@ -35,6 +35,8 @@ import java.util.Stack;
  * Created by mikepenz on 27.02.15.
  */
 public class AccountHeader {
+    private final static double NAVIGATION_DRAWER_ACCOUNT_ASPECT_RATIO = 9d / 16d;
+
     private static final String BUNDLE_SELECTION_HEADER = "bundle_selection_header";
 
     // global references to views we need later
@@ -496,7 +498,8 @@ public class AccountHeader {
             if (mCompactStyle) {
                 height = mActivity.getResources().getDimensionPixelSize(R.dimen.material_drawer_account_header_height_compact);
             } else {
-                height = mActivity.getResources().getDimensionPixelSize(R.dimen.material_drawer_account_header_height);
+                //calculate the header height by getting the optimal drawer width and calculating it * 9 / 16
+                height = (int) (UIUtils.getOptimalDrawerWidth(mActivity) * NAVIGATION_DRAWER_ACCOUNT_ASPECT_RATIO);
             }
         }
 
@@ -505,6 +508,7 @@ public class AccountHeader {
             mAccountHeader.setPadding(0, mActivity.getResources().getDimensionPixelSize(R.dimen.tool_bar_top_padding), 0, 0);
             height = height + mActivity.getResources().getDimensionPixelSize(R.dimen.tool_bar_top_padding);
         }
+
 
         //set the height for the header
         setHeaderHeight(height);

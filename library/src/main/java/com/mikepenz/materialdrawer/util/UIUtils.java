@@ -3,11 +3,15 @@ package com.mikepenz.materialdrawer.util;
 import android.annotation.SuppressLint;
 import android.content.Context;
 import android.content.res.ColorStateList;
+import android.content.res.TypedArray;
 import android.graphics.drawable.ColorDrawable;
 import android.graphics.drawable.Drawable;
 import android.graphics.drawable.StateListDrawable;
+import android.util.DisplayMetrics;
 import android.util.TypedValue;
 import android.view.View;
+
+import com.mikepenz.materialdrawer.R;
 
 /**
  * Created by mikepenz on 15.03.14.
@@ -65,6 +69,12 @@ public class UIUtils {
         return color;
     }
 
+    /**
+     * helper method to set the background depending on the android version
+     *
+     * @param v
+     * @param d
+     */
     @SuppressLint("NewApi")
     public static void setBackground(View v, Drawable d) {
         int sdk = android.os.Build.VERSION.SDK_INT;
@@ -73,5 +83,47 @@ public class UIUtils {
         } else {
             v.setBackground(d);
         }
+    }
+
+    /**
+     * Returns the screen width in pixels
+     *
+     * @param context is the context to get the resources
+     * @return the screen width in pixels
+     */
+    public static int getScreenWidth(Context context) {
+        DisplayMetrics metrics = context.getResources().getDisplayMetrics();
+        return metrics.widthPixels;
+    }
+
+    /**
+     * Returns the size in pixels of an attribute dimension
+     *
+     * @param context the context to get the resources from
+     * @param attr    is the attribute dimension we want to know the size from
+     * @return the size in pixels of an attribute dimension
+     */
+    public static int getThemeAttributeDimensionSize(Context context, int attr) {
+        TypedArray a = null;
+        try {
+            a = context.getTheme().obtainStyledAttributes(new int[]{attr});
+            return a.getDimensionPixelSize(0, 0);
+        } finally {
+            if (a != null) {
+                a.recycle();
+            }
+        }
+    }
+
+    /**
+     * helper to calculate the optimal drawer width
+     *
+     * @param context
+     * @return
+     */
+    public static int getOptimalDrawerWidth(Context context) {
+        int possibleMinDrawerWidth = UIUtils.getScreenWidth(context) - UIUtils.getThemeAttributeDimensionSize(context, android.R.attr.actionBarSize);
+        int maxDrawerWidth = context.getResources().getDimensionPixelSize(R.dimen.material_drawer_width);
+        return Math.min(possibleMinDrawerWidth, maxDrawerWidth);
     }
 }
