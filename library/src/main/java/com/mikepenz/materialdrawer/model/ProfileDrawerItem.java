@@ -14,6 +14,7 @@ import com.mikepenz.materialdrawer.model.interfaces.IProfile;
 import com.mikepenz.materialdrawer.model.interfaces.Identifyable;
 import com.mikepenz.materialdrawer.model.interfaces.Tagable;
 import com.mikepenz.materialdrawer.util.UIUtils;
+import com.squareup.picasso.Picasso;
 
 /**
  * Created by mikepenz on 03.02.15.
@@ -26,6 +27,7 @@ public class ProfileDrawerItem implements IDrawerItem, IProfile<ProfileDrawerIte
     private boolean nameShown = false;
 
     private Drawable icon;
+    private String imageUrl;
 
     private String name;
     private String email;
@@ -46,6 +48,11 @@ public class ProfileDrawerItem implements IDrawerItem, IProfile<ProfileDrawerIte
 
     public ProfileDrawerItem withIcon(Drawable icon) {
         this.icon = icon;
+        return this;
+    }
+
+    public ProfileDrawerItem withImageUrl(String imageUrl) {
+        this.imageUrl = imageUrl;
         return this;
     }
 
@@ -159,6 +166,16 @@ public class ProfileDrawerItem implements IDrawerItem, IProfile<ProfileDrawerIte
     }
 
     @Override
+    public String getImageUrl() {
+        return imageUrl;
+    }
+
+    @Override
+    public void setImageUrl(String imageUrl) {
+        this.imageUrl = imageUrl;
+    }
+
+    @Override
     public boolean isSelectable() {
         return selectable;
     }
@@ -261,6 +278,9 @@ public class ProfileDrawerItem implements IDrawerItem, IProfile<ProfileDrawerIte
 
         if (this.getIcon() != null) {
             viewHolder.profileIcon.setImageDrawable(this.getIcon());
+            viewHolder.profileIcon.setVisibility(View.VISIBLE);
+        } else if (getImageUrl() != null) {
+            Picasso.with(ctx).load(this.getImageUrl()).resize(ctx.getResources().getDimensionPixelSize(R.dimen.material_drawer_item_profile_icon),ctx.getResources().getDimensionPixelSize(R.dimen.material_drawer_item_profile_icon)).centerCrop().into(viewHolder.profileIcon);
             viewHolder.profileIcon.setVisibility(View.VISIBLE);
         } else {
             viewHolder.profileIcon.setVisibility(View.INVISIBLE);

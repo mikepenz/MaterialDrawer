@@ -24,6 +24,12 @@ public interface IProfile<T> {
 
     public void setIcon(Drawable icon);
 
+    public T withImageUrl(String imageUrl);
+
+    public String getImageUrl();
+
+    public void setImageUrl(String url);
+
     public T withSelectable(boolean selectable);
 
     public boolean isSelectable();
