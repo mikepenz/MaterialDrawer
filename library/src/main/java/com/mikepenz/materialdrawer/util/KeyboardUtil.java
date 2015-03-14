@@ -2,6 +2,7 @@ package com.mikepenz.materialdrawer.util;
 
 import android.app.Activity;
 import android.graphics.Rect;
+import android.os.Build;
 import android.view.View;
 import android.view.ViewTreeObserver;
 import android.view.inputmethod.InputMethodManager;
@@ -20,7 +21,11 @@ public class KeyboardUtil {
     public KeyboardUtil(Activity act, View contentView) {
         this.decorView = act.getWindow().getDecorView();
         this.contentView = contentView;
-        decorView.getViewTreeObserver().addOnGlobalLayoutListener(onGlobalLayoutListener);
+
+        //only required on newer android versions. it was working on API level 10
+        if (Build.VERSION.SDK_INT > 10) {
+            decorView.getViewTreeObserver().addOnGlobalLayoutListener(onGlobalLayoutListener);
+        }
     }
 
     //a small helper to allow showing the editText focus
