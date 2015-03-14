@@ -85,16 +85,17 @@ public class SimpleHeaderDrawerActivity extends ActionBarActivity {
                 .withToolbar(toolbar)
                 .withAccountHeader(headerResult) //set the AccountHeader we created earlier for the header
                 .addDrawerItems(
-                        new PrimaryDrawerItem().withName(R.string.drawer_item_compact_header).withIcon(GoogleMaterial.Icon.gmd_wb_sunny).withIdentifier(100).withCheckable(false),
-                        new PrimaryDrawerItem().withName(R.string.drawer_item_action_bar).withIcon(FontAwesome.Icon.faw_home).withIdentifier(1).withCheckable(false),
-                        new PrimaryDrawerItem().withName(R.string.drawer_item_multi_drawer).withIcon(FontAwesome.Icon.faw_gamepad).withIdentifier(2).withCheckable(false),
-                        new PrimaryDrawerItem().withName(R.string.drawer_item_non_translucent_status_drawer).withIcon(FontAwesome.Icon.faw_eye).withIdentifier(3).withCheckable(false),
-                        new PrimaryDrawerItem().withName(R.string.drawer_item_complex_header_drawer).withIcon(GoogleMaterial.Icon.gmd_adb).withIdentifier(6).withCheckable(false),
+                        new PrimaryDrawerItem().withName(R.string.drawer_item_compact_header).withIcon(GoogleMaterial.Icon.gmd_wb_sunny).withIdentifier(1).withCheckable(false),
+                        new PrimaryDrawerItem().withName(R.string.drawer_item_action_bar).withIcon(FontAwesome.Icon.faw_home).withIdentifier(2).withCheckable(false),
+                        new PrimaryDrawerItem().withName(R.string.drawer_item_multi_drawer).withIcon(FontAwesome.Icon.faw_gamepad).withIdentifier(3).withCheckable(false),
+                        new PrimaryDrawerItem().withName(R.string.drawer_item_non_translucent_status_drawer).withIcon(FontAwesome.Icon.faw_eye).withIdentifier(4).withCheckable(false),
+                        new PrimaryDrawerItem().withName(R.string.drawer_item_complex_header_drawer).withIcon(GoogleMaterial.Icon.gmd_adb).withIdentifier(5).withCheckable(false),
+                        new PrimaryDrawerItem().withName(R.string.drawer_item_simple_fragment_drawer).withIcon(GoogleMaterial.Icon.gmd_style).withIdentifier(6).withCheckable(false),
                         new SectionDrawerItem().withName(R.string.drawer_item_section_header),
-                        new SecondaryDrawerItem().withName(R.string.drawer_item_settings).withIcon(FontAwesome.Icon.faw_cog).withIdentifier(5).withTextColor(Color.RED),
+                        new SecondaryDrawerItem().withName(R.string.drawer_item_settings).withIcon(FontAwesome.Icon.faw_cog).withIdentifier(10).withTextColor(Color.RED),
                         new SecondaryDrawerItem().withName(R.string.drawer_item_help).withIcon(FontAwesome.Icon.faw_question).setEnabled(false),
                         new DividerDrawerItem(),
-                        new SecondaryDrawerItem().withName(R.string.drawer_item_open_source).withIcon(FontAwesome.Icon.faw_github).withIdentifier(4).withCheckable(false),
+                        new SecondaryDrawerItem().withName(R.string.drawer_item_open_source).withIcon(FontAwesome.Icon.faw_github).withIdentifier(20).withCheckable(false),
                         new SecondaryDrawerItem().withName(R.string.drawer_item_contact).withIcon(GoogleMaterial.Icon.gmd_format_color_fill).withTag("Bullhorn")
                 ) // add the items we want to use with our Drawer
                 .withOnDrawerItemClickListener(new Drawer.OnDrawerItemClickListener() {
@@ -107,22 +108,25 @@ public class SimpleHeaderDrawerActivity extends ActionBarActivity {
                         //those items don't contain a drawerItem
 
                         if (drawerItem != null) {
-                            if (drawerItem.getIdentifier() == 100) {
+                            if (drawerItem.getIdentifier() == 1) {
                                 Intent intent = new Intent(SimpleHeaderDrawerActivity.this, SimpleCompactHeaderDrawerActivity.class);
                                 SimpleHeaderDrawerActivity.this.startActivity(intent);
-                            } else if (drawerItem.getIdentifier() == 1) {
+                            } else if (drawerItem.getIdentifier() == 2) {
                                 Intent intent = new Intent(SimpleHeaderDrawerActivity.this, ActionBarDrawerActivity.class);
                                 SimpleHeaderDrawerActivity.this.startActivity(intent);
-                            } else if (drawerItem.getIdentifier() == 2) {
+                            } else if (drawerItem.getIdentifier() == 3) {
                                 Intent intent = new Intent(SimpleHeaderDrawerActivity.this, MultiDrawerActivity.class);
                                 SimpleHeaderDrawerActivity.this.startActivity(intent);
-                            } else if (drawerItem.getIdentifier() == 3) {
+                            } else if (drawerItem.getIdentifier() == 4) {
                                 Intent intent = new Intent(SimpleHeaderDrawerActivity.this, SimpleNonTranslucentDrawerActivity.class);
                                 SimpleHeaderDrawerActivity.this.startActivity(intent);
-                            } else if (drawerItem.getIdentifier() == 6) {
+                            } else if (drawerItem.getIdentifier() == 5) {
                                 Intent intent = new Intent(SimpleHeaderDrawerActivity.this, ComplexHeaderDrawerActivity.class);
                                 SimpleHeaderDrawerActivity.this.startActivity(intent);
-                            } else if (drawerItem.getIdentifier() == 4) {
+                            } else if (drawerItem.getIdentifier() == 6) {
+                                Intent intent = new Intent(SimpleHeaderDrawerActivity.this, SimpleFragmentDrawerActivity.class);
+                                SimpleHeaderDrawerActivity.this.startActivity(intent);
+                            } else if (drawerItem.getIdentifier() == 20) {
                                 new Libs.Builder().withFields(R.string.class.getFields()).withActivityTheme(R.style.MaterialDrawerTheme_ActionBar).start(SimpleHeaderDrawerActivity.this);
                             }
                         }
@@ -133,8 +137,8 @@ public class SimpleHeaderDrawerActivity extends ActionBarActivity {
 
         //only set the active selection or active profile if we do not recreate the activity
         if (savedInstanceState == null) {
-            // set the selection to the item with the identifier 5
-            result.setSelectionByIdentifier(5, false);
+            // set the selection to the item with the identifier 10
+            result.setSelectionByIdentifier(10, false);
 
             //set the active profile
             headerResult.setActiveProfile(profile3);
