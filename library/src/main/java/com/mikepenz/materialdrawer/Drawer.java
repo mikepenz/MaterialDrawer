@@ -52,6 +52,7 @@ public class Drawer {
     // the activity to use
     protected Activity mActivity;
     protected ViewGroup mRootView;
+    protected ScrimInsetsFrameLayout mDrawerContentRoot;
 
     /**
      * Pass the activity you use the drawer in ;)
@@ -759,7 +760,7 @@ public class Drawer {
         }
 
         //get the drawer root
-        ScrimInsetsFrameLayout drawerContentRoot = (ScrimInsetsFrameLayout) mDrawerLayout.getChildAt(0);
+        mDrawerContentRoot = (ScrimInsetsFrameLayout) mDrawerLayout.getChildAt(0);
         if (mTranslucentStatusBar && !mTranslucentActionBarCompatibility) {
             if (Build.VERSION.SDK_INT >= 19 && Build.VERSION.SDK_INT < 21) {
                 setTranslucentStatusFlag(true);
@@ -776,7 +777,7 @@ public class Drawer {
                 }
             }
 
-            drawerContentRoot.setPadding(0, mActivity.getResources().getDimensionPixelSize(R.dimen.tool_bar_top_padding), 0, 0);
+            mDrawerContentRoot.setPadding(0, mActivity.getResources().getDimensionPixelSize(R.dimen.tool_bar_top_padding), 0, 0);
 
             // define the statusBarColor
             if (mStatusBarColor == 0 && mStatusBarColorRes != -1) {
@@ -784,7 +785,7 @@ public class Drawer {
             } else if (mStatusBarColor == 0) {
                 mStatusBarColor = UIUtils.getThemeColorFromAttrOrRes(mActivity, R.attr.colorPrimaryDark, R.color.material_drawer_primary_dark);
             }
-            drawerContentRoot.setInsetForeground(mStatusBarColor);
+            mDrawerContentRoot.setInsetForeground(mStatusBarColor);
         }
 
         //get the content view
@@ -794,7 +795,7 @@ public class Drawer {
         mRootView.removeView(contentView);
 
         //add the contentView to the drawer content frameLayout
-        drawerContentRoot.addView(contentView, new ViewGroup.LayoutParams(
+        mDrawerContentRoot.addView(contentView, new ViewGroup.LayoutParams(
                 ViewGroup.LayoutParams.MATCH_PARENT,
                 ViewGroup.LayoutParams.MATCH_PARENT
         ));
@@ -1276,6 +1277,17 @@ public class Drawer {
             }
             return false;
         }
+
+
+        /**
+         * Set the color for the statusbar
+         *
+         * @param statusBarColor
+         */
+        public void setStatusBarColor(int statusBarColor) {
+            mDrawer.mDrawerContentRoot.setInsetForeground(statusBarColor);
+        }
+
 
         /**
          * get the slider layout of the current drawer.
