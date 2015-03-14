@@ -60,6 +60,7 @@ public class AccountHeader {
 
     // global stuff
     protected boolean mSelectionListShown = false;
+    protected int mAccountHeaderTextSectionBackgroundResource = -1;
 
     // the activity to use
     protected Activity mActivity;
@@ -533,7 +534,10 @@ public class AccountHeader {
         // handle everything if we don't have a translucent status bar
         if (mTranslucentStatusBar) {
             mAccountHeader.setPadding(0, mActivity.getResources().getDimensionPixelSize(R.dimen.tool_bar_top_padding), 0, 0);
-            height = height + mActivity.getResources().getDimensionPixelSize(R.dimen.tool_bar_top_padding);
+            //in fact it makes no difference if we have a translucent statusBar or not. we want 9/16 just if we are compact
+            if (mCompactStyle) {
+                height = height + mActivity.getResources().getDimensionPixelSize(R.dimen.tool_bar_top_padding);
+            }
         }
 
 
@@ -571,12 +575,13 @@ public class AccountHeader {
             // selectableItemBackground to ensure that the View has a pressed state
             TypedValue outValue = new TypedValue();
             mActivity.getTheme().resolveAttribute(android.R.attr.selectableItemBackground, outValue, true);
-            mAccountHeaderTextSection.setBackgroundResource(outValue.resourceId);
+            mAccountHeaderTextSectionBackgroundResource = outValue.resourceId;
         } else {
             TypedValue outValue = new TypedValue();
             mActivity.getTheme().resolveAttribute(android.R.attr.itemBackground, outValue, true);
-            mAccountHeaderTextSection.setBackgroundResource(outValue.resourceId);
+            mAccountHeaderTextSectionBackgroundResource = outValue.resourceId;
         }
+        mAccountHeaderTextSection.setBackgroundResource(mAccountHeaderTextSectionBackgroundResource);
 
         // set the arrow :D
         mAccountSwitcherArrow = (ImageView) mAccountHeaderContainer.findViewById(R.id.account_header_drawer_text_switcher);
@@ -790,6 +795,7 @@ public class AccountHeader {
         mCurrentProfileView.setVisibility(View.INVISIBLE);
         mAccountHeaderTextSection.setVisibility(View.INVISIBLE);
         mAccountHeaderTextSection.setOnClickListener(onSelectionClickListener);
+        mAccountHeaderTextSection.setBackgroundResource(mAccountHeaderTextSectionBackgroundResource);
         mAccountSwitcherArrow.setVisibility(View.INVISIBLE);
         mProfileFirstView.setVisibility(View.INVISIBLE);
         mProfileFirstView.setOnClickListener(null);
@@ -804,6 +810,9 @@ public class AccountHeader {
                 mCurrentProfileView.setTag(mCurrentProfile);
                 if (mProfileImagesClickable) {
                     mCurrentProfileView.setOnClickListener(onProfileClickListener);
+                    mCurrentProfileView.disableTouchFeedback(false);
+                } else {
+                    mCurrentProfileView.disableTouchFeedback(true);
                 }
                 mCurrentProfileView.setVisibility(View.VISIBLE);
             } else if (mCompactStyle) {
@@ -812,6 +821,7 @@ public class AccountHeader {
 
             mAccountHeaderTextSection.setTag(mCurrentProfile);
             mAccountHeaderTextSection.setVisibility(View.VISIBLE);
+            mAccountHeaderTextSection.setBackgroundResource(mAccountHeaderTextSectionBackgroundResource);
             mAccountSwitcherArrow.setVisibility(View.VISIBLE);
             mCurrentProfileName.setText(mCurrentProfile.getName());
             mCurrentProfileEmail.setText(mCurrentProfile.getEmail());
@@ -821,6 +831,9 @@ public class AccountHeader {
                 mProfileFirstView.setTag(mProfileFirst);
                 if (mProfileImagesClickable) {
                     mProfileFirstView.setOnClickListener(onProfileClickListener);
+                    mProfileFirstView.disableTouchFeedback(false);
+                } else {
+                    mProfileFirstView.disableTouchFeedback(true);
                 }
                 mProfileFirstView.setVisibility(View.VISIBLE);
             }
@@ -829,6 +842,9 @@ public class AccountHeader {
                 mProfileSecondView.setTag(mProfileSecond);
                 if (mProfileImagesClickable) {
                     mProfileSecondView.setOnClickListener(onProfileClickListener);
+                    mProfileSecondView.disableTouchFeedback(false);
+                } else {
+                    mProfileSecondView.disableTouchFeedback(true);
                 }
                 mProfileSecondView.setVisibility(View.VISIBLE);
                 alignParentLayoutParam(mProfileFirstView, 0);
@@ -840,6 +856,9 @@ public class AccountHeader {
                 mProfileThirdView.setTag(mProfileThird);
                 if (mProfileImagesClickable) {
                     mProfileThirdView.setOnClickListener(onProfileClickListener);
+                    mProfileThirdView.disableTouchFeedback(false);
+                } else {
+                    mProfileThirdView.disableTouchFeedback(true);
                 }
                 mProfileThirdView.setVisibility(View.VISIBLE);
                 alignParentLayoutParam(mProfileSecondView, 0);
@@ -851,6 +870,7 @@ public class AccountHeader {
             mAccountHeaderTextSection.setTag(profile);
             mAccountHeaderTextSection.setVisibility(View.VISIBLE);
             mAccountSwitcherArrow.setVisibility(View.VISIBLE);
+            mAccountHeaderTextSection.setBackgroundResource(mAccountHeaderTextSectionBackgroundResource);
             mCurrentProfileName.setText(profile.getName());
             mCurrentProfileEmail.setText(profile.getEmail());
         }
@@ -873,9 +893,11 @@ public class AccountHeader {
         //if we disabled the list
         if (!mSelectionListEnabled) {
             mAccountSwitcherArrow.setVisibility(View.INVISIBLE);
+            mAccountHeaderTextSection.setBackground(null);
         }
         if (!mSelectionListEnabledForSingleProfile && mProfileFirst == null) {
             mAccountSwitcherArrow.setVisibility(View.INVISIBLE);
+            mAccountHeaderTextSection.setBackground(null);
         }
     }
 
