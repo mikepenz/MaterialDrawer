@@ -57,8 +57,6 @@
             android:paddingStart="@dimen/material_drawer_vertical_padding"
             android:paddingRight="@dimen/material_drawer_vertical_padding"
             android:paddingEnd="@dimen/material_drawer_vertical_padding"
-            android:paddingTop="@dimen/material_drawer_padding"
-            android:paddingBottom="@dimen/material_drawer_padding"
             android:layout_toRightOf="@+id/account_header_drawer_current"
             android:layout_toEndOf="@+id/account_header_drawer_current"
             android:layout_toLeftOf="@+id/account_header_drawer_text_switcher"
