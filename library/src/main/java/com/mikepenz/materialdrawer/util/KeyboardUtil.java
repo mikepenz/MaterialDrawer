@@ -22,8 +22,8 @@ public class KeyboardUtil {
         this.decorView = act.getWindow().getDecorView();
         this.contentView = contentView;
 
-        //only required on newer android versions. it was working on API level 10
-        if (Build.VERSION.SDK_INT > 10) {
+        //only required on newer android versions. it was working on API level 19
+        if (Build.VERSION.SDK_INT >= 19) {
             decorView.getViewTreeObserver().addOnGlobalLayoutListener(onGlobalLayoutListener);
         }
     }
