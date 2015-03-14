@@ -25,6 +25,7 @@ import com.mikepenz.materialdrawer.model.interfaces.IProfile;
 import com.mikepenz.materialdrawer.model.interfaces.Identifyable;
 import com.mikepenz.materialdrawer.util.UIUtils;
 import com.mikepenz.materialdrawer.view.BezelImageView;
+import com.squareup.picasso.Picasso;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -806,7 +807,7 @@ public class AccountHeader {
 
         if (mCurrentProfile != null) {
             if (mProfileImagesVisible) {
-                setImageOrPlaceholder(mCurrentProfileView, mCurrentProfile.getIcon());
+                setImageOrPlaceholder(mCurrentProfileView, mCurrentProfile.getIcon(), mCurrentProfile.getImageUrl());
                 mCurrentProfileView.setTag(mCurrentProfile);
                 if (mProfileImagesClickable) {
                     mCurrentProfileView.setOnClickListener(onProfileClickListener);
@@ -827,7 +828,7 @@ public class AccountHeader {
             mCurrentProfileEmail.setText(mCurrentProfile.getEmail());
 
             if (mProfileFirst != null && mProfileImagesVisible) {
-                setImageOrPlaceholder(mProfileFirstView, mProfileFirst.getIcon());
+                setImageOrPlaceholder(mProfileFirstView, mProfileFirst.getIcon(), mProfileFirst.getImageUrl());
                 mProfileFirstView.setTag(mProfileFirst);
                 if (mProfileImagesClickable) {
                     mProfileFirstView.setOnClickListener(onProfileClickListener);
@@ -838,7 +839,7 @@ public class AccountHeader {
                 mProfileFirstView.setVisibility(View.VISIBLE);
             }
             if (mProfileSecond != null && mProfileImagesVisible) {
-                setImageOrPlaceholder(mProfileSecondView, mProfileSecond.getIcon());
+                setImageOrPlaceholder(mProfileSecondView, mProfileSecond.getIcon(), mProfileSecond.getImageUrl());
                 mProfileSecondView.setTag(mProfileSecond);
                 if (mProfileImagesClickable) {
                     mProfileSecondView.setOnClickListener(onProfileClickListener);
@@ -852,7 +853,7 @@ public class AccountHeader {
                 alignParentLayoutParam(mProfileFirstView, 1);
             }
             if (mProfileThird != null && mThreeSmallProfileImages && mProfileImagesVisible) {
-                setImageOrPlaceholder(mProfileThirdView, mProfileThird.getIcon());
+                setImageOrPlaceholder(mProfileThirdView, mProfileThird.getIcon(), mProfileThird.getImageUrl());
                 mProfileThirdView.setTag(mProfileThird);
                 if (mProfileImagesClickable) {
                     mProfileThirdView.setOnClickListener(onProfileClickListener);
@@ -922,11 +923,14 @@ public class AccountHeader {
      * @param iv
      * @param d
      */
-    private void setImageOrPlaceholder(ImageView iv, Drawable d) {
-        if (d == null) {
+    private void setImageOrPlaceholder(ImageView iv, Drawable d, String i) {
+        if (d == null && i == null) {
             iv.setImageDrawable(new IconicsDrawable(iv.getContext(), GoogleMaterial.Icon.gmd_person).color(mTextColor).backgroundColorRes(R.color.primary).iconOffsetYDp(2).paddingDp(2).sizeDp(56));
-        } else {
+        } else if (d != null){
             iv.setImageDrawable(d);
+        } else {
+            Context ctx = iv.getContext();
+            Picasso.with(ctx).load(i).resize(ctx.getResources().getDimensionPixelSize(R.dimen.material_drawer_item_profile_icon), ctx.getResources().getDimensionPixelSize(R.dimen.material_drawer_item_profile_icon)).centerCrop().into(iv);
         }
     }
 

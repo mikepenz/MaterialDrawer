@@ -16,6 +16,7 @@ import com.mikepenz.materialdrawer.model.interfaces.IProfile;
 import com.mikepenz.materialdrawer.model.interfaces.Identifyable;
 import com.mikepenz.materialdrawer.model.interfaces.Tagable;
 import com.mikepenz.materialdrawer.util.UIUtils;
+import com.squareup.picasso.Picasso;
 
 /**
  * Created by mikepenz on 03.02.15.
@@ -28,6 +29,7 @@ public class ProfileSettingDrawerItem implements IDrawerItem, IProfile<ProfileSe
 
     private Drawable icon;
     private IIcon iicon;
+    private String imageUrl;
 
     private String name;
     private String email;
@@ -56,6 +58,11 @@ public class ProfileSettingDrawerItem implements IDrawerItem, IProfile<ProfileSe
 
     public ProfileSettingDrawerItem withIcon(IIcon iicon) {
         this.iicon = iicon;
+        return this;
+    }
+
+    public ProfileSettingDrawerItem withImageUrl(String imageUrl) {
+        this.imageUrl = imageUrl;
         return this;
     }
 
@@ -196,6 +203,16 @@ public class ProfileSettingDrawerItem implements IDrawerItem, IProfile<ProfileSe
     }
 
     @Override
+    public String getImageUrl() {
+        return imageUrl;
+    }
+
+    @Override
+    public void setImageUrl(String imageUrl) {
+        this.imageUrl = imageUrl;
+    }
+
+    @Override
     public boolean isSelectable() {
         return selectable;
     }
@@ -299,6 +316,15 @@ public class ProfileSettingDrawerItem implements IDrawerItem, IProfile<ProfileSe
             viewHolder.icon.setVisibility(View.VISIBLE);
         } else if (this.getIIcon() != null) {
             viewHolder.icon.setImageDrawable(new IconicsDrawable(ctx, this.getIIcon()).color(icon_color).actionBarSize().paddingDp(2));
+            viewHolder.icon.setVisibility(View.VISIBLE);
+        } else if (this.getImageUrl() != null) {
+            Picasso.with(ctx).load(this.getImageUrl())
+                    .resize(
+                            ctx.getResources().getDimensionPixelSize(R.dimen.material_drawer_item_profile_setting_icon),
+                            ctx.getResources().getDimensionPixelSize(R.dimen.material_drawer_item_profile_setting_icon)
+                    )
+                    .centerCrop()
+                    .into(viewHolder.icon);
             viewHolder.icon.setVisibility(View.VISIBLE);
         } else {
             viewHolder.icon.setVisibility(View.GONE);
