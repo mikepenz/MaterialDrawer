@@ -104,6 +104,30 @@ public class Drawer {
      */
     public Drawer withTranslucentStatusBar(boolean translucentStatusBar) {
         this.mTranslucentStatusBar = translucentStatusBar;
+
+        //if we disable the translucentStatusBar it should be disabled at all
+        if (!translucentStatusBar) {
+            this.mTranslucentStatusBarProgrammatically = false;
+        }
+        return this;
+    }
+
+    // set to disable the translucent statusBar Programmatically
+    protected boolean mTranslucentStatusBarProgrammatically = true;
+
+    /**
+     * set this to false if you want no translucent statusBar. or
+     * if you want to create this behavior only by theme.
+     *
+     * @param translucentStatusBarProgrammatically
+     * @return
+     */
+    public Drawer withTranslucentStatusBarProgrammatically(boolean translucentStatusBarProgrammatically) {
+        this.mTranslucentStatusBarProgrammatically = translucentStatusBarProgrammatically;
+        //if we enable the programmatically translucent statusBar we want also the normal statusBar behavior
+        if (translucentStatusBarProgrammatically) {
+            this.mTranslucentStatusBar = true;
+        }
         return this;
     }
 
@@ -741,11 +765,15 @@ public class Drawer {
                 setTranslucentStatusFlag(true);
             }
             if (Build.VERSION.SDK_INT >= 19) {
-                mActivity.getWindow().getDecorView().setSystemUiVisibility(View.SYSTEM_UI_FLAG_LAYOUT_STABLE | View.SYSTEM_UI_FLAG_LAYOUT_FULLSCREEN);
+                if (mTranslucentStatusBarProgrammatically) {
+                    mActivity.getWindow().getDecorView().setSystemUiVisibility(View.SYSTEM_UI_FLAG_LAYOUT_STABLE | View.SYSTEM_UI_FLAG_LAYOUT_FULLSCREEN);
+                }
             }
             if (Build.VERSION.SDK_INT >= 21) {
                 setTranslucentStatusFlag(false);
-                mActivity.getWindow().setStatusBarColor(Color.TRANSPARENT);
+                if (mTranslucentStatusBarProgrammatically) {
+                    mActivity.getWindow().setStatusBarColor(Color.TRANSPARENT);
+                }
             }
 
             drawerContentRoot.setPadding(0, mActivity.getResources().getDimensionPixelSize(R.dimen.tool_bar_top_padding), 0, 0);
