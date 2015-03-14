@@ -13,6 +13,7 @@
         android:transitionName="actionBar"/>
 
     <FrameLayout
+        android:layout_below="@id/toolbar"
         android:id="@+id/fragment_container"
         android:layout_width="match_parent"
         android:layout_height="match_parent"/>
