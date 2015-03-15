@@ -44,7 +44,7 @@ You can try it out here [Google Play](https://play.google.com/store/apps/details
 The MaterialDrawer Library is pushed to [Maven Central](http://search.maven.org/#search|ga|1|g%3A%22com.mikepenz.materialdrawer%22), so you just need to add the following dependency to your `build.gradle`.
 
 ```javascript
-compile('com.mikepenz.materialdrawer:library:2.0.8@aar') {
+compile('com.mikepenz.materialdrawer:library:2.5.0@aar') {
 	transitive = true
 }
 ```
@@ -52,6 +52,15 @@ compile('com.mikepenz.materialdrawer:library:2.0.8@aar') {
 ##How to use
 Here's a quick overview what you have to do within your application.
 You can find a detailed description of all methods in the [WIKI](https://github.com/mikepenz/MaterialDrawer/wiki).
+
+
+###Upgrade Notes < v2.5.0
+If you used a version prior to v2.5.0 check following:
+You can remove the padding above the ToolBar. The library now uses a ScrimInsetsLayout. Just set your toolbar within the layout
+as you would normally do.
+The MaterialDrawer now uses a translucent style by default. (Even if you use a non translucent theme) You can disable this by
+setting `.withTranslucentStatusBar(false)`.
+
 
 ###Minimal SetUp
 
