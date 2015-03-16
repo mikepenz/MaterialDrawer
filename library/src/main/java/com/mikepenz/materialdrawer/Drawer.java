@@ -968,7 +968,10 @@ public class Drawer {
             mListView = new ListView(mActivity);
             mListView.setChoiceMode(AbsListView.CHOICE_MODE_SINGLE);
             mListView.setDivider(null);
-            mListView.setDrawSelectorOnTop(true);
+            //only draw the selector on top if we are on a newer api than 10
+            if (Build.VERSION.SDK_INT > 10) {
+                mListView.setDrawSelectorOnTop(true);
+            }
             mListView.setClipToPadding(false);
 
             if (mTranslucentStatusBar && !mTranslucentActionBarCompatibility) {
