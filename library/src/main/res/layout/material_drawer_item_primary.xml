@@ -26,7 +26,7 @@
         android:layout_toEndOf="@id/icon"
         android:layout_toLeftOf="@+id/badge"
         android:layout_toStartOf="@+id/badge"
-        android:layout_width="wrap_content"
+        android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:textSize="@dimen/material_drawer_item_primary_text"
         android:gravity="center_vertical|start"

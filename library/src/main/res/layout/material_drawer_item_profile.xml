@@ -43,7 +43,7 @@
         <TextView
             android:id="@+id/email"
             android:fontFamily="sans-serif"
-            android:layout_width="wrap_content"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:textSize="@dimen/material_drawer_item_profile_text"
             android:gravity="center_vertical|start"
