@@ -759,9 +759,13 @@ public class Drawer {
             withDrawerLayout(-1);
         }
 
+        //get the content view
+        View contentView = mRootView.getChildAt(0);
+        boolean alreadyInflated = contentView instanceof DrawerLayout;
+
         //get the drawer root
         mDrawerContentRoot = (ScrimInsetsFrameLayout) mDrawerLayout.getChildAt(0);
-        if (mTranslucentStatusBar && !mTranslucentActionBarCompatibility) {
+        if (!alreadyInflated && mTranslucentStatusBar && !mTranslucentActionBarCompatibility) {
             if (Build.VERSION.SDK_INT >= 19 && Build.VERSION.SDK_INT < 21) {
                 setTranslucentStatusFlag(true);
             }
@@ -788,11 +792,14 @@ public class Drawer {
             mDrawerContentRoot.setInsetForeground(mStatusBarColor);
         }
 
-        //get the content view
-        View contentView = mRootView.getChildAt(0);
-
-        // remove the contentView
-        mRootView.removeView(contentView);
+        //only add the new layout if it wasn't done before
+        if (!alreadyInflated) {
+            // remove the contentView
+            mRootView.removeView(contentView);
+        } else {
+            //if it was already inflated we have to clean up again
+            mRootView.removeAllViews();
+        }
 
         //add the contentView to the drawer content frameLayout
         mDrawerContentRoot.addView(contentView, new ViewGroup.LayoutParams(
