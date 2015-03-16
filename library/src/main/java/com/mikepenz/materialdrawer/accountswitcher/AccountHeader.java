@@ -762,6 +762,7 @@ public class AccountHeader {
         mAccountHeaderTextSection.setVisibility(View.INVISIBLE);
         mAccountHeaderTextSection.setOnClickListener(onSelectionClickListener);
         mAccountSwitcherArrow.setVisibility(View.INVISIBLE);
+        mAccountSwitcherArrow.setOnClickListener(onSelectionClickListener);
         mProfileFirstView.setVisibility(View.INVISIBLE);
         mProfileFirstView.setOnClickListener(null);
         mProfileSecondView.setVisibility(View.INVISIBLE);
