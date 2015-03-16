@@ -691,7 +691,7 @@ public class AccountHeader {
                 }
             }
 
-            Stack<IProfile> reversedActiveProfiles = new Stack<IProfile>();
+            Stack<IProfile> reversedActiveProfiles = new Stack<>();
             while (!activeProfiles.empty()) {
                 reversedActiveProfiles.push(activeProfiles.pop());
             }
@@ -1222,7 +1222,7 @@ public class AccountHeader {
          */
         public void addProfiles(IProfile... profiles) {
             if (mAccountHeader.mProfiles == null) {
-                mAccountHeader.mProfiles = new ArrayList<IProfile>();
+                mAccountHeader.mProfiles = new ArrayList<>();
             }
             if (profiles != null) {
                 Collections.addAll(mAccountHeader.mProfiles, profiles);
@@ -1239,7 +1239,7 @@ public class AccountHeader {
          */
         public void addProfile(IProfile profile, int position) {
             if (mAccountHeader.mProfiles == null) {
-                mAccountHeader.mProfiles = new ArrayList<IProfile>();
+                mAccountHeader.mProfiles = new ArrayList<>();
             }
             mAccountHeader.mProfiles.add(position, profile);
 
