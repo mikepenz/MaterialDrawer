@@ -807,24 +807,27 @@ public class Drawer {
         ));
 
         //set the navigationOnClickListener
-        if (mToolbar != null) {
-            this.mToolbar.setNavigationOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    boolean handled = false;
+        View.OnClickListener toolbarNavigationListener = new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                boolean handled = false;
 
-                    if (mOnDrawerNavigationListener != null && (mActionBarDrawerToggle != null && !mActionBarDrawerToggle.isDrawerIndicatorEnabled())) {
-                        handled = mOnDrawerNavigationListener.onNavigationClickListener(v);
-                    }
-                    if (!handled) {
-                        if (mDrawerLayout.isDrawerOpen(mSliderLayout)) {
-                            mDrawerLayout.closeDrawer(mSliderLayout);
-                        } else {
-                            mDrawerLayout.openDrawer(mSliderLayout);
-                        }
+                if (mOnDrawerNavigationListener != null && (mActionBarDrawerToggle != null && !mActionBarDrawerToggle.isDrawerIndicatorEnabled())) {
+                    handled = mOnDrawerNavigationListener.onNavigationClickListener(v);
+                }
+                if (!handled) {
+                    if (mDrawerLayout.isDrawerOpen(mSliderLayout)) {
+                        mDrawerLayout.closeDrawer(mSliderLayout);
+                    } else {
+                        mDrawerLayout.openDrawer(mSliderLayout);
                     }
                 }
-            });
+            }
+        };
+
+        //if we got a toolbar set a toolbarNavigationListener
+        if (mToolbar != null) {
+            this.mToolbar.setNavigationOnClickListener(toolbarNavigationListener);
         }
 
         // create the ActionBarDrawerToggle if not set and enabled and if we have a toolbar
@@ -861,6 +864,7 @@ public class Drawer {
 
         //handle the ActionBarDrawerToggle
         if (mActionBarDrawerToggle != null) {
+            mActionBarDrawerToggle.setToolbarNavigationClickListener(toolbarNavigationListener);
             mDrawerLayout.setDrawerListener(mActionBarDrawerToggle);
         }
 
