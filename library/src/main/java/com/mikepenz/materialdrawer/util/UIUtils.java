@@ -78,8 +78,7 @@ public class UIUtils {
      */
     @SuppressLint("NewApi")
     public static void setBackground(View v, Drawable d) {
-        int sdk = android.os.Build.VERSION.SDK_INT;
-        if (sdk < android.os.Build.VERSION_CODES.JELLY_BEAN) {
+        if (android.os.Build.VERSION.SDK_INT < android.os.Build.VERSION_CODES.JELLY_BEAN) {
             v.setBackgroundDrawable(d);
         } else {
             v.setBackground(d);

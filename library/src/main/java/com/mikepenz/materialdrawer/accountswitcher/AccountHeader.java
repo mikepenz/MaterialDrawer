@@ -893,11 +893,11 @@ public class AccountHeader {
         //if we disabled the list
         if (!mSelectionListEnabled) {
             mAccountSwitcherArrow.setVisibility(View.INVISIBLE);
-            mAccountHeaderTextSection.setBackground(null);
+            UIUtils.setBackground(mAccountHeaderTextSection, null);
         }
         if (!mSelectionListEnabledForSingleProfile && mProfileFirst == null) {
             mAccountSwitcherArrow.setVisibility(View.INVISIBLE);
-            mAccountHeaderTextSection.setBackground(null);
+            UIUtils.setBackground(mAccountHeaderTextSection, null);
         }
     }
 
