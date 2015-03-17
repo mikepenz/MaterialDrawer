@@ -2,41 +2,27 @@
 
     <item
         android:id="@+id/menu_1"
-        android:orderInCategory="100"
-        app:showAsAction="ifRoom"
-        android:title="Item 1"/>
+        android:orderInCategory="1"
+        app:showAsAction="never"
+        android:title="Update Profile"/>
     <item
-        android:orderInCategory="100"
-        app:showAsAction="ifRoom"
-        android:title="Item 2"/>
+        android:id="@+id/menu_2"
+        android:orderInCategory="2"
+        app:showAsAction="never"
+        android:title="Arrow-Icon"/>
     <item
-        android:orderInCategory="100"
-        app:showAsAction="ifRoom"
-        android:title="Item 3"/>
+        android:id="@+id/menu_3"
+        android:orderInCategory="3"
+        app:showAsAction="never"
+        android:title="Hamburger-Icon"/>
     <item
-        android:orderInCategory="100"
-        app:showAsAction="ifRoom"
+        android:id="@+id/menu_4"
+        android:orderInCategory="4"
+        app:showAsAction="never"
         android:title="Item 4"/>
-    <item
-        android:orderInCategory="100"
-        app:showAsAction="ifRoom"
-        android:title="Item 5"/>
-    <item
-        android:orderInCategory="100"
-        app:showAsAction="ifRoom"
-        android:title="Item 6"/>
-    <item
-        android:orderInCategory="100"
-        app:showAsAction="ifRoom"
-        android:title="Item 7"/>
-    <item
-        android:orderInCategory="100"
-        app:showAsAction="ifRoom"
-        android:title="Item 8"/>
     <item
         android:id="@+id/action_settings"
         android:orderInCategory="100"
         app:showAsAction="ifRoom"
         android:title="@string/action_settings"/>
-
 </menu>

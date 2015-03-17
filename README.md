@@ -176,13 +176,15 @@ new Drawer()
 If you use the included ActionBarDrawerToggle you can switch between back-arrow or hamburger-icon
 with the following code snippet. (Please note that the order of these lines matter)
 ####Code - Show the back arrow:
+```java
 result.getActionBarDrawerToggle().setDrawerIndicatorEnabled(false);
 getSupportActionBar().setDisplayHomeAsUpEnabled(true);
-getSupportActionBar().setDisplayShowHomeEnabled(true);
+```
 ####Code - Show the hamburger icon:
+```java
 getSupportActionBar().setDisplayHomeAsUpEnabled(false);
-getSupportActionBar().setDisplayShowHomeEnabled(false);
 result.getActionBarDrawerToggle().setDrawerIndicatorEnabled(true);
+```
 
 
 ###AndroidManifest.xml

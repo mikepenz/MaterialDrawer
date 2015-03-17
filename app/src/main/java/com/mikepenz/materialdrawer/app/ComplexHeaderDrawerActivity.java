@@ -3,7 +3,6 @@ package com.mikepenz.materialdrawer.app;
 import android.os.Bundle;
 import android.support.v7.app.ActionBarActivity;
 import android.support.v7.widget.Toolbar;
-import android.util.Log;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
@@ -98,17 +97,16 @@ public class ComplexHeaderDrawerActivity extends ActionBarActivity {
                 .withOnDrawerNavigationListener(new Drawer.OnDrawerNavigationListener() {
                     @Override
                     public boolean onNavigationClickListener(View clickedView) {
-                        Log.i("materialdrawer", "onNavigationClick");
-                        return false;
+                        //this method is only called if the Arrow icon is shown. The hamburger is automatically managed by the MaterialDrawer
+                        //if the back arrow is shown. close the activity
+                        ComplexHeaderDrawerActivity.this.finish();
+
+                        //return true if we have consumed the event
+                        return true;
                     }
                 })
                 .withSavedInstance(savedInstanceState)
                 .build();
-
-        // set the selection to the item with the identifier 5
-        result.setSelectionByIdentifier(5, false);
-
-        headerResult.setActiveProfile(profile3);
     }
 
     @Override
@@ -126,6 +124,16 @@ public class ComplexHeaderDrawerActivity extends ActionBarActivity {
                 //update the profile2 and set a new image.
                 profile2.setIcon(new IconicsDrawable(this, GoogleMaterial.Icon.gmd_android).backgroundColorRes(R.color.accent).sizeDp(48).paddingDp(4));
                 headerResult.updateProfileByIdentifier(profile2);
+                return true;
+            case R.id.menu_2:
+                //show the arrow icon
+                result.getActionBarDrawerToggle().setDrawerIndicatorEnabled(false);
+                getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+                return true;
+            case R.id.menu_3:
+                //show the hamburger icon
+                getSupportActionBar().setDisplayHomeAsUpEnabled(false);
+                result.getActionBarDrawerToggle().setDrawerIndicatorEnabled(true);
                 return true;
             default:
                 return super.onOptionsItemSelected(item);
