@@ -171,6 +171,20 @@ new Drawer()
     .append(result);
 ```
 
+
+###Switching between Back-Arrow or Hamburger-Icon
+If you use the included ActionBarDrawerToggle you can switch between back-arrow or hamburger-icon
+with the following code snippet. (Please note that the order of these lines matter)
+####Code - Show the back arrow:
+result.getActionBarDrawerToggle().setDrawerIndicatorEnabled(false);
+getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+getSupportActionBar().setDisplayShowHomeEnabled(true);
+####Code - Show the hamburger icon:
+getSupportActionBar().setDisplayHomeAsUpEnabled(false);
+getSupportActionBar().setDisplayShowHomeEnabled(false);
+result.getActionBarDrawerToggle().setDrawerIndicatorEnabled(true);
+
+
 ###AndroidManifest.xml
 Use one of the provided themes. They all use the AppCompat theme as parent and define the color values for the drawer.
 
