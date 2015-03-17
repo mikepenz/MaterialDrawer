@@ -214,6 +214,8 @@ public class Drawer {
     //the background color for the slider
     protected int mSliderBackgroundColor = 0;
     protected int mSliderBackgroundColorRes = -1;
+    protected Drawable mSliderBackgroundDrawable = null;
+    protected int mSliderBackgroundDrawableRes = -1;
 
     /**
      * Set the background color for the Slider.
@@ -236,6 +238,32 @@ public class Drawer {
      */
     public Drawer withSliderBackgroundColorRes(int sliderBackgroundColorRes) {
         this.mSliderBackgroundColorRes = sliderBackgroundColorRes;
+        return this;
+    }
+
+
+    /**
+     * Set the background drawable for the Slider.
+     * This is the view containing the list.
+     *
+     * @param sliderBackgroundDrawable
+     * @return
+     */
+    public Drawer withSliderBackgroundDrawable(Drawable sliderBackgroundDrawable) {
+        this.mSliderBackgroundDrawable = sliderBackgroundDrawable;
+        return this;
+    }
+
+
+    /**
+     * Set the background drawable for the Slider from a Resource.
+     * This is the view containing the list.
+     *
+     * @param sliderBackgroundDrawableRes
+     * @return
+     */
+    public Drawer withSliderBackgroundDrawableRes(int sliderBackgroundDrawableRes) {
+        this.mSliderBackgroundDrawableRes = sliderBackgroundDrawableRes;
         return this;
     }
 
@@ -894,6 +922,10 @@ public class Drawer {
             mSliderLayout.setBackgroundColor(mSliderBackgroundColor);
         } else if (mSliderBackgroundColorRes != -1) {
             mSliderLayout.setBackgroundColor(mActivity.getResources().getColor(mSliderBackgroundColorRes));
+        } else if (mSliderBackgroundDrawable != null) {
+            UIUtils.setBackground(mSliderLayout, mSliderBackgroundDrawable);
+        } else if (mSliderBackgroundDrawableRes != -1) {
+            UIUtils.setBackground(mSliderLayout, mActivity.getResources().getDrawable(mSliderBackgroundColorRes));
         }
 
         // add the slider to the drawer
