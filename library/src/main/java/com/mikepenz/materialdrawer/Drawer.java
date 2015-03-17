@@ -1563,6 +1563,19 @@ public class Drawer {
          */
         public void addItem(IDrawerItem drawerItem, int position) {
             if (mDrawer.mDrawerItems != null) {
+                mDrawer.mDrawerItems.add(position, drawerItem);
+                mDrawer.mAdapter.dataUpdated();
+            }
+        }
+
+        /**
+         * Set a drawerItem at a specific position
+         *
+         * @param drawerItem
+         * @param position
+         */
+        public void setItem(IDrawerItem drawerItem, int position) {
+            if (mDrawer.mDrawerItems != null) {
                 mDrawer.mDrawerItems.set(position, drawerItem);
                 mDrawer.mAdapter.dataUpdated();
             }
