@@ -14,7 +14,7 @@ import com.mikepenz.materialdrawer.model.interfaces.Tagable;
 /**
  * Created by mikepenz on 03.02.15.
  */
-public abstract class BaseDrawerItem implements IDrawerItem, Nameable<BaseDrawerItem>, Iconable<BaseDrawerItem>, Badgeable<BaseDrawerItem>, Checkable<BaseDrawerItem>, Tagable<BaseDrawerItem>, Identifyable<BaseDrawerItem> {
+public abstract class BaseDrawerItem<T> implements IDrawerItem, Nameable<T>, Iconable<T>, Badgeable<T>, Checkable<T>, Tagable<T>, Identifyable<T> {
 
     private int identifier = -1;
     private Drawable icon;
@@ -48,139 +48,139 @@ public abstract class BaseDrawerItem implements IDrawerItem, Nameable<BaseDrawer
     private int disabledIconColorRes = -1;
 
 
-    public BaseDrawerItem withIdentifier(int identifier) {
+    public T withIdentifier(int identifier) {
         this.identifier = identifier;
-        return this;
+        return (T) this;
     }
 
-    public BaseDrawerItem withIcon(Drawable icon) {
+    public T withIcon(Drawable icon) {
         this.icon = icon;
-        return this;
+        return (T) this;
     }
 
-    public BaseDrawerItem withIcon(int iconRes) {
+    public T withIcon(int iconRes) {
         this.iconRes = iconRes;
-        return this;
+        return (T) this;
     }
 
-    public BaseDrawerItem withIcon(IIcon iicon) {
+    public T withIcon(IIcon iicon) {
         this.iicon = iicon;
-        return this;
+        return (T) this;
     }
 
-    public BaseDrawerItem withSelectedIcon(Drawable selectedIcon) {
+    public T withSelectedIcon(Drawable selectedIcon) {
         this.selectedIcon = selectedIcon;
-        return this;
+        return (T) this;
     }
 
-    public BaseDrawerItem withSelectedIcon(int selectedIconRes) {
+    public T withSelectedIcon(int selectedIconRes) {
         this.selectedIconRes = selectedIconRes;
-        return this;
+        return (T) this;
     }
 
-    public BaseDrawerItem withName(String name) {
+    public T withName(String name) {
         this.name = name;
-        return this;
+        return (T) this;
     }
 
-    public BaseDrawerItem withName(int nameRes) {
+    public T withName(int nameRes) {
         this.nameRes = nameRes;
-        return this;
+        return (T) this;
     }
 
-    public BaseDrawerItem withBadge(String badge) {
+    public T withBadge(String badge) {
         this.badge = badge;
-        return this;
+        return (T) this;
     }
 
-    public BaseDrawerItem withTag(Object object) {
+    public T withTag(Object object) {
         this.tag = object;
-        return this;
+        return (T) this;
     }
 
-    public BaseDrawerItem withCheckable(boolean checkable) {
+    public T withCheckable(boolean checkable) {
         this.checkable = checkable;
-        return this;
+        return (T) this;
     }
 
-    public BaseDrawerItem setEnabled(boolean enabled) {
+    public T setEnabled(boolean enabled) {
         this.enabled = enabled;
-        return this;
+        return (T) this;
     }
 
-    public BaseDrawerItem withSelectedColor(int selectedColor) {
+    public T withSelectedColor(int selectedColor) {
         this.selectedColor = selectedColor;
-        return this;
+        return (T) this;
     }
 
-    public BaseDrawerItem withSelectedColorRes(int selectedColorRes) {
+    public T withSelectedColorRes(int selectedColorRes) {
         this.selectedColorRes = selectedColorRes;
-        return this;
+        return (T) this;
     }
 
-    public BaseDrawerItem withTextColor(int textColor) {
+    public T withTextColor(int textColor) {
         this.textColor = textColor;
-        return this;
+        return (T) this;
     }
 
-    public BaseDrawerItem withTextColorRes(int textColorRes) {
+    public T withTextColorRes(int textColorRes) {
         this.textColorRes = textColorRes;
-        return this;
+        return (T) this;
     }
 
-    public BaseDrawerItem withSelectedTextColor(int selectedTextColor) {
+    public T withSelectedTextColor(int selectedTextColor) {
         this.selectedTextColor = selectedTextColor;
-        return this;
+        return (T) this;
     }
 
-    public BaseDrawerItem withSelectedTextColorRes(int selectedColorRes) {
+    public T withSelectedTextColorRes(int selectedColorRes) {
         this.selectedTextColorRes = selectedColorRes;
-        return this;
+        return (T) this;
     }
 
-    public BaseDrawerItem withDisabledTextColor(int disabledTextColor) {
+    public T withDisabledTextColor(int disabledTextColor) {
         this.disabledTextColor = disabledTextColor;
-        return this;
+        return (T) this;
     }
 
-    public BaseDrawerItem withDisabledTextColorRes(int disabledTextColorRes) {
+    public T withDisabledTextColorRes(int disabledTextColorRes) {
         this.disabledTextColorRes = disabledTextColorRes;
-        return this;
+        return (T) this;
     }
 
-    public BaseDrawerItem withIconColor(int iconColor) {
+    public T withIconColor(int iconColor) {
         this.iconColor = iconColor;
-        return this;
+        return (T) this;
     }
 
-    public BaseDrawerItem withIconColorRes(int iconColorRes) {
+    public T withIconColorRes(int iconColorRes) {
         this.iconColorRes = iconColorRes;
-        return this;
+        return (T) this;
     }
 
-    public BaseDrawerItem withSelectedIconColor(int selectedIconColor) {
+    public T withSelectedIconColor(int selectedIconColor) {
         this.selectedIconColor = selectedIconColor;
-        return this;
+        return (T) this;
     }
 
-    public BaseDrawerItem withSelectedIconColorRes(int selectedColorRes) {
+    public T withSelectedIconColorRes(int selectedColorRes) {
         this.selectedIconColorRes = selectedColorRes;
-        return this;
+        return (T) this;
     }
 
-    public BaseDrawerItem withDisabledIconColor(int disabledIconColor) {
+    public T withDisabledIconColor(int disabledIconColor) {
         this.disabledIconColor = disabledIconColor;
-        return this;
+        return (T) this;
     }
 
-    public BaseDrawerItem withDisabledIconColorRes(int disabledIconColorRes) {
+    public T withDisabledIconColorRes(int disabledIconColorRes) {
         this.disabledIconColorRes = disabledIconColorRes;
-        return this;
+        return (T) this;
     }
 
-    public BaseDrawerItem withTintSelectedIcon(boolean tintSelectedIcon) {
+    public T withTintSelectedIcon(boolean tintSelectedIcon) {
         this.selectedIconTinted = tintSelectedIcon;
-        return this;
+        return (T) this;
     }
 
     public int getSelectedColor() {

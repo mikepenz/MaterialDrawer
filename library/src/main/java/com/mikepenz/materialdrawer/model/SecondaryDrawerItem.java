@@ -16,7 +16,7 @@ import com.mikepenz.materialdrawer.util.UIUtils;
 /**
  * Created by mikepenz on 03.02.15.
  */
-public class SecondaryDrawerItem extends BaseDrawerItem {
+public class SecondaryDrawerItem extends BaseDrawerItem<SecondaryDrawerItem> {
 
     @Override
     public String getType() {

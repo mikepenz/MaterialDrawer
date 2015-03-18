@@ -16,7 +16,7 @@ import com.mikepenz.materialdrawer.util.UIUtils;
 /**
  * Created by mikepenz on 03.02.15.
  */
-public class PrimaryDrawerItem extends BaseDrawerItem {
+public class PrimaryDrawerItem extends BaseDrawerItem<PrimaryDrawerItem> {
     @Override
     public String getType() {
         return "PRIMARY_ITEM";
