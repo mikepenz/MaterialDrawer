@@ -155,6 +155,20 @@ public class AccountHeader {
         return this;
     }
 
+    //the current selected profile is visible in the list
+    protected boolean mCurrentHiddenInList = false;
+
+    /**
+     * hide the current selected profile from the list
+     *
+     * @param currentProfileHiddenInList
+     * @return
+     */
+    public AccountHeader withCurrentProfileHiddenInList(boolean currentProfileHiddenInList) {
+        mCurrentHiddenInList = currentProfileHiddenInList;
+        return this;
+    }
+
     //set to hide the first or second line
     protected boolean mSelectionFirstLineShown = true;
     protected boolean mSelectionSecondLineShown = true;
@@ -1019,7 +1033,11 @@ public class AccountHeader {
         ArrayList<IDrawerItem> profileDrawerItems = new ArrayList<>();
         for (IProfile profile : mProfiles) {
             if (profile == mCurrentProfile) {
-                selectedPosition = position;
+                if (mCurrentHiddenInList) {
+                    return;
+                } else {
+                    selectedPosition = position;
+                }
             }
             if (profile instanceof IDrawerItem) {
                 profileDrawerItems.add((IDrawerItem) profile);
