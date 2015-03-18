@@ -274,6 +274,14 @@ No need to create a custom theme. Just set these colors (or some of them) and yo
     <color name="material_drawer_dark_header_selection_text">#FFF</color>
 ```
 
+##FAQ
+#####How can i create a drawer without a default selection
+```java
+//just use this with the Drawer.Builder
+.withSelectedItem(-1)
+```
+
+
 #Credits
 
 - Mirosław Stanek - [GitHub](https://github.com/frogermcs)
