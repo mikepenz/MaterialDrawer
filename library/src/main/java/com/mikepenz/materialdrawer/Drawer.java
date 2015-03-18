@@ -1464,8 +1464,6 @@ public class Drawer {
                         position = position + 1;
                     }
                 }
-            } else {
-                throw new RuntimeException("the item requires a unique identifier to use this method");
             }
 
             return -1;
