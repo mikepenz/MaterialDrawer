@@ -1034,7 +1034,7 @@ public class AccountHeader {
         for (IProfile profile : mProfiles) {
             if (profile == mCurrentProfile) {
                 if (mCurrentHiddenInList) {
-                    return;
+                    continue;
                 } else {
                     selectedPosition = position;
                 }
