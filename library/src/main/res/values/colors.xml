@@ -29,6 +29,7 @@
     <!-- MaterialDrawer DEFAULT text / items colors -->
     <color name="material_drawer_icons">@color/icons</color>
     <color name="material_drawer_primary_text">@color/primary_text</color>
+    <color name="material_drawer_primary_icon">@color/secondary_text</color>
     <color name="material_drawer_secondary_text">@color/secondary_text</color>
     <color name="material_drawer_hint_text">@color/hint_text</color>
     <color name="material_drawer_divider">@color/divider</color>
@@ -46,6 +47,7 @@
     <color name="material_drawer_dark_secondary_text">#8aFFFFFF</color>
     <color name="material_drawer_dark_hint_text">#ABABAB</color>
     <color name="material_drawer_dark_divider">#555555</color>
+    <color name="material_drawer_dark_primary_icon">#8AFFFFFF</color>
     <!-- MaterialDrawer DEFAULT DARK drawer colors -->
     <color name="material_drawer_dark_selected">#202020</color>
     <color name="material_drawer_dark_selected_text">@color/material_drawer_primary</color>

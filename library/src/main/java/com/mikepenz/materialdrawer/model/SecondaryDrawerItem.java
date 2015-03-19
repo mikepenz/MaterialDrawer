@@ -100,7 +100,7 @@ public class SecondaryDrawerItem extends BaseDrawerItem<SecondaryDrawerItem> {
             if (iconColor == 0 && getIconColorRes() != -1) {
                 iconColor = ctx.getResources().getColor(getIconColorRes());
             } else if (iconColor == 0) {
-                iconColor = UIUtils.getThemeColorFromAttrOrRes(ctx, R.attr.material_drawer_primary_text, R.color.material_drawer_primary_text);
+                iconColor = UIUtils.getThemeColorFromAttrOrRes(ctx, R.attr.material_drawer_primary_icon, R.color.material_drawer_primary_icon);
             }
         } else {
             iconColor = getDisabledIconColor();
