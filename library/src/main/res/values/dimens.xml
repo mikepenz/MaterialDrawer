@@ -29,6 +29,7 @@
     <dimen name="material_drawer_item_primary_icon_padding">12dp</dimen>
     <dimen name="material_drawer_item_primary_icon_padding_right">24dp</dimen>
     <dimen name="material_drawer_item_primary_text">14sp</dimen>
+    <dimen name="material_drawer_item_primary_description">14sp</dimen>
     <!-- Definition for the secondary item -->
     <dimen name="material_drawer_item_secondary">42dp</dimen>
     <dimen name="material_drawer_item_secondary_icon">48dp</dimen>
@@ -41,6 +42,7 @@
     <dimen name="material_drawer_item_profile_icon_padding">16dp</dimen>
     <dimen name="material_drawer_item_profile_icon_padding_right">8dp</dimen>
     <dimen name="material_drawer_item_profile_text">14sp</dimen>
+    <dimen name="material_drawer_item_profile_description">14sp</dimen>
     <!-- Definition for the profile setting item -->
     <dimen name="material_drawer_item_profile_setting_icon">24dp</dimen>
     <dimen name="material_drawer_item_profile_setting_icon_padding">24dp</dimen>

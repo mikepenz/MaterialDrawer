@@ -45,7 +45,7 @@
             android:fontFamily="sans-serif"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:textSize="@dimen/material_drawer_item_profile_text"
+            android:textSize="@dimen/material_drawer_item_profile_description"
             android:gravity="center_vertical|start"
             android:textDirection="anyRtl"
             android:lines="1"
