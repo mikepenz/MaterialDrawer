@@ -1,6 +1,7 @@
 package com.mikepenz.materialdrawer.model;
 
 import android.content.Context;
+import android.graphics.Typeface;
 import android.graphics.drawable.Drawable;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -13,12 +14,13 @@ import com.mikepenz.materialdrawer.model.interfaces.IDrawerItem;
 import com.mikepenz.materialdrawer.model.interfaces.IProfile;
 import com.mikepenz.materialdrawer.model.interfaces.Identifyable;
 import com.mikepenz.materialdrawer.model.interfaces.Tagable;
+import com.mikepenz.materialdrawer.model.interfaces.Typefaceable;
 import com.mikepenz.materialdrawer.util.UIUtils;
 
 /**
  * Created by mikepenz on 03.02.15.
  */
-public class ProfileDrawerItem implements IDrawerItem, IProfile<ProfileDrawerItem>, Tagable<ProfileDrawerItem>, Identifyable<ProfileDrawerItem> {
+public class ProfileDrawerItem implements IDrawerItem, IProfile<ProfileDrawerItem>, Tagable<ProfileDrawerItem>, Identifyable<ProfileDrawerItem>, Typefaceable<ProfileDrawerItem> {
 
     private int identifier = -1;
 
@@ -38,6 +40,8 @@ public class ProfileDrawerItem implements IDrawerItem, IProfile<ProfileDrawerIte
 
     private int textColor = 0;
     private int textColorRes = -1;
+
+    private Typeface typeface = null;
 
     public ProfileDrawerItem withIdentifier(int identifier) {
         this.identifier = identifier;
@@ -100,6 +104,11 @@ public class ProfileDrawerItem implements IDrawerItem, IProfile<ProfileDrawerIte
         return this;
     }
 
+    public ProfileDrawerItem withTypeface(Typeface typeface) {
+        this.typeface = typeface;
+        return this;
+    }
+
     public boolean isNameShown() {
         return nameShown;
     }
@@ -138,6 +147,16 @@ public class ProfileDrawerItem implements IDrawerItem, IProfile<ProfileDrawerIte
 
     public void setTextColorRes(int textColorRes) {
         this.textColorRes = textColorRes;
+    }
+
+    @Override
+    public Typeface getTypeface() {
+        return typeface;
+    }
+
+    @Override
+    public void setTypeface(Typeface typeface) {
+        this.typeface = typeface;
     }
 
     @Override
@@ -246,6 +265,11 @@ public class ProfileDrawerItem implements IDrawerItem, IProfile<ProfileDrawerIte
             viewHolder.email.setText(this.getName());
         } else {
             viewHolder.email.setText(this.getEmail());
+        }
+
+        if (getTypeface() != null) {
+            viewHolder.name.setTypeface(getTypeface());
+            viewHolder.email.setTypeface(getTypeface());
         }
 
         int color = textColor;

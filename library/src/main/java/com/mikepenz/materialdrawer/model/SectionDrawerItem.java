@@ -1,6 +1,7 @@
 package com.mikepenz.materialdrawer.model;
 
 import android.content.Context;
+import android.graphics.Typeface;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -10,12 +11,13 @@ import com.mikepenz.materialdrawer.R;
 import com.mikepenz.materialdrawer.model.interfaces.IDrawerItem;
 import com.mikepenz.materialdrawer.model.interfaces.Nameable;
 import com.mikepenz.materialdrawer.model.interfaces.Tagable;
+import com.mikepenz.materialdrawer.model.interfaces.Typefaceable;
 import com.mikepenz.materialdrawer.util.UIUtils;
 
 /**
  * Created by mikepenz on 03.02.15.
  */
-public class SectionDrawerItem implements IDrawerItem, Nameable<SectionDrawerItem>, Tagable<SectionDrawerItem> {
+public class SectionDrawerItem implements IDrawerItem, Nameable<SectionDrawerItem>, Tagable<SectionDrawerItem>, Typefaceable<SectionDrawerItem> {
 
     private String name;
     private int nameRes = -1;
@@ -24,6 +26,8 @@ public class SectionDrawerItem implements IDrawerItem, Nameable<SectionDrawerIte
 
     private int textColor = 0;
     private int textColorRes = -1;
+
+    private Typeface typeface = null;
 
 
     public SectionDrawerItem withName(String name) {
@@ -53,6 +57,11 @@ public class SectionDrawerItem implements IDrawerItem, Nameable<SectionDrawerIte
 
     public SectionDrawerItem withTextColorRes(int textColorRes) {
         this.textColorRes = textColorRes;
+        return this;
+    }
+
+    public SectionDrawerItem withTypeface(Typeface typeface) {
+        this.typeface = typeface;
         return this;
     }
 
@@ -125,6 +134,15 @@ public class SectionDrawerItem implements IDrawerItem, Nameable<SectionDrawerIte
         this.textColorRes = textColorRes;
     }
 
+    @Override
+    public Typeface getTypeface() {
+        return typeface;
+    }
+
+    @Override
+    public void setTypeface(Typeface typeface) {
+        this.typeface = typeface;
+    }
 
     @Override
     public View convertView(LayoutInflater inflater, View convertView, ViewGroup parent) {

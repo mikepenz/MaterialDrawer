@@ -149,6 +149,12 @@ public class PrimaryDescriptionDrawerItem extends BaseDrawerItem<PrimaryDescript
         viewHolder.description.setTextColor(UIUtils.getTextColor(color, selected_text));
         viewHolder.badge.setTextColor(UIUtils.getTextColor(color, selected_text));
 
+        if (getTypeface() != null) {
+            viewHolder.name.setTypeface(getTypeface());
+            viewHolder.description.setTypeface(getTypeface());
+            viewHolder.badge.setTypeface(getTypeface());
+        }
+
         Drawable icon = null;
         Drawable selectedIcon = null;
         if (this.getIcon() != null) {

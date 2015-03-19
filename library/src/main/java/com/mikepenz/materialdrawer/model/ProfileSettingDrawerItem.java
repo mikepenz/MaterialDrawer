@@ -1,6 +1,7 @@
 package com.mikepenz.materialdrawer.model;
 
 import android.content.Context;
+import android.graphics.Typeface;
 import android.graphics.drawable.Drawable;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -15,12 +16,13 @@ import com.mikepenz.materialdrawer.model.interfaces.IDrawerItem;
 import com.mikepenz.materialdrawer.model.interfaces.IProfile;
 import com.mikepenz.materialdrawer.model.interfaces.Identifyable;
 import com.mikepenz.materialdrawer.model.interfaces.Tagable;
+import com.mikepenz.materialdrawer.model.interfaces.Typefaceable;
 import com.mikepenz.materialdrawer.util.UIUtils;
 
 /**
  * Created by mikepenz on 03.02.15.
  */
-public class ProfileSettingDrawerItem implements IDrawerItem, IProfile<ProfileSettingDrawerItem>, Tagable<ProfileSettingDrawerItem>, Identifyable<ProfileSettingDrawerItem> {
+public class ProfileSettingDrawerItem implements IDrawerItem, IProfile<ProfileSettingDrawerItem>, Tagable<ProfileSettingDrawerItem>, Identifyable<ProfileSettingDrawerItem>, Typefaceable<ProfileSettingDrawerItem> {
 
     private int identifier = -1;
 
@@ -43,6 +45,8 @@ public class ProfileSettingDrawerItem implements IDrawerItem, IProfile<ProfileSe
 
     private int iconColor = 0;
     private int iconColorRes = -1;
+
+    private Typeface typeface = null;
 
     public ProfileSettingDrawerItem withIdentifier(int identifier) {
         this.identifier = identifier;
@@ -118,6 +122,11 @@ public class ProfileSettingDrawerItem implements IDrawerItem, IProfile<ProfileSe
     @Override
     public ProfileSettingDrawerItem withSelectable(boolean selectable) {
         this.selectable = selectable;
+        return this;
+    }
+
+    public ProfileSettingDrawerItem withTypeface(Typeface typeface) {
+        this.typeface = typeface;
         return this;
     }
 
@@ -207,6 +216,16 @@ public class ProfileSettingDrawerItem implements IDrawerItem, IProfile<ProfileSe
     }
 
     @Override
+    public Typeface getTypeface() {
+        return typeface;
+    }
+
+    @Override
+    public void setTypeface(Typeface typeface) {
+        this.typeface = typeface;
+    }
+
+    @Override
     public String getName() {
         return name;
     }
@@ -286,6 +305,10 @@ public class ProfileSettingDrawerItem implements IDrawerItem, IProfile<ProfileSe
             color = UIUtils.getThemeColorFromAttrOrRes(ctx, R.attr.material_drawer_primary_text, R.color.material_drawer_primary_text);
         }
         viewHolder.name.setTextColor(color);
+
+        if (getTypeface() != null) {
+            viewHolder.name.setTypeface(getTypeface());
+        }
 
         int icon_color = iconColor;
         if (icon_color == 0 && iconColorRes != -1) {

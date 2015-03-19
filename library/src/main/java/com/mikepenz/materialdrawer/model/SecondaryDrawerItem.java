@@ -28,7 +28,6 @@ public class SecondaryDrawerItem extends BaseDrawerItem<SecondaryDrawerItem> {
         return R.layout.material_drawer_item_secondary;
     }
 
-
     @Override
     public View convertView(LayoutInflater inflater, View convertView, ViewGroup parent) {
         Context ctx = parent.getContext();
@@ -113,6 +112,11 @@ public class SecondaryDrawerItem extends BaseDrawerItem<SecondaryDrawerItem> {
 
         viewHolder.name.setTextColor(UIUtils.getTextColor(color, selected_text));
         viewHolder.badge.setTextColor(UIUtils.getTextColor(color, selected_text));
+
+        if (getTypeface() != null) {
+            viewHolder.name.setTypeface(getTypeface());
+            viewHolder.badge.setTypeface(getTypeface());
+        }
 
         Drawable icon = null;
         Drawable selectedIcon = null;

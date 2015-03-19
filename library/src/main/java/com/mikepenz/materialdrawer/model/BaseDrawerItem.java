@@ -1,5 +1,6 @@
 package com.mikepenz.materialdrawer.model;
 
+import android.graphics.Typeface;
 import android.graphics.drawable.Drawable;
 
 import com.mikepenz.iconics.typeface.IIcon;
@@ -10,11 +11,12 @@ import com.mikepenz.materialdrawer.model.interfaces.Iconable;
 import com.mikepenz.materialdrawer.model.interfaces.Identifyable;
 import com.mikepenz.materialdrawer.model.interfaces.Nameable;
 import com.mikepenz.materialdrawer.model.interfaces.Tagable;
+import com.mikepenz.materialdrawer.model.interfaces.Typefaceable;
 
 /**
  * Created by mikepenz on 03.02.15.
  */
-public abstract class BaseDrawerItem<T> implements IDrawerItem, Nameable<T>, Iconable<T>, Badgeable<T>, Checkable<T>, Tagable<T>, Identifyable<T> {
+public abstract class BaseDrawerItem<T> implements IDrawerItem, Nameable<T>, Iconable<T>, Badgeable<T>, Checkable<T>, Tagable<T>, Identifyable<T>, Typefaceable<T> {
 
     private int identifier = -1;
     private Drawable icon;
@@ -47,6 +49,7 @@ public abstract class BaseDrawerItem<T> implements IDrawerItem, Nameable<T>, Ico
     private int disabledIconColor = 0;
     private int disabledIconColorRes = -1;
 
+    private Typeface typeface = null;
 
     public T withIdentifier(int identifier) {
         this.identifier = identifier;
@@ -180,6 +183,11 @@ public abstract class BaseDrawerItem<T> implements IDrawerItem, Nameable<T>, Ico
 
     public T withTintSelectedIcon(boolean tintSelectedIcon) {
         this.selectedIconTinted = tintSelectedIcon;
+        return (T) this;
+    }
+
+    public T withTypeface(Typeface typeface) {
+        this.typeface = typeface;
         return (T) this;
     }
 
@@ -404,5 +412,13 @@ public abstract class BaseDrawerItem<T> implements IDrawerItem, Nameable<T>, Ico
 
     public void setIconColor(int iconColor) {
         this.iconColor = iconColor;
+    }
+
+    public Typeface getTypeface() {
+        return typeface;
+    }
+
+    public void setTypeface(Typeface typeface) {
+        this.typeface = typeface;
     }
 }
