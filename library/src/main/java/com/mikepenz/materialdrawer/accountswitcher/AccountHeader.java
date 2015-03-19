@@ -2,6 +2,7 @@ package com.mikepenz.materialdrawer.accountswitcher;
 
 import android.app.Activity;
 import android.content.Context;
+import android.graphics.Typeface;
 import android.graphics.drawable.Drawable;
 import android.os.Build;
 import android.os.Bundle;
@@ -87,6 +88,20 @@ public class AccountHeader {
      */
     public AccountHeader withCompactStyle(boolean compactStyle) {
         this.mCompactStyle = compactStyle;
+        return this;
+    }
+
+    // the typeface used for textViews within the AccountHeader
+    protected Typeface mTypeface;
+
+    /**
+     * Define the typeface which will be used for all textViews in the AccountHeader
+     *
+     * @param typeface
+     * @return
+     */
+    public AccountHeader withTypeface(Typeface typeface) {
+        this.mTypeface = typeface;
         return this;
     }
 
@@ -605,6 +620,12 @@ public class AccountHeader {
         mCurrentProfileView = (BezelImageView) mAccountHeader.findViewById(R.id.account_header_drawer_current);
         mCurrentProfileName = (TextView) mAccountHeader.findViewById(R.id.account_header_drawer_name);
         mCurrentProfileEmail = (TextView) mAccountHeader.findViewById(R.id.account_header_drawer_email);
+
+        //set the typeface for the AccountHeader
+        if (mTypeface != null) {
+            mCurrentProfileName.setTypeface(mTypeface);
+            mCurrentProfileEmail.setTypeface(mTypeface);
+        }
 
         mCurrentProfileName.setTextColor(mTextColor);
         mCurrentProfileEmail.setTextColor(mTextColor);
