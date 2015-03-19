@@ -10,11 +10,13 @@
     <!-- Material DEFAULT text / items colors -->
     <color name="icons">#FFF</color>
     <!-- 87% von #000000 -> DE -->
-    <color name="primary_text">#de000000</color>
+    <color name="primary_text">#DE000000</color>
     <!-- 54% von #000000 -> 8A -->
-    <color name="secondary_text">#8a000000</color>
-    <color name="hint_text">#B8B8B8</color>
-    <color name="divider">#B6B6B6</color>
+    <color name="secondary_text">#8A000000</color>
+    <!-- 26% von #000000 -> 42 -->
+    <color name="hint_text">#42000000</color>
+    <!-- 12% von #000000 -> 1F -->
+    <color name="divider">#1F000000</color>
 
 
     <!-- Material DEFAULT colors -->
@@ -43,11 +45,11 @@
     <color name="material_drawer_dark_background">#303030</color>
     <!-- MaterialDrawer DEFAULT DARK text / items colors -->
     <color name="material_drawer_dark_icons">#000</color>
-    <color name="material_drawer_dark_primary_text">#deFFFFFF</color>
-    <color name="material_drawer_dark_secondary_text">#8aFFFFFF</color>
-    <color name="material_drawer_dark_hint_text">#ABABAB</color>
-    <color name="material_drawer_dark_divider">#555555</color>
+    <color name="material_drawer_dark_primary_text">#DEFFFFFF</color>
     <color name="material_drawer_dark_primary_icon">#8AFFFFFF</color>
+    <color name="material_drawer_dark_secondary_text">#8AFFFFFF</color>
+    <color name="material_drawer_dark_hint_text">#42FFFFFF</color>
+    <color name="material_drawer_dark_divider">#1FFFFFFF</color>
     <!-- MaterialDrawer DEFAULT DARK drawer colors -->
     <color name="material_drawer_dark_selected">#202020</color>
     <color name="material_drawer_dark_selected_text">@color/material_drawer_primary</color>

@@ -146,7 +146,7 @@ public class SectionDrawerItem implements IDrawerItem, Nameable<SectionDrawerIte
         if (text_color == 0 && textColorRes != -1) {
             text_color = ctx.getResources().getColor(textColorRes);
         } else if (text_color == 0) {
-            text_color = UIUtils.getThemeColorFromAttrOrRes(ctx, R.attr.material_drawer_hint_text, R.color.material_drawer_hint_text);
+            text_color = UIUtils.getThemeColorFromAttrOrRes(ctx, R.attr.material_drawer_secondary_text, R.color.material_drawer_secondary_text);
         }
         viewHolder.name.setTextColor(text_color);
 
