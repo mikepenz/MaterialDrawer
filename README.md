@@ -192,18 +192,18 @@ Use one of the provided themes. They all use the AppCompat theme as parent and d
 
 **NOTE:** The theme states ActionBar and not NoActionBar like the Appcompat style
 
-- MaterialDrawerTheme
-- MaterialDrawerTheme.TranslucentStatus
-- MaterialDrawerTheme.ActionBar
-- MaterialDrawerTheme.ActionBar.TranslucentStatus
-- MaterialDrawerTheme.Light
-- MaterialDrawerTheme.Light.TranslucentStatus
-- MaterialDrawerTheme.Light.ActionBar
-- MaterialDrawerTheme.Light.ActionBar.TranslucentStatus
-- MaterialDrawerTheme.Light.DarkToolbar
-- MaterialDrawerTheme.Light.DarkToolbar.TranslucentStatus
-- MaterialDrawerTheme.Light.DarkToolbar.ActionBar
-- MaterialDrawerTheme.Light.DarkToolbar.ActionBar.TranslucentStatus
+- **MaterialDrawerTheme** (extends Theme.AppCompat.NoActionBar)
+- **MaterialDrawerTheme.TranslucentStatus**
+- **MaterialDrawerTheme.ActionBar** (extends Theme.AppCompat)
+- **MaterialDrawerTheme.ActionBar.TranslucentStatus**
+- **MaterialDrawerTheme.Light** (extends Theme.AppCompat.Light.NoActionBar)
+- **MaterialDrawerTheme.Light.TranslucentStatus**
+- **MaterialDrawerTheme.Light.ActionBar** (extends Theme.AppCompat.Light)
+- **MaterialDrawerTheme.Light.ActionBar.TranslucentStatus**
+- **MaterialDrawerTheme.Light.DarkToolbar** (extends Theme.AppCompat.DarkActionBar) (disabled the ActionBar)
+- **MaterialDrawerTheme.Light.DarkToolbar.TranslucentStatus**
+- **MaterialDrawerTheme.Light.DarkToolbar.ActionBar** (extends Theme.AppCompat.DarkActionBar)
+- **MaterialDrawerTheme.Light.DarkToolbar.ActionBar.TranslucentStatus**
   
 
 ###Style the drawer
@@ -225,6 +225,7 @@ Create your custom style and use one of the provided themes as parent. If you do
         <item name="material_drawer_background">@color/material_drawer_background</item>
         <item name="material_drawer_icons">@color/material_drawer_icons</item>
         <item name="material_drawer_primary_text">@color/material_drawer_primary_text</item>
+        <item name="material_drawer_primary_icon">@color/material_drawer_primary_icon</item>
         <item name="material_drawer_secondary_text">@color/material_drawer_secondary_text</item>
         <item name="material_drawer_hint_text">@color/material_drawer_hint_text</item>
         <item name="material_drawer_divider">@color/material_drawer_divider</item>
@@ -249,10 +250,11 @@ No need to create a custom theme. Just set these colors (or some of them) and yo
     <color name="material_drawer_background">#F9F9F9</color>
     <!-- Material DEFAULT text / items colors -->
     <color name="material_drawer_icons">#FFF</color>
-    <color name="material_drawer_primary_text">#212121</color>
-    <color name="material_drawer_secondary_text">#727272</color>
-    <color name="material_drawer_hint_text">#B8B8B8</color>
-    <color name="material_drawer_divider">#B6B6B6</color>
+    <color name="material_drawer_primary_text">#DE000000</color>
+    <color name="material_drawer_primary_icon">#8A000000</color>
+    <color name="material_drawer_secondary_text">#8A000000</color>
+    <color name="material_drawer_hint_text">#42000000</color>
+    <color name="material_drawer_divider">#1F000000</color>
     <!-- Material DEFAULT drawer colors -->
     <color name="material_drawer_selected">#E8E8E8</color>
     <color name="material_drawer_selected_text">#2196F3</color>
@@ -264,10 +266,11 @@ No need to create a custom theme. Just set these colors (or some of them) and yo
     <color name="material_drawer_dark_background">#303030</color>
     <!-- MaterialDrawer DEFAULT DARK text / items colors -->
     <color name="material_drawer_dark_icons">#000</color>
-    <color name="material_drawer_dark_primary_text">#FFF</color>
-    <color name="material_drawer_dark_secondary_text">#DEDEDE</color>
-    <color name="material_drawer_dark_hint_text">#ABABAB</color>
-    <color name="material_drawer_dark_divider">#555555</color>
+    <color name="material_drawer_dark_primary_text">#DEFFFFFF</color>
+    <color name="material_drawer_dark_primary_icon">#8AFFFFFF</color>
+    <color name="material_drawer_dark_secondary_text">#8AFFFFFF</color>
+    <color name="material_drawer_dark_hint_text">#42FFFFFF</color>
+    <color name="material_drawer_dark_divider">#1FFFFFFF</color>
     <!-- MaterialDrawer DEFAULT DARK drawer colors -->
     <color name="material_drawer_dark_selected">#202020</color>
     <color name="material_drawer_dark_selected_text">@color/material_drawer_primary</color>
