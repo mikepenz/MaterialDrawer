@@ -19,21 +19,38 @@
         android:layout_marginEnd="@dimen/material_drawer_item_padding"
         android:layout_gravity="center_vertical"/>
 
-    <TextView
-        android:id="@+id/name"
-        android:fontFamily="sans-serif-medium"
+
+    <LinearLayout
         android:layout_toRightOf="@id/icon"
         android:layout_toEndOf="@id/icon"
         android:layout_toLeftOf="@+id/badge"
         android:layout_toStartOf="@+id/badge"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:textSize="@dimen/material_drawer_item_primary_text"
+        android:layout_centerInParent="true"
         android:gravity="center_vertical|start"
-        android:textDirection="anyRtl"
-        android:lines="1"
-        android:singleLine="true"
-        tools:text="Some drawer text"/>
+        android:orientation="vertical">
+        <TextView
+            android:id="@+id/name"
+            android:fontFamily="sans-serif-medium"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:textSize="@dimen/material_drawer_item_primary_text"
+            android:gravity="center_vertical|start"
+            android:lines="1"
+            android:singleLine="true"
+            tools:text="Some drawer text"/>
+        <TextView
+            android:id="@+id/description"
+            android:fontFamily="sans-serif"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:textSize="@dimen/material_drawer_item_primary_description"
+            android:gravity="center_vertical|start"
+            android:lines="1"
+            android:singleLine="true"
+            tools:text="Some drawer text"/>
+    </LinearLayout>
 
     <TextView
         android:id="@+id/badge"
