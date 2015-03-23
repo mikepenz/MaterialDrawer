@@ -43,6 +43,7 @@ import android.support.v4.view.ViewCompat;
 import android.util.AttributeSet;
 import android.view.MotionEvent;
 import android.view.View;
+import android.view.ViewOutlineProvider;
 import android.widget.ImageView;
 
 import com.mikepenz.materialdrawer.R;
@@ -119,22 +120,30 @@ public class BezelImageView extends ImageView {
         if (mSelectorColor != 0) {
             this.mSelectorFilter = new PorterDuffColorFilter(Color.argb(mSelectorAlpha, Color.red(mSelectorColor), Color.green(mSelectorColor), Color.blue(mSelectorColor)), PorterDuff.Mode.SRC_ATOP);
         }
+    }
 
-        if (android.os.Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
-            addElevationSupport();
+    @Override
+    protected void onSizeChanged(int w, int h, int old_w, int old_h) {
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+            setOutlineProvider(new CustomOutline(w, h));
         }
     }
 
-    @TargetApi(Build.VERSION_CODES.LOLLIPOP)
-    private void addElevationSupport() {
-        android.view.ViewOutlineProvider outlineProvider = new android.view.ViewOutlineProvider() {
-            @Override
-            public void getOutline(View view, Outline outline) {
-                int size = view.getHeight();
-                outline.setOval(0, 0, size, size);
-            }
-        };
-        setOutlineProvider(outlineProvider);
+    @TargetApi(21)
+    private class CustomOutline extends ViewOutlineProvider {
+
+        int width;
+        int height;
+
+        CustomOutline(int width, int height) {
+            this.width = width;
+            this.height = height;
+        }
+
+        @Override
+        public void getOutline(View view, Outline outline) {
+            outline.setOval(0, 0, width, height);
+        }
     }
 
     @Override
