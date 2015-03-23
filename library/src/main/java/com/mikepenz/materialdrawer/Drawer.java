@@ -56,7 +56,7 @@ public class Drawer {
 
     /**
      * Pass the activity you use the drawer in ;)
-     * This is required if you want to set any values by ressource
+     * This is required if you want to set any values by resource
      *
      * @param activity
      * @return
@@ -793,7 +793,7 @@ public class Drawer {
 
         //get the drawer root
         mDrawerContentRoot = (ScrimInsetsFrameLayout) mDrawerLayout.getChildAt(0);
-        if (!alreadyInflated && (mTranslucentStatusBar || mTranslucentActionBarCompatibility)) {
+        if (!alreadyInflated && mTranslucentStatusBar) {
             if (Build.VERSION.SDK_INT >= 19 && Build.VERSION.SDK_INT < 21) {
                 setTranslucentStatusFlag(true);
             }
@@ -1250,7 +1250,7 @@ public class Drawer {
 
         if (mTranslucentActionBarCompatibility) {
             TypedValue tv = new TypedValue();
-            if (mActivity.getTheme().resolveAttribute(android.R.attr.actionBarSize, tv, true)) {
+            if (mActivity.getTheme().resolveAttribute(R.attr.actionBarSize, tv, true)) {
                 int topMargin = TypedValue.complexToDimensionPixelSize(tv.data, mActivity.getResources().getDisplayMetrics());
                 if (mTranslucentStatusBar) {
                     topMargin = topMargin + mActivity.getResources().getDimensionPixelSize(R.dimen.tool_bar_top_padding);

@@ -639,7 +639,7 @@ public class AccountHeader {
             // If we're running on Honeycomb or newer, then we can use the Theme's
             // selectableItemBackground to ensure that the View has a pressed state
             TypedValue outValue = new TypedValue();
-            mActivity.getTheme().resolveAttribute(android.R.attr.selectableItemBackground, outValue, true);
+            mActivity.getTheme().resolveAttribute(R.attr.selectableItemBackground, outValue, true);
             mAccountHeaderTextSectionBackgroundResource = outValue.resourceId;
         } else {
             TypedValue outValue = new TypedValue();
