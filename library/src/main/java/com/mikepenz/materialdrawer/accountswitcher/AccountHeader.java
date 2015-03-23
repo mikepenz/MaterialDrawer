@@ -94,6 +94,12 @@ public class AccountHeader {
     // the typeface used for textViews within the AccountHeader
     protected Typeface mTypeface;
 
+    // the typeface used for name textView only. overrides mTypeface
+    protected Typeface mNameTypeface;
+
+    // the typeface used for email textView only. overrides mTypeface
+    protected Typeface mEmailTypeface;
+
     /**
      * Define the typeface which will be used for all textViews in the AccountHeader
      *
@@ -102,6 +108,36 @@ public class AccountHeader {
      */
     public AccountHeader withTypeface(Typeface typeface) {
         this.mTypeface = typeface;
+        return this;
+    }
+
+    /**
+     * Define the typeface which will be used for name textView in the AccountHeader.
+     *
+     * Overrides typeface supplied to {@link com.mikepenz.materialdrawer.accountswitcher.AccountHeader#withTypeface(android.graphics.Typeface)}
+     *
+     * @see #withTypeface(android.graphics.Typeface)
+     *
+     * @param typeface
+     * @return
+     */
+    public AccountHeader withNameTypeface(Typeface typeface) {
+        this.mNameTypeface = typeface;
+        return this;
+    }
+
+    /**
+     * Define the typeface which will be used for email textView in the AccountHeader.
+     *
+     * Overrides typeface supplied to {@link com.mikepenz.materialdrawer.accountswitcher.AccountHeader#withTypeface(android.graphics.Typeface)}
+     *
+     * @see #withTypeface(android.graphics.Typeface)
+     *
+     * @param typeface
+     * @return
+     */
+    public AccountHeader withEmailTypeface(Typeface typeface) {
+        this.mEmailTypeface = typeface;
         return this;
     }
 
@@ -622,8 +658,15 @@ public class AccountHeader {
         mCurrentProfileEmail = (TextView) mAccountHeader.findViewById(R.id.account_header_drawer_email);
 
         //set the typeface for the AccountHeader
-        if (mTypeface != null) {
+        if (mNameTypeface != null) {
+            mCurrentProfileName.setTypeface(mNameTypeface);
+        } else if (mTypeface != null) {
             mCurrentProfileName.setTypeface(mTypeface);
+        }
+
+        if (mEmailTypeface != null) {
+            mCurrentProfileEmail.setTypeface(mEmailTypeface);
+        } else if (mTypeface != null) {
             mCurrentProfileEmail.setTypeface(mTypeface);
         }
 
