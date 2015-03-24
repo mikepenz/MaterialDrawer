@@ -3,6 +3,7 @@ package com.mikepenz.materialdrawer.model;
 import android.content.Context;
 import android.graphics.Typeface;
 import android.graphics.drawable.Drawable;
+import android.net.Uri;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -30,6 +31,7 @@ public class ProfileSettingDrawerItem implements IDrawerItem, IProfile<ProfileSe
 
     private Drawable icon;
     private IIcon iicon;
+    private Uri iconUri;
 
     private String name;
     private String email;
@@ -60,6 +62,18 @@ public class ProfileSettingDrawerItem implements IDrawerItem, IProfile<ProfileSe
 
     public ProfileSettingDrawerItem withIcon(IIcon iicon) {
         this.iicon = iicon;
+        return this;
+    }
+
+    @Override
+    public ProfileSettingDrawerItem withIcon(String url) {
+        this.iconUri = Uri.parse(url);
+        return this;
+    }
+
+    @Override
+    public ProfileSettingDrawerItem withIcon(Uri uri) {
+        this.iconUri = uri;
         return this;
     }
 
@@ -202,6 +216,11 @@ public class ProfileSettingDrawerItem implements IDrawerItem, IProfile<ProfileSe
 
     public void setIIcon(IIcon iicon) {
         this.iicon = iicon;
+    }
+
+    @Override
+    public Uri getIconUri() {
+        return iconUri;
     }
 
     @Override

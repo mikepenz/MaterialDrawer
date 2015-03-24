@@ -38,15 +38,21 @@ import android.graphics.PorterDuffXfermode;
 import android.graphics.Rect;
 import android.graphics.RectF;
 import android.graphics.drawable.Drawable;
+import android.net.Uri;
 import android.os.Build;
 import android.support.v4.view.ViewCompat;
 import android.util.AttributeSet;
+import android.util.Log;
 import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewOutlineProvider;
 import android.widget.ImageView;
 
+import com.mikepenz.google_material_typeface_library.GoogleMaterial;
+import com.mikepenz.iconics.IconicsDrawable;
 import com.mikepenz.materialdrawer.R;
+import com.mikepenz.materialdrawer.util.UIUtils;
+import com.squareup.picasso.Picasso;
 
 
 /**
@@ -297,6 +303,19 @@ public class BezelImageView extends ImageView {
         this.invalidate();
     }
 
+    @Override
+    public void setImageURI(Uri uri) {
+        if (uri.getScheme().equals("http") || uri.getScheme().equals("https")) {
+            Picasso.with(getContext()).load(uri).placeholder(getPlaceHolder()).into(this);
+        } else {
+            super.setImageURI(uri);
+        }
+    }
+
+    private IconicsDrawable getPlaceHolder() {
+        int textColor = UIUtils.getThemeColorFromAttrOrRes(getContext(), R.attr.material_drawer_primary_text, R.color.material_drawer_primary_text);
+        return new IconicsDrawable(getContext(), GoogleMaterial.Icon.gmd_person).color(textColor).backgroundColorRes(R.color.primary).iconOffsetYDp(2).paddingDp(2).sizeDp(56);
+    }
 
     private ColorMatrixColorFilter mTempDesaturateColorFilter;
     private ColorFilter mTempSelectorFilter;
