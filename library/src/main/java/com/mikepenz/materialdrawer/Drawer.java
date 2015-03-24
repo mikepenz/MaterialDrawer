@@ -1135,7 +1135,7 @@ public class Drawer {
 
 
                 if (mOnDrawerItemClickListener != null) {
-                    mOnDrawerItemClickListener.onItemClick(parent, view, position, id, i);
+                    mOnDrawerItemClickListener.onItemClick(parent, view, position - mHeaderOffset, id, i);
                 }
             }
         });
@@ -1145,7 +1145,7 @@ public class Drawer {
             mListView.setOnItemLongClickListener(new AdapterView.OnItemLongClickListener() {
                 @Override
                 public boolean onItemLongClick(AdapterView<?> parent, View view, int position, long id) {
-                    return mOnDrawerItemLongClickListener.onItemLongClick(parent, view, position, id, getDrawerItem(position, true));
+                    return mOnDrawerItemLongClickListener.onItemLongClick(parent, view, position - mHeaderOffset, id, getDrawerItem(position, true));
                 }
             });
         }
@@ -1155,7 +1155,7 @@ public class Drawer {
             mListView.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
                 @Override
                 public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
-                    mOnDrawerItemSelectedListener.onItemSelected(parent, view, position, id, getDrawerItem(position, true));
+                    mOnDrawerItemSelectedListener.onItemSelected(parent, view, position - mHeaderOffset, id, getDrawerItem(position, true));
                     mCurrentSelection = position - mHeaderOffset;
                 }
 
@@ -1326,7 +1326,7 @@ public class Drawer {
 
 
         /**
-         * Set the color for the statusbar
+         * Set the color for the statusBar
          *
          * @param statusBarColor
          */
