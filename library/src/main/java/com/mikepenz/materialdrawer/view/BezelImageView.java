@@ -42,7 +42,6 @@ import android.net.Uri;
 import android.os.Build;
 import android.support.v4.view.ViewCompat;
 import android.util.AttributeSet;
-import android.util.Log;
 import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewOutlineProvider;
@@ -51,8 +50,8 @@ import android.widget.ImageView;
 import com.mikepenz.google_material_typeface_library.GoogleMaterial;
 import com.mikepenz.iconics.IconicsDrawable;
 import com.mikepenz.materialdrawer.R;
+import com.mikepenz.materialdrawer.util.DrawerImageLoader;
 import com.mikepenz.materialdrawer.util.UIUtils;
-import com.squareup.picasso.Picasso;
 
 
 /**
@@ -306,7 +305,7 @@ public class BezelImageView extends ImageView {
     @Override
     public void setImageURI(Uri uri) {
         if (uri.getScheme().equals("http") || uri.getScheme().equals("https")) {
-            Picasso.with(getContext()).load(uri).placeholder(getPlaceHolder()).into(this);
+            DrawerImageLoader.getInstance().setImage(this, uri, getPlaceHolder());
         } else {
             super.setImageURI(uri);
         }

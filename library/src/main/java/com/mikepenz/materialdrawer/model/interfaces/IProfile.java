@@ -31,6 +31,11 @@ public interface IProfile<T> {
 
     public void setIcon(Drawable icon);
 
+    public void setIcon(String url);
+
+    public void setIcon(Uri uri);
+
+
     public T withSelectable(boolean selectable);
 
     public boolean isSelectable();

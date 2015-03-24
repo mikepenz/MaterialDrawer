@@ -218,6 +218,14 @@ public class ProfileSettingDrawerItem implements IDrawerItem, IProfile<ProfileSe
         this.iicon = iicon;
     }
 
+    public void setIcon(Uri uri) {
+        this.iconUri = uri;
+    }
+
+    public void setIcon(String url) {
+        this.iconUri = Uri.parse(url);
+    }
+
     @Override
     public Uri getIconUri() {
         return iconUri;
