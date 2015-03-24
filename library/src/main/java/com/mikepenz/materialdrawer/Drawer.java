@@ -1683,6 +1683,7 @@ public class Drawer {
 
                 if (drawerItem instanceof Nameable) {
                     ((Nameable) drawerItem).setNameRes(nameRes);
+                    ((Nameable) drawerItem).setName(null);
                 }
 
                 mDrawer.mDrawerItems.set(position, drawerItem);
@@ -1702,6 +1703,7 @@ public class Drawer {
 
                 if (drawerItem instanceof Nameable) {
                     ((Nameable) drawerItem).setName(name);
+                    ((Nameable) drawerItem).setNameRes(-1);
                 }
 
                 mDrawer.mDrawerItems.set(position, drawerItem);
