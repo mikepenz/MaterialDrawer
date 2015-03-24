@@ -16,7 +16,7 @@ public abstract class BaseDrawerAdapter extends BaseAdapter {
 
     public void mapTypes() {
         if (getTypeMapper() == null) {
-            setTypeMapper(new LinkedHashSet<String>());
+            setTypeMapper(new LinkedHashSet<>());
         }
 
         if (getDrawerItems() != null) {
