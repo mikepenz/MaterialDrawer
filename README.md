@@ -284,6 +284,13 @@ No need to create a custom theme. Just set these colors (or some of them) and yo
 .withSelectedItem(-1)
 ```
 
+##Apps using the MaterialDrawer
+(feel free to send me new projects)
+
+* [wall:splash](https://play.google.com/store/apps/details?id=com.mikepenz.unsplash)
+
+* [GitSkarios](https://play.google.com/store/apps/details?id=com.alorma.github)
+
 
 #Credits
 
