@@ -29,7 +29,7 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:textSize="@dimen/material_drawer_item_secondary_text"
-        android:gravity="center_vertical|start"
+        android:gravity="center_vertical|left"
         android:lines="1"
         android:singleLine="true"
         tools:text="Some secondary text"/>

@@ -36,7 +36,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:textSize="@dimen/material_drawer_item_primary_text"
-            android:gravity="center_vertical|start"
+            android:gravity="center_vertical|left"
             android:lines="1"
             android:singleLine="true"
             tools:text="Some drawer text"/>
@@ -46,7 +46,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:textSize="@dimen/material_drawer_item_primary_description"
-            android:gravity="center_vertical|start"
+            android:gravity="center_vertical|left"
             android:lines="1"
             android:singleLine="true"
             tools:text="Some drawer text"/>
