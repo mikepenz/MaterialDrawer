@@ -44,7 +44,7 @@ You can try it out here [Google Play](https://play.google.com/store/apps/details
 The MaterialDrawer Library is pushed to [Maven Central](http://search.maven.org/#search|ga|1|g%3A%22com.mikepenz.materialdrawer%22), so you just need to add the following dependency to your `build.gradle`.
 
 ```javascript
-compile('com.mikepenz.materialdrawer:library:2.5.6@aar') {
+compile('com.mikepenz.materialdrawer:library:2.5.7@aar') {
 	transitive = true
 }
 ```
@@ -283,6 +283,13 @@ No need to create a custom theme. Just set these colors (or some of them) and yo
 //just use this with the Drawer.Builder
 .withSelectedItem(-1)
 ```
+
+##Apps using the MaterialDrawer
+(feel free to send me new projects)
+
+* [wall:splash](https://play.google.com/store/apps/details?id=com.mikepenz.unsplash)
+
+* [GitSkarios](https://play.google.com/store/apps/details?id=com.alorma.github)
 
 
 #Credits

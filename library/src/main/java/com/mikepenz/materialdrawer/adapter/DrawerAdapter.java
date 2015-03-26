@@ -14,41 +14,32 @@ import java.util.LinkedHashSet;
 public class DrawerAdapter extends BaseDrawerAdapter {
 
     private ArrayList<IDrawerItem> mDrawerItems;
+
     private LayoutInflater mInflater;
 
     private LinkedHashSet<String> mTypeMapper;
 
     public DrawerAdapter(Activity activity) {
-        this.mInflater = (LayoutInflater) activity.getSystemService(Activity.LAYOUT_INFLATER_SERVICE);
-
-        update(null);
+        this(activity, null);
     }
 
     public DrawerAdapter(Activity activity, ArrayList<IDrawerItem> drawerItems) {
-        this.mInflater = (LayoutInflater) activity.getSystemService(Activity.LAYOUT_INFLATER_SERVICE);
+        mInflater = (LayoutInflater) activity.getSystemService(Activity.LAYOUT_INFLATER_SERVICE);
+        mDrawerItems = new ArrayList<>();
 
         update(drawerItems);
     }
 
     public void update(ArrayList<IDrawerItem> drawerItems) {
-        this.mDrawerItems = drawerItems;
-
-        if (this.mDrawerItems == null) {
-            mDrawerItems = new ArrayList<>();
-        }
+        mDrawerItems = drawerItems;
 
         mapTypes();
     }
 
     public void add(IDrawerItem... drawerItems) {
-        if (this.mDrawerItems == null) {
-            mDrawerItems = new ArrayList<>();
-        }
-
         if (drawerItems != null) {
-            Collections.addAll(this.mDrawerItems, drawerItems);
+            Collections.addAll(mDrawerItems, drawerItems);
         }
-
         mapTypes();
     }
 
@@ -59,28 +50,17 @@ public class DrawerAdapter extends BaseDrawerAdapter {
 
     @Override
     public boolean isEnabled(int position) {
-        if (mDrawerItems != null && mDrawerItems.size() > position) {
-            return mDrawerItems.get(position).isEnabled();
-        } else {
-            return false;
-        }
+        return position < getCount() && mDrawerItems.get(position).isEnabled();
     }
 
     @Override
     public int getCount() {
-        if (mDrawerItems == null) {
-            return 0;
-        }
-        return mDrawerItems.size();
+        return mDrawerItems == null ? 0 : mDrawerItems.size();
     }
 
     @Override
     public Object getItem(int position) {
-        if (mDrawerItems != null && mDrawerItems.size() > position) {
-            return mDrawerItems.get(position);
-        } else {
-            return null;
-        }
+        return position < getCount() ? mDrawerItems.get(position) : null;
     }
 
     @Override
@@ -96,7 +76,7 @@ public class DrawerAdapter extends BaseDrawerAdapter {
 
     @Override
     public void setDrawerItems(ArrayList<IDrawerItem> drawerItems) {
-        this.mDrawerItems = drawerItems;
+        mDrawerItems = drawerItems;
         mapTypes();
     }
 
@@ -107,7 +87,7 @@ public class DrawerAdapter extends BaseDrawerAdapter {
 
     @Override
     public void setTypeMapper(LinkedHashSet<String> typeMapper) {
-        this.mTypeMapper = typeMapper;
+        mTypeMapper = typeMapper;
     }
 
     @Override

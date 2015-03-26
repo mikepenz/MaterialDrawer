@@ -148,6 +148,20 @@ public class Drawer {
         return this;
     }
 
+    // set non translucent NavigationBar mode
+    protected boolean mTranslucentNavigationBar = true;
+
+    /**
+     * Set to true if you use a translucent NavigationBar
+     *
+     * @param translucentNavigationBar
+     * @return
+     */
+    public Drawer withTranslucentNavigationBar(boolean translucentNavigationBar) {
+        this.mTranslucentNavigationBar = translucentNavigationBar;
+        return this;
+    }
+
     // the drawerLayout to use
     protected DrawerLayout mDrawerLayout;
     protected RelativeLayout mSliderLayout;
@@ -829,11 +843,20 @@ public class Drawer {
             mRootView.removeAllViews();
         }
 
-        //add the contentView to the drawer content frameLayout
-        mDrawerContentRoot.addView(contentView, new ViewGroup.LayoutParams(
+
+        //create the layoutParams to use for the contentView
+        FrameLayout.LayoutParams layoutParamsContentView = new FrameLayout.LayoutParams(
                 ViewGroup.LayoutParams.MATCH_PARENT,
                 ViewGroup.LayoutParams.MATCH_PARENT
-        ));
+        );
+
+        //if we have a translucent navigation bar set the bottom margin
+        if (mTranslucentNavigationBar) {
+            layoutParamsContentView.bottomMargin = UIUtils.getNavigationBarHeight(mActivity);
+        }
+
+        //add the contentView to the drawer content frameLayout
+        mDrawerContentRoot.addView(contentView, layoutParamsContentView);
 
         //add the drawerLayout to the root
         mRootView.addView(mDrawerLayout, new ViewGroup.LayoutParams(
@@ -1135,7 +1158,7 @@ public class Drawer {
 
 
                 if (mOnDrawerItemClickListener != null) {
-                    mOnDrawerItemClickListener.onItemClick(parent, view, position, id, i);
+                    mOnDrawerItemClickListener.onItemClick(parent, view, position - mHeaderOffset, id, i);
                 }
             }
         });
@@ -1145,7 +1168,7 @@ public class Drawer {
             mListView.setOnItemLongClickListener(new AdapterView.OnItemLongClickListener() {
                 @Override
                 public boolean onItemLongClick(AdapterView<?> parent, View view, int position, long id) {
-                    return mOnDrawerItemLongClickListener.onItemLongClick(parent, view, position, id, getDrawerItem(position, true));
+                    return mOnDrawerItemLongClickListener.onItemLongClick(parent, view, position - mHeaderOffset, id, getDrawerItem(position, true));
                 }
             });
         }
@@ -1155,7 +1178,7 @@ public class Drawer {
             mListView.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
                 @Override
                 public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
-                    mOnDrawerItemSelectedListener.onItemSelected(parent, view, position, id, getDrawerItem(position, true));
+                    mOnDrawerItemSelectedListener.onItemSelected(parent, view, position - mHeaderOffset, id, getDrawerItem(position, true));
                     mCurrentSelection = position - mHeaderOffset;
                 }
 
@@ -1326,7 +1349,7 @@ public class Drawer {
 
 
         /**
-         * Set the color for the statusbar
+         * Set the color for the statusBar
          *
          * @param statusBarColor
          */
@@ -1683,6 +1706,7 @@ public class Drawer {
 
                 if (drawerItem instanceof Nameable) {
                     ((Nameable) drawerItem).setNameRes(nameRes);
+                    ((Nameable) drawerItem).setName(null);
                 }
 
                 mDrawer.mDrawerItems.set(position, drawerItem);
@@ -1702,6 +1726,7 @@ public class Drawer {
 
                 if (drawerItem instanceof Nameable) {
                     ((Nameable) drawerItem).setName(name);
+                    ((Nameable) drawerItem).setNameRes(-1);
                 }
 
                 mDrawer.mDrawerItems.set(position, drawerItem);
