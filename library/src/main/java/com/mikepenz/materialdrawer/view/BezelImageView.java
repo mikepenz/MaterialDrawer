@@ -301,6 +301,24 @@ public class BezelImageView extends ImageView {
     }
 
     @Override
+    public void setImageDrawable(Drawable drawable) {
+        DrawerImageLoader.getInstance().cancelImage(this);
+        super.setImageDrawable(drawable);
+    }
+
+    @Override
+    public void setImageResource(int resId) {
+        DrawerImageLoader.getInstance().cancelImage(this);
+        super.setImageResource(resId);
+    }
+
+    @Override
+    public void setImageBitmap(Bitmap bm) {
+        DrawerImageLoader.getInstance().cancelImage(this);
+        super.setImageBitmap(bm);
+    }
+
+    @Override
     public void setImageURI(Uri uri) {
         if (uri.getScheme().equals("http") || uri.getScheme().equals("https")) {
             DrawerImageLoader.getInstance().setImage(this, uri, UIUtils.getPlaceHolder(getContext()));

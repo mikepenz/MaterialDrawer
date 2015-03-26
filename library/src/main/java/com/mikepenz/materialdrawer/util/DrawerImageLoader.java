@@ -26,9 +26,14 @@ public class DrawerImageLoader {
         if (SINGLETON == null) {
             SINGLETON = new DrawerImageLoader(new IDrawerImageLoader() {
                 @Override
-                public void setImage(ImageView imageView, Uri uri, Drawable placeholder) {
+                public void set(ImageView imageView, Uri uri, Drawable placeholder) {
                     //this won't do anything
                     Log.i("MaterialDrawer", "you have not specified a ImageLoader implementation through the DrawerImageLoader.init(IDrawerImageLoader) method");
+                }
+
+                @Override
+                public void cancel(ImageView imageView) {
+
                 }
             });
         }
@@ -37,7 +42,13 @@ public class DrawerImageLoader {
 
     public void setImage(ImageView imageView, Uri uri, Drawable placeholder) {
         if (imageLoader != null) {
-            imageLoader.setImage(imageView, uri, placeholder);
+            imageLoader.set(imageView, uri, placeholder);
+        }
+    }
+
+    public void cancelImage(ImageView imageView) {
+        if (imageLoader != null) {
+            imageLoader.cancel(imageView);
         }
     }
 
@@ -50,6 +61,8 @@ public class DrawerImageLoader {
     }
 
     public interface IDrawerImageLoader {
-        public void setImage(ImageView imageView, Uri uri, Drawable placeholder);
+        public void set(ImageView imageView, Uri uri, Drawable placeholder);
+
+        public void cancel(ImageView imageView);
     }
 }
