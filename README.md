@@ -44,7 +44,7 @@ You can try it out here [Google Play](https://play.google.com/store/apps/details
 The MaterialDrawer Library is pushed to [Maven Central](http://search.maven.org/#search|ga|1|g%3A%22com.mikepenz.materialdrawer%22), so you just need to add the following dependency to your `build.gradle`.
 
 ```javascript
-compile('com.mikepenz.materialdrawer:library:2.5.7@aar') {
+compile('com.mikepenz.materialdrawer:library:2.6.0@aar') {
 	transitive = true
 }
 ```
@@ -53,8 +53,13 @@ compile('com.mikepenz.materialdrawer:library:2.5.7@aar') {
 Here's a quick overview what you have to do within your application.
 You can find a detailed description of all methods in the [WIKI](https://github.com/mikepenz/MaterialDrawer/wiki).
 
+###Upgrade Notes
+#### < v2.6.0
+Starting with v2.6.0 the `OnAccountHeaderListener.onProfileChanged` and `OnAccountHeaderSelectionViewClickListener.onClick` events will allow you to return an boolean.
+This boolean indicates if the event was consumed. Return false if you want the drawer to get closed. Also the `onProfileChanged` event will now contain a boolean
+variable which indicates if the clicked profile is the current profile.
 
-###Upgrade Notes < v2.5.0
+#### < v2.5.0
 If you used a version prior to v2.5.0 check following:
 You can remove the padding above the ToolBar. The library now uses a ScrimInsetsLayout. Just set your toolbar within the layout
 as you would normally do.
