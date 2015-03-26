@@ -613,7 +613,7 @@ public class Drawer {
     }
 
     // list in drawer
-    protected ArrayList<IDrawerItem> mDrawerItems;
+    protected ArrayList<IDrawerItem> mDrawerItems = new ArrayList<>();
 
     /**
      * Set the initial List of IDrawerItems for the Drawer
