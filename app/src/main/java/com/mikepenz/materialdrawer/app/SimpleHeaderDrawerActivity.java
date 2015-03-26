@@ -2,11 +2,14 @@ package com.mikepenz.materialdrawer.app;
 
 import android.content.Intent;
 import android.graphics.Color;
+import android.graphics.drawable.Drawable;
+import android.net.Uri;
 import android.os.Bundle;
 import android.support.v7.app.ActionBarActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.View;
 import android.widget.AdapterView;
+import android.widget.ImageView;
 
 import com.mikepenz.aboutlibraries.Libs;
 import com.mikepenz.google_material_typeface_library.GoogleMaterial;
@@ -22,6 +25,8 @@ import com.mikepenz.materialdrawer.model.SecondaryDrawerItem;
 import com.mikepenz.materialdrawer.model.SectionDrawerItem;
 import com.mikepenz.materialdrawer.model.interfaces.IDrawerItem;
 import com.mikepenz.materialdrawer.model.interfaces.IProfile;
+import com.mikepenz.materialdrawer.util.DrawerImageLoader;
+import com.squareup.picasso.Picasso;
 
 public class SimpleHeaderDrawerActivity extends ActionBarActivity {
     private static final int PROFILE_SETTING = 1;
@@ -35,16 +40,26 @@ public class SimpleHeaderDrawerActivity extends ActionBarActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_sample);
 
+
+        //DO THIS IN A CUSTOM APPLICATION!!
+        DrawerImageLoader.init(new DrawerImageLoader.IDrawerImageLoader() {
+            @Override
+            public void setImage(ImageView imageView, Uri uri, Drawable placeholder) {
+                Picasso.with(imageView.getContext()).load(uri).placeholder(placeholder).into(imageView);
+            }
+        });
+
         // Handle Toolbar
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
         // Create a few sample profile
-        final IProfile profile = new ProfileDrawerItem().withName("Mike Penz").withEmail("mikepenz@gmail.com").withIcon(getResources().getDrawable(R.drawable.profile));
-        final IProfile profile2 = new ProfileDrawerItem().withName("Max Muster").withEmail("max.mustermann@gmail.com").withIcon(getResources().getDrawable(R.drawable.profile2));
-        final IProfile profile3 = new ProfileDrawerItem().withName("Felix House").withEmail("felix.house@gmail.com").withIcon(getResources().getDrawable(R.drawable.profile3));
-        final IProfile profile4 = new ProfileDrawerItem().withName("Mr. X").withEmail("mister.x.super@gmail.com").withIcon(getResources().getDrawable(R.drawable.profile4)).withIdentifier(4);
-        final IProfile profile5 = new ProfileDrawerItem().withName("Batman").withEmail("batman@gmail.com").withIcon(getResources().getDrawable(R.drawable.profile5));
+        final IProfile profile = new ProfileDrawerItem().withName("Mike Penz").withEmail("mikepenz@gmail.com").withIcon("https://avatars3.githubusercontent.com/u/1476232?v=3&s=460");
+        final IProfile profile2 = new ProfileDrawerItem().withName("Bernat Borras").withEmail("alorma@github.com").withIcon(Uri.parse("https://avatars3.githubusercontent.com/u/887462?v=3&s=460"));
+        final IProfile profile3 = new ProfileDrawerItem().withName("Max Muster").withEmail("max.mustermann@gmail.com").withIcon(getResources().getDrawable(R.drawable.profile2));
+        final IProfile profile4 = new ProfileDrawerItem().withName("Felix House").withEmail("felix.house@gmail.com").withIcon(getResources().getDrawable(R.drawable.profile3));
+        final IProfile profile5 = new ProfileDrawerItem().withName("Mr. X").withEmail("mister.x.super@gmail.com").withIcon(getResources().getDrawable(R.drawable.profile4)).withIdentifier(4);
+        final IProfile profile6 = new ProfileDrawerItem().withName("Batman").withEmail("batman@gmail.com").withIcon(getResources().getDrawable(R.drawable.profile5));
 
         // Create the AccountHeader
         headerResult = new AccountHeader()
@@ -56,6 +71,7 @@ public class SimpleHeaderDrawerActivity extends ActionBarActivity {
                         profile3,
                         profile4,
                         profile5,
+                        profile6,
                         //don't ask but google uses 14dp for the add account icon in gmail but 20dp for the normal icons (like manage account)
                         new ProfileSettingDrawerItem().withName("Add Account").withDescription("Add new GitHub Account").withIcon(new IconicsDrawable(this, GoogleMaterial.Icon.gmd_add).actionBarSize().paddingDp(5).colorRes(R.color.material_drawer_primary_text)).withIdentifier(PROFILE_SETTING),
                         new ProfileSettingDrawerItem().withName("Manage Account").withIcon(GoogleMaterial.Icon.gmd_settings)

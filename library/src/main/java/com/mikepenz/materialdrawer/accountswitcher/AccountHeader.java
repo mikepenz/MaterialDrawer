@@ -4,6 +4,7 @@ import android.app.Activity;
 import android.content.Context;
 import android.graphics.Typeface;
 import android.graphics.drawable.Drawable;
+import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
 import android.os.Handler;
@@ -883,7 +884,7 @@ public class AccountHeader {
 
         if (mCurrentProfile != null) {
             if (mProfileImagesVisible) {
-                setImageOrPlaceholder(mCurrentProfileView, mCurrentProfile.getIcon());
+                setImageOrPlaceholder(mCurrentProfileView, mCurrentProfile.getIcon(), mCurrentProfile.getIconUri());
                 mCurrentProfileView.setTag(mCurrentProfile);
                 if (mProfileImagesClickable) {
                     mCurrentProfileView.setOnClickListener(onProfileClickListener);
@@ -904,7 +905,7 @@ public class AccountHeader {
             mCurrentProfileEmail.setText(mCurrentProfile.getEmail());
 
             if (mProfileFirst != null && mProfileImagesVisible) {
-                setImageOrPlaceholder(mProfileFirstView, mProfileFirst.getIcon());
+                setImageOrPlaceholder(mProfileFirstView, mProfileFirst.getIcon(), mProfileFirst.getIconUri());
                 mProfileFirstView.setTag(mProfileFirst);
                 if (mProfileImagesClickable) {
                     mProfileFirstView.setOnClickListener(onProfileClickListener);
@@ -915,7 +916,7 @@ public class AccountHeader {
                 mProfileFirstView.setVisibility(View.VISIBLE);
             }
             if (mProfileSecond != null && mProfileImagesVisible) {
-                setImageOrPlaceholder(mProfileSecondView, mProfileSecond.getIcon());
+                setImageOrPlaceholder(mProfileSecondView, mProfileSecond.getIcon(), mProfileSecond.getIconUri());
                 mProfileSecondView.setTag(mProfileSecond);
                 if (mProfileImagesClickable) {
                     mProfileSecondView.setOnClickListener(onProfileClickListener);
@@ -929,7 +930,7 @@ public class AccountHeader {
                 alignParentLayoutParam(mProfileFirstView, 1);
             }
             if (mProfileThird != null && mThreeSmallProfileImages && mProfileImagesVisible) {
-                setImageOrPlaceholder(mProfileThirdView, mProfileThird.getIcon());
+                setImageOrPlaceholder(mProfileThirdView, mProfileThird.getIcon(), mProfileThird.getIconUri());
                 mProfileThirdView.setTag(mProfileThird);
                 if (mProfileImagesClickable) {
                     mProfileThirdView.setOnClickListener(onProfileClickListener);
@@ -999,9 +1000,12 @@ public class AccountHeader {
      * @param iv
      * @param d
      */
-    private void setImageOrPlaceholder(ImageView iv, Drawable d) {
-        if (d == null) {
-            iv.setImageDrawable(new IconicsDrawable(iv.getContext(), GoogleMaterial.Icon.gmd_person).color(mTextColor).backgroundColorRes(R.color.primary).iconOffsetYDp(2).paddingDp(2).sizeDp(56));
+    private void setImageOrPlaceholder(ImageView iv, Drawable d, Uri uri) {
+        if (uri != null) {
+            iv.setImageDrawable(UIUtils.getPlaceHolder(iv.getContext()));
+            iv.setImageURI(uri);
+        } else if (d == null) {
+            iv.setImageDrawable(UIUtils.getPlaceHolder(iv.getContext()));
         } else {
             iv.setImageDrawable(d);
         }

@@ -13,6 +13,8 @@ import android.util.DisplayMetrics;
 import android.util.TypedValue;
 import android.view.View;
 
+import com.mikepenz.google_material_typeface_library.GoogleMaterial;
+import com.mikepenz.iconics.IconicsDrawable;
 import com.mikepenz.materialdrawer.R;
 
 /**
@@ -171,4 +173,17 @@ public class UIUtils {
         float dp = px / (metrics.densityDpi / 160f);
         return dp;
     }
+
+
+    /**
+     * helper method to get a person placeHolder drawable
+     *
+     * @param ctx
+     * @return
+     */
+    public static Drawable getPlaceHolder(Context ctx) {
+        int textColor = UIUtils.getThemeColorFromAttrOrRes(ctx, R.attr.material_drawer_primary_text, R.color.material_drawer_primary_text);
+        return new IconicsDrawable(ctx, GoogleMaterial.Icon.gmd_person).color(textColor).backgroundColorRes(R.color.primary).iconOffsetYDp(2).paddingDp(2).sizeDp(56);
+    }
+
 }

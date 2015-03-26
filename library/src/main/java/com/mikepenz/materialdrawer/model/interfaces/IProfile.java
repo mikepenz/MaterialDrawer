@@ -1,6 +1,7 @@
 package com.mikepenz.materialdrawer.model.interfaces;
 
 import android.graphics.drawable.Drawable;
+import android.net.Uri;
 
 /**
  * Created by mikepenz on 03.02.15.
@@ -20,9 +21,20 @@ public interface IProfile<T> {
 
     public T withIcon(Drawable icon);
 
+    public T withIcon(String url);
+
+    public T withIcon(Uri uri);
+
     public Drawable getIcon();
 
+    public Uri getIconUri();
+
     public void setIcon(Drawable icon);
+
+    public void setIcon(String url);
+
+    public void setIcon(Uri uri);
+
 
     public T withSelectable(boolean selectable);
 

@@ -3,6 +3,7 @@ package com.mikepenz.materialdrawer.model;
 import android.content.Context;
 import android.graphics.Typeface;
 import android.graphics.drawable.Drawable;
+import android.net.Uri;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -28,6 +29,7 @@ public class ProfileDrawerItem implements IDrawerItem, IProfile<ProfileDrawerIte
     private boolean nameShown = false;
 
     private Drawable icon;
+    private Uri iconUri;
 
     private String name;
     private String email;
@@ -50,6 +52,18 @@ public class ProfileDrawerItem implements IDrawerItem, IProfile<ProfileDrawerIte
 
     public ProfileDrawerItem withIcon(Drawable icon) {
         this.icon = icon;
+        return this;
+    }
+
+    @Override
+    public ProfileDrawerItem withIcon(String url) {
+        this.iconUri = Uri.parse(url);
+        return this;
+    }
+
+    @Override
+    public ProfileDrawerItem withIcon(Uri uri) {
+        this.iconUri = uri;
         return this;
     }
 
@@ -169,8 +183,21 @@ public class ProfileDrawerItem implements IDrawerItem, IProfile<ProfileDrawerIte
         this.tag = tag;
     }
 
+    @Override
+    public Uri getIconUri() {
+        return iconUri;
+    }
+
     public Drawable getIcon() {
         return icon;
+    }
+
+    public void setIcon(Uri uri) {
+        this.iconUri = uri;
+    }
+
+    public void setIcon(String url) {
+        this.iconUri = Uri.parse(url);
     }
 
     public void setIcon(Drawable icon) {
@@ -283,7 +310,11 @@ public class ProfileDrawerItem implements IDrawerItem, IProfile<ProfileDrawerIte
         }
         viewHolder.email.setTextColor(color);
 
-        if (this.getIcon() != null) {
+        if (this.getIconUri() != null) {
+            viewHolder.profileIcon.setImageDrawable(UIUtils.getPlaceHolder(ctx));
+            viewHolder.profileIcon.setImageURI(this.iconUri);
+            viewHolder.profileIcon.setVisibility(View.VISIBLE);
+        } else if (this.getIcon() != null) {
             viewHolder.profileIcon.setImageDrawable(this.getIcon());
             viewHolder.profileIcon.setVisibility(View.VISIBLE);
         } else {

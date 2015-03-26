@@ -38,6 +38,7 @@ import android.graphics.PorterDuffXfermode;
 import android.graphics.Rect;
 import android.graphics.RectF;
 import android.graphics.drawable.Drawable;
+import android.net.Uri;
 import android.os.Build;
 import android.support.v4.view.ViewCompat;
 import android.util.AttributeSet;
@@ -47,6 +48,8 @@ import android.view.ViewOutlineProvider;
 import android.widget.ImageView;
 
 import com.mikepenz.materialdrawer.R;
+import com.mikepenz.materialdrawer.util.DrawerImageLoader;
+import com.mikepenz.materialdrawer.util.UIUtils;
 
 
 /**
@@ -297,6 +300,14 @@ public class BezelImageView extends ImageView {
         this.invalidate();
     }
 
+    @Override
+    public void setImageURI(Uri uri) {
+        if (uri.getScheme().equals("http") || uri.getScheme().equals("https")) {
+            DrawerImageLoader.getInstance().setImage(this, uri, UIUtils.getPlaceHolder(getContext()));
+        } else {
+            super.setImageURI(uri);
+        }
+    }
 
     private ColorMatrixColorFilter mTempDesaturateColorFilter;
     private ColorFilter mTempSelectorFilter;
