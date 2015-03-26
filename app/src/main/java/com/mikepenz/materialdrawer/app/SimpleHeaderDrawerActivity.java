@@ -62,7 +62,7 @@ public class SimpleHeaderDrawerActivity extends ActionBarActivity {
                 )
                 .withOnAccountHeaderListener(new AccountHeader.OnAccountHeaderListener() {
                     @Override
-                    public void onProfileChanged(View view, IProfile profile) {
+                    public boolean onProfileChanged(View view, IProfile profile, boolean current) {
                         //sample usage of the onProfileChanged listener
                         //if the clicked item has the identifier 1 add a new profile ;)
                         if (profile instanceof IDrawerItem && ((IDrawerItem) profile).getIdentifier() == PROFILE_SETTING) {
@@ -74,6 +74,9 @@ public class SimpleHeaderDrawerActivity extends ActionBarActivity {
                                 headerResult.addProfiles(newProfile);
                             }
                         }
+
+                        //false if you have not consumed the event and it should close the drawer
+                        return false;
                     }
                 })
                 .withSavedInstance(savedInstanceState)

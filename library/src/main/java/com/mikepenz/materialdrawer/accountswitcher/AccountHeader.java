@@ -113,13 +113,11 @@ public class AccountHeader {
 
     /**
      * Define the typeface which will be used for name textView in the AccountHeader.
-     *
      * Overrides typeface supplied to {@link com.mikepenz.materialdrawer.accountswitcher.AccountHeader#withTypeface(android.graphics.Typeface)}
-     *
-     * @see #withTypeface(android.graphics.Typeface)
      *
      * @param typeface
      * @return
+     * @see #withTypeface(android.graphics.Typeface)
      */
     public AccountHeader withNameTypeface(Typeface typeface) {
         this.mNameTypeface = typeface;
@@ -128,13 +126,11 @@ public class AccountHeader {
 
     /**
      * Define the typeface which will be used for email textView in the AccountHeader.
-     *
      * Overrides typeface supplied to {@link com.mikepenz.materialdrawer.accountswitcher.AccountHeader#withTypeface(android.graphics.Typeface)}
-     *
-     * @see #withTypeface(android.graphics.Typeface)
      *
      * @param typeface
      * @return
+     * @see #withTypeface(android.graphics.Typeface)
      */
     public AccountHeader withEmailTypeface(Typeface typeface) {
         this.mEmailTypeface = typeface;
@@ -802,13 +798,14 @@ public class AccountHeader {
      * helper method to switch the profiles
      *
      * @param newSelection
+     * @return true if the new selection was the current profile
      */
-    protected void switchProfiles(IProfile newSelection) {
+    protected boolean switchProfiles(IProfile newSelection) {
         if (newSelection == null) {
-            return;
+            return false;
         }
         if (mCurrentProfile == newSelection) {
-            return;
+            return true;
         }
 
         if (mAlternativeProfileHeaderSwitching) {
@@ -864,6 +861,8 @@ public class AccountHeader {
         }
 
         buildProfiles();
+
+        return false;
     }
 
     /**
@@ -1011,26 +1010,43 @@ public class AccountHeader {
     /**
      * onProfileClickListener to notify onClick on a profile image
      */
+    private View.OnClickListener onCurrentProfileClickListener = new View.OnClickListener() {
+        @Override
+        public void onClick(final View v) {
+            onProfileClick(v, true);
+        }
+    };
+
+    /**
+     * onProfileClickListener to notify onClick on a profile image
+     */
     private View.OnClickListener onProfileClickListener = new View.OnClickListener() {
         @Override
         public void onClick(final View v) {
-            final IProfile profile = (IProfile) v.getTag();
-            switchProfiles(profile);
+            onProfileClick(v, false);
+        }
+    };
 
+    private void onProfileClick(View v, boolean current) {
+        final IProfile profile = (IProfile) v.getTag();
+        switchProfiles(profile);
+
+        boolean consumed = false;
+        if (mOnAccountHeaderListener != null) {
+            consumed = mOnAccountHeaderListener.onProfileChanged(v, profile, current);
+        }
+
+        if (!consumed) {
             new Handler().postDelayed(new Runnable() {
                 @Override
                 public void run() {
-                    if (mOnAccountHeaderListener != null) {
-                        mOnAccountHeaderListener.onProfileChanged(v, profile);
-                    }
-
                     if (mDrawer != null) {
                         mDrawer.closeDrawer();
                     }
                 }
             }, 200);
         }
-    };
+    }
 
     /**
      * get the current selection
@@ -1056,11 +1072,12 @@ public class AccountHeader {
     private View.OnClickListener onSelectionClickListener = new View.OnClickListener() {
         @Override
         public void onClick(View v) {
+            boolean consumed = false;
             if (mOnAccountHeaderSelectionViewClickListener != null) {
-                mOnAccountHeaderSelectionViewClickListener.onClick(v, (IProfile) v.getTag());
+                consumed = mOnAccountHeaderSelectionViewClickListener.onClick(v, (IProfile) v.getTag());
             }
 
-            if (mAccountSwitcherArrow.getVisibility() == View.VISIBLE) {
+            if (mAccountSwitcherArrow.getVisibility() == View.VISIBLE && !consumed) {
                 toggleSelectionList(v.getContext());
             }
         }
@@ -1118,8 +1135,11 @@ public class AccountHeader {
     private Drawer.OnDrawerItemClickListener onDrawerItemClickListener = new Drawer.OnDrawerItemClickListener() {
         @Override
         public void onItemClick(AdapterView<?> parent, final View view, int position, long id, final IDrawerItem drawerItem) {
+            final boolean isCurrentSelectedProfile;
             if (drawerItem != null && drawerItem instanceof IProfile && ((IProfile) drawerItem).isSelectable()) {
-                switchProfiles((IProfile) drawerItem);
+                isCurrentSelectedProfile = switchProfiles((IProfile) drawerItem);
+            } else {
+                isCurrentSelectedProfile = false;
             }
             mDrawer.setOnDrawerItemClickListener(null);
             //wrap the onSelection call and the reset stuff within a handler to prevent lag
@@ -1128,7 +1148,7 @@ public class AccountHeader {
                 public void run() {
                     if (drawerItem != null && drawerItem instanceof IProfile) {
                         if (mOnAccountHeaderListener != null) {
-                            mOnAccountHeaderListener.onProfileChanged(view, (IProfile) drawerItem);
+                            mOnAccountHeaderListener.onProfileChanged(view, (IProfile) drawerItem, isCurrentSelectedProfile);
                         }
                     }
                     if (mDrawer != null) {
@@ -1370,10 +1390,24 @@ public class AccountHeader {
 
 
     public interface OnAccountHeaderListener {
-        public void onProfileChanged(View view, IProfile profile);
+        /**
+         * the event when the profile changes
+         *
+         * @param view
+         * @param profile
+         * @return if the event was consumed
+         */
+        public boolean onProfileChanged(View view, IProfile profile, boolean current);
     }
 
     public interface OnAccountHeaderSelectionViewClickListener {
-        public void onClick(View view, IProfile profile);
+        /**
+         * the event when the user clicks the selection list under the profile icons
+         *
+         * @param view
+         * @param profile
+         * @return if the event was consumed
+         */
+        public boolean onClick(View view, IProfile profile);
     }
 }
