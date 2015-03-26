@@ -148,6 +148,20 @@ public class Drawer {
         return this;
     }
 
+    // set non translucent NavigationBar mode
+    protected boolean mTranslucentNavigationBar = true;
+
+    /**
+     * Set to true if you use a translucent NavigationBar
+     *
+     * @param translucentNavigationBar
+     * @return
+     */
+    public Drawer withTranslucentNavigationBar(boolean translucentNavigationBar) {
+        this.mTranslucentNavigationBar = translucentNavigationBar;
+        return this;
+    }
+
     // the drawerLayout to use
     protected DrawerLayout mDrawerLayout;
     protected RelativeLayout mSliderLayout;
@@ -829,11 +843,20 @@ public class Drawer {
             mRootView.removeAllViews();
         }
 
-        //add the contentView to the drawer content frameLayout
-        mDrawerContentRoot.addView(contentView, new ViewGroup.LayoutParams(
+
+        //create the layoutParams to use for the contentView
+        FrameLayout.LayoutParams layoutParamsContentView = new FrameLayout.LayoutParams(
                 ViewGroup.LayoutParams.MATCH_PARENT,
                 ViewGroup.LayoutParams.MATCH_PARENT
-        ));
+        );
+
+        //if we have a translucent navigation bar set the bottom margin
+        if (mTranslucentNavigationBar) {
+            layoutParamsContentView.bottomMargin = UIUtils.getNavigationBarHeight(mActivity);
+        }
+
+        //add the contentView to the drawer content frameLayout
+        mDrawerContentRoot.addView(contentView, layoutParamsContentView);
 
         //add the drawerLayout to the root
         mRootView.addView(mDrawerLayout, new ViewGroup.LayoutParams(
