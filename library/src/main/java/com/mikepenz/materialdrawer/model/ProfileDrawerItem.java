@@ -10,8 +10,6 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
 
-import com.mikepenz.google_material_typeface_library.GoogleMaterial;
-import com.mikepenz.iconics.IconicsDrawable;
 import com.mikepenz.materialdrawer.R;
 import com.mikepenz.materialdrawer.model.interfaces.IDrawerItem;
 import com.mikepenz.materialdrawer.model.interfaces.IProfile;
@@ -313,7 +311,7 @@ public class ProfileDrawerItem implements IDrawerItem, IProfile<ProfileDrawerIte
         viewHolder.email.setTextColor(color);
 
         if (this.getIconUri() != null) {
-            viewHolder.profileIcon.setImageDrawable(this.getPlaceHolder(viewHolder.profileIcon));
+            viewHolder.profileIcon.setImageDrawable(UIUtils.getPlaceHolder(ctx));
             viewHolder.profileIcon.setImageURI(this.iconUri);
             viewHolder.profileIcon.setVisibility(View.VISIBLE);
         } else if (this.getIcon() != null) {
@@ -324,10 +322,6 @@ public class ProfileDrawerItem implements IDrawerItem, IProfile<ProfileDrawerIte
         }
 
         return convertView;
-    }
-
-    private IconicsDrawable getPlaceHolder(ImageView iv) {
-        return new IconicsDrawable(iv.getContext(), GoogleMaterial.Icon.gmd_person).color(textColor).backgroundColorRes(R.color.primary).iconOffsetYDp(2).paddingDp(2).sizeDp(56);
     }
 
     private static class ViewHolder {

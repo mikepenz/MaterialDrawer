@@ -47,8 +47,6 @@ import android.view.View;
 import android.view.ViewOutlineProvider;
 import android.widget.ImageView;
 
-import com.mikepenz.google_material_typeface_library.GoogleMaterial;
-import com.mikepenz.iconics.IconicsDrawable;
 import com.mikepenz.materialdrawer.R;
 import com.mikepenz.materialdrawer.util.DrawerImageLoader;
 import com.mikepenz.materialdrawer.util.UIUtils;
@@ -305,15 +303,10 @@ public class BezelImageView extends ImageView {
     @Override
     public void setImageURI(Uri uri) {
         if (uri.getScheme().equals("http") || uri.getScheme().equals("https")) {
-            DrawerImageLoader.getInstance().setImage(this, uri, getPlaceHolder());
+            DrawerImageLoader.getInstance().setImage(this, uri, UIUtils.getPlaceHolder(getContext()));
         } else {
             super.setImageURI(uri);
         }
-    }
-
-    private IconicsDrawable getPlaceHolder() {
-        int textColor = UIUtils.getThemeColorFromAttrOrRes(getContext(), R.attr.material_drawer_primary_text, R.color.material_drawer_primary_text);
-        return new IconicsDrawable(getContext(), GoogleMaterial.Icon.gmd_person).color(textColor).backgroundColorRes(R.color.primary).iconOffsetYDp(2).paddingDp(2).sizeDp(56);
     }
 
     private ColorMatrixColorFilter mTempDesaturateColorFilter;

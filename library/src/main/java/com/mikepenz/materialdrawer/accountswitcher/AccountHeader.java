@@ -1003,17 +1003,13 @@ public class AccountHeader {
      */
     private void setImageOrPlaceholder(ImageView iv, Drawable d, Uri uri) {
         if (uri != null) {
-            iv.setImageDrawable(getPlaceHolder(iv));
+            iv.setImageDrawable(UIUtils.getPlaceHolder(iv.getContext()));
             iv.setImageURI(uri);
         } else if (d == null) {
-            iv.setImageDrawable(getPlaceHolder(iv));
+            iv.setImageDrawable(UIUtils.getPlaceHolder(iv.getContext()));
         } else {
             iv.setImageDrawable(d);
         }
-    }
-
-    private IconicsDrawable getPlaceHolder(ImageView iv) {
-        return new IconicsDrawable(iv.getContext(), GoogleMaterial.Icon.gmd_person).color(mTextColor).backgroundColorRes(R.color.primary).iconOffsetYDp(2).paddingDp(2).sizeDp(56);
     }
 
     /**
