@@ -10,7 +10,7 @@
         The <b>MaterialDrawer</b> library aims to provide the easiest possible implementation of a navigation drawer for your application.
         ]]>
     </string>
-    <string name="library_materialdrawer_libraryVersion">2.6.0</string>
+    <string name="library_materialdrawer_libraryVersion">2.6.1</string>
     <string name="library_materialdrawer_libraryWebsite">https://github.com/mikepenz/MaterialDrawer</string>
     <string name="library_materialdrawer_licenseId">apache_2_0</string>
     <string name="library_materialdrawer_isOpenSource">true</string>
