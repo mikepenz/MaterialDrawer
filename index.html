@@ -102,7 +102,7 @@
 
 <p>The MaterialDrawer Library is pushed to <a href="http://search.maven.org/#search%7Cga%7C1%7Cg%3A%22com.mikepenz.materialdrawer%22">Maven Central</a>, so you just need to add the following dependency to your <code>build.gradle</code>.</p>
 
-<div class="highlight highlight-javascript"><pre><span class="pl-c1">compile</span>(<span class="pl-s"><span class="pl-pds">'</span>com.mikepenz.materialdrawer:library:2.6.0@aar<span class="pl-pds">'</span></span>) {
+<div class="highlight highlight-javascript"><pre><span class="pl-c1">compile</span>(<span class="pl-s"><span class="pl-pds">'</span>com.mikepenz.materialdrawer:library:2.6.5@aar<span class="pl-pds">'</span></span>) {
     transitive <span class="pl-k">=</span> <span class="pl-c1">true</span>
 }</pre></div>
 
@@ -189,7 +189,8 @@ headerResult <span class="pl-k">=</span> <span class="pl-k">new</span> <span cla
     )
     .withOnAccountHeaderListener(<span class="pl-k">new</span> <span class="pl-smi">AccountHeader</span>.<span class="pl-smi">OnAccountHeaderListener</span>() {
         <span class="pl-k">@Override</span>
-        <span class="pl-k">public</span> <span class="pl-k">void</span> <span class="pl-en">onProfileChanged</span>(<span class="pl-smi">View</span> <span class="pl-v">view</span>, <span class="pl-smi">IProfile</span> <span class="pl-v">profile</span>) { 
+        <span class="pl-k">public</span> <span class="pl-k">boolean</span> <span class="pl-en">onProfileChanged</span>(<span class="pl-smi">View</span> <span class="pl-v">view</span>, <span class="pl-smi">IProfile</span> <span class="pl-v">profile</span>, <span class="pl-k">boolean</span> <span class="pl-v">currentProfile</span>) {
+            <span class="pl-k">return</span> <span class="pl-c1">false</span>;
         }
     })
     .build();
