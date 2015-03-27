@@ -4,7 +4,6 @@ import android.graphics.Typeface;
 import android.graphics.drawable.Drawable;
 
 import com.mikepenz.iconics.typeface.IIcon;
-import com.mikepenz.materialdrawer.model.interfaces.Badgeable;
 import com.mikepenz.materialdrawer.model.interfaces.Checkable;
 import com.mikepenz.materialdrawer.model.interfaces.IDrawerItem;
 import com.mikepenz.materialdrawer.model.interfaces.Iconable;
@@ -16,7 +15,7 @@ import com.mikepenz.materialdrawer.model.interfaces.Typefaceable;
 /**
  * Created by mikepenz on 03.02.15.
  */
-public abstract class BaseDrawerItem<T> implements IDrawerItem, Nameable<T>, Iconable<T>, Badgeable<T>, Checkable<T>, Tagable<T>, Identifyable<T>, Typefaceable<T> {
+public abstract class BaseDrawerItem<T> implements IDrawerItem, Nameable<T>, Iconable<T>, Checkable<T>, Tagable<T>, Identifyable<T>, Typefaceable<T> {
 
     private int identifier = -1;
     private Drawable icon;
@@ -26,7 +25,6 @@ public abstract class BaseDrawerItem<T> implements IDrawerItem, Nameable<T>, Ico
     private int selectedIconRes = -1;
     private String name;
     private int nameRes = -1;
-    private String badge;
     private boolean enabled = true;
     private boolean checkable = true;
     private Object tag;
@@ -88,11 +86,6 @@ public abstract class BaseDrawerItem<T> implements IDrawerItem, Nameable<T>, Ico
 
     public T withName(int nameRes) {
         this.nameRes = nameRes;
-        return (T) this;
-    }
-
-    public T withBadge(String badge) {
-        this.badge = badge;
         return (T) this;
     }
 
@@ -331,15 +324,6 @@ public abstract class BaseDrawerItem<T> implements IDrawerItem, Nameable<T>, Ico
     @Override
     public void setNameRes(int nameRes) {
         this.nameRes = nameRes;
-    }
-
-    public String getBadge() {
-        return badge;
-    }
-
-    @Override
-    public void setBadge(String badge) {
-        this.badge = badge;
     }
 
     @Override

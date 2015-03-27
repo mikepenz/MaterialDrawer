@@ -10,13 +10,30 @@ import android.widget.TextView;
 
 import com.mikepenz.iconics.IconicsDrawable;
 import com.mikepenz.materialdrawer.R;
+import com.mikepenz.materialdrawer.model.interfaces.Badgeable;
 import com.mikepenz.materialdrawer.util.PressedEffectStateListDrawable;
 import com.mikepenz.materialdrawer.util.UIUtils;
 
 /**
  * Created by mikepenz on 03.02.15.
  */
-public class SecondaryDrawerItem extends BaseDrawerItem<SecondaryDrawerItem> {
+public class SecondaryDrawerItem extends BaseDrawerItem<SecondaryDrawerItem> implements Badgeable<SecondaryDrawerItem> {
+
+    private String badge;
+
+    public SecondaryDrawerItem withBadge(String badge) {
+        this.badge = badge;
+        return this;
+    }
+
+    public String getBadge() {
+        return badge;
+    }
+
+    @Override
+    public void setBadge(String badge) {
+        this.badge = badge;
+    }
 
     @Override
     public String getType() {

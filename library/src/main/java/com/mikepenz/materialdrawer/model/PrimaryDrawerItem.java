@@ -10,15 +10,18 @@ import android.widget.TextView;
 
 import com.mikepenz.iconics.IconicsDrawable;
 import com.mikepenz.materialdrawer.R;
+import com.mikepenz.materialdrawer.model.interfaces.Badgeable;
 import com.mikepenz.materialdrawer.util.PressedEffectStateListDrawable;
 import com.mikepenz.materialdrawer.util.UIUtils;
 
 /**
  * Created by mikepenz on 03.02.15.
  */
-public class PrimaryDrawerItem extends BaseDrawerItem<PrimaryDrawerItem> {
+public class PrimaryDrawerItem extends BaseDrawerItem<PrimaryDrawerItem> implements Badgeable<PrimaryDrawerItem> {
     private String description;
     private int descriptionRes = -1;
+
+    private String badge;
 
     public PrimaryDrawerItem withDescription(String description) {
         this.description = description;
@@ -27,6 +30,11 @@ public class PrimaryDrawerItem extends BaseDrawerItem<PrimaryDrawerItem> {
 
     public PrimaryDrawerItem withDescription(int descriptionRes) {
         this.descriptionRes = descriptionRes;
+        return this;
+    }
+
+    public PrimaryDrawerItem withBadge(String badge) {
+        this.badge = badge;
         return this;
     }
 
@@ -44,6 +52,15 @@ public class PrimaryDrawerItem extends BaseDrawerItem<PrimaryDrawerItem> {
 
     public void setDescriptionRes(int descriptionRes) {
         this.descriptionRes = descriptionRes;
+    }
+
+    public String getBadge() {
+        return badge;
+    }
+
+    @Override
+    public void setBadge(String badge) {
+        this.badge = badge;
     }
 
 
