@@ -118,7 +118,8 @@ headerResult = new AccountHeader()
 	)
     .withOnAccountHeaderListener(new AccountHeader.OnAccountHeaderListener() {
 		@Override
-		public void onProfileChanged(View view, IProfile profile) { 
+		public boolean onProfileChanged(View view, IProfile profile, boolean currentProfile) {
+		    return false;
 		}
 	})
 	.build();
