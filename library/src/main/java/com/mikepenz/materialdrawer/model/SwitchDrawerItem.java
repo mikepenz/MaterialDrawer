@@ -90,7 +90,7 @@ public class SwitchDrawerItem extends BaseDrawerItem<SwitchDrawerItem> {
     public View convertView(LayoutInflater inflater, View convertView, ViewGroup parent) {
         Context ctx = parent.getContext();
 
-        ViewHolder viewHolder;
+        final ViewHolder viewHolder;
         if (convertView == null) {
             convertView = inflater.inflate(getLayoutRes(), parent, false);
             viewHolder = new ViewHolder(convertView);
@@ -122,6 +122,12 @@ public class SwitchDrawerItem extends BaseDrawerItem<SwitchDrawerItem> {
             viewHolder.description.setVisibility(View.GONE);
         }
 
+        viewHolder.view.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                viewHolder.switchView.setChecked(!viewHolder.switchView.isChecked());
+            }
+        });
         viewHolder.switchView.setChecked(checked);
         viewHolder.switchView.setOnCheckedChangeListener(onCheckedChangeListener);
 

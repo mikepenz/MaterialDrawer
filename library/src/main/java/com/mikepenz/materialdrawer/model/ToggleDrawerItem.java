@@ -90,7 +90,7 @@ public class ToggleDrawerItem extends BaseDrawerItem<ToggleDrawerItem> {
     public View convertView(LayoutInflater inflater, View convertView, ViewGroup parent) {
         Context ctx = parent.getContext();
 
-        ViewHolder viewHolder;
+        final ViewHolder viewHolder;
         if (convertView == null) {
             convertView = inflater.inflate(getLayoutRes(), parent, false);
             viewHolder = new ViewHolder(convertView);
@@ -122,8 +122,14 @@ public class ToggleDrawerItem extends BaseDrawerItem<ToggleDrawerItem> {
             viewHolder.description.setVisibility(View.GONE);
         }
 
-        viewHolder.toggle.setChecked(checked);
 
+        viewHolder.view.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                viewHolder.toggle.setChecked(!viewHolder.toggle.isChecked());
+            }
+        });
+        viewHolder.toggle.setChecked(checked);
         viewHolder.toggle.setOnCheckedChangeListener(onCheckedChangeListener);
 
         //get the correct color for the text
