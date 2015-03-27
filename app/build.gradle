@@ -26,5 +26,6 @@ dependencies {
     compile('com.mikepenz.aboutlibraries:library:4.5.8@aar') {
         transitive = true
     }
+    compile 'com.mikepenz.iconics:octicons-typeface:2.2.0@aar'
     compile 'com.squareup.picasso:picasso:2.5.2'
 }
