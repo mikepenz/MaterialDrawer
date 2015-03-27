@@ -2,4 +2,5 @@
 
 <resources>
     <item name="sticky_footer" type="id"/>
+    <item name="sticky_header" type="id"/>
 </resources>

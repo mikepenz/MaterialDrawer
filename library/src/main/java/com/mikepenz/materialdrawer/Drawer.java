@@ -341,6 +341,7 @@ public class Drawer {
 
     //the account selection header to use
     protected AccountHeader.Result mAccountHeader;
+    protected boolean mAccountHeaderSticky = false;
 
     /**
      * Add a AccountSwitcherHeader which will be used in this drawer instance.
@@ -350,9 +351,25 @@ public class Drawer {
      * @return
      */
     public Drawer withAccountHeader(AccountHeader.Result accountHeader) {
+        return withAccountHeader(accountHeader, false);
+    }
+
+    /**
+     * Add a AccountSwitcherHeader which will be used in this drawer instance. Pass true if it should be sticky
+     * NOTE: This will overwrite any set headerView or stickyHeaderView (depends on the boolean).
+     *
+     * @param accountHeader
+     * @param accountHeaderSticky
+     * @return
+     */
+    public Drawer withAccountHeader(AccountHeader.Result accountHeader, boolean accountHeaderSticky) {
         this.mAccountHeader = accountHeader;
+        this.mAccountHeaderSticky = accountHeaderSticky;
+
         //set the header offset
-        mHeaderOffset = 1;
+        if (!accountHeaderSticky) {
+            mHeaderOffset = 1;
+        }
         return this;
     }
 
@@ -461,6 +478,39 @@ public class Drawer {
      */
     public Drawer withHeaderDivider(boolean headerDivider) {
         this.mHeaderDivider = headerDivider;
+        return this;
+    }
+
+    // sticky view
+    protected View mStickyHeaderView;
+
+    /**
+     * Add a sticky header below the Drawer ListView. This can be any view
+     *
+     * @param stickyHeader
+     * @return
+     */
+    public Drawer withStickyHeader(View stickyHeader) {
+        this.mStickyHeaderView = stickyHeader;
+        return this;
+    }
+
+    /**
+     * Add a sticky header below the Drawer ListView defined by a resource.
+     *
+     * @param stickyHeaderRes
+     * @return
+     */
+    public Drawer withStickyHeader(int stickyHeaderRes) {
+        if (mActivity == null) {
+            throw new RuntimeException("please pass an activity first to use this call");
+        }
+
+        if (stickyHeaderRes != -1) {
+            //i know there should be a root, bit i got none here
+            this.mStickyHeaderView = mActivity.getLayoutInflater().inflate(stickyHeaderRes, null, false);
+        }
+
         return this;
     }
 
@@ -1056,6 +1106,32 @@ public class Drawer {
             mAdapter = new DrawerAdapter(mActivity, mDrawerItems);
         }
 
+        //use the AccountHeader if set
+        if (mAccountHeader != null) {
+            if (mAccountHeaderSticky) {
+                mStickyHeaderView = mAccountHeader.getView();
+            } else {
+                mHeaderView = mAccountHeader.getView();
+            }
+        }
+
+        //sticky header view
+        if (mStickyHeaderView != null) {
+            //add the sticky footer view and align it to the bottom
+            RelativeLayout.LayoutParams layoutParams = new RelativeLayout.LayoutParams(RelativeLayout.LayoutParams.MATCH_PARENT, RelativeLayout.LayoutParams.WRAP_CONTENT);
+            layoutParams.addRule(RelativeLayout.ALIGN_PARENT_TOP, 1);
+            mStickyHeaderView.setId(R.id.sticky_header);
+            mSliderLayout.addView(mStickyHeaderView, 0, layoutParams);
+
+            //now align the listView above the stickyFooterView ;)
+            RelativeLayout.LayoutParams layoutParamsListView = (RelativeLayout.LayoutParams) mListView.getLayoutParams();
+            layoutParamsListView.addRule(RelativeLayout.BELOW, R.id.sticky_header);
+            mListView.setLayoutParams(layoutParamsListView);
+
+            //remove the padding of the listView again we have the header on top of it
+            mListView.setPadding(0, 0, 0, 0);
+        }
+
         //sticky footer view
         if (mStickyFooterView != null) {
             //add the sticky footer view and align it to the bottom
@@ -1068,11 +1144,6 @@ public class Drawer {
             RelativeLayout.LayoutParams layoutParamsListView = (RelativeLayout.LayoutParams) mListView.getLayoutParams();
             layoutParamsListView.addRule(RelativeLayout.ABOVE, R.id.sticky_footer);
             mListView.setLayoutParams(layoutParamsListView);
-        }
-
-        //use the AccountHeader if set
-        if (mAccountHeader != null) {
-            mHeaderView = mAccountHeader.getView();
         }
 
         // set the header (do this before the setAdapter because some devices will crash else
@@ -1414,6 +1485,15 @@ public class Drawer {
          */
         public View getHeader() {
             return mDrawer.mHeaderView;
+        }
+
+        /**
+         * get the StickyHeader View if set else NULL
+         *
+         * @return
+         */
+        public View getStickyHeader() {
+            return mDrawer.mStickyHeaderView;
         }
 
         /**
