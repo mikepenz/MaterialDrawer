@@ -149,7 +149,7 @@ public class Drawer {
     }
 
     // set non translucent NavigationBar mode
-    protected boolean mTranslucentNavigationBar = true;
+    protected boolean mTranslucentNavigationBar = false;
 
     /**
      * Set to true if you use a translucent NavigationBar
