@@ -976,19 +976,31 @@ public class Drawer {
             mDrawerLayout.setDrawerListener(mActionBarDrawerToggle);
         }
 
+        //build the view which will be set to the drawer
+        Result result = buildView();
+
+        // add the slider to the drawer
+        mDrawerLayout.addView(mSliderLayout, 1);
+
+        return result;
+    }
+
+    public Result buildView() {
         // get the slider view
         mSliderLayout = (RelativeLayout) mActivity.getLayoutInflater().inflate(R.layout.material_drawer_slider, mDrawerLayout, false);
         mSliderLayout.setBackgroundColor(UIUtils.getThemeColorFromAttrOrRes(mActivity, R.attr.material_drawer_background, R.color.material_drawer_background));
         // get the layout params
         DrawerLayout.LayoutParams params = (DrawerLayout.LayoutParams) mSliderLayout.getLayoutParams();
-        // if we've set a custom gravity set it
-        if (mDrawerGravity != null) {
-            params.gravity = mDrawerGravity;
+        if (params != null) {
+            // if we've set a custom gravity set it
+            if (mDrawerGravity != null) {
+                params.gravity = mDrawerGravity;
+            }
+            // if this is a drawer from the right, change the margins :D
+            params = processDrawerLayoutParams(params);
+            // set the new layout params
+            mSliderLayout.setLayoutParams(params);
         }
-        // if this is a drawer from the right, change the margins :D
-        params = processDrawerLayoutParams(params);
-        // set the new layout params
-        mSliderLayout.setLayoutParams(params);
 
         // set the background
         if (mSliderBackgroundColor != 0) {
@@ -1001,14 +1013,8 @@ public class Drawer {
             UIUtils.setBackground(mSliderLayout, mActivity.getResources().getDrawable(mSliderBackgroundColorRes));
         }
 
-        // add the slider to the drawer
-        mDrawerLayout.addView(mSliderLayout, 1);
-
         //create the content
         createContent();
-
-        //forget the reference to the activity
-        mActivity = null;
 
         //create the result object
         Result result = new Result(this);
@@ -1016,6 +1022,9 @@ public class Drawer {
         if (mAccountHeader != null) {
             mAccountHeader.setDrawer(result);
         }
+
+        //forget the reference to the activity
+        mActivity = null;
 
         return result;
     }
@@ -1207,7 +1216,7 @@ public class Drawer {
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                 IDrawerItem i = getDrawerItem(position, true);
 
-                if (mCloseOnClick) {
+                if (mCloseOnClick && mDrawerLayout != null) {
                     if (mDelayOnDrawerClose > -1) {
                         new Handler().postDelayed(new Runnable() {
                             @Override
@@ -1330,33 +1339,35 @@ public class Drawer {
      * @return
      */
     private DrawerLayout.LayoutParams processDrawerLayoutParams(DrawerLayout.LayoutParams params) {
-        if (mDrawerGravity != null && (mDrawerGravity == Gravity.RIGHT || mDrawerGravity == Gravity.END)) {
-            params.rightMargin = 0;
-            if (Build.VERSION.SDK_INT >= 17) {
-                params.setMarginEnd(0);
-            }
-
-            params.leftMargin = mActivity.getResources().getDimensionPixelSize(R.dimen.material_drawer_margin);
-            if (Build.VERSION.SDK_INT >= 17) {
-                params.setMarginEnd(mActivity.getResources().getDimensionPixelSize(R.dimen.material_drawer_margin));
-            }
-        }
-
-        if (mTranslucentActionBarCompatibility) {
-            TypedValue tv = new TypedValue();
-            if (mActivity.getTheme().resolveAttribute(R.attr.actionBarSize, tv, true)) {
-                int topMargin = TypedValue.complexToDimensionPixelSize(tv.data, mActivity.getResources().getDisplayMetrics());
-                if (mTranslucentStatusBar) {
-                    topMargin = topMargin + mActivity.getResources().getDimensionPixelSize(R.dimen.tool_bar_top_padding);
+        if (params != null) {
+            if (mDrawerGravity != null && (mDrawerGravity == Gravity.RIGHT || mDrawerGravity == Gravity.END)) {
+                params.rightMargin = 0;
+                if (Build.VERSION.SDK_INT >= 17) {
+                    params.setMarginEnd(0);
                 }
-                params.topMargin = topMargin;
-            }
-        }
 
-        if (mDrawerWidth > -1) {
-            params.width = mDrawerWidth;
-        } else {
-            params.width = UIUtils.getOptimalDrawerWidth(mActivity);
+                params.leftMargin = mActivity.getResources().getDimensionPixelSize(R.dimen.material_drawer_margin);
+                if (Build.VERSION.SDK_INT >= 17) {
+                    params.setMarginEnd(mActivity.getResources().getDimensionPixelSize(R.dimen.material_drawer_margin));
+                }
+            }
+
+            if (mTranslucentActionBarCompatibility) {
+                TypedValue tv = new TypedValue();
+                if (mActivity.getTheme().resolveAttribute(R.attr.actionBarSize, tv, true)) {
+                    int topMargin = TypedValue.complexToDimensionPixelSize(tv.data, mActivity.getResources().getDisplayMetrics());
+                    if (mTranslucentStatusBar) {
+                        topMargin = topMargin + mActivity.getResources().getDimensionPixelSize(R.dimen.tool_bar_top_padding);
+                    }
+                    params.topMargin = topMargin;
+                }
+            }
+
+            if (mDrawerWidth > -1) {
+                params.width = mDrawerWidth;
+            } else {
+                params.width = UIUtils.getOptimalDrawerWidth(mActivity);
+            }
         }
 
         return params;
@@ -1425,7 +1436,9 @@ public class Drawer {
          * @param statusBarColor
          */
         public void setStatusBarColor(int statusBarColor) {
-            mDrawer.mDrawerContentRoot.setInsetForeground(statusBarColor);
+            if (mDrawer.mDrawerContentRoot != null) {
+                mDrawer.mDrawerContentRoot.setInsetForeground(statusBarColor);
+            }
         }
 
 
@@ -1445,7 +1458,7 @@ public class Drawer {
          * @return
          */
         public FrameLayout getContent() {
-            if (mContentView == null) {
+            if (mContentView == null && this.mDrawer.mDrawerLayout != null) {
                 mContentView = (FrameLayout) this.mDrawer.mDrawerLayout.findViewById(R.id.content_layout);
             }
             return mContentView;
