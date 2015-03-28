@@ -1256,18 +1256,8 @@ public class Drawer {
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                 IDrawerItem i = getDrawerItem(position, true);
 
-                if (mCloseOnClick && mDrawerLayout != null) {
-                    if (mDelayOnDrawerClose > -1) {
-                        new Handler().postDelayed(new Runnable() {
-                            @Override
-                            public void run() {
-                                mDrawerLayout.closeDrawers();
-                            }
-                        }, mDelayOnDrawerClose);
-                    } else {
-                        mDrawerLayout.closeDrawers();
-                    }
-                }
+                //close the drawer after click
+                closeDrawerDelayed();
 
                 if (i != null && i instanceof Checkable && !((Checkable) i).isCheckable()) {
                     mListView.setSelection(mCurrentSelection + mHeaderOffset);
@@ -1276,7 +1266,6 @@ public class Drawer {
                     resetStickyFooterSelection();
                     mCurrentSelection = position - mHeaderOffset;
                 }
-
 
                 if (mOnDrawerItemClickListener != null) {
                     mOnDrawerItemClickListener.onItemClick(parent, view, position - mHeaderOffset, id, i);
@@ -1332,6 +1321,24 @@ public class Drawer {
         // call initial onClick event to allow the dev to init the first view
         if (mFireInitialOnClick && mOnDrawerItemClickListener != null) {
             mOnDrawerItemClickListener.onItemClick(null, null, mCurrentSelection, mCurrentSelection, getDrawerItem(mCurrentSelection, false));
+        }
+    }
+
+    /**
+     * helper method to close the drawer delayed
+     */
+    private void closeDrawerDelayed() {
+        if (mCloseOnClick && mDrawerLayout != null) {
+            if (mDelayOnDrawerClose > -1) {
+                new Handler().postDelayed(new Runnable() {
+                    @Override
+                    public void run() {
+                        mDrawerLayout.closeDrawers();
+                    }
+                }, mDelayOnDrawerClose);
+            } else {
+                mDrawerLayout.closeDrawers();
+            }
         }
     }
 
@@ -1474,6 +1481,9 @@ public class Drawer {
                         //remove the selection in the list
                         mListView.setSelection(-1);
                         mListView.setItemChecked(mCurrentSelection + mHeaderOffset, false);
+
+                        //close the drawer after click
+                        closeDrawerDelayed();
 
                         if (mOnDrawerItemClickListener != null) {
                             mOnDrawerItemClickListener.onItemClick(null, v, -1, -1, (IDrawerItem) v.getTag());
