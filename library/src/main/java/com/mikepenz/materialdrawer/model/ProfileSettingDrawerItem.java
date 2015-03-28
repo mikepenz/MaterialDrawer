@@ -294,7 +294,7 @@ public class ProfileSettingDrawerItem implements IDrawerItem, IProfile<ProfileSe
 
     @Override
     public String getType() {
-        return "PROFILE_SETTING2_ITEM";
+        return "PROFILE_SETTING_ITEM";
     }
 
     @Override
