@@ -84,7 +84,7 @@ public class FooterItemHelper {
         //get the inflater
         LayoutInflater layoutInflater = LayoutInflater.from(mContext);
 
-        //add all draer items
+        //add all drawer items
         for (IDrawerItem drawerItem : mDrawerItems) {
             View view = drawerItem.convertView(layoutInflater, null, linearLayout);
             view.setTag(drawerItem);

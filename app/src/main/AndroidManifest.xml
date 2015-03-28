@@ -34,6 +34,8 @@
         <activity android:name=".SimpleFragmentDrawerActivity"
                   android:windowSoftInputMode="stateHidden"
                   android:theme="@style/MaterialDrawerTheme.Light.DarkToolbar.TranslucentStatus"/>
+        <activity android:name=".EmbeddedDrawerActivity"
+                  android:theme="@style/MaterialDrawerTheme"/>
     </application>
 
 </manifest>

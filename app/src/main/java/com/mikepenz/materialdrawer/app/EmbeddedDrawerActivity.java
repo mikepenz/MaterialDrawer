@@ -1,18 +1,15 @@
 package com.mikepenz.materialdrawer.app;
 
-import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.v7.app.ActionBarActivity;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.view.View;
-import android.widget.AdapterView;
 import android.widget.CompoundButton;
+import android.widget.FrameLayout;
 
-import com.mikepenz.aboutlibraries.Libs;
 import com.mikepenz.google_material_typeface_library.GoogleMaterial;
-import com.mikepenz.iconics.IconicsDrawable;
 import com.mikepenz.iconics.typeface.FontAwesome;
 import com.mikepenz.materialdrawer.Drawer;
 import com.mikepenz.materialdrawer.accountswitcher.AccountHeader;
@@ -28,7 +25,7 @@ import com.mikepenz.materialdrawer.model.interfaces.IDrawerItem;
 import com.mikepenz.materialdrawer.model.interfaces.IProfile;
 import com.mikepenz.octicons_typeface_library.Octicons;
 
-public class SimpleHeaderDrawerActivity extends ActionBarActivity {
+public class EmbeddedDrawerActivity extends ActionBarActivity {
     private static final int PROFILE_SETTING = 1;
 
     //save our header or result
@@ -57,6 +54,7 @@ public class SimpleHeaderDrawerActivity extends ActionBarActivity {
         headerResult = new AccountHeader()
                 .withActivity(this)
                 .withHeaderBackground(R.drawable.header)
+                .withTranslucentStatusBar(false)
                 .addProfiles(
                         profile,
                         profile2,
@@ -65,7 +63,7 @@ public class SimpleHeaderDrawerActivity extends ActionBarActivity {
                         profile5,
                         profile6,
                         //don't ask but google uses 14dp for the add account icon in gmail but 20dp for the normal icons (like manage account)
-                        new ProfileSettingDrawerItem().withName("Add Account").withDescription("Add new GitHub Account").withIcon(new IconicsDrawable(this, GoogleMaterial.Icon.gmd_add).actionBarSize().paddingDp(5).colorRes(R.color.material_drawer_primary_text)).withIdentifier(PROFILE_SETTING),
+                        new ProfileSettingDrawerItem().withName("Add Account").withDescription("Add new GitHub Account").withIcon(GoogleMaterial.Icon.gmd_add).withIdentifier(PROFILE_SETTING),
                         new ProfileSettingDrawerItem().withName("Manage Account").withIcon(GoogleMaterial.Icon.gmd_settings)
                 )
                 .withOnAccountHeaderListener(new AccountHeader.OnAccountHeaderListener() {
@@ -90,10 +88,11 @@ public class SimpleHeaderDrawerActivity extends ActionBarActivity {
                 .withSavedInstance(savedInstanceState)
                 .build();
 
-        //Create the drawer
+        FrameLayout frameLayout = (FrameLayout) findViewById(R.id.frame_container);
         result = new Drawer()
                 .withActivity(this)
                 .withToolbar(toolbar)
+                .withTranslucentStatusBar(false)
                 .withAccountHeader(headerResult) //set the AccountHeader we created earlier for the header
                 .addDrawerItems(
                         new PrimaryDrawerItem().withName(R.string.drawer_item_compact_header).withIcon(GoogleMaterial.Icon.gmd_wb_sunny).withIdentifier(1).withCheckable(false),
@@ -102,7 +101,6 @@ public class SimpleHeaderDrawerActivity extends ActionBarActivity {
                         new PrimaryDrawerItem().withName(R.string.drawer_item_non_translucent_status_drawer).withIcon(FontAwesome.Icon.faw_eye).withIdentifier(4).withCheckable(false),
                         new PrimaryDrawerItem().withDescription("A more complex sample").withName(R.string.drawer_item_complex_header_drawer).withIcon(GoogleMaterial.Icon.gmd_adb).withIdentifier(5).withCheckable(false),
                         new PrimaryDrawerItem().withName(R.string.drawer_item_simple_fragment_drawer).withIcon(GoogleMaterial.Icon.gmd_style).withIdentifier(6).withCheckable(false),
-                        new PrimaryDrawerItem().withName(R.string.drawer_item_embedded_drawer).withIcon(GoogleMaterial.Icon.gmd_battery_charging_30).withIdentifier(7).withCheckable(false),
                         new SectionDrawerItem().withName(R.string.drawer_item_section_header),
                         new SecondaryDrawerItem().withName(R.string.drawer_item_open_source).withIcon(FontAwesome.Icon.faw_github).withIdentifier(20).withCheckable(false),
                         new SecondaryDrawerItem().withName(R.string.drawer_item_contact).withIcon(GoogleMaterial.Icon.gmd_format_color_fill).withIdentifier(10).withTag("Bullhorn"),
@@ -120,54 +118,10 @@ public class SimpleHeaderDrawerActivity extends ActionBarActivity {
                             }
                         })
                 ) // add the items we want to use with our Drawer
-                .withOnDrawerItemClickListener(new Drawer.OnDrawerItemClickListener() {
-                    @Override
-                    public void onItemClick(AdapterView<?> parent, View view, int position, long id, IDrawerItem drawerItem) {
-                        //check if the drawerItem is set.
-                        //there are different reasons for the drawerItem to be null
-                        //--> click on the header
-                        //--> click on the footer
-                        //those items don't contain a drawerItem
-
-                        if (drawerItem != null) {
-                            if (drawerItem.getIdentifier() == 1) {
-                                Intent intent = new Intent(SimpleHeaderDrawerActivity.this, SimpleCompactHeaderDrawerActivity.class);
-                                SimpleHeaderDrawerActivity.this.startActivity(intent);
-                            } else if (drawerItem.getIdentifier() == 2) {
-                                Intent intent = new Intent(SimpleHeaderDrawerActivity.this, ActionBarDrawerActivity.class);
-                                SimpleHeaderDrawerActivity.this.startActivity(intent);
-                            } else if (drawerItem.getIdentifier() == 3) {
-                                Intent intent = new Intent(SimpleHeaderDrawerActivity.this, MultiDrawerActivity.class);
-                                SimpleHeaderDrawerActivity.this.startActivity(intent);
-                            } else if (drawerItem.getIdentifier() == 4) {
-                                Intent intent = new Intent(SimpleHeaderDrawerActivity.this, SimpleNonTranslucentDrawerActivity.class);
-                                SimpleHeaderDrawerActivity.this.startActivity(intent);
-                            } else if (drawerItem.getIdentifier() == 5) {
-                                Intent intent = new Intent(SimpleHeaderDrawerActivity.this, ComplexHeaderDrawerActivity.class);
-                                SimpleHeaderDrawerActivity.this.startActivity(intent);
-                            } else if (drawerItem.getIdentifier() == 6) {
-                                Intent intent = new Intent(SimpleHeaderDrawerActivity.this, SimpleFragmentDrawerActivity.class);
-                                SimpleHeaderDrawerActivity.this.startActivity(intent);
-                            } else if (drawerItem.getIdentifier() == 7) {
-                                Intent intent = new Intent(SimpleHeaderDrawerActivity.this, EmbeddedDrawerActivity.class);
-                                SimpleHeaderDrawerActivity.this.startActivity(intent);
-                            } else if (drawerItem.getIdentifier() == 20) {
-                                new Libs.Builder().withFields(R.string.class.getFields()).withActivityTheme(R.style.MaterialDrawerTheme_ActionBar).start(SimpleHeaderDrawerActivity.this);
-                            }
-                        }
-                    }
-                })
                 .withSavedInstance(savedInstanceState)
-                .build();
+                .buildView();
 
-        //only set the active selection or active profile if we do not recreate the activity
-        if (savedInstanceState == null) {
-            // set the selection to the item with the identifier 10
-            result.setSelectionByIdentifier(10, false);
-
-            //set the active profile
-            headerResult.setActiveProfile(profile3);
-        }
+        frameLayout.addView(result.getSlider());
     }
 
     @Override
