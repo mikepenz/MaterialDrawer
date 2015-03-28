@@ -1,8 +1,6 @@
 package com.mikepenz.materialdrawer.util;
 
 import android.content.Context;
-import android.os.Build;
-import android.util.TypedValue;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -17,36 +15,36 @@ import java.util.Collections;
 /**
  * Created by mikepenz on 27.03.15.
  */
-public class FooterItemHelper {
+public class DrawerItemViewHelper {
 
     private Context mContext;
 
-    public FooterItemHelper(Context context) {
+    public DrawerItemViewHelper(Context context) {
         this.mContext = context;
     }
 
     private ArrayList<IDrawerItem> mDrawerItems = new ArrayList<>();
 
-    public FooterItemHelper withDrawerItems(ArrayList<IDrawerItem> drawerItems) {
+    public DrawerItemViewHelper withDrawerItems(ArrayList<IDrawerItem> drawerItems) {
         this.mDrawerItems = drawerItems;
         return this;
     }
 
-    public FooterItemHelper withDrawerItems(IDrawerItem... drawerItems) {
+    public DrawerItemViewHelper withDrawerItems(IDrawerItem... drawerItems) {
         Collections.addAll(this.mDrawerItems, drawerItems);
         return this;
     }
 
     private boolean mDivider = true;
 
-    public FooterItemHelper withDivider(boolean divider) {
+    public DrawerItemViewHelper withDivider(boolean divider) {
         this.mDivider = divider;
         return this;
     }
 
     private OnDrawerItemClickListener mOnDrawerItemClickListener = null;
 
-    public FooterItemHelper withOnDrawerItemClickListener(OnDrawerItemClickListener onDrawerItemClickListener) {
+    public DrawerItemViewHelper withOnDrawerItemClickListener(OnDrawerItemClickListener onDrawerItemClickListener) {
         mOnDrawerItemClickListener = onDrawerItemClickListener;
         return this;
     }
@@ -67,20 +65,6 @@ public class FooterItemHelper {
             linearLayout.addView(divider);
         }
 
-        //clickable background
-        int backgroundRes;
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.HONEYCOMB) {
-            // If we're running on Honeycomb or newer, then we can use the Theme's
-            // selectableItemBackground to ensure that the View has a pressed state
-            TypedValue outValue = new TypedValue();
-            mContext.getTheme().resolveAttribute(R.attr.selectableItemBackground, outValue, true);
-            backgroundRes = outValue.resourceId;
-        } else {
-            TypedValue outValue = new TypedValue();
-            mContext.getTheme().resolveAttribute(android.R.attr.itemBackground, outValue, true);
-            backgroundRes = outValue.resourceId;
-        }
-
         //get the inflater
         LayoutInflater layoutInflater = LayoutInflater.from(mContext);
 
@@ -90,7 +74,7 @@ public class FooterItemHelper {
             view.setTag(drawerItem);
 
             if (drawerItem.isEnabled()) {
-                view.setBackgroundResource(backgroundRes);
+                view.setBackgroundResource(UIUtils.getSelectableBackground(mContext));
                 view.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {

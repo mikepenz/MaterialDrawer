@@ -11,6 +11,7 @@ import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.widget.Toolbar;
 import android.util.TypedValue;
 import android.view.Gravity;
+import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.Window;
@@ -27,6 +28,8 @@ import com.mikepenz.iconics.utils.Utils;
 import com.mikepenz.materialdrawer.accountswitcher.AccountHeader;
 import com.mikepenz.materialdrawer.adapter.BaseDrawerAdapter;
 import com.mikepenz.materialdrawer.adapter.DrawerAdapter;
+import com.mikepenz.materialdrawer.model.PrimaryDrawerItem;
+import com.mikepenz.materialdrawer.model.SecondaryDrawerItem;
 import com.mikepenz.materialdrawer.model.interfaces.Badgeable;
 import com.mikepenz.materialdrawer.model.interfaces.Checkable;
 import com.mikepenz.materialdrawer.model.interfaces.IDrawerItem;
@@ -693,6 +696,37 @@ public class Drawer {
         return this;
     }
 
+    // always visible list in drawer
+    protected ArrayList<IDrawerItem> mStickyDrawerItems = new ArrayList<>();
+
+    /**
+     * Set the initial List of IDrawerItems for the StickyDrawerFooter
+     *
+     * @param stickyDrawerItems
+     * @return
+     */
+    public Drawer withStickyDrawerItems(ArrayList<IDrawerItem> stickyDrawerItems) {
+        this.mStickyDrawerItems = stickyDrawerItems;
+        return this;
+    }
+
+    /**
+     * Add a initial DrawerItem or a DrawerItem Array for the StickyDrawerFooter
+     *
+     * @param stickyDrawerItems
+     * @return
+     */
+    public Drawer addStickyDrawerItems(IDrawerItem... stickyDrawerItems) {
+        if (this.mStickyDrawerItems == null) {
+            this.mStickyDrawerItems = new ArrayList<>();
+        }
+
+        if (stickyDrawerItems != null) {
+            Collections.addAll(this.mStickyDrawerItems, stickyDrawerItems);
+        }
+        return this;
+    }
+
     // close drawer on click
     protected boolean mCloseOnClick = true;
 
@@ -1141,6 +1175,11 @@ public class Drawer {
             mListView.setPadding(0, 0, 0, 0);
         }
 
+        //use the StickyDrawerItems if set
+        if (mStickyDrawerItems != null) {
+            mStickyFooterView = buildStickyDrawerItemFooter();
+        }
+
         //sticky footer view
         if (mStickyFooterView != null) {
             //add the sticky footer view and align it to the bottom
@@ -1204,6 +1243,7 @@ public class Drawer {
 
             //predefine selection (should be the first element
             if (mListView != null && (mSelectedItem + mHeaderOffset) > -1) {
+                resetStickyFooterSelection();
                 mListView.setSelection(mSelectedItem + mHeaderOffset);
                 mListView.setItemChecked(mSelectedItem + mHeaderOffset, true);
                 mCurrentSelection = mSelectedItem;
@@ -1233,6 +1273,7 @@ public class Drawer {
                     mListView.setSelection(mCurrentSelection + mHeaderOffset);
                     mListView.setItemChecked(mCurrentSelection + mHeaderOffset, true);
                 } else {
+                    resetStickyFooterSelection();
                     mCurrentSelection = position - mHeaderOffset;
                 }
 
@@ -1280,6 +1321,7 @@ public class Drawer {
             if (selection != -1) {
                 //predefine selection (should be the first element
                 if (mListView != null && (selection + mHeaderOffset) > -1) {
+                    resetStickyFooterSelection();
                     mListView.setSelection(selection + mHeaderOffset);
                     mListView.setItemChecked(selection + mHeaderOffset, true);
                     mCurrentSelection = selection;
@@ -1371,6 +1413,97 @@ public class Drawer {
         }
 
         return params;
+    }
+
+    /**
+     * build the sticky footer item view
+     *
+     * @return
+     */
+    private View buildStickyDrawerItemFooter() {
+        //create the container view
+        final LinearLayout linearLayout = new LinearLayout(mActivity);
+        linearLayout.setLayoutParams(new LinearLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT));
+        linearLayout.setOrientation(LinearLayout.VERTICAL);
+
+        //create the divider
+        LinearLayout divider = new LinearLayout(mActivity);
+        divider.setLayoutParams(new LinearLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT));
+        divider.setMinimumHeight((int) UIUtils.convertDpToPixel(1, mActivity));
+        divider.setOrientation(LinearLayout.VERTICAL);
+        divider.setBackgroundColor(UIUtils.getThemeColorFromAttrOrRes(mActivity, R.attr.material_drawer_divider, R.color.material_drawer_divider));
+        linearLayout.addView(divider);
+
+        //get the inflater
+        LayoutInflater layoutInflater = LayoutInflater.from(mActivity);
+        int padding = mActivity.getResources().getDimensionPixelSize(R.dimen.material_drawer_vertical_padding);
+
+        //add all drawer items
+        for (IDrawerItem drawerItem : mStickyDrawerItems) {
+            //get the selected_color
+            int selected_color = UIUtils.getThemeColorFromAttrOrRes(mActivity, R.attr.material_drawer_selected, R.color.material_drawer_selected);
+            if (drawerItem instanceof PrimaryDrawerItem) {
+                if (selected_color == 0 && ((PrimaryDrawerItem) drawerItem).getSelectedColorRes() != -1) {
+                    selected_color = mActivity.getResources().getColor(((PrimaryDrawerItem) drawerItem).getSelectedColorRes());
+                } else if (((PrimaryDrawerItem) drawerItem).getSelectedColor() != 0) {
+                    selected_color = ((PrimaryDrawerItem) drawerItem).getSelectedColor();
+                }
+            } else if (drawerItem instanceof SecondaryDrawerItem) {
+                if (selected_color == 0 && ((SecondaryDrawerItem) drawerItem).getSelectedColorRes() != -1) {
+                    selected_color = mActivity.getResources().getColor(((SecondaryDrawerItem) drawerItem).getSelectedColorRes());
+                } else if (((SecondaryDrawerItem) drawerItem).getSelectedColor() != 0) {
+                    selected_color = ((SecondaryDrawerItem) drawerItem).getSelectedColor();
+                }
+            }
+
+            View view = drawerItem.convertView(layoutInflater, null, linearLayout);
+            view.setTag(drawerItem);
+
+            if (drawerItem.isEnabled()) {
+                UIUtils.setBackground(view, UIUtils.getSelectableBackground(mActivity, selected_color));
+                view.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        resetStickyFooterSelection();
+
+                        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.HONEYCOMB) {
+                            v.setActivated(true);
+                        }
+                        v.setSelected(true);
+
+                        //remove the selection in the list
+                        mListView.setSelection(-1);
+                        mListView.setItemChecked(mCurrentSelection + mHeaderOffset, false);
+
+                        if (mOnDrawerItemClickListener != null) {
+                            mOnDrawerItemClickListener.onItemClick(null, v, -1, -1, (IDrawerItem) v.getTag());
+                        }
+                    }
+                });
+            }
+
+            //don't ask my why but it forgets the padding from the original layout
+            view.setPadding(padding, 0, padding, 0);
+            linearLayout.addView(view);
+        }
+        //and really. don't ask about this. it won't set the padding if i don't set the padding for the container
+        linearLayout.setPadding(0, 0, 0, 0);
+
+        return linearLayout;
+    }
+
+    /**
+     * simple helper method to reset the selection of the sticky footer
+     */
+    private void resetStickyFooterSelection() {
+        if (mStickyFooterView instanceof LinearLayout) {
+            for (int i = 1; i < ((LinearLayout) mStickyFooterView).getChildCount(); i++) {
+                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.HONEYCOMB) {
+                    ((LinearLayout) mStickyFooterView).getChildAt(i).setActivated(false);
+                }
+                ((LinearLayout) mStickyFooterView).getChildAt(i).setSelected(false);
+            }
+        }
     }
 
     /**
@@ -1655,6 +1788,7 @@ public class Drawer {
          */
         public void setSelection(int position, boolean fireOnClick) {
             if (mDrawer.mListView != null) {
+                mDrawer.resetStickyFooterSelection();
                 mDrawer.mListView.setSelection(position + mDrawer.mHeaderOffset);
                 mDrawer.mListView.setItemChecked(position + mDrawer.mHeaderOffset, true);
 

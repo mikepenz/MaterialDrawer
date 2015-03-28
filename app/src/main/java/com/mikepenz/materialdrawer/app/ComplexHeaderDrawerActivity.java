@@ -4,7 +4,6 @@ import android.graphics.Color;
 import android.os.Bundle;
 import android.support.v7.app.ActionBarActivity;
 import android.support.v7.widget.Toolbar;
-import android.util.Log;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
@@ -22,8 +21,6 @@ import com.mikepenz.materialdrawer.model.SecondaryDrawerItem;
 import com.mikepenz.materialdrawer.model.SectionDrawerItem;
 import com.mikepenz.materialdrawer.model.interfaces.IDrawerItem;
 import com.mikepenz.materialdrawer.model.interfaces.IProfile;
-import com.mikepenz.materialdrawer.model.interfaces.Nameable;
-import com.mikepenz.materialdrawer.util.FooterItemHelper;
 
 public class ComplexHeaderDrawerActivity extends ActionBarActivity {
     private static final int PROFILE_SETTING = 1;
@@ -99,7 +96,8 @@ public class ComplexHeaderDrawerActivity extends ActionBarActivity {
                         new SecondaryDrawerItem().withName(R.string.drawer_item_settings).withIcon(FontAwesome.Icon.faw_cart_plus),
                         new SecondaryDrawerItem().withName(R.string.drawer_item_help).withIcon(FontAwesome.Icon.faw_database).setEnabled(false),
                         new SecondaryDrawerItem().withName(R.string.drawer_item_open_source).withIcon(FontAwesome.Icon.faw_github),
-                        new SecondaryDrawerItem().withName(R.string.drawer_item_contact).withSelectedIconColor(Color.RED).withTintSelectedIcon(true).withIcon(new IconicsDrawable(this, GoogleMaterial.Icon.gmd_add).actionBarSize().paddingDp(5).colorRes(R.color.material_drawer_dark_primary_text)).withTag("Bullhorn")
+                        new SecondaryDrawerItem().withName(R.string.drawer_item_contact).withSelectedIconColor(Color.RED).withTintSelectedIcon(true).withIcon(new IconicsDrawable(this, GoogleMaterial.Icon.gmd_add).actionBarSize().paddingDp(5).colorRes(R.color.material_drawer_dark_primary_text)).withTag("Bullhorn"),
+                        new SecondaryDrawerItem().withName(R.string.drawer_item_help).withIcon(FontAwesome.Icon.faw_question).setEnabled(false)
                 ) // add the items we want to use with our Drawer
                 .withOnDrawerNavigationListener(new Drawer.OnDrawerNavigationListener() {
                     @Override
@@ -107,27 +105,14 @@ public class ComplexHeaderDrawerActivity extends ActionBarActivity {
                         //this method is only called if the Arrow icon is shown. The hamburger is automatically managed by the MaterialDrawer
                         //if the back arrow is shown. close the activity
                         ComplexHeaderDrawerActivity.this.finish();
-
                         //return true if we have consumed the event
                         return true;
                     }
                 })
-                .withStickyFooter(
-                        new FooterItemHelper(this)
-                                .withDrawerItems(
-                                        new SecondaryDrawerItem().withName(R.string.drawer_item_settings).withIcon(FontAwesome.Icon.faw_cog).withIdentifier(10),
-                                        new SecondaryDrawerItem().withName(R.string.drawer_item_help).withIcon(FontAwesome.Icon.faw_question).setEnabled(false)
-                                )
-                                .withOnDrawerItemClickListener(new FooterItemHelper.OnDrawerItemClickListener() {
-                                    @Override
-                                    public void onItemClick(View view, IDrawerItem drawerItem) {
-                                        if (drawerItem instanceof Nameable) {
-                                            //the name was set from resource so we have to get it from resource gain
-                                            Log.i("material-drawer", "a sticky drawer item was clicked" + getString(((Nameable) drawerItem).getNameRes()));
-                                        }
-                                    }
-                                })
-                                .build())
+                .addStickyDrawerItems(
+                        new SecondaryDrawerItem().withName(R.string.drawer_item_settings).withIcon(FontAwesome.Icon.faw_cog).withIdentifier(10),
+                        new SecondaryDrawerItem().withName(R.string.drawer_item_open_source).withIcon(FontAwesome.Icon.faw_github)
+                )
                 .withSavedInstance(savedInstanceState)
                 .build();
     }

@@ -9,7 +9,6 @@ import android.os.Build;
 import android.os.Bundle;
 import android.os.Handler;
 import android.text.TextUtils;
-import android.util.TypedValue;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
@@ -632,17 +631,8 @@ public class AccountHeader {
         } else {
             mAccountHeaderTextSection = mAccountHeaderContainer.findViewById(R.id.account_header_drawer_text_section);
         }
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.HONEYCOMB) {
-            // If we're running on Honeycomb or newer, then we can use the Theme's
-            // selectableItemBackground to ensure that the View has a pressed state
-            TypedValue outValue = new TypedValue();
-            mActivity.getTheme().resolveAttribute(R.attr.selectableItemBackground, outValue, true);
-            mAccountHeaderTextSectionBackgroundResource = outValue.resourceId;
-        } else {
-            TypedValue outValue = new TypedValue();
-            mActivity.getTheme().resolveAttribute(android.R.attr.itemBackground, outValue, true);
-            mAccountHeaderTextSectionBackgroundResource = outValue.resourceId;
-        }
+
+        mAccountHeaderTextSectionBackgroundResource = UIUtils.getSelectableBackground(mActivity);
         mAccountHeaderTextSection.setBackgroundResource(mAccountHeaderTextSectionBackgroundResource);
 
         // set the arrow :D
@@ -1098,6 +1088,10 @@ public class AccountHeader {
             if (mDrawer.switchedDrawerContent()) {
                 resetDrawerContent(ctx);
                 mSelectionListShown = false;
+
+                if (mDrawer.getStickyFooter() != null) {
+                    mDrawer.getStickyFooter().setVisibility(View.VISIBLE);
+                }
             } else {
                 //build and set the drawer selection list
                 buildDrawerSelectionList();
@@ -1105,6 +1099,10 @@ public class AccountHeader {
                 // update the arrow image within the drawer
                 mAccountSwitcherArrow.setImageDrawable(new IconicsDrawable(ctx, GoogleMaterial.Icon.gmd_arrow_drop_up).sizeDp(24).paddingDp(6).color(mTextColor));
                 mSelectionListShown = true;
+
+                if (mDrawer.getStickyFooter() != null) {
+                    mDrawer.getStickyFooter().setVisibility(View.GONE);
+                }
             }
         }
     }
