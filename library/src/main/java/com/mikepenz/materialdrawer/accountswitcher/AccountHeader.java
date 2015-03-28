@@ -973,7 +973,7 @@ public class AccountHeader {
             mAccountSwitcherArrow.setVisibility(View.INVISIBLE);
             UIUtils.setBackground(mAccountHeaderTextSection, null);
         }
-        if (!mSelectionListEnabledForSingleProfile && mProfileFirst == null) {
+        if (!mSelectionListEnabledForSingleProfile && mProfileFirst == null && (mProfiles == null || mProfiles.size() == 1)) {
             mAccountSwitcherArrow.setVisibility(View.INVISIBLE);
             UIUtils.setBackground(mAccountHeaderTextSection, null);
         }
