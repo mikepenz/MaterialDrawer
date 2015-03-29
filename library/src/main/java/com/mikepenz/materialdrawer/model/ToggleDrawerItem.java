@@ -202,10 +202,10 @@ public class ToggleDrawerItem extends BaseDrawerItem<ToggleDrawerItem> {
             icon = new IconicsDrawable(ctx, this.getIIcon()).color(iconColor).actionBarSize().paddingDp(1);
             selectedIcon = new IconicsDrawable(ctx, this.getIIcon()).color(selected_icon).actionBarSize().paddingDp(1);
         } else if (this.getIconRes() > -1) {
-            icon = ctx.getResources().getDrawable(getIconRes());
+            icon = UIUtils.getCompatDrawable(ctx, getIconRes());
 
             if (this.getSelectedIconRes() > -1) {
-                selectedIcon = ctx.getResources().getDrawable(getSelectedIconRes());
+                selectedIcon = UIUtils.getCompatDrawable(ctx, getSelectedIconRes());
             } else if (this.isSelectedIconTinted()) {
                 icon = new PressedEffectStateListDrawable(icon, selected_icon);
             }

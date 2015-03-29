@@ -1044,7 +1044,7 @@ public class Drawer {
         } else if (mSliderBackgroundDrawable != null) {
             UIUtils.setBackground(mSliderLayout, mSliderBackgroundDrawable);
         } else if (mSliderBackgroundDrawableRes != -1) {
-            UIUtils.setBackground(mSliderLayout, mActivity.getResources().getDrawable(mSliderBackgroundColorRes));
+            UIUtils.setBackground(mSliderLayout, mSliderBackgroundColorRes);
         }
 
         //create the content
@@ -2020,7 +2020,7 @@ public class Drawer {
                 IDrawerItem drawerItem = mDrawer.mDrawerItems.get(position);
 
                 if (drawerItem instanceof Iconable) {
-                    ((Iconable) drawerItem).setIcon(mDrawer.mRootView.getContext().getResources().getDrawable(iconRes));
+                    ((Iconable) drawerItem).setIcon(UIUtils.getCompatDrawable(mDrawer.mRootView.getContext(), iconRes));
                 }
 
                 mDrawer.mDrawerItems.set(position, drawerItem);

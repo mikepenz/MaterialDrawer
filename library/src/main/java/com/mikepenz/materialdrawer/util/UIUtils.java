@@ -60,7 +60,7 @@ public class UIUtils {
      */
     public static StateListDrawable getSelectableBackground(Context ctx, int selected_color) {
         StateListDrawable states = getDrawerItemBackground(selected_color);
-        states.addState(new int[]{}, ctx.getResources().getDrawable(getSelectableBackground(ctx)));
+        states.addState(new int[]{}, getCompatDrawable(ctx, getSelectableBackground(ctx)));
         return states;
     }
 
@@ -121,6 +121,36 @@ public class UIUtils {
         } else {
             v.setBackground(d);
         }
+    }
+
+    /**
+     * helper method to set the background depending on the android version
+     *
+     * @param v
+     * @param drawableRes
+     */
+    public static void setBackground(View v, int drawableRes) {
+        setBackground(v, getCompatDrawable(v.getContext(), drawableRes));
+    }
+
+    /**
+     * helper method to get the drawable by its resource. specific to the correct android version
+     *
+     * @param c
+     * @param drawableRes
+     * @return
+     */
+    public static Drawable getCompatDrawable(Context c, int drawableRes) {
+        Drawable d = null;
+        try {
+            if (android.os.Build.VERSION.SDK_INT < Build.VERSION_CODES.LOLLIPOP) {
+                d = c.getResources().getDrawable(drawableRes);
+            } else {
+                d = c.getResources().getDrawable(drawableRes, c.getTheme());
+            }
+        } catch (Exception ex) {
+        }
+        return d;
     }
 
     /**
