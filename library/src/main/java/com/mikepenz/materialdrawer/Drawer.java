@@ -1435,11 +1435,12 @@ public class Drawer {
 
         //create the divider
         LinearLayout divider = new LinearLayout(mActivity);
-        divider.setLayoutParams(new LinearLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT));
+        LinearLayout.LayoutParams dividerParams = new LinearLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT);
+        dividerParams.bottomMargin = mActivity.getResources().getDimensionPixelSize(R.dimen.material_drawer_padding);
         divider.setMinimumHeight((int) UIUtils.convertDpToPixel(1, mActivity));
         divider.setOrientation(LinearLayout.VERTICAL);
         divider.setBackgroundColor(UIUtils.getThemeColorFromAttrOrRes(mActivity, R.attr.material_drawer_divider, R.color.material_drawer_divider));
-        linearLayout.addView(divider);
+        linearLayout.addView(divider, dividerParams);
 
         //get the inflater
         LayoutInflater layoutInflater = LayoutInflater.from(mActivity);
