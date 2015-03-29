@@ -24,8 +24,8 @@
     <LinearLayout
         android:layout_toRightOf="@id/icon"
         android:layout_toEndOf="@id/icon"
-        android:layout_toLeftOf="@+id/toggle"
-        android:layout_toStartOf="@+id/toggle"
+        android:layout_toLeftOf="@+id/switchView"
+        android:layout_toStartOf="@+id/switchView"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_centerInParent="true"
