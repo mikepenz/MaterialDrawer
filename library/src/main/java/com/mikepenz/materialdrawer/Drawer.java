@@ -1176,7 +1176,7 @@ public class Drawer {
         }
 
         //use the StickyDrawerItems if set
-        if (mStickyDrawerItems != null) {
+        if (mStickyDrawerItems != null && mStickyDrawerItems.size() > 0) {
             mStickyFooterView = buildStickyDrawerItemFooter();
         }
 
@@ -1192,6 +1192,10 @@ public class Drawer {
             RelativeLayout.LayoutParams layoutParamsListView = (RelativeLayout.LayoutParams) mListView.getLayoutParams();
             layoutParamsListView.addRule(RelativeLayout.ABOVE, R.id.sticky_footer);
             mListView.setLayoutParams(layoutParamsListView);
+
+
+            //remove the padding of the listView again we have the header on top of it
+            mListView.setPadding(mListView.getPaddingLeft(), mListView.getPaddingTop(), mListView.getPaddingRight(), mActivity.getResources().getDimensionPixelSize(R.dimen.material_drawer_padding));
         }
 
         // set the header (do this before the setAdapter because some devices will crash else
@@ -1207,13 +1211,13 @@ public class Drawer {
                 headerContainer.findViewById(R.id.divider).setBackgroundColor(UIUtils.getThemeColorFromAttrOrRes(mActivity, R.attr.material_drawer_divider, R.color.material_drawer_divider));
                 //add the headerContainer to the list
                 mListView.addHeaderView(headerContainer, null, mHeaderClickable);
-                mListView.setPadding(0, 0, 0, 0);
                 //link the view including the container to the headerView field
                 mHeaderView = headerContainer;
             } else {
                 mListView.addHeaderView(mHeaderView, null, mHeaderClickable);
-                mListView.setPadding(0, 0, 0, 0);
             }
+            //set the padding on the top to 0
+            mListView.setPadding(mListView.getPaddingLeft(), 0, mListView.getPaddingRight(), mListView.getPaddingBottom());
         }
 
         // set the footer (do this before the setAdapter because some devices will crash else
