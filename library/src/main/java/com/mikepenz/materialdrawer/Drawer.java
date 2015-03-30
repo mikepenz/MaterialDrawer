@@ -1478,20 +1478,25 @@ public class Drawer {
                     public void onClick(View v) {
                         resetStickyFooterSelection();
 
-                        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.HONEYCOMB) {
-                            v.setActivated(true);
-                        }
-                        v.setSelected(true);
+                        IDrawerItem drawerItem = (IDrawerItem) v.getTag();
+                        boolean notCheckable = drawerItem != null && drawerItem instanceof Checkable && !((Checkable) drawerItem).isCheckable();
+                        boolean checkable = !notCheckable;
+                        if (checkable) {
+                            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.HONEYCOMB) {
+                                v.setActivated(true);
+                            }
+                            v.setSelected(true);
 
-                        //remove the selection in the list
-                        mListView.setSelection(-1);
-                        mListView.setItemChecked(mCurrentSelection + mHeaderOffset, false);
+                            //remove the selection in the list
+                            mListView.setSelection(-1);
+                            mListView.setItemChecked(mCurrentSelection + mHeaderOffset, false);
+                        }
 
                         //close the drawer after click
                         closeDrawerDelayed();
 
                         if (mOnDrawerItemClickListener != null) {
-                            mOnDrawerItemClickListener.onItemClick(null, v, -1, -1, (IDrawerItem) v.getTag());
+                            mOnDrawerItemClickListener.onItemClick(null, v, -1, -1, drawerItem);
                         }
                     }
                 });
