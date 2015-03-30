@@ -696,92 +696,93 @@ public class AccountHeader {
      * helper method to calculate the order of the profiles
      */
     protected void calculateProfiles() {
-        if (mProfiles != null) {
-            if (mCurrentProfile == null) {
+        if (mProfiles == null) {
+            mProfiles = new ArrayList<>();
+        }
 
-                int setCount = 0;
-                for (int i = 0; i < mProfiles.size(); i++) {
-                    if (mProfiles.size() > i && mProfiles.get(i).isSelectable()) {
-                        if (setCount == 0 && (mCurrentProfile == null)) {
-                            mCurrentProfile = mProfiles.get(i);
-                        } else if (setCount == 1 && (mProfileFirst == null)) {
-                            mProfileFirst = mProfiles.get(i);
-                        } else if (setCount == 2 && (mProfileSecond == null)) {
-                            mProfileSecond = mProfiles.get(i);
-                        } else if (setCount == 3 && (mProfileThird == null)) {
-                            mProfileThird = mProfiles.get(i);
-                        }
-                        setCount++;
-                    }
-                }
-
-                return;
-            }
-
-            IProfile[] previousActiveProfiles = new IProfile[]{
-                    mCurrentProfile,
-                    mProfileFirst,
-                    mProfileSecond,
-                    mProfileThird
-            };
-
-            IProfile[] newActiveProfiles = new IProfile[4];
-            Stack<IProfile> unusedProfiles = new Stack<>();
-
-            // try to keep existing active profiles in the same positions
+        if (mCurrentProfile == null) {
+            int setCount = 0;
             for (int i = 0; i < mProfiles.size(); i++) {
-                IProfile p = mProfiles.get(i);
-                if (p.isSelectable()) {
-                    boolean used = false;
-                    for (int j = 0; j < 4; j++) {
-                        if (previousActiveProfiles[j] == p) {
-                            newActiveProfiles[j] = p;
-                            used = true;
-                            break;
-                        }
+                if (mProfiles.size() > i && mProfiles.get(i).isSelectable()) {
+                    if (setCount == 0 && (mCurrentProfile == null)) {
+                        mCurrentProfile = mProfiles.get(i);
+                    } else if (setCount == 1 && (mProfileFirst == null)) {
+                        mProfileFirst = mProfiles.get(i);
+                    } else if (setCount == 2 && (mProfileSecond == null)) {
+                        mProfileSecond = mProfiles.get(i);
+                    } else if (setCount == 3 && (mProfileThird == null)) {
+                        mProfileThird = mProfiles.get(i);
                     }
-                    if (!used) {
-                        unusedProfiles.push(p);
-                    }
+                    setCount++;
                 }
             }
 
-            Stack<IProfile> activeProfiles = new Stack<>();
-            // try to fill the gaps with new available profiles
-            for (int i = 0; i < 4; i++) {
-                if (newActiveProfiles[i] != null) {
-                    activeProfiles.push(newActiveProfiles[i]);
-                } else if (!unusedProfiles.isEmpty()) {
-                    activeProfiles.push(unusedProfiles.pop());
+            return;
+        }
+
+        IProfile[] previousActiveProfiles = new IProfile[]{
+                mCurrentProfile,
+                mProfileFirst,
+                mProfileSecond,
+                mProfileThird
+        };
+
+        IProfile[] newActiveProfiles = new IProfile[4];
+        Stack<IProfile> unusedProfiles = new Stack<>();
+
+        // try to keep existing active profiles in the same positions
+        for (int i = 0; i < mProfiles.size(); i++) {
+            IProfile p = mProfiles.get(i);
+            if (p.isSelectable()) {
+                boolean used = false;
+                for (int j = 0; j < 4; j++) {
+                    if (previousActiveProfiles[j] == p) {
+                        newActiveProfiles[j] = p;
+                        used = true;
+                        break;
+                    }
+                }
+                if (!used) {
+                    unusedProfiles.push(p);
                 }
             }
+        }
 
-            Stack<IProfile> reversedActiveProfiles = new Stack<>();
-            while (!activeProfiles.empty()) {
-                reversedActiveProfiles.push(activeProfiles.pop());
+        Stack<IProfile> activeProfiles = new Stack<>();
+        // try to fill the gaps with new available profiles
+        for (int i = 0; i < 4; i++) {
+            if (newActiveProfiles[i] != null) {
+                activeProfiles.push(newActiveProfiles[i]);
+            } else if (!unusedProfiles.isEmpty()) {
+                activeProfiles.push(unusedProfiles.pop());
             }
+        }
 
-            // reassign active profiles
-            if (reversedActiveProfiles.isEmpty()) {
-                mCurrentProfile = null;
-            } else {
-                mCurrentProfile = reversedActiveProfiles.pop();
-            }
-            if (reversedActiveProfiles.isEmpty()) {
-                mProfileFirst = null;
-            } else {
-                mProfileFirst = reversedActiveProfiles.pop();
-            }
-            if (reversedActiveProfiles.isEmpty()) {
-                mProfileSecond = null;
-            } else {
-                mProfileSecond = reversedActiveProfiles.pop();
-            }
-            if (reversedActiveProfiles.isEmpty()) {
-                mProfileThird = null;
-            } else {
-                mProfileThird = reversedActiveProfiles.pop();
-            }
+        Stack<IProfile> reversedActiveProfiles = new Stack<>();
+        while (!activeProfiles.empty()) {
+            reversedActiveProfiles.push(activeProfiles.pop());
+        }
+
+        // reassign active profiles
+        if (reversedActiveProfiles.isEmpty()) {
+            mCurrentProfile = null;
+        } else {
+            mCurrentProfile = reversedActiveProfiles.pop();
+        }
+        if (reversedActiveProfiles.isEmpty()) {
+            mProfileFirst = null;
+        } else {
+            mProfileFirst = reversedActiveProfiles.pop();
+        }
+        if (reversedActiveProfiles.isEmpty()) {
+            mProfileSecond = null;
+        } else {
+            mProfileSecond = reversedActiveProfiles.pop();
+        }
+        if (reversedActiveProfiles.isEmpty()) {
+            mProfileThird = null;
+        } else {
+            mProfileThird = reversedActiveProfiles.pop();
         }
     }
 
@@ -1114,20 +1115,21 @@ public class AccountHeader {
         int selectedPosition = -1;
         int position = 0;
         ArrayList<IDrawerItem> profileDrawerItems = new ArrayList<>();
-        for (IProfile profile : mProfiles) {
-            if (profile == mCurrentProfile) {
-                if (mCurrentHiddenInList) {
-                    continue;
-                } else {
-                    selectedPosition = position;
+        if (mProfiles != null) {
+            for (IProfile profile : mProfiles) {
+                if (profile == mCurrentProfile) {
+                    if (mCurrentHiddenInList) {
+                        continue;
+                    } else {
+                        selectedPosition = position;
+                    }
                 }
+                if (profile instanceof IDrawerItem) {
+                    profileDrawerItems.add((IDrawerItem) profile);
+                }
+                position = position + 1;
             }
-            if (profile instanceof IDrawerItem) {
-                profileDrawerItems.add((IDrawerItem) profile);
-            }
-            position = position + 1;
         }
-
         mDrawer.switchDrawerContent(onDrawerItemClickListener, profileDrawerItems, selectedPosition);
     }
 
