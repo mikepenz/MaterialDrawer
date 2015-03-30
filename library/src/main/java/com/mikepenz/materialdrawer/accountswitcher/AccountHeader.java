@@ -1379,6 +1379,19 @@ public class AccountHeader {
         }
 
         /**
+         * Clear the header
+         */
+        public void clear() {
+            mAccountHeader.mProfiles = null;
+
+            //calculate the profiles to set
+            mAccountHeader.calculateProfiles();
+
+            //process and build the profiles
+            mAccountHeader.buildProfiles();
+        }
+
+        /**
          * add the values to the bundle for saveInstanceState
          *
          * @param savedInstanceState
