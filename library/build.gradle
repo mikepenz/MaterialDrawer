@@ -31,7 +31,7 @@ dependencies {
     compile 'com.android.support:support-v4:22.0.0'
     compile "com.android.support:appcompat-v7:22.0.0"
 
-    compile('com.mikepenz.iconics:library:0.8.4@aar') {
+    compile('com.mikepenz.iconics:library:0.9.0@aar') {
         transitive = true
     }
 }
