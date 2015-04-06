@@ -290,6 +290,18 @@ No need to create a custom theme. Just set these colors (or some of them) and yo
 .withSelectedItem(-1)
 ```
 
+#####How can i use this with espresso
+```java
+androidTestCompile ('com.android.support.test.espresso:espresso-contrib:2.0') {
+//this library uses the newest app compat v22 but the espresso contrib still v21. 
+//you have to specifically exclude the older verisions of the contrib library or
+// there will be some conflicts
+    exclude module: 'support-annotations'
+    exclude module: 'support-v4'
+    exclude module: 'recyclerview-v7'
+}
+```
+
 ##Apps using the MaterialDrawer
 (feel free to send me new projects)
 
