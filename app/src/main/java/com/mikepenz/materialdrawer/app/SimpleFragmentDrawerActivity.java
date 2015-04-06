@@ -76,7 +76,7 @@ public class SimpleFragmentDrawerActivity extends ActionBarActivity {
                 .build();
 
         //react on the keyboard
-        new KeyboardUtil(this, findViewById(R.id.fragment_container));
+        result.keyboardSupportEnabled(this, true);
     }
 
     @Override

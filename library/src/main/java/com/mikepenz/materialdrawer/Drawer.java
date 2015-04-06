@@ -35,6 +35,7 @@ import com.mikepenz.materialdrawer.model.interfaces.Checkable;
 import com.mikepenz.materialdrawer.model.interfaces.IDrawerItem;
 import com.mikepenz.materialdrawer.model.interfaces.Iconable;
 import com.mikepenz.materialdrawer.model.interfaces.Nameable;
+import com.mikepenz.materialdrawer.util.KeyboardUtil;
 import com.mikepenz.materialdrawer.util.UIUtils;
 import com.mikepenz.materialdrawer.view.ScrimInsetsFrameLayout;
 
@@ -1450,7 +1451,7 @@ public class Drawer {
         linearLayout.setOrientation(LinearLayout.VERTICAL);
 
         //create the divider
-        if(mStickyFooterDivider) {
+        if (mStickyFooterDivider) {
             LinearLayout divider = new LinearLayout(mActivity);
             LinearLayout.LayoutParams dividerParams = new LinearLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT);
             dividerParams.bottomMargin = mActivity.getResources().getDimensionPixelSize(R.dimen.material_drawer_padding);
@@ -1546,6 +1547,7 @@ public class Drawer {
     public static class Result {
         private final Drawer mDrawer;
         private FrameLayout mContentView;
+        private KeyboardUtil mKeyboardUtil = null;
 
         /**
          * the protected Constructor for the result
@@ -1605,6 +1607,28 @@ public class Drawer {
         public void setStatusBarColor(int statusBarColor) {
             if (mDrawer.mDrawerContentRoot != null) {
                 mDrawer.mDrawerContentRoot.setInsetForeground(statusBarColor);
+            }
+        }
+
+
+        /**
+         * a helper method to enable the keyboardUtil for a specific activity
+         * or disable it. note this will cause some frame drops because of the
+         * listener.
+         *
+         * @param activity
+         * @param enable
+         */
+        public void keyboardSupportEnabled(Activity activity, boolean enable) {
+            if (mKeyboardUtil == null) {
+                mKeyboardUtil = new KeyboardUtil(activity, getContent());
+                mKeyboardUtil.disable();
+            }
+
+            if (enable) {
+                mKeyboardUtil.enable();
+            } else {
+                mKeyboardUtil.disable();
             }
         }
 

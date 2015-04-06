@@ -44,6 +44,19 @@ public class KeyboardUtil {
         }
     }
 
+    public void enable() {
+        if (Build.VERSION.SDK_INT >= 19) {
+            decorView.getViewTreeObserver().addOnGlobalLayoutListener(onGlobalLayoutListener);
+        }
+    }
+
+    public void disable() {
+        if (Build.VERSION.SDK_INT >= 19) {
+            decorView.getViewTreeObserver().removeOnGlobalLayoutListener(onGlobalLayoutListener);
+        }
+    }
+
+
     //a small helper to allow showing the editText focus
     ViewTreeObserver.OnGlobalLayoutListener onGlobalLayoutListener = new ViewTreeObserver.OnGlobalLayoutListener() {
         @Override
