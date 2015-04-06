@@ -576,6 +576,7 @@ public class Drawer {
 
     // sticky view
     protected View mStickyFooterView;
+    protected boolean mStickyFooterDivider = true;
 
     /**
      * Add a sticky footer below the Drawer ListView. This can be any view
@@ -604,6 +605,17 @@ public class Drawer {
             this.mStickyFooterView = mActivity.getLayoutInflater().inflate(stickyFooterRes, null, false);
         }
 
+        return this;
+    }
+
+    /**
+     * Set this to false if you don't need the divider above the sticky footer
+     *
+     * @param stickyFooterDivider
+     * @return
+     */
+    public Drawer withStickyFooterDivider(boolean stickyFooterDivider) {
+        this.mStickyFooterDivider = stickyFooterDivider;
         return this;
     }
 
@@ -1438,13 +1450,15 @@ public class Drawer {
         linearLayout.setOrientation(LinearLayout.VERTICAL);
 
         //create the divider
-        LinearLayout divider = new LinearLayout(mActivity);
-        LinearLayout.LayoutParams dividerParams = new LinearLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT);
-        dividerParams.bottomMargin = mActivity.getResources().getDimensionPixelSize(R.dimen.material_drawer_padding);
-        divider.setMinimumHeight((int) UIUtils.convertDpToPixel(1, mActivity));
-        divider.setOrientation(LinearLayout.VERTICAL);
-        divider.setBackgroundColor(UIUtils.getThemeColorFromAttrOrRes(mActivity, R.attr.material_drawer_divider, R.color.material_drawer_divider));
-        linearLayout.addView(divider, dividerParams);
+        if(mStickyFooterDivider) {
+            LinearLayout divider = new LinearLayout(mActivity);
+            LinearLayout.LayoutParams dividerParams = new LinearLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT);
+            dividerParams.bottomMargin = mActivity.getResources().getDimensionPixelSize(R.dimen.material_drawer_padding);
+            divider.setMinimumHeight((int) UIUtils.convertDpToPixel(1, mActivity));
+            divider.setOrientation(LinearLayout.VERTICAL);
+            divider.setBackgroundColor(UIUtils.getThemeColorFromAttrOrRes(mActivity, R.attr.material_drawer_divider, R.color.material_drawer_divider));
+            linearLayout.addView(divider, dividerParams);
+        }
 
         //get the inflater
         LayoutInflater layoutInflater = LayoutInflater.from(mActivity);
