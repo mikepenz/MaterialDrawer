@@ -309,6 +309,8 @@ androidTestCompile ('com.android.support.test.espresso:espresso-contrib:2.0') {
 
 * [GitSkarios](https://play.google.com/store/apps/details?id=com.alorma.github)
 
+* [Academic Schedule](https://play.google.com/store/apps/details?id=com.auebcsschedule.ppt)
+
 
 #Credits
 
