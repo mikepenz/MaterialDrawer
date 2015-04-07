@@ -90,7 +90,9 @@ public class KeyboardUtil {
      * @param act
      */
     public static void hideKeyboard(Activity act) {
-        InputMethodManager inputMethodManager = (InputMethodManager) act.getSystemService(Activity.INPUT_METHOD_SERVICE);
-        inputMethodManager.hideSoftInputFromWindow(act.getCurrentFocus().getWindowToken(), 0);
+        if (act != null && act.getCurrentFocus() != null) {
+            InputMethodManager inputMethodManager = (InputMethodManager) act.getSystemService(Activity.INPUT_METHOD_SERVICE);
+            inputMethodManager.hideSoftInputFromWindow(act.getCurrentFocus().getWindowToken(), 0);
+        }
     }
 }
