@@ -21,4 +21,10 @@
         <!-- CAB :D -->
         <item name="windowActionModeOverlay">true</item>
     </style>
+
+    <style name="FullscreenTheme" parent="MaterialDrawerTheme.TranslucentStatus">
+        <item name="android:windowTranslucentNavigation">true</item>
+        <item name="android:windowNoTitle">true</item>
+        <item name="android:windowTranslucentStatus">true</item>
+    </style>
 </resources>

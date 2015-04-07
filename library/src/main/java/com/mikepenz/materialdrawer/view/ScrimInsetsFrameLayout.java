@@ -18,11 +18,9 @@ package com.mikepenz.materialdrawer.view;
 
 import android.content.Context;
 import android.content.res.TypedArray;
-import android.graphics.Canvas;
 import android.graphics.Rect;
 import android.graphics.drawable.ColorDrawable;
 import android.graphics.drawable.Drawable;
-import android.support.v4.view.ViewCompat;
 import android.util.AttributeSet;
 import android.widget.FrameLayout;
 
@@ -39,6 +37,8 @@ public class ScrimInsetsFrameLayout extends FrameLayout {
     private Rect mInsets;
     private Rect mTempRect = new Rect();
     private OnInsetsCallback mOnInsetsCallback;
+
+    private boolean mEnabled = true;
 
     public ScrimInsetsFrameLayout(Context context) {
         super(context);
@@ -64,69 +64,19 @@ public class ScrimInsetsFrameLayout extends FrameLayout {
         mInsetForeground = a.getDrawable(R.styleable.ScrimInsetsView_siv_insetForeground);
         a.recycle();
 
-        setWillNotDraw(true);
+        //setWillNotDraw(true);
     }
 
-    @Override
-    protected boolean fitSystemWindows(Rect insets) {
-        mInsets = new Rect(insets);
-        setWillNotDraw(mInsetForeground == null);
-        ViewCompat.postInvalidateOnAnimation(this);
-        if (mOnInsetsCallback != null) {
-            mOnInsetsCallback.onInsetsChanged(insets);
-        }
-        return true; // consume insets
+    public boolean isEnabled() {
+        return mEnabled;
     }
 
-    @Override
-    public void draw(Canvas canvas) {
-        super.draw(canvas);
-
-        int width = getWidth();
-        int height = getHeight();
-        if (mInsets != null && mInsetForeground != null) {
-            int sc = canvas.save();
-            canvas.translate(getScrollX(), getScrollY());
-
-            // Top
-            mTempRect.set(0, 0, width, mInsets.top);
-            mInsetForeground.setBounds(mTempRect);
-            mInsetForeground.draw(canvas);
-
-            // Bottom
-            mTempRect.set(0, height - mInsets.bottom, width, height);
-            mInsetForeground.setBounds(mTempRect);
-            mInsetForeground.draw(canvas);
-
-            // Left
-            mTempRect.set(0, mInsets.top, mInsets.left, height - mInsets.bottom);
-            mInsetForeground.setBounds(mTempRect);
-            mInsetForeground.draw(canvas);
-
-            // Right
-            mTempRect.set(width - mInsets.right, mInsets.top, width, height - mInsets.bottom);
-            mInsetForeground.setBounds(mTempRect);
-            mInsetForeground.draw(canvas);
-
-            canvas.restoreToCount(sc);
-        }
+    public void setEnabled(boolean enabled) {
+        this.mEnabled = enabled;
+        //setWillNotDraw(false);
+        invalidate();
     }
 
-    @Override
-    protected void onAttachedToWindow() {
-        super.onAttachedToWindow();
-        if (mInsetForeground != null) {
-            mInsetForeground.setCallback(this);
-        }
-    }
-
-    @Override
-    protected void onDetachedFromWindow() {
-        super.onDetachedFromWindow();
-        if (mInsetForeground != null) {
-            mInsetForeground.setCallback(null);
-        }
-    }
 
     public Drawable getInsetForeground() {
         return mInsetForeground;

@@ -105,6 +105,7 @@ public class SimpleHeaderDrawerActivity extends ActionBarActivity {
                         new PrimaryDrawerItem().withDescription("A more complex sample").withName(R.string.drawer_item_complex_header_drawer).withIcon(GoogleMaterial.Icon.gmd_adb).withIdentifier(5).withCheckable(false),
                         new PrimaryDrawerItem().withName(R.string.drawer_item_simple_fragment_drawer).withIcon(GoogleMaterial.Icon.gmd_style).withIdentifier(6).withCheckable(false),
                         new PrimaryDrawerItem().withName(R.string.drawer_item_embedded_drawer).withIcon(GoogleMaterial.Icon.gmd_battery_charging_30).withIdentifier(7).withCheckable(false),
+                        new PrimaryDrawerItem().withName(R.string.drawer_item_fullscreen_drawer).withIcon(GoogleMaterial.Icon.gmd_style).withIdentifier(8).withCheckable(false),
                         new SectionDrawerItem().withName(R.string.drawer_item_section_header),
                         new SecondaryDrawerItem().withName(R.string.drawer_item_open_source).withIcon(FontAwesome.Icon.faw_github).withIdentifier(20).withCheckable(false),
                         new SecondaryDrawerItem().withName(R.string.drawer_item_contact).withIcon(GoogleMaterial.Icon.gmd_format_color_fill).withIdentifier(10).withTag("Bullhorn"),
@@ -123,30 +124,27 @@ public class SimpleHeaderDrawerActivity extends ActionBarActivity {
                         //those items don't contain a drawerItem
 
                         if (drawerItem != null) {
+                            Intent intent = null;
                             if (drawerItem.getIdentifier() == 1) {
-                                Intent intent = new Intent(SimpleHeaderDrawerActivity.this, SimpleCompactHeaderDrawerActivity.class);
-                                SimpleHeaderDrawerActivity.this.startActivity(intent);
+                                intent = new Intent(SimpleHeaderDrawerActivity.this, SimpleCompactHeaderDrawerActivity.class);
                             } else if (drawerItem.getIdentifier() == 2) {
-                                Intent intent = new Intent(SimpleHeaderDrawerActivity.this, ActionBarDrawerActivity.class);
-                                SimpleHeaderDrawerActivity.this.startActivity(intent);
+                                intent = new Intent(SimpleHeaderDrawerActivity.this, ActionBarDrawerActivity.class);
                             } else if (drawerItem.getIdentifier() == 3) {
-                                Intent intent = new Intent(SimpleHeaderDrawerActivity.this, MultiDrawerActivity.class);
-                                SimpleHeaderDrawerActivity.this.startActivity(intent);
+                                intent = new Intent(SimpleHeaderDrawerActivity.this, MultiDrawerActivity.class);
                             } else if (drawerItem.getIdentifier() == 4) {
-                                Intent intent = new Intent(SimpleHeaderDrawerActivity.this, SimpleNonTranslucentDrawerActivity.class);
-                                SimpleHeaderDrawerActivity.this.startActivity(intent);
+                                intent = new Intent(SimpleHeaderDrawerActivity.this, SimpleNonTranslucentDrawerActivity.class);
                             } else if (drawerItem.getIdentifier() == 5) {
-                                Intent intent = new Intent(SimpleHeaderDrawerActivity.this, ComplexHeaderDrawerActivity.class);
-                                SimpleHeaderDrawerActivity.this.startActivity(intent);
+                                intent = new Intent(SimpleHeaderDrawerActivity.this, ComplexHeaderDrawerActivity.class);
                             } else if (drawerItem.getIdentifier() == 6) {
-                                Intent intent = new Intent(SimpleHeaderDrawerActivity.this, SimpleFragmentDrawerActivity.class);
-                                SimpleHeaderDrawerActivity.this.startActivity(intent);
+                                intent = new Intent(SimpleHeaderDrawerActivity.this, SimpleFragmentDrawerActivity.class);
                             } else if (drawerItem.getIdentifier() == 7) {
-                                Intent intent = new Intent(SimpleHeaderDrawerActivity.this, EmbeddedDrawerActivity.class);
-                                SimpleHeaderDrawerActivity.this.startActivity(intent);
+                                intent = new Intent(SimpleHeaderDrawerActivity.this, EmbeddedDrawerActivity.class);
+                            } else if (drawerItem.getIdentifier() == 8) {
+                                intent = new Intent(SimpleHeaderDrawerActivity.this, FullscreenDrawerActivity.class);
                             } else if (drawerItem.getIdentifier() == 20) {
-                                new Libs.Builder().withFields(R.string.class.getFields()).withActivityTheme(R.style.MaterialDrawerTheme_ActionBar).start(SimpleHeaderDrawerActivity.this);
+                                intent = new Libs.Builder().withFields(R.string.class.getFields()).withActivityTheme(R.style.MaterialDrawerTheme_ActionBar).intent(SimpleHeaderDrawerActivity.this);
                             }
+                            SimpleHeaderDrawerActivity.this.startActivity(intent);
                         }
                     }
                 })

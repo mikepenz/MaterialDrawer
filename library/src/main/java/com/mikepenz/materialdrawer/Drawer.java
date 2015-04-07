@@ -163,6 +163,51 @@ public class Drawer {
      */
     public Drawer withTranslucentNavigationBar(boolean translucentNavigationBar) {
         this.mTranslucentNavigationBar = translucentNavigationBar;
+
+        //if we disable the translucentNavigationBar it should be disabled at all
+        if (!translucentNavigationBar) {
+            this.mTranslucentNavigationBarProgrammatically = false;
+        }
+
+        return this;
+    }
+
+    // set to disable the translucent statusBar Programmatically
+    protected boolean mTranslucentNavigationBarProgrammatically = false;
+
+    /**
+     * set this to true if you want a translucent navigation bar.
+     *
+     * @param translucentNavigationBarProgrammatically
+     * @return
+     */
+    public Drawer withTranslucentNavigationBarProgrammatically(boolean translucentNavigationBarProgrammatically) {
+        this.mTranslucentNavigationBarProgrammatically = translucentNavigationBarProgrammatically;
+        //if we enable the programmatically translucent navigationBar we want also the normal navigationBar behavior
+        if (translucentNavigationBarProgrammatically) {
+            this.mTranslucentNavigationBar = true;
+        }
+        return this;
+    }
+
+
+    // set non translucent NavigationBar mode
+    protected boolean mFullscreen = false;
+
+    /**
+     * Set to true if this drawer should make this activity fullscreen
+     *
+     * @param fullscreen
+     * @return
+     */
+    public Drawer withFullscreen(boolean fullscreen) {
+        this.mFullscreen = fullscreen;
+
+        if (fullscreen) {
+            withTranslucentStatusBar(false);
+            withTranslucentNavigationBar(false);
+        }
+
         return this;
     }
 
@@ -1135,7 +1180,7 @@ public class Drawer {
             }
             mListView.setClipToPadding(false);
 
-            if (mTranslucentStatusBar && !mTranslucentActionBarCompatibility) {
+            if (mTranslucentStatusBar && !mTranslucentActionBarCompatibility || mFullscreen) {
                 mListView.setPadding(0, mActivity.getResources().getDimensionPixelSize(R.dimen.tool_bar_top_padding), 0, 0);
             }
         }
@@ -1148,7 +1193,7 @@ public class Drawer {
         mSliderLayout.addView(mListView, params);
 
         //some extra stuff to beautify the whole thing ;)
-        if (!mTranslucentStatusBar || mTranslucentActionBarCompatibility) {
+        if ((!mTranslucentStatusBar || mTranslucentActionBarCompatibility) && !mFullscreen) {
             //disable the shadow if we don't use a translucent activity
             mSliderLayout.getChildAt(0).setVisibility(View.GONE);
         } else {
@@ -1598,6 +1643,18 @@ public class Drawer {
             return false;
         }
 
+
+        /**
+         * set the insetsFrameLayout to display the content in fullscreen
+         * under the statusBar and nvaigationBar
+         *
+         * @param fullscreen
+         */
+        public void setFullscreen(boolean fullscreen) {
+            if (mDrawer.mDrawerContentRoot != null) {
+                mDrawer.mDrawerContentRoot.setEnabled(!fullscreen);
+            }
+        }
 
         /**
          * Set the color for the statusBar

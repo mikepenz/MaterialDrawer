@@ -36,6 +36,8 @@
                   android:theme="@style/MaterialDrawerTheme.Light.DarkToolbar.TranslucentStatus"/>
         <activity android:name=".EmbeddedDrawerActivity"
                   android:theme="@style/MaterialDrawerTheme"/>
+        <activity android:name=".FullscreenDrawerActivity"
+                  android:theme="@style/FullscreenTheme"/>
     </application>
 
 </manifest>
