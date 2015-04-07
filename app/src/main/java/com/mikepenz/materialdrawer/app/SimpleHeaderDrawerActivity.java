@@ -26,6 +26,8 @@ import com.mikepenz.materialdrawer.model.SwitchDrawerItem;
 import com.mikepenz.materialdrawer.model.ToggleDrawerItem;
 import com.mikepenz.materialdrawer.model.interfaces.IDrawerItem;
 import com.mikepenz.materialdrawer.model.interfaces.IProfile;
+import com.mikepenz.materialdrawer.model.interfaces.Nameable;
+import com.mikepenz.materialdrawer.model.interfaces.OnCheckedChangeListener;
 import com.mikepenz.octicons_typeface_library.Octicons;
 
 public class SimpleHeaderDrawerActivity extends ActionBarActivity {
@@ -107,18 +109,9 @@ public class SimpleHeaderDrawerActivity extends ActionBarActivity {
                         new SecondaryDrawerItem().withName(R.string.drawer_item_open_source).withIcon(FontAwesome.Icon.faw_github).withIdentifier(20).withCheckable(false),
                         new SecondaryDrawerItem().withName(R.string.drawer_item_contact).withIcon(GoogleMaterial.Icon.gmd_format_color_fill).withIdentifier(10).withTag("Bullhorn"),
                         new DividerDrawerItem(),
-                        new SwitchDrawerItem().withName("Switch").withIcon(Octicons.Icon.oct_tools).withChecked(true).withOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
-                            @Override
-                            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
-                                Log.i("material-drawer", "toggleChecked: " + isChecked);
-                            }
-                        }),
-                        new ToggleDrawerItem().withName("Toggle").withIcon(Octicons.Icon.oct_tools).withChecked(true).withOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
-                            @Override
-                            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
-                                Log.i("material-drawer", "toggleChecked: " + isChecked);
-                            }
-                        })
+                        new SwitchDrawerItem().withName("Switch").withIcon(Octicons.Icon.oct_tools).withChecked(true).withOnCheckedChangeListener(onCheckedChangeListener),
+                        new SwitchDrawerItem().withName("Switch2").withIcon(Octicons.Icon.oct_tools).withChecked(true).withOnCheckedChangeListener(onCheckedChangeListener),
+                        new ToggleDrawerItem().withName("Toggle").withIcon(Octicons.Icon.oct_tools).withChecked(true).withOnCheckedChangeListener(onCheckedChangeListener)
                 ) // add the items we want to use with our Drawer
                 .withOnDrawerItemClickListener(new Drawer.OnDrawerItemClickListener() {
                     @Override
@@ -169,6 +162,17 @@ public class SimpleHeaderDrawerActivity extends ActionBarActivity {
             headerResult.setActiveProfile(profile3);
         }
     }
+
+    private OnCheckedChangeListener onCheckedChangeListener = new OnCheckedChangeListener() {
+        @Override
+        public void onCheckedChanged(IDrawerItem drawerItem, CompoundButton buttonView, boolean isChecked) {
+            if (drawerItem instanceof Nameable) {
+                Log.i("material-drawer", "DrawerItem: " + ((Nameable) drawerItem).getName() + " - toggleChecked: " + isChecked);
+            } else {
+                Log.i("material-drawer", "toggleChecked: " + isChecked);
+            }
+        }
+    };
 
     @Override
     protected void onSaveInstanceState(Bundle outState) {

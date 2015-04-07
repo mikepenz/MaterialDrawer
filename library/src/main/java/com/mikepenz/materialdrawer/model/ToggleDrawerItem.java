@@ -5,12 +5,14 @@ import android.graphics.drawable.Drawable;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.CompoundButton;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.ToggleButton;
 
 import com.mikepenz.iconics.IconicsDrawable;
 import com.mikepenz.materialdrawer.R;
+import com.mikepenz.materialdrawer.model.interfaces.OnCheckedChangeListener;
 import com.mikepenz.materialdrawer.util.PressedEffectStateListDrawable;
 import com.mikepenz.materialdrawer.util.UIUtils;
 
@@ -22,7 +24,7 @@ public class ToggleDrawerItem extends BaseDrawerItem<ToggleDrawerItem> {
     private int descriptionRes = -1;
 
     private boolean checked = false;
-    private ToggleButton.OnCheckedChangeListener onCheckedChangeListener = null;
+    private OnCheckedChangeListener onCheckedChangeListener = null;
 
     public ToggleDrawerItem withDescription(String description) {
         this.description = description;
@@ -39,7 +41,7 @@ public class ToggleDrawerItem extends BaseDrawerItem<ToggleDrawerItem> {
         return this;
     }
 
-    public ToggleDrawerItem withOnCheckedChangeListener(ToggleButton.OnCheckedChangeListener onCheckedChangeListener) {
+    public ToggleDrawerItem withOnCheckedChangeListener(OnCheckedChangeListener onCheckedChangeListener) {
         this.onCheckedChangeListener = onCheckedChangeListener;
         return this;
     }
@@ -68,11 +70,11 @@ public class ToggleDrawerItem extends BaseDrawerItem<ToggleDrawerItem> {
         this.checked = checked;
     }
 
-    public ToggleButton.OnCheckedChangeListener getOnCheckedChangeListener() {
+    public OnCheckedChangeListener getOnCheckedChangeListener() {
         return onCheckedChangeListener;
     }
 
-    public void setOnCheckedChangeListener(ToggleButton.OnCheckedChangeListener onCheckedChangeListener) {
+    public void setOnCheckedChangeListener(OnCheckedChangeListener onCheckedChangeListener) {
         this.onCheckedChangeListener = onCheckedChangeListener;
     }
 
@@ -130,7 +132,7 @@ public class ToggleDrawerItem extends BaseDrawerItem<ToggleDrawerItem> {
             }
         });
         viewHolder.toggle.setChecked(checked);
-        viewHolder.toggle.setOnCheckedChangeListener(onCheckedChangeListener);
+        viewHolder.toggle.setOnCheckedChangeListener(checkedChangeListener);
 
         //get the correct color for the text
         int color;
@@ -241,4 +243,13 @@ public class ToggleDrawerItem extends BaseDrawerItem<ToggleDrawerItem> {
             this.toggle = (ToggleButton) view.findViewById(R.id.toggle);
         }
     }
+
+    private CompoundButton.OnCheckedChangeListener checkedChangeListener = new CompoundButton.OnCheckedChangeListener() {
+        @Override
+        public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+            if (getOnCheckedChangeListener() != null) {
+                getOnCheckedChangeListener().onCheckedChanged(ToggleDrawerItem.this, buttonView, isChecked);
+            }
+        }
+    };
 }

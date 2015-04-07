@@ -6,11 +6,13 @@ import android.support.v7.widget.SwitchCompat;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.CompoundButton;
 import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.mikepenz.iconics.IconicsDrawable;
 import com.mikepenz.materialdrawer.R;
+import com.mikepenz.materialdrawer.model.interfaces.OnCheckedChangeListener;
 import com.mikepenz.materialdrawer.util.PressedEffectStateListDrawable;
 import com.mikepenz.materialdrawer.util.UIUtils;
 
@@ -22,7 +24,7 @@ public class SwitchDrawerItem extends BaseDrawerItem<SwitchDrawerItem> {
     private int descriptionRes = -1;
 
     private boolean checked = false;
-    private SwitchCompat.OnCheckedChangeListener onCheckedChangeListener = null;
+    private OnCheckedChangeListener onCheckedChangeListener = null;
 
     public SwitchDrawerItem withDescription(String description) {
         this.description = description;
@@ -39,7 +41,7 @@ public class SwitchDrawerItem extends BaseDrawerItem<SwitchDrawerItem> {
         return this;
     }
 
-    public SwitchDrawerItem withOnCheckedChangeListener(SwitchCompat.OnCheckedChangeListener onCheckedChangeListener) {
+    public SwitchDrawerItem withOnCheckedChangeListener(OnCheckedChangeListener onCheckedChangeListener) {
         this.onCheckedChangeListener = onCheckedChangeListener;
         return this;
     }
@@ -68,11 +70,11 @@ public class SwitchDrawerItem extends BaseDrawerItem<SwitchDrawerItem> {
         this.checked = checked;
     }
 
-    public SwitchCompat.OnCheckedChangeListener getOnCheckedChangeListener() {
+    public OnCheckedChangeListener getOnCheckedChangeListener() {
         return onCheckedChangeListener;
     }
 
-    public void setOnCheckedChangeListener(SwitchCompat.OnCheckedChangeListener onCheckedChangeListener) {
+    public void setOnCheckedChangeListener(OnCheckedChangeListener onCheckedChangeListener) {
         this.onCheckedChangeListener = onCheckedChangeListener;
     }
 
@@ -129,7 +131,7 @@ public class SwitchDrawerItem extends BaseDrawerItem<SwitchDrawerItem> {
             }
         });
         viewHolder.switchView.setChecked(checked);
-        viewHolder.switchView.setOnCheckedChangeListener(onCheckedChangeListener);
+        viewHolder.switchView.setOnCheckedChangeListener(checkedChangeListener);
 
         //get the correct color for the text
         int color;
@@ -240,4 +242,13 @@ public class SwitchDrawerItem extends BaseDrawerItem<SwitchDrawerItem> {
             this.switchView = (SwitchCompat) view.findViewById(R.id.switchView);
         }
     }
+
+    private CompoundButton.OnCheckedChangeListener checkedChangeListener = new CompoundButton.OnCheckedChangeListener() {
+        @Override
+        public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+            if (getOnCheckedChangeListener() != null) {
+                getOnCheckedChangeListener().onCheckedChanged(SwitchDrawerItem.this, buttonView, isChecked);
+            }
+        }
+    };
 }
