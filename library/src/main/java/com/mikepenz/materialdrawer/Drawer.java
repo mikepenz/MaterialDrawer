@@ -195,7 +195,8 @@ public class Drawer {
     protected boolean mFullscreen = false;
 
     /**
-     * Set to true if this drawer should make this activity fullscreen
+     * Set to true if the used theme has a translucent statusBar
+     * and navigationBar and you want to manage the padding on your own.
      *
      * @param fullscreen
      * @return
@@ -903,23 +904,44 @@ public class Drawer {
         return this;
     }
 
+
     /**
-     * helper method to set the TranslucenStatusFlag
+     * helper method to set the TranslucentStatusFlag
      *
      * @param on
      */
     private void setTranslucentStatusFlag(boolean on) {
         if (Build.VERSION.SDK_INT >= 19) {
-            Window win = mActivity.getWindow();
-            WindowManager.LayoutParams winParams = win.getAttributes();
-            final int bits = WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS;
-            if (on) {
-                winParams.flags |= bits;
-            } else {
-                winParams.flags &= ~bits;
-            }
-            win.setAttributes(winParams);
+            setFlag(WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS, on);
         }
+    }
+
+    /**
+     * helper method to set the TranslucentNavigationFlag
+     *
+     * @param on
+     */
+    private void setTranslucentNavigationFlag(boolean on) {
+        if (Build.VERSION.SDK_INT >= 19) {
+            setFlag(WindowManager.LayoutParams.FLAG_TRANSLUCENT_NAVIGATION, on);
+        }
+    }
+
+    /**
+     * helper method to activate or deactivate a specific flag
+     *
+     * @param bits
+     * @param on
+     */
+    private void setFlag(final int bits, boolean on) {
+        Window win = mActivity.getWindow();
+        WindowManager.LayoutParams winParams = win.getAttributes();
+        if (on) {
+            winParams.flags |= bits;
+        } else {
+            winParams.flags &= ~bits;
+        }
+        win.setAttributes(winParams);
     }
 
     /**
@@ -949,6 +971,8 @@ public class Drawer {
 
         //get the drawer root
         mDrawerContentRoot = (ScrimInsetsFrameLayout) mDrawerLayout.getChildAt(0);
+
+        //do some magic specific to the statusBar
         if (!alreadyInflated && mTranslucentStatusBar) {
             if (Build.VERSION.SDK_INT >= 19 && Build.VERSION.SDK_INT < 21) {
                 setTranslucentStatusFlag(true);
@@ -964,7 +988,6 @@ public class Drawer {
                     mActivity.getWindow().setStatusBarColor(Color.TRANSPARENT);
                 }
             }
-
             mDrawerContentRoot.setPadding(0, mActivity.getResources().getDimensionPixelSize(R.dimen.tool_bar_top_padding), 0, 0);
 
             // define the statusBarColor
@@ -976,6 +999,29 @@ public class Drawer {
             mDrawerContentRoot.setInsetForeground(mStatusBarColor);
         }
 
+        //do some magic specific to the navigationBar
+        if (!alreadyInflated && mTranslucentNavigationBar) {
+            if (Build.VERSION.SDK_INT >= 19 && Build.VERSION.SDK_INT < 21) {
+                setTranslucentNavigationFlag(true);
+            }
+            if (Build.VERSION.SDK_INT >= 19) {
+                if (mTranslucentNavigationBarProgrammatically) {
+                    mActivity.getWindow().getDecorView().setSystemUiVisibility(View.SYSTEM_UI_FLAG_LAYOUT_STABLE | View.SYSTEM_UI_FLAG_LAYOUT_FULLSCREEN);
+                    setTranslucentNavigationFlag(true);
+                }
+            }
+            if (Build.VERSION.SDK_INT >= 21) {
+                if (mTranslucentNavigationBarProgrammatically) {
+                    mActivity.getWindow().setNavigationBarColor(Color.TRANSPARENT);
+                }
+            }
+        }
+
+        //if we are fullscreen disable the ScrimInsetsLayout
+        if (mFullscreen) {
+            mDrawerContentRoot.setEnabled(false);
+        }
+
         //only add the new layout if it wasn't done before
         if (!alreadyInflated) {
             // remove the contentView
@@ -984,7 +1030,6 @@ public class Drawer {
             //if it was already inflated we have to clean up again
             mRootView.removeAllViews();
         }
-
 
         //create the layoutParams to use for the contentView
         FrameLayout.LayoutParams layoutParamsContentView = new FrameLayout.LayoutParams(
@@ -1180,9 +1225,16 @@ public class Drawer {
             }
             mListView.setClipToPadding(false);
 
-            if (mTranslucentStatusBar && !mTranslucentActionBarCompatibility || mFullscreen) {
-                mListView.setPadding(0, mActivity.getResources().getDimensionPixelSize(R.dimen.tool_bar_top_padding), 0, 0);
+            int paddingTop = 0;
+            if ((mTranslucentStatusBar && !mTranslucentActionBarCompatibility) || mFullscreen) {
+                paddingTop = mActivity.getResources().getDimensionPixelSize(R.dimen.tool_bar_top_padding);
             }
+            int paddingBottom = 0;
+            if (mTranslucentNavigationBar || mFullscreen) {
+                paddingBottom = UIUtils.getNavigationBarHeight(mActivity);
+            }
+
+            mListView.setPadding(0, paddingTop, 0, paddingBottom);
         }
 
         LinearLayout.LayoutParams params = new LinearLayout.LayoutParams(
@@ -1246,11 +1298,14 @@ public class Drawer {
             mStickyFooterView.setId(R.id.sticky_footer);
             mSliderLayout.addView(mStickyFooterView, layoutParams);
 
+            if (mTranslucentNavigationBar || mFullscreen) {
+                mStickyFooterView.setPadding(0, 0, 0, UIUtils.getNavigationBarHeight(mActivity));
+            }
+
             //now align the listView above the stickyFooterView ;)
             RelativeLayout.LayoutParams layoutParamsListView = (RelativeLayout.LayoutParams) mListView.getLayoutParams();
             layoutParamsListView.addRule(RelativeLayout.ABOVE, R.id.sticky_footer);
             mListView.setLayoutParams(layoutParamsListView);
-
 
             //remove the padding of the listView again we have the header on top of it
             mListView.setPadding(mListView.getPaddingLeft(), mListView.getPaddingTop(), mListView.getPaddingRight(), mActivity.getResources().getDimensionPixelSize(R.dimen.material_drawer_padding));
@@ -1646,7 +1701,7 @@ public class Drawer {
 
         /**
          * set the insetsFrameLayout to display the content in fullscreen
-         * under the statusBar and nvaigationBar
+         * under the statusBar and navigationBar
          *
          * @param fullscreen
          */
