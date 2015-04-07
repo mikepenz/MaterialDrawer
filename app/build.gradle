@@ -8,8 +8,8 @@ android {
         applicationId "com.mikepenz.materialdrawer.app"
         minSdkVersion 10
         targetSdkVersion 22
-        versionCode 271
-        versionName "2.7.1"
+        versionCode 275
+        versionName "2.7.5"
     }
     buildTypes {
         release {
