@@ -92,7 +92,7 @@ public class SecondaryDrawerItem extends BaseDrawerItem<SecondaryDrawerItem> imp
             if (color == 0 && getTextColorRes() != -1) {
                 color = ctx.getResources().getColor(getTextColorRes());
             } else if (color == 0) {
-                color = UIUtils.getThemeColorFromAttrOrRes(ctx, R.attr.material_drawer_primary_text, R.color.material_drawer_primary_text);
+                color = UIUtils.getThemeColorFromAttrOrRes(ctx, R.attr.material_drawer_secondary_text, R.color.material_drawer_secondary_text);
             }
         } else {
             color = getDisabledTextColor();
