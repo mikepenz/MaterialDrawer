@@ -1732,15 +1732,17 @@ public class Drawer {
          * @param enable
          */
         public void keyboardSupportEnabled(Activity activity, boolean enable) {
-            if (mKeyboardUtil == null) {
-                mKeyboardUtil = new KeyboardUtil(activity, getContent());
-                mKeyboardUtil.disable();
-            }
+            if (getContent() != null && getContent().getChildCount() > 0) {
+                if (mKeyboardUtil == null) {
+                    mKeyboardUtil = new KeyboardUtil(activity, getContent().getChildAt(0));
+                    mKeyboardUtil.disable();
+                }
 
-            if (enable) {
-                mKeyboardUtil.enable();
-            } else {
-                mKeyboardUtil.disable();
+                if (enable) {
+                    mKeyboardUtil.enable();
+                } else {
+                    mKeyboardUtil.disable();
+                }
             }
         }
 
