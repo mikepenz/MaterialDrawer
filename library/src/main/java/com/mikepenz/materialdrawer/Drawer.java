@@ -1018,7 +1018,7 @@ public class Drawer {
         }
 
         //if we are fullscreen disable the ScrimInsetsLayout
-        if (mFullscreen) {
+        if (mFullscreen && Build.VERSION.SDK_INT >= 19) {
             mDrawerContentRoot.setEnabled(false);
         }
 
@@ -1038,7 +1038,7 @@ public class Drawer {
         );
 
         //if we have a translucent navigation bar set the bottom margin
-        if (mTranslucentNavigationBar) {
+        if (mTranslucentNavigationBar && Build.VERSION.SDK_INT >= 19) {
             layoutParamsContentView.bottomMargin = UIUtils.getNavigationBarHeight(mActivity);
         }
 
@@ -1230,7 +1230,7 @@ public class Drawer {
                 paddingTop = mActivity.getResources().getDimensionPixelSize(R.dimen.tool_bar_top_padding);
             }
             int paddingBottom = 0;
-            if (mTranslucentNavigationBar || mFullscreen) {
+            if ((mTranslucentNavigationBar || mFullscreen) && Build.VERSION.SDK_INT >= 19) {
                 paddingBottom = UIUtils.getNavigationBarHeight(mActivity);
             }
 
@@ -1298,7 +1298,7 @@ public class Drawer {
             mStickyFooterView.setId(R.id.sticky_footer);
             mSliderLayout.addView(mStickyFooterView, layoutParams);
 
-            if (mTranslucentNavigationBar || mFullscreen) {
+            if ((mTranslucentNavigationBar || mFullscreen) && Build.VERSION.SDK_INT >= 19) {
                 mStickyFooterView.setPadding(0, 0, 0, UIUtils.getNavigationBarHeight(mActivity));
             }
 
