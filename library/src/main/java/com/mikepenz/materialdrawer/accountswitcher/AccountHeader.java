@@ -968,6 +968,11 @@ public class AccountHeader {
             mAccountSwitcherArrow.setVisibility(View.INVISIBLE);
             UIUtils.setBackground(mAccountHeaderTextSection, null);
         }
+
+        //if we disabled the list but still have set a custom listener
+        if (mOnAccountHeaderSelectionViewClickListener != null) {
+            mAccountHeaderTextSection.setBackgroundResource(mAccountHeaderTextSectionBackgroundResource);
+        }
     }
 
     /**
