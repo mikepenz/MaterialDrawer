@@ -23,6 +23,8 @@ public class ToggleDrawerItem extends BaseDrawerItem<ToggleDrawerItem> {
     private String description;
     private int descriptionRes = -1;
 
+    private boolean toggleEnabled = true;
+
     private boolean checked = false;
     private OnCheckedChangeListener onCheckedChangeListener = null;
 
@@ -38,6 +40,11 @@ public class ToggleDrawerItem extends BaseDrawerItem<ToggleDrawerItem> {
 
     public ToggleDrawerItem withChecked(boolean checked) {
         this.checked = checked;
+        return this;
+    }
+
+    public ToggleDrawerItem withToggleEnabled(boolean toggleEnabled) {
+        this.toggleEnabled = toggleEnabled;
         return this;
     }
 
@@ -68,6 +75,14 @@ public class ToggleDrawerItem extends BaseDrawerItem<ToggleDrawerItem> {
 
     public void setChecked(boolean checked) {
         this.checked = checked;
+    }
+
+    public boolean isToggleEnabled() {
+        return toggleEnabled;
+    }
+
+    public void setToggleEnabled(boolean toggleEnabled) {
+        this.toggleEnabled = toggleEnabled;
     }
 
     public OnCheckedChangeListener getOnCheckedChangeListener() {
@@ -128,11 +143,14 @@ public class ToggleDrawerItem extends BaseDrawerItem<ToggleDrawerItem> {
         viewHolder.view.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                viewHolder.toggle.setChecked(!viewHolder.toggle.isChecked());
+                if (toggleEnabled) {
+                    viewHolder.toggle.setChecked(!viewHolder.toggle.isChecked());
+                }
             }
         });
         viewHolder.toggle.setChecked(checked);
         viewHolder.toggle.setOnCheckedChangeListener(checkedChangeListener);
+        viewHolder.toggle.setEnabled(toggleEnabled);
 
         //get the correct color for the text
         int color;

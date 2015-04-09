@@ -23,6 +23,8 @@ public class SwitchDrawerItem extends BaseDrawerItem<SwitchDrawerItem> {
     private String description;
     private int descriptionRes = -1;
 
+    private boolean switchEnabled = true;
+
     private boolean checked = false;
     private OnCheckedChangeListener onCheckedChangeListener = null;
 
@@ -38,6 +40,11 @@ public class SwitchDrawerItem extends BaseDrawerItem<SwitchDrawerItem> {
 
     public SwitchDrawerItem withChecked(boolean checked) {
         this.checked = checked;
+        return this;
+    }
+
+    public SwitchDrawerItem withSwitchEnabled(boolean switchEnabled) {
+        this.switchEnabled = switchEnabled;
         return this;
     }
 
@@ -68,6 +75,14 @@ public class SwitchDrawerItem extends BaseDrawerItem<SwitchDrawerItem> {
 
     public void setChecked(boolean checked) {
         this.checked = checked;
+    }
+
+    public boolean isSwitchEnabled() {
+        return switchEnabled;
+    }
+
+    public void setSwitchEnabled(boolean switchEnabled) {
+        this.switchEnabled = switchEnabled;
     }
 
     public OnCheckedChangeListener getOnCheckedChangeListener() {
@@ -127,11 +142,14 @@ public class SwitchDrawerItem extends BaseDrawerItem<SwitchDrawerItem> {
         viewHolder.view.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                viewHolder.switchView.setChecked(!viewHolder.switchView.isChecked());
+                if (switchEnabled) {
+                    viewHolder.switchView.setChecked(!viewHolder.switchView.isChecked());
+                }
             }
         });
         viewHolder.switchView.setChecked(checked);
         viewHolder.switchView.setOnCheckedChangeListener(checkedChangeListener);
+        viewHolder.switchView.setEnabled(switchEnabled);
 
         //get the correct color for the text
         int color;
