@@ -1111,6 +1111,32 @@ public class Drawer {
         if (mActionBarDrawerToggle != null) {
             mActionBarDrawerToggle.setToolbarNavigationClickListener(toolbarNavigationListener);
             mDrawerLayout.setDrawerListener(mActionBarDrawerToggle);
+        } else {
+            mDrawerLayout.setDrawerListener(new DrawerLayout.DrawerListener() {
+                @Override
+                public void onDrawerSlide(View drawerView, float slideOffset) {
+
+                }
+
+                @Override
+                public void onDrawerOpened(View drawerView) {
+                    if (mOnDrawerListener != null) {
+                        mOnDrawerListener.onDrawerOpened(drawerView);
+                    }
+                }
+
+                @Override
+                public void onDrawerClosed(View drawerView) {
+                    if (mOnDrawerListener != null) {
+                        mOnDrawerListener.onDrawerClosed(drawerView);
+                    }
+                }
+
+                @Override
+                public void onDrawerStateChanged(int newState) {
+
+                }
+            });
         }
 
         //build the view which will be set to the drawer
