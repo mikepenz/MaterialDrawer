@@ -1417,30 +1417,33 @@ public class Drawer {
         });
 
         // add the onDrawerItemLongClickListener if set
-        if (mOnDrawerItemLongClickListener != null) {
-            mListView.setOnItemLongClickListener(new AdapterView.OnItemLongClickListener() {
-                @Override
-                public boolean onItemLongClick(AdapterView<?> parent, View view, int position, long id) {
+        mListView.setOnItemLongClickListener(new AdapterView.OnItemLongClickListener() {
+            @Override
+            public boolean onItemLongClick(AdapterView<?> parent, View view, int position, long id) {
+                if (mOnDrawerItemLongClickListener != null) {
                     return mOnDrawerItemLongClickListener.onItemLongClick(parent, view, position - mHeaderOffset, id, getDrawerItem(position, true));
                 }
-            });
-        }
+                return false;
+            }
+        });
 
         // add the onDrawerItemSelectedListener if set
-        if (mOnDrawerItemSelectedListener != null) {
-            mListView.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
-                @Override
-                public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+        mListView.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+                if (mOnDrawerItemSelectedListener != null) {
                     mOnDrawerItemSelectedListener.onItemSelected(parent, view, position - mHeaderOffset, id, getDrawerItem(position, true));
-                    mCurrentSelection = position - mHeaderOffset;
                 }
+                mCurrentSelection = position - mHeaderOffset;
+            }
 
-                @Override
-                public void onNothingSelected(AdapterView<?> parent) {
+            @Override
+            public void onNothingSelected(AdapterView<?> parent) {
+                if (mOnDrawerItemSelectedListener != null) {
                     mOnDrawerItemSelectedListener.onNothingSelected(parent);
                 }
-            });
-        }
+            }
+        });
 
         if (mListView != null) {
             mListView.smoothScrollToPosition(0);
