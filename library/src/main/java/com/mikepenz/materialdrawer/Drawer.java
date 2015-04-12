@@ -59,6 +59,22 @@ public class Drawer {
     protected ScrimInsetsFrameLayout mDrawerContentRoot;
 
     /**
+     * default constructor
+     */
+    public Drawer() {
+
+    }
+
+    /**
+     * constructor with activity instead of
+     * @param activity
+     */
+    public Drawer(Activity activity) {
+        this.mRootView = (ViewGroup) activity.findViewById(android.R.id.content);
+        this.mActivity = activity;
+    }
+
+    /**
      * Pass the activity you use the drawer in ;)
      * This is required if you want to set any values by resource
      *
