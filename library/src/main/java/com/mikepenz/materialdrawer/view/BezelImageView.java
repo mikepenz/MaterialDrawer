@@ -49,7 +49,6 @@ import android.widget.ImageView;
 
 import com.mikepenz.materialdrawer.R;
 import com.mikepenz.materialdrawer.util.DrawerImageLoader;
-import com.mikepenz.materialdrawer.util.UIUtils;
 
 
 /**
@@ -321,7 +320,7 @@ public class BezelImageView extends ImageView {
     @Override
     public void setImageURI(Uri uri) {
         if (uri.getScheme().equals("http") || uri.getScheme().equals("https")) {
-            DrawerImageLoader.getInstance().setImage(this, uri, UIUtils.getPlaceHolder(getContext()));
+            DrawerImageLoader.getInstance().setImage(this, uri);
         } else {
             super.setImageURI(uri);
         }

@@ -1,5 +1,6 @@
 package com.mikepenz.materialdrawer.util;
 
+import android.content.Context;
 import android.graphics.drawable.Drawable;
 import android.net.Uri;
 import android.util.Log;
@@ -35,14 +36,25 @@ public class DrawerImageLoader {
                 public void cancel(ImageView imageView) {
 
                 }
+
+                @Override
+                public Drawable placeholder(Context ctx) {
+                    return null;
+                }
             });
         }
         return SINGLETON;
     }
 
-    public void setImage(ImageView imageView, Uri uri, Drawable placeholder) {
+    public void setImage(ImageView imageView, Uri uri) {
         if (imageLoader != null) {
-            imageLoader.set(imageView, uri, placeholder);
+            Drawable placeHolder = imageLoader.placeholder(imageView.getContext());
+
+            if (placeHolder == null) {
+                placeHolder = UIUtils.getPlaceHolder(imageView.getContext());
+            }
+
+            imageLoader.set(imageView, uri, placeHolder);
         }
     }
 
@@ -64,5 +76,7 @@ public class DrawerImageLoader {
         public void set(ImageView imageView, Uri uri, Drawable placeholder);
 
         public void cancel(ImageView imageView);
+
+        public Drawable placeholder(Context ctx);
     }
 }
