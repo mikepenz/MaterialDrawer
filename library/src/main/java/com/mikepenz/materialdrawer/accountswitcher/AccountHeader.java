@@ -1160,7 +1160,7 @@ public class AccountHeader {
                             mOnAccountHeaderListener.onProfileChanged(view, (IProfile) drawerItem, isCurrentSelectedProfile);
                         }
                     }
-                    if (mDrawer != null) {
+                    if (mDrawer != null && view.getContext() != null) {
                         resetDrawerContent(view.getContext());
                     }
 
