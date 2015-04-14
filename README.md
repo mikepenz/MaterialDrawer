@@ -56,6 +56,9 @@ Here's a quick overview what you have to do within your application.
 You can find a detailed description of all methods in the [WIKI](https://github.com/mikepenz/MaterialDrawer/wiki).
 
 ###Upgrade Notes
+#### < v2.7.7
+Beginning with v2.7.7, the `DrawerImageLoader.IDrawerImageLoader` interface now requires you to override the `placeholder` method (returning a custom placeholder Drawable). You may simply return a null Drawable to retain pre-v2.7.7 behavior, but it must be defined. See the sample app for an example.
+
 #### < v2.6.0
 Starting with v2.6.0 the `OnAccountHeaderListener.onProfileChanged` and `OnAccountHeaderSelectionViewClickListener.onClick` events will allow you to return an boolean.
 This boolean indicates if the event was consumed. Return false if you want the drawer to get closed. Also the `onProfileChanged` event will now contain a boolean
