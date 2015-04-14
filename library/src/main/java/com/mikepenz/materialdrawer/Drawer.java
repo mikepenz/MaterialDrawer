@@ -1192,6 +1192,12 @@ public class Drawer {
             UIUtils.setBackground(mSliderLayout, mSliderBackgroundColorRes);
         }
 
+        // kitkat already adds its own shadow, so hide the top shadow on this api level
+        if (Build.VERSION.SDK_INT == 19) {
+            View sliderLayoutShadowTop = mSliderLayout.findViewById(R.id.shadow_top);
+            sliderLayoutShadowTop.setBackgroundColor(Color.TRANSPARENT);
+        }
+
         //create the content
         createContent();
 
