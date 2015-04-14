@@ -153,6 +153,22 @@ public class Drawer {
         return this;
     }
 
+    // defines if we want the statusBarShadow to be used in the Drawer
+    protected Boolean mTranslucentStatusBarShadow = null;
+
+    /**
+     * set this to true or false if you want activate or deactivate this
+     * set it to null if you want the default behavior (activated for lollipop and up)
+     *
+     * @param translucentStatusBarShadow
+     * @return
+     */
+    public Drawer withTranslucentStatusBarShadow(Boolean translucentStatusBarShadow) {
+        this.mTranslucentStatusBarShadow = translucentStatusBarShadow;
+        return this;
+    }
+
+
     // the toolbar of the activity
     protected Toolbar mToolbar;
 
@@ -1313,14 +1329,24 @@ public class Drawer {
         mSliderLayout.addView(mListView, params);
 
         //some extra stuff to beautify the whole thing ;)
-        if ((!mTranslucentStatusBar || mTranslucentActionBarCompatibility) && !mFullscreen) {
+        if ((mTranslucentStatusBar && !mTranslucentActionBarCompatibility) || (mTranslucentStatusBarShadow != null && mTranslucentStatusBarShadow)) {
+            if (mTranslucentStatusBarShadow == null) {
+                //if we use the default behavior show it only if we are above API Level 20
+                if (Build.VERSION.SDK_INT > 20) {
+                    //bring shadow bar to front again
+                    mSliderLayout.getChildAt(0).bringToFront();
+                } else {
+                    //disable the shadow if  we are on a lower sdk
+                    mSliderLayout.getChildAt(0).setVisibility(View.GONE);
+                }
+            } else {
+                //bring shadow bar to front again
+                mSliderLayout.getChildAt(0).bringToFront();
+            }
+        } else {
             //disable the shadow if we don't use a translucent activity
             mSliderLayout.getChildAt(0).setVisibility(View.GONE);
-        } else {
-            //bring shadow bar to front again
-            mSliderLayout.getChildAt(0).bringToFront();
         }
-
 
         // initialize list if there is an adapter or set items
         if (mDrawerItems != null && mAdapter == null) {
