@@ -1010,7 +1010,7 @@ public class Drawer {
                     mActivity.getWindow().setStatusBarColor(Color.TRANSPARENT);
                 }
             }
-            mDrawerContentRoot.setPadding(0, mActivity.getResources().getDimensionPixelSize(R.dimen.tool_bar_top_padding), 0, 0);
+            mDrawerContentRoot.setPadding(0, UIUtils.getStatusBarHeight(mActivity), 0, 0);
 
             // define the statusBarColor
             if (mStatusBarColor == 0 && mStatusBarColorRes != -1) {
@@ -1295,7 +1295,7 @@ public class Drawer {
 
             int paddingTop = 0;
             if ((mTranslucentStatusBar && !mTranslucentActionBarCompatibility) || mFullscreen) {
-                paddingTop = mActivity.getResources().getDimensionPixelSize(R.dimen.tool_bar_top_padding);
+                paddingTop = UIUtils.getStatusBarHeight(mActivity);
             }
             int paddingBottom = 0;
             if ((mTranslucentNavigationBar || mFullscreen) && Build.VERSION.SDK_INT >= 19) {
@@ -1594,7 +1594,7 @@ public class Drawer {
                 if (mActivity.getTheme().resolveAttribute(R.attr.actionBarSize, tv, true)) {
                     int topMargin = TypedValue.complexToDimensionPixelSize(tv.data, mActivity.getResources().getDisplayMetrics());
                     if (mTranslucentStatusBar) {
-                        topMargin = topMargin + mActivity.getResources().getDimensionPixelSize(R.dimen.tool_bar_top_padding);
+                        topMargin = topMargin + UIUtils.getStatusBarHeight(mActivity);
                     }
                     params.topMargin = topMargin;
                 }

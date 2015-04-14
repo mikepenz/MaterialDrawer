@@ -594,10 +594,10 @@ public class AccountHeader {
 
         // handle everything if we don't have a translucent status bar
         if (mTranslucentStatusBar) {
-            mAccountHeader.setPadding(0, mActivity.getResources().getDimensionPixelSize(R.dimen.tool_bar_top_padding), 0, 0);
+            mAccountHeader.setPadding(0, UIUtils.getStatusBarHeight(mActivity), 0, 0);
             //in fact it makes no difference if we have a translucent statusBar or not. we want 9/16 just if we are compact
             if (mCompactStyle) {
-                height = height + mActivity.getResources().getDimensionPixelSize(R.dimen.tool_bar_top_padding);
+                height = height + UIUtils.getStatusBarHeight(mActivity);
             }
         }
 

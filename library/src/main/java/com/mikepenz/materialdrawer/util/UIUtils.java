@@ -197,7 +197,7 @@ public class UIUtils {
 
 
     /**
-     * helper to calculate the navigationbar height
+     * helper to calculate the navigationBar height
      *
      * @param context
      * @return
@@ -209,6 +209,23 @@ public class UIUtils {
             return resources.getDimensionPixelSize(id);
         }
         return 0;
+    }
+
+    /**
+     * helper to calculate the statusBar height
+     *
+     * @param context
+     * @return
+     */
+    public static int getStatusBarHeight(Context context) {
+        int result = 0;
+        int resourceId = context.getResources().getIdentifier("status_bar_height", "dimen", "android");
+        if (resourceId > 0) {
+            result = context.getResources().getDimensionPixelSize(resourceId);
+        } else {
+            //result = activity.getResources().getDimensionPixelSize(R.dimen.tool_bar_top_padding);
+        }
+        return result;
     }
 
     /**
