@@ -656,7 +656,7 @@ public class Drawer {
 
     // sticky view
     protected View mStickyFooterView;
-    protected boolean mStickyFooterDivider = true;
+    protected Boolean mStickyFooterDivider = null;
 
     /**
      * Add a sticky footer below the Drawer ListView. This can be any view
@@ -694,7 +694,7 @@ public class Drawer {
      * @param stickyFooterDivider
      * @return
      */
-    public Drawer withStickyFooterDivider(boolean stickyFooterDivider) {
+    public Drawer withStickyFooterDivider(Boolean stickyFooterDivider) {
         this.mStickyFooterDivider = stickyFooterDivider;
         return this;
     }
@@ -1646,9 +1646,22 @@ public class Drawer {
         final LinearLayout linearLayout = new LinearLayout(mActivity);
         linearLayout.setLayoutParams(new LinearLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT));
         linearLayout.setOrientation(LinearLayout.VERTICAL);
+        //set the background color to the drawer background color (if it has alpha the shadow won't be visible)
+        linearLayout.setBackgroundColor(UIUtils.getThemeColorFromAttrOrRes(mActivity, R.attr.material_drawer_background, R.color.material_drawer_background));
+
+
+        if (Build.VERSION.SDK_INT >= 21) {
+            //set the elevation shadow
+            linearLayout.setElevation(UIUtils.convertDpToPixel(4f, mActivity));
+        } else {
+            //if we use the default values and we are on a older sdk version we want the divider
+            if (mStickyFooterDivider == null) {
+                mStickyFooterDivider = true;
+            }
+        }
 
         //create the divider
-        if (mStickyFooterDivider) {
+        if (mStickyFooterDivider != null && mStickyFooterDivider) {
             LinearLayout divider = new LinearLayout(mActivity);
             LinearLayout.LayoutParams dividerParams = new LinearLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT);
             //remove bottomMargin --> See inbox it also has no margin here
