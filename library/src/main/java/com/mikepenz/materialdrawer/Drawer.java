@@ -1401,7 +1401,7 @@ public class Drawer {
             layoutParamsListView.addRule(RelativeLayout.ABOVE, R.id.sticky_footer);
             mListView.setLayoutParams(layoutParamsListView);
 
-            //remove the padding of the listView again we have the header on top of it
+            //remove the padding of the listView again we have the footer below it
             mListView.setPadding(mListView.getPaddingLeft(), mListView.getPaddingTop(), mListView.getPaddingRight(), mActivity.getResources().getDimensionPixelSize(R.dimen.material_drawer_padding));
         }
 
@@ -1651,7 +1651,8 @@ public class Drawer {
         if (mStickyFooterDivider) {
             LinearLayout divider = new LinearLayout(mActivity);
             LinearLayout.LayoutParams dividerParams = new LinearLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT);
-            dividerParams.bottomMargin = mActivity.getResources().getDimensionPixelSize(R.dimen.material_drawer_padding);
+            //remove bottomMargin --> See inbox it also has no margin here
+            //dividerParams.bottomMargin = mActivity.getResources().getDimensionPixelSize(R.dimen.material_drawer_padding);
             divider.setMinimumHeight((int) UIUtils.convertDpToPixel(1, mActivity));
             divider.setOrientation(LinearLayout.VERTICAL);
             divider.setBackgroundColor(UIUtils.getThemeColorFromAttrOrRes(mActivity, R.attr.material_drawer_divider, R.color.material_drawer_divider));
