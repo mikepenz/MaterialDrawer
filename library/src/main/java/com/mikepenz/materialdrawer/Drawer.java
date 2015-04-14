@@ -67,6 +67,7 @@ public class Drawer {
 
     /**
      * constructor with activity instead of
+     *
      * @param activity
      */
     public Drawer(Activity activity) {
@@ -979,6 +980,11 @@ public class Drawer {
         // if the user has not set a drawerLayout use the default one :D
         if (mDrawerLayout == null) {
             withDrawerLayout(-1);
+        }
+
+        //check if the activity was initialized correctly
+        if (mRootView == null || mRootView.getChildCount() == 0) {
+            throw new RuntimeException("You have to set your layout for this activity with setContentView() first. Or you build the drawer on your own with .buildView()");
         }
 
         //get the content view
