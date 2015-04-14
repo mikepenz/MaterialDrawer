@@ -1032,7 +1032,12 @@ public class Drawer {
             if (mStatusBarColor == 0 && mStatusBarColorRes != -1) {
                 mStatusBarColor = mActivity.getResources().getColor(mStatusBarColorRes);
             } else if (mStatusBarColor == 0) {
-                mStatusBarColor = UIUtils.getThemeColorFromAttrOrRes(mActivity, R.attr.colorPrimaryDark, R.color.material_drawer_primary_dark);
+                if (Build.VERSION.SDK_INT == 19) {
+                    // don't use the dark color on kitkat, it conflicts with the native shadow
+                    mStatusBarColor = UIUtils.getThemeColorFromAttrOrRes(mActivity, R.attr.colorPrimary, R.color.material_drawer_primary);
+                }else{
+                    mStatusBarColor = UIUtils.getThemeColorFromAttrOrRes(mActivity, R.attr.colorPrimaryDark, R.color.material_drawer_primary_dark);
+                }
             }
             mDrawerContentRoot.setInsetForeground(mStatusBarColor);
         }
@@ -1212,6 +1217,12 @@ public class Drawer {
             UIUtils.setBackground(mSliderLayout, mSliderBackgroundDrawable);
         } else if (mSliderBackgroundDrawableRes != -1) {
             UIUtils.setBackground(mSliderLayout, mSliderBackgroundColorRes);
+        }
+
+        // kitkat already adds its own shadow, so hide the top shadow on this api level
+        if (Build.VERSION.SDK_INT == 19) {
+            View sliderLayoutShadowTop = mSliderLayout.findViewById(R.id.shadow_top);
+            sliderLayoutShadowTop.setBackgroundColor(Color.TRANSPARENT);
         }
 
         //create the content
