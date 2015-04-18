@@ -1,6 +1,7 @@
 package com.mikepenz.materialdrawer.model;
 
 import android.content.Context;
+import android.graphics.Color;
 import android.graphics.drawable.Drawable;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -10,18 +11,19 @@ import android.widget.TextView;
 
 import com.mikepenz.iconics.IconicsDrawable;
 import com.mikepenz.materialdrawer.R;
-import com.mikepenz.materialdrawer.model.interfaces.Badgeable;
+import com.mikepenz.materialdrawer.model.interfaces.ColorfulBadgeable;
 import com.mikepenz.materialdrawer.util.PressedEffectStateListDrawable;
 import com.mikepenz.materialdrawer.util.UIUtils;
 
 /**
  * Created by mikepenz on 03.02.15.
  */
-public class PrimaryDrawerItem extends BaseDrawerItem<PrimaryDrawerItem> implements Badgeable<PrimaryDrawerItem> {
+public class PrimaryDrawerItem extends BaseDrawerItem<PrimaryDrawerItem> implements ColorfulBadgeable<PrimaryDrawerItem> {
     private String description;
     private int descriptionRes = -1;
 
     private String badge;
+    private int badgeTextColor = 0;
 
     public PrimaryDrawerItem withDescription(String description) {
         this.description = description;
@@ -33,8 +35,15 @@ public class PrimaryDrawerItem extends BaseDrawerItem<PrimaryDrawerItem> impleme
         return this;
     }
 
+    @Override
     public PrimaryDrawerItem withBadge(String badge) {
         this.badge = badge;
+        return this;
+    }
+
+    @Override
+    public PrimaryDrawerItem withBadgeTextColor(int color) {
+        this.badgeTextColor = color;
         return this;
     }
 
@@ -57,6 +66,14 @@ public class PrimaryDrawerItem extends BaseDrawerItem<PrimaryDrawerItem> impleme
     public String getBadge() {
         return badge;
     }
+
+	@Override
+    public int getBadgeTextColor() {
+        return badgeTextColor;
+    }
+
+    @Override
+    public void setBadgeTextColor(int color) { this.badgeTextColor = color; }
 
     @Override
     public void setBadge(String badge) {
@@ -167,7 +184,9 @@ public class PrimaryDrawerItem extends BaseDrawerItem<PrimaryDrawerItem> impleme
 
         viewHolder.name.setTextColor(UIUtils.getTextColor(color, selected_text));
         viewHolder.description.setTextColor(UIUtils.getTextColor(color, selected_text));
-        viewHolder.badge.setTextColor(UIUtils.getTextColor(color, selected_text));
+	    if (badgeTextColor != 0) {
+		    viewHolder.badge.setTextColor(badgeTextColor);
+	    } else viewHolder.badge.setTextColor(UIUtils.getTextColor(color, selected_text));
 
         if (getTypeface() != null) {
             viewHolder.name.setTypeface(getTypeface());

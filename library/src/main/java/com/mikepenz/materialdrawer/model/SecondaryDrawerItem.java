@@ -11,15 +11,17 @@ import android.widget.TextView;
 import com.mikepenz.iconics.IconicsDrawable;
 import com.mikepenz.materialdrawer.R;
 import com.mikepenz.materialdrawer.model.interfaces.Badgeable;
+import com.mikepenz.materialdrawer.model.interfaces.ColorfulBadgeable;
 import com.mikepenz.materialdrawer.util.PressedEffectStateListDrawable;
 import com.mikepenz.materialdrawer.util.UIUtils;
 
 /**
  * Created by mikepenz on 03.02.15.
  */
-public class SecondaryDrawerItem extends BaseDrawerItem<SecondaryDrawerItem> implements Badgeable<SecondaryDrawerItem> {
+public class SecondaryDrawerItem extends BaseDrawerItem<SecondaryDrawerItem> implements ColorfulBadgeable<SecondaryDrawerItem> {
 
     private String badge;
+    private int badgeTextColor = 0;
 
     public SecondaryDrawerItem withBadge(String badge) {
         this.badge = badge;
@@ -34,6 +36,20 @@ public class SecondaryDrawerItem extends BaseDrawerItem<SecondaryDrawerItem> imp
     public void setBadge(String badge) {
         this.badge = badge;
     }
+
+    @Override
+    public SecondaryDrawerItem withBadgeTextColor(int color) {
+        this.badgeTextColor = color;
+        return this;
+    }
+
+    @Override
+    public int getBadgeTextColor() {
+        return badgeTextColor;
+    }
+
+    @Override
+    public void setBadgeTextColor(int color) { this.badgeTextColor = color; }
 
     @Override
     public String getType() {
@@ -128,7 +144,9 @@ public class SecondaryDrawerItem extends BaseDrawerItem<SecondaryDrawerItem> imp
         }
 
         viewHolder.name.setTextColor(UIUtils.getTextColor(color, selected_text));
-        viewHolder.badge.setTextColor(UIUtils.getTextColor(color, selected_text));
+        if (badgeTextColor != 0) {
+            viewHolder.badge.setTextColor(badgeTextColor);
+        } else viewHolder.badge.setTextColor(UIUtils.getTextColor(color, selected_text));
 
         if (getTypeface() != null) {
             viewHolder.name.setTypeface(getTypeface());
