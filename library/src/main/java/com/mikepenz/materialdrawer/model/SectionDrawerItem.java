@@ -32,11 +32,13 @@ public class SectionDrawerItem implements IDrawerItem, Nameable<SectionDrawerIte
 
     public SectionDrawerItem withName(String name) {
         this.name = name;
+        this.nameRes = -1;
         return this;
     }
 
     public SectionDrawerItem withName(int nameRes) {
         this.nameRes = nameRes;
+        this.name = null;
         return this;
     }
 
@@ -91,11 +93,13 @@ public class SectionDrawerItem implements IDrawerItem, Nameable<SectionDrawerIte
     @Override
     public void setName(String name) {
         this.name = name;
+        this.nameRes = -1;
     }
 
     @Override
     public void setNameRes(int nameRes) {
         this.nameRes = nameRes;
+        this.name = null;
     }
 
     @Override

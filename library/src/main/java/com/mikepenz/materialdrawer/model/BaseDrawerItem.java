@@ -81,11 +81,13 @@ public abstract class BaseDrawerItem<T> implements IDrawerItem, Nameable<T>, Ico
 
     public T withName(String name) {
         this.name = name;
+        this.nameRes = -1;
         return (T) this;
     }
 
     public T withName(int nameRes) {
         this.nameRes = nameRes;
+        this.name = null;
         return (T) this;
     }
 
@@ -315,6 +317,7 @@ public abstract class BaseDrawerItem<T> implements IDrawerItem, Nameable<T>, Ico
     @Override
     public void setName(String name) {
         this.name = name;
+        this.nameRes = -1;
     }
 
     public int getNameRes() {
@@ -324,6 +327,7 @@ public abstract class BaseDrawerItem<T> implements IDrawerItem, Nameable<T>, Ico
     @Override
     public void setNameRes(int nameRes) {
         this.nameRes = nameRes;
+        this.name = null;
     }
 
     @Override
