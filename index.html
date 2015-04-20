@@ -32,6 +32,8 @@
 <a id="materialdrawer---" class="anchor" href="#materialdrawer---" aria-hidden="true"><span class="octicon octicon-link"></span></a>MaterialDrawer  <a href="https://maven-badges.herokuapp.com/maven-central/com.mikepenz.materialdrawer/library"><img src="https://maven-badges.herokuapp.com/maven-central/com.mikepenz.materialdrawer/library/badge.svg?style=flat" alt="Maven Central"></a> <a href="https://android-arsenal.com/details/1/1526"><img src="https://img.shields.io/badge/Android%20Arsenal-MaterialDrawer-brightgreen.svg?style=flat" alt="Android Arsenal"></a>
 </h1>
 
+<p><a href="https://gitter.im/mikepenz/MaterialDrawer?utm_source=badge&amp;utm_medium=badge&amp;utm_campaign=pr-badge&amp;utm_content=badge"><img src="https://badges.gitter.im/Join%20Chat.svg" alt="Join the chat at https://gitter.im/mikepenz/MaterialDrawer"></a></p>
+
 <p>The <strong>MaterialDrawer</strong> library aims to provide the easiest possible implementation of a navigation drawer for your application. It provides a great amount of out of the box customizations and also includes an easy to use header which can be used as <strong>AccountSwitcher</strong>.</p>
 
 <ul>
@@ -102,7 +104,7 @@
 
 <p>The MaterialDrawer Library is pushed to <a href="http://search.maven.org/#search%7Cga%7C1%7Cg%3A%22com.mikepenz.materialdrawer%22">Maven Central</a>, so you just need to add the following dependency to your <code>build.gradle</code>.</p>
 
-<div class="highlight highlight-javascript"><pre><span class="pl-c1">compile</span>(<span class="pl-s"><span class="pl-pds">'</span>com.mikepenz.materialdrawer:library:2.6.5@aar<span class="pl-pds">'</span></span>) {
+<div class="highlight highlight-javascript"><pre><span class="pl-c1">compile</span>(<span class="pl-s"><span class="pl-pds">'</span>com.mikepenz.materialdrawer:library:2.7.9@aar<span class="pl-pds">'</span></span>) {
     transitive <span class="pl-k">=</span> <span class="pl-c1">true</span>
 }</pre></div>
 
@@ -114,6 +116,11 @@ You can find a detailed description of all methods in the <a href="https://githu
 
 <h3>
 <a id="upgrade-notes" class="anchor" href="#upgrade-notes" aria-hidden="true"><span class="octicon octicon-link"></span></a>Upgrade Notes</h3>
+
+<h4>
+<a id="-v277" class="anchor" href="#-v277" aria-hidden="true"><span class="octicon octicon-link"></span></a>&lt; v2.7.7</h4>
+
+<p>Beginning with v2.7.7, the <code>DrawerImageLoader.IDrawerImageLoader</code> interface now requires you to override the <code>placeholder</code> method (returning a custom placeholder Drawable). You may simply return a null Drawable to retain pre-v2.7.7 behavior, but it must be defined. See the sample app for an example.</p>
 
 <h4>
 <a id="-v260" class="anchor" href="#-v260" aria-hidden="true"><span class="octicon octicon-link"></span></a>&lt; v2.6.0</h4>
@@ -383,6 +390,18 @@ This is the same as the Custom style just with a parent like <code>parent="Theme
 <div class="highlight highlight-java"><pre><span class="pl-c">//just use this with the Drawer.Builder</span>
 .withSelectedItem(<span class="pl-k">-</span><span class="pl-c1">1</span>)</pre></div>
 
+<h5>
+<a id="how-can-i-use-this-with-espresso" class="anchor" href="#how-can-i-use-this-with-espresso" aria-hidden="true"><span class="octicon octicon-link"></span></a>How can i use this with espresso</h5>
+
+<div class="highlight highlight-java"><pre>androidTestCompile (<span class="pl-s"><span class="pl-pds">'</span>com.android.support.test.espresso:espresso-contrib:2.0<span class="pl-pds">'</span></span>) {
+<span class="pl-c">//this library uses the newest app compat v22 but the espresso contrib still v21. </span>
+<span class="pl-c">//you have to specifically exclude the older verisions of the contrib library or</span>
+<span class="pl-c">// there will be some conflicts</span>
+    exclude module<span class="pl-k">:</span> <span class="pl-s"><span class="pl-pds">'</span>support-annotations<span class="pl-pds">'</span></span>
+    exclude module<span class="pl-k">:</span> <span class="pl-s"><span class="pl-pds">'</span>support-v4<span class="pl-pds">'</span></span>
+    exclude module<span class="pl-k">:</span> <span class="pl-s"><span class="pl-pds">'</span>recyclerview-v7<span class="pl-pds">'</span></span>
+}</pre></div>
+
 <h2>
 <a id="apps-using-the-materialdrawer" class="anchor" href="#apps-using-the-materialdrawer" aria-hidden="true"><span class="octicon octicon-link"></span></a>Apps using the MaterialDrawer</h2>
 
@@ -391,6 +410,7 @@ This is the same as the Custom style just with a parent like <code>parent="Theme
 <ul>
 <li><p><a href="https://play.google.com/store/apps/details?id=com.mikepenz.unsplash">wall:splash</a></p></li>
 <li><p><a href="https://play.google.com/store/apps/details?id=com.alorma.github">GitSkarios</a></p></li>
+<li><p><a href="https://play.google.com/store/apps/details?id=com.auebcsschedule.ppt">Academic Schedule</a></p></li>
 </ul>
 
 <h1>
