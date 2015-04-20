@@ -1,13 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <!-- NORMAL -->
-    <style name="MaterialDrawerTheme" parent="MaterialDrawerBaseTheme">
-        <!-- ...and here we setting appcompat’s color theme attrs for lollipop devices -->
-        <item name="android:colorPrimary">@color/material_drawer_primary</item>
-        <item name="android:colorPrimaryDark">@color/material_drawer_primary_dark</item>
-        <item name="android:colorAccent">@color/material_drawer_accent</item>
-    </style>
-
     <style name="MaterialDrawerTheme.TranslucentStatus" parent="MaterialDrawerTheme">
         <item name="android:windowDrawsSystemBarBackgrounds">true</item>
         <item name="android:statusBarColor">@android:color/transparent</item>
@@ -27,13 +20,6 @@
 
 
     <!-- LIGHT -->
-    <style name="MaterialDrawerTheme.Light" parent="MaterialDrawerBaseTheme.Light">
-        <!-- ...and here we setting appcompat’s color theme attrs for lollipop devices -->
-        <item name="android:colorPrimary">@color/material_drawer_primary</item>
-        <item name="android:colorPrimaryDark">@color/material_drawer_primary_dark</item>
-        <item name="android:colorAccent">@color/material_drawer_accent</item>
-    </style>
-
     <style name="MaterialDrawerTheme.Light.TranslucentStatus" parent="MaterialDrawerTheme.Light">
         <item name="android:windowDrawsSystemBarBackgrounds">true</item>
         <item name="android:statusBarColor">@android:color/transparent</item>
@@ -53,13 +39,6 @@
 
 
     <!-- LIGHT DARK ACTIONBAR -->
-    <style name="MaterialDrawerTheme.Light.DarkToolbar" parent="MaterialDrawerBaseTheme.Light.DarkToolbar">
-        <!-- ...and here we setting appcompat’s color theme attrs for lollipop devices -->
-        <item name="android:colorPrimary">@color/material_drawer_primary</item>
-        <item name="android:colorPrimaryDark">@color/material_drawer_primary_dark</item>
-        <item name="android:colorAccent">@color/material_drawer_accent</item>
-    </style>
-
     <style name="MaterialDrawerTheme.Light.DarkToolbar.TranslucentStatus" parent="MaterialDrawerTheme.Light.DarkToolbar">
         <item name="android:windowDrawsSystemBarBackgrounds">true</item>
         <item name="android:statusBarColor">@android:color/transparent</item>
