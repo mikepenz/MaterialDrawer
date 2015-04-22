@@ -6,7 +6,7 @@ android {
 
     defaultConfig {
         applicationId "com.mikepenz.materialdrawer.app"
-        minSdkVersion 10
+        minSdkVersion 11
         targetSdkVersion 22
         versionCode 279
         versionName "2.7.9"
@@ -23,7 +23,7 @@ android {
 
 dependencies {
     compile project(':library')
-    compile('com.mikepenz.aboutlibraries:library:4.5.8@aar') {
+    compile('com.mikepenz.aboutlibraries:library:4.6.0@aar') {
         transitive = true
     }
     compile 'com.mikepenz.iconics:octicons-typeface:2.2.0@aar'
