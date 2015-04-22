@@ -319,6 +319,9 @@ androidTestCompile ('com.android.support.test.espresso:espresso-contrib:2.0') {
 
 * [Academic Schedule](https://play.google.com/store/apps/details?id=com.auebcsschedule.ppt)
 
+* [Strength](https://play.google.com/store/apps/details?id=com.e13engineering.strength)
+
+
 
 #Credits
 
