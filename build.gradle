@@ -5,8 +5,15 @@ buildscript {
         mavenCentral()
     }
     dependencies {
-        classpath 'com.android.tools.build:gradle:1.1.0'
+        classpath 'com.android.tools.build:gradle:1.1.3'
     }
+}
+
+// To avoid manually setting the same values in all Android modules, set the value on the root
+// project and then reference this from the modules
+ext {
+    compileSdkVersion = 22
+    buildToolsVersion = "22"
 }
 
 allprojects {
