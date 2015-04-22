@@ -106,6 +106,7 @@ public class SimpleHeaderDrawerActivity extends AppCompatActivity {
                         new PrimaryDrawerItem().withName(R.string.drawer_item_simple_fragment_drawer).withIcon(GoogleMaterial.Icon.gmd_style).withIdentifier(6).withCheckable(false),
                         new PrimaryDrawerItem().withName(R.string.drawer_item_embedded_drawer).withIcon(GoogleMaterial.Icon.gmd_battery_charging_30).withIdentifier(7).withCheckable(false),
                         new PrimaryDrawerItem().withName(R.string.drawer_item_fullscreen_drawer).withIcon(GoogleMaterial.Icon.gmd_style).withIdentifier(8).withCheckable(false),
+                        new PrimaryDrawerItem().withName(R.string.drawer_item_custom_container_drawer).withIcon(GoogleMaterial.Icon.gmd_my_location).withIdentifier(9).withCheckable(false),
                         new SectionDrawerItem().withName(R.string.drawer_item_section_header),
                         new SecondaryDrawerItem().withName(R.string.drawer_item_open_source).withIcon(FontAwesome.Icon.faw_github).withIdentifier(20).withCheckable(false),
                         new SecondaryDrawerItem().withName(R.string.drawer_item_contact).withIcon(GoogleMaterial.Icon.gmd_format_color_fill).withIdentifier(10).withTag("Bullhorn"),
@@ -141,6 +142,8 @@ public class SimpleHeaderDrawerActivity extends AppCompatActivity {
                                 intent = new Intent(SimpleHeaderDrawerActivity.this, EmbeddedDrawerActivity.class);
                             } else if (drawerItem.getIdentifier() == 8) {
                                 intent = new Intent(SimpleHeaderDrawerActivity.this, FullscreenDrawerActivity.class);
+                            } else if (drawerItem.getIdentifier() == 9) {
+                                intent = new Intent(SimpleHeaderDrawerActivity.this, CustomContainerActivity.class);
                             } else if (drawerItem.getIdentifier() == 20) {
                                 intent = new Libs.Builder().withFields(R.string.class.getFields()).withActivityTheme(R.style.MaterialDrawerTheme_ActionBar).intent(SimpleHeaderDrawerActivity.this);
                             }
