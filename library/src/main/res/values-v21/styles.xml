@@ -9,7 +9,7 @@
 
     <style name="MaterialDrawerTheme.ActionBar" parent="MaterialDrawerTheme">
         <item name="windowActionBar">true</item>
-        <item name="android:windowActionBar">true</item>
+        <item name="windowNoTitle">false</item>
     </style>
 
     <style name="MaterialDrawerTheme.ActionBar.TranslucentStatus" parent="MaterialDrawerTheme.ActionBar">
@@ -28,7 +28,7 @@
 
     <style name="MaterialDrawerTheme.Light.ActionBar" parent="MaterialDrawerTheme.Light">
         <item name="windowActionBar">true</item>
-        <item name="android:windowActionBar">true</item>
+        <item name="windowNoTitle">false</item>
     </style>
 
     <style name="MaterialDrawerTheme.Light.ActionBar.TranslucentStatus" parent="MaterialDrawerTheme.Light.ActionBar">
@@ -47,7 +47,7 @@
 
     <style name="MaterialDrawerTheme.Light.DarkToolbar.ActionBar" parent="MaterialDrawerTheme.Light.DarkToolbar">
         <item name="windowActionBar">true</item>
-        <item name="android:windowActionBar">true</item>
+        <item name="windowNoTitle">false</item>
     </style>
 
     <style name="MaterialDrawerTheme.Light.ActionBar.DarkToolbar.TranslucentStatus" parent="MaterialDrawerTheme.Light.DarkToolbar.ActionBar">

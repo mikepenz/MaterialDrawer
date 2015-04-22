@@ -1,7 +1,7 @@
 package com.mikepenz.materialdrawer.app;
 
 import android.os.Bundle;
-import android.support.v7.app.ActionBarActivity;
+import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.Gravity;
 import android.view.MenuItem;
@@ -19,7 +19,7 @@ import com.mikepenz.materialdrawer.model.interfaces.Badgeable;
 import com.mikepenz.materialdrawer.model.interfaces.IDrawerItem;
 import com.mikepenz.materialdrawer.model.interfaces.Nameable;
 
-public class MultiDrawerActivity extends ActionBarActivity {
+public class MultiDrawerActivity extends AppCompatActivity {
 
     private Drawer.Result result = null;
 

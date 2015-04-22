@@ -28,7 +28,7 @@
 
     <style name="MaterialDrawerTheme.ActionBar" parent="MaterialDrawerTheme">
         <item name="windowActionBar">true</item>
-        <item name="android:windowActionBar">true</item>
+        <item name="windowNoTitle">false</item>
     </style>
 
 
@@ -42,13 +42,14 @@
 
     <style name="MaterialDrawerTheme.Light.ActionBar" parent="MaterialDrawerTheme.Light">
         <item name="windowActionBar">true</item>
-        <item name="android:windowActionBar">true</item>
+        <item name="windowNoTitle">false</item>
     </style>
 
 
     <!-- LIGHT DARK TOOLBAR -->
     <style name="MaterialDrawerBaseTheme.Light.DarkToolbar" parent="MaterialDrawerBaseBaseTheme.Light.DarkToolbar">
-        <item name="android:windowActionBar">false</item>
+        <item name="windowActionBar">false</item>
+        <item name="windowNoTitle">true</item>
 
         <!--
         <item name="android:dialogTheme">@style/MaterialDrawerBaseTheme.Light.Dialog</item>
@@ -58,7 +59,7 @@
 
     <style name="MaterialDrawerTheme.Light.DarkToolbar.ActionBar" parent="MaterialDrawerTheme.Light.DarkToolbar">
         <item name="windowActionBar">true</item>
-        <item name="android:windowActionBar">true</item>
+        <item name="windowNoTitle">false</item>
     </style>
 
     <!-- General Theme override to change the Dialog design -->

@@ -1,7 +1,7 @@
 package com.mikepenz.materialdrawer.app;
 
 import android.os.Bundle;
-import android.support.v7.app.ActionBarActivity;
+import android.support.v7.app.AppCompatActivity;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
@@ -15,7 +15,7 @@ import com.mikepenz.materialdrawer.model.SectionDrawerItem;
 import com.mikepenz.materialdrawer.model.interfaces.IDrawerItem;
 import com.mikepenz.materialdrawer.model.interfaces.Nameable;
 
-public class ActionBarDrawerActivity extends ActionBarActivity {
+public class ActionBarDrawerActivity extends AppCompatActivity {
 
     private Drawer.Result result = null;
 

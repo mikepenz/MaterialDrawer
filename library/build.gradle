@@ -28,7 +28,7 @@ android {
 apply from: 'gradle-mvn-push.gradle'
 
 dependencies {
-    compile "com.android.support:appcompat-v7:22.0.0"
+    compile "com.android.support:appcompat-v7:22.1.0"
 
     compile('com.mikepenz.iconics:library:0.9.0@aar') {
         transitive = true
