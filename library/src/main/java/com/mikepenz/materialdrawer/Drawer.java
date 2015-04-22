@@ -88,6 +88,35 @@ public class Drawer {
         return this;
     }
 
+    /**
+     * Pass the rootView of the Drawer which will be used to inflate the DrawerLayout in
+     *
+     * @param rootView
+     * @return
+     */
+    public Drawer withRootView(ViewGroup rootView) {
+        this.mRootView = rootView;
+
+        //disable the translucent statusBar we don't need it
+        withTranslucentStatusBar(false);
+
+        return this;
+    }
+
+    /**
+     * Pass the rootView as resource of the Drawer which will be used to inflate the DrawerLayout in
+     *
+     * @param rootViewRes
+     * @return
+     */
+    public Drawer withRootView(int rootViewRes) {
+        if (mActivity == null) {
+            throw new RuntimeException("please pass an activity first to use this call");
+        }
+
+        return withRootView((ViewGroup) mActivity.findViewById(rootViewRes));
+    }
+
     // set actionbar Compatibility mode
     protected boolean mTranslucentActionBarCompatibility = false;
 
