@@ -14,6 +14,7 @@ import com.mikepenz.iconics.IconicsDrawable;
 import com.mikepenz.iconics.typeface.FontAwesome;
 import com.mikepenz.materialdrawer.Drawer;
 import com.mikepenz.materialdrawer.accountswitcher.AccountHeader;
+import com.mikepenz.materialdrawer.app.DrawerItems.CustomPrimaryDrawerItem;
 import com.mikepenz.materialdrawer.model.PrimaryDrawerItem;
 import com.mikepenz.materialdrawer.model.ProfileDrawerItem;
 import com.mikepenz.materialdrawer.model.ProfileSettingDrawerItem;
@@ -90,7 +91,9 @@ public class ComplexHeaderDrawerActivity extends AppCompatActivity {
                 .withAccountHeader(headerResult) //set the AccountHeader we created earlier for the header
                 .addDrawerItems(
                         new PrimaryDrawerItem().withName(R.string.drawer_item_home).withIcon(FontAwesome.Icon.faw_home),
-                        new PrimaryDrawerItem().withName(R.string.drawer_item_free_play).withIcon(FontAwesome.Icon.faw_gamepad),
+                        //here we use a customPrimaryDrawerItem we defined in our sample app
+                        //this custom DrawerItem extends the PrimaryDrawerItem so it just overwrites some methods
+                        new CustomPrimaryDrawerItem().withBackgroundRes(R.color.accent).withName(R.string.drawer_item_free_play).withIcon(FontAwesome.Icon.faw_gamepad),
                         new PrimaryDrawerItem().withName(R.string.drawer_item_custom).withDescription("This is a description").withIcon(FontAwesome.Icon.faw_eye),
                         new SectionDrawerItem().withName(R.string.drawer_item_section_header),
                         new SecondaryDrawerItem().withName(R.string.drawer_item_settings).withIcon(FontAwesome.Icon.faw_cart_plus),
