@@ -46,7 +46,7 @@ You can try it out here [Google Play](https://play.google.com/store/apps/details
 The MaterialDrawer Library is pushed to [Maven Central](http://search.maven.org/#search|ga|1|g%3A%22com.mikepenz.materialdrawer%22), so you just need to add the following dependency to your `build.gradle`.
 
 ```javascript
-compile('com.mikepenz.materialdrawer:library:2.7.9@aar') {
+compile('com.mikepenz.materialdrawer:library:2.8.0@aar') {
 	transitive = true
 }
 ```
@@ -56,6 +56,9 @@ Here's a quick overview what you have to do within your application.
 You can find a detailed description of all methods in the [WIKI](https://github.com/mikepenz/MaterialDrawer/wiki).
 
 ###Upgrade Notes
+#### < v2.8.0
+v2.8.0 now uses the latest com.android.support:appcompat version 22.1.0. Please update if you use an older version.
+
 #### < v2.7.7
 Beginning with v2.7.7, the `DrawerImageLoader.IDrawerImageLoader` interface now requires you to override the `placeholder` method (returning a custom placeholder Drawable). You may simply return a null Drawable to retain pre-v2.7.7 behavior, but it must be defined. See the sample app for an example.
 
