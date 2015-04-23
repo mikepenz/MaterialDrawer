@@ -1968,6 +1968,17 @@ public class Drawer {
                 }
                 getListView().addHeaderView(view);
                 getListView().setAdapter(adapter);
+                mDrawer.mHeaderOffset = 1;
+            }
+        }
+
+        /**
+         * method to remove the header of the list
+         */
+        public void removeHeader() {
+            if (getListView() != null && getHeader() != null) {
+                getListView().removeHeaderView(getHeader());
+                mDrawer.mHeaderOffset = 0;
             }
         }
 
