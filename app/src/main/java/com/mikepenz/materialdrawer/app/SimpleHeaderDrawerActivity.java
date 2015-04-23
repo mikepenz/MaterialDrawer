@@ -147,7 +147,9 @@ public class SimpleHeaderDrawerActivity extends AppCompatActivity {
                             } else if (drawerItem.getIdentifier() == 20) {
                                 intent = new Libs.Builder().withFields(R.string.class.getFields()).withActivityTheme(R.style.MaterialDrawerTheme_ActionBar).intent(SimpleHeaderDrawerActivity.this);
                             }
-                            SimpleHeaderDrawerActivity.this.startActivity(intent);
+                            if (intent != null) {
+                                SimpleHeaderDrawerActivity.this.startActivity(intent);
+                            }
                         }
                     }
                 })
