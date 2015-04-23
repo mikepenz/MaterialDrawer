@@ -274,6 +274,21 @@ public class Drawer {
         return this;
     }
 
+    // a custom view to be used instead of everything else
+    protected View mCustomView;
+
+    /**
+     * Pass a custom view if you need a completely custom drawer
+     * content
+     *
+     * @param customView
+     * @return
+     */
+    public Drawer withCustomView(View customView) {
+        this.mCustomView = customView;
+        return this;
+    }
+
     // the drawerLayout to use
     protected DrawerLayout mDrawerLayout;
     protected RelativeLayout mSliderLayout;
@@ -1259,7 +1274,6 @@ public class Drawer {
         return result;
     }
 
-
     /**
      * Call this method to append a new Drawer to a existing Drawer.
      *
@@ -1267,17 +1281,6 @@ public class Drawer {
      * @return
      */
     public Result append(Result result) {
-        return append(result, null);
-    }
-
-    /**
-     * Call this method to append a new Drawer to a existing Drawer.
-     *
-     * @param result the Drawer.Result of an existing Drawer
-     * @param view   the view to set as content of the drawer
-     * @return
-     */
-    public Result append(Result result, View view) {
         if (mUsed) {
             throw new RuntimeException("you must not reuse a Drawer builder");
         }
@@ -1305,17 +1308,8 @@ public class Drawer {
         // add the slider to the drawer
         mDrawerLayout.addView(mSliderLayout, 1);
 
-        if (view == null) {
-            //create the content
-            createContent();
-        } else {
-            LinearLayout.LayoutParams contentParams = new LinearLayout.LayoutParams(
-                    ViewGroup.LayoutParams.MATCH_PARENT,
-                    ViewGroup.LayoutParams.MATCH_PARENT
-            );
-            contentParams.weight = 1f;
-            mSliderLayout.addView(view, contentParams);
-        }
+        //create the content
+        createContent();
 
         //forget the reference to the activity
         mActivity = null;
@@ -1327,6 +1321,17 @@ public class Drawer {
      * the helper method to create the content for the drawer
      */
     private void createContent() {
+        //if we have a customView use this
+        if (mCustomView != null) {
+            LinearLayout.LayoutParams contentParams = new LinearLayout.LayoutParams(
+                    ViewGroup.LayoutParams.MATCH_PARENT,
+                    ViewGroup.LayoutParams.MATCH_PARENT
+            );
+            contentParams.weight = 1f;
+            mSliderLayout.addView(mCustomView, contentParams);
+            return;
+        }
+
         // if we have an adapter (either by defining a custom one or the included one add a list :D
         if (mListView == null) {
             mListView = new ListView(mActivity);
