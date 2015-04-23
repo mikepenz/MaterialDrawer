@@ -119,7 +119,6 @@
 
         <!-- Here we setting appcompat’s actionBarStyle -->
         <item name="drawerArrowStyle">@style/MaterialDrawer.DrawerArrowStyle</item>
-        <item name="android:theme">@style/ThemeOverlay.AppCompat.Dark</item>
 
         <!-- ...and here we setting appcompat’s color theming attrs -->
         <item name="colorPrimary">@color/material_drawer_primary</item>
@@ -152,6 +151,9 @@
     <style name="MaterialDrawerTheme.Light.DarkToolbar.ActionBar" parent="MaterialDrawerTheme.Light.DarkToolbar">
         <item name="windowActionBar">true</item>
         <item name="windowNoTitle">false</item>
+
+        <!-- only set this if we use an ActionBar -->
+        <item name="android:theme">@style/ThemeOverlay.AppCompat.Dark</item>
     </style>
 
     <style name="MaterialDrawerTheme.Light.DarkToolbar.ActionBar.TranslucentStatus" parent="MaterialDrawerTheme.Light.DarkToolbar">

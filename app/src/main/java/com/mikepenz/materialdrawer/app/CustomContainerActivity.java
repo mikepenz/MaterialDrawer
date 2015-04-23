@@ -18,7 +18,7 @@ public class CustomContainerActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_sample_custom_container);
+        setContentView(R.layout.activity_sample_custom_container_dark_toolbar);
 
         // Handle Toolbar
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);

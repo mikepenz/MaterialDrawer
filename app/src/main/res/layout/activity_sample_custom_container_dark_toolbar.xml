@@ -1,5 +1,5 @@
 <RelativeLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:android="http://schemas.android.com/apk/res/android" xmlns:app="http://schemas.android.com/apk/res-auto"
     android:gravity="center"
     android:layout_width="match_parent"
     android:layout_height="match_parent">
@@ -9,6 +9,8 @@
         android:layout_width="match_parent"
         android:layout_height="?attr/actionBarSize"
         android:background="?attr/colorPrimary"
+        android:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar"
+        app:popupTheme="@style/ThemeOverlay.AppCompat.Light"
         android:elevation="4dp"/>
 
     <!-- the layout which will contain (host) the drawerLayout -->
