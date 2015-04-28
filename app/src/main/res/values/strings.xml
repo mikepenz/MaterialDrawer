@@ -11,7 +11,8 @@
     <string name="drawer_item_non_translucent_status_drawer">NonTranslucentStatus Drawer</string>
     <string name="drawer_item_complex_header_drawer">ComplexHeader Drawer</string>
     <string name="drawer_item_simple_fragment_drawer">SimpleFragment Drawer</string>
-    <string name="drawer_item_embedded_drawer">Embedded Drawer</string>
+    <string name="drawer_item_embedded_drawer_dualpane">Embedded Drawer 2-pane</string>
+    <string name="drawer_item_embedded_drawer_dualpane_desc">Embedded Drawer 2-pane\n(rotate device)</string>
     <string name="drawer_item_fullscreen_drawer">FullScreen Drawer</string>
     <string name="drawer_item_custom_container_drawer">CustomContainer Drawer</string>
     <string name="drawer_item_home">Home</string>
