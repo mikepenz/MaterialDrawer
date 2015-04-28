@@ -1,10 +1,12 @@
 package com.mikepenz.materialdrawer.app;
 
+import android.content.res.Configuration;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.CompoundButton;
 import android.widget.FrameLayout;
@@ -13,6 +15,7 @@ import com.mikepenz.google_material_typeface_library.GoogleMaterial;
 import com.mikepenz.iconics.typeface.FontAwesome;
 import com.mikepenz.materialdrawer.Drawer;
 import com.mikepenz.materialdrawer.accountswitcher.AccountHeader;
+import com.mikepenz.materialdrawer.app.utils.SystemUtils;
 import com.mikepenz.materialdrawer.model.DividerDrawerItem;
 import com.mikepenz.materialdrawer.model.PrimaryDrawerItem;
 import com.mikepenz.materialdrawer.model.ProfileDrawerItem;
@@ -37,11 +40,15 @@ public class EmbeddedDrawerActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_sample);
+        setContentView(R.layout.activity_dualpane);
 
         // Handle Toolbar
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
-        setSupportActionBar(toolbar);
+        if (null != toolbar) {
+            setSupportActionBar(toolbar);
+            //set the back arrow in the toolbar
+            getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        }
 
         // Create a few sample profile
         // NOTE you have to define the loader logic too. See the CustomApplication for more details
@@ -90,8 +97,8 @@ public class EmbeddedDrawerActivity extends AppCompatActivity {
                 .withSavedInstance(savedInstanceState)
                 .build();
 
-        FrameLayout frameLayout = (FrameLayout) findViewById(R.id.frame_container);
-        result = new Drawer()
+        FrameLayout frameLayout = (FrameLayout) findViewById(R.id.drawer_container);
+        Drawer drawer = new Drawer()
                 .withActivity(this)
                 .withToolbar(toolbar)
                 .withTranslucentStatusBar(false)
@@ -110,10 +117,15 @@ public class EmbeddedDrawerActivity extends AppCompatActivity {
                         new SwitchDrawerItem().withName("Switch").withIcon(Octicons.Icon.oct_tools).withChecked(true).withOnCheckedChangeListener(onCheckedChangeListener),
                         new ToggleDrawerItem().withName("Toggle").withIcon(Octicons.Icon.oct_tools).withChecked(true).withOnCheckedChangeListener(onCheckedChangeListener)
                 ) // add the items we want to use with our Drawer
-                .withSavedInstance(savedInstanceState)
-                .buildView();
+                .withSavedInstance(savedInstanceState);
 
-        frameLayout.addView(result.getSlider());
+        // Embed only if orientation is Landscape (regular drawer in Portrait)
+        if (SystemUtils.getScreenOrientation() == Configuration.ORIENTATION_LANDSCAPE) {
+            result = drawer.buildView();
+            frameLayout.addView(result.getSlider());
+        } else {
+            result = drawer.build();
+        }
     }
 
     private OnCheckedChangeListener onCheckedChangeListener = new OnCheckedChangeListener() {
@@ -146,4 +158,15 @@ public class EmbeddedDrawerActivity extends AppCompatActivity {
         }
     }
 
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        //handle the click on the back arrow click
+        switch (item.getItemId()) {
+            case android.R.id.home:
+                onBackPressed();
+                return true;
+            default:
+                return super.onOptionsItemSelected(item);
+        }
+    }
 }
