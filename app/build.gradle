@@ -23,7 +23,7 @@ android {
 
 dependencies {
     compile project(':library')
-    compile('com.mikepenz.aboutlibraries:library:4.6.5@aar') {
+    compile('com.mikepenz.aboutlibraries:library:4.6.7@aar') {
         transitive = true
     }
     compile 'com.mikepenz.iconics:octicons-typeface:2.2.0@aar'
