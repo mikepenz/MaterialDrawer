@@ -46,7 +46,7 @@ You can try it out here [Google Play](https://play.google.com/store/apps/details
 The MaterialDrawer Library is pushed to [Maven Central](http://search.maven.org/#search|ga|1|g%3A%22com.mikepenz.materialdrawer%22), so you just need to add the following dependency to your `build.gradle`.
 
 ```javascript
-compile('com.mikepenz.materialdrawer:library:2.8.2@aar') {
+compile('com.mikepenz.materialdrawer:library:2.9.0@aar') {
 	transitive = true
 }
 ```
@@ -56,6 +56,19 @@ Here's a quick overview what you have to do within your application.
 You can find a detailed description of all methods in the [WIKI](https://github.com/mikepenz/MaterialDrawer/wiki).
 
 ###Upgrade Notes
+#### < v2.9.0
+v2.9.0 now uses the latest com.android.support:appcompat version 22.1.1. Please update if you use an older version. It is now also required to set the theme within your layout for toolbars. (Especially for the DarkToolbar theme)
+```java
+<android.support.v7.widget.Toolbar
+        android:id="@+id/toolbar"
+        android:layout_width="match_parent"
+        android:layout_height="?attr/actionBarSize"
+        android:background="?attr/colorPrimary"
+        android:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar"
+        app:popupTheme="@style/ThemeOverlay.AppCompat.Light"
+        android:elevation="4dp"/>
+```
+
 #### < v2.8.0
 v2.8.0 now uses the latest com.android.support:appcompat version 22.1.0. Please update if you use an older version.
 
