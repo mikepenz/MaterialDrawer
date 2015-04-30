@@ -1,6 +1,7 @@
 package com.mikepenz.materialdrawer.model;
 
 import android.content.Context;
+import android.graphics.Bitmap;
 import android.graphics.Typeface;
 import android.graphics.drawable.Drawable;
 import android.net.Uri;
@@ -29,6 +30,7 @@ public class ProfileDrawerItem implements IDrawerItem, IProfile<ProfileDrawerIte
     private boolean nameShown = false;
 
     private Drawable icon;
+    private Bitmap iconBitmap;
     private Uri iconUri;
 
     private String name;
@@ -52,6 +54,11 @@ public class ProfileDrawerItem implements IDrawerItem, IProfile<ProfileDrawerIte
 
     public ProfileDrawerItem withIcon(Drawable icon) {
         this.icon = icon;
+        return this;
+    }
+
+    public ProfileDrawerItem withIcon(Bitmap iconBitmap) {
+        this.iconBitmap = iconBitmap;
         return this;
     }
 
@@ -192,6 +199,14 @@ public class ProfileDrawerItem implements IDrawerItem, IProfile<ProfileDrawerIte
         return icon;
     }
 
+    public Bitmap getIconBitmap() {
+        return iconBitmap;
+    }
+
+    public void setIconBitmap(Bitmap iconBitmap) {
+        this.iconBitmap = iconBitmap;
+    }
+
     public void setIcon(Uri uri) {
         this.iconUri = uri;
     }
@@ -310,13 +325,14 @@ public class ProfileDrawerItem implements IDrawerItem, IProfile<ProfileDrawerIte
         }
         viewHolder.email.setTextColor(color);
 
+        viewHolder.profileIcon.setVisibility(View.VISIBLE);
         if (this.getIconUri() != null) {
             viewHolder.profileIcon.setImageDrawable(UIUtils.getPlaceHolder(ctx));
             viewHolder.profileIcon.setImageURI(this.iconUri);
-            viewHolder.profileIcon.setVisibility(View.VISIBLE);
         } else if (this.getIcon() != null) {
             viewHolder.profileIcon.setImageDrawable(this.getIcon());
-            viewHolder.profileIcon.setVisibility(View.VISIBLE);
+        } else if (this.getIconBitmap() != null) {
+            viewHolder.profileIcon.setImageBitmap(this.getIconBitmap());
         } else {
             viewHolder.profileIcon.setVisibility(View.INVISIBLE);
         }
