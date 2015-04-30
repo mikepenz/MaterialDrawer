@@ -101,6 +101,11 @@ public abstract class BaseDrawerItem<T> implements IDrawerItem, Nameable<T>, Ico
         return (T) this;
     }
 
+    public T withEnabled(boolean enabled) {
+        this.enabled = enabled;
+        return (T) this;
+    }
+
     public T setEnabled(boolean enabled) {
         this.enabled = enabled;
         return (T) this;

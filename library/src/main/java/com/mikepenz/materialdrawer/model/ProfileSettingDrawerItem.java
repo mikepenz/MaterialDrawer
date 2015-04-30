@@ -103,6 +103,11 @@ public class ProfileSettingDrawerItem implements IDrawerItem, IProfile<ProfileSe
         return this;
     }
 
+    public ProfileSettingDrawerItem withEnabled(boolean enabled) {
+        this.enabled = enabled;
+        return this;
+    }
+
     public ProfileSettingDrawerItem withSelectedColor(int selectedColor) {
         this.selectedColor = selectedColor;
         return this;
