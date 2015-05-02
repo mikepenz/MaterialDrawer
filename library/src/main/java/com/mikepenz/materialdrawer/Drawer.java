@@ -1777,7 +1777,7 @@ public class Drawer {
      */
     private void resetStickyFooterSelection() {
         if (mStickyFooterView instanceof LinearLayout) {
-            for (int i = 1; i < ((LinearLayout) mStickyFooterView).getChildCount(); i++) {
+            for (int i = 0; i < ((LinearLayout) mStickyFooterView).getChildCount(); i++) {
                 if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.HONEYCOMB) {
                     ((LinearLayout) mStickyFooterView).getChildAt(i).setActivated(false);
                 }
