@@ -31,7 +31,7 @@ public abstract class BaseDrawerItem<T> implements IDrawerItem, Nameable<T>, Ico
 
     private int selectedColor = 0;
     private int selectedColorRes = -1;
-    private boolean selectedIconTinted = false;
+    private boolean selectedIconTinted = true;
 
     private int textColor = 0;
     private int textColorRes = -1;

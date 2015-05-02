@@ -1,6 +1,7 @@
 package com.mikepenz.materialdrawer.util;
 
 import android.annotation.SuppressLint;
+import android.graphics.Color;
 import android.graphics.PorterDuff;
 import android.graphics.drawable.Drawable;
 import android.graphics.drawable.StateListDrawable;
@@ -31,9 +32,11 @@ public class PressedEffectStateListDrawable extends StateListDrawable {
             }
         }
         if (isStatePressedInArray) {
-            super.setColorFilter(selectionColor, PorterDuff.Mode.MULTIPLY);
+            super.setColorFilter(selectionColor, PorterDuff.Mode.SRC_ATOP);
+            super.setAlpha(Color.alpha(selectionColor));
         } else {
             super.clearColorFilter();
+            super.setAlpha(255);
         }
         return super.onStateChange(states);
     }
