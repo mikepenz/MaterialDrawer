@@ -75,10 +75,17 @@ public class KeyboardUtil {
 
             //if it could be a keyboard add the padding to the view
             if (heightDiffDp - initialDpDiff > 100) { // if more than 100 pixels, its probably a keyboard...
-                //Toast.makeText(MainActivity.this, "Hallo", Toast.LENGTH_SHORT).show();
-                contentView.setPadding(0, 0, 0, (int) UIUtils.convertDpToPixel((heightDiffDp - initialDpDiff), decorView.getContext()));
+                //check if the padding is 0 (if yes set the padding for the keyboard)
+                if (contentView.getPaddingBottom() == 0) {
+                    //set the padding of the contentView for the keyboard
+                    contentView.setPadding(0, 0, 0, (int) UIUtils.convertDpToPixel((heightDiffDp - initialDpDiff), decorView.getContext()));
+                }
             } else {
-                contentView.setPadding(0, 0, 0, 0);
+                //check if the padding is != 0 (if yes reset the padding)
+                if (contentView.getPaddingBottom() != 0) {
+                    //reset the padding of the contentView
+                    contentView.setPadding(0, 0, 0, 0);
+                }
             }
         }
     };
