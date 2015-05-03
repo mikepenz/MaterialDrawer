@@ -1973,6 +1973,7 @@ public class Drawer {
                 }
                 getListView().addHeaderView(view);
                 getListView().setAdapter(adapter);
+                mDrawer.mHeaderView = view;
                 mDrawer.mHeaderOffset = 1;
             }
         }
@@ -1983,6 +1984,7 @@ public class Drawer {
         public void removeHeader() {
             if (getListView() != null && getHeader() != null) {
                 getListView().removeHeaderView(getHeader());
+                mDrawer.mHeaderView = null;
                 mDrawer.mHeaderOffset = 0;
             }
         }
