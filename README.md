@@ -336,6 +336,11 @@ androidTestCompile ('com.android.support.test.espresso:espresso-contrib:2.0') {
 
 
 
+##Articles about the MaterialDrawer
+* [java-help.ru](http://java-help.ru/material-navigationdrawer/)
+
+
+
 #Credits
 
 - Mirosław Stanek - [GitHub](https://github.com/frogermcs)
