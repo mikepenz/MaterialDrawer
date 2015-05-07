@@ -66,6 +66,11 @@ public class SimpleFragmentDrawerActivity extends AppCompatActivity {
                     public void onDrawerClosed(View drawerView) {
 
                     }
+
+                    @Override
+                    public void onDrawerSlide(View drawerView, float slideOffset) {
+
+                    }
                 })
                 .withFireOnInitialOnClick(true)
                 .withSavedInstance(savedInstanceState)

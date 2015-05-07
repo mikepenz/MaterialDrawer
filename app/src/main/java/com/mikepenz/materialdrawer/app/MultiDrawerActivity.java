@@ -58,6 +58,11 @@ public class MultiDrawerActivity extends AppCompatActivity {
                     public void onDrawerClosed(View drawerView) {
                         Toast.makeText(MultiDrawerActivity.this, "onDrawerClosed", Toast.LENGTH_SHORT).show();
                     }
+
+                    @Override
+                    public void onDrawerSlide(View drawerView, float slideOffset) {
+
+                    }
                 })
                 .withOnDrawerItemClickListener(new Drawer.OnDrawerItemClickListener() {
                     @Override

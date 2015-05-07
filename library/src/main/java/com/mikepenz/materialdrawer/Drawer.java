@@ -1178,6 +1178,10 @@ public class Drawer {
 
                 @Override
                 public void onDrawerSlide(View drawerView, float slideOffset) {
+                    if (mOnDrawerListener != null) {
+                        mOnDrawerListener.onDrawerSlide(drawerView, slideOffset);
+                    }
+
                     if (!mAnimateActionBarDrawerToggle) {
                         super.onDrawerSlide(drawerView, 0);
                     } else {
@@ -2483,6 +2487,8 @@ public class Drawer {
         public void onDrawerOpened(View drawerView);
 
         public void onDrawerClosed(View drawerView);
+
+        public void onDrawerSlide(View drawerView, float slideOffset);
     }
 
     public interface OnDrawerItemSelectedListener {
