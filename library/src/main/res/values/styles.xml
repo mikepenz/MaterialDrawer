@@ -29,7 +29,6 @@
         <item name="colorAccent">@color/material_drawer_accent</item>
 
         <!-- MaterialDrawer specific values -->
-        <item name="material_drawer_window_background">@color/material_drawer_dark_window_background</item>
         <item name="material_drawer_background">@color/material_drawer_dark_background</item>
         <item name="material_drawer_icons">@color/material_drawer_dark_icons</item>
         <item name="material_drawer_primary_text">@color/material_drawer_dark_primary_text</item>
@@ -70,7 +69,6 @@
         <item name="colorAccent">@color/material_drawer_accent</item>
 
         <!-- MaterialDrawer specific values -->
-        <item name="material_drawer_window_background">@color/material_drawer_window_background</item>
         <item name="material_drawer_background">@color/material_drawer_background</item>
         <item name="material_drawer_icons">@color/material_drawer_icons</item>
         <item name="material_drawer_primary_text">@color/material_drawer_primary_text</item>
@@ -108,7 +106,7 @@
 
         <!-- Here we setting appcompat’s actionBarStyle -->
         <item name="drawerArrowStyle">@style/MaterialDrawer.DrawerArrowStyle</item>
-        
+
 
         <!-- ...and here we setting appcompat’s color theming attrs -->
         <item name="colorPrimary">@color/material_drawer_primary</item>
@@ -116,7 +114,6 @@
         <item name="colorAccent">@color/material_drawer_accent</item>
 
         <!-- MaterialDrawer specific values -->
-        <item name="material_drawer_window_background">@color/material_drawer_window_background</item>
         <item name="material_drawer_background">@color/material_drawer_background</item>
         <item name="material_drawer_icons">@color/material_drawer_icons</item>
         <item name="material_drawer_primary_text">@color/material_drawer_primary_text</item>

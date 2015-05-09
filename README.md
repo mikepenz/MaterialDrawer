@@ -248,7 +248,6 @@ Create your custom style and use one of the provided themes as parent. If you do
         <item name="colorAccent">@color/material_drawer_accent</item>
 
         <!-- MaterialDrawer specific values -->
-        <item name="material_drawer_window_background">@color/material_drawer_window_background</item>
         <item name="material_drawer_background">@color/material_drawer_background</item>
         <item name="material_drawer_icons">@color/material_drawer_icons</item>
         <item name="material_drawer_primary_text">@color/material_drawer_primary_text</item>
@@ -273,7 +272,6 @@ No need to create a custom theme. Just set these colors (or some of them) and yo
     
     <!-- OVERWRITE THESE COLORS FOR A LIGHT THEME -->
     <!-- MaterialDrawer DEFAULT colors -->
-    <color name="material_drawer_window_background">#F9F9F9</color>
     <color name="material_drawer_background">#F9F9F9</color>
     <!-- Material DEFAULT text / items colors -->
     <color name="material_drawer_icons">#FFF</color>
@@ -289,7 +287,6 @@ No need to create a custom theme. Just set these colors (or some of them) and yo
     
     <!-- OVERWRITE THESE COLORS FOR A DARK THEME -->
     <!-- MaterialDrawer DEFAULT DARK colors -->
-    <color name="material_drawer_dark_window_background">#303030</color>
     <color name="material_drawer_dark_background">#303030</color>
     <!-- MaterialDrawer DEFAULT DARK text / items colors -->
     <color name="material_drawer_dark_icons">#000</color>

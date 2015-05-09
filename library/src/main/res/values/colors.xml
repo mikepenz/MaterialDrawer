@@ -32,7 +32,6 @@
     <color name="material_drawer_accent">@color/accent</color>
 
     <!-- MaterialDrawer DEFAULT colors -->
-    <color name="material_drawer_window_background">@color/window_background</color>
     <color name="material_drawer_background">@color/drawer_background</color>
     <!-- MaterialDrawer DEFAULT text / items colors -->
     <color name="material_drawer_icons">@color/icons</color>
@@ -47,7 +46,6 @@
     <color name="material_drawer_header_selection_text">#FFF</color>
 
     <!-- MaterialDrawer DEFAULT DARK colors -->
-    <color name="material_drawer_dark_window_background">#303030</color>
     <color name="material_drawer_dark_background">#303030</color>
     <!-- MaterialDrawer DEFAULT DARK text / items colors -->
     <color name="material_drawer_dark_icons">#000</color>
