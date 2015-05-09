@@ -19,6 +19,8 @@ import com.mikepenz.materialdrawer.util.UIUtils;
  */
 public class SectionDrawerItem implements IDrawerItem, Nameable<SectionDrawerItem>, Tagable<SectionDrawerItem>, Typefaceable<SectionDrawerItem> {
 
+    private int identifier = -1;
+
     private String name;
     private int nameRes = -1;
     private boolean divider = true;
@@ -29,6 +31,10 @@ public class SectionDrawerItem implements IDrawerItem, Nameable<SectionDrawerIte
 
     private Typeface typeface = null;
 
+    public SectionDrawerItem withIdentifier(int identifier) {
+        this.identifier = identifier;
+        return this;
+    }
 
     public SectionDrawerItem withName(String name) {
         this.name = name;
@@ -104,7 +110,7 @@ public class SectionDrawerItem implements IDrawerItem, Nameable<SectionDrawerIte
 
     @Override
     public int getIdentifier() {
-        return -1;
+        return identifier;
     }
 
     @Override
