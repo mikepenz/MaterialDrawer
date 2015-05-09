@@ -198,6 +198,31 @@ new Drawer()
     .append(result);
 ```
 
+###Load images via url
+The MaterialDrawer supports fetching images from URLs and setting them for the Profile icons. As the MaterialDrawer does not contain an ImageLoading library
+the dev can choose his own implementation (Picasso, Glide, ...). This has to be done, before the first image should be loaded via URL. (Should be done in the Application, but any other spot before loading the first image is working too)
+####Code:
+```java
+//SAMPLE using [PICASSO](https://github.com/square/picasso)
+//initialize and create the image loader logic
+DrawerImageLoader.init(new DrawerImageLoader.IDrawerImageLoader() {
+    @Override
+    public void set(ImageView imageView, Uri uri, Drawable placeholder) {
+        Picasso.with(imageView.getContext()).load(uri).placeholder(placeholder).into(imageView);
+    }
+
+    @Override
+    public void cancel(ImageView imageView) {
+        Picasso.with(imageView.getContext()).cancelRequest(imageView);
+    }
+
+    @Override
+    public Drawable placeholder(Context ctx) {
+        return null;
+    }
+});
+``
+
 
 ###Switching between Back-Arrow or Hamburger-Icon
 If you use the included ActionBarDrawerToggle you can switch between back-arrow or hamburger-icon
