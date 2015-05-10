@@ -46,7 +46,7 @@ You can try it out here [Google Play](https://play.google.com/store/apps/details
 The MaterialDrawer Library is pushed to [Maven Central](http://search.maven.org/#search|ga|1|g%3A%22com.mikepenz.materialdrawer%22), so you just need to add the following dependency to your `build.gradle`.
 
 ```javascript
-compile('com.mikepenz.materialdrawer:library:2.9.2@aar') {
+compile('com.mikepenz.materialdrawer:library:2.9.5@aar') {
 	transitive = true
 }
 ```
@@ -56,6 +56,9 @@ Here's a quick overview what you have to do within your application.
 You can find a detailed description of all methods in the [WIKI](https://github.com/mikepenz/MaterialDrawer/wiki).
 
 ###Upgrade Notes
+#### < v2.9.5
+Tinting is now off by DEFAULT again. Enable it for your items with `withIconTinted(true)` if needed. This release now also tint's the normal state of the icon.
+
 #### < v2.9.0
 v2.9.0 now uses the latest com.android.support:appcompat version 22.1.1. Please update if you use an older version. It is now also required to set the theme within your layout for toolbars. (Especially for the DarkToolbar theme)
 ```java
@@ -71,22 +74,6 @@ v2.9.0 now uses the latest com.android.support:appcompat version 22.1.1. Please 
 
 #### < v2.8.0
 v2.8.0 now uses the latest com.android.support:appcompat version 22.1.0. Please update if you use an older version.
-
-#### < v2.7.7
-Beginning with v2.7.7, the `DrawerImageLoader.IDrawerImageLoader` interface now requires you to override the `placeholder` method (returning a custom placeholder Drawable). You may simply return a null Drawable to retain pre-v2.7.7 behavior, but it must be defined. See the sample app for an example.
-
-#### < v2.6.0
-Starting with v2.6.0 the `OnAccountHeaderListener.onProfileChanged` and `OnAccountHeaderSelectionViewClickListener.onClick` events will allow you to return an boolean.
-This boolean indicates if the event was consumed. Return false if you want the drawer to get closed. Also the `onProfileChanged` event will now contain a boolean
-variable which indicates if the clicked profile is the current profile.
-
-#### < v2.5.0
-If you used a version prior to v2.5.0 check following:
-You can remove the padding above the ToolBar. The library now uses a ScrimInsetsLayout. Just set your toolbar within the layout
-as you would normally do.
-The MaterialDrawer now uses a translucent style by default. (Even if you use a non translucent theme) You can disable this by
-setting `.withTranslucentStatusBar(false)`.
-
 
 ###Minimal SetUp
 
