@@ -29,7 +29,7 @@ public abstract class BaseDrawerItem<T> implements IDrawerItem, Nameable<T>, Ico
     private boolean checkable = true;
     private Object tag;
 
-    private boolean iconTinted = true;
+    private boolean iconTinted = false;
 
     private int selectedColor = 0;
     private int selectedColorRes = -1;

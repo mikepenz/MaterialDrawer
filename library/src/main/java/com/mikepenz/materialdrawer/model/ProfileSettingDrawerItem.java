@@ -40,7 +40,7 @@ public class ProfileSettingDrawerItem implements IDrawerItem, IProfile<ProfileSe
     private boolean enabled = true;
     private Object tag;
 
-    private boolean iconTinted = true;
+    private boolean iconTinted = false;
 
     private int selectedColor = 0;
     private int selectedColorRes = -1;
