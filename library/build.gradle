@@ -21,9 +21,6 @@ android {
     lintOptions {
         abortOnError false
     }
-    dexOptions {
-        incremental true
-    }
 }
 
 apply from: 'gradle-mvn-push.gradle'
