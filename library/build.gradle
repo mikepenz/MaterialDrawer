@@ -10,7 +10,6 @@ android {
         versionCode 292
         versionName '2.9.2'
     }
-
     buildTypes {
         release {
             minifyEnabled false
@@ -19,9 +18,11 @@ android {
     }
     productFlavors {
     }
-
     lintOptions {
         abortOnError false
+    }
+    dexOptions {
+        incremental true
     }
 }
 
