@@ -188,7 +188,7 @@ public abstract class BaseDrawerItem<T> implements IDrawerItem, Nameable<T>, Ico
     }
 
     /**
-     * for backwards compatibility -> withIconTinted..
+     * for backwards compatibility - withIconTinted..
      *
      * @param iconTinted
      * @return
