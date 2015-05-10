@@ -22,3 +22,7 @@ allprojects {
         maven { url "https://oss.sonatype.org/content/repositories/snapshots/" }
     }
 }
+
+task wrapper(type: Wrapper) {
+    gradleVersion = '2.4'
+}
