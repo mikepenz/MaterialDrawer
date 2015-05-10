@@ -1,7 +1,6 @@
 package com.mikepenz.materialdrawer.util;
 
 import android.annotation.SuppressLint;
-import android.graphics.Color;
 import android.graphics.PorterDuff;
 import android.graphics.drawable.Drawable;
 import android.graphics.drawable.StateListDrawable;
@@ -14,13 +13,17 @@ import android.graphics.drawable.StateListDrawable;
 @SuppressLint("InlinedApi")
 public class PressedEffectStateListDrawable extends StateListDrawable {
 
+    private int color;
     private int selectionColor;
 
-    public PressedEffectStateListDrawable(Drawable drawable, int selectionColor) {
+    public PressedEffectStateListDrawable(Drawable drawable, int color, int selectionColor) {
         super();
-        this.selectionColor = selectionColor;
+
         addState(new int[]{android.R.attr.state_activated}, drawable);
         addState(new int[]{}, drawable);
+
+        this.color = color;
+        this.selectionColor = selectionColor;
     }
 
     @Override
@@ -32,11 +35,9 @@ public class PressedEffectStateListDrawable extends StateListDrawable {
             }
         }
         if (isStatePressedInArray) {
-            super.setColorFilter(selectionColor, PorterDuff.Mode.SRC_ATOP);
-            super.setAlpha(Color.alpha(selectionColor));
+            super.setColorFilter(selectionColor, PorterDuff.Mode.SRC_IN);
         } else {
-            super.clearColorFilter();
-            super.setAlpha(255);
+            super.setColorFilter(color, PorterDuff.Mode.SRC_IN);
         }
         return super.onStateChange(states);
     }

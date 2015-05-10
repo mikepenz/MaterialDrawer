@@ -1,6 +1,7 @@
 package com.mikepenz.materialdrawer.model;
 
 import android.content.Context;
+import android.graphics.PorterDuff;
 import android.graphics.Typeface;
 import android.graphics.drawable.Drawable;
 import android.net.Uri;
@@ -38,6 +39,8 @@ public class ProfileSettingDrawerItem implements IDrawerItem, IProfile<ProfileSe
 
     private boolean enabled = true;
     private Object tag;
+
+    private boolean iconTinted = true;
 
     private int selectedColor = 0;
     private int selectedColorRes = -1;
@@ -149,6 +152,11 @@ public class ProfileSettingDrawerItem implements IDrawerItem, IProfile<ProfileSe
         return this;
     }
 
+    public ProfileSettingDrawerItem withIconTinted(boolean iconTinted) {
+        this.iconTinted = iconTinted;
+        return this;
+    }
+
     public int getSelectedColor() {
         return selectedColor;
     }
@@ -247,6 +255,14 @@ public class ProfileSettingDrawerItem implements IDrawerItem, IProfile<ProfileSe
         return this;
     }
 
+    public boolean isIconTinted() {
+        return iconTinted;
+    }
+
+    public void setIconTinted(boolean iconTinted) {
+        this.iconTinted = iconTinted;
+    }
+
     @Override
     public Typeface getTypeface() {
         return typeface;
@@ -320,40 +336,30 @@ public class ProfileSettingDrawerItem implements IDrawerItem, IProfile<ProfileSe
             viewHolder = (ViewHolder) convertView.getTag();
         }
 
-        int selected_color = selectedColor;
-        if (selected_color == 0 && selectedColorRes != -1) {
-            selected_color = ctx.getResources().getColor(selectedColorRes);
-        } else if (selected_color == 0) {
-            selected_color = UIUtils.getThemeColorFromAttrOrRes(ctx, R.attr.material_drawer_selected, R.color.material_drawer_selected);
-        }
-        UIUtils.setBackground(viewHolder.view, UIUtils.getDrawerItemBackground(selected_color));
+        //get the correct color for the background
+        int selectedColor = UIUtils.decideColor(ctx, getSelectedColor(), getSelectedColorRes(), R.attr.material_drawer_selected, R.color.material_drawer_selected);
+        //get the correct color for the text
+        int color = UIUtils.decideColor(ctx, getTextColor(), getTextColorRes(), R.attr.material_drawer_primary_text, R.color.material_drawer_primary_text);
+        int iconColor = UIUtils.decideColor(ctx, getIconColor(), getIconColorRes(), R.attr.material_drawer_primary_icon, R.color.material_drawer_primary_icon);
+
+        UIUtils.setBackground(viewHolder.view, UIUtils.getDrawerItemBackground(selectedColor));
 
         viewHolder.name.setText(this.getName());
-
-        int color = textColor;
-        if (color == 0 && textColorRes != -1) {
-            color = ctx.getResources().getColor(textColorRes);
-        } else if (color == 0) {
-            color = UIUtils.getThemeColorFromAttrOrRes(ctx, R.attr.material_drawer_primary_text, R.color.material_drawer_primary_text);
-        }
         viewHolder.name.setTextColor(color);
 
         if (getTypeface() != null) {
             viewHolder.name.setTypeface(getTypeface());
         }
 
-        int icon_color = iconColor;
-        if (icon_color == 0 && iconColorRes != -1) {
-            icon_color = ctx.getResources().getColor(iconColorRes);
-        } else if (icon_color == 0) {
-            icon_color = UIUtils.getThemeColorFromAttrOrRes(ctx, R.attr.material_drawer_primary_text, R.color.material_drawer_primary_text);
-        }
-
+        //get the correct icon
         if (this.getIcon() != null) {
-            viewHolder.icon.setImageDrawable(this.getIcon());
+            if (icon != null && isIconTinted() && iicon == null) {
+                icon.setColorFilter(iconColor, PorterDuff.Mode.SRC_IN);
+            }
+            viewHolder.icon.setImageDrawable(icon);
             viewHolder.icon.setVisibility(View.VISIBLE);
         } else if (this.getIIcon() != null) {
-            viewHolder.icon.setImageDrawable(new IconicsDrawable(ctx, this.getIIcon()).color(icon_color).actionBarSize().paddingDp(2));
+            viewHolder.icon.setImageDrawable(new IconicsDrawable(ctx, this.getIIcon()).color(iconColor).actionBarSize().paddingDp(2));
             viewHolder.icon.setVisibility(View.VISIBLE);
         } else {
             viewHolder.icon.setVisibility(View.GONE);

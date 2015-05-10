@@ -285,13 +285,12 @@ public class ProfileDrawerItem implements IDrawerItem, IProfile<ProfileDrawerIte
             viewHolder = (ViewHolder) convertView.getTag();
         }
 
-        int selected_color = selectedColor;
-        if (selected_color == 0 && selectedColorRes != -1) {
-            selected_color = ctx.getResources().getColor(selectedColorRes);
-        } else if (selected_color == 0) {
-            selected_color = UIUtils.getThemeColorFromAttrOrRes(ctx, R.attr.material_drawer_selected, R.color.material_drawer_selected);
-        }
-        UIUtils.setBackground(viewHolder.view, UIUtils.getDrawerItemBackground(selected_color));
+        //get the correct color for the background
+        int selectedColor = UIUtils.decideColor(ctx, getSelectedColor(), getSelectedColorRes(), R.attr.material_drawer_selected, R.color.material_drawer_selected);
+        //get the correct color for the text
+        int color = UIUtils.decideColor(ctx, getTextColor(), getTextColorRes(), R.attr.material_drawer_primary_text, R.color.material_drawer_primary_text);
+
+        UIUtils.setBackground(viewHolder.view, UIUtils.getDrawerItemBackground(selectedColor));
 
         if (nameShown) {
             viewHolder.name.setVisibility(View.VISIBLE);
@@ -314,12 +313,6 @@ public class ProfileDrawerItem implements IDrawerItem, IProfile<ProfileDrawerIte
             viewHolder.email.setTypeface(getTypeface());
         }
 
-        int color = textColor;
-        if (color == 0 && textColorRes != -1) {
-            color = ctx.getResources().getColor(textColorRes);
-        } else if (color == 0) {
-            color = UIUtils.getThemeColorFromAttrOrRes(ctx, R.attr.material_drawer_primary_text, R.color.material_drawer_primary_text);
-        }
         if (nameShown) {
             viewHolder.name.setTextColor(color);
         }

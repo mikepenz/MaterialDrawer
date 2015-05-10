@@ -170,13 +170,8 @@ public class SectionDrawerItem implements IDrawerItem, Nameable<SectionDrawerIte
         viewHolder.view.setClickable(false);
         viewHolder.view.setEnabled(false);
 
-        int text_color = textColor;
-        if (text_color == 0 && textColorRes != -1) {
-            text_color = ctx.getResources().getColor(textColorRes);
-        } else if (text_color == 0) {
-            text_color = UIUtils.getThemeColorFromAttrOrRes(ctx, R.attr.material_drawer_secondary_text, R.color.material_drawer_secondary_text);
-        }
-        viewHolder.name.setTextColor(text_color);
+        textColor = UIUtils.decideColor(ctx, getTextColor(), getTextColorRes(), R.attr.material_drawer_secondary_text, R.color.material_drawer_secondary_text);
+        viewHolder.name.setTextColor(textColor);
 
         if (this.getNameRes() != -1) {
             viewHolder.name.setText(this.getNameRes());

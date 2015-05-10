@@ -29,9 +29,10 @@ public abstract class BaseDrawerItem<T> implements IDrawerItem, Nameable<T>, Ico
     private boolean checkable = true;
     private Object tag;
 
+    private boolean iconTinted = true;
+
     private int selectedColor = 0;
     private int selectedColorRes = -1;
-    private boolean selectedIconTinted = true;
 
     private int textColor = 0;
     private int textColorRes = -1;
@@ -181,9 +182,19 @@ public abstract class BaseDrawerItem<T> implements IDrawerItem, Nameable<T>, Ico
         return (T) this;
     }
 
-    public T withTintSelectedIcon(boolean tintSelectedIcon) {
-        this.selectedIconTinted = tintSelectedIcon;
+    public T withIconTinted(boolean iconTinted) {
+        this.iconTinted = iconTinted;
         return (T) this;
+    }
+
+    /**
+     * for backwards compatibility -> withIconTinted..
+     *
+     * @param iconTinted
+     * @return
+     */
+    public T withTintSelectedIcon(boolean iconTinted) {
+        return withIconTinted(iconTinted);
     }
 
     public T withTypeface(Typeface typeface) {
@@ -255,12 +266,12 @@ public abstract class BaseDrawerItem<T> implements IDrawerItem, Nameable<T>, Ico
         this.disabledTextColorRes = disabledTextColorRes;
     }
 
-    public boolean isSelectedIconTinted() {
-        return selectedIconTinted;
+    public boolean isIconTinted() {
+        return iconTinted;
     }
 
-    public void setSelectedIconTinted(boolean selectedIconTinted) {
-        this.selectedIconTinted = selectedIconTinted;
+    public void setIconTinted(boolean iconTinted) {
+        this.iconTinted = iconTinted;
     }
 
     @Override

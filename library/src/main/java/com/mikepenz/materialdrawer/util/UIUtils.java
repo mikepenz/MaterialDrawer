@@ -6,6 +6,7 @@ import android.content.res.ColorStateList;
 import android.content.res.Configuration;
 import android.content.res.Resources;
 import android.content.res.TypedArray;
+import android.graphics.PorterDuff;
 import android.graphics.drawable.ColorDrawable;
 import android.graphics.drawable.Drawable;
 import android.graphics.drawable.StateListDrawable;
@@ -16,6 +17,7 @@ import android.view.View;
 
 import com.mikepenz.google_material_typeface_library.GoogleMaterial;
 import com.mikepenz.iconics.IconicsDrawable;
+import com.mikepenz.iconics.typeface.IIcon;
 import com.mikepenz.materialdrawer.R;
 
 /**
@@ -23,7 +25,7 @@ import com.mikepenz.materialdrawer.R;
  */
 @SuppressLint("InlinedApi")
 public class UIUtils {
-    public static ColorStateList getTextColor(int text_color, int selected_text_color) {
+    public static ColorStateList getTextColorStateList(int text_color, int selected_text_color) {
         return new ColorStateList(
                 new int[][]{
                         new int[]{android.R.attr.state_activated},
@@ -36,7 +38,7 @@ public class UIUtils {
         );
     }
 
-    public static StateListDrawable getIconColor(Drawable icon, Drawable selectedIcon) {
+    public static StateListDrawable getIconStateList(Drawable icon, Drawable selectedIcon) {
         StateListDrawable iconStateListDrawable = new StateListDrawable();
         iconStateListDrawable.addState(new int[]{android.R.attr.state_activated}, selectedIcon);
         iconStateListDrawable.addState(new int[]{}, icon);

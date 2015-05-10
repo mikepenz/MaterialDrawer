@@ -10,7 +10,6 @@ import android.widget.CompoundButton;
 import android.widget.ImageView;
 import android.widget.TextView;
 
-import com.mikepenz.iconics.IconicsDrawable;
 import com.mikepenz.materialdrawer.R;
 import com.mikepenz.materialdrawer.model.interfaces.OnCheckedChangeListener;
 import com.mikepenz.materialdrawer.util.PressedEffectStateListDrawable;
@@ -116,20 +115,36 @@ public class SwitchDrawerItem extends BaseDrawerItem<SwitchDrawerItem> {
             viewHolder = (ViewHolder) convertView.getTag();
         }
 
-        int selected_color = getSelectedColor();
-        if (selected_color == 0 && getSelectedColorRes() != -1) {
-            selected_color = ctx.getResources().getColor(getSelectedColorRes());
-        } else if (selected_color == 0) {
-            selected_color = UIUtils.getThemeColorFromAttrOrRes(ctx, R.attr.material_drawer_selected, R.color.material_drawer_selected);
+        //get the correct color for the background
+        int selectedColor = UIUtils.decideColor(ctx, getSelectedColor(), getSelectedColorRes(), R.attr.material_drawer_selected, R.color.material_drawer_selected);
+        //get the correct color for the text
+        int color;
+        if (this.isEnabled()) {
+            color = UIUtils.decideColor(ctx, getTextColor(), getTextColorRes(), R.attr.material_drawer_primary_text, R.color.material_drawer_primary_text);
+        } else {
+            color = UIUtils.decideColor(ctx, getDisabledTextColor(), getDisabledTextColorRes(), R.attr.material_drawer_hint_text, R.color.material_drawer_hint_text);
         }
-        UIUtils.setBackground(viewHolder.view, UIUtils.getDrawerItemBackground(selected_color));
+        int selectedTextColor = UIUtils.decideColor(ctx, getSelectedTextColor(), getSelectedTextColorRes(), R.attr.material_drawer_selected_text, R.color.material_drawer_selected_text);
+        //get the correct color for the icon
+        int iconColor;
+        if (this.isEnabled()) {
+            iconColor = UIUtils.decideColor(ctx, getIconColor(), getIconColorRes(), R.attr.material_drawer_primary_icon, R.color.material_drawer_primary_icon);
+        } else {
+            iconColor = UIUtils.decideColor(ctx, getDisabledIconColor(), getDisabledIconColorRes(), R.attr.material_drawer_hint_text, R.color.material_drawer_hint_text);
+        }
+        int selectedIconColor = UIUtils.decideColor(ctx, getSelectedIconColor(), getSelectedColorRes(), R.attr.material_drawer_selected_text, R.color.material_drawer_selected_text);
 
+        //set the background for the item
+        UIUtils.setBackground(viewHolder.view, UIUtils.getDrawerItemBackground(selectedColor));
+
+        //set the text for the name
         if (this.getNameRes() != -1) {
             viewHolder.name.setText(this.getNameRes());
         } else {
             viewHolder.name.setText(this.getName());
         }
 
+        //set the text for the description or hide
         viewHolder.description.setVisibility(View.VISIBLE);
         if (this.getDescriptionRes() != -1) {
             viewHolder.description.setText(this.getDescriptionRes());
@@ -151,94 +166,34 @@ public class SwitchDrawerItem extends BaseDrawerItem<SwitchDrawerItem> {
         viewHolder.switchView.setOnCheckedChangeListener(checkedChangeListener);
         viewHolder.switchView.setEnabled(switchEnabled);
 
-        //get the correct color for the text
-        int color;
-        int selected_text = getSelectedTextColor();
-        if (selected_text == 0 && getSelectedTextColorRes() != -1) {
-            selected_text = ctx.getResources().getColor(getSelectedTextColorRes());
-        } else if (selected_text == 0) {
-            selected_text = UIUtils.getThemeColorFromAttrOrRes(ctx, R.attr.material_drawer_selected_text, R.color.material_drawer_selected_text);
-        }
-        if (this.isEnabled()) {
-            color = getTextColor();
-            if (color == 0 && getTextColorRes() != -1) {
-                color = ctx.getResources().getColor(getTextColorRes());
-            } else if (color == 0) {
-                color = UIUtils.getThemeColorFromAttrOrRes(ctx, R.attr.material_drawer_primary_text, R.color.material_drawer_primary_text);
-            }
-        } else {
-            color = getDisabledTextColor();
-            if (color == 0 && getDisabledTextColorRes() != -1) {
-                color = ctx.getResources().getColor(getDisabledTextColorRes());
-            } else if (color == 0) {
-                color = UIUtils.getThemeColorFromAttrOrRes(ctx, R.attr.material_drawer_hint_text, R.color.material_drawer_hint_text);
-            }
-        }
+        //set the colors for textViews
+        viewHolder.name.setTextColor(UIUtils.getTextColorStateList(color, selectedTextColor));
+        viewHolder.description.setTextColor(UIUtils.getTextColorStateList(color, selectedTextColor));
 
-        //get the correct color for the icon
-        int iconColor;
-        int selected_icon = getSelectedIconColor();
-        if (selected_icon == 0 && getSelectedIconColorRes() != -1) {
-            selected_icon = ctx.getResources().getColor(getSelectedIconColorRes());
-        } else if (selected_icon == 0) {
-            selected_icon = UIUtils.getThemeColorFromAttrOrRes(ctx, R.attr.material_drawer_selected_text, R.color.material_drawer_selected_text);
-        }
-        if (this.isEnabled()) {
-            iconColor = getIconColor();
-            if (iconColor == 0 && getIconColorRes() != -1) {
-                iconColor = ctx.getResources().getColor(getIconColorRes());
-            } else if (iconColor == 0) {
-                iconColor = UIUtils.getThemeColorFromAttrOrRes(ctx, R.attr.material_drawer_primary_icon, R.color.material_drawer_primary_icon);
-            }
-        } else {
-            iconColor = getDisabledIconColor();
-            if (iconColor == 0 && getDisabledIconColorRes() != -1) {
-                iconColor = ctx.getResources().getColor(getDisabledIconColorRes());
-            } else if (iconColor == 0) {
-                iconColor = UIUtils.getThemeColorFromAttrOrRes(ctx, R.attr.material_drawer_hint_text, R.color.material_drawer_hint_text);
-            }
-        }
-
-        viewHolder.name.setTextColor(UIUtils.getTextColor(color, selected_text));
-        viewHolder.description.setTextColor(UIUtils.getTextColor(color, selected_text));
-
+        //define the typeface for our textViews
         if (getTypeface() != null) {
             viewHolder.name.setTypeface(getTypeface());
             viewHolder.description.setTypeface(getTypeface());
         }
 
-        Drawable icon = null;
-        Drawable selectedIcon = null;
-        if (this.getIcon() != null) {
-            icon = this.getIcon();
+        //get the drawables for our icon
+        Drawable icon = UIUtils.decideIcon(ctx, getIcon(), getIIcon(), getIconRes(), iconColor, isIconTinted());
+        Drawable selectedIcon = UIUtils.decideIcon(ctx, getSelectedIcon(), getIIcon(), getSelectedIconRes(), selectedIconColor, isIconTinted());
 
-            if (this.getSelectedIcon() != null) {
-                selectedIcon = this.getSelectedIcon();
-            } else if (this.isSelectedIconTinted()) {
-                icon = new PressedEffectStateListDrawable(icon, selected_icon);
-            }
-        } else if (this.getIIcon() != null) {
-            icon = new IconicsDrawable(ctx, this.getIIcon()).color(iconColor).actionBarSize().paddingDp(1);
-            selectedIcon = new IconicsDrawable(ctx, this.getIIcon()).color(selected_icon).actionBarSize().paddingDp(1);
-        } else if (this.getIconRes() > -1) {
-            icon = UIUtils.getCompatDrawable(ctx, getIconRes());
-
-            if (this.getSelectedIconRes() > -1) {
-                selectedIcon = UIUtils.getCompatDrawable(ctx, getSelectedIconRes());
-            } else if (this.isSelectedIconTinted()) {
-                icon = new PressedEffectStateListDrawable(icon, selected_icon);
-            }
-        }
-
+        //if we have an icon then we want to set it
         if (icon != null) {
+            //if we got a different color for the selectedIcon we need a StateList
             if (selectedIcon != null) {
-                viewHolder.icon.setImageDrawable(UIUtils.getIconColor(icon, selectedIcon));
+                viewHolder.icon.setImageDrawable(UIUtils.getIconStateList(icon, selectedIcon));
+            } else if (isIconTinted()) {
+                viewHolder.icon.setImageDrawable(new PressedEffectStateListDrawable(icon, iconColor, selectedIconColor));
             } else {
                 viewHolder.icon.setImageDrawable(icon);
             }
-
+            //make sure we display the icon
             viewHolder.icon.setVisibility(View.VISIBLE);
         } else {
+            //hide the icon
             viewHolder.icon.setVisibility(View.GONE);
         }
 
