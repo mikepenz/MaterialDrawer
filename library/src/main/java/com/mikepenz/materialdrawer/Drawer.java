@@ -48,6 +48,15 @@ import java.util.Collections;
  * Created by mikepenz on 03.02.15.
  */
 public class Drawer {
+    /**
+     * Per the design guidelines, you should show the drawer on launch until the user manually
+     * expands it. This shared preference tracks this.
+     */
+    private static final String PREF_USER_LEARNED_DRAWER = "navigation_drawer_learned";
+
+    /**
+     * BUNDLE param to store the selection
+     */
     private static final String BUNDLE_SELECTION = "bundle_selection";
 
     // some internal vars
@@ -1044,7 +1053,7 @@ public class Drawer {
         if (mActivity != null && mDrawerLayout != null && mShowDrawerOnFirstLaunch) {
             SharedPreferences preferences = PreferenceManager.getDefaultSharedPreferences(mActivity);
             //if it was not shown yet
-            if (!preferences.getBoolean("MaterialDrawer_showedOnFirstLaunch", false)) {
+            if (!preferences.getBoolean(PREF_USER_LEARNED_DRAWER, false)) {
                 //open the drawer
                 if (mDrawerGravity != null) {
                     mDrawerLayout.openDrawer(mDrawerGravity);
@@ -1054,7 +1063,7 @@ public class Drawer {
 
                 //save that it showed up once ;)
                 SharedPreferences.Editor editor = preferences.edit();
-                editor.putBoolean("MaterialDrawer_showedOnFirstLaunch", true);
+                editor.putBoolean(PREF_USER_LEARNED_DRAWER, true);
                 editor.apply();
             }
         }
