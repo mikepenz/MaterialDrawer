@@ -332,16 +332,28 @@ androidTestCompile ('com.android.support.test.espresso:espresso-contrib:2.0') {
 }
 ```
 
+#####I have problems with the SoftKeyboard. How can i fix this?
+The MaterialDrawer will display your activity as FullScreen. Starting with API 19
+the `adjustResize` works different then. This is default Android behavior. 
+This is a big issue for a lot of devs so i've created a helper which "fixes" this issue. 
+(It is recommend to just enable it for activities / fragments which need it)
+```java
+.keyboardSupportEnabled(activity, enabled)
+```
+A additional workaround is to disable the translucent StatusBar (This will break the
+drawer to be displayed under the StatusBar). `.withTranslucentStatusBar(false)`
+
+You can read about this here: https://github.com/mikepenz/MaterialDrawer/issues/95, https://github.com/mikepenz/MaterialDrawer/issues/183, https://github.com/mikepenz/MaterialDrawer/issues/196
+
 ##Apps using the MaterialDrawer
 (feel free to send me new projects)
 
 * [wall:splash](https://play.google.com/store/apps/details?id=com.mikepenz.unsplash)
 
 * [GitSkarios](https://play.google.com/store/apps/details?id=com.alorma.github)
-
 * [Academic Schedule](https://play.google.com/store/apps/details?id=com.auebcsschedule.ppt)
-
 * [Strength](https://play.google.com/store/apps/details?id=com.e13engineering.strength)
+* [Sprit Club](https://play.google.com/store/apps/details?id=at.idev.spritpreise)
 
 
 
