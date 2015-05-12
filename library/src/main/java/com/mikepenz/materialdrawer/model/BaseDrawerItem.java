@@ -182,6 +182,19 @@ public abstract class BaseDrawerItem<T> implements IDrawerItem, Nameable<T>, Ico
         return (T) this;
     }
 
+    /**
+     * will tint the icon with the default (or set) colors
+     * (default and selected state)
+     *
+     * @param iconTintingEnabled
+     * @return
+     */
+    public T withIconTintingEnabled(boolean iconTintingEnabled) {
+        this.iconTinted = iconTintingEnabled;
+        return (T) this;
+    }
+
+    @Deprecated
     public T withIconTinted(boolean iconTinted) {
         this.iconTinted = iconTinted;
         return (T) this;
@@ -193,8 +206,9 @@ public abstract class BaseDrawerItem<T> implements IDrawerItem, Nameable<T>, Ico
      * @param iconTinted
      * @return
      */
+    @Deprecated
     public T withTintSelectedIcon(boolean iconTinted) {
-        return withIconTinted(iconTinted);
+        return withIconTintingEnabled(iconTinted);
     }
 
     public T withTypeface(Typeface typeface) {
