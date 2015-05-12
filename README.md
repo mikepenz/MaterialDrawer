@@ -351,10 +351,9 @@ You can read about this here: https://github.com/mikepenz/MaterialDrawer/issues/
 * [wall:splash](https://play.google.com/store/apps/details?id=com.mikepenz.unsplash)
 
 * [GitSkarios](https://play.google.com/store/apps/details?id=com.alorma.github)
-
 * [Academic Schedule](https://play.google.com/store/apps/details?id=com.auebcsschedule.ppt)
-
 * [Strength](https://play.google.com/store/apps/details?id=com.e13engineering.strength)
+* [Sprit Club](https://play.google.com/store/apps/details?id=at.idev.spritpreise)
 
 
 
