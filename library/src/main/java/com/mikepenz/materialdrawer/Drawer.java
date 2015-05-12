@@ -1,11 +1,13 @@
 package com.mikepenz.materialdrawer;
 
 import android.app.Activity;
+import android.content.SharedPreferences;
 import android.graphics.Color;
 import android.graphics.drawable.Drawable;
 import android.os.Build;
 import android.os.Bundle;
 import android.os.Handler;
+import android.preference.PreferenceManager;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.widget.Toolbar;
@@ -965,6 +967,19 @@ public class Drawer {
         return this;
     }
 
+    //show the drawer on the first launch to show the user its there
+    protected boolean mShowDrawerOnFirstLaunch = false;
+
+    /**
+     * define if the Drawer is shown on the first launch
+     *
+     * @param showDrawerOnFirstLaunch
+     * @return
+     */
+    public Drawer withShowDrawerOnFirstLaunch(boolean showDrawerOnFirstLaunch) {
+        this.mShowDrawerOnFirstLaunch = showDrawerOnFirstLaunch;
+        return this;
+    }
 
     // savedInstance to restore state
     protected Bundle mSavedInstance;
@@ -1019,6 +1034,30 @@ public class Drawer {
             winParams.flags &= ~bits;
         }
         win.setAttributes(winParams);
+    }
+
+    /**
+     * helper method to handle when the drawer should be shown on the first launch
+     */
+    private void handleShowOnFirstLaunch() {
+        //check if it should be shown on first launch (and we have a drawerLayout)
+        if (mActivity != null && mDrawerLayout != null && mShowDrawerOnFirstLaunch) {
+            SharedPreferences preferences = PreferenceManager.getDefaultSharedPreferences(mActivity);
+            //if it was not shown yet
+            if (!preferences.getBoolean("MaterialDrawer_showedOnFirstLaunch", false)) {
+                //open the drawer
+                if (mDrawerGravity != null) {
+                    mDrawerLayout.openDrawer(mDrawerGravity);
+                } else if (mSliderLayout != null) {
+                    mDrawerLayout.openDrawer(mSliderLayout);
+                }
+
+                //save that it showed up once ;)
+                SharedPreferences.Editor editor = preferences.edit();
+                editor.putBoolean("MaterialDrawer_showedOnFirstLaunch", true);
+                editor.apply();
+            }
+        }
     }
 
     /**
@@ -1234,6 +1273,11 @@ public class Drawer {
         return result;
     }
 
+    /**
+     * build the drawers content only. This will still return a Result object, but only with the content set. No inflating of a DrawerLayout.
+     *
+     * @return Result object with only the content set
+     */
     public Result buildView() {
         // get the slider view
         mSliderLayout = (RelativeLayout) mActivity.getLayoutInflater().inflate(R.layout.material_drawer_slider, mDrawerLayout, false);
@@ -1271,6 +1315,9 @@ public class Drawer {
         if (mAccountHeader != null) {
             mAccountHeader.setDrawer(result);
         }
+
+        //handle if the drawer should be shown on first launch
+        handleShowOnFirstLaunch();
 
         //forget the reference to the activity
         mActivity = null;

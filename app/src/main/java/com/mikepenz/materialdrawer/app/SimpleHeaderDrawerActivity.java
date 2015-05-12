@@ -157,6 +157,7 @@ public class SimpleHeaderDrawerActivity extends AppCompatActivity {
                     }
                 })
                 .withSavedInstance(savedInstanceState)
+                .withShowDrawerOnFirstLaunch(true)
                 .build();
 
         //only set the active selection or active profile if we do not recreate the activity
