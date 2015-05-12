@@ -589,18 +589,23 @@ public class AccountHeader {
             } else {
                 //calculate the header height by getting the optimal drawer width and calculating it * 9 / 16
                 height = (int) (UIUtils.getOptimalDrawerWidth(mActivity) * NAVIGATION_DRAWER_ACCOUNT_ASPECT_RATIO);
+
+                //if we are lower than api 19 (>= 19 we have a translucentStatusBar) the height should be a bit lower
+                //probably even if we are non translucent on > 19 devices?
+                if (Build.VERSION.SDK_INT < 19) {
+                    height = height - UIUtils.getStatusBarHeight(mActivity, true);
+                }
             }
         }
 
         // handle everything if we don't have a translucent status bar
         if (mTranslucentStatusBar) {
             mAccountHeader.setPadding(0, UIUtils.getStatusBarHeight(mActivity), 0, 0);
-            //in fact it makes no difference if we have a translucent statusBar or not. we want 9/16 just if we are compact
+            //in fact it makes no difference if we have a translucent statusBar or not. we want 9/16 just if we are not compact
             if (mCompactStyle) {
                 height = height + UIUtils.getStatusBarHeight(mActivity);
             }
         }
-
 
         //set the height for the header
         setHeaderHeight(height);

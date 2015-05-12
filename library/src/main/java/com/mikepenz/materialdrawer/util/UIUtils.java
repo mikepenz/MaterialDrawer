@@ -220,6 +220,17 @@ public class UIUtils {
      * @return
      */
     public static int getStatusBarHeight(Context context) {
+        return getStatusBarHeight(context, false);
+    }
+
+    /**
+     * helper to calculate the statusBar height
+     *
+     * @param context
+     * @param force   pass true to get the height even if the device has no translucent statusBar
+     * @return
+     */
+    public static int getStatusBarHeight(Context context, boolean force) {
         int result = 0;
         int resourceId = context.getResources().getIdentifier("status_bar_height", "dimen", "android");
         if (resourceId > 0) {
@@ -228,7 +239,7 @@ public class UIUtils {
 
         int dimenResult = context.getResources().getDimensionPixelSize(R.dimen.tool_bar_top_padding);
         //if our dimension is 0 return 0 because on those devices we don't need the height
-        if (dimenResult == 0) {
+        if (dimenResult == 0 && !force) {
             return 0;
         } else {
             //if our dimens is > 0 && the result == 0 use the dimenResult else the result;
