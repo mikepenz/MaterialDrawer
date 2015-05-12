@@ -1687,7 +1687,6 @@ public class Drawer {
         //set the background color to the drawer background color (if it has alpha the shadow won't be visible)
         linearLayout.setBackgroundColor(UIUtils.getThemeColorFromAttrOrRes(mActivity, R.attr.material_drawer_background, R.color.material_drawer_background));
 
-
         if (Build.VERSION.SDK_INT >= 21) {
             //set the elevation shadow
             linearLayout.setElevation(UIUtils.convertDpToPixel(4f, mActivity));
@@ -1740,12 +1739,11 @@ public class Drawer {
                 view.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
-                        resetStickyFooterSelection();
-
                         IDrawerItem drawerItem = (IDrawerItem) v.getTag();
-                        boolean notCheckable = drawerItem != null && drawerItem instanceof Checkable && !((Checkable) drawerItem).isCheckable();
-                        boolean checkable = !notCheckable;
+                        boolean checkable = !(drawerItem != null && drawerItem instanceof Checkable && !((Checkable) drawerItem).isCheckable());
                         if (checkable) {
+                            resetStickyFooterSelection();
+
                             if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.HONEYCOMB) {
                                 v.setActivated(true);
                             }
