@@ -46,7 +46,7 @@ You can try it out here [Google Play](https://play.google.com/store/apps/details
 The MaterialDrawer Library is pushed to [Maven Central](http://search.maven.org/#search|ga|1|g%3A%22com.mikepenz.materialdrawer%22), so you just need to add the following dependency to your `build.gradle`.
 
 ```javascript
-compile('com.mikepenz.materialdrawer:library:2.9.5@aar') {
+compile('com.mikepenz.materialdrawer:library:2.9.6@aar') {
 	transitive = true
 }
 ```
@@ -57,7 +57,7 @@ You can find a detailed description of all methods in the [WIKI](https://github.
 
 ###Upgrade Notes
 #### < v2.9.5
-Tinting is now off by DEFAULT again. Enable it for your items with `withIconTinted(true)` if needed. This release now also tint's the normal state of the icon.
+Tinting is now off by DEFAULT again. Enable it for your items with `withIconTintingEnabled(true)` if needed. This release now also tint's the normal state of the icon.
 
 #### < v2.9.0
 v2.9.0 now uses the latest com.android.support:appcompat version 22.1.1. Please update if you use an older version. It is now also required to set the theme within your layout for toolbars. (Especially for the DarkToolbar theme)
