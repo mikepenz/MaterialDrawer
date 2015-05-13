@@ -1253,7 +1253,9 @@ public class Drawer {
             mDrawerLayout.setDrawerListener(new DrawerLayout.DrawerListener() {
                 @Override
                 public void onDrawerSlide(View drawerView, float slideOffset) {
-
+                    if (mOnDrawerListener != null) {
+                        mOnDrawerListener.onDrawerSlide(drawerView, slideOffset);
+                    }
                 }
 
                 @Override
