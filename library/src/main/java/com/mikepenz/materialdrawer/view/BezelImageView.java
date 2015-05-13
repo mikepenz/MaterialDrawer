@@ -319,7 +319,7 @@ public class BezelImageView extends ImageView {
 
     @Override
     public void setImageURI(Uri uri) {
-        if (uri.getScheme().equals("http") || uri.getScheme().equals("https")) {
+        if ("http".equals(uri.getScheme()) || "https".equals(uri.getScheme())) {
             DrawerImageLoader.getInstance().setImage(this, uri);
         } else {
             super.setImageURI(uri);
