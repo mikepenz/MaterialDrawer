@@ -87,7 +87,6 @@
             android:layout_alignParentEnd="true"
             android:layout_alignParentBottom="true"
             android:layout_marginBottom="@dimen/material_drawer_padding"
-            android:clickable="true"
             android:gravity="center_vertical"
             android:orientation="vertical">
 

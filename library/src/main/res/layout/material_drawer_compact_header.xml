@@ -52,7 +52,6 @@
             android:id="@+id/account_header_drawer_text_section"
             android:layout_width="match_parent"
             android:layout_height="56dp"
-            android:clickable="false"
             android:paddingLeft="@dimen/material_drawer_vertical_padding"
             android:paddingStart="@dimen/material_drawer_vertical_padding"
             android:paddingRight="@dimen/material_drawer_vertical_padding"

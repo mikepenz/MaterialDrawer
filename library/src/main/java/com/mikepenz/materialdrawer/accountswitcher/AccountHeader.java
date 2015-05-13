@@ -12,6 +12,7 @@ import android.text.TextUtils;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
+import android.widget.FrameLayout;
 import android.widget.ImageView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
@@ -562,6 +563,31 @@ public class AccountHeader {
     }
 
     /**
+     * a small helper to handle the selectionView
+     *
+     * @param on
+     */
+    private void handleSelectionView(boolean on) {
+        if (on) {
+            if (Build.VERSION.SDK_INT >= 21) {
+                ((FrameLayout) mAccountHeaderContainer).setForeground(UIUtils.getCompatDrawable(mAccountHeaderContainer.getContext(), mAccountHeaderTextSectionBackgroundResource));
+                mAccountHeaderContainer.setOnClickListener(onSelectionClickListener);
+            } else {
+                mAccountHeaderTextSection.setBackgroundResource(mAccountHeaderTextSectionBackgroundResource);
+                mAccountHeaderTextSection.setOnClickListener(onSelectionClickListener);
+            }
+        } else {
+            if (Build.VERSION.SDK_INT >= 21) {
+                ((FrameLayout) mAccountHeaderContainer).setForeground(null);
+                mAccountHeaderContainer.setOnClickListener(null);
+            } else {
+                UIUtils.setBackground(mAccountHeaderTextSection, null);
+                mAccountHeaderTextSection.setOnClickListener(null);
+            }
+        }
+    }
+
+    /**
      * method to build the header view
      *
      * @return
@@ -638,7 +664,7 @@ public class AccountHeader {
         }
 
         mAccountHeaderTextSectionBackgroundResource = UIUtils.getSelectableBackground(mActivity);
-        mAccountHeaderTextSection.setBackgroundResource(mAccountHeaderTextSectionBackgroundResource);
+        handleSelectionView(true);
 
         // set the arrow :D
         mAccountSwitcherArrow = (ImageView) mAccountHeaderContainer.findViewById(R.id.account_header_drawer_text_switcher);
@@ -868,8 +894,6 @@ public class AccountHeader {
     protected void buildProfiles() {
         mCurrentProfileView.setVisibility(View.INVISIBLE);
         mAccountHeaderTextSection.setVisibility(View.INVISIBLE);
-        mAccountHeaderTextSection.setOnClickListener(onSelectionClickListener);
-        mAccountHeaderTextSection.setBackgroundResource(mAccountHeaderTextSectionBackgroundResource);
         mAccountSwitcherArrow.setVisibility(View.INVISIBLE);
         mProfileFirstView.setVisibility(View.INVISIBLE);
         mProfileFirstView.setOnClickListener(null);
@@ -877,6 +901,8 @@ public class AccountHeader {
         mProfileSecondView.setOnClickListener(null);
         mProfileThirdView.setVisibility(View.INVISIBLE);
         mProfileThirdView.setOnClickListener(null);
+
+        handleSelectionView(true);
 
         if (mCurrentProfile != null) {
             if (mProfileImagesVisible) {
@@ -895,7 +921,7 @@ public class AccountHeader {
 
             mAccountHeaderTextSection.setTag(mCurrentProfile);
             mAccountHeaderTextSection.setVisibility(View.VISIBLE);
-            mAccountHeaderTextSection.setBackgroundResource(mAccountHeaderTextSectionBackgroundResource);
+            handleSelectionView(true);
             mAccountSwitcherArrow.setVisibility(View.VISIBLE);
             mCurrentProfileName.setText(mCurrentProfile.getName());
             mCurrentProfileEmail.setText(mCurrentProfile.getEmail());
@@ -943,8 +969,8 @@ public class AccountHeader {
             IProfile profile = mProfiles.get(0);
             mAccountHeaderTextSection.setTag(profile);
             mAccountHeaderTextSection.setVisibility(View.VISIBLE);
+            handleSelectionView(true);
             mAccountSwitcherArrow.setVisibility(View.VISIBLE);
-            mAccountHeaderTextSection.setBackgroundResource(mAccountHeaderTextSectionBackgroundResource);
             mCurrentProfileName.setText(profile.getName());
             mCurrentProfileEmail.setText(profile.getEmail());
         }
@@ -967,16 +993,16 @@ public class AccountHeader {
         //if we disabled the list
         if (!mSelectionListEnabled) {
             mAccountSwitcherArrow.setVisibility(View.INVISIBLE);
-            UIUtils.setBackground(mAccountHeaderTextSection, null);
+            handleSelectionView(false);
         }
         if (!mSelectionListEnabledForSingleProfile && mProfileFirst == null && (mProfiles == null || mProfiles.size() == 1)) {
             mAccountSwitcherArrow.setVisibility(View.INVISIBLE);
-            UIUtils.setBackground(mAccountHeaderTextSection, null);
+            handleSelectionView(false);
         }
 
         //if we disabled the list but still have set a custom listener
         if (mOnAccountHeaderSelectionViewClickListener != null) {
-            mAccountHeaderTextSection.setBackgroundResource(mAccountHeaderTextSectionBackgroundResource);
+            handleSelectionView(true);
         }
     }
 
