@@ -219,6 +219,8 @@ public class SwitchDrawerItem extends BaseDrawerItem<SwitchDrawerItem> {
     private CompoundButton.OnCheckedChangeListener checkedChangeListener = new CompoundButton.OnCheckedChangeListener() {
         @Override
         public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+            checked = isChecked;
+
             if (getOnCheckedChangeListener() != null) {
                 getOnCheckedChangeListener().onCheckedChanged(SwitchDrawerItem.this, buttonView, isChecked);
             }
