@@ -12,8 +12,8 @@
     <RelativeLayout
         android:id="@+id/account_header_drawer"
         android:layout_width="match_parent"
-        android:clickable="true"
-        android:layout_height="@dimen/material_drawer_account_header_height_compact">
+        android:layout_height="@dimen/material_drawer_account_header_height_compact"
+        android:clickable="true">
 
         <com.mikepenz.materialdrawer.view.BezelImageView
             android:id="@+id/account_header_drawer_small_first"
@@ -37,14 +37,14 @@
             android:id="@+id/account_header_drawer_current"
             android:layout_width="@dimen/material_drawer_account_header_compact"
             android:layout_height="@dimen/material_drawer_account_header_compact"
-            android:elevation="2dp"
+            android:layout_alignParentBottom="true"
             android:layout_alignParentLeft="true"
             android:layout_alignParentStart="true"
-            android:layout_alignParentBottom="true"
+            android:layout_marginBottom="@dimen/material_drawer_padding"
             android:layout_marginLeft="@dimen/material_drawer_vertical_padding"
             android:layout_marginStart="@dimen/material_drawer_vertical_padding"
-            android:layout_marginBottom="@dimen/material_drawer_padding"
             android:clickable="true"
+            android:elevation="2dp"
             app:biv_maskDrawable="@drawable/circle_mask"
             app:biv_selectorOnPress="@color/material_drawer_primary"/>
 
@@ -52,33 +52,33 @@
             android:id="@+id/account_header_drawer_text_section"
             android:layout_width="match_parent"
             android:layout_height="56dp"
-            android:paddingLeft="@dimen/material_drawer_vertical_padding"
-            android:paddingStart="@dimen/material_drawer_vertical_padding"
-            android:paddingRight="@dimen/material_drawer_vertical_padding"
-            android:paddingEnd="@dimen/material_drawer_vertical_padding"
-            android:layout_toRightOf="@+id/account_header_drawer_current"
-            android:layout_toEndOf="@+id/account_header_drawer_current"
-            android:layout_toLeftOf="@+id/account_header_drawer_text_switcher"
-            android:layout_toStartOf="@+id/account_header_drawer_text_switcher"
             android:layout_alignParentBottom="true"
             android:layout_marginBottom="@dimen/material_drawer_padding"
+            android:layout_toEndOf="@+id/account_header_drawer_current"
+            android:layout_toLeftOf="@+id/account_header_drawer_text_switcher"
+            android:layout_toRightOf="@+id/account_header_drawer_current"
+            android:layout_toStartOf="@+id/account_header_drawer_text_switcher"
             android:gravity="center_vertical"
-            android:orientation="vertical">
+            android:orientation="vertical"
+            android:paddingEnd="@dimen/material_drawer_vertical_padding"
+            android:paddingLeft="@dimen/material_drawer_vertical_padding"
+            android:paddingRight="@dimen/material_drawer_vertical_padding"
+            android:paddingStart="@dimen/material_drawer_vertical_padding">
 
             <TextView
                 android:id="@+id/account_header_drawer_name"
-                android:fontFamily="sans-serif-medium"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:fontFamily="sans-serif-medium"
                 android:lines="1"
                 android:singleLine="true"
                 android:textSize="@dimen/material_drawer_account_header_text"/>
 
             <TextView
                 android:id="@+id/account_header_drawer_email"
-                android:fontFamily="sans-serif"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:fontFamily="sans-serif"
                 android:lines="1"
                 android:singleLine="true"
                 android:textSize="@dimen/material_drawer_account_header_text"/>
@@ -87,15 +87,15 @@
 
         <ImageView
             android:id="@+id/account_header_drawer_text_switcher"
-            android:layout_marginTop="@dimen/material_drawer_account_header_dropdown"
             android:layout_width="@dimen/material_drawer_account_header_dropdown"
             android:layout_height="@dimen/material_drawer_account_header_dropdown"
-            android:layout_marginRight="@dimen/material_drawer_vertical_padding"
-            android:layout_marginEnd="@dimen/material_drawer_vertical_padding"
-            android:layout_marginBottom="@dimen/material_drawer_padding"
             android:layout_alignParentBottom="true"
             android:layout_alignParentEnd="true"
-            android:layout_alignParentRight="true"/>
+            android:layout_alignParentRight="true"
+            android:layout_marginBottom="@dimen/material_drawer_padding"
+            android:layout_marginEnd="@dimen/material_drawer_vertical_padding"
+            android:layout_marginRight="@dimen/material_drawer_vertical_padding"
+            android:layout_marginTop="@dimen/material_drawer_account_header_dropdown"/>
 
     </RelativeLayout>
 </FrameLayout>
