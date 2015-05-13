@@ -1194,7 +1194,11 @@ public class Drawer {
                     if (mDrawerLayout.isDrawerOpen(mSliderLayout)) {
                         mDrawerLayout.closeDrawer(mSliderLayout);
                     } else {
-                        mDrawerLayout.openDrawer(mSliderLayout);
+                        if (mDrawerGravity != null) {
+                            mDrawerLayout.openDrawer(mDrawerGravity);
+                        } else {
+                            mDrawerLayout.openDrawer(mSliderLayout);
+                        }
                     }
                 }
             }
@@ -1875,7 +1879,11 @@ public class Drawer {
          */
         public void openDrawer() {
             if (mDrawer.mDrawerLayout != null && mDrawer.mSliderLayout != null) {
-                mDrawer.mDrawerLayout.openDrawer(mDrawer.mSliderLayout);
+                if (mDrawer.mDrawerGravity != null) {
+                    mDrawer.mDrawerLayout.openDrawer(mDrawer.mDrawerGravity);
+                } else {
+                    mDrawer.mDrawerLayout.openDrawer(mDrawer.mSliderLayout);
+                }
             }
         }
 
@@ -1884,7 +1892,11 @@ public class Drawer {
          */
         public void closeDrawer() {
             if (mDrawer.mDrawerLayout != null) {
-                mDrawer.mDrawerLayout.closeDrawers();
+                if (mDrawer.mDrawerGravity != null) {
+                    mDrawer.mDrawerLayout.closeDrawer(mDrawer.mDrawerGravity);
+                } else {
+                    mDrawer.mDrawerLayout.closeDrawer(mDrawer.mSliderLayout);
+                }
             }
         }
 
