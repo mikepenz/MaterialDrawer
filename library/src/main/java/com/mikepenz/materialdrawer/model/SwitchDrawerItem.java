@@ -24,6 +24,7 @@ public class SwitchDrawerItem extends BaseDrawerItem<SwitchDrawerItem> {
 
     private boolean switchEnabled = true;
 
+    private boolean checkable = false;
     private boolean checked = false;
     private OnCheckedChangeListener onCheckedChangeListener = null;
 
@@ -49,6 +50,11 @@ public class SwitchDrawerItem extends BaseDrawerItem<SwitchDrawerItem> {
 
     public SwitchDrawerItem withOnCheckedChangeListener(OnCheckedChangeListener onCheckedChangeListener) {
         this.onCheckedChangeListener = onCheckedChangeListener;
+        return this;
+    }
+
+    public SwitchDrawerItem withCheckable(boolean checkable) {
+        this.checkable = checkable;
         return this;
     }
 
@@ -90,6 +96,16 @@ public class SwitchDrawerItem extends BaseDrawerItem<SwitchDrawerItem> {
 
     public void setOnCheckedChangeListener(OnCheckedChangeListener onCheckedChangeListener) {
         this.onCheckedChangeListener = onCheckedChangeListener;
+    }
+
+    @Override
+    public boolean isCheckable() {
+        return checkable;
+    }
+
+    @Override
+    public void setCheckable(boolean checkable) {
+        this.checkable = checkable;
     }
 
     @Override
@@ -154,14 +170,17 @@ public class SwitchDrawerItem extends BaseDrawerItem<SwitchDrawerItem> {
             viewHolder.description.setVisibility(View.GONE);
         }
 
-        viewHolder.view.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                if (switchEnabled) {
-                    viewHolder.switchView.setChecked(!viewHolder.switchView.isChecked());
+        if (!isCheckable()) {
+            viewHolder.view.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    if (switchEnabled) {
+                        viewHolder.switchView.setChecked(!viewHolder.switchView.isChecked());
+                    }
                 }
-            }
-        });
+            });
+        }
+
         viewHolder.switchView.setChecked(checked);
         viewHolder.switchView.setOnCheckedChangeListener(checkedChangeListener);
         viewHolder.switchView.setEnabled(switchEnabled);
