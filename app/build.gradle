@@ -6,7 +6,7 @@ android {
 
     defaultConfig {
         applicationId "com.mikepenz.materialdrawer.app"
-        minSdkVersion 11
+        minSdkVersion 10
         targetSdkVersion 22
         versionCode 297
         versionName "2.9.7"
