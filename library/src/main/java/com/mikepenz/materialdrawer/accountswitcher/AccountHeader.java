@@ -619,7 +619,10 @@ public class AccountHeader {
                 //if we are lower than api 19 (>= 19 we have a translucentStatusBar) the height should be a bit lower
                 //probably even if we are non translucent on > 19 devices?
                 if (Build.VERSION.SDK_INT < 19) {
-                    height = height - UIUtils.getStatusBarHeight(mActivity, true);
+                    int tempHeight = height - UIUtils.getStatusBarHeight(mActivity, true);
+                    if (UIUtils.convertPixelsToDp(tempHeight, mActivity) > 140) {
+                        height = tempHeight;
+                    }
                 }
             }
         }
