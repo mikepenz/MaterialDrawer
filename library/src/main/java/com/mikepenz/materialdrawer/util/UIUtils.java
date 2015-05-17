@@ -192,7 +192,7 @@ public class UIUtils {
      * @return
      */
     public static int getOptimalDrawerWidth(Context context) {
-        int possibleMinDrawerWidth = UIUtils.getScreenWidth(context) - UIUtils.getThemeAttributeDimensionSize(context, android.R.attr.actionBarSize);
+        int possibleMinDrawerWidth = UIUtils.getScreenWidth(context) - UIUtils.getActionBarHeight(context);
         int maxDrawerWidth = context.getResources().getDimensionPixelSize(R.dimen.material_drawer_width);
         return Math.min(possibleMinDrawerWidth, maxDrawerWidth);
     }
@@ -211,6 +211,20 @@ public class UIUtils {
             return resources.getDimensionPixelSize(id);
         }
         return 0;
+    }
+
+    /**
+     * helper to calculate the actionBar height
+     *
+     * @param context
+     * @return
+     */
+    public static int getActionBarHeight(Context context) {
+        int actionBarHeight = UIUtils.getThemeAttributeDimensionSize(context, android.R.attr.actionBarSize);
+        if (actionBarHeight == 0) {
+            actionBarHeight = context.getResources().getDimensionPixelSize(R.dimen.abc_action_bar_default_height_material);
+        }
+        return actionBarHeight;
     }
 
     /**
