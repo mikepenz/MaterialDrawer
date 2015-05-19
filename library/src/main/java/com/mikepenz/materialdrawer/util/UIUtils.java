@@ -341,6 +341,7 @@ public class UIUtils {
 
         //if we got an icon AND we have auto tinting enabled AND it is no IIcon, tint it ;)
         if (icon != null && tint && iicon == null) {
+            icon = icon.mutate();
             icon.setColorFilter(iconColor, PorterDuff.Mode.SRC_IN);
             //icon.setAlpha(Color.alpha(iconColor));
         }

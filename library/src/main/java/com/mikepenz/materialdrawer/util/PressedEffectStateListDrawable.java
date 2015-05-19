@@ -19,6 +19,8 @@ public class PressedEffectStateListDrawable extends StateListDrawable {
     public PressedEffectStateListDrawable(Drawable drawable, int color, int selectionColor) {
         super();
 
+        drawable = drawable.mutate();
+
         addState(new int[]{android.R.attr.state_activated}, drawable);
         addState(new int[]{}, drawable);
 
