@@ -354,6 +354,7 @@ You can read about this here: https://github.com/mikepenz/MaterialDrawer/issues/
 * [Academic Schedule](https://play.google.com/store/apps/details?id=com.auebcsschedule.ppt)
 * [Strength](https://play.google.com/store/apps/details?id=com.e13engineering.strength)
 * [Sprit Club](https://play.google.com/store/apps/details?id=at.idev.spritpreise)
+* [FitHub](https://play.google.com/store/apps/details?id=com.gabilheri.fithub)
 
 
 
