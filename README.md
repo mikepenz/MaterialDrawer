@@ -1,4 +1,4 @@
-#MaterialDrawer  [![Maven Central](https://maven-badges.herokuapp.com/maven-central/com.mikepenz.materialdrawer/library/badge.svg?style=flat)](https://maven-badges.herokuapp.com/maven-central/com.mikepenz.materialdrawer/library) [![Android Arsenal](https://img.shields.io/badge/Android%20Arsenal-MaterialDrawer-brightgreen.svg?style=flat)](https://android-arsenal.com/details/1/1526)
+#MaterialDrawer  [![Maven Central](https://maven-badges.herokuapp.com/maven-central/com.mikepenz/materialdrawer/badge.svg?style=flat)](https://maven-badges.herokuapp.com/maven-central/com.mikepenz/materialdrawer) [![Android Arsenal](https://img.shields.io/badge/Android%20Arsenal-MaterialDrawer-brightgreen.svg?style=flat)](https://android-arsenal.com/details/1/1526)
 
 [![Join the chat at https://gitter.im/mikepenz/MaterialDrawer](https://badges.gitter.im/Join%20Chat.svg)](https://gitter.im/mikepenz/MaterialDrawer?utm_source=badge&utm_medium=badge&utm_campaign=pr-badge&utm_content=badge)
 
@@ -43,10 +43,10 @@ You can try it out here [Google Play](https://play.google.com/store/apps/details
 
 #Include in your project
 ##Using Maven
-The MaterialDrawer Library is pushed to [Maven Central](http://search.maven.org/#search|ga|1|g%3A%22com.mikepenz.materialdrawer%22), so you just need to add the following dependency to your `build.gradle`.
+The MaterialDrawer Library is pushed to [Maven Central](http://search.maven.org/#search|ga|1|g%3A%22com.mikepenz%22), so you just need to add the following dependency to your `build.gradle`.
 
 ```javascript
-compile('com.mikepenz.materialdrawer:library:2.9.8@aar') {
+compile('com.mikepenz:materialdrawer:2.9.8@aar') {
 	transitive = true
 }
 ```
@@ -56,6 +56,9 @@ Here's a quick overview what you have to do within your application.
 You can find a detailed description of all methods in the [WIKI](https://github.com/mikepenz/MaterialDrawer/wiki).
 
 ###Upgrade Notes
+#### < v2.9.8
+Changed maven group. You can get all updates via the new one `com.mikepenz:materialdrawer:x.y.z@aar`
+
 #### < v2.9.5
 Tinting is now off by DEFAULT again. Enable it for your items with `withIconTintingEnabled(true)` if needed. This release now also tint's the normal state of the icon.
 
