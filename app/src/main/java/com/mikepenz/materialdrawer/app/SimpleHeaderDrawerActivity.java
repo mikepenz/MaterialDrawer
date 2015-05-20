@@ -11,6 +11,7 @@ import android.widget.AdapterView;
 import android.widget.CompoundButton;
 
 import com.mikepenz.aboutlibraries.Libs;
+import com.mikepenz.aboutlibraries.LibsBuilder;
 import com.mikepenz.google_material_typeface_library.GoogleMaterial;
 import com.mikepenz.iconics.IconicsDrawable;
 import com.mikepenz.iconics.typeface.FontAwesome;
@@ -145,7 +146,7 @@ public class SimpleHeaderDrawerActivity extends AppCompatActivity {
                             } else if (drawerItem.getIdentifier() == 9) {
                                 intent = new Intent(SimpleHeaderDrawerActivity.this, CustomContainerActivity.class);
                             } else if (drawerItem.getIdentifier() == 20) {
-                                intent = new Libs.Builder()
+                                intent = new LibsBuilder()
                                         .withFields(R.string.class.getFields())
                                         .withActivityStyle(Libs.ActivityStyle.LIGHT_DARK_TOOLBAR)
                                         .intent(SimpleHeaderDrawerActivity.this);
