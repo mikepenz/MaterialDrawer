@@ -23,6 +23,7 @@ public class ToggleDrawerItem extends BaseDrawerItem<ToggleDrawerItem> {
     private int descriptionRes = -1;
 
     private boolean toggleEnabled = true;
+    private boolean isSelectable = false;
 
     private boolean checked = false;
     private OnCheckedChangeListener onCheckedChangeListener = null;
@@ -49,6 +50,11 @@ public class ToggleDrawerItem extends BaseDrawerItem<ToggleDrawerItem> {
 
     public ToggleDrawerItem withOnCheckedChangeListener(OnCheckedChangeListener onCheckedChangeListener) {
         this.onCheckedChangeListener = onCheckedChangeListener;
+        return this;
+    }
+    
+    public ToggleDrawerItem withSelectable(boolean selectable) {
+            this.isSelectable = selectable;
         return this;
     }
 
@@ -90,6 +96,10 @@ public class ToggleDrawerItem extends BaseDrawerItem<ToggleDrawerItem> {
 
     public void setOnCheckedChangeListener(OnCheckedChangeListener onCheckedChangeListener) {
         this.onCheckedChangeListener = onCheckedChangeListener;
+    }
+    
+    public void getSelectable() {
+        return isSelectable;
     }
 
     @Override
@@ -154,14 +164,18 @@ public class ToggleDrawerItem extends BaseDrawerItem<ToggleDrawerItem> {
             viewHolder.description.setVisibility(View.GONE);
         }
 
-        viewHolder.view.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                if (toggleEnabled) {
-                    viewHolder.toggle.setChecked(!viewHolder.toggle.isChecked());
+        if (!isSelectable) {
+            viewHolder.view.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    if (toggleEnabled) {
+                        viewHolder.toggle.setChecked(!viewHolder.toggle.isChecked());
+                    }
                 }
-            }
         });
+        } else {
+            viewHolder.toggle.setFocusable(false);
+        }
         viewHolder.toggle.setChecked(checked);
         viewHolder.toggle.setOnCheckedChangeListener(checkedChangeListener);
         viewHolder.toggle.setEnabled(toggleEnabled);
