@@ -20,7 +20,7 @@
 
     <section class="main-content">
       <h1>
-<a id="materialdrawer---" class="anchor" href="#materialdrawer---" aria-hidden="true"><span class="octicon octicon-link"></span></a>MaterialDrawer  <a href="https://maven-badges.herokuapp.com/maven-central/com.mikepenz.materialdrawer/library"><img src="https://maven-badges.herokuapp.com/maven-central/com.mikepenz.materialdrawer/library/badge.svg?style=flat" alt="Maven Central"></a> <a href="https://android-arsenal.com/details/1/1526"><img src="https://img.shields.io/badge/Android%20Arsenal-MaterialDrawer-brightgreen.svg?style=flat" alt="Android Arsenal"></a>
+<a id="materialdrawer---" class="anchor" href="#materialdrawer---" aria-hidden="true"><span class="octicon octicon-link"></span></a>MaterialDrawer  <a href="https://maven-badges.herokuapp.com/maven-central/com.mikepenz/materialdrawer"><img src="https://maven-badges.herokuapp.com/maven-central/com.mikepenz/materialdrawer/badge.svg?style=flat" alt="Maven Central"></a> <a href="https://android-arsenal.com/details/1/1526"><img src="https://img.shields.io/badge/Android%20Arsenal-MaterialDrawer-brightgreen.svg?style=flat" alt="Android Arsenal"></a>
 </h1>
 
 <p><a href="https://gitter.im/mikepenz/MaterialDrawer?utm_source=badge&amp;utm_medium=badge&amp;utm_campaign=pr-badge&amp;utm_content=badge"><img src="https://badges.gitter.im/Join%20Chat.svg" alt="Join the chat at https://gitter.im/mikepenz/MaterialDrawer"></a></p>
@@ -76,7 +76,7 @@
 <h2>
 <a id="demo" class="anchor" href="#demo" aria-hidden="true"><span class="octicon octicon-link"></span></a>Demo</h2>
 
-<p>You can try it out here <a href="https://play.google.com/store/apps/details?id=com.mikepenz.unsplash">Google Play</a> (wall:splash an open source application which uses this drawer implementation)</p>
+<p>You can try it out here <a href="https://play.google.com/store/apps/details?id=com.mikepenz.unsplash">Google Play</a> (wall:splash an open source application which uses this drawer implementation). Or you try the <a href="https://play.google.com/store/apps/details?id=com.mikepenz.materialdrawer.app">Sample Application</a></p>
 
 <h2>
 <a id="screenshots" class="anchor" href="#screenshots" aria-hidden="true"><span class="octicon octicon-link"></span></a>Screenshots</h2>
@@ -93,9 +93,9 @@
 <h2>
 <a id="using-maven" class="anchor" href="#using-maven" aria-hidden="true"><span class="octicon octicon-link"></span></a>Using Maven</h2>
 
-<p>The MaterialDrawer Library is pushed to <a href="http://search.maven.org/#search%7Cga%7C1%7Cg%3A%22com.mikepenz.materialdrawer%22">Maven Central</a>, so you just need to add the following dependency to your <code>build.gradle</code>.</p>
+<p>The MaterialDrawer Library is pushed to <a href="http://search.maven.org/#search%7Cga%7C1%7Cg%3A%22com.mikepenz%22">Maven Central</a>, so you just need to add the following dependency to your <code>build.gradle</code>.</p>
 
-<div class="highlight highlight-javascript"><pre><span class="pl-c1">compile</span>(<span class="pl-s"><span class="pl-pds">'</span>com.mikepenz.materialdrawer:library:2.8.1@aar<span class="pl-pds">'</span></span>) {
+<div class="highlight highlight-javascript"><pre><span class="pl-en">compile</span>('<span class="pl-smi">com</span>.mikepenz:materialdrawer:2.9.8@aar') {
     transitive <span class="pl-k">=</span> <span class="pl-c1">true</span>
 }</pre></div>
 
@@ -109,30 +109,33 @@ You can find a detailed description of all methods in the <a href="https://githu
 <a id="upgrade-notes" class="anchor" href="#upgrade-notes" aria-hidden="true"><span class="octicon octicon-link"></span></a>Upgrade Notes</h3>
 
 <h4>
+<a id="-v298" class="anchor" href="#-v298" aria-hidden="true"><span class="octicon octicon-link"></span></a>&lt; v2.9.8</h4>
+
+<p>Changed maven group. You can get all updates via the new one <code>com.mikepenz:materialdrawer:x.y.z@aar</code></p>
+
+<h4>
+<a id="-v295" class="anchor" href="#-v295" aria-hidden="true"><span class="octicon octicon-link"></span></a>&lt; v2.9.5</h4>
+
+<p>Tinting is now off by DEFAULT again. Enable it for your items with <code>withIconTintingEnabled(true)</code> if needed. This release now also tint's the normal state of the icon.</p>
+
+<h4>
+<a id="-v290" class="anchor" href="#-v290" aria-hidden="true"><span class="octicon octicon-link"></span></a>&lt; v2.9.0</h4>
+
+<p>v2.9.0 now uses the latest com.android.support:appcompat version 22.1.1. Please update if you use an older version. It is now also required to set the theme within your layout for toolbars. (Especially for the DarkToolbar theme)</p>
+
+<div class="highlight highlight-java"><pre><span class="pl-k">&lt;</span><span class="pl-smi">android.support.v7.widget<span class="pl-k">.</span>Toolbar</span>
+        android<span class="pl-k">:</span>id<span class="pl-k">=</span><span class="pl-s"><span class="pl-pds">"</span>@+id/toolbar<span class="pl-pds">"</span></span>
+        android<span class="pl-k">:</span>layout_width<span class="pl-k">=</span><span class="pl-s"><span class="pl-pds">"</span>match_parent<span class="pl-pds">"</span></span>
+        android<span class="pl-k">:</span>layout_height<span class="pl-k">=</span><span class="pl-s"><span class="pl-pds">"</span>?attr/actionBarSize<span class="pl-pds">"</span></span>
+        android<span class="pl-k">:</span>background<span class="pl-k">=</span><span class="pl-s"><span class="pl-pds">"</span>?attr/colorPrimary<span class="pl-pds">"</span></span>
+        android<span class="pl-k">:</span>theme<span class="pl-k">=</span><span class="pl-s"><span class="pl-pds">"</span>@style/ThemeOverlay.AppCompat.Dark.ActionBar<span class="pl-pds">"</span></span>
+        app<span class="pl-k">:</span>popupTheme<span class="pl-k">=</span><span class="pl-s"><span class="pl-pds">"</span>@style/ThemeOverlay.AppCompat.Light<span class="pl-pds">"</span></span>
+        android<span class="pl-k">:</span>elevation<span class="pl-k">=</span><span class="pl-s"><span class="pl-pds">"</span>4dp<span class="pl-pds">"</span></span><span class="pl-k">/</span><span class="pl-k">&gt;</span></pre></div>
+
+<h4>
 <a id="-v280" class="anchor" href="#-v280" aria-hidden="true"><span class="octicon octicon-link"></span></a>&lt; v2.8.0</h4>
 
 <p>v2.8.0 now uses the latest com.android.support:appcompat version 22.1.0. Please update if you use an older version.</p>
-
-<h4>
-<a id="-v277" class="anchor" href="#-v277" aria-hidden="true"><span class="octicon octicon-link"></span></a>&lt; v2.7.7</h4>
-
-<p>Beginning with v2.7.7, the <code>DrawerImageLoader.IDrawerImageLoader</code> interface now requires you to override the <code>placeholder</code> method (returning a custom placeholder Drawable). You may simply return a null Drawable to retain pre-v2.7.7 behavior, but it must be defined. See the sample app for an example.</p>
-
-<h4>
-<a id="-v260" class="anchor" href="#-v260" aria-hidden="true"><span class="octicon octicon-link"></span></a>&lt; v2.6.0</h4>
-
-<p>Starting with v2.6.0 the <code>OnAccountHeaderListener.onProfileChanged</code> and <code>OnAccountHeaderSelectionViewClickListener.onClick</code> events will allow you to return an boolean.
-This boolean indicates if the event was consumed. Return false if you want the drawer to get closed. Also the <code>onProfileChanged</code> event will now contain a boolean
-variable which indicates if the clicked profile is the current profile.</p>
-
-<h4>
-<a id="-v250" class="anchor" href="#-v250" aria-hidden="true"><span class="octicon octicon-link"></span></a>&lt; v2.5.0</h4>
-
-<p>If you used a version prior to v2.5.0 check following:
-You can remove the padding above the ToolBar. The library now uses a ScrimInsetsLayout. Just set your toolbar within the layout
-as you would normally do.
-The MaterialDrawer now uses a translucent style by default. (Even if you use a non translucent theme) You can disable this by
-setting <code>.withTranslucentStatusBar(false)</code>.</p>
 
 <h3>
 <a id="minimal-setup" class="anchor" href="#minimal-setup" aria-hidden="true"><span class="octicon octicon-link"></span></a>Minimal SetUp</h3>
@@ -255,15 +258,41 @@ headerResult <span class="pl-k">=</span> <span class="pl-k">new</span> <span cla
     .append(result);</pre></div>
 
 <h3>
-<a id="switching-between-back-arrow-or-hamburger-icon" class="anchor" href="#switching-between-back-arrow-or-hamburger-icon" aria-hidden="true"><span class="octicon octicon-link"></span></a>Switching between Back-Arrow or Hamburger-Icon</h3>
+<a id="load-images-via-url" class="anchor" href="#load-images-via-url" aria-hidden="true"><span class="octicon octicon-link"></span></a>Load images via url</h3>
 
-<p>If you use the included ActionBarDrawerToggle you can switch between back-arrow or hamburger-icon
-with the following code snippet. (Please note that the order of these lines matter)</p>
+<p>The MaterialDrawer supports fetching images from URLs and setting them for the Profile icons. As the MaterialDrawer does not contain an ImageLoading library
+the dev can choose his own implementation (Picasso, Glide, ...). This has to be done, before the first image should be loaded via URL. (Should be done in the Application, but any other spot before loading the first image is working too)</p>
 
 <h4>
-<a id="code---show-the-back-arrow" class="anchor" href="#code---show-the-back-arrow" aria-hidden="true"><span class="octicon octicon-link"></span></a>Code - Show the back arrow:</h4>
+<a id="code-5" class="anchor" href="#code-5" aria-hidden="true"><span class="octicon octicon-link"></span></a>Code:</h4>
 
-<div class="highlight highlight-java"><pre>result<span class="pl-k">.</span>getActionBarDrawerToggle()<span class="pl-k">.</span>setDrawerIndicatorEnabled(<span class="pl-c1">false</span>);
+<div class="highlight highlight-java"><pre><span class="pl-c">//SAMPLE using [PICASSO](https://github.com/square/picasso)</span>
+<span class="pl-c">//initialize and create the image loader logic</span>
+<span class="pl-smi">DrawerImageLoader</span><span class="pl-k">.</span>init(<span class="pl-k">new</span> <span class="pl-smi">DrawerImageLoader</span>.<span class="pl-smi">IDrawerImageLoader</span>() {
+    <span class="pl-k">@Override</span>
+    <span class="pl-k">public</span> <span class="pl-k">void</span> <span class="pl-en">set</span>(<span class="pl-smi">ImageView</span> <span class="pl-v">imageView</span>, <span class="pl-smi">Uri</span> <span class="pl-v">uri</span>, <span class="pl-smi">Drawable</span> <span class="pl-v">placeholder</span>) {
+        <span class="pl-smi">Picasso</span><span class="pl-k">.</span>with(imageView<span class="pl-k">.</span>getContext())<span class="pl-k">.</span>load(uri)<span class="pl-k">.</span>placeholder(placeholder)<span class="pl-k">.</span>into(imageView);
+    }
+
+    <span class="pl-k">@Override</span>
+    <span class="pl-k">public</span> <span class="pl-k">void</span> <span class="pl-en">cancel</span>(<span class="pl-smi">ImageView</span> <span class="pl-v">imageView</span>) {
+        <span class="pl-smi">Picasso</span><span class="pl-k">.</span>with(imageView<span class="pl-k">.</span>getContext())<span class="pl-k">.</span>cancelRequest(imageView);
+    }
+
+    <span class="pl-k">@Override</span>
+    <span class="pl-k">public</span> <span class="pl-smi">Drawable</span> <span class="pl-en">placeholder</span>(<span class="pl-smi">Context</span> <span class="pl-v">ctx</span>) {
+        <span class="pl-k">return</span> <span class="pl-c1">null</span>;
+    }
+});
+``
+
+
+###<span class="pl-smi">Switching</span> between <span class="pl-smi">Back</span><span class="pl-k">-</span><span class="pl-smi">Arrow</span> or <span class="pl-smi">Hamburger</span><span class="pl-k">-</span><span class="pl-smi">Icon</span>
+<span class="pl-smi">If</span> you use the included <span class="pl-smi">ActionBarDrawerToggle</span> you can <span class="pl-k">switch</span> between back<span class="pl-k">-</span>arrow or hamburger<span class="pl-k">-</span>icon
+with the following code snippet. (<span class="pl-smi">Please</span> note that the order of these lines matter)
+####<span class="pl-smi">Code</span> <span class="pl-k">-</span> <span class="pl-smi">Show</span> the back arrow<span class="pl-k">:</span>
+```java
+result<span class="pl-k">.</span>getActionBarDrawerToggle()<span class="pl-k">.</span>setDrawerIndicatorEnabled(<span class="pl-c1">false</span>);
 getSupportActionBar()<span class="pl-k">.</span>setDisplayHomeAsUpEnabled(<span class="pl-c1">true</span>);</pre></div>
 
 <h4>
@@ -321,7 +350,6 @@ This is the same as the Custom style just with a parent like <code>parent="Theme
         &lt;<span class="pl-ent">item</span> <span class="pl-e">name</span>=<span class="pl-s"><span class="pl-pds">"</span>colorAccent<span class="pl-pds">"</span></span>&gt;@color/material_drawer_accent&lt;/<span class="pl-ent">item</span>&gt;
 
         <span class="pl-c">&lt;!-- MaterialDrawer specific values --&gt;</span>
-        &lt;<span class="pl-ent">item</span> <span class="pl-e">name</span>=<span class="pl-s"><span class="pl-pds">"</span>material_drawer_window_background<span class="pl-pds">"</span></span>&gt;@color/material_drawer_window_background&lt;/<span class="pl-ent">item</span>&gt;
         &lt;<span class="pl-ent">item</span> <span class="pl-e">name</span>=<span class="pl-s"><span class="pl-pds">"</span>material_drawer_background<span class="pl-pds">"</span></span>&gt;@color/material_drawer_background&lt;/<span class="pl-ent">item</span>&gt;
         &lt;<span class="pl-ent">item</span> <span class="pl-e">name</span>=<span class="pl-s"><span class="pl-pds">"</span>material_drawer_icons<span class="pl-pds">"</span></span>&gt;@color/material_drawer_icons&lt;/<span class="pl-ent">item</span>&gt;
         &lt;<span class="pl-ent">item</span> <span class="pl-e">name</span>=<span class="pl-s"><span class="pl-pds">"</span>material_drawer_primary_text<span class="pl-pds">"</span></span>&gt;@color/material_drawer_primary_text&lt;/<span class="pl-ent">item</span>&gt;
@@ -347,7 +375,6 @@ This is the same as the Custom style just with a parent like <code>parent="Theme
 
     <span class="pl-c">&lt;!-- OVERWRITE THESE COLORS FOR A LIGHT THEME --&gt;</span>
     <span class="pl-c">&lt;!-- MaterialDrawer DEFAULT colors --&gt;</span>
-    &lt;<span class="pl-ent">color</span> <span class="pl-e">name</span>=<span class="pl-s"><span class="pl-pds">"</span>material_drawer_window_background<span class="pl-pds">"</span></span>&gt;#F9F9F9&lt;/<span class="pl-ent">color</span>&gt;
     &lt;<span class="pl-ent">color</span> <span class="pl-e">name</span>=<span class="pl-s"><span class="pl-pds">"</span>material_drawer_background<span class="pl-pds">"</span></span>&gt;#F9F9F9&lt;/<span class="pl-ent">color</span>&gt;
     <span class="pl-c">&lt;!-- Material DEFAULT text / items colors --&gt;</span>
     &lt;<span class="pl-ent">color</span> <span class="pl-e">name</span>=<span class="pl-s"><span class="pl-pds">"</span>material_drawer_icons<span class="pl-pds">"</span></span>&gt;#FFF&lt;/<span class="pl-ent">color</span>&gt;
@@ -363,7 +390,6 @@ This is the same as the Custom style just with a parent like <code>parent="Theme
 
     <span class="pl-c">&lt;!-- OVERWRITE THESE COLORS FOR A DARK THEME --&gt;</span>
     <span class="pl-c">&lt;!-- MaterialDrawer DEFAULT DARK colors --&gt;</span>
-    &lt;<span class="pl-ent">color</span> <span class="pl-e">name</span>=<span class="pl-s"><span class="pl-pds">"</span>material_drawer_dark_window_background<span class="pl-pds">"</span></span>&gt;#303030&lt;/<span class="pl-ent">color</span>&gt;
     &lt;<span class="pl-ent">color</span> <span class="pl-e">name</span>=<span class="pl-s"><span class="pl-pds">"</span>material_drawer_dark_background<span class="pl-pds">"</span></span>&gt;#303030&lt;/<span class="pl-ent">color</span>&gt;
     <span class="pl-c">&lt;!-- MaterialDrawer DEFAULT DARK text / items colors --&gt;</span>
     &lt;<span class="pl-ent">color</span> <span class="pl-e">name</span>=<span class="pl-s"><span class="pl-pds">"</span>material_drawer_dark_icons<span class="pl-pds">"</span></span>&gt;#000&lt;/<span class="pl-ent">color</span>&gt;
@@ -398,6 +424,21 @@ This is the same as the Custom style just with a parent like <code>parent="Theme
     exclude module<span class="pl-k">:</span> <span class="pl-s"><span class="pl-pds">'</span>recyclerview-v7<span class="pl-pds">'</span></span>
 }</pre></div>
 
+<h5>
+<a id="i-have-problems-with-the-softkeyboard-how-can-i-fix-this" class="anchor" href="#i-have-problems-with-the-softkeyboard-how-can-i-fix-this" aria-hidden="true"><span class="octicon octicon-link"></span></a>I have problems with the SoftKeyboard. How can i fix this?</h5>
+
+<p>The MaterialDrawer will display your activity as FullScreen. Starting with API 19
+the <code>adjustResize</code> works different then. This is default Android behavior. 
+This is a big issue for a lot of devs so i've created a helper which "fixes" this issue. 
+(It is recommend to just enable it for activities / fragments which need it)</p>
+
+<div class="highlight highlight-java"><pre>.keyboardSupportEnabled(activity, enabled)</pre></div>
+
+<p>A additional workaround is to disable the translucent StatusBar (This will break the
+drawer to be displayed under the StatusBar). <code>.withTranslucentStatusBar(false)</code></p>
+
+<p>You can read about this here: <a href="https://github.com/mikepenz/MaterialDrawer/issues/95">https://github.com/mikepenz/MaterialDrawer/issues/95</a>, <a href="https://github.com/mikepenz/MaterialDrawer/issues/183">https://github.com/mikepenz/MaterialDrawer/issues/183</a>, <a href="https://github.com/mikepenz/MaterialDrawer/issues/196">https://github.com/mikepenz/MaterialDrawer/issues/196</a></p>
+
 <h2>
 <a id="apps-using-the-materialdrawer" class="anchor" href="#apps-using-the-materialdrawer" aria-hidden="true"><span class="octicon octicon-link"></span></a>Apps using the MaterialDrawer</h2>
 
@@ -406,8 +447,17 @@ This is the same as the Custom style just with a parent like <code>parent="Theme
 <ul>
 <li><p><a href="https://play.google.com/store/apps/details?id=com.mikepenz.unsplash">wall:splash</a></p></li>
 <li><p><a href="https://play.google.com/store/apps/details?id=com.alorma.github">GitSkarios</a></p></li>
-<li><p><a href="https://play.google.com/store/apps/details?id=com.auebcsschedule.ppt">Academic Schedule</a></p></li>
-<li><p><a href="https://play.google.com/store/apps/details?id=com.e13engineering.strength">Strength</a></p></li>
+<li><a href="https://play.google.com/store/apps/details?id=com.auebcsschedule.ppt">Academic Schedule</a></li>
+<li><a href="https://play.google.com/store/apps/details?id=com.e13engineering.strength">Strength</a></li>
+<li><a href="https://play.google.com/store/apps/details?id=at.idev.spritpreise">Sprit Club</a></li>
+<li><a href="https://play.google.com/store/apps/details?id=com.gabilheri.fithub">FitHub</a></li>
+</ul>
+
+<h2>
+<a id="articles-about-the-materialdrawer" class="anchor" href="#articles-about-the-materialdrawer" aria-hidden="true"><span class="octicon octicon-link"></span></a>Articles about the MaterialDrawer</h2>
+
+<ul>
+<li><a href="http://java-help.ru/material-navigationdrawer/">java-help.ru</a></li>
 </ul>
 
 <h1>
