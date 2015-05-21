@@ -1177,7 +1177,7 @@ public class AccountHeader {
      */
     private Drawer.OnDrawerItemClickListener onDrawerItemClickListener = new Drawer.OnDrawerItemClickListener() {
         @Override
-        public void onItemClick(AdapterView<?> parent, final View view, int position, long id, final IDrawerItem drawerItem) {
+        public boolean onItemClick(AdapterView<?> parent, final View view, int position, long id, final IDrawerItem drawerItem) {
             final boolean isCurrentSelectedProfile;
             if (drawerItem != null && drawerItem instanceof IProfile && ((IProfile) drawerItem).isSelectable()) {
                 isCurrentSelectedProfile = switchProfiles((IProfile) drawerItem);
@@ -1200,6 +1200,8 @@ public class AccountHeader {
 
                 }
             }, 350);
+
+            return false;
         }
     };
 

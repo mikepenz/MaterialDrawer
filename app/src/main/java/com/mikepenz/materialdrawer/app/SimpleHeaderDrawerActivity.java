@@ -118,7 +118,7 @@ public class SimpleHeaderDrawerActivity extends AppCompatActivity {
                 ) // add the items we want to use with our Drawer
                 .withOnDrawerItemClickListener(new Drawer.OnDrawerItemClickListener() {
                     @Override
-                    public void onItemClick(AdapterView<?> parent, View view, int position, long id, IDrawerItem drawerItem) {
+                    public boolean onItemClick(AdapterView<?> parent, View view, int position, long id, IDrawerItem drawerItem) {
                         //check if the drawerItem is set.
                         //there are different reasons for the drawerItem to be null
                         //--> click on the header
@@ -155,6 +155,8 @@ public class SimpleHeaderDrawerActivity extends AppCompatActivity {
                                 SimpleHeaderDrawerActivity.this.startActivity(intent);
                             }
                         }
+
+                        return false;
                     }
                 })
                 .withSavedInstance(savedInstanceState)

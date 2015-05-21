@@ -1567,9 +1567,6 @@ public class Drawer {
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                 IDrawerItem i = getDrawerItem(position, true);
 
-                //close the drawer after click
-                closeDrawerDelayed();
-
                 if (i != null && i instanceof Checkable && !((Checkable) i).isCheckable()) {
                     mListView.setSelection(mCurrentSelection + mHeaderOffset);
                     mListView.setItemChecked(mCurrentSelection + mHeaderOffset, true);
@@ -1578,8 +1575,14 @@ public class Drawer {
                     mCurrentSelection = position - mHeaderOffset;
                 }
 
+                boolean consumed = false;
                 if (mOnDrawerItemClickListener != null) {
-                    mOnDrawerItemClickListener.onItemClick(parent, view, position - mHeaderOffset, id, i);
+                    consumed = mOnDrawerItemClickListener.onItemClick(parent, view, position - mHeaderOffset, id, i);
+                }
+
+                if (!consumed) {
+                    //close the drawer after click
+                    closeDrawerDelayed();
                 }
             }
         });
@@ -1819,11 +1822,15 @@ public class Drawer {
                             mCurrentSelection = -1;
                         }
 
-                        //close the drawer after click
-                        closeDrawerDelayed();
 
+                        boolean consumed = false;
                         if (mOnDrawerItemClickListener != null) {
-                            mOnDrawerItemClickListener.onItemClick(null, v, -1, -1, drawerItem);
+                            consumed = mOnDrawerItemClickListener.onItemClick(null, v, -1, -1, drawerItem);
+                        }
+
+                        if (!consumed) {
+                            //close the drawer after click
+                            closeDrawerDelayed();
                         }
                     }
                 });
@@ -2547,7 +2554,7 @@ public class Drawer {
     }
 
     public interface OnDrawerItemClickListener {
-        public void onItemClick(AdapterView<?> parent, View view, int position, long id, IDrawerItem drawerItem);
+        public boolean onItemClick(AdapterView<?> parent, View view, int position, long id, IDrawerItem drawerItem);
     }
 
     public interface OnDrawerItemLongClickListener {

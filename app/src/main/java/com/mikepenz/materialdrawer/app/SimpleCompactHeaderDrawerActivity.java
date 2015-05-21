@@ -82,11 +82,13 @@ public class SimpleCompactHeaderDrawerActivity extends AppCompatActivity {
                 )
                 .withOnDrawerItemClickListener(new Drawer.OnDrawerItemClickListener() {
                     @Override
-                    public void onItemClick(AdapterView<?> parent, View view, int position, long id, IDrawerItem drawerItem) {
+                    public boolean onItemClick(AdapterView<?> parent, View view, int position, long id, IDrawerItem drawerItem) {
                         if (drawerItem != null && drawerItem.getIdentifier() == 1) {
                             startSupportActionMode(new ActionBarCallBack());
                             findViewById(R.id.action_mode_bar).setBackgroundColor(UIUtils.getThemeColorFromAttrOrRes(SimpleCompactHeaderDrawerActivity.this, R.attr.colorPrimary, R.color.material_drawer_primary));
                         }
+
+                        return false;
                     }
                 })
                 .withSavedInstance(savedInstanceState)

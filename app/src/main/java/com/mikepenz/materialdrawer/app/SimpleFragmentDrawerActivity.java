@@ -47,13 +47,15 @@ public class SimpleFragmentDrawerActivity extends AppCompatActivity {
                 ) // add the items we want to use with our Drawer
                 .withOnDrawerItemClickListener(new Drawer.OnDrawerItemClickListener() {
                     @Override
-                    public void onItemClick(AdapterView<?> parent, View view, int position, long id, IDrawerItem drawerItem) {
+                    public boolean onItemClick(AdapterView<?> parent, View view, int position, long id, IDrawerItem drawerItem) {
                         if (drawerItem != null && drawerItem instanceof Nameable) {
                             getSupportActionBar().setTitle(((Nameable) drawerItem).getNameRes());
                             //ignore the DemoFragment and it's layout it's just to showcase the handle with an keyboard
                             Fragment f = DemoFragment.newInstance(getResources().getString(((Nameable) drawerItem).getNameRes()));
                             getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container, f).commit();
                         }
+
+                        return false;
                     }
                 })
                 .withOnDrawerListener(new Drawer.OnDrawerListener() {
