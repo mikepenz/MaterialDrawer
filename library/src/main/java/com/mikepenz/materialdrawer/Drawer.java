@@ -1814,6 +1814,9 @@ public class Drawer {
                             //remove the selection in the list
                             mListView.setSelection(-1);
                             mListView.setItemChecked(mCurrentSelection + mHeaderOffset, false);
+
+                            //set currentSelection to -1 because we selected a stickyFooter element
+                            mCurrentSelection = -1;
                         }
 
                         //close the drawer after click
