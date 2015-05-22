@@ -1189,13 +1189,13 @@ public class AccountHeader {
             new Handler().postDelayed(new Runnable() {
                 @Override
                 public void run() {
+                    if (mDrawer != null && view.getContext() != null) {
+                        resetDrawerContent(view.getContext());
+                    }
                     if (drawerItem != null && drawerItem instanceof IProfile) {
                         if (mOnAccountHeaderListener != null) {
                             mOnAccountHeaderListener.onProfileChanged(view, (IProfile) drawerItem, isCurrentSelectedProfile);
                         }
-                    }
-                    if (mDrawer != null && view.getContext() != null) {
-                        resetDrawerContent(view.getContext());
                     }
 
                 }
