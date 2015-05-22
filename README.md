@@ -358,6 +358,7 @@ You can read about this here: https://github.com/mikepenz/MaterialDrawer/issues/
 * [Strength](https://play.google.com/store/apps/details?id=com.e13engineering.strength)
 * [Sprit Club](https://play.google.com/store/apps/details?id=at.idev.spritpreise)
 * [FitHub](https://play.google.com/store/apps/details?id=com.gabilheri.fithub)
+* [StickyNotes](https://play.google.com/store/apps/details?id=com.jsvmsoft.stickynotes)
 
 
 
