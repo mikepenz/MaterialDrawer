@@ -348,6 +348,17 @@ drawer to be displayed under the StatusBar). `.withTranslucentStatusBar(false)`
 
 You can read about this here: https://github.com/mikepenz/MaterialDrawer/issues/95, https://github.com/mikepenz/MaterialDrawer/issues/183, https://github.com/mikepenz/MaterialDrawer/issues/196
 
+#####Can I lock the Drawer
+As the MaterialDrawer will just create a normal DrawerLayout (with some magic around it) everything a normal
+DrawerLayout can do is also available in the MaterialDrawer. 
+```java
+//get the DrawerLayout from the Drawer.Result
+DrawerLayout drawerLayout = result.getDrawerLayout();
+//do whatever you want with the Drawer. Like locking it. 
+drawerLayout.setDrawerLockMode(int lockMode); //or (int lockMode, int edgeGravity)
+```
+
+
 ##Apps using the MaterialDrawer
 (feel free to send me new projects)
 
@@ -358,6 +369,7 @@ You can read about this here: https://github.com/mikepenz/MaterialDrawer/issues/
 * [Strength](https://play.google.com/store/apps/details?id=com.e13engineering.strength)
 * [Sprit Club](https://play.google.com/store/apps/details?id=at.idev.spritpreise)
 * [FitHub](https://play.google.com/store/apps/details?id=com.gabilheri.fithub)
+* [StickyNotes](https://play.google.com/store/apps/details?id=com.jsvmsoft.stickynotes)
 
 
 
