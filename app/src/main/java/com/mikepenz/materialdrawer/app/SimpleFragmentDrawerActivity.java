@@ -9,6 +9,7 @@ import android.widget.AdapterView;
 
 import com.mikepenz.iconics.typeface.FontAwesome;
 import com.mikepenz.materialdrawer.Drawer;
+import com.mikepenz.materialdrawer.DrawerBuilder;
 import com.mikepenz.materialdrawer.app.Fragment.DemoFragment;
 import com.mikepenz.materialdrawer.model.PrimaryDrawerItem;
 import com.mikepenz.materialdrawer.model.SecondaryDrawerItem;
@@ -20,7 +21,7 @@ import com.mikepenz.materialdrawer.util.KeyboardUtil;
 public class SimpleFragmentDrawerActivity extends AppCompatActivity {
 
     //save our header or result
-    private Drawer.Result result = null;
+    private Drawer result = null;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -32,7 +33,7 @@ public class SimpleFragmentDrawerActivity extends AppCompatActivity {
         setSupportActionBar(toolbar);
 
         //Create the drawer
-        result = new Drawer()
+        result = new DrawerBuilder()
                 .withActivity(this)
                 .withToolbar(toolbar)
                 .addDrawerItems(

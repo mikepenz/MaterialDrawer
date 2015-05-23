@@ -8,6 +8,7 @@ import android.view.MenuItem;
 
 import com.mikepenz.iconics.typeface.FontAwesome;
 import com.mikepenz.materialdrawer.Drawer;
+import com.mikepenz.materialdrawer.DrawerBuilder;
 import com.mikepenz.materialdrawer.model.PrimaryDrawerItem;
 import com.mikepenz.materialdrawer.model.SecondaryDrawerItem;
 import com.mikepenz.materialdrawer.model.SectionDrawerItem;
@@ -16,7 +17,7 @@ public class FullscreenDrawerActivity extends AppCompatActivity {
     private static final int PROFILE_SETTING = 1;
 
     //save our header or result
-    private Drawer.Result result = null;
+    private Drawer result = null;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -30,7 +31,7 @@ public class FullscreenDrawerActivity extends AppCompatActivity {
         toolbar.getBackground().setAlpha(90);
 
         //Create the drawer
-        result = new Drawer()
+        result = new DrawerBuilder()
                 .withActivity(this)
                 .withFullscreen(true)
                 .addDrawerItems(

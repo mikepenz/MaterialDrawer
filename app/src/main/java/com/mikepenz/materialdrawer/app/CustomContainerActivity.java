@@ -6,6 +6,7 @@ import android.support.v7.widget.Toolbar;
 
 import com.mikepenz.iconics.typeface.FontAwesome;
 import com.mikepenz.materialdrawer.Drawer;
+import com.mikepenz.materialdrawer.DrawerBuilder;
 import com.mikepenz.materialdrawer.model.PrimaryDrawerItem;
 import com.mikepenz.materialdrawer.model.SecondaryDrawerItem;
 import com.mikepenz.materialdrawer.model.SectionDrawerItem;
@@ -13,7 +14,7 @@ import com.mikepenz.materialdrawer.model.SectionDrawerItem;
 public class CustomContainerActivity extends AppCompatActivity {
 
     //save our header or result
-    private Drawer.Result result = null;
+    private Drawer result = null;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -25,7 +26,7 @@ public class CustomContainerActivity extends AppCompatActivity {
         setSupportActionBar(toolbar);
 
         //Create the drawer
-        result = new Drawer(this)
+        result = new DrawerBuilder(this)
                 //this layout have to contain child layouts
                 .withRootView(R.id.drawer_container)
                 .withToolbar(toolbar)

@@ -67,7 +67,7 @@ class DrawerUtils {
      *
      * @param drawer
      */
-    public static void handleHeaderView(Drawer drawer) {
+    public static void handleHeaderView(DrawerBuilder drawer) {
         //use the AccountHeader if set
         if (drawer.mAccountHeader != null) {
             if (drawer.mAccountHeaderSticky) {
@@ -122,7 +122,7 @@ class DrawerUtils {
      *
      * @param drawer
      */
-    public static void handleFooterView(Drawer drawer, View.OnClickListener onClickListener) {
+    public static void handleFooterView(DrawerBuilder drawer, View.OnClickListener onClickListener) {
         //use the StickyDrawerItems if set
         if (drawer.mStickyDrawerItems != null && drawer.mStickyDrawerItems.size() > 0) {
             drawer.mStickyFooterView = DrawerUtils.buildStickyDrawerItemFooter(drawer, onClickListener);
@@ -175,7 +175,7 @@ class DrawerUtils {
      *
      * @return
      */
-    public static View buildStickyDrawerItemFooter(Drawer drawer, View.OnClickListener onClickListener) {
+    public static View buildStickyDrawerItemFooter(DrawerBuilder drawer, View.OnClickListener onClickListener) {
         //create the container view
         final LinearLayout linearLayout = new LinearLayout(drawer.mActivity);
         linearLayout.setLayoutParams(new LinearLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT));
@@ -252,7 +252,7 @@ class DrawerUtils {
      * @param params
      * @return
      */
-    public static DrawerLayout.LayoutParams processDrawerLayoutParams(Drawer drawer, DrawerLayout.LayoutParams params) {
+    public static DrawerLayout.LayoutParams processDrawerLayoutParams(DrawerBuilder drawer, DrawerLayout.LayoutParams params) {
         if (params != null) {
             if (drawer.mDrawerGravity != null && (drawer.mDrawerGravity == Gravity.RIGHT || drawer.mDrawerGravity == Gravity.END)) {
                 params.rightMargin = 0;

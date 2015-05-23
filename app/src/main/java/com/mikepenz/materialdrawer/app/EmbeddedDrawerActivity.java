@@ -14,7 +14,9 @@ import android.widget.FrameLayout;
 import com.mikepenz.google_material_typeface_library.GoogleMaterial;
 import com.mikepenz.iconics.typeface.FontAwesome;
 import com.mikepenz.materialdrawer.Drawer;
+import com.mikepenz.materialdrawer.DrawerBuilder;
 import com.mikepenz.materialdrawer.accountswitcher.AccountHeader;
+import com.mikepenz.materialdrawer.accountswitcher.AccountHeaderBuilder;
 import com.mikepenz.materialdrawer.app.utils.SystemUtils;
 import com.mikepenz.materialdrawer.model.DividerDrawerItem;
 import com.mikepenz.materialdrawer.model.PrimaryDrawerItem;
@@ -34,8 +36,8 @@ public class EmbeddedDrawerActivity extends AppCompatActivity {
     private static final int PROFILE_SETTING = 1;
 
     //save our header or result
-    private AccountHeader.Result headerResult = null;
-    private Drawer.Result result = null;
+    private AccountHeader headerResult = null;
+    private Drawer result = null;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -60,7 +62,7 @@ public class EmbeddedDrawerActivity extends AppCompatActivity {
         final IProfile profile6 = new ProfileDrawerItem().withName("Batman").withEmail("batman@gmail.com").withIcon(getResources().getDrawable(R.drawable.profile5));
 
         // Create the AccountHeader
-        headerResult = new AccountHeader()
+        headerResult = new AccountHeaderBuilder()
                 .withActivity(this)
                 .withHeaderBackground(R.drawable.header)
                 .withTranslucentStatusBar(false)
@@ -98,7 +100,7 @@ public class EmbeddedDrawerActivity extends AppCompatActivity {
                 .build();
 
         FrameLayout frameLayout = (FrameLayout) findViewById(R.id.drawer_container);
-        Drawer drawer = new Drawer()
+        DrawerBuilder builder = new DrawerBuilder()
                 .withActivity(this)
                 .withToolbar(toolbar)
                 .withTranslucentStatusBar(false)
@@ -121,10 +123,10 @@ public class EmbeddedDrawerActivity extends AppCompatActivity {
 
         // Embed only if orientation is Landscape (regular drawer in Portrait)
         if (SystemUtils.getScreenOrientation() == Configuration.ORIENTATION_LANDSCAPE) {
-            result = drawer.buildView();
+            result = builder.buildView();
             frameLayout.addView(result.getSlider());
         } else {
-            result = drawer.build();
+            result = builder.build();
         }
     }
 

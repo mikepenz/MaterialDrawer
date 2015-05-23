@@ -11,6 +11,7 @@ import android.widget.Toast;
 
 import com.mikepenz.iconics.typeface.FontAwesome;
 import com.mikepenz.materialdrawer.Drawer;
+import com.mikepenz.materialdrawer.DrawerBuilder;
 import com.mikepenz.materialdrawer.model.DividerDrawerItem;
 import com.mikepenz.materialdrawer.model.PrimaryDrawerItem;
 import com.mikepenz.materialdrawer.model.SecondaryDrawerItem;
@@ -21,7 +22,7 @@ import com.mikepenz.materialdrawer.model.interfaces.Nameable;
 
 public class MultiDrawerActivity extends AppCompatActivity {
 
-    private Drawer.Result result = null;
+    private Drawer result = null;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -35,7 +36,7 @@ public class MultiDrawerActivity extends AppCompatActivity {
         setSupportActionBar(toolbar);
 
         //first create the main drawer (this one will be used to add the second drawer on the other side)
-        result = new Drawer()
+        result = new DrawerBuilder()
                 .withActivity(this)
                 .withHeader(R.layout.header)
                 .addDrawerItems(
@@ -106,7 +107,7 @@ public class MultiDrawerActivity extends AppCompatActivity {
 
         //now we add the second drawer on the other site.
         //use the .append method to add this drawer to the first one
-        new Drawer()
+        new DrawerBuilder()
                 .withActivity(this)
                 .withFooter(R.layout.footer)
                 .addDrawerItems(

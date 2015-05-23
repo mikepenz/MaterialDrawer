@@ -10,6 +10,7 @@ import android.widget.Toast;
 
 import com.mikepenz.iconics.typeface.FontAwesome;
 import com.mikepenz.materialdrawer.Drawer;
+import com.mikepenz.materialdrawer.DrawerBuilder;
 import com.mikepenz.materialdrawer.model.PrimaryDrawerItem;
 import com.mikepenz.materialdrawer.model.SecondaryDrawerItem;
 import com.mikepenz.materialdrawer.model.SectionDrawerItem;
@@ -18,7 +19,7 @@ import com.mikepenz.materialdrawer.model.interfaces.Nameable;
 
 public class SimpleNonTranslucentDrawerActivity extends AppCompatActivity {
 
-    private Drawer.Result result = null;
+    private Drawer result = null;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -32,7 +33,7 @@ public class SimpleNonTranslucentDrawerActivity extends AppCompatActivity {
         setSupportActionBar(toolbar);
 
         // Create a few sample profile
-        result = new Drawer()
+        result = new DrawerBuilder()
                 .withActivity(this)
                 .withTranslucentStatusBar(false)
                 .addDrawerItems(
