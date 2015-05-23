@@ -1355,8 +1355,8 @@ public class DrawerBuilder {
             mListView = new ListView(mActivity);
             mListView.setChoiceMode(AbsListView.CHOICE_MODE_SINGLE);
             mListView.setDivider(null);
-            //only draw the selector on top if we are on a newer api than 10
-            if (Build.VERSION.SDK_INT > 10) {
+            //only draw the selector on top if we are on a newer api than 21 because this makes only sense for ripples
+            if (Build.VERSION.SDK_INT > 21) {
                 mListView.setDrawSelectorOnTop(true);
             }
             mListView.setClipToPadding(false);
