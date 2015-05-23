@@ -790,6 +790,20 @@ public class DrawerBuilder {
         return this;
     }
 
+    // animate the drawerItems
+    protected boolean mAnimateDrawerItems = false;
+
+    /**
+     * define if the items should be animated on their first view / and when switching the drawer
+     *
+     * @param animateDrawerItems
+     * @return
+     */
+    public DrawerBuilder withAnimateDrawerItems(boolean animateDrawerItems) {
+        this.mAnimateDrawerItems = animateDrawerItems;
+        return this;
+    }
+
     // list in drawer
     protected ArrayList<IDrawerItem> mDrawerItems = new ArrayList<>();
 
@@ -1388,7 +1402,7 @@ public class DrawerBuilder {
 
         // initialize list if there is an adapter or set items
         if (mDrawerItems != null && mAdapter == null) {
-            mAdapter = new DrawerAdapter(mActivity, mDrawerItems);
+            mAdapter = new DrawerAdapter(mActivity, mDrawerItems, mAnimateDrawerItems);
         }
 
         //handle the header

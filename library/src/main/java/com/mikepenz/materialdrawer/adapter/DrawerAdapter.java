@@ -4,7 +4,10 @@ import android.app.Activity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.animation.Animation;
+import android.view.animation.AnimationUtils;
 
+import com.mikepenz.materialdrawer.R;
 import com.mikepenz.materialdrawer.model.interfaces.IDrawerItem;
 
 import java.util.ArrayList;
@@ -15,31 +18,47 @@ public class DrawerAdapter extends BaseDrawerAdapter {
 
     private ArrayList<IDrawerItem> mDrawerItems;
 
+    private boolean mAnimateDrawerItems = false;
+    private ArrayList<Boolean> mDrawerAnimatedItems;
+
     private LayoutInflater mInflater;
 
     private LinkedHashSet<String> mTypeMapper;
 
     public DrawerAdapter(Activity activity) {
-        this(activity, null);
+        this(activity, false);
+    }
+
+    public DrawerAdapter(Activity activity, boolean animateDrawerItems) {
+        this(activity, null, animateDrawerItems);
     }
 
     public DrawerAdapter(Activity activity, ArrayList<IDrawerItem> drawerItems) {
+        this(activity, drawerItems, false);
+    }
+
+    public DrawerAdapter(Activity activity, ArrayList<IDrawerItem> drawerItems, boolean animateDrawerItems) {
         mInflater = (LayoutInflater) activity.getSystemService(Activity.LAYOUT_INFLATER_SERVICE);
+
         mDrawerItems = new ArrayList<>();
+        mDrawerAnimatedItems = new ArrayList<>();
+        mAnimateDrawerItems = animateDrawerItems;
 
-        update(drawerItems);
+        setDrawerItems(drawerItems);
     }
 
-    public void update(ArrayList<IDrawerItem> drawerItems) {
-        mDrawerItems = drawerItems;
-
-        mapTypes();
-    }
 
     public void add(IDrawerItem... drawerItems) {
         if (drawerItems != null) {
             Collections.addAll(mDrawerItems, drawerItems);
         }
+
+        if (drawerItems != null) {
+            for (int i = 0; i < drawerItems.length; i++) {
+                mDrawerAnimatedItems.add(false);
+            }
+        }
+
         mapTypes();
     }
 
@@ -63,11 +82,20 @@ public class DrawerAdapter extends BaseDrawerAdapter {
         return position < getCount() ? mDrawerItems.get(position) : null;
     }
 
+    public Boolean getAnimatedItem(int position) {
+        return position < getCount() ? mDrawerAnimatedItems.get(position) : null;
+    }
+
+    public void setAnimatedItem(int position, Boolean animated) {
+        if (position < getCount()) {
+            mDrawerAnimatedItems.set(position, animated);
+        }
+    }
+
     @Override
     public long getItemId(int position) {
         return position;
     }
-
 
     @Override
     public ArrayList<IDrawerItem> getDrawerItems() {
@@ -77,6 +105,14 @@ public class DrawerAdapter extends BaseDrawerAdapter {
     @Override
     public void setDrawerItems(ArrayList<IDrawerItem> drawerItems) {
         mDrawerItems = drawerItems;
+
+        if (drawerItems != null) {
+            mDrawerAnimatedItems.clear();
+            for (int i = 0; i < drawerItems.size(); i++) {
+                mDrawerAnimatedItems.add(false);
+            }
+        }
+
         mapTypes();
     }
 
@@ -91,8 +127,26 @@ public class DrawerAdapter extends BaseDrawerAdapter {
     }
 
     @Override
+    public void resetAnimation() {
+        for (int i = 0; i < mDrawerAnimatedItems.size(); i++) {
+            mDrawerAnimatedItems.set(i, false);
+        }
+    }
+
+    @Override
     public View getView(int position, View convertView, ViewGroup parent) {
         IDrawerItem item = (IDrawerItem) getItem(position);
-        return item.convertView(mInflater, convertView, parent);
+
+        View view = item.convertView(mInflater, convertView, parent);
+
+        if (mAnimateDrawerItems) {
+            if (getAnimatedItem(position) == null || !getAnimatedItem(position)) {
+                Animation animation = AnimationUtils.loadAnimation(view.getContext(), R.anim.abc_fade_in);
+                view.startAnimation(animation);
+                setAnimatedItem(position, true);
+            }
+        }
+
+        return view;
     }
 }

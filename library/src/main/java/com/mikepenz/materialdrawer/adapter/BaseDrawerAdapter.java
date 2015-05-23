@@ -62,4 +62,6 @@ public abstract class BaseDrawerAdapter extends BaseAdapter {
     public abstract LinkedHashSet<String> getTypeMapper();
 
     public abstract void setTypeMapper(LinkedHashSet<String> typeMapper);
+
+    public abstract void resetAnimation();
 }

@@ -689,6 +689,7 @@ public class Drawer {
             setOnDrawerItemClickListener(onDrawerItemClickListener);
             setItems(drawerItems, true);
             setSelection(drawerSelection, false);
+            mDrawerBuilder.mAdapter.resetAnimation();
         }
     }
 
