@@ -1,6 +1,7 @@
 package com.mikepenz.materialdrawer.model;
 
 import android.content.Context;
+import android.graphics.Bitmap;
 import android.graphics.PorterDuff;
 import android.graphics.Typeface;
 import android.graphics.drawable.Drawable;
@@ -31,6 +32,7 @@ public class ProfileSettingDrawerItem implements IDrawerItem, IProfile<ProfileSe
     private boolean selectable = false;
 
     private Drawable icon;
+    private Bitmap iconBitmap;
     private IIcon iicon;
     private Uri iconUri;
 
@@ -60,6 +62,11 @@ public class ProfileSettingDrawerItem implements IDrawerItem, IProfile<ProfileSe
 
     public ProfileSettingDrawerItem withIcon(Drawable icon) {
         this.icon = icon;
+        return this;
+    }
+
+    public ProfileSettingDrawerItem withIcon(Bitmap icon) {
+        this.iconBitmap = icon;
         return this;
     }
 
@@ -155,6 +162,16 @@ public class ProfileSettingDrawerItem implements IDrawerItem, IProfile<ProfileSe
     public ProfileSettingDrawerItem withIconTinted(boolean iconTinted) {
         this.iconTinted = iconTinted;
         return this;
+    }
+
+    @Override
+    public Bitmap getIconBitmap() {
+        return iconBitmap;
+    }
+
+    @Override
+    public void setIconBitmap(Bitmap iconBitmap) {
+        this.iconBitmap = iconBitmap;
     }
 
     public int getSelectedColor() {
@@ -353,10 +370,13 @@ public class ProfileSettingDrawerItem implements IDrawerItem, IProfile<ProfileSe
 
         //get the correct icon
         if (this.getIcon() != null) {
-            if (icon != null && isIconTinted() && iicon == null) {
+            if (icon != null && isIconTinted()) {
                 icon.setColorFilter(iconColor, PorterDuff.Mode.SRC_IN);
             }
             viewHolder.icon.setImageDrawable(icon);
+            viewHolder.icon.setVisibility(View.VISIBLE);
+        } else if (this.getIconBitmap() != null) {
+            viewHolder.icon.setImageBitmap(iconBitmap);
             viewHolder.icon.setVisibility(View.VISIBLE);
         } else if (this.getIIcon() != null) {
             viewHolder.icon.setImageDrawable(new IconicsDrawable(ctx, this.getIIcon()).color(iconColor).actionBarSize().paddingDp(2));

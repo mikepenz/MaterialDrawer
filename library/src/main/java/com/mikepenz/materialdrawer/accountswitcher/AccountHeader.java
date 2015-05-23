@@ -2,6 +2,7 @@ package com.mikepenz.materialdrawer.accountswitcher;
 
 import android.app.Activity;
 import android.content.Context;
+import android.graphics.Bitmap;
 import android.graphics.Typeface;
 import android.graphics.drawable.Drawable;
 import android.net.Uri;
@@ -909,7 +910,7 @@ public class AccountHeader {
 
         if (mCurrentProfile != null) {
             if (mProfileImagesVisible) {
-                setImageOrPlaceholder(mCurrentProfileView, mCurrentProfile.getIcon(), mCurrentProfile.getIconUri());
+                setImageOrPlaceholder(mCurrentProfileView, mCurrentProfile.getIcon(), mCurrentProfile.getIconBitmap(), mCurrentProfile.getIconUri());
                 mCurrentProfileView.setTag(mCurrentProfile);
                 if (mProfileImagesClickable) {
                     mCurrentProfileView.setOnClickListener(onProfileClickListener);
@@ -930,7 +931,7 @@ public class AccountHeader {
             mCurrentProfileEmail.setText(mCurrentProfile.getEmail());
 
             if (mProfileFirst != null && mProfileImagesVisible) {
-                setImageOrPlaceholder(mProfileFirstView, mProfileFirst.getIcon(), mProfileFirst.getIconUri());
+                setImageOrPlaceholder(mProfileFirstView, mProfileFirst.getIcon(), mProfileFirst.getIconBitmap(), mProfileFirst.getIconUri());
                 mProfileFirstView.setTag(mProfileFirst);
                 if (mProfileImagesClickable) {
                     mProfileFirstView.setOnClickListener(onProfileClickListener);
@@ -941,7 +942,7 @@ public class AccountHeader {
                 mProfileFirstView.setVisibility(View.VISIBLE);
             }
             if (mProfileSecond != null && mProfileImagesVisible) {
-                setImageOrPlaceholder(mProfileSecondView, mProfileSecond.getIcon(), mProfileSecond.getIconUri());
+                setImageOrPlaceholder(mProfileSecondView, mProfileSecond.getIcon(), mProfileSecond.getIconBitmap(), mProfileSecond.getIconUri());
                 mProfileSecondView.setTag(mProfileSecond);
                 if (mProfileImagesClickable) {
                     mProfileSecondView.setOnClickListener(onProfileClickListener);
@@ -955,7 +956,7 @@ public class AccountHeader {
                 alignParentLayoutParam(mProfileFirstView, 1);
             }
             if (mProfileThird != null && mThreeSmallProfileImages && mProfileImagesVisible) {
-                setImageOrPlaceholder(mProfileThirdView, mProfileThird.getIcon(), mProfileThird.getIconUri());
+                setImageOrPlaceholder(mProfileThirdView, mProfileThird.getIcon(), mProfileThird.getIconBitmap(), mProfileThird.getIconUri());
                 mProfileThirdView.setTag(mProfileThird);
                 if (mProfileImagesClickable) {
                     mProfileThirdView.setOnClickListener(onProfileClickListener);
@@ -1029,15 +1030,19 @@ public class AccountHeader {
      *
      * @param iv
      * @param d
+     * @param b
+     * @param uri
      */
-    private void setImageOrPlaceholder(ImageView iv, Drawable d, Uri uri) {
+    private void setImageOrPlaceholder(ImageView iv, Drawable d, Bitmap b, Uri uri) {
         if (uri != null) {
             iv.setImageDrawable(UIUtils.getPlaceHolder(iv.getContext()));
             iv.setImageURI(uri);
-        } else if (d == null) {
+        } else if (d == null && b == null) {
             iv.setImageDrawable(UIUtils.getPlaceHolder(iv.getContext()));
-        } else {
+        } else if (b == null) {
             iv.setImageDrawable(d);
+        } else {
+            iv.setImageBitmap(b);
         }
     }
 
