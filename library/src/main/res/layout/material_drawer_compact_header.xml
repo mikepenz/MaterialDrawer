@@ -12,8 +12,7 @@
     <RelativeLayout
         android:id="@+id/account_header_drawer"
         android:layout_width="match_parent"
-        android:layout_height="@dimen/material_drawer_account_header_height_compact"
-        android:clickable="true">
+        android:layout_height="@dimen/material_drawer_account_header_height_compact">
 
         <com.mikepenz.materialdrawer.view.BezelImageView
             android:id="@+id/account_header_drawer_small_first"
