@@ -726,28 +726,68 @@ public class Drawer {
 
 
     public interface OnDrawerNavigationListener {
+        /**
+         * @param clickedView
+         * @return true if the event was consumed
+         */
         boolean onNavigationClickListener(View clickedView);
     }
 
     public interface OnDrawerItemClickListener {
+        /**
+         * @param parent
+         * @param view
+         * @param position
+         * @param id
+         * @param drawerItem
+         * @return true if the event was consumed
+         */
         boolean onItemClick(AdapterView<?> parent, View view, int position, long id, IDrawerItem drawerItem);
     }
 
     public interface OnDrawerItemLongClickListener {
+        /**
+         * @param parent
+         * @param view
+         * @param position
+         * @param id
+         * @param drawerItem
+         * @return true if the event was consumed
+         */
         boolean onItemLongClick(AdapterView<?> parent, View view, int position, long id, IDrawerItem drawerItem);
     }
 
     public interface OnDrawerListener {
+        /**
+         * @param drawerView
+         */
         void onDrawerOpened(View drawerView);
 
+        /**
+         * @param drawerView
+         */
         void onDrawerClosed(View drawerView);
 
+        /**
+         * @param drawerView
+         * @param slideOffset
+         */
         void onDrawerSlide(View drawerView, float slideOffset);
     }
 
     public interface OnDrawerItemSelectedListener {
+        /**
+         * @param parent
+         * @param view
+         * @param position
+         * @param id
+         * @param drawerItem
+         */
         void onItemSelected(AdapterView<?> parent, View view, int position, long id, IDrawerItem drawerItem);
 
+        /**
+         * @param parent
+         */
         void onNothingSelected(AdapterView<?> parent);
     }
 }
