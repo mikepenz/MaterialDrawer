@@ -106,7 +106,7 @@ Drawer result = new DrawerBuilder()
     )
     .withOnDrawerItemClickListener(new Drawer.OnDrawerItemClickListener() {
     @Override
-    public void onItemClick(AdapterView<?> parent, View view, int position, long id, IDrawerItem drawerItem) {
+    public boolean onItemClick(AdapterView<?> parent, View view, int position, long id, IDrawerItem drawerItem) {
     	// do something with the clicked item :D
     }
     })
@@ -154,7 +154,7 @@ Drawer result = new DrawerBuilder()
     )
     .withOnDrawerItemClickListener(new Drawer.OnDrawerItemClickListener() {
     @Override
-    public void onItemClick(AdapterView<?> parent, View view, int position, long id, IDrawerItem drawerItem) {
+    public boolean onItemClick(AdapterView<?> parent, View view, int position, long id, IDrawerItem drawerItem) {
     	// do something with the clicked item :D
     }
     })
