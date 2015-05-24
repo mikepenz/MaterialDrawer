@@ -4,10 +4,11 @@ import android.app.Activity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.animation.AlphaAnimation;
 import android.view.animation.Animation;
-import android.view.animation.AnimationUtils;
+import android.view.animation.AnimationSet;
+import android.view.animation.ScaleAnimation;
 
-import com.mikepenz.materialdrawer.R;
 import com.mikepenz.materialdrawer.model.interfaces.IDrawerItem;
 
 import java.util.ArrayList;
@@ -141,8 +142,16 @@ public class DrawerAdapter extends BaseDrawerAdapter {
 
         if (mAnimateDrawerItems) {
             if (getAnimatedItem(position) == null || !getAnimatedItem(position)) {
-                Animation animation = AnimationUtils.loadAnimation(view.getContext(), R.anim.abc_fade_in);
-                view.startAnimation(animation);
+                AnimationSet animationSet = new AnimationSet(false);
+                animationSet.setDuration(100);
+
+                Animation scaleAnimation = new ScaleAnimation(1, 1, 0, 1);
+                Animation alphaAnimation = new AlphaAnimation(0, 1);
+
+                animationSet.addAnimation(scaleAnimation);
+                animationSet.addAnimation(alphaAnimation);
+
+                view.startAnimation(animationSet);
                 setAnimatedItem(position, true);
             }
         }

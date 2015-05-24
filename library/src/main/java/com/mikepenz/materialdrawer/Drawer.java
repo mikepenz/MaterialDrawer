@@ -706,6 +706,7 @@ public class Drawer {
             originalOnDrawerItemClickListener = null;
             originalDrawerItems = null;
             originalDrawerSelection = -1;
+            mDrawerBuilder.mAdapter.resetAnimation();
         }
     }
 
