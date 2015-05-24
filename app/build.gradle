@@ -13,8 +13,8 @@ android {
         applicationId "com.mikepenz.materialdrawer.app"
         minSdkVersion 10
         targetSdkVersion 22
-        versionCode 298
-        versionName "2.9.8"
+        versionCode 300
+        versionName "3.0.0"
 
         applicationVariants.all { variant ->
             variant.outputs.each { output ->
@@ -53,6 +53,6 @@ dependencies {
     compile('com.mikepenz:aboutlibraries:5.0.0@aar') {
         transitive = true
     }
-    compile 'com.mikepenz.iconics:octicons-typeface:2.2.0@aar'
+    compile 'com.mikepenz:octicons-typeface:2.2.0@aar'
     compile 'com.squareup.picasso:picasso:2.5.2'
 }
