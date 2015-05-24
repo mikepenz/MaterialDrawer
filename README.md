@@ -58,10 +58,10 @@ You can find a detailed description of all methods in the [WIKI](https://github.
 
 ###Upgrade Notes
 #### < v3.0.0
-There is no more `Drawer.Result`. To create a drawer use the new `DrawerBuilder` instead of the `Drawer`. The result is now a `Drawer`.
-There is no more `AccountHeader.Result`. To create a drawer use the new `AccountHeaderBuilder` instead of the `AccountHeader`. The result is now a `AccountHeader`.
-
-`new Drawer()` -> `new DrawerBuilder()`, `Drawer.Result` -> `Drawer`, `new AccountHeader()` -> `new AccountHeaderBuilder()`, `AccountHeader.Result` -> `AccountHeader`
+* There is no more `Drawer.Result`. To create a drawer use the new `DrawerBuilder` instead of the `Drawer`. The result is now a `Drawer`.
+* There is no more `AccountHeader.Result`. To create a drawer use the new `AccountHeaderBuilder` instead of the `AccountHeader`. The result is now a `AccountHeader`.
+* `new Drawer()` --> `new DrawerBuilder()`, `Drawer.Result` --> `Drawer`, `new AccountHeader()` --> `new AccountHeaderBuilder()`, `AccountHeader.Result` --> `AccountHeader`
+* The `onDrawerItemClick` listener now returns a `boolean` defining if the event was consumed
 
 #### < v2.9.8
 Changed maven group. You can get all updates via the new one `com.mikepenz:materialdrawer:x.y.z@aar`
