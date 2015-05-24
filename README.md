@@ -55,7 +55,14 @@ compile('com.mikepenz:materialdrawer:2.9.8@aar') {
 Here's a quick overview what you have to do within your application.
 You can find a detailed description of all methods in the [WIKI](https://github.com/mikepenz/MaterialDrawer/wiki).
 
+
 ###Upgrade Notes
+#### < v3.0.0
+There is no more `Drawer.Result`. To create a drawer use the new `DrawerBuilder` instead of the `Drawer`. The result is now a `Drawer`.
+There is no more `AccountHeader.Result`. To create a drawer use the new `AccountHeaderBuilder` instead of the `AccountHeader`. The result is now a `AccountHeader`.
+
+`new Drawer()` -> `new DrawerBuilder()`, `Drawer.Result` -> `Drawer`, `new AccountHeader()` -> `new AccountHeaderBuilder()`, `AccountHeader.Result` -> `AccountHeader`
+
 #### < v2.9.8
 Changed maven group. You can get all updates via the new one `com.mikepenz:materialdrawer:x.y.z@aar`
 
@@ -83,13 +90,13 @@ v2.8.0 now uses the latest com.android.support:appcompat version 22.1.0. Please 
 ####Code:
 It's (theoretically) a one-liner :D. This will create an empty drawer.
 ```java
-new Drawer().withActivity(this).build()
+new DrawerBuilder().withActivity(this).build()
 ```
 
 ###Activity with Toolbar
 ####Code:
 ```java
-Drawer.Result result = new Drawer()
+Drawer result = new DrawerBuilder()
     .withActivity(this)
     .withToolbar(toolbar)
     .addDrawerItems(
@@ -121,7 +128,7 @@ result.addItem(..);
 ```java
 
 // Create the AccountHeader
-headerResult = new AccountHeader()
+AccountHeader headerResult = new AccountHeaderBuilder()
 	.withActivity(this)
     .withHeaderBackground(R.drawable.header)
 	.addProfiles(
@@ -136,7 +143,7 @@ headerResult = new AccountHeader()
 	.build();
                 
 //Now create your drawer and pass the AccountHeader.Result
-Drawer.Result result = new Drawer()
+Drawer result = new DrawerBuilder()
     .withActivity(this)
     .withToolbar(toolbar)
     .withAccountHeader(headerResult)
@@ -158,7 +165,7 @@ Drawer.Result result = new Drawer()
 ###Activity with ActionBar
 ####Code:
 ```java
-new Drawer()
+new DrawerBuilder()
 	.withActivity(this)
 	.withTranslucentStatusBar(false)
     .withActionBarDrawerToggle(false)
@@ -171,7 +178,7 @@ new Drawer()
 ###Activity with Multiple Drawers
 ####Code:
 ```java
-Drawer.Result result = new Drawer()
+Drawer result = new DrawerBuilder()
 	.withActivity(this)
 	.withToolbar(toolbar)
 	.addDrawerItems(
@@ -179,7 +186,7 @@ Drawer.Result result = new Drawer()
 	)
 	.build();
 
-new Drawer()
+new DrawerBuilder()
 	.withActivity(this)
     .addDrawerItems(
     	//pass your items here
@@ -319,7 +326,7 @@ No need to create a custom theme. Just set these colors (or some of them) and yo
 ##FAQ
 #####How can i create a drawer without a default selection
 ```java
-//just use this with the Drawer.Builder
+//just use this with the Drawer
 .withSelectedItem(-1)
 ```
 
@@ -352,7 +359,7 @@ You can read about this here: https://github.com/mikepenz/MaterialDrawer/issues/
 As the MaterialDrawer will just create a normal DrawerLayout (with some magic around it) everything a normal
 DrawerLayout can do is also available in the MaterialDrawer. 
 ```java
-//get the DrawerLayout from the Drawer.Result
+//get the DrawerLayout from the Drawer
 DrawerLayout drawerLayout = result.getDrawerLayout();
 //do whatever you want with the Drawer. Like locking it. 
 drawerLayout.setDrawerLockMode(int lockMode); //or (int lockMode, int edgeGravity)
