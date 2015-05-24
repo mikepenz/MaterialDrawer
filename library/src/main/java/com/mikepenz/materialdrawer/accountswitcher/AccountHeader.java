@@ -116,7 +116,28 @@ public class AccountHeader {
      * @param profile
      */
     public void setActiveProfile(IProfile profile) {
-        mAccountHeaderBuilder.switchProfiles(profile);
+        setActiveProfile(profile, false);
+    }
+	
+	/**
+     * Selects the given profile and sets it to the new active profile
+     *
+     * @param profile
+     */
+    public void setActiveProfile(IProfile profile, boolean fireOnProfileChanged) {
+        final boolean isCurrentSelectedProfile = mAccountHeaderBuilder.switchProfiles(profile);
+		if (fireOnProfileChanged && mAccountHeaderBuilder.mOnAccountHeaderListener != null) {
+            mAccountHeaderBuilder.mOnAccountHeaderListener.onProfileChanged(null, profile, isCurrentSelectedProfile);
+		}
+    }
+	
+	/**
+     * Selects a profile by its identifier
+     *
+     * @param identifier
+     */
+    public void setActiveProfile(int identifier) {
+        setActiveProfile(identifier, false);
     }
 
     /**
@@ -124,12 +145,12 @@ public class AccountHeader {
      *
      * @param identifier
      */
-    public void setActiveProfile(int identifier) {
+    public void setActiveProfile(int identifier, boolean fireOnProfileChanged) {
         if (mAccountHeaderBuilder.mProfiles != null) {
             for (IProfile profile : mAccountHeaderBuilder.mProfiles) {
                 if (profile instanceof Identifyable) {
                     if (profile.getIdentifier() == identifier) {
-                        mAccountHeaderBuilder.switchProfiles(profile);
+                        setActiveProfile(profile, fireOnProfileChanged);
                         return;
                     }
                 }
@@ -142,7 +163,7 @@ public class AccountHeader {
      *
      * @param newProfile
      */
-    public void updateProfileByIdentifier(IProfile newProfile) {
+    public void updateProfileByIdentifier(IProfile newProfile, boolean fireOnProfileChanged) {
         if (mAccountHeaderBuilder.mProfiles != null) {
             for (IProfile profile : mAccountHeaderBuilder.mProfiles) {
                 if (profile instanceof Identifyable) {
