@@ -15,6 +15,7 @@ import android.widget.RelativeLayout;
 
 import com.mikepenz.materialdrawer.model.PrimaryDrawerItem;
 import com.mikepenz.materialdrawer.model.SecondaryDrawerItem;
+import com.mikepenz.materialdrawer.model.interfaces.Checkable;
 import com.mikepenz.materialdrawer.model.interfaces.IDrawerItem;
 import com.mikepenz.materialdrawer.util.UIUtils;
 
@@ -22,6 +23,159 @@ import com.mikepenz.materialdrawer.util.UIUtils;
  * Created by mikepenz on 23.05.15.
  */
 class DrawerUtils {
+    /**
+     * helper method to handle the onClick of the footer
+     *
+     * @param drawer
+     * @param drawerItem
+     * @param v
+     * @param fireOnClick
+     */
+    public static void onFooterDrawerItemClick(DrawerBuilder drawer, IDrawerItem drawerItem, View v, boolean fireOnClick) {
+        boolean checkable = !(drawerItem != null && drawerItem instanceof Checkable && !((Checkable) drawerItem).isCheckable());
+        if (checkable) {
+            drawer.resetStickyFooterSelection();
+
+            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.HONEYCOMB) {
+                v.setActivated(true);
+            }
+            v.setSelected(true);
+
+            //remove the selection in the list
+            drawer.mListView.setSelection(-1);
+            drawer.mListView.setItemChecked(drawer.mCurrentSelection + drawer.mHeaderOffset, false);
+
+            //set currentSelection to -1 because we selected a stickyFooter element
+            drawer.mCurrentSelection = -1;
+
+            //find the position of the clicked footer item
+            if (drawer.mStickyFooterView != null && drawer.mStickyFooterView instanceof LinearLayout) {
+                LinearLayout footer = (LinearLayout) drawer.mStickyFooterView;
+                for (int i = 0; i < footer.getChildCount(); i++) {
+                    if (footer.getChildAt(i) == v) {
+                        drawer.mCurrentFooterSelection = i;
+                        break;
+                    }
+                }
+            }
+        }
+
+
+        boolean consumed = false;
+        if (fireOnClick && drawer.mOnDrawerItemClickListener != null) {
+            consumed = drawer.mOnDrawerItemClickListener.onItemClick(null, v, -1, -1, drawerItem);
+        }
+
+        if (!consumed) {
+            //close the drawer after click
+            drawer.closeDrawerDelayed();
+        }
+    }
+
+    /**
+     * helper method to set the selection in the lsit
+     *
+     * @param drawer
+     * @param position
+     * @param fireOnClick
+     * @return
+     */
+    public static boolean setListSelection(DrawerBuilder drawer, int position, boolean fireOnClick) {
+        return setListSelection(drawer, position, fireOnClick, null);
+    }
+
+    /**
+     * helper method to set the selection in the list
+     *
+     * @param drawer
+     * @param position
+     * @param fireOnClick
+     * @param drawerItem
+     * @return
+     */
+    public static boolean setListSelection(DrawerBuilder drawer, int position, boolean fireOnClick, IDrawerItem drawerItem) {
+        if (position > -1) {
+            //predefine selection (should be the first element
+            if (drawer.mListView != null && (position + drawer.mHeaderOffset) > -1) {
+                drawer.resetStickyFooterSelection();
+                drawer.mListView.setSelection(position + drawer.mHeaderOffset);
+                drawer.mListView.setItemChecked(position + drawer.mHeaderOffset, true);
+                drawer.mCurrentSelection = position;
+                drawer.mCurrentFooterSelection = -1;
+            }
+
+            if (fireOnClick && drawer.mOnDrawerItemClickListener != null) {
+                return drawer.mOnDrawerItemClickListener.onItemClick(null, null, position - drawer.mHeaderOffset, -1, drawerItem);
+            }
+        }
+
+        return false;
+    }
+
+    /**
+     * helper method to set the selection of the footer
+     *
+     * @param drawer
+     * @param position
+     * @param fireOnClick
+     */
+    public static void setFooterSelection(DrawerBuilder drawer, int position, boolean fireOnClick) {
+        if (position > -1) {
+            if (drawer.mStickyFooterView != null && drawer.mStickyFooterView instanceof LinearLayout) {
+                LinearLayout footer = (LinearLayout) drawer.mStickyFooterView;
+
+                if (footer.getChildCount() > position && position >= 0) {
+                    IDrawerItem drawerItem = (IDrawerItem) footer.getChildAt(position).getTag();
+                    onFooterDrawerItemClick(drawer, drawerItem, footer.getChildAt(position), fireOnClick);
+                }
+            }
+        }
+    }
+
+    /**
+     * calculates the position of an drawerItem. searching by it's identifier
+     *
+     * @param identifier
+     * @return
+     */
+    public static int getPositionFromIdentifier(DrawerBuilder drawer, int identifier) {
+        if (identifier >= 0) {
+            if (drawer.mDrawerItems != null) {
+                int position = 0;
+                for (IDrawerItem i : drawer.mDrawerItems) {
+                    if (i.getIdentifier() == identifier) {
+                        return position;
+                    }
+                    position = position + 1;
+                }
+            }
+        }
+
+        return -1;
+    }
+
+    /**
+     * calculates the position of an drawerItem inside the footer. searching by it's identifier
+     *
+     * @param identifier
+     * @return
+     */
+    public static int getFooterPositionFromIdentifier(DrawerBuilder drawer, int identifier) {
+        if (identifier >= 0) {
+            if (drawer.mStickyFooterView != null && drawer.mStickyFooterView instanceof LinearLayout) {
+                LinearLayout footer = (LinearLayout) drawer.mStickyFooterView;
+
+                for (int i = 0; i < footer.getChildCount(); i++) {
+                    Object o = footer.getChildAt(i).getTag();
+                    if (o != null && o instanceof IDrawerItem) {
+                        return ((IDrawerItem) o).getIdentifier();
+                    }
+                }
+            }
+        }
+
+        return -1;
+    }
 
     /**
      * helper method to set the TranslucentStatusFlag

@@ -41,6 +41,7 @@ public class DrawerBuilder {
     // variable to check if a builder is only used once
     protected boolean mUsed = false;
     protected int mCurrentSelection = -1;
+    protected int mCurrentFooterSelection = -1;
 
     // the activity to use
     protected Activity mActivity;
@@ -1413,33 +1414,7 @@ public class DrawerBuilder {
             @Override
             public void onClick(View v) {
                 IDrawerItem drawerItem = (IDrawerItem) v.getTag();
-                boolean checkable = !(drawerItem != null && drawerItem instanceof Checkable && !((Checkable) drawerItem).isCheckable());
-                if (checkable) {
-                    resetStickyFooterSelection();
-
-                    if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.HONEYCOMB) {
-                        v.setActivated(true);
-                    }
-                    v.setSelected(true);
-
-                    //remove the selection in the list
-                    mListView.setSelection(-1);
-                    mListView.setItemChecked(mCurrentSelection + mHeaderOffset, false);
-
-                    //set currentSelection to -1 because we selected a stickyFooter element
-                    mCurrentSelection = -1;
-                }
-
-
-                boolean consumed = false;
-                if (mOnDrawerItemClickListener != null) {
-                    consumed = mOnDrawerItemClickListener.onItemClick(null, v, -1, -1, drawerItem);
-                }
-
-                if (!consumed) {
-                    //close the drawer after click
-                    closeDrawerDelayed();
-                }
+                DrawerUtils.onFooterDrawerItemClick(DrawerBuilder.this, drawerItem, v, true);
             }
         });
 
@@ -1449,12 +1424,7 @@ public class DrawerBuilder {
             mListView.setAdapter(mAdapter);
 
             //predefine selection (should be the first element
-            if (mListView != null && (mSelectedItem + mHeaderOffset) > -1) {
-                resetStickyFooterSelection();
-                mListView.setSelection(mSelectedItem + mHeaderOffset);
-                mListView.setItemChecked(mSelectedItem + mHeaderOffset, true);
-                mCurrentSelection = mSelectedItem;
-            }
+            DrawerUtils.setListSelection(this, mSelectedItem, false);
         }
 
         // add the onDrawerItemClickListener if set
@@ -1469,6 +1439,7 @@ public class DrawerBuilder {
                 } else {
                     resetStickyFooterSelection();
                     mCurrentSelection = position - mHeaderOffset;
+                    mCurrentFooterSelection = -1;
                 }
 
                 boolean consumed = false;
@@ -1519,15 +1490,9 @@ public class DrawerBuilder {
         // try to restore all saved values again
         if (mSavedInstance != null) {
             int selection = mSavedInstance.getInt(Drawer.BUNDLE_SELECTION, -1);
-            if (selection != -1) {
-                //predefine selection (should be the first element
-                if (mListView != null && (selection + mHeaderOffset) > -1) {
-                    resetStickyFooterSelection();
-                    mListView.setSelection(selection + mHeaderOffset);
-                    mListView.setItemChecked(selection + mHeaderOffset, true);
-                    mCurrentSelection = selection;
-                }
-            }
+            DrawerUtils.setListSelection(this, selection, false);
+            int footerSelection = mSavedInstance.getInt(Drawer.BUNDLE_FOOTER_SELECTION, -1);
+            DrawerUtils.setFooterSelection(this, footerSelection, false);
         }
 
         // call initial onClick event to allow the dev to init the first view

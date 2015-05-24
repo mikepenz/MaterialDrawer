@@ -31,6 +31,7 @@ public class Drawer {
      * BUNDLE param to store the selection
      */
     protected static final String BUNDLE_SELECTION = "bundle_selection";
+    protected static final String BUNDLE_FOOTER_SELECTION = "bundle_footer_selection";
 
     /**
      * Per the design guidelines, you should show the drawer on launch until the user manually
@@ -290,19 +291,27 @@ public class Drawer {
      * @return
      */
     public int getPositionFromIdentifier(int identifier) {
-        if (identifier >= 0) {
-            if (mDrawerBuilder.mDrawerItems != null) {
-                int position = 0;
-                for (IDrawerItem i : mDrawerBuilder.mDrawerItems) {
-                    if (i.getIdentifier() == identifier) {
-                        return position;
-                    }
-                    position = position + 1;
-                }
-            }
-        }
+        return DrawerUtils.getPositionFromIdentifier(mDrawerBuilder, identifier);
+    }
 
-        return -1;
+    /**
+     * calculates the position of an drawerItem. searching by it's identifier
+     *
+     * @param drawerItem
+     * @return
+     */
+    public int getFooterPositionFromIdentifier(IDrawerItem drawerItem) {
+        return getFooterPositionFromIdentifier(drawerItem.getIdentifier());
+    }
+
+    /**
+     * calculates the position of an drawerItem inside the footer. searching by it's identfier
+     *
+     * @param identifier
+     * @return
+     */
+    public int getFooterPositionFromIdentifier(int identifier) {
+        return DrawerUtils.getFooterPositionFromIdentifier(mDrawerBuilder, identifier);
     }
 
     /**
@@ -315,13 +324,22 @@ public class Drawer {
     }
 
     /**
+     * get the current footer selection
+     *
+     * @return
+     */
+    public int getCurrentFooterSelection() {
+        return mDrawerBuilder.mCurrentFooterSelection;
+    }
+
+    /**
      * set the current selection in the drawer
      * NOTE: This will trigger onDrawerItemSelected without a view!
      *
      * @param identifier
      */
-    public void setSelectionByIdentifier(int identifier) {
-        setSelection(getPositionFromIdentifier(identifier), true);
+    public boolean setSelectionByIdentifier(int identifier) {
+        return setSelection(getPositionFromIdentifier(identifier), true);
     }
 
     /**
@@ -331,8 +349,19 @@ public class Drawer {
      * @param identifier
      * @param fireOnClick
      */
-    public void setSelectionByIdentifier(int identifier, boolean fireOnClick) {
-        setSelection(getPositionFromIdentifier(identifier), fireOnClick);
+    public boolean setSelectionByIdentifier(int identifier, boolean fireOnClick) {
+        return setSelection(getPositionFromIdentifier(identifier), fireOnClick);
+    }
+
+    /**
+     * set the current selection in the footer of the drawer
+     * NOTE: This will trigger onDrawerItemSelected without a view if you pass fireOnClick = true;
+     *
+     * @param identifier
+     * @param fireOnClick
+     */
+    public void setFooterSelectionByIdentifier(int identifier, boolean fireOnClick) {
+        setFooterSelection(getPositionFromIdentifier(identifier), fireOnClick);
     }
 
     /**
@@ -341,8 +370,8 @@ public class Drawer {
      *
      * @param drawerItem
      */
-    public void setSelection(IDrawerItem drawerItem) {
-        setSelection(getPositionFromIdentifier(drawerItem), true);
+    public boolean setSelection(IDrawerItem drawerItem) {
+        return setSelection(getPositionFromIdentifier(drawerItem), true);
     }
 
     /**
@@ -352,8 +381,8 @@ public class Drawer {
      * @param drawerItem
      * @param fireOnClick
      */
-    public void setSelection(IDrawerItem drawerItem, boolean fireOnClick) {
-        setSelection(getPositionFromIdentifier(drawerItem), fireOnClick);
+    public boolean setSelection(IDrawerItem drawerItem, boolean fireOnClick) {
+        return setSelection(getPositionFromIdentifier(drawerItem), fireOnClick);
     }
 
     /**
@@ -362,29 +391,44 @@ public class Drawer {
      *
      * @param position the position to select
      */
-    public void setSelection(int position) {
-        setSelection(position, true);
+    public boolean setSelection(int position) {
+        return setSelection(position, true);
     }
 
-    /**
+    /*
      * set the current selection in the drawer
      * NOTE: This will trigger onDrawerItemSelected without a view if you pass fireOnClick = true;
      *
      * @param position
      * @param fireOnClick
+     * @return true if the event was consumed
      */
-    public void setSelection(int position, boolean fireOnClick) {
+    public boolean setSelection(int position, boolean fireOnClick) {
         if (mDrawerBuilder.mListView != null) {
-            mDrawerBuilder.resetStickyFooterSelection();
-            mDrawerBuilder.mListView.setSelection(position + mDrawerBuilder.mHeaderOffset);
-            mDrawerBuilder.mListView.setItemChecked(position + mDrawerBuilder.mHeaderOffset, true);
-
-            if (fireOnClick && mDrawerBuilder.mOnDrawerItemClickListener != null) {
-                mDrawerBuilder.mOnDrawerItemClickListener.onItemClick(null, null, position, position, mDrawerBuilder.getDrawerItem(position, false));
-            }
-
-            mDrawerBuilder.mCurrentSelection = position;
+            return DrawerUtils.setListSelection(mDrawerBuilder, position, fireOnClick, mDrawerBuilder.getDrawerItem(position, false));
         }
+        return false;
+    }
+
+    /**
+     * set the current selection in the footer of the drawer
+     * NOTE: This will trigger onDrawerItemSelected without a view!
+     *
+     * @param position the position to select
+     */
+    public void setFooterSelection(int position) {
+        setFooterSelection(position, true);
+    }
+
+    /**
+     * set the current selection in the footer of the drawer
+     * NOTE: This will trigger onDrawerItemSelected without a view if you pass fireOnClick = true;
+     *
+     * @param position
+     * @param fireOnClick
+     */
+    public void setFooterSelection(int position, boolean fireOnClick) {
+        DrawerUtils.setFooterSelection(mDrawerBuilder, position, fireOnClick);
     }
 
     /**
@@ -689,6 +733,7 @@ public class Drawer {
             setOnDrawerItemClickListener(onDrawerItemClickListener);
             setItems(drawerItems, true);
             setSelection(drawerSelection, false);
+
             mDrawerBuilder.mAdapter.resetAnimation();
         }
     }
@@ -706,6 +751,7 @@ public class Drawer {
             originalOnDrawerItemClickListener = null;
             originalDrawerItems = null;
             originalDrawerSelection = -1;
+
             mDrawerBuilder.mAdapter.resetAnimation();
         }
     }
@@ -718,9 +764,8 @@ public class Drawer {
      */
     public Bundle saveInstanceState(Bundle savedInstanceState) {
         if (savedInstanceState != null) {
-            if (getListView() != null) {
-                savedInstanceState.putInt(BUNDLE_SELECTION, mDrawerBuilder.mCurrentSelection);
-            }
+            savedInstanceState.putInt(BUNDLE_SELECTION, mDrawerBuilder.mCurrentSelection);
+            savedInstanceState.putInt(BUNDLE_FOOTER_SELECTION, mDrawerBuilder.mCurrentFooterSelection);
         }
         return savedInstanceState;
     }
