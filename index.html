@@ -95,7 +95,7 @@
 
 <p>The MaterialDrawer Library is pushed to <a href="http://search.maven.org/#search%7Cga%7C1%7Cg%3A%22com.mikepenz%22">Maven Central</a>, so you just need to add the following dependency to your <code>build.gradle</code>.</p>
 
-<div class="highlight highlight-javascript"><pre><span class="pl-en">compile</span>('<span class="pl-smi">com</span>.mikepenz:materialdrawer:2.9.8@aar') {
+<div class="highlight highlight-javascript"><pre><span class="pl-en">compile</span>('<span class="pl-smi">com</span>.mikepenz:materialdrawer:3.0.2@aar') {
     transitive <span class="pl-k">=</span> <span class="pl-c1">true</span>
 }</pre></div>
 
@@ -107,6 +107,18 @@ You can find a detailed description of all methods in the <a href="https://githu
 
 <h3>
 <a id="upgrade-notes" class="anchor" href="#upgrade-notes" aria-hidden="true"><span class="octicon octicon-link"></span></a>Upgrade Notes</h3>
+
+<h4>
+<a id="-v300" class="anchor" href="#-v300" aria-hidden="true"><span class="octicon octicon-link"></span></a>&lt; v3.0.0</h4>
+
+<ul>
+<li>There is no more <code>Drawer.Result</code>. To create a drawer use the new <code>DrawerBuilder</code> instead of the <code>Drawer</code>. The result is now a <code>Drawer</code>.</li>
+<li>There is no more <code>AccountHeader.Result</code>. To create a drawer use the new <code>AccountHeaderBuilder</code> instead of the <code>AccountHeader</code>. The result is now a <code>AccountHeader</code>.</li>
+<li>
+<code>new Drawer()</code> --&gt; <code>new DrawerBuilder()</code>, <code>Drawer.Result</code> --&gt; <code>Drawer</code>, <code>new AccountHeader()</code> --&gt; <code>new AccountHeaderBuilder()</code>, <code>AccountHeader.Result</code> --&gt; <code>AccountHeader</code>
+</li>
+<li>The <code>onDrawerItemClick</code> listener now returns a <code>boolean</code> defining if the event was consumed</li>
+</ul>
 
 <h4>
 <a id="-v298" class="anchor" href="#-v298" aria-hidden="true"><span class="octicon octicon-link"></span></a>&lt; v2.9.8</h4>
@@ -145,7 +157,7 @@ You can find a detailed description of all methods in the <a href="https://githu
 
 <p>It's (theoretically) a one-liner :D. This will create an empty drawer.</p>
 
-<div class="highlight highlight-java"><pre><span class="pl-k">new</span> <span class="pl-smi">Drawer</span>()<span class="pl-k">.</span>withActivity(<span class="pl-v">this</span>)<span class="pl-k">.</span>build()</pre></div>
+<div class="highlight highlight-java"><pre><span class="pl-k">new</span> <span class="pl-smi">DrawerBuilder</span>()<span class="pl-k">.</span>withActivity(<span class="pl-v">this</span>)<span class="pl-k">.</span>build()</pre></div>
 
 <h3>
 <a id="activity-with-toolbar" class="anchor" href="#activity-with-toolbar" aria-hidden="true"><span class="octicon octicon-link"></span></a>Activity with Toolbar</h3>
@@ -153,7 +165,7 @@ You can find a detailed description of all methods in the <a href="https://githu
 <h4>
 <a id="code-1" class="anchor" href="#code-1" aria-hidden="true"><span class="octicon octicon-link"></span></a>Code:</h4>
 
-<div class="highlight highlight-java"><pre><span class="pl-smi">Drawer</span><span class="pl-k">.</span><span class="pl-smi">Result</span> result <span class="pl-k">=</span> <span class="pl-k">new</span> <span class="pl-smi">Drawer</span>()
+<div class="highlight highlight-java"><pre><span class="pl-smi">Drawer</span> result <span class="pl-k">=</span> <span class="pl-k">new</span> <span class="pl-smi">DrawerBuilder</span>()
     .withActivity(<span class="pl-v">this</span>)
     .withToolbar(toolbar)
     .addDrawerItems(
@@ -163,7 +175,7 @@ You can find a detailed description of all methods in the <a href="https://githu
     )
     .withOnDrawerItemClickListener(<span class="pl-k">new</span> <span class="pl-smi">Drawer</span>.<span class="pl-smi">OnDrawerItemClickListener</span>() {
     <span class="pl-k">@Override</span>
-    <span class="pl-k">public</span> <span class="pl-k">void</span> <span class="pl-en">onItemClick</span>(<span class="pl-k">AdapterView&lt;?&gt;</span> <span class="pl-v">parent</span>, <span class="pl-smi">View</span> <span class="pl-v">view</span>, <span class="pl-k">int</span> <span class="pl-v">position</span>, <span class="pl-k">long</span> <span class="pl-v">id</span>, <span class="pl-smi">IDrawerItem</span> <span class="pl-v">drawerItem</span>) {
+    <span class="pl-k">public</span> <span class="pl-k">boolean</span> <span class="pl-en">onItemClick</span>(<span class="pl-k">AdapterView&lt;?&gt;</span> <span class="pl-v">parent</span>, <span class="pl-smi">View</span> <span class="pl-v">view</span>, <span class="pl-k">int</span> <span class="pl-v">position</span>, <span class="pl-k">long</span> <span class="pl-v">id</span>, <span class="pl-smi">IDrawerItem</span> <span class="pl-v">drawerItem</span>) {
         <span class="pl-c">// do something with the clicked item :D</span>
     }
     })
@@ -187,7 +199,7 @@ result<span class="pl-k">.</span>addItem(<span class="pl-c1">..</span>);
 
 <div class="highlight highlight-java"><pre>
 <span class="pl-c">// Create the AccountHeader</span>
-headerResult <span class="pl-k">=</span> <span class="pl-k">new</span> <span class="pl-smi">AccountHeader</span>()
+<span class="pl-smi">AccountHeader</span> headerResult <span class="pl-k">=</span> <span class="pl-k">new</span> <span class="pl-smi">AccountHeaderBuilder</span>()
     .withActivity(<span class="pl-v">this</span>)
     .withHeaderBackground(<span class="pl-smi">R</span><span class="pl-k">.</span>drawable<span class="pl-k">.</span>header)
     .addProfiles(
@@ -202,7 +214,7 @@ headerResult <span class="pl-k">=</span> <span class="pl-k">new</span> <span cla
     .build();
 
 <span class="pl-c">//Now create your drawer and pass the AccountHeader.Result</span>
-<span class="pl-smi">Drawer</span><span class="pl-k">.</span><span class="pl-smi">Result</span> result <span class="pl-k">=</span> <span class="pl-k">new</span> <span class="pl-smi">Drawer</span>()
+<span class="pl-smi">Drawer</span> result <span class="pl-k">=</span> <span class="pl-k">new</span> <span class="pl-smi">DrawerBuilder</span>()
     .withActivity(<span class="pl-v">this</span>)
     .withToolbar(toolbar)
     .withAccountHeader(headerResult)
@@ -213,7 +225,7 @@ headerResult <span class="pl-k">=</span> <span class="pl-k">new</span> <span cla
     )
     .withOnDrawerItemClickListener(<span class="pl-k">new</span> <span class="pl-smi">Drawer</span>.<span class="pl-smi">OnDrawerItemClickListener</span>() {
     <span class="pl-k">@Override</span>
-    <span class="pl-k">public</span> <span class="pl-k">void</span> <span class="pl-en">onItemClick</span>(<span class="pl-k">AdapterView&lt;?&gt;</span> <span class="pl-v">parent</span>, <span class="pl-smi">View</span> <span class="pl-v">view</span>, <span class="pl-k">int</span> <span class="pl-v">position</span>, <span class="pl-k">long</span> <span class="pl-v">id</span>, <span class="pl-smi">IDrawerItem</span> <span class="pl-v">drawerItem</span>) {
+    <span class="pl-k">public</span> <span class="pl-k">boolean</span> <span class="pl-en">onItemClick</span>(<span class="pl-k">AdapterView&lt;?&gt;</span> <span class="pl-v">parent</span>, <span class="pl-smi">View</span> <span class="pl-v">view</span>, <span class="pl-k">int</span> <span class="pl-v">position</span>, <span class="pl-k">long</span> <span class="pl-v">id</span>, <span class="pl-smi">IDrawerItem</span> <span class="pl-v">drawerItem</span>) {
         <span class="pl-c">// do something with the clicked item :D</span>
     }
     })
@@ -226,7 +238,7 @@ headerResult <span class="pl-k">=</span> <span class="pl-k">new</span> <span cla
 <h4>
 <a id="code-3" class="anchor" href="#code-3" aria-hidden="true"><span class="octicon octicon-link"></span></a>Code:</h4>
 
-<div class="highlight highlight-java"><pre><span class="pl-k">new</span> <span class="pl-smi">Drawer</span>()
+<div class="highlight highlight-java"><pre><span class="pl-k">new</span> <span class="pl-smi">DrawerBuilder</span>()
     .withActivity(<span class="pl-v">this</span>)
     .withTranslucentStatusBar(<span class="pl-c1">false</span>)
     .withActionBarDrawerToggle(<span class="pl-c1">false</span>)
@@ -241,7 +253,7 @@ headerResult <span class="pl-k">=</span> <span class="pl-k">new</span> <span cla
 <h4>
 <a id="code-4" class="anchor" href="#code-4" aria-hidden="true"><span class="octicon octicon-link"></span></a>Code:</h4>
 
-<div class="highlight highlight-java"><pre><span class="pl-smi">Drawer</span><span class="pl-k">.</span><span class="pl-smi">Result</span> result <span class="pl-k">=</span> <span class="pl-k">new</span> <span class="pl-smi">Drawer</span>()
+<div class="highlight highlight-java"><pre><span class="pl-smi">Drawer</span> result <span class="pl-k">=</span> <span class="pl-k">new</span> <span class="pl-smi">DrawerBuilder</span>()
     .withActivity(<span class="pl-v">this</span>)
     .withToolbar(toolbar)
     .addDrawerItems(
@@ -249,7 +261,7 @@ headerResult <span class="pl-k">=</span> <span class="pl-k">new</span> <span cla
     )
     .build();
 
-<span class="pl-k">new</span> <span class="pl-smi">Drawer</span>()
+<span class="pl-k">new</span> <span class="pl-smi">DrawerBuilder</span>()
     .withActivity(<span class="pl-v">this</span>)
     .addDrawerItems(
         <span class="pl-c">//pass your items here</span>
@@ -409,7 +421,7 @@ This is the same as the Custom style just with a parent like <code>parent="Theme
 <h5>
 <a id="how-can-i-create-a-drawer-without-a-default-selection" class="anchor" href="#how-can-i-create-a-drawer-without-a-default-selection" aria-hidden="true"><span class="octicon octicon-link"></span></a>How can i create a drawer without a default selection</h5>
 
-<div class="highlight highlight-java"><pre><span class="pl-c">//just use this with the Drawer.Builder</span>
+<div class="highlight highlight-java"><pre><span class="pl-c">//just use this with the Drawer</span>
 .withSelectedItem(<span class="pl-k">-</span><span class="pl-c1">1</span>)</pre></div>
 
 <h5>
@@ -439,6 +451,17 @@ drawer to be displayed under the StatusBar). <code>.withTranslucentStatusBar(fal
 
 <p>You can read about this here: <a href="https://github.com/mikepenz/MaterialDrawer/issues/95">https://github.com/mikepenz/MaterialDrawer/issues/95</a>, <a href="https://github.com/mikepenz/MaterialDrawer/issues/183">https://github.com/mikepenz/MaterialDrawer/issues/183</a>, <a href="https://github.com/mikepenz/MaterialDrawer/issues/196">https://github.com/mikepenz/MaterialDrawer/issues/196</a></p>
 
+<h5>
+<a id="can-i-lock-the-drawer" class="anchor" href="#can-i-lock-the-drawer" aria-hidden="true"><span class="octicon octicon-link"></span></a>Can I lock the Drawer</h5>
+
+<p>As the MaterialDrawer will just create a normal DrawerLayout (with some magic around it) everything a normal
+DrawerLayout can do is also available in the MaterialDrawer. </p>
+
+<div class="highlight highlight-java"><pre><span class="pl-c">//get the DrawerLayout from the Drawer</span>
+<span class="pl-smi">DrawerLayout</span> drawerLayout <span class="pl-k">=</span> result<span class="pl-k">.</span>getDrawerLayout();
+<span class="pl-c">//do whatever you want with the Drawer. Like locking it. </span>
+drawerLayout<span class="pl-k">.</span>setDrawerLockMode(<span class="pl-k">int</span> lockMode); <span class="pl-c">//or (int lockMode, int edgeGravity)</span></pre></div>
+
 <h2>
 <a id="apps-using-the-materialdrawer" class="anchor" href="#apps-using-the-materialdrawer" aria-hidden="true"><span class="octicon octicon-link"></span></a>Apps using the MaterialDrawer</h2>
 
@@ -451,6 +474,7 @@ drawer to be displayed under the StatusBar). <code>.withTranslucentStatusBar(fal
 <li><a href="https://play.google.com/store/apps/details?id=com.e13engineering.strength">Strength</a></li>
 <li><a href="https://play.google.com/store/apps/details?id=at.idev.spritpreise">Sprit Club</a></li>
 <li><a href="https://play.google.com/store/apps/details?id=com.gabilheri.fithub">FitHub</a></li>
+<li><a href="https://play.google.com/store/apps/details?id=com.jsvmsoft.stickynotes">StickyNotes</a></li>
 </ul>
 
 <h2>
