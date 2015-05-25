@@ -163,7 +163,7 @@ public class AccountHeader {
      *
      * @param newProfile
      */
-    public void updateProfileByIdentifier(IProfile newProfile, boolean fireOnProfileChanged) {
+    public void updateProfileByIdentifier(IProfile newProfile) {
         if (mAccountHeaderBuilder.mProfiles != null) {
             for (IProfile profile : mAccountHeaderBuilder.mProfiles) {
                 if (profile instanceof Identifyable) {
