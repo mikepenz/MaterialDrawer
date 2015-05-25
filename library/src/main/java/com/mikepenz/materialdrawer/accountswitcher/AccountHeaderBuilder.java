@@ -1128,10 +1128,6 @@ public class AccountHeaderBuilder {
             if (mDrawer.switchedDrawerContent()) {
                 resetDrawerContent(ctx);
                 mSelectionListShown = false;
-
-                if (mDrawer.getStickyFooter() != null) {
-                    mDrawer.getStickyFooter().setVisibility(View.VISIBLE);
-                }
             } else {
                 //build and set the drawer selection list
                 buildDrawerSelectionList();
@@ -1139,10 +1135,6 @@ public class AccountHeaderBuilder {
                 // update the arrow image within the drawer
                 mAccountSwitcherArrow.setImageDrawable(new IconicsDrawable(ctx, GoogleMaterial.Icon.gmd_arrow_drop_up).sizeDp(24).paddingDp(6).color(mTextColor));
                 mSelectionListShown = true;
-
-                if (mDrawer.getStickyFooter() != null) {
-                    mDrawer.getStickyFooter().setVisibility(View.GONE);
-                }
             }
         }
     }
