@@ -735,6 +735,10 @@ public class Drawer {
             setSelection(drawerSelection, false);
 
             mDrawerBuilder.mAdapter.resetAnimation();
+
+            if (getStickyFooter() != null) {
+                getStickyFooter().setVisibility(View.GONE);
+            }
         }
     }
 
@@ -753,6 +757,10 @@ public class Drawer {
             originalDrawerSelection = -1;
 
             mDrawerBuilder.mAdapter.resetAnimation();
+
+            if (getStickyFooter() != null) {
+                getStickyFooter().setVisibility(View.VISIBLE);
+            }
         }
     }
 
