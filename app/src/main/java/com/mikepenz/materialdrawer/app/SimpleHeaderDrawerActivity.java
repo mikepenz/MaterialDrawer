@@ -161,7 +161,6 @@ public class SimpleHeaderDrawerActivity extends AppCompatActivity {
                         return false;
                     }
                 })
-                .withAnimateDrawerItems(true)
                 .withSavedInstance(savedInstanceState)
                 .withShowDrawerOnFirstLaunch(true)
                 .build();
