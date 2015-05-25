@@ -906,7 +906,7 @@ public class AccountHeaderBuilder {
         if (mCurrentProfile != null) {
             if (mProfileImagesVisible) {
                 setImageOrPlaceholder(mCurrentProfileView, mCurrentProfile.getIcon(), mCurrentProfile.getIconBitmap(), mCurrentProfile.getIconUri());
-                mCurrentProfileView.setTag(mCurrentProfile);
+                mCurrentProfileView.setTag(R.id.profile_header, mCurrentProfile);
                 if (mProfileImagesClickable) {
                     mCurrentProfileView.setOnClickListener(onProfileClickListener);
                     mCurrentProfileView.disableTouchFeedback(false);
@@ -927,7 +927,7 @@ public class AccountHeaderBuilder {
 
             if (mProfileFirst != null && mProfileImagesVisible) {
                 setImageOrPlaceholder(mProfileFirstView, mProfileFirst.getIcon(), mProfileFirst.getIconBitmap(), mProfileFirst.getIconUri());
-                mProfileFirstView.setTag(mProfileFirst);
+                mProfileFirstView.setTag(R.id.profile_header, mProfileFirst);
                 if (mProfileImagesClickable) {
                     mProfileFirstView.setOnClickListener(onProfileClickListener);
                     mProfileFirstView.disableTouchFeedback(false);
@@ -938,7 +938,7 @@ public class AccountHeaderBuilder {
             }
             if (mProfileSecond != null && mProfileImagesVisible) {
                 setImageOrPlaceholder(mProfileSecondView, mProfileSecond.getIcon(), mProfileSecond.getIconBitmap(), mProfileSecond.getIconUri());
-                mProfileSecondView.setTag(mProfileSecond);
+                mProfileSecondView.setTag(R.id.profile_header, mProfileSecond);
                 if (mProfileImagesClickable) {
                     mProfileSecondView.setOnClickListener(onProfileClickListener);
                     mProfileSecondView.disableTouchFeedback(false);
@@ -952,7 +952,7 @@ public class AccountHeaderBuilder {
             }
             if (mProfileThird != null && mThreeSmallProfileImages && mProfileImagesVisible) {
                 setImageOrPlaceholder(mProfileThirdView, mProfileThird.getIcon(), mProfileThird.getIconBitmap(), mProfileThird.getIconUri());
-                mProfileThirdView.setTag(mProfileThird);
+                mProfileThirdView.setTag(R.id.profile_header, mProfileThird);
                 if (mProfileImagesClickable) {
                     mProfileThirdView.setOnClickListener(onProfileClickListener);
                     mProfileThirdView.disableTouchFeedback(false);
@@ -1062,7 +1062,7 @@ public class AccountHeaderBuilder {
     };
 
     protected void onProfileClick(View v, boolean current) {
-        final IProfile profile = (IProfile) v.getTag();
+        final IProfile profile = (IProfile) v.getTag(R.id.profile_header);
         switchProfiles(profile);
 
         boolean consumed = false;
