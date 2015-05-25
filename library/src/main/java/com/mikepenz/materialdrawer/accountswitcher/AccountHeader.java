@@ -118,20 +118,20 @@ public class AccountHeader {
     public void setActiveProfile(IProfile profile) {
         setActiveProfile(profile, false);
     }
-	
-	/**
+
+    /**
      * Selects the given profile and sets it to the new active profile
      *
      * @param profile
      */
     public void setActiveProfile(IProfile profile, boolean fireOnProfileChanged) {
         final boolean isCurrentSelectedProfile = mAccountHeaderBuilder.switchProfiles(profile);
-		if (fireOnProfileChanged && mAccountHeaderBuilder.mOnAccountHeaderListener != null) {
+        if (fireOnProfileChanged && mAccountHeaderBuilder.mOnAccountHeaderListener != null) {
             mAccountHeaderBuilder.mOnAccountHeaderListener.onProfileChanged(null, profile, isCurrentSelectedProfile);
-		}
+        }
     }
-	
-	/**
+
+    /**
      * Selects a profile by its identifier
      *
      * @param identifier
