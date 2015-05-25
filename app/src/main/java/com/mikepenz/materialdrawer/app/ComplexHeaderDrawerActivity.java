@@ -118,6 +118,7 @@ public class ComplexHeaderDrawerActivity extends AppCompatActivity {
                         new SecondaryDrawerItem().withName(R.string.drawer_item_settings).withIcon(FontAwesome.Icon.faw_cog).withIdentifier(10),
                         new SecondaryDrawerItem().withName(R.string.drawer_item_open_source).withIcon(FontAwesome.Icon.faw_github)
                 )
+                .withAnimateDrawerItems(true)
                 .withSavedInstance(savedInstanceState)
                 .build();
     }
