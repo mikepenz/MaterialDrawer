@@ -167,8 +167,8 @@ class DrawerUtils {
 
                 for (int i = 0; i < footer.getChildCount(); i++) {
                     Object o = footer.getChildAt(i).getTag();
-                    if (o != null && o instanceof IDrawerItem) {
-                        return ((IDrawerItem) o).getIdentifier();
+                    if (o != null && o instanceof IDrawerItem && ((IDrawerItem) o).getIdentifier() == identifier) {
+                        return i;
                     }
                 }
             }

@@ -164,15 +164,20 @@ public class AccountHeader {
      * @param newProfile
      */
     public void updateProfileByIdentifier(IProfile newProfile) {
-        if (mAccountHeaderBuilder.mProfiles != null) {
-            for (IProfile profile : mAccountHeaderBuilder.mProfiles) {
-                if (profile instanceof Identifyable) {
-                    if (profile.getIdentifier() == newProfile.getIdentifier()) {
-                        profile = newProfile;
-                        mAccountHeaderBuilder.updateHeaderAndList();
-                        return;
+        if (mAccountHeaderBuilder.mProfiles != null && newProfile != null && newProfile.getIdentifier() >= 0) {
+            int found = -1;
+            for (int i = 0; i < mAccountHeaderBuilder.mProfiles.size(); i++) {
+                if (mAccountHeaderBuilder.mProfiles.get(i) instanceof Identifyable) {
+                    if (mAccountHeaderBuilder.mProfiles.get(i).getIdentifier() == newProfile.getIdentifier()) {
+                        found = i;
+                        break;
                     }
                 }
+            }
+
+            if (found > -1) {
+                mAccountHeaderBuilder.mProfiles.set(found, newProfile);
+                mAccountHeaderBuilder.updateHeaderAndList();
             }
         }
     }

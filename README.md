@@ -46,7 +46,7 @@ You can try it out here [Google Play](https://play.google.com/store/apps/details
 The MaterialDrawer Library is pushed to [Maven Central](http://search.maven.org/#search|ga|1|g%3A%22com.mikepenz%22), so you just need to add the following dependency to your `build.gradle`.
 
 ```javascript
-compile('com.mikepenz:materialdrawer:3.0.2@aar') {
+compile('com.mikepenz:materialdrawer:3.0.3@aar') {
 	transitive = true
 }
 ```
@@ -377,6 +377,7 @@ drawerLayout.setDrawerLockMode(int lockMode); //or (int lockMode, int edgeGravit
 * [Sprit Club](https://play.google.com/store/apps/details?id=at.idev.spritpreise)
 * [FitHub](https://play.google.com/store/apps/details?id=com.gabilheri.fithub)
 * [StickyNotes](https://play.google.com/store/apps/details?id=com.jsvmsoft.stickynotes)
+* [Smartphone Italia](https://play.google.com/store/apps/details?id=rebus.smartphone.italia)
 
 
 

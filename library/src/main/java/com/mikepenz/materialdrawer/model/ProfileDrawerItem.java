@@ -47,29 +47,39 @@ public class ProfileDrawerItem implements IDrawerItem, IProfile<ProfileDrawerIte
 
     private Typeface typeface = null;
 
+    private void resetIcons() {
+        icon = null;
+        iconBitmap = null;
+        iconUri = null;
+    }
+
     public ProfileDrawerItem withIdentifier(int identifier) {
         this.identifier = identifier;
         return this;
     }
 
     public ProfileDrawerItem withIcon(Drawable icon) {
+        resetIcons();
         this.icon = icon;
         return this;
     }
 
     public ProfileDrawerItem withIcon(Bitmap iconBitmap) {
+        resetIcons();
         this.iconBitmap = iconBitmap;
         return this;
     }
 
     @Override
     public ProfileDrawerItem withIcon(String url) {
+        resetIcons();
         this.iconUri = Uri.parse(url);
         return this;
     }
 
     @Override
     public ProfileDrawerItem withIcon(Uri uri) {
+        resetIcons();
         this.iconUri = uri;
         return this;
     }
@@ -204,18 +214,22 @@ public class ProfileDrawerItem implements IDrawerItem, IProfile<ProfileDrawerIte
     }
 
     public void setIconBitmap(Bitmap iconBitmap) {
+        resetIcons();
         this.iconBitmap = iconBitmap;
     }
 
     public void setIcon(Uri uri) {
+        resetIcons();
         this.iconUri = uri;
     }
 
     public void setIcon(String url) {
+        resetIcons();
         this.iconUri = Uri.parse(url);
     }
 
     public void setIcon(Drawable icon) {
+        resetIcons();
         this.icon = icon;
     }
 

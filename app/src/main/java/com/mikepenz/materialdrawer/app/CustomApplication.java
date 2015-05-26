@@ -35,5 +35,26 @@ public class CustomApplication extends Application {
                 return null;
             }
         });
+
+        /*
+        TODO FIND LOGIC TO SUPPORT GLIDE
+        //initialize and create the image loader logic
+        DrawerImageLoader.init(new DrawerImageLoader.IDrawerImageLoader() {
+            @Override
+            public void set(ImageView imageView, Uri uri, Drawable placeholder) {
+                Glide.with(imageView.getContext()).load(uri).placeholder(placeholder).into(imageView);
+            }
+
+            @Override
+            public void cancel(ImageView imageView) {
+                Glide.clear(imageView);
+            }
+
+            @Override
+            public Drawable placeholder(Context ctx) {
+                return null;
+            }
+        });
+        */
     }
 }
