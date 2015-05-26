@@ -1071,6 +1071,9 @@ public class AccountHeaderBuilder {
         }
 
         if (!consumed) {
+            //reset the drawer content
+            resetDrawerContent(v.getContext());
+
             new Handler().postDelayed(new Runnable() {
                 @Override
                 public void run() {
