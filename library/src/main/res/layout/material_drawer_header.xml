@@ -121,10 +121,9 @@
             android:layout_alignParentBottom="true"
             android:layout_alignParentEnd="true"
             android:layout_alignParentRight="true"
-            android:layout_marginBottom="@dimen/material_drawer_padding"
+            android:layout_marginBottom="@dimen/material_drawer_account_header_dropdown_margin_bottom"
             android:layout_marginEnd="@dimen/material_drawer_vertical_padding"
-            android:layout_marginRight="@dimen/material_drawer_vertical_padding"
-            android:layout_marginTop="@dimen/material_drawer_account_header_dropdown"/>
+            android:layout_marginRight="@dimen/material_drawer_vertical_padding"/>
 
     </RelativeLayout>
 </FrameLayout>

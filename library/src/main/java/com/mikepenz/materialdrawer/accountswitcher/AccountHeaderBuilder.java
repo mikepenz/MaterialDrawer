@@ -1071,6 +1071,9 @@ public class AccountHeaderBuilder {
         }
 
         if (!consumed) {
+            //reset the drawer content
+            resetDrawerContent(v.getContext());
+
             new Handler().postDelayed(new Runnable() {
                 @Override
                 public void run() {
@@ -1181,7 +1184,7 @@ public class AccountHeaderBuilder {
             new Handler().postDelayed(new Runnable() {
                 @Override
                 public void run() {
-                    if (mDrawer != null && view.getContext() != null) {
+                    if (mDrawer != null && view != null && view.getContext() != null) {
                         resetDrawerContent(view.getContext());
                     }
                     if (drawerItem != null && drawerItem instanceof IProfile) {
