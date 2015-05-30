@@ -3,26 +3,31 @@
     <item
         android:id="@+id/menu_1"
         android:orderInCategory="1"
-        app:showAsAction="never"
-        android:title="Update Profile"/>
+        android:title="Update Profile"
+        app:showAsAction="never"/>
     <item
         android:id="@+id/menu_2"
         android:orderInCategory="2"
-        app:showAsAction="never"
-        android:title="Arrow-Icon"/>
+        android:title="Arrow-Icon"
+        app:showAsAction="never"/>
     <item
         android:id="@+id/menu_3"
         android:orderInCategory="3"
-        app:showAsAction="never"
-        android:title="Hamburger-Icon"/>
+        android:title="Hamburger-Icon"
+        app:showAsAction="never"/>
     <item
         android:id="@+id/menu_4"
         android:orderInCategory="4"
-        app:showAsAction="never"
-        android:title="Item 4"/>
+        android:title="CompactHeader"
+        app:showAsAction="never"/>
+    <item
+        android:id="@+id/menu_5"
+        android:orderInCategory="5"
+        android:title="NormalHeader"
+        app:showAsAction="never"/>
     <item
         android:id="@+id/action_settings"
         android:orderInCategory="100"
-        app:showAsAction="ifRoom"
-        android:title="@string/action_settings"/>
+        android:title="@string/action_settings"
+        app:showAsAction="ifRoom"/>
 </menu>

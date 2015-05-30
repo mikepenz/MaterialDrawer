@@ -32,7 +32,11 @@ public class ComplexHeaderDrawerActivity extends AppCompatActivity {
     private AccountHeader headerResult = null;
     private Drawer result = null;
 
+    private IProfile profile;
     private IProfile profile2;
+    private IProfile profile3;
+    private IProfile profile4;
+    private IProfile profile5;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -44,47 +48,14 @@ public class ComplexHeaderDrawerActivity extends AppCompatActivity {
         setSupportActionBar(toolbar);
 
         // Create a few sample profile
-        final IProfile profile = new ProfileDrawerItem().withName("Mike Penz").withEmail("mikepenz@gmail.com").withIcon(getResources().getDrawable(R.drawable.profile));
+        profile = new ProfileDrawerItem().withName("Mike Penz").withEmail("mikepenz@gmail.com").withIcon(getResources().getDrawable(R.drawable.profile));
         profile2 = new ProfileDrawerItem().withName("Max Muster").withEmail("max.mustermann@gmail.com").withIcon(getResources().getDrawable(R.drawable.profile2)).withIdentifier(2);
-        final IProfile profile3 = new ProfileDrawerItem().withName("Felix House").withEmail("felix.house@gmail.com").withIcon(getResources().getDrawable(R.drawable.profile3));
-        final IProfile profile4 = new ProfileDrawerItem().withName("Mr. X").withEmail("mister.x.super@gmail.com").withIcon(getResources().getDrawable(R.drawable.profile4)).withIdentifier(4);
-        final IProfile profile5 = new ProfileDrawerItem().withName("Batman").withEmail("batman@gmail.com").withIcon(getResources().getDrawable(R.drawable.profile5));
+        profile3 = new ProfileDrawerItem().withName("Felix House").withEmail("felix.house@gmail.com").withIcon(getResources().getDrawable(R.drawable.profile3));
+        profile4 = new ProfileDrawerItem().withName("Mr. X").withEmail("mister.x.super@gmail.com").withIcon(getResources().getDrawable(R.drawable.profile4)).withIdentifier(4);
+        profile5 = new ProfileDrawerItem().withName("Batman").withEmail("batman@gmail.com").withIcon(getResources().getDrawable(R.drawable.profile5));
 
         // Create the AccountHeader
-        headerResult = new AccountHeaderBuilder()
-                .withActivity(this)
-                .withHeaderBackground(R.drawable.header)
-                .addProfiles(
-                        profile,
-                        profile2,
-                        profile3,
-                        profile4,
-                        profile5,
-                        //don't ask but google uses 14dp for the add account icon in gmail but 20dp for the normal icons (like manage account)
-                        new ProfileSettingDrawerItem().withName("Add Account").withDescription("Add new GitHub Account").withIcon(new IconicsDrawable(this, GoogleMaterial.Icon.gmd_add).actionBarSize().paddingDp(5).colorRes(R.color.material_drawer_dark_primary_text)).withIdentifier(PROFILE_SETTING),
-                        new ProfileSettingDrawerItem().withName("Manage Account").withIcon(GoogleMaterial.Icon.gmd_settings)
-                )
-                .withOnAccountHeaderListener(new AccountHeader.OnAccountHeaderListener() {
-                    @Override
-                    public boolean onProfileChanged(View view, IProfile profile, boolean current) {
-                        //sample usage of the onProfileChanged listener
-                        //if the clicked item has the identifier 1 add a new profile ;)
-                        if (profile instanceof IDrawerItem && ((IDrawerItem) profile).getIdentifier() == PROFILE_SETTING) {
-                            IProfile newProfile = new ProfileDrawerItem().withNameShown(true).withName("Batman").withEmail("batman@gmail.com").withIcon(getResources().getDrawable(R.drawable.profile5));
-                            if (headerResult.getProfiles() != null) {
-                                //we know that there are 2 setting elements. set the new profile above them ;)
-                                headerResult.addProfile(newProfile, headerResult.getProfiles().size() - 2);
-                            } else {
-                                headerResult.addProfiles(newProfile);
-                            }
-                        }
-
-                        //false if you have not consumed the event and it should close the drawer
-                        return false;
-                    }
-                })
-                .withSavedInstance(savedInstanceState)
-                .build();
+        buildHeader(false, savedInstanceState);
 
         //Create the drawer
         result = new DrawerBuilder()
@@ -123,6 +94,52 @@ public class ComplexHeaderDrawerActivity extends AppCompatActivity {
                 .build();
     }
 
+    /**
+     * small helper method to reuse the logic to build the AccountHeader
+     * this will be used to replace the header of the drawer with a compact/normal header
+     *
+     * @param compact
+     * @param savedInstanceState
+     */
+    private void buildHeader(boolean compact, Bundle savedInstanceState) {
+        // Create the AccountHeader
+        headerResult = new AccountHeaderBuilder()
+                .withActivity(this)
+                .withHeaderBackground(R.drawable.header)
+                .withCompactStyle(compact)
+                .addProfiles(
+                        profile,
+                        profile2,
+                        profile3,
+                        profile4,
+                        profile5,
+                        //don't ask but google uses 14dp for the add account icon in gmail but 20dp for the normal icons (like manage account)
+                        new ProfileSettingDrawerItem().withName("Add Account").withDescription("Add new GitHub Account").withIcon(new IconicsDrawable(this, GoogleMaterial.Icon.gmd_add).actionBarSize().paddingDp(5).colorRes(R.color.material_drawer_dark_primary_text)).withIdentifier(PROFILE_SETTING),
+                        new ProfileSettingDrawerItem().withName("Manage Account").withIcon(GoogleMaterial.Icon.gmd_settings)
+                )
+                .withOnAccountHeaderListener(new AccountHeader.OnAccountHeaderListener() {
+                    @Override
+                    public boolean onProfileChanged(View view, IProfile profile, boolean current) {
+                        //sample usage of the onProfileChanged listener
+                        //if the clicked item has the identifier 1 add a new profile ;)
+                        if (profile instanceof IDrawerItem && ((IDrawerItem) profile).getIdentifier() == PROFILE_SETTING) {
+                            IProfile newProfile = new ProfileDrawerItem().withNameShown(true).withName("Batman").withEmail("batman@gmail.com").withIcon(getResources().getDrawable(R.drawable.profile5));
+                            if (headerResult.getProfiles() != null) {
+                                //we know that there are 2 setting elements. set the new profile above them ;)
+                                headerResult.addProfile(newProfile, headerResult.getProfiles().size() - 2);
+                            } else {
+                                headerResult.addProfiles(newProfile);
+                            }
+                        }
+
+                        //false if you have not consumed the event and it should close the drawer
+                        return false;
+                    }
+                })
+                .withSavedInstance(savedInstanceState)
+                .build();
+    }
+
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         MenuInflater inflater = getMenuInflater();
@@ -148,6 +165,28 @@ public class ComplexHeaderDrawerActivity extends AppCompatActivity {
                 //show the hamburger icon
                 getSupportActionBar().setDisplayHomeAsUpEnabled(false);
                 result.getActionBarDrawerToggle().setDrawerIndicatorEnabled(true);
+                return true;
+            case R.id.menu_4:
+                //we want to replace our current header with a compact header
+                //build the new compact header
+                buildHeader(true, null);
+                //remove the current header
+                result.removeHeader();
+                //set the view to the result
+                result.setHeader(headerResult.getView());
+                //set the drawer to the header (so it will manage the profile list correctly)
+                headerResult.setDrawer(result);
+                return true;
+            case R.id.menu_5:
+                //we want to replace our current header with a normal header
+                //build the new compact header
+                buildHeader(false, null);
+                //remove the current header
+                result.removeHeader();
+                //set the view to the result
+                result.setHeader(headerResult.getView());
+                //set the drawer to the header (so it will manage the profile list correctly)
+                headerResult.setDrawer(result);
                 return true;
             default:
                 return super.onOptionsItemSelected(item);
