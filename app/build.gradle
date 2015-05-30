@@ -50,7 +50,7 @@ android {
 
 dependencies {
     compile project(':library')
-    compile('com.mikepenz:aboutlibraries:5.0.0@aar') {
+    compile('com.mikepenz:aboutlibraries:5.0.1@aar') {
         transitive = true
     }
     compile 'com.mikepenz:octicons-typeface:2.2.0@aar'
