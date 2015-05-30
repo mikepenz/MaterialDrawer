@@ -563,14 +563,16 @@ public class AccountHeaderBuilder {
      *
      * @param on
      */
-    private void handleSelectionView(boolean on) {
+    private void handleSelectionView(IProfile profile, boolean on) {
         if (on) {
             if (Build.VERSION.SDK_INT >= 21) {
                 ((FrameLayout) mAccountHeaderContainer).setForeground(UIUtils.getCompatDrawable(mAccountHeaderContainer.getContext(), mAccountHeaderTextSectionBackgroundResource));
                 mAccountHeaderContainer.setOnClickListener(onSelectionClickListener);
+                mAccountHeaderContainer.setTag(R.id.profile_header, profile);
             } else {
                 mAccountHeaderTextSection.setBackgroundResource(mAccountHeaderTextSectionBackgroundResource);
                 mAccountHeaderTextSection.setOnClickListener(onSelectionClickListener);
+                mAccountHeaderTextSection.setTag(R.id.profile_header, profile);
             }
         } else {
             if (Build.VERSION.SDK_INT >= 21) {
@@ -663,7 +665,7 @@ public class AccountHeaderBuilder {
         }
 
         mAccountHeaderTextSectionBackgroundResource = UIUtils.getSelectableBackground(mActivity);
-        handleSelectionView(true);
+        handleSelectionView(mCurrentProfile, true);
 
         // set the arrow :D
         mAccountSwitcherArrow = (ImageView) mAccountHeaderContainer.findViewById(R.id.account_header_drawer_text_switcher);
@@ -901,12 +903,11 @@ public class AccountHeaderBuilder {
         mProfileThirdView.setVisibility(View.INVISIBLE);
         mProfileThirdView.setOnClickListener(null);
 
-        handleSelectionView(true);
+        handleSelectionView(mCurrentProfile, true);
 
         if (mCurrentProfile != null) {
             if (mProfileImagesVisible) {
                 setImageOrPlaceholder(mCurrentProfileView, mCurrentProfile.getIcon(), mCurrentProfile.getIconBitmap(), mCurrentProfile.getIconUri());
-                mCurrentProfileView.setTag(R.id.profile_header, mCurrentProfile);
                 if (mProfileImagesClickable) {
                     mCurrentProfileView.setOnClickListener(onProfileClickListener);
                     mCurrentProfileView.disableTouchFeedback(false);
@@ -918,9 +919,8 @@ public class AccountHeaderBuilder {
                 mCurrentProfileView.setVisibility(View.GONE);
             }
 
-            mAccountHeaderTextSection.setTag(mCurrentProfile);
             mAccountHeaderTextSection.setVisibility(View.VISIBLE);
-            handleSelectionView(true);
+            handleSelectionView(mCurrentProfile, true);
             mAccountSwitcherArrow.setVisibility(View.VISIBLE);
             mCurrentProfileName.setText(mCurrentProfile.getName());
             mCurrentProfileEmail.setText(mCurrentProfile.getEmail());
@@ -966,9 +966,9 @@ public class AccountHeaderBuilder {
             }
         } else if (mProfiles != null && mProfiles.size() > 0) {
             IProfile profile = mProfiles.get(0);
-            mAccountHeaderTextSection.setTag(profile);
+            mAccountHeaderTextSection.setTag(R.id.profile_header, profile);
             mAccountHeaderTextSection.setVisibility(View.VISIBLE);
-            handleSelectionView(true);
+            handleSelectionView(mCurrentProfile, true);
             mAccountSwitcherArrow.setVisibility(View.VISIBLE);
             mCurrentProfileName.setText(profile.getName());
             mCurrentProfileEmail.setText(profile.getEmail());
@@ -992,16 +992,16 @@ public class AccountHeaderBuilder {
         //if we disabled the list
         if (!mSelectionListEnabled) {
             mAccountSwitcherArrow.setVisibility(View.INVISIBLE);
-            handleSelectionView(false);
+            handleSelectionView(null, false);
         }
         if (!mSelectionListEnabledForSingleProfile && mProfileFirst == null && (mProfiles == null || mProfiles.size() == 1)) {
             mAccountSwitcherArrow.setVisibility(View.INVISIBLE);
-            handleSelectionView(false);
+            handleSelectionView(null, false);
         }
 
         //if we disabled the list but still have set a custom listener
         if (mOnAccountHeaderSelectionViewClickListener != null) {
-            handleSelectionView(true);
+            handleSelectionView(mCurrentProfile, true);
         }
     }
 
@@ -1111,7 +1111,7 @@ public class AccountHeaderBuilder {
         public void onClick(View v) {
             boolean consumed = false;
             if (mOnAccountHeaderSelectionViewClickListener != null) {
-                consumed = mOnAccountHeaderSelectionViewClickListener.onClick(v, (IProfile) v.getTag());
+                consumed = mOnAccountHeaderSelectionViewClickListener.onClick(v, (IProfile) v.getTag(R.id.profile_header));
             }
 
             if (mAccountSwitcherArrow.getVisibility() == View.VISIBLE && !consumed) {
