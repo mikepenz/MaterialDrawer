@@ -218,7 +218,7 @@ DrawerImageLoader.init(new DrawerImageLoader.IDrawerImageLoader() {
         return null;
     }
 });
-``
+```
 
 
 ###Switching between Back-Arrow or Hamburger-Icon
