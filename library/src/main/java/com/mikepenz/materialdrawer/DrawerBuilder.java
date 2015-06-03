@@ -703,7 +703,7 @@ public class DrawerBuilder {
     }
 
     // sticky view
-    protected View mStickyFooterView;
+    protected ViewGroup mStickyFooterView;
     protected Boolean mStickyFooterDivider = null;
 
     /**
@@ -712,7 +712,7 @@ public class DrawerBuilder {
      * @param stickyFooter
      * @return
      */
-    public DrawerBuilder withStickyFooter(View stickyFooter) {
+    public DrawerBuilder withStickyFooter(ViewGroup stickyFooter) {
         this.mStickyFooterView = stickyFooter;
         return this;
     }
@@ -730,7 +730,7 @@ public class DrawerBuilder {
 
         if (stickyFooterRes != -1) {
             //i know there should be a root, bit i got none here
-            this.mStickyFooterView = mActivity.getLayoutInflater().inflate(stickyFooterRes, null, false);
+            this.mStickyFooterView = (ViewGroup) mActivity.getLayoutInflater().inflate(stickyFooterRes, null, false);
         }
 
         return this;

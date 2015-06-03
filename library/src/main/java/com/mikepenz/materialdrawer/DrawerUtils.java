@@ -272,6 +272,29 @@ class DrawerUtils {
     }
 
     /**
+     * small helper to rebuild the FooterView
+     * @param drawer
+     */
+    public static void rebuildFooterView(final DrawerBuilder drawer) {
+        if(drawer.mSliderLayout!= null) {
+            if(drawer.mStickyFooterView != null && drawer.mStickyFooterView instanceof ViewGroup) {
+                ((LinearLayout) drawer.mStickyFooterView).removeAllViews();
+            }
+
+            //handle the footer
+            DrawerUtils.fillStickyDrawerItemFooter(drawer, drawer.mStickyFooterView, new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    IDrawerItem drawerItem = (IDrawerItem) v.getTag();
+                    DrawerUtils.onFooterDrawerItemClick(drawer, drawerItem, v, true);
+                }
+            });
+
+            setFooterSelection(drawer, drawer.mCurrentFooterSelection, false);
+        }
+    }
+
+    /**
      * helper method to handle the footerView
      *
      * @param drawer
@@ -324,12 +347,14 @@ class DrawerUtils {
         }
     }
 
+
+
     /**
      * build the sticky footer item view
      *
      * @return
      */
-    public static View buildStickyDrawerItemFooter(DrawerBuilder drawer, View.OnClickListener onClickListener) {
+    public static ViewGroup buildStickyDrawerItemFooter(DrawerBuilder drawer, View.OnClickListener onClickListener) {
         //create the container view
         final LinearLayout linearLayout = new LinearLayout(drawer.mActivity);
         linearLayout.setLayoutParams(new LinearLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT));
@@ -359,44 +384,54 @@ class DrawerUtils {
             linearLayout.addView(divider, dividerParams);
         }
 
+        fillStickyDrawerItemFooter(drawer, linearLayout, onClickListener);
+
+        return linearLayout;
+    }
+
+    /**
+     * helper method to fill the sticky footer with it's elements
+     * @param drawer
+     * @param container
+     * @param onClickListener
+     */
+    public static void fillStickyDrawerItemFooter(DrawerBuilder drawer, ViewGroup container, View.OnClickListener onClickListener) {
         //get the inflater
-        LayoutInflater layoutInflater = LayoutInflater.from(drawer.mActivity);
-        int padding = drawer.mActivity.getResources().getDimensionPixelSize(R.dimen.material_drawer_vertical_padding);
+        LayoutInflater layoutInflater = LayoutInflater.from(container.getContext());
+        int padding = container.getContext().getResources().getDimensionPixelSize(R.dimen.material_drawer_vertical_padding);
 
         //add all drawer items
         for (IDrawerItem drawerItem : drawer.mStickyDrawerItems) {
             //get the selected_color
-            int selected_color = UIUtils.getThemeColorFromAttrOrRes(drawer.mActivity, R.attr.material_drawer_selected, R.color.material_drawer_selected);
+            int selected_color = UIUtils.getThemeColorFromAttrOrRes(container.getContext(), R.attr.material_drawer_selected, R.color.material_drawer_selected);
             if (drawerItem instanceof PrimaryDrawerItem) {
                 if (selected_color == 0 && ((PrimaryDrawerItem) drawerItem).getSelectedColorRes() != -1) {
-                    selected_color = drawer.mActivity.getResources().getColor(((PrimaryDrawerItem) drawerItem).getSelectedColorRes());
+                    selected_color = container.getContext().getResources().getColor(((PrimaryDrawerItem) drawerItem).getSelectedColorRes());
                 } else if (((PrimaryDrawerItem) drawerItem).getSelectedColor() != 0) {
                     selected_color = ((PrimaryDrawerItem) drawerItem).getSelectedColor();
                 }
             } else if (drawerItem instanceof SecondaryDrawerItem) {
                 if (selected_color == 0 && ((SecondaryDrawerItem) drawerItem).getSelectedColorRes() != -1) {
-                    selected_color = drawer.mActivity.getResources().getColor(((SecondaryDrawerItem) drawerItem).getSelectedColorRes());
+                    selected_color = container.getContext().getResources().getColor(((SecondaryDrawerItem) drawerItem).getSelectedColorRes());
                 } else if (((SecondaryDrawerItem) drawerItem).getSelectedColor() != 0) {
                     selected_color = ((SecondaryDrawerItem) drawerItem).getSelectedColor();
                 }
             }
 
-            View view = drawerItem.convertView(layoutInflater, null, linearLayout);
+            View view = drawerItem.convertView(layoutInflater, null, container);
             view.setTag(drawerItem);
 
             if (drawerItem.isEnabled()) {
-                UIUtils.setBackground(view, UIUtils.getSelectableBackground(drawer.mActivity, selected_color));
+                UIUtils.setBackground(view, UIUtils.getSelectableBackground(container.getContext(), selected_color));
                 view.setOnClickListener(onClickListener);
             }
 
             //don't ask my why but it forgets the padding from the original layout
             view.setPadding(padding, 0, padding, 0);
-            linearLayout.addView(view);
+            container.addView(view);
         }
         //and really. don't ask about this. it won't set the padding if i don't set the padding for the container
-        linearLayout.setPadding(0, 0, 0, 0);
-
-        return linearLayout;
+        container.setPadding(0, 0, 0, 0);
     }
 
 
