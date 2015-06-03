@@ -94,7 +94,7 @@ class DrawerUtils {
      * @return
      */
     public static boolean setListSelection(DrawerBuilder drawer, int position, boolean fireOnClick, IDrawerItem drawerItem) {
-        if (position > -1) {
+        if (position >= -1) {
             //predefine selection (should be the first element
             if (drawer.mListView != null && (position + drawer.mHeaderOffset) > -1) {
                 drawer.resetStickyFooterSelection();
