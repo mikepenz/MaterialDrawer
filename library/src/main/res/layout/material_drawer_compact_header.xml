@@ -1,13 +1,13 @@
-<FrameLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="@dimen/material_drawer_account_header_height_compact">
+
     <ImageView
         android:id="@+id/account_header_drawer_background"
         android:layout_width="match_parent"
         android:layout_height="@dimen/material_drawer_account_header_height_compact"
-        android:scaleType="fitXY"/>
+        android:scaleType="fitXY" />
 
     <RelativeLayout
         android:id="@+id/account_header_drawer"
@@ -18,19 +18,19 @@
             android:id="@+id/account_header_drawer_small_first"
             android:layout_width="1dp"
             android:layout_height="1dp"
-            android:visibility="gone"/>
+            android:visibility="gone" />
 
         <com.mikepenz.materialdrawer.view.BezelImageView
             android:id="@+id/account_header_drawer_small_second"
             android:layout_width="1dp"
             android:layout_height="1dp"
-            android:visibility="gone"/>
+            android:visibility="gone" />
 
         <com.mikepenz.materialdrawer.view.BezelImageView
             android:id="@+id/account_header_drawer_small_third"
             android:layout_width="1dp"
             android:layout_height="1dp"
-            android:visibility="gone"/>
+            android:visibility="gone" />
 
         <com.mikepenz.materialdrawer.view.BezelImageView
             android:id="@+id/account_header_drawer_current"
@@ -45,7 +45,7 @@
             android:clickable="true"
             android:elevation="2dp"
             app:biv_maskDrawable="@drawable/circle_mask"
-            app:biv_selectorOnPress="@color/material_drawer_primary"/>
+            app:biv_selectorOnPress="@color/material_drawer_primary" />
 
         <LinearLayout
             android:id="@+id/account_header_drawer_text_section"
@@ -71,7 +71,7 @@
                 android:fontFamily="sans-serif-medium"
                 android:lines="1"
                 android:singleLine="true"
-                android:textSize="@dimen/material_drawer_account_header_text"/>
+                android:textSize="@dimen/material_drawer_account_header_text" />
 
             <TextView
                 android:id="@+id/account_header_drawer_email"
@@ -80,7 +80,7 @@
                 android:fontFamily="sans-serif"
                 android:lines="1"
                 android:singleLine="true"
-                android:textSize="@dimen/material_drawer_account_header_text"/>
+                android:textSize="@dimen/material_drawer_account_header_text" />
 
         </LinearLayout>
 
@@ -94,7 +94,7 @@
             android:layout_marginBottom="@dimen/material_drawer_padding"
             android:layout_marginEnd="@dimen/material_drawer_vertical_padding"
             android:layout_marginRight="@dimen/material_drawer_vertical_padding"
-            android:layout_marginTop="@dimen/material_drawer_account_header_dropdown"/>
+            android:layout_marginTop="@dimen/material_drawer_account_header_dropdown" />
 
     </RelativeLayout>
 </FrameLayout>

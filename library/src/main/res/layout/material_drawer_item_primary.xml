@@ -1,11 +1,12 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android" xmlns:tools="http://schemas.android.com/tools"
-                android:layout_width="match_parent"
-                android:layout_height="@dimen/material_drawer_item_primary"
-                android:paddingLeft="@dimen/material_drawer_vertical_padding"
-                android:paddingStart="@dimen/material_drawer_vertical_padding"
-                android:paddingRight="@dimen/material_drawer_vertical_padding"
-                android:paddingEnd="@dimen/material_drawer_vertical_padding">
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="@dimen/material_drawer_item_primary"
+    android:paddingLeft="@dimen/material_drawer_vertical_padding"
+    android:paddingStart="@dimen/material_drawer_vertical_padding"
+    android:paddingRight="@dimen/material_drawer_vertical_padding"
+    android:paddingEnd="@dimen/material_drawer_vertical_padding">
 
     <ImageView
         android:id="@+id/icon"
@@ -17,7 +18,7 @@
         android:paddingEnd="@dimen/material_drawer_item_primary_icon_padding_right"
         android:layout_marginRight="@dimen/material_drawer_item_padding"
         android:layout_marginEnd="@dimen/material_drawer_item_padding"
-        android:layout_gravity="center_vertical"/>
+        android:layout_gravity="center_vertical" />
 
 
     <LinearLayout
@@ -30,6 +31,7 @@
         android:layout_centerInParent="true"
         android:gravity="center_vertical|start"
         android:orientation="vertical">
+
         <TextView
             android:id="@+id/name"
             android:fontFamily="sans-serif-medium"
@@ -39,7 +41,8 @@
             android:gravity="center_vertical|left"
             android:lines="1"
             android:singleLine="true"
-            tools:text="Some drawer text"/>
+            tools:text="Some drawer text" />
+
         <TextView
             android:id="@+id/description"
             android:fontFamily="sans-serif"
@@ -49,7 +52,7 @@
             android:gravity="center_vertical|left"
             android:lines="1"
             android:singleLine="true"
-            tools:text="Some drawer text"/>
+            tools:text="Some drawer text" />
     </LinearLayout>
 
     <TextView
@@ -63,5 +66,5 @@
         android:layout_alignParentRight="true"
         android:lines="1"
         android:singleLine="true"
-        tools:text="99"/>
+        tools:text="99" />
 </RelativeLayout>

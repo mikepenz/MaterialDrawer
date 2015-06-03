@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools" xmlns:app="http://schemas.android.com/apk/res-auto"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="@dimen/material_drawer_item_profile"
     android:paddingLeft="@dimen/material_drawer_vertical_padding"
@@ -20,7 +20,7 @@
         android:layout_gravity="center_vertical"
         android:clickable="false"
         android:elevation="1dp"
-        app:biv_maskDrawable="@drawable/circle_mask"/>
+        app:biv_maskDrawable="@drawable/circle_mask" />
 
     <LinearLayout
         android:layout_toRightOf="@id/profileIcon"
@@ -29,6 +29,7 @@
         android:layout_height="wrap_content"
         android:layout_centerInParent="true"
         android:orientation="vertical">
+
         <TextView
             android:id="@+id/name"
             android:fontFamily="sans-serif-medium"
@@ -38,7 +39,8 @@
             android:gravity="center_vertical|left"
             android:lines="1"
             android:singleLine="true"
-            tools:text="Some drawer text"/>
+            tools:text="Some drawer text" />
+
         <TextView
             android:id="@+id/email"
             android:fontFamily="sans-serif"
@@ -48,6 +50,6 @@
             android:gravity="center_vertical|left"
             android:lines="1"
             android:singleLine="true"
-            tools:text="Some drawer text"/>
+            tools:text="Some drawer text" />
     </LinearLayout>
 </RelativeLayout>
