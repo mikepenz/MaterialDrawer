@@ -153,6 +153,20 @@ public class DrawerBuilder {
         return this;
     }
 
+    // set if we want to display the specific Drawer below the statusbar
+    protected Boolean mDisplayBelowStatusBar;
+
+    /**
+     * set to true if the current drawer should be displayed below the statusBar
+     * @param displayBelowStatusBar
+     * @return
+     */
+    public DrawerBuilder withDisplayBelowStatusBar(boolean displayBelowStatusBar) {
+        this.mDisplayBelowStatusBar = displayBelowStatusBar;
+        return this;
+    }
+
+
     // set to disable the translucent statusBar Programmatically
     protected boolean mTranslucentStatusBarProgrammatically = true;
 
