@@ -1150,7 +1150,7 @@ public class DrawerBuilder {
         ));
 
         //set the navigationOnClickListener
-        View.OnClickListener toolbarNavigationListener = new View.OnClickListener() {
+        final View.OnClickListener toolbarNavigationListener = new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 boolean handled = false;
@@ -1171,11 +1171,6 @@ public class DrawerBuilder {
                 }
             }
         };
-
-        //if we got a toolbar set a toolbarNavigationListener
-        if (mToolbar != null) {
-            this.mToolbar.setNavigationOnClickListener(toolbarNavigationListener);
-        }
 
         // create the ActionBarDrawerToggle if not set and enabled and if we have a toolbar
         if (mActionBarDrawerToggleEnabled && mActionBarDrawerToggle == null && mToolbar != null) {
@@ -1210,7 +1205,12 @@ public class DrawerBuilder {
                 }
             };
             this.mActionBarDrawerToggle.syncState();
+        }
 
+        //if we got a toolbar set a toolbarNavigationListener
+        //we also have to do this after setting the ActionBarDrawerToggle as this will overwrite this
+        if (mToolbar != null) {
+            this.mToolbar.setNavigationOnClickListener(toolbarNavigationListener);
         }
 
         //handle the ActionBarDrawerToggle
