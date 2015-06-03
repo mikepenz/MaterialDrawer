@@ -88,7 +88,9 @@
             android:layout_toLeftOf="@+id/account_header_drawer_text_switcher"
             android:layout_toStartOf="@+id/account_header_drawer_text_switcher"
             android:gravity="center_vertical"
-            android:orientation="vertical">
+            android:orientation="vertical"
+            android:paddingEnd="56dp"
+            android:paddingRight="56dp">
 
             <TextView
                 android:id="@+id/account_header_drawer_name"

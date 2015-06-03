@@ -45,6 +45,9 @@ public class SimpleHeaderDrawerActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_sample_dark_toolbar);
 
+        //Remove line to test RTL support
+        //getWindow().getDecorView().setLayoutDirection(View.LAYOUT_DIRECTION_RTL);
+
         // Handle Toolbar
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
