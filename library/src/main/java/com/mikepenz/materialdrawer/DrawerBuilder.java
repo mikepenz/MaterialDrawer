@@ -158,6 +158,7 @@ public class DrawerBuilder {
 
     /**
      * set to true if the current drawer should be displayed below the statusBar
+     *
      * @param displayBelowStatusBar
      * @return
      */

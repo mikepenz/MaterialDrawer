@@ -3,7 +3,6 @@ package com.mikepenz.materialdrawer;
 import android.app.Activity;
 import android.os.Build;
 import android.support.v4.widget.DrawerLayout;
-import android.util.TypedValue;
 import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -273,11 +272,12 @@ class DrawerUtils {
 
     /**
      * small helper to rebuild the FooterView
+     *
      * @param drawer
      */
     public static void rebuildFooterView(final DrawerBuilder drawer) {
-        if(drawer.mSliderLayout!= null) {
-            if(drawer.mStickyFooterView != null && drawer.mStickyFooterView instanceof ViewGroup) {
+        if (drawer.mSliderLayout != null) {
+            if (drawer.mStickyFooterView != null && drawer.mStickyFooterView instanceof ViewGroup) {
                 ((LinearLayout) drawer.mStickyFooterView).removeAllViews();
             }
 
@@ -348,7 +348,6 @@ class DrawerUtils {
     }
 
 
-
     /**
      * build the sticky footer item view
      *
@@ -391,6 +390,7 @@ class DrawerUtils {
 
     /**
      * helper method to fill the sticky footer with it's elements
+     *
      * @param drawer
      * @param container
      * @param onClickListener
@@ -461,7 +461,7 @@ class DrawerUtils {
                     topMargin = topMargin + UIUtils.getStatusBarHeight(drawer.mActivity);
                 }
                 params.topMargin = topMargin;
-            } else if(drawer.mDisplayBelowStatusBar != null && drawer.mDisplayBelowStatusBar) {
+            } else if (drawer.mDisplayBelowStatusBar != null && drawer.mDisplayBelowStatusBar) {
                 params.topMargin = UIUtils.getStatusBarHeight(drawer.mActivity, true);
             }
 

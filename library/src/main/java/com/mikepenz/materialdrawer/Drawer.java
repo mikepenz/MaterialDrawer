@@ -667,6 +667,7 @@ public class Drawer {
             mDrawerBuilder.mAdapter.notifyDataSetChanged();
         }
     }
+
     /**
      * update a specific footerDrawerItem :D
      * automatically identified by it's id
@@ -679,11 +680,12 @@ public class Drawer {
 
     /**
      * update a footerDrawerItem at a specific position
+     *
      * @param drawerItem
      * @param position
      */
     public void updateFooterItem(IDrawerItem drawerItem, int position) {
-        if(mDrawerBuilder.mStickyDrawerItems != null && mDrawerBuilder.mStickyDrawerItems.size() > position) {
+        if (mDrawerBuilder.mStickyDrawerItems != null && mDrawerBuilder.mStickyDrawerItems.size() > position) {
             mDrawerBuilder.mStickyDrawerItems.set(position, drawerItem);
         }
 
@@ -697,7 +699,7 @@ public class Drawer {
      * @param drawerItem
      */
     public void addFooterItem(IDrawerItem drawerItem) {
-        if(mDrawerBuilder.mStickyDrawerItems == null) {
+        if (mDrawerBuilder.mStickyDrawerItems == null) {
             mDrawerBuilder.mStickyDrawerItems = new ArrayList<>();
         }
         mDrawerBuilder.mStickyDrawerItems.add(drawerItem);
@@ -712,7 +714,7 @@ public class Drawer {
      * @param position
      */
     public void addFooterItem(IDrawerItem drawerItem, int position) {
-        if(mDrawerBuilder.mStickyDrawerItems == null) {
+        if (mDrawerBuilder.mStickyDrawerItems == null) {
             mDrawerBuilder.mStickyDrawerItems = new ArrayList<>();
         }
         mDrawerBuilder.mStickyDrawerItems.add(position, drawerItem);
@@ -727,7 +729,7 @@ public class Drawer {
      * @param position
      */
     public void setFooterItem(IDrawerItem drawerItem, int position) {
-        if(mDrawerBuilder.mStickyDrawerItems != null && mDrawerBuilder.mStickyDrawerItems.size() > position) {
+        if (mDrawerBuilder.mStickyDrawerItems != null && mDrawerBuilder.mStickyDrawerItems.size() > position) {
             mDrawerBuilder.mStickyDrawerItems.set(position, drawerItem);
         }
 
@@ -741,7 +743,7 @@ public class Drawer {
      * @param position
      */
     public void removeFooterItem(int position) {
-        if(mDrawerBuilder.mStickyDrawerItems != null && mDrawerBuilder.mStickyDrawerItems.size() > position) {
+        if (mDrawerBuilder.mStickyDrawerItems != null && mDrawerBuilder.mStickyDrawerItems.size() > position) {
             mDrawerBuilder.mStickyDrawerItems.remove(position);
         }
 
@@ -755,7 +757,7 @@ public class Drawer {
         if (mDrawerBuilder.mStickyDrawerItems != null) {
             mDrawerBuilder.mStickyDrawerItems.clear();
         }
-        if(mDrawerBuilder.mStickyFooterView != null) {
+        if (mDrawerBuilder.mStickyFooterView != null) {
             mDrawerBuilder.mStickyFooterView.setVisibility(View.GONE);
         }
     }
