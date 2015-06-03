@@ -1371,6 +1371,11 @@ public class DrawerBuilder {
             mListView = new ListView(mActivity);
             mListView.setChoiceMode(AbsListView.CHOICE_MODE_SINGLE);
             mListView.setDivider(null);
+            //some style improvements on older devices
+            mListView.setFadingEdgeLength(0);
+            mListView.setCacheColorHint(Color.TRANSPARENT);
+            //set the drawing cache background to the same color as the slider to improve performance
+            mListView.setDrawingCacheBackgroundColor(UIUtils.getThemeColorFromAttrOrRes(mActivity, R.attr.material_drawer_background, R.color.material_drawer_background));
             //only draw the selector on top if we are on a newer api than 21 because this makes only sense for ripples
             if (Build.VERSION.SDK_INT > 21) {
                 mListView.setDrawSelectorOnTop(true);
