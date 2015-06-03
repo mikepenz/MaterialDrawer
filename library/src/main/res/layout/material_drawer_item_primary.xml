@@ -10,18 +10,15 @@
 
     <ImageView
         android:id="@+id/icon"
-        android:layout_width="@dimen/material_drawer_item_primary"
+        android:layout_width="@dimen/material_drawer_item_primary_width"
         android:layout_height="@dimen/material_drawer_item_primary"
         android:layout_alignParentLeft="true"
         android:layout_alignParentStart="true"
         android:layout_gravity="center_vertical"
-        android:layout_marginEnd="@dimen/material_drawer_item_padding"
-        android:layout_marginRight="@dimen/material_drawer_item_padding"
+        android:layout_marginEnd="@dimen/material_drawer_item_primary_icon_margin_right"
+        android:layout_marginRight="@dimen/material_drawer_item_primary_icon_margin_right"
         android:paddingBottom="@dimen/material_drawer_item_primary_icon_padding"
-        android:paddingEnd="@dimen/material_drawer_item_primary_icon_padding_right"
-        android:paddingRight="@dimen/material_drawer_item_primary_icon_padding_right"
         android:paddingTop="@dimen/material_drawer_item_primary_icon_padding" />
-
 
     <LinearLayout
         android:layout_width="match_parent"
