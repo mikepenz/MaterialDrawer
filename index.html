@@ -95,7 +95,7 @@
 
 <p>The MaterialDrawer Library is pushed to <a href="http://search.maven.org/#search%7Cga%7C1%7Cg%3A%22com.mikepenz%22">Maven Central</a>, so you just need to add the following dependency to your <code>build.gradle</code>.</p>
 
-<div class="highlight highlight-javascript"><pre><span class="pl-en">compile</span>('<span class="pl-smi">com</span>.mikepenz:materialdrawer:3.0.2@aar') {
+<div class="highlight highlight-javascript"><pre><span class="pl-en">compile</span>('<span class="pl-smi">com</span>.mikepenz:materialdrawer:3.0.6@aar') {
     transitive <span class="pl-k">=</span> <span class="pl-c1">true</span>
 }</pre></div>
 
@@ -295,16 +295,18 @@ the dev can choose his own implementation (Picasso, Glide, ...). This has to be 
     <span class="pl-k">public</span> <span class="pl-smi">Drawable</span> <span class="pl-en">placeholder</span>(<span class="pl-smi">Context</span> <span class="pl-v">ctx</span>) {
         <span class="pl-k">return</span> <span class="pl-c1">null</span>;
     }
-});
-``
+});</pre></div>
 
+<h3>
+<a id="switching-between-back-arrow-or-hamburger-icon" class="anchor" href="#switching-between-back-arrow-or-hamburger-icon" aria-hidden="true"><span class="octicon octicon-link"></span></a>Switching between Back-Arrow or Hamburger-Icon</h3>
 
-###<span class="pl-smi">Switching</span> between <span class="pl-smi">Back</span><span class="pl-k">-</span><span class="pl-smi">Arrow</span> or <span class="pl-smi">Hamburger</span><span class="pl-k">-</span><span class="pl-smi">Icon</span>
-<span class="pl-smi">If</span> you use the included <span class="pl-smi">ActionBarDrawerToggle</span> you can <span class="pl-k">switch</span> between back<span class="pl-k">-</span>arrow or hamburger<span class="pl-k">-</span>icon
-with the following code snippet. (<span class="pl-smi">Please</span> note that the order of these lines matter)
-####<span class="pl-smi">Code</span> <span class="pl-k">-</span> <span class="pl-smi">Show</span> the back arrow<span class="pl-k">:</span>
-```java
-result<span class="pl-k">.</span>getActionBarDrawerToggle()<span class="pl-k">.</span>setDrawerIndicatorEnabled(<span class="pl-c1">false</span>);
+<p>If you use the included ActionBarDrawerToggle you can switch between back-arrow or hamburger-icon
+with the following code snippet. (Please note that the order of these lines matter)</p>
+
+<h4>
+<a id="code---show-the-back-arrow" class="anchor" href="#code---show-the-back-arrow" aria-hidden="true"><span class="octicon octicon-link"></span></a>Code - Show the back arrow:</h4>
+
+<div class="highlight highlight-java"><pre>result<span class="pl-k">.</span>getActionBarDrawerToggle()<span class="pl-k">.</span>setDrawerIndicatorEnabled(<span class="pl-c1">false</span>);
 getSupportActionBar()<span class="pl-k">.</span>setDisplayHomeAsUpEnabled(<span class="pl-c1">true</span>);</pre></div>
 
 <h4>
@@ -475,6 +477,7 @@ drawerLayout<span class="pl-k">.</span>setDrawerLockMode(<span class="pl-k">int<
 <li><a href="https://play.google.com/store/apps/details?id=at.idev.spritpreise">Sprit Club</a></li>
 <li><a href="https://play.google.com/store/apps/details?id=com.gabilheri.fithub">FitHub</a></li>
 <li><a href="https://play.google.com/store/apps/details?id=com.jsvmsoft.stickynotes">StickyNotes</a></li>
+<li><a href="https://play.google.com/store/apps/details?id=rebus.smartphone.italia">Smartphone Italia</a></li>
 </ul>
 
 <h2>
