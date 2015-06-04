@@ -1,33 +1,34 @@
-<menu xmlns:android="http://schemas.android.com/apk/res/android" xmlns:app="http://schemas.android.com/apk/res-auto">
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
 
     <item
         android:id="@+id/menu_1"
         android:orderInCategory="1"
         android:title="Update Profile"
-        app:showAsAction="never"/>
+        app:showAsAction="never" />
     <item
         android:id="@+id/menu_2"
         android:orderInCategory="2"
         android:title="Arrow-Icon"
-        app:showAsAction="never"/>
+        app:showAsAction="never" />
     <item
         android:id="@+id/menu_3"
         android:orderInCategory="3"
         android:title="Hamburger-Icon"
-        app:showAsAction="never"/>
+        app:showAsAction="never" />
     <item
         android:id="@+id/menu_4"
         android:orderInCategory="4"
         android:title="CompactHeader"
-        app:showAsAction="never"/>
+        app:showAsAction="never" />
     <item
         android:id="@+id/menu_5"
         android:orderInCategory="5"
         android:title="NormalHeader"
-        app:showAsAction="never"/>
+        app:showAsAction="never" />
     <item
         android:id="@+id/action_settings"
         android:orderInCategory="100"
         android:title="@string/action_settings"
-        app:showAsAction="ifRoom"/>
+        app:showAsAction="ifRoom" />
 </menu>

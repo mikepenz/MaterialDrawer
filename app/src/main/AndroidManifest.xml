@@ -1,45 +1,53 @@
-<manifest package="com.mikepenz.materialdrawer.app"
-          xmlns:android="http://schemas.android.com/apk/res/android">
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    package="com.mikepenz.materialdrawer.app">
 
-    <uses-permission android:name="android.permission.INTERNET"/>
+    <uses-permission android:name="android.permission.INTERNET" />
 
     <application
         android:name=".CustomApplication"
         android:allowBackup="true"
         android:icon="@drawable/ic_launcher"
         android:label="@string/app_name">
+        <!-- android:supportsRtl="true" -->
         <activity
             android:name=".SimpleHeaderDrawerActivity"
             android:label="@string/app_name"
             android:theme="@style/MaterialDrawerTheme.Light.DarkToolbar.TranslucentStatus">
             <intent-filter>
-                <action android:name="android.intent.action.MAIN"/>
+                <action android:name="android.intent.action.MAIN" />
 
-                <category android:name="android.intent.category.LAUNCHER"/>
+                <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
         <activity
             android:name=".SimpleCompactHeaderDrawerActivity"
             android:label="@string/app_name"
-            android:theme="@style/CustomTheme">
-        </activity>
-        <activity android:name=".ActionBarDrawerActivity"
-                  android:theme="@style/MaterialDrawerTheme.ActionBar"/>
-        <activity android:name=".SimpleNonTranslucentDrawerActivity"
-                  android:theme="@style/MaterialDrawerTheme"/>
-        <activity android:name=".MultiDrawerActivity"
-                  android:theme="@style/MaterialDrawerTheme.TranslucentStatus"/>
-        <activity android:name=".ComplexHeaderDrawerActivity"
-                  android:theme="@style/MaterialDrawerTheme.TranslucentStatus"/>
-        <activity android:name=".SimpleFragmentDrawerActivity"
-                  android:theme="@style/MaterialDrawerTheme.Light.DarkToolbar.TranslucentStatus"
-                  android:windowSoftInputMode="stateHidden"/>
-        <activity android:name=".EmbeddedDrawerActivity"
-                  android:theme="@style/MaterialDrawerTheme"/>
-        <activity android:name=".FullscreenDrawerActivity"
-                  android:theme="@style/FullscreenTheme"/>
-        <activity android:name=".CustomContainerActivity"
-                  android:theme="@style/MaterialDrawerTheme.Light.DarkToolbar"/>
+            android:theme="@style/CustomTheme"></activity>
+        <activity
+            android:name=".ActionBarDrawerActivity"
+            android:theme="@style/MaterialDrawerTheme.ActionBar" />
+        <activity
+            android:name=".SimpleNonTranslucentDrawerActivity"
+            android:theme="@style/MaterialDrawerTheme" />
+        <activity
+            android:name=".MultiDrawerActivity"
+            android:theme="@style/MaterialDrawerTheme.TranslucentStatus" />
+        <activity
+            android:name=".ComplexHeaderDrawerActivity"
+            android:theme="@style/MaterialDrawerTheme.TranslucentStatus" />
+        <activity
+            android:name=".SimpleFragmentDrawerActivity"
+            android:theme="@style/MaterialDrawerTheme.Light.DarkToolbar.TranslucentStatus"
+            android:windowSoftInputMode="stateHidden" />
+        <activity
+            android:name=".EmbeddedDrawerActivity"
+            android:theme="@style/MaterialDrawerTheme" />
+        <activity
+            android:name=".FullscreenDrawerActivity"
+            android:theme="@style/FullscreenTheme" />
+        <activity
+            android:name=".CustomContainerActivity"
+            android:theme="@style/MaterialDrawerTheme.Light.DarkToolbar" />
     </application>
 
 </manifest>

@@ -1,5 +1,4 @@
-<RelativeLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:gravity="center"
     android:layout_width="match_parent"
     android:layout_height="match_parent">
@@ -9,7 +8,7 @@
         android:layout_width="match_parent"
         android:layout_height="?attr/actionBarSize"
         android:background="?attr/colorPrimary"
-        android:elevation="4dp"/>
+        android:elevation="4dp" />
 
     <FrameLayout
         android:layout_below="@id/toolbar"
@@ -23,6 +22,6 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="Test"
-            android:textSize="16sp"/>
+            android:textSize="16sp" />
     </FrameLayout>
 </RelativeLayout>

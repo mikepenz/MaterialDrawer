@@ -669,6 +669,100 @@ public class Drawer {
     }
 
     /**
+     * update a specific footerDrawerItem :D
+     * automatically identified by it's id
+     *
+     * @param drawerItem
+     */
+    public void updateFooterItem(IDrawerItem drawerItem) {
+        updateFooterItem(drawerItem, getFooterPositionFromIdentifier(drawerItem));
+    }
+
+    /**
+     * update a footerDrawerItem at a specific position
+     *
+     * @param drawerItem
+     * @param position
+     */
+    public void updateFooterItem(IDrawerItem drawerItem, int position) {
+        if (mDrawerBuilder.mStickyDrawerItems != null && mDrawerBuilder.mStickyDrawerItems.size() > position) {
+            mDrawerBuilder.mStickyDrawerItems.set(position, drawerItem);
+        }
+
+        DrawerUtils.rebuildFooterView(mDrawerBuilder);
+    }
+
+
+    /**
+     * Add a footerDrawerItem at the end
+     *
+     * @param drawerItem
+     */
+    public void addFooterItem(IDrawerItem drawerItem) {
+        if (mDrawerBuilder.mStickyDrawerItems == null) {
+            mDrawerBuilder.mStickyDrawerItems = new ArrayList<>();
+        }
+        mDrawerBuilder.mStickyDrawerItems.add(drawerItem);
+
+        DrawerUtils.rebuildFooterView(mDrawerBuilder);
+    }
+
+    /**
+     * Add a footerDrawerItem at a specific position
+     *
+     * @param drawerItem
+     * @param position
+     */
+    public void addFooterItem(IDrawerItem drawerItem, int position) {
+        if (mDrawerBuilder.mStickyDrawerItems == null) {
+            mDrawerBuilder.mStickyDrawerItems = new ArrayList<>();
+        }
+        mDrawerBuilder.mStickyDrawerItems.add(position, drawerItem);
+
+        DrawerUtils.rebuildFooterView(mDrawerBuilder);
+    }
+
+    /**
+     * Set a footerDrawerItem at a specific position
+     *
+     * @param drawerItem
+     * @param position
+     */
+    public void setFooterItem(IDrawerItem drawerItem, int position) {
+        if (mDrawerBuilder.mStickyDrawerItems != null && mDrawerBuilder.mStickyDrawerItems.size() > position) {
+            mDrawerBuilder.mStickyDrawerItems.set(position, drawerItem);
+        }
+
+        DrawerUtils.rebuildFooterView(mDrawerBuilder);
+    }
+
+
+    /**
+     * Remove a footerDrawerItem at a specific position
+     *
+     * @param position
+     */
+    public void removeFooterItem(int position) {
+        if (mDrawerBuilder.mStickyDrawerItems != null && mDrawerBuilder.mStickyDrawerItems.size() > position) {
+            mDrawerBuilder.mStickyDrawerItems.remove(position);
+        }
+
+        DrawerUtils.rebuildFooterView(mDrawerBuilder);
+    }
+
+    /**
+     * Removes all footerItems from drawer
+     */
+    public void removeAllFooterItems() {
+        if (mDrawerBuilder.mStickyDrawerItems != null) {
+            mDrawerBuilder.mStickyDrawerItems.clear();
+        }
+        if (mDrawerBuilder.mStickyFooterView != null) {
+            mDrawerBuilder.mStickyFooterView.setVisibility(View.GONE);
+        }
+    }
+
+    /**
      * setter for the OnDrawerItemClickListener
      *
      * @param onDrawerItemClickListener

@@ -153,6 +153,21 @@ public class DrawerBuilder {
         return this;
     }
 
+    // set if we want to display the specific Drawer below the statusbar
+    protected Boolean mDisplayBelowStatusBar;
+
+    /**
+     * set to true if the current drawer should be displayed below the statusBar
+     *
+     * @param displayBelowStatusBar
+     * @return
+     */
+    public DrawerBuilder withDisplayBelowStatusBar(boolean displayBelowStatusBar) {
+        this.mDisplayBelowStatusBar = displayBelowStatusBar;
+        return this;
+    }
+
+
     // set to disable the translucent statusBar Programmatically
     protected boolean mTranslucentStatusBarProgrammatically = true;
 
@@ -689,7 +704,7 @@ public class DrawerBuilder {
     }
 
     // sticky view
-    protected View mStickyFooterView;
+    protected ViewGroup mStickyFooterView;
     protected Boolean mStickyFooterDivider = null;
 
     /**
@@ -698,7 +713,7 @@ public class DrawerBuilder {
      * @param stickyFooter
      * @return
      */
-    public DrawerBuilder withStickyFooter(View stickyFooter) {
+    public DrawerBuilder withStickyFooter(ViewGroup stickyFooter) {
         this.mStickyFooterView = stickyFooter;
         return this;
     }
@@ -716,7 +731,7 @@ public class DrawerBuilder {
 
         if (stickyFooterRes != -1) {
             //i know there should be a root, bit i got none here
-            this.mStickyFooterView = mActivity.getLayoutInflater().inflate(stickyFooterRes, null, false);
+            this.mStickyFooterView = (ViewGroup) mActivity.getLayoutInflater().inflate(stickyFooterRes, null, false);
         }
 
         return this;
@@ -1135,7 +1150,7 @@ public class DrawerBuilder {
         ));
 
         //set the navigationOnClickListener
-        View.OnClickListener toolbarNavigationListener = new View.OnClickListener() {
+        final View.OnClickListener toolbarNavigationListener = new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 boolean handled = false;
@@ -1156,11 +1171,6 @@ public class DrawerBuilder {
                 }
             }
         };
-
-        //if we got a toolbar set a toolbarNavigationListener
-        if (mToolbar != null) {
-            this.mToolbar.setNavigationOnClickListener(toolbarNavigationListener);
-        }
 
         // create the ActionBarDrawerToggle if not set and enabled and if we have a toolbar
         if (mActionBarDrawerToggleEnabled && mActionBarDrawerToggle == null && mToolbar != null) {
@@ -1195,7 +1205,12 @@ public class DrawerBuilder {
                 }
             };
             this.mActionBarDrawerToggle.syncState();
+        }
 
+        //if we got a toolbar set a toolbarNavigationListener
+        //we also have to do this after setting the ActionBarDrawerToggle as this will overwrite this
+        if (mToolbar != null) {
+            this.mToolbar.setNavigationOnClickListener(toolbarNavigationListener);
         }
 
         //handle the ActionBarDrawerToggle
@@ -1356,6 +1371,11 @@ public class DrawerBuilder {
             mListView = new ListView(mActivity);
             mListView.setChoiceMode(AbsListView.CHOICE_MODE_SINGLE);
             mListView.setDivider(null);
+            //some style improvements on older devices
+            mListView.setFadingEdgeLength(0);
+            mListView.setCacheColorHint(Color.TRANSPARENT);
+            //set the drawing cache background to the same color as the slider to improve performance
+            mListView.setDrawingCacheBackgroundColor(UIUtils.getThemeColorFromAttrOrRes(mActivity, R.attr.material_drawer_background, R.color.material_drawer_background));
             //only draw the selector on top if we are on a newer api than 21 because this makes only sense for ripples
             if (Build.VERSION.SDK_INT > 21) {
                 mListView.setDrawSelectorOnTop(true);

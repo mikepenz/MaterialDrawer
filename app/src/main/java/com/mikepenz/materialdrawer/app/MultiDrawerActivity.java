@@ -110,6 +110,7 @@ public class MultiDrawerActivity extends AppCompatActivity {
         new DrawerBuilder()
                 .withActivity(this)
                 .withFooter(R.layout.footer)
+                .withDisplayBelowStatusBar(true)
                 .addDrawerItems(
                         new PrimaryDrawerItem().withName(R.string.drawer_item_custom).withIcon(FontAwesome.Icon.faw_eye),
                         new PrimaryDrawerItem().withName(R.string.drawer_item_home).withIcon(FontAwesome.Icon.faw_home),

@@ -922,6 +922,7 @@ public class AccountHeaderBuilder {
             mAccountHeaderTextSection.setVisibility(View.VISIBLE);
             handleSelectionView(mCurrentProfile, true);
             mAccountSwitcherArrow.setVisibility(View.VISIBLE);
+            mCurrentProfileView.setTag(R.id.profile_header, mCurrentProfile);
             mCurrentProfileName.setText(mCurrentProfile.getName());
             mCurrentProfileEmail.setText(mCurrentProfile.getEmail());
 
