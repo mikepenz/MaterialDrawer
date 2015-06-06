@@ -905,25 +905,31 @@ public class Drawer {
         boolean onItemLongClick(AdapterView<?> parent, View view, int position, long id, IDrawerItem drawerItem);
     }
 
-    public interface OnDrawerListener {
+    public static abstract class OnDrawerListener {
         /**
          * @param drawerView
          */
-        void onDrawerOpened(View drawerView);
+        void onDrawerOpened(View drawerView){
+
+        }
 
         /**
          * @param drawerView
          */
-        void onDrawerClosed(View drawerView);
+        void onDrawerClosed(View drawerView){
+
+        }
 
         /**
          * @param drawerView
          * @param slideOffset
          */
-        void onDrawerSlide(View drawerView, float slideOffset);
+        void onDrawerSlide(View drawerView, float slideOffset){
+
+        }
     }
 
-    public interface OnDrawerItemSelectedListener {
+    public abstract static class OnDrawerItemSelectedListener {
         /**
          * @param parent
          * @param view
@@ -931,11 +937,15 @@ public class Drawer {
          * @param id
          * @param drawerItem
          */
-        void onItemSelected(AdapterView<?> parent, View view, int position, long id, IDrawerItem drawerItem);
+        void onItemSelected(AdapterView<?> parent, View view, int position, long id, IDrawerItem drawerItem){
+
+        }
 
         /**
          * @param parent
          */
-        void onNothingSelected(AdapterView<?> parent);
+        void onNothingSelected(AdapterView<?> parent){
+
+        }
     }
 }
