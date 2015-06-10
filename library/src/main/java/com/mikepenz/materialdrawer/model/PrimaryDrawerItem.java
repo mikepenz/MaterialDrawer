@@ -25,11 +25,13 @@ public class PrimaryDrawerItem extends BaseDrawerItem<PrimaryDrawerItem> impleme
     private int badgeBackgroundRes = 0;
 
     public PrimaryDrawerItem withDescription(String description) {
+        this.descriptionRes = -1;
         this.description = description;
         return this;
     }
 
     public PrimaryDrawerItem withDescription(int descriptionRes) {
+        this.description = null;
         this.descriptionRes = descriptionRes;
         return this;
     }
@@ -49,7 +51,7 @@ public class PrimaryDrawerItem extends BaseDrawerItem<PrimaryDrawerItem> impleme
 
     @Override
     public void setBadgeBackgroundResource(int res) {
-        this.badgeBackgroundRes=res;
+        this.badgeBackgroundRes = res;
     }
 
     @Override
@@ -59,7 +61,7 @@ public class PrimaryDrawerItem extends BaseDrawerItem<PrimaryDrawerItem> impleme
 
     @Override
     public PrimaryDrawerItem withBadgeBackgroundResource(int res) {
-        this.badgeBackgroundRes=res;
+        this.badgeBackgroundRes = res;
         return this;
     }
 
@@ -69,6 +71,7 @@ public class PrimaryDrawerItem extends BaseDrawerItem<PrimaryDrawerItem> impleme
     }
 
     public void setDescription(String description) {
+        this.descriptionRes = -1;
         this.description = description;
     }
 
@@ -77,6 +80,7 @@ public class PrimaryDrawerItem extends BaseDrawerItem<PrimaryDrawerItem> impleme
     }
 
     public void setDescriptionRes(int descriptionRes) {
+        this.description = null;
         this.descriptionRes = descriptionRes;
     }
 
@@ -180,7 +184,7 @@ public class PrimaryDrawerItem extends BaseDrawerItem<PrimaryDrawerItem> impleme
             viewHolder.badge.setTextColor(UIUtils.getTextColorStateList(color, selectedTextColor));
         }
         //set background for badge
-        if (badgeBackgroundRes !=0 ) {
+        if (badgeBackgroundRes != 0) {
             viewHolder.badge.setBackgroundResource(badgeBackgroundRes);
         }
 
