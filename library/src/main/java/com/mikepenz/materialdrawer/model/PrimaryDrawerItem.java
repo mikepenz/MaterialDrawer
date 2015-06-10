@@ -70,6 +70,7 @@ public class PrimaryDrawerItem extends BaseDrawerItem<PrimaryDrawerItem> impleme
 
     public void setDescription(String description) {
         this.description = description;
+        this.descriptionRes = -1;
     }
 
     public int getDescriptionRes() {
@@ -78,6 +79,7 @@ public class PrimaryDrawerItem extends BaseDrawerItem<PrimaryDrawerItem> impleme
 
     public void setDescriptionRes(int descriptionRes) {
         this.descriptionRes = descriptionRes;
+        this.description = null;
     }
 
     public String getBadge() {
