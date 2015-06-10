@@ -29,11 +29,13 @@ public class ToggleDrawerItem extends BaseDrawerItem<ToggleDrawerItem> {
     private OnCheckedChangeListener onCheckedChangeListener = null;
 
     public ToggleDrawerItem withDescription(String description) {
+        this.descriptionRes = -1;
         this.description = description;
         return this;
     }
 
     public ToggleDrawerItem withDescription(int descriptionRes) {
+        this.description = null;
         this.descriptionRes = descriptionRes;
         return this;
     }
@@ -63,6 +65,7 @@ public class ToggleDrawerItem extends BaseDrawerItem<ToggleDrawerItem> {
     }
 
     public void setDescription(String description) {
+        this.descriptionRes = -1;
         this.description = description;
     }
 
@@ -71,6 +74,7 @@ public class ToggleDrawerItem extends BaseDrawerItem<ToggleDrawerItem> {
     }
 
     public void setDescriptionRes(int descriptionRes) {
+        this.description = null;
         this.descriptionRes = descriptionRes;
     }
 
