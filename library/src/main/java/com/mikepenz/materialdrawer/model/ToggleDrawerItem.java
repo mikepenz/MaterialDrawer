@@ -64,6 +64,7 @@ public class ToggleDrawerItem extends BaseDrawerItem<ToggleDrawerItem> {
 
     public void setDescription(String description) {
         this.description = description;
+        this.descriptionRes = -1;
     }
 
     public int getDescriptionRes() {
@@ -72,6 +73,7 @@ public class ToggleDrawerItem extends BaseDrawerItem<ToggleDrawerItem> {
 
     public void setDescriptionRes(int descriptionRes) {
         this.descriptionRes = descriptionRes;
+        this.description = null;
     }
 
     public boolean isChecked() {
