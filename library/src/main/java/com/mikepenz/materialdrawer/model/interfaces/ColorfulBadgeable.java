@@ -9,4 +9,10 @@ public interface ColorfulBadgeable<T> extends Badgeable<T> {
     public int getBadgeTextColor();
 
     public void setBadgeTextColor(int color);
+
+    public void setBadgeBackgroundResource(int res);
+
+    public int getBadgeBackgroundResource();
+
+    public T withBadgeBackgroundResource(int res);
 }
