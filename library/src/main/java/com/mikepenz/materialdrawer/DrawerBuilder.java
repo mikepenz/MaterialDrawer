@@ -1401,24 +1401,30 @@ public class DrawerBuilder {
         params.weight = 1f;
         mSliderLayout.addView(mListView, params);
 
+        //find the shadow view
+        View statusBarShadow = mSliderLayout.findViewById(R.id.shadow_top);
+        RelativeLayout.LayoutParams shadowLayoutParams = (RelativeLayout.LayoutParams) statusBarShadow.getLayoutParams();
+        shadowLayoutParams.height = UIUtils.getStatusBarHeight(mActivity, true);
+        statusBarShadow.setLayoutParams(shadowLayoutParams);
+
         //some extra stuff to beautify the whole thing ;)
         if ((mTranslucentStatusBar && !mTranslucentActionBarCompatibility) || (mTranslucentStatusBarShadow != null && mTranslucentStatusBarShadow)) {
             if (mTranslucentStatusBarShadow == null) {
                 //if we use the default behavior show it only if we are above API Level 20
                 if (Build.VERSION.SDK_INT > 20) {
                     //bring shadow bar to front again
-                    mSliderLayout.getChildAt(0).bringToFront();
+                    statusBarShadow.bringToFront();
                 } else {
                     //disable the shadow if  we are on a lower sdk
-                    mSliderLayout.getChildAt(0).setVisibility(View.GONE);
+                    statusBarShadow.setVisibility(View.GONE);
                 }
             } else {
                 //bring shadow bar to front again
-                mSliderLayout.getChildAt(0).bringToFront();
+                statusBarShadow.bringToFront();
             }
         } else {
             //disable the shadow if we don't use a translucent activity
-            mSliderLayout.getChildAt(0).setVisibility(View.GONE);
+            statusBarShadow.setVisibility(View.GONE);
         }
 
         // initialize list if there is an adapter or set items
