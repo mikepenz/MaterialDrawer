@@ -20,6 +20,7 @@ public class SecondaryDrawerItem extends BaseDrawerItem<SecondaryDrawerItem> imp
 
     private String badge;
     private int badgeTextColor = 0;
+    private int badgeBackgroundRes = 0;
 
     public SecondaryDrawerItem withBadge(String badge) {
         this.badge = badge;
@@ -49,6 +50,22 @@ public class SecondaryDrawerItem extends BaseDrawerItem<SecondaryDrawerItem> imp
     @Override
     public void setBadgeTextColor(int color) {
         this.badgeTextColor = color;
+    }
+
+    @Override
+    public void setBadgeBackgroundResource(int res) {
+        this.badgeBackgroundRes=res;
+    }
+
+    @Override
+    public int getBadgeBackgroundResource() {
+        return badgeBackgroundRes;
+    }
+
+    @Override
+    public SecondaryDrawerItem withBadgeBackgroundResource(int res) {
+        this.badgeBackgroundRes=res;
+        return this;
     }
 
     @Override
@@ -118,6 +135,10 @@ public class SecondaryDrawerItem extends BaseDrawerItem<SecondaryDrawerItem> imp
             viewHolder.badge.setTextColor(badgeTextColor);
         } else {
             viewHolder.badge.setTextColor(UIUtils.getTextColorStateList(color, selectedTextColor));
+        }
+        //set background for badge
+        if (badgeBackgroundRes !=0 ) {
+            viewHolder.badge.setBackgroundResource(badgeBackgroundRes);
         }
 
         //define the typeface for our textViews

@@ -22,6 +22,7 @@ public class PrimaryDrawerItem extends BaseDrawerItem<PrimaryDrawerItem> impleme
 
     private String badge;
     private int badgeTextColor = 0;
+    private int badgeBackgroundRes = 0;
 
     public PrimaryDrawerItem withDescription(String description) {
         this.description = description;
@@ -44,6 +45,24 @@ public class PrimaryDrawerItem extends BaseDrawerItem<PrimaryDrawerItem> impleme
         this.badgeTextColor = color;
         return this;
     }
+
+
+    @Override
+    public void setBadgeBackgroundResource(int res) {
+        this.badgeBackgroundRes=res;
+    }
+
+    @Override
+    public int getBadgeBackgroundResource() {
+        return badgeBackgroundRes;
+    }
+
+    @Override
+    public PrimaryDrawerItem withBadgeBackgroundResource(int res) {
+        this.badgeBackgroundRes=res;
+        return this;
+    }
+
 
     public String getDescription() {
         return description;
@@ -159,6 +178,10 @@ public class PrimaryDrawerItem extends BaseDrawerItem<PrimaryDrawerItem> impleme
             viewHolder.badge.setTextColor(badgeTextColor);
         } else {
             viewHolder.badge.setTextColor(UIUtils.getTextColorStateList(color, selectedTextColor));
+        }
+        //set background for badge
+        if (badgeBackgroundRes !=0 ) {
+            viewHolder.badge.setBackgroundResource(badgeBackgroundRes);
         }
 
         //define the typeface for our textViews
