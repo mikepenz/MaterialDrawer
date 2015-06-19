@@ -15,7 +15,7 @@
         android:layout_width="match_parent"
         android:layout_height="@dimen/material_drawer_item_primary"
         android:fontFamily="sans-serif-medium"
-        android:gravity="center_vertical|left"
+        android:gravity="center_vertical|start"
         android:textSize="@dimen/material_drawer_item_section_text"
         android:paddingLeft="@dimen/material_drawer_vertical_padding"
         android:paddingRight="@dimen/material_drawer_vertical_padding"
