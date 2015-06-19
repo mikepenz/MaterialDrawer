@@ -336,6 +336,34 @@ public class AccountHeaderBuilder {
         return this;
     }
 
+    //close the drawer after a profile was clicked in the list
+    protected boolean mCloseDrawerOnProfileListClick = true;
+
+    /**
+     * define if the drawer should close if the user clicks on a profile item if the selection list is shown
+     *
+     * @param closeDrawerOnProfileListClick
+     * @return
+     */
+    public AccountHeaderBuilder withCloseDrawerOnProfileListClick(boolean closeDrawerOnProfileListClick) {
+        this.mCloseDrawerOnProfileListClick = closeDrawerOnProfileListClick;
+        return this;
+    }
+
+    //reset the drawer list to the main drawer list after the profile was clicked in the list
+    protected boolean mResetDrawerOnProfileListClick = true;
+
+    /**
+     * define if the drawer selection list should be reseted after the user clicks on a profile item if the selection list is shown
+     *
+     * @param resetDrawerOnProfileListClick
+     * @return
+     */
+    public AccountHeaderBuilder withResetDrawerOnProfileListClick(boolean resetDrawerOnProfileListClick) {
+        this.mResetDrawerOnProfileListClick = resetDrawerOnProfileListClick;
+        return this;
+    }
+
     // set the profile images clickable or not
     protected boolean mProfileImagesClickable = true;
 
@@ -1180,12 +1208,16 @@ public class AccountHeaderBuilder {
             } else {
                 isCurrentSelectedProfile = false;
             }
-            mDrawer.setOnDrawerItemClickListener(null);
+
+            if (mResetDrawerOnProfileListClick) {
+                mDrawer.setOnDrawerItemClickListener(null);
+            }
+
             //wrap the onSelection call and the reset stuff within a handler to prevent lag
             new Handler().postDelayed(new Runnable() {
                 @Override
                 public void run() {
-                    if (mDrawer != null && view != null && view.getContext() != null) {
+                    if (mResetDrawerOnProfileListClick && mDrawer != null && view != null && view.getContext() != null) {
                         resetDrawerContent(view.getContext());
                     }
                     if (drawerItem != null && drawerItem instanceof IProfile) {
@@ -1197,7 +1229,7 @@ public class AccountHeaderBuilder {
                 }
             }, 350);
 
-            return false;
+            return !mCloseDrawerOnProfileListClick;
         }
     };
 
