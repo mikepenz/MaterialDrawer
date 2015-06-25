@@ -25,6 +25,7 @@ import com.mikepenz.materialdrawer.model.SecondaryDrawerItem;
 import com.mikepenz.materialdrawer.model.SectionDrawerItem;
 import com.mikepenz.materialdrawer.model.interfaces.IDrawerItem;
 import com.mikepenz.materialdrawer.model.interfaces.IProfile;
+import com.mikepenz.materialdrawer.model.interfaces.Nameable;
 import com.mikepenz.materialdrawer.util.UIUtils;
 
 public class SimpleCompactHeaderDrawerActivity extends AppCompatActivity {
@@ -40,7 +41,7 @@ public class SimpleCompactHeaderDrawerActivity extends AppCompatActivity {
         setContentView(R.layout.activity_sample);
 
         // Handle Toolbar
-        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
+        final Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
         // Create a few sample profile
@@ -88,6 +89,10 @@ public class SimpleCompactHeaderDrawerActivity extends AppCompatActivity {
                         if (drawerItem != null && drawerItem.getIdentifier() == 1) {
                             startSupportActionMode(new ActionBarCallBack());
                             findViewById(R.id.action_mode_bar).setBackgroundColor(UIUtils.getThemeColorFromAttrOrRes(SimpleCompactHeaderDrawerActivity.this, R.attr.colorPrimary, R.color.material_drawer_primary));
+                        }
+
+                        if (drawerItem instanceof Nameable) {
+                            toolbar.setTitle(((Nameable) drawerItem).getNameRes());
                         }
 
                         return false;
