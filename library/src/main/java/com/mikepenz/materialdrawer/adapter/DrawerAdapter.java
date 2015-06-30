@@ -84,7 +84,11 @@ public class DrawerAdapter extends BaseDrawerAdapter {
     }
 
     public Boolean getAnimatedItem(int position) {
-        return position < getCount() ? mDrawerAnimatedItems.get(position) : null;
+        if (mDrawerAnimatedItems != null && position < mDrawerAnimatedItems.size()) {
+            return mDrawerAnimatedItems.get(position);
+        } else {
+            return null;
+        }
     }
 
     public void setAnimatedItem(int position, Boolean animated) {

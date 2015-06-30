@@ -7,8 +7,8 @@ android {
     defaultConfig {
         minSdkVersion 10
         targetSdkVersion 22
-        versionCode 308
-        versionName '3.0.8'
+        versionCode 309
+        versionName '3.0.9'
     }
     buildTypes {
         release {
@@ -28,7 +28,7 @@ apply from: 'gradle-mvn-push.gradle'
 dependencies {
     compile "com.android.support:appcompat-v7:22.2.0"
 
-    compile('com.mikepenz:iconics:1.1.0@aar') {
+    compile('com.mikepenz:iconics:1.2.0@aar') {
         transitive = true
     }
 }

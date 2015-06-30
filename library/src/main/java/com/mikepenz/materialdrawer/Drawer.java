@@ -19,6 +19,7 @@ import com.mikepenz.materialdrawer.model.interfaces.Iconable;
 import com.mikepenz.materialdrawer.model.interfaces.Nameable;
 import com.mikepenz.materialdrawer.util.KeyboardUtil;
 import com.mikepenz.materialdrawer.util.UIUtils;
+import com.mikepenz.materialdrawer.view.ScrimInsetsFrameLayout;
 
 import java.util.ArrayList;
 import java.util.Collections;
@@ -122,7 +123,17 @@ public class Drawer {
     public void setStatusBarColor(int statusBarColor) {
         if (mDrawerBuilder.mDrawerContentRoot != null) {
             mDrawerBuilder.mDrawerContentRoot.setInsetForeground(statusBarColor);
+            mDrawerBuilder.mDrawerContentRoot.invalidate();
         }
+    }
+
+    /**
+     * get the drawerContentRoot Layout (ScrimInsetsFrameLayout)
+     *
+     * @return
+     */
+    public ScrimInsetsFrameLayout getScrimInsetsFrameLayout() {
+        return mDrawerBuilder.mDrawerContentRoot;
     }
 
 
