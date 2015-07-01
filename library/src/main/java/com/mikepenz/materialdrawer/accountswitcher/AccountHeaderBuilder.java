@@ -223,7 +223,7 @@ public class AccountHeaderBuilder {
      * @param selectionFirstLineShown
      * @return
      */
-    public AccountHeaderBuilder withSelectionFistLineShown(boolean selectionFirstLineShown) {
+    public AccountHeaderBuilder withSelectionFirstLineShown(boolean selectionFirstLineShown) {
         this.mSelectionFirstLineShown = selectionFirstLineShown;
         return this;
     }
