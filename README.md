@@ -379,6 +379,7 @@ drawerLayout.setDrawerLockMode(int lockMode); //or (int lockMode, int edgeGravit
 * [StickyNotes](https://play.google.com/store/apps/details?id=com.jsvmsoft.stickynotes)
 * [Smartphone Italia](https://play.google.com/store/apps/details?id=rebus.smartphone.italia)
 * [MLManager](https://github.com/javiersantos/MLManager)
+* [Hold'Em Poker Manager](https://play.google.com/store/apps/details?id=pt.massena.holdemtracker.free)
 
 
 
