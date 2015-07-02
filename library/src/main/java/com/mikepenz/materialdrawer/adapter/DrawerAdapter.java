@@ -92,7 +92,7 @@ public class DrawerAdapter extends BaseDrawerAdapter {
     }
 
     public void setAnimatedItem(int position, Boolean animated) {
-        if (position < getCount()) {
+        if (mDrawerAnimatedItems != null && position < mDrawerAnimatedItems.size()) {
             mDrawerAnimatedItems.set(position, animated);
         }
     }
