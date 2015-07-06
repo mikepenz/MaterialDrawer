@@ -46,7 +46,7 @@ You can try it out here [Google Play](https://play.google.com/store/apps/details
 The MaterialDrawer Library is pushed to [Maven Central](http://search.maven.org/#search|ga|1|g%3A%22com.mikepenz%22), so you just need to add the following dependency to your `build.gradle`.
 
 ```javascript
-compile('com.mikepenz:materialdrawer:3.0.9@aar') {
+compile('com.mikepenz:materialdrawer:3.1.0@aar') {
 	transitive = true
 }
 ```
@@ -379,6 +379,7 @@ drawerLayout.setDrawerLockMode(int lockMode); //or (int lockMode, int edgeGravit
 * [StickyNotes](https://play.google.com/store/apps/details?id=com.jsvmsoft.stickynotes)
 * [Smartphone Italia](https://play.google.com/store/apps/details?id=rebus.smartphone.italia)
 * [MLManager](https://github.com/javiersantos/MLManager)
+* [Hold'Em Poker Manager](https://play.google.com/store/apps/details?id=pt.massena.holdemtracker.free)
 
 
 

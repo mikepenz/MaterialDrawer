@@ -220,10 +220,24 @@ public class AccountHeaderBuilder {
     /**
      * set this to false if you want to hide the first line of the selection box in the header (first line would be the name)
      *
+     * @deprecated replaced by {@link #withSelectionFirstLineShown}
+     *
      * @param selectionFirstLineShown
      * @return
      */
+    @Deprecated
     public AccountHeaderBuilder withSelectionFistLineShown(boolean selectionFirstLineShown) {
+        this.mSelectionFirstLineShown = selectionFirstLineShown;
+        return this;
+    }
+
+    /**
+     * set this to false if you want to hide the first line of the selection box in the header (first line would be the name)
+     *
+     * @param selectionFirstLineShown
+     * @return
+     */
+    public AccountHeaderBuilder withSelectionFirstLineShown(boolean selectionFirstLineShown) {
         this.mSelectionFirstLineShown = selectionFirstLineShown;
         return this;
     }

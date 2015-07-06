@@ -18,6 +18,7 @@ import com.mikepenz.materialdrawer.util.UIUtils;
  */
 public class PrimaryDrawerItem extends BaseDrawerItem<PrimaryDrawerItem> implements ColorfulBadgeable<PrimaryDrawerItem> {
     private String description;
+    private int descriptionTextColor = 0;
     private int descriptionRes = -1;
 
     private String badge;
@@ -33,6 +34,11 @@ public class PrimaryDrawerItem extends BaseDrawerItem<PrimaryDrawerItem> impleme
     public PrimaryDrawerItem withDescription(int descriptionRes) {
         this.description = null;
         this.descriptionRes = descriptionRes;
+        return this;
+    }
+
+    public PrimaryDrawerItem withDescriptionTextColor(int color) {
+        this.descriptionTextColor = color;
         return this;
     }
 
@@ -82,6 +88,14 @@ public class PrimaryDrawerItem extends BaseDrawerItem<PrimaryDrawerItem> impleme
     public void setDescriptionRes(int descriptionRes) {
         this.description = null;
         this.descriptionRes = descriptionRes;
+    }
+
+    public int getDescriptionTextColor() {
+        return descriptionTextColor;
+    }
+
+    public void setDescriptionTextColor(int color) {
+        this.descriptionTextColor = color;
     }
 
     public String getBadge() {
@@ -177,7 +191,11 @@ public class PrimaryDrawerItem extends BaseDrawerItem<PrimaryDrawerItem> impleme
 
         //set the colors for textViews
         viewHolder.name.setTextColor(UIUtils.getTextColorStateList(color, selectedTextColor));
-        viewHolder.description.setTextColor(UIUtils.getTextColorStateList(color, selectedTextColor));
+        if (descriptionTextColor != 0) {
+            viewHolder.description.setTextColor(descriptionTextColor);
+        } else {
+            viewHolder.description.setTextColor(UIUtils.getTextColorStateList(color, selectedTextColor));
+        }
         if (badgeTextColor != 0) {
             viewHolder.badge.setTextColor(badgeTextColor);
         } else {
