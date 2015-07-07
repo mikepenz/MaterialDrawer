@@ -104,7 +104,7 @@ class DrawerUtils {
             }
 
             if (fireOnClick && drawer.mOnDrawerItemClickListener != null) {
-                return drawer.mOnDrawerItemClickListener.onItemClick(null, null, position - drawer.mHeaderOffset, -1, drawerItem);
+                return drawer.mOnDrawerItemClickListener.onItemClick(null, null, position, -1, drawerItem);
             }
         }
 
