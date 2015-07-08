@@ -104,7 +104,7 @@ class DrawerUtils {
             }
 
             if (fireOnClick && drawer.mOnDrawerItemClickListener != null) {
-                return drawer.mOnDrawerItemClickListener.onItemClick(null, null, position - drawer.mHeaderOffset, -1, drawerItem);
+                return drawer.mOnDrawerItemClickListener.onItemClick(null, null, position, -1, drawerItem);
             }
         }
 
@@ -398,7 +398,6 @@ class DrawerUtils {
     public static void fillStickyDrawerItemFooter(DrawerBuilder drawer, ViewGroup container, View.OnClickListener onClickListener) {
         //get the inflater
         LayoutInflater layoutInflater = LayoutInflater.from(container.getContext());
-        int padding = container.getContext().getResources().getDimensionPixelSize(R.dimen.material_drawer_vertical_padding);
 
         //add all drawer items
         for (IDrawerItem drawerItem : drawer.mStickyDrawerItems) {
@@ -426,8 +425,6 @@ class DrawerUtils {
                 view.setOnClickListener(onClickListener);
             }
 
-            //don't ask my why but it forgets the padding from the original layout
-            view.setPadding(padding, 0, padding, 0);
             container.addView(view);
         }
         //and really. don't ask about this. it won't set the padding if i don't set the padding for the container

@@ -46,7 +46,7 @@ You can try it out here [Google Play](https://play.google.com/store/apps/details
 The MaterialDrawer Library is pushed to [Maven Central](http://search.maven.org/#search|ga|1|g%3A%22com.mikepenz%22), so you just need to add the following dependency to your `build.gradle`.
 
 ```javascript
-compile('com.mikepenz:materialdrawer:3.1.0@aar') {
+compile('com.mikepenz:materialdrawer:3.1.1@aar') {
 	transitive = true
 }
 ```
@@ -90,7 +90,7 @@ v2.8.0 now uses the latest com.android.support:appcompat version 22.1.0. Please 
 ####Code:
 It's (theoretically) a one-liner :D. This will create an empty drawer.
 ```java
-new DrawerBuilder().withActivity(this).build()
+new DrawerBuilder().withActivity(this).build();
 ```
 
 ###Activity with Toolbar

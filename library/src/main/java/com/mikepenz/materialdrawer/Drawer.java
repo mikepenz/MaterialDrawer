@@ -574,8 +574,8 @@ public class Drawer {
             IDrawerItem drawerItem = mDrawerBuilder.mDrawerItems.get(position);
 
             if (drawerItem instanceof Nameable) {
-                ((Nameable) drawerItem).setNameRes(nameRes);
                 ((Nameable) drawerItem).setName(null);
+                ((Nameable) drawerItem).setNameRes(nameRes);
             }
 
             mDrawerBuilder.mDrawerItems.set(position, drawerItem);
@@ -594,8 +594,8 @@ public class Drawer {
             IDrawerItem drawerItem = mDrawerBuilder.mDrawerItems.get(position);
 
             if (drawerItem instanceof Nameable) {
-                ((Nameable) drawerItem).setName(name);
                 ((Nameable) drawerItem).setNameRes(-1);
+                ((Nameable) drawerItem).setName(name);
             }
 
             mDrawerBuilder.mDrawerItems.set(position, drawerItem);
