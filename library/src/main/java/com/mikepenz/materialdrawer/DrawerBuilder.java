@@ -8,6 +8,7 @@ import android.os.Build;
 import android.os.Bundle;
 import android.os.Handler;
 import android.preference.PreferenceManager;
+import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.widget.Toolbar;
@@ -458,7 +459,7 @@ public class DrawerBuilder {
     }
 
     //the gravity of the drawer
-    protected Integer mDrawerGravity = null;
+    protected Integer mDrawerGravity = GravityCompat.START;
 
     /**
      * Set the gravity for the drawer. START, LEFT | RIGHT, END
@@ -1023,11 +1024,7 @@ public class DrawerBuilder {
             //if it was not shown yet
             if (!preferences.getBoolean(Drawer.PREF_USER_LEARNED_DRAWER, false)) {
                 //open the drawer
-                if (mDrawerGravity != null) {
-                    mDrawerLayout.openDrawer(mDrawerGravity);
-                } else if (mSliderLayout != null) {
-                    mDrawerLayout.openDrawer(mSliderLayout);
-                }
+                mDrawerLayout.openDrawer(mDrawerGravity);
 
                 //save that it showed up once ;)
                 SharedPreferences.Editor editor = preferences.edit();
@@ -1159,14 +1156,10 @@ public class DrawerBuilder {
                     handled = mOnDrawerNavigationListener.onNavigationClickListener(v);
                 }
                 if (!handled) {
-                    if (mDrawerLayout.isDrawerOpen(mSliderLayout)) {
-                        mDrawerLayout.closeDrawer(mSliderLayout);
+                    if (mDrawerLayout.isDrawerOpen(mDrawerGravity)) {
+                        mDrawerLayout.closeDrawer(mDrawerGravity);
                     } else {
-                        if (mDrawerGravity != null) {
-                            mDrawerLayout.openDrawer(mDrawerGravity);
-                        } else {
-                            mDrawerLayout.openDrawer(mSliderLayout);
-                        }
+                        mDrawerLayout.openDrawer(mDrawerGravity);
                     }
                 }
             }
@@ -1269,9 +1262,7 @@ public class DrawerBuilder {
         DrawerLayout.LayoutParams params = (DrawerLayout.LayoutParams) mSliderLayout.getLayoutParams();
         if (params != null) {
             // if we've set a custom gravity set it
-            if (mDrawerGravity != null) {
-                params.gravity = mDrawerGravity;
-            }
+            params.gravity = mDrawerGravity;
             // if this is a drawer from the right, change the margins :D
             params = DrawerUtils.processDrawerLayoutParams(this, params);
             // set the new layout params
