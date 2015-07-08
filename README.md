@@ -90,7 +90,7 @@ v2.8.0 now uses the latest com.android.support:appcompat version 22.1.0. Please 
 ####Code:
 It's (theoretically) a one-liner :D. This will create an empty drawer.
 ```java
-new DrawerBuilder().withActivity(this).build()
+new DrawerBuilder().withActivity(this).build();
 ```
 
 ###Activity with Toolbar
