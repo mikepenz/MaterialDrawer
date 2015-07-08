@@ -1280,6 +1280,11 @@ public class DrawerBuilder {
             UIUtils.setBackground(mSliderLayout, mSliderBackgroundColorRes);
         }
 
+        //set the shadow for the drawer
+        if (Build.VERSION.SDK_INT < 21) {
+            mDrawerLayout.setDrawerShadow(R.drawable.drawer_shadow, mDrawerGravity);
+        }
+
         //create the content
         createContent();
 
