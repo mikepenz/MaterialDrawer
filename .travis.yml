@@ -1,0 +1,17 @@
+language: android
+android:
+  components:
+    # Uncomment the lines below if you want to
+    # use the latest revision of Android SDK Tools
+    # - platform-tools
+    # - tools
+
+    # The BuildTools version used by your project
+    - build-tools-22.0.1
+
+    # The SDK version used to compile your project
+    - android-22
+
+    # Additional components
+    - extra-google-m2repository
+    - extra-android-m2repository

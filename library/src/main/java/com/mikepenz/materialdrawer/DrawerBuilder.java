@@ -1024,7 +1024,7 @@ public class DrawerBuilder {
             //if it was not shown yet
             if (!preferences.getBoolean(Drawer.PREF_USER_LEARNED_DRAWER, false)) {
                 //open the drawer
-                mDrawerLayout.openDrawer(mDrawerGravity);
+                mDrawerLayout.openDrawer(mSliderLayout);
 
                 //save that it showed up once ;)
                 SharedPreferences.Editor editor = preferences.edit();
