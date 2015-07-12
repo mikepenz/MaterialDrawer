@@ -915,6 +915,7 @@ public class DrawerBuilder {
                         .withName(mMenuItem.getTitle().toString())
                         .withIcon(mMenuItem.getIcon())
                         .withIdentifier(mMenuItem.getItemId())
+                        .withEnabled(mMenuItem.isEnabled())
                         .withCheckable(false);
                 mDrawerItems.add(iDrawerItem);
                 addMenuItems(mMenuItem.getSubMenu(), true);
@@ -922,13 +923,15 @@ public class DrawerBuilder {
                 iDrawerItem = new SecondaryDrawerItem()
                         .withName(mMenuItem.getTitle().toString())
                         .withIcon(mMenuItem.getIcon())
-                        .withIdentifier(mMenuItem.getItemId());
+                        .withIdentifier(mMenuItem.getItemId())
+                        .withEnabled(mMenuItem.isEnabled());
                 mDrawerItems.add(iDrawerItem);
             } else {
                 iDrawerItem = new PrimaryDrawerItem()
                         .withName(mMenuItem.getTitle().toString())
                         .withIcon(mMenuItem.getIcon())
-                        .withIdentifier(mMenuItem.getItemId());
+                        .withIdentifier(mMenuItem.getItemId())
+                        .withEnabled(mMenuItem.isEnabled());
                 mDrawerItems.add(iDrawerItem);
             }
         }

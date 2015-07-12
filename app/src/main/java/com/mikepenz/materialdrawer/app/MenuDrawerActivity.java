@@ -33,7 +33,16 @@ public class MenuDrawerActivity extends AppCompatActivity {
                 .withTranslucentStatusBar(false)
                 .withActionBarDrawerToggle(false)
                 .inflateMenu(R.menu.example_menu)
-                .build();
+                .withOnDrawerItemClickListener(new Drawer.OnDrawerItemClickListener() {
+                    @Override
+                    public boolean onItemClick(AdapterView<?> parent, View view, int position, long id, IDrawerItem drawerItem) {
+                        if (drawerItem instanceof Nameable) {
+                            Toast.makeText(MenuDrawerActivity.this, ((Nameable) drawerItem).getName(), Toast.LENGTH_SHORT).show();
+                        }
+
+                        return false;
+                    }
+                }).build();
 
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         getSupportActionBar().setHomeButtonEnabled(false);
