@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 
 <resources>
+    <item name="md_menu_default_group" type="id" />
     <item name="sticky_footer" type="id" />
     <item name="sticky_header" type="id" />
     <item name="animation" type="id" />

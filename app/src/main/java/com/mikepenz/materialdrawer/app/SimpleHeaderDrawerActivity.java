@@ -113,9 +113,10 @@ public class SimpleHeaderDrawerActivity extends AppCompatActivity {
                         new PrimaryDrawerItem().withName(R.string.drawer_item_embedded_drawer_dualpane).withIcon(GoogleMaterial.Icon.gmd_battery_charging_full).withIdentifier(7).withCheckable(false),
                         new PrimaryDrawerItem().withName(R.string.drawer_item_fullscreen_drawer).withIcon(GoogleMaterial.Icon.gmd_style).withIdentifier(8).withCheckable(false),
                         new PrimaryDrawerItem().withName(R.string.drawer_item_custom_container_drawer).withIcon(GoogleMaterial.Icon.gmd_my_location).withIdentifier(9).withCheckable(false),
+                        new PrimaryDrawerItem().withName(R.string.drawer_with_menu).withIcon(GoogleMaterial.Icon.gmd_list).withIdentifier(10).withCheckable(false),
                         new SectionDrawerItem().withName(R.string.drawer_item_section_header),
                         new SecondaryDrawerItem().withName(R.string.drawer_item_open_source).withIcon(FontAwesome.Icon.faw_github).withIdentifier(20).withCheckable(false),
-                        new SecondaryDrawerItem().withName(R.string.drawer_item_contact).withIcon(GoogleMaterial.Icon.gmd_format_color_fill).withIdentifier(10).withTag("Bullhorn"),
+                        new SecondaryDrawerItem().withName(R.string.drawer_item_contact).withIcon(GoogleMaterial.Icon.gmd_format_color_fill).withIdentifier(11).withTag("Bullhorn"),
                         new DividerDrawerItem(),
                         new SwitchDrawerItem().withName("Switch").withIcon(Octicons.Icon.oct_tools).withChecked(true).withOnCheckedChangeListener(onCheckedChangeListener),
                         new SwitchDrawerItem().withName("Switch2").withIcon(Octicons.Icon.oct_tools).withChecked(true).withOnCheckedChangeListener(onCheckedChangeListener),
@@ -150,6 +151,8 @@ public class SimpleHeaderDrawerActivity extends AppCompatActivity {
                                 intent = new Intent(SimpleHeaderDrawerActivity.this, FullscreenDrawerActivity.class);
                             } else if (drawerItem.getIdentifier() == 9) {
                                 intent = new Intent(SimpleHeaderDrawerActivity.this, CustomContainerActivity.class);
+                            }  else if (drawerItem.getIdentifier() == 10) {
+                                intent = new Intent(SimpleHeaderDrawerActivity.this, MenuDrawerActivity.class);
                             } else if (drawerItem.getIdentifier() == 20) {
                                 intent = new LibsBuilder()
                                         .withFields(R.string.class.getFields())
@@ -170,8 +173,8 @@ public class SimpleHeaderDrawerActivity extends AppCompatActivity {
 
         //only set the active selection or active profile if we do not recreate the activity
         if (savedInstanceState == null) {
-            // set the selection to the item with the identifier 10
-            result.setSelectionByIdentifier(10, false);
+            // set the selection to the item with the identifier 11
+            result.setSelectionByIdentifier(11, false);
 
             //set the active profile
             headerResult.setActiveProfile(profile3);
