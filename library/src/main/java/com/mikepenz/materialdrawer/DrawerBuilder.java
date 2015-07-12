@@ -906,12 +906,18 @@ public class DrawerBuilder {
         return this;
     }
 
+    /**
+     * helper method to init the drawerItems from a menu
+     *
+     * @param mMenu
+     * @param subMenu
+     */
     private void addMenuItems(Menu mMenu, boolean subMenu) {
         int groupId = R.id.md_menu_default_group;
         for (int i = 0; i < mMenu.size(); i++) {
             MenuItem mMenuItem = mMenu.getItem(i);
             IDrawerItem iDrawerItem;
-            if (!subMenu && mMenuItem.getGroupId() != groupId) {
+            if (!subMenu && mMenuItem.getGroupId() != groupId && mMenuItem.getGroupId() != 0) {
                 groupId = mMenuItem.getGroupId();
                 iDrawerItem = new DividerDrawerItem();
                 mDrawerItems.add(iDrawerItem);
