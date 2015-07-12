@@ -27,6 +27,9 @@
             android:name=".ActionBarDrawerActivity"
             android:theme="@style/MaterialDrawerTheme.ActionBar" />
         <activity
+            android:name=".MenuDrawerActivity"
+            android:theme="@style/MaterialDrawerTheme.ActionBar" />
+        <activity
             android:name=".SimpleNonTranslucentDrawerActivity"
             android:theme="@style/MaterialDrawerTheme" />
         <activity

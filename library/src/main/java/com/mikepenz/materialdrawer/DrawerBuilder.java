@@ -8,10 +8,16 @@ import android.os.Build;
 import android.os.Bundle;
 import android.os.Handler;
 import android.preference.PreferenceManager;
+import android.support.annotation.MenuRes;
 import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
+import android.support.v7.internal.view.SupportMenuInflater;
+import android.support.v7.internal.view.menu.MenuBuilder;
 import android.support.v7.widget.Toolbar;
+import android.view.Menu;
+import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AbsListView;
@@ -25,6 +31,9 @@ import com.mikepenz.iconics.utils.Utils;
 import com.mikepenz.materialdrawer.accountswitcher.AccountHeader;
 import com.mikepenz.materialdrawer.adapter.BaseDrawerAdapter;
 import com.mikepenz.materialdrawer.adapter.DrawerAdapter;
+import com.mikepenz.materialdrawer.model.DividerDrawerItem;
+import com.mikepenz.materialdrawer.model.PrimaryDrawerItem;
+import com.mikepenz.materialdrawer.model.SecondaryDrawerItem;
 import com.mikepenz.materialdrawer.model.interfaces.Checkable;
 import com.mikepenz.materialdrawer.model.interfaces.IDrawerItem;
 import com.mikepenz.materialdrawer.util.UIUtils;
@@ -881,6 +890,51 @@ public class DrawerBuilder {
             Collections.addAll(this.mStickyDrawerItems, stickyDrawerItems);
         }
         return this;
+    }
+
+    // menu
+
+    public DrawerBuilder inflateMenu(@MenuRes int menuRes) {
+
+        MenuInflater menuInflater = new SupportMenuInflater(mActivity);
+        MenuBuilder mMenu = new MenuBuilder(mActivity);
+
+        menuInflater.inflate(menuRes, mMenu);
+
+        addMenuItems(mMenu, false);
+
+        return this;
+    }
+
+    private void addMenuItems(Menu mMenu, boolean subMenu) {
+        for (int i = 0; i < mMenu.size(); i++) {
+            MenuItem mMenuItem = mMenu.getItem(i);
+            IDrawerItem iDrawerItem;
+            if (mMenuItem.hasSubMenu()) {
+                iDrawerItem = new PrimaryDrawerItem()
+                        .withName(mMenuItem.getTitle().toString())
+                        .withIcon(mMenuItem.getIcon())
+                        .withIdentifier(mMenuItem.getItemId())
+                        .withEnabled(mMenuItem.isEnabled())
+                        .withCheckable(false);
+                mDrawerItems.add(iDrawerItem);
+                addMenuItems(mMenuItem.getSubMenu(), true);
+            } else if (mMenuItem.getGroupId() != 0 || subMenu) {
+                iDrawerItem = new SecondaryDrawerItem()
+                        .withName(mMenuItem.getTitle().toString())
+                        .withIcon(mMenuItem.getIcon())
+                        .withIdentifier(mMenuItem.getItemId())
+                        .withEnabled(mMenuItem.isEnabled());
+                mDrawerItems.add(iDrawerItem);
+            } else {
+                iDrawerItem = new PrimaryDrawerItem()
+                        .withName(mMenuItem.getTitle().toString())
+                        .withIcon(mMenuItem.getIcon())
+                        .withIdentifier(mMenuItem.getItemId())
+                        .withEnabled(mMenuItem.isEnabled());
+                mDrawerItems.add(iDrawerItem);
+            }
+        }
     }
 
     // close drawer on click
