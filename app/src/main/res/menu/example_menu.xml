@@ -4,7 +4,6 @@
 
     <item
         android:id="@+id/menu_1"
-        android:icon="@drawable/ic_launcher"
         android:title="Menu 1"
         app:showAsAction="never" />
 
