@@ -2,17 +2,14 @@ package com.mikepenz.materialdrawer.app;
 
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
+import android.support.v7.widget.Toolbar;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.Toast;
 
-import com.mikepenz.iconics.typeface.FontAwesome;
 import com.mikepenz.materialdrawer.Drawer;
 import com.mikepenz.materialdrawer.DrawerBuilder;
-import com.mikepenz.materialdrawer.model.PrimaryDrawerItem;
-import com.mikepenz.materialdrawer.model.SecondaryDrawerItem;
-import com.mikepenz.materialdrawer.model.SectionDrawerItem;
 import com.mikepenz.materialdrawer.model.interfaces.IDrawerItem;
 import com.mikepenz.materialdrawer.model.interfaces.Nameable;
 
@@ -22,16 +19,17 @@ public class MenuDrawerActivity extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
-        //supportRequestWindowFeature(Window.FEATURE_INDETERMINATE_PROGRESS);
-
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_sample_actionbar);
+        setContentView(R.layout.activity_sample_dark_toolbar);
 
         // Handle Toolbar
+        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
+        setSupportActionBar(toolbar);
+
+        //Create the drawer
         result = new DrawerBuilder()
                 .withActivity(this)
-                .withTranslucentStatusBar(false)
-                .withActionBarDrawerToggle(false)
+                .withToolbar(toolbar)
                 .inflateMenu(R.menu.example_menu)
                 .withOnDrawerItemClickListener(new Drawer.OnDrawerItemClickListener() {
                     @Override
@@ -43,9 +41,6 @@ public class MenuDrawerActivity extends AppCompatActivity {
                         return false;
                     }
                 }).build();
-
-        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
-        getSupportActionBar().setHomeButtonEnabled(false);
     }
 
     @Override
