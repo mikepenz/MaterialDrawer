@@ -907,9 +907,15 @@ public class DrawerBuilder {
     }
 
     private void addMenuItems(Menu mMenu, boolean subMenu) {
+        int groupId = R.id.md_menu_default_group;
         for (int i = 0; i < mMenu.size(); i++) {
             MenuItem mMenuItem = mMenu.getItem(i);
             IDrawerItem iDrawerItem;
+            if (!subMenu && mMenuItem.getGroupId() != groupId) {
+                groupId = mMenuItem.getGroupId();
+                iDrawerItem = new DividerDrawerItem();
+                mDrawerItems.add(iDrawerItem);
+            }
             if (mMenuItem.hasSubMenu()) {
                 iDrawerItem = new PrimaryDrawerItem()
                         .withName(mMenuItem.getTitle().toString())
