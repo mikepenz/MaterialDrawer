@@ -50,9 +50,10 @@ public class SimpleFragmentDrawerActivity extends AppCompatActivity {
                     @Override
                     public boolean onItemClick(AdapterView<?> parent, View view, int position, long id, IDrawerItem drawerItem) {
                         if (drawerItem != null && drawerItem instanceof Nameable) {
-                            getSupportActionBar().setTitle(((Nameable) drawerItem).getNameRes());
+                            String name = ((Nameable) drawerItem).getName().getText(SimpleFragmentDrawerActivity.this);
+                            getSupportActionBar().setTitle(name);
                             //ignore the DemoFragment and it's layout it's just to showcase the handle with an keyboard
-                            Fragment f = DemoFragment.newInstance(getResources().getString(((Nameable) drawerItem).getNameRes()));
+                            Fragment f = DemoFragment.newInstance(name);
                             getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container, f).commit();
                         }
 

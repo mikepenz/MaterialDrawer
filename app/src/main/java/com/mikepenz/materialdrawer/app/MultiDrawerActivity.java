@@ -76,14 +76,15 @@ public class MultiDrawerActivity extends AppCompatActivity {
 
                         if (drawerItem != null) {
                             if (drawerItem instanceof Nameable) {
-                                Toast.makeText(MultiDrawerActivity.this, MultiDrawerActivity.this.getString(((Nameable) drawerItem).getNameRes()), Toast.LENGTH_SHORT).show();
+                                Toast.makeText(MultiDrawerActivity.this, ((Nameable) drawerItem).getName().getText(MultiDrawerActivity.this), Toast.LENGTH_SHORT).show();
                             }
 
                             if (drawerItem instanceof Badgeable) {
                                 Badgeable badgeable = (Badgeable) drawerItem;
                                 if (badgeable.getBadge() != null) {
                                     //note don't do this if your badge contains a "+"
-                                    int badge = Integer.valueOf(badgeable.getBadge());
+                                    //only use toString() if you set the test as String
+                                    int badge = Integer.valueOf(badgeable.getBadge().toString());
                                     if (badge > 0) {
                                         result.updateBadge(String.valueOf(badge - 1), position);
                                     }
@@ -98,7 +99,7 @@ public class MultiDrawerActivity extends AppCompatActivity {
                     @Override
                     public boolean onItemLongClick(AdapterView<?> parent, View view, int position, long id, IDrawerItem drawerItem) {
                         if (drawerItem instanceof SecondaryDrawerItem) {
-                            Toast.makeText(MultiDrawerActivity.this, MultiDrawerActivity.this.getString(((SecondaryDrawerItem) drawerItem).getNameRes()), Toast.LENGTH_SHORT).show();
+                            Toast.makeText(MultiDrawerActivity.this, ((SecondaryDrawerItem) drawerItem).getName().getText(MultiDrawerActivity.this), Toast.LENGTH_SHORT).show();
                         }
                         return false;
                     }

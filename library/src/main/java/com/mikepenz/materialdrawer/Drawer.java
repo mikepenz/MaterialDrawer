@@ -566,8 +566,7 @@ public class Drawer {
             IDrawerItem drawerItem = mDrawerBuilder.mDrawerItems.get(position);
 
             if (drawerItem instanceof Nameable) {
-                ((Nameable) drawerItem).setName(null);
-                ((Nameable) drawerItem).setNameRes(nameRes);
+                ((Nameable) drawerItem).withName(nameRes);
             }
 
             mDrawerBuilder.mDrawerItems.set(position, drawerItem);
@@ -586,8 +585,7 @@ public class Drawer {
             IDrawerItem drawerItem = mDrawerBuilder.mDrawerItems.get(position);
 
             if (drawerItem instanceof Nameable) {
-                ((Nameable) drawerItem).setNameRes(-1);
-                ((Nameable) drawerItem).setName(name);
+                ((Nameable) drawerItem).withName(name);
             }
 
             mDrawerBuilder.mDrawerItems.set(position, drawerItem);
@@ -606,7 +604,7 @@ public class Drawer {
             IDrawerItem drawerItem = mDrawerBuilder.mDrawerItems.get(position);
 
             if (drawerItem instanceof Badgeable) {
-                ((Badgeable) drawerItem).setBadge(badge);
+                ((Badgeable) drawerItem).withBadge(badge);
             }
 
             mDrawerBuilder.mDrawerItems.set(position, drawerItem);
@@ -625,7 +623,7 @@ public class Drawer {
             IDrawerItem drawerItem = mDrawerBuilder.mDrawerItems.get(position);
 
             if (drawerItem instanceof Iconable) {
-                ((Iconable) drawerItem).setIcon(icon);
+                ((Iconable) drawerItem).withIcon(icon);
             }
 
             mDrawerBuilder.mDrawerItems.set(position, drawerItem);
@@ -644,7 +642,7 @@ public class Drawer {
             IDrawerItem drawerItem = mDrawerBuilder.mDrawerItems.get(position);
 
             if (drawerItem instanceof Iconable) {
-                ((Iconable) drawerItem).setIcon(UIUtils.getCompatDrawable(mDrawerBuilder.mRootView.getContext(), iconRes));
+                ((Iconable) drawerItem).withIcon(UIUtils.getCompatDrawable(mDrawerBuilder.mRootView.getContext(), iconRes));
             }
 
             mDrawerBuilder.mDrawerItems.set(position, drawerItem);
@@ -663,7 +661,7 @@ public class Drawer {
             IDrawerItem drawerItem = mDrawerBuilder.mDrawerItems.get(position);
 
             if (drawerItem instanceof Iconable) {
-                ((Iconable) drawerItem).setIIcon(icon);
+                ((Iconable) drawerItem).withIcon(icon);
             }
 
             mDrawerBuilder.mDrawerItems.set(position, drawerItem);

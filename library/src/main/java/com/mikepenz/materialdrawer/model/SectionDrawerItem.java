@@ -13,6 +13,7 @@ import com.mikepenz.materialdrawer.model.interfaces.Nameable;
 import com.mikepenz.materialdrawer.model.interfaces.Tagable;
 import com.mikepenz.materialdrawer.model.interfaces.Typefaceable;
 import com.mikepenz.materialdrawer.util.DrawerUIUtils;
+import com.mikepenz.materialdrawer.holder.StringHolder;
 import com.mikepenz.materialize.util.UIUtils;
 
 /**
@@ -22,8 +23,7 @@ public class SectionDrawerItem implements IDrawerItem, Nameable<SectionDrawerIte
 
     private int identifier = -1;
 
-    private String name;
-    private int nameRes = -1;
+    private StringHolder name;
     private boolean divider = true;
     private Object tag;
 
@@ -38,14 +38,12 @@ public class SectionDrawerItem implements IDrawerItem, Nameable<SectionDrawerIte
     }
 
     public SectionDrawerItem withName(String name) {
-        this.name = name;
-        this.nameRes = -1;
+        this.name = new StringHolder(name);
         return this;
     }
 
     public SectionDrawerItem withName(int nameRes) {
-        this.nameRes = nameRes;
-        this.name = null;
+        this.name = new StringHolder(nameRes);
         return this;
     }
 
@@ -89,24 +87,8 @@ public class SectionDrawerItem implements IDrawerItem, Nameable<SectionDrawerIte
         return divider;
     }
 
-    public String getName() {
+    public StringHolder getName() {
         return name;
-    }
-
-    public int getNameRes() {
-        return nameRes;
-    }
-
-    @Override
-    public void setName(String name) {
-        this.name = name;
-        this.nameRes = -1;
-    }
-
-    @Override
-    public void setNameRes(int nameRes) {
-        this.nameRes = nameRes;
-        this.name = null;
     }
 
     @Override
@@ -174,11 +156,8 @@ public class SectionDrawerItem implements IDrawerItem, Nameable<SectionDrawerIte
         textColor = DrawerUIUtils.decideColor(ctx, getTextColor(), getTextColorRes(), R.attr.material_drawer_secondary_text, R.color.material_drawer_secondary_text);
         viewHolder.name.setTextColor(textColor);
 
-        if (this.getNameRes() != -1) {
-            viewHolder.name.setText(this.getNameRes());
-        } else {
-            viewHolder.name.setText(this.getName());
-        }
+        //set the text for the name
+        StringHolder.applyTo(this.getName(), viewHolder.name);
 
         if (this.hasDivider()) {
             viewHolder.divider.setVisibility(View.VISIBLE);

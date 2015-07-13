@@ -12,6 +12,8 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.mikepenz.materialdrawer.R;
+import com.mikepenz.materialdrawer.holder.ColorHolder;
+import com.mikepenz.materialdrawer.holder.ImageHolder;
 import com.mikepenz.materialdrawer.model.interfaces.IDrawerItem;
 import com.mikepenz.materialdrawer.model.interfaces.IProfile;
 import com.mikepenz.materialdrawer.model.interfaces.Identifyable;
@@ -30,9 +32,7 @@ public class ProfileDrawerItem implements IDrawerItem, IProfile<ProfileDrawerIte
     private boolean selectable = true;
     private boolean nameShown = false;
 
-    private Drawable icon;
-    private Bitmap iconBitmap;
-    private Uri iconUri;
+    private ImageHolder icon;
 
     private String name;
     private String email;
@@ -40,19 +40,10 @@ public class ProfileDrawerItem implements IDrawerItem, IProfile<ProfileDrawerIte
     private boolean enabled = true;
     private Object tag;
 
-    private int selectedColor = 0;
-    private int selectedColorRes = -1;
-
-    private int textColor = 0;
-    private int textColorRes = -1;
+    private ColorHolder selectedColor;
+    private ColorHolder textColor;
 
     private Typeface typeface = null;
-
-    private void resetIcons() {
-        icon = null;
-        iconBitmap = null;
-        iconUri = null;
-    }
 
     public ProfileDrawerItem withIdentifier(int identifier) {
         this.identifier = identifier;
@@ -60,28 +51,24 @@ public class ProfileDrawerItem implements IDrawerItem, IProfile<ProfileDrawerIte
     }
 
     public ProfileDrawerItem withIcon(Drawable icon) {
-        resetIcons();
-        this.icon = icon;
+        this.icon = new ImageHolder(icon);
         return this;
     }
 
     public ProfileDrawerItem withIcon(Bitmap iconBitmap) {
-        resetIcons();
-        this.iconBitmap = iconBitmap;
+        this.icon = new ImageHolder(iconBitmap);
         return this;
     }
 
     @Override
     public ProfileDrawerItem withIcon(String url) {
-        resetIcons();
-        this.iconUri = Uri.parse(url);
+        this.icon = new ImageHolder(url);
         return this;
     }
 
     @Override
     public ProfileDrawerItem withIcon(Uri uri) {
-        resetIcons();
-        this.iconUri = uri;
+        this.icon = new ImageHolder(uri);
         return this;
     }
 
@@ -111,22 +98,22 @@ public class ProfileDrawerItem implements IDrawerItem, IProfile<ProfileDrawerIte
     }
 
     public ProfileDrawerItem withSelectedColor(int selectedColor) {
-        this.selectedColor = selectedColor;
+        this.selectedColor = ColorHolder.fromColor(selectedColor);
         return this;
     }
 
     public ProfileDrawerItem withSelectedColorRes(int selectedColorRes) {
-        this.selectedColorRes = selectedColorRes;
+        this.selectedColor = ColorHolder.fromColorRes(selectedColorRes);
         return this;
     }
 
     public ProfileDrawerItem withTextColor(int textColor) {
-        this.textColor = textColor;
+        this.textColor = ColorHolder.fromColor(textColor);
         return this;
     }
 
     public ProfileDrawerItem withTextColorRes(int textColorRes) {
-        this.textColorRes = textColorRes;
+        this.textColor = ColorHolder.fromColorRes(textColorRes);
         return this;
     }
 
@@ -149,36 +136,12 @@ public class ProfileDrawerItem implements IDrawerItem, IProfile<ProfileDrawerIte
         this.nameShown = nameShown;
     }
 
-    public int getSelectedColor() {
+    public ColorHolder getSelectedColor() {
         return selectedColor;
     }
 
-    public void setSelectedColor(int selectedColor) {
-        this.selectedColor = selectedColor;
-    }
-
-    public int getSelectedColorRes() {
-        return selectedColorRes;
-    }
-
-    public void setSelectedColorRes(int selectedColorRes) {
-        this.selectedColorRes = selectedColorRes;
-    }
-
-    public int getTextColor() {
+    public ColorHolder getTextColor() {
         return textColor;
-    }
-
-    public void setTextColor(int textColor) {
-        this.textColor = textColor;
-    }
-
-    public int getTextColorRes() {
-        return textColorRes;
-    }
-
-    public void setTextColorRes(int textColorRes) {
-        this.textColorRes = textColorRes;
     }
 
     @Override
@@ -201,37 +164,8 @@ public class ProfileDrawerItem implements IDrawerItem, IProfile<ProfileDrawerIte
         this.tag = tag;
     }
 
-    @Override
-    public Uri getIconUri() {
-        return iconUri;
-    }
-
-    public Drawable getIcon() {
+    public ImageHolder getIcon() {
         return icon;
-    }
-
-    public Bitmap getIconBitmap() {
-        return iconBitmap;
-    }
-
-    public void setIconBitmap(Bitmap iconBitmap) {
-        resetIcons();
-        this.iconBitmap = iconBitmap;
-    }
-
-    public void setIcon(Uri uri) {
-        resetIcons();
-        this.iconUri = uri;
-    }
-
-    public void setIcon(String url) {
-        resetIcons();
-        this.iconUri = Uri.parse(url);
-    }
-
-    public void setIcon(Drawable icon) {
-        resetIcons();
-        this.icon = icon;
     }
 
     @Override
@@ -301,9 +235,9 @@ public class ProfileDrawerItem implements IDrawerItem, IProfile<ProfileDrawerIte
         }
 
         //get the correct color for the background
-        int selectedColor = DrawerUIUtils.decideColor(ctx, getSelectedColor(), getSelectedColorRes(), R.attr.material_drawer_selected, R.color.material_drawer_selected);
+        int selectedColor = ColorHolder.color(getSelectedColor(), ctx, R.attr.material_drawer_selected, R.color.material_drawer_selected);
         //get the correct color for the text
-        int color = DrawerUIUtils.decideColor(ctx, getTextColor(), getTextColorRes(), R.attr.material_drawer_primary_text, R.color.material_drawer_primary_text);
+        int color = ColorHolder.color(getTextColor(), ctx, R.attr.material_drawer_primary_text, R.color.material_drawer_primary_text);
 
         UIUtils.setBackground(viewHolder.view, DrawerUIUtils.getDrawerItemBackground(selectedColor));
 
@@ -333,17 +267,8 @@ public class ProfileDrawerItem implements IDrawerItem, IProfile<ProfileDrawerIte
         }
         viewHolder.email.setTextColor(color);
 
-        viewHolder.profileIcon.setVisibility(View.VISIBLE);
-        if (this.getIconUri() != null) {
-            viewHolder.profileIcon.setImageDrawable(DrawerUIUtils.getPlaceHolder(ctx));
-            viewHolder.profileIcon.setImageURI(this.iconUri);
-        } else if (this.getIcon() != null) {
-            viewHolder.profileIcon.setImageDrawable(this.getIcon());
-        } else if (this.getIconBitmap() != null) {
-            viewHolder.profileIcon.setImageBitmap(this.getIconBitmap());
-        } else {
-            viewHolder.profileIcon.setVisibility(View.INVISIBLE);
-        }
+        //set the icon
+        ImageHolder.applyToOrSetInvisible(getIcon(), viewHolder.profileIcon);
 
         return convertView;
     }

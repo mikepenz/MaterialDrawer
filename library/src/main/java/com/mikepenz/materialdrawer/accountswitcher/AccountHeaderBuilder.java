@@ -2,10 +2,8 @@ package com.mikepenz.materialdrawer.accountswitcher;
 
 import android.app.Activity;
 import android.content.Context;
-import android.graphics.Bitmap;
 import android.graphics.Typeface;
 import android.graphics.drawable.Drawable;
-import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
 import android.os.Handler;
@@ -22,6 +20,7 @@ import com.mikepenz.google_material_typeface_library.GoogleMaterial;
 import com.mikepenz.iconics.IconicsDrawable;
 import com.mikepenz.materialdrawer.Drawer;
 import com.mikepenz.materialdrawer.R;
+import com.mikepenz.materialdrawer.holder.ImageHolder;
 import com.mikepenz.materialdrawer.model.interfaces.IDrawerItem;
 import com.mikepenz.materialdrawer.model.interfaces.IProfile;
 import com.mikepenz.materialdrawer.util.DrawerUIUtils;
@@ -948,7 +947,7 @@ public class AccountHeaderBuilder {
 
         if (mCurrentProfile != null) {
             if (mProfileImagesVisible) {
-                setImageOrPlaceholder(mCurrentProfileView, mCurrentProfile.getIcon(), mCurrentProfile.getIconBitmap(), mCurrentProfile.getIconUri());
+                setImageOrPlaceholder(mCurrentProfileView, mCurrentProfile.getIcon());
                 if (mProfileImagesClickable) {
                     mCurrentProfileView.setOnClickListener(onProfileClickListener);
                     mCurrentProfileView.disableTouchFeedback(false);
@@ -968,7 +967,7 @@ public class AccountHeaderBuilder {
             mCurrentProfileEmail.setText(mCurrentProfile.getEmail());
 
             if (mProfileFirst != null && mProfileImagesVisible) {
-                setImageOrPlaceholder(mProfileFirstView, mProfileFirst.getIcon(), mProfileFirst.getIconBitmap(), mProfileFirst.getIconUri());
+                setImageOrPlaceholder(mProfileFirstView, mProfileFirst.getIcon());
                 mProfileFirstView.setTag(R.id.md_profile_header, mProfileFirst);
                 if (mProfileImagesClickable) {
                     mProfileFirstView.setOnClickListener(onProfileClickListener);
@@ -979,7 +978,7 @@ public class AccountHeaderBuilder {
                 mProfileFirstView.setVisibility(View.VISIBLE);
             }
             if (mProfileSecond != null && mProfileImagesVisible) {
-                setImageOrPlaceholder(mProfileSecondView, mProfileSecond.getIcon(), mProfileSecond.getIconBitmap(), mProfileSecond.getIconUri());
+                setImageOrPlaceholder(mProfileSecondView, mProfileSecond.getIcon());
                 mProfileSecondView.setTag(R.id.md_profile_header, mProfileSecond);
                 if (mProfileImagesClickable) {
                     mProfileSecondView.setOnClickListener(onProfileClickListener);
@@ -993,7 +992,7 @@ public class AccountHeaderBuilder {
                 alignParentLayoutParam(mProfileFirstView, 1);
             }
             if (mProfileThird != null && mThreeSmallProfileImages && mProfileImagesVisible) {
-                setImageOrPlaceholder(mProfileThirdView, mProfileThird.getIcon(), mProfileThird.getIconBitmap(), mProfileThird.getIconUri());
+                setImageOrPlaceholder(mProfileThirdView, mProfileThird.getIcon());
                 mProfileThirdView.setTag(R.id.md_profile_header, mProfileThird);
                 if (mProfileImagesClickable) {
                     mProfileThirdView.setOnClickListener(onProfileClickListener);
@@ -1066,21 +1065,11 @@ public class AccountHeaderBuilder {
      * small helper method to set an profile image or a placeholder
      *
      * @param iv
-     * @param d
-     * @param b
-     * @param uri
+     * @param imageHolder
      */
-    private void setImageOrPlaceholder(ImageView iv, Drawable d, Bitmap b, Uri uri) {
-        if (uri != null) {
-            iv.setImageDrawable(DrawerUIUtils.getPlaceHolder(iv.getContext()));
-            iv.setImageURI(uri);
-        } else if (d == null && b == null) {
-            iv.setImageDrawable(DrawerUIUtils.getPlaceHolder(iv.getContext()));
-        } else if (b == null) {
-            iv.setImageDrawable(d);
-        } else {
-            iv.setImageBitmap(b);
-        }
+    private void setImageOrPlaceholder(ImageView iv, ImageHolder imageHolder) {
+        iv.setImageDrawable(DrawerUIUtils.getPlaceHolder(iv.getContext()));
+        imageHolder.applyTo(iv);
     }
 
     /**

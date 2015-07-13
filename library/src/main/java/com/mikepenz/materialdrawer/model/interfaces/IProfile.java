@@ -4,6 +4,8 @@ import android.graphics.Bitmap;
 import android.graphics.drawable.Drawable;
 import android.net.Uri;
 
+import com.mikepenz.materialdrawer.holder.ImageHolder;
+
 /**
  * Created by mikepenz on 03.02.15.
  */
@@ -28,20 +30,7 @@ public interface IProfile<T> {
 
     public T withIcon(Uri uri);
 
-    public Drawable getIcon();
-
-    public Bitmap getIconBitmap();
-
-    public Uri getIconUri();
-
-    public void setIcon(Drawable icon);
-
-    public void setIconBitmap(Bitmap bitmap);
-
-    public void setIcon(String url);
-
-    public void setIcon(Uri uri);
-
+    public ImageHolder getIcon();
 
     public T withSelectable(boolean selectable);
 

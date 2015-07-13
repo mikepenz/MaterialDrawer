@@ -12,6 +12,7 @@ import android.view.WindowManager;
 import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 
+import com.mikepenz.materialdrawer.holder.ColorHolder;
 import com.mikepenz.materialdrawer.model.PrimaryDrawerItem;
 import com.mikepenz.materialdrawer.model.SecondaryDrawerItem;
 import com.mikepenz.materialdrawer.model.interfaces.Checkable;
@@ -405,17 +406,9 @@ class DrawerUtils {
             //get the selected_color
             int selected_color = UIUtils.getThemeColorFromAttrOrRes(container.getContext(), R.attr.material_drawer_selected, R.color.material_drawer_selected);
             if (drawerItem instanceof PrimaryDrawerItem) {
-                if (selected_color == 0 && ((PrimaryDrawerItem) drawerItem).getSelectedColorRes() != -1) {
-                    selected_color = container.getContext().getResources().getColor(((PrimaryDrawerItem) drawerItem).getSelectedColorRes());
-                } else if (((PrimaryDrawerItem) drawerItem).getSelectedColor() != 0) {
-                    selected_color = ((PrimaryDrawerItem) drawerItem).getSelectedColor();
-                }
+                selected_color = ColorHolder.color(((PrimaryDrawerItem) drawerItem).getSelectedColor(), container.getContext(), R.attr.material_drawer_selected, R.color.material_drawer_selected);
             } else if (drawerItem instanceof SecondaryDrawerItem) {
-                if (selected_color == 0 && ((SecondaryDrawerItem) drawerItem).getSelectedColorRes() != -1) {
-                    selected_color = container.getContext().getResources().getColor(((SecondaryDrawerItem) drawerItem).getSelectedColorRes());
-                } else if (((SecondaryDrawerItem) drawerItem).getSelectedColor() != 0) {
-                    selected_color = ((SecondaryDrawerItem) drawerItem).getSelectedColor();
-                }
+                selected_color = ColorHolder.color(((SecondaryDrawerItem) drawerItem).getSelectedColor(), container.getContext(), R.attr.material_drawer_selected, R.color.material_drawer_selected);
             }
 
             View view = drawerItem.convertView(layoutInflater, null, container);

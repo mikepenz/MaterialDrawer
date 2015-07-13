@@ -50,7 +50,7 @@ public class SimpleNonTranslucentDrawerActivity extends AppCompatActivity {
                     @Override
                     public boolean onItemClick(AdapterView<?> parent, View view, int position, long id, IDrawerItem drawerItem) {
                         if (drawerItem instanceof Nameable) {
-                            Toast.makeText(SimpleNonTranslucentDrawerActivity.this, SimpleNonTranslucentDrawerActivity.this.getString(((Nameable) drawerItem).getNameRes()), Toast.LENGTH_SHORT).show();
+                            Toast.makeText(SimpleNonTranslucentDrawerActivity.this, ((Nameable) drawerItem).getName().getText(SimpleNonTranslucentDrawerActivity.this), Toast.LENGTH_SHORT).show();
                         }
                         return false;
                     }

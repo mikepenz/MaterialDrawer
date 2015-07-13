@@ -35,7 +35,7 @@ public class MenuDrawerActivity extends AppCompatActivity {
                     @Override
                     public boolean onItemClick(AdapterView<?> parent, View view, int position, long id, IDrawerItem drawerItem) {
                         if (drawerItem instanceof Nameable) {
-                            Toast.makeText(MenuDrawerActivity.this, ((Nameable) drawerItem).getName(), Toast.LENGTH_SHORT).show();
+                            Toast.makeText(MenuDrawerActivity.this, ((Nameable) drawerItem).getName().getText(MenuDrawerActivity.this), Toast.LENGTH_SHORT).show();
                         }
 
                         return false;

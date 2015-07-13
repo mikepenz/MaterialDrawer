@@ -153,7 +153,7 @@ public class ComplexHeaderDrawerActivity extends AppCompatActivity {
         switch (item.getItemId()) {
             case R.id.menu_1:
                 //update the profile2 and set a new image.
-                profile2.setIcon(new IconicsDrawable(this, GoogleMaterial.Icon.gmd_android).backgroundColorRes(R.color.accent).sizeDp(48).paddingDp(4));
+                profile2.withIcon(new IconicsDrawable(this, GoogleMaterial.Icon.gmd_android).backgroundColorRes(R.color.accent).sizeDp(48).paddingDp(4));
                 headerResult.updateProfileByIdentifier(profile2);
                 return true;
             case R.id.menu_2:

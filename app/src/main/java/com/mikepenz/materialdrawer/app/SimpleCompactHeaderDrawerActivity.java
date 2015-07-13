@@ -92,7 +92,7 @@ public class SimpleCompactHeaderDrawerActivity extends AppCompatActivity {
                         }
 
                         if (drawerItem instanceof Nameable) {
-                            toolbar.setTitle(((Nameable) drawerItem).getNameRes());
+                            toolbar.setTitle(((Nameable) drawerItem).getName().getText(SimpleCompactHeaderDrawerActivity.this));
                         }
 
                         return false;

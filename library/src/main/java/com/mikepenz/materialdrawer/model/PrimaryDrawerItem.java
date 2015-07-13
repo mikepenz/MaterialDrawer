@@ -9,8 +9,10 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.mikepenz.materialdrawer.R;
+import com.mikepenz.materialdrawer.holder.ColorHolder;
+import com.mikepenz.materialdrawer.holder.ImageHolder;
+import com.mikepenz.materialdrawer.holder.StringHolder;
 import com.mikepenz.materialdrawer.model.interfaces.ColorfulBadgeable;
-import com.mikepenz.materialdrawer.util.PressedEffectStateListDrawable;
 import com.mikepenz.materialdrawer.util.DrawerUIUtils;
 import com.mikepenz.materialize.util.UIUtils;
 
@@ -18,40 +20,54 @@ import com.mikepenz.materialize.util.UIUtils;
  * Created by mikepenz on 03.02.15.
  */
 public class PrimaryDrawerItem extends BaseDrawerItem<PrimaryDrawerItem> implements ColorfulBadgeable<PrimaryDrawerItem> {
-    private String description;
-    private int descriptionTextColor = 0;
-    private int descriptionRes = -1;
+    private StringHolder description;
+    private ColorHolder descriptionTextColor;
 
-    private String badge;
-    private int badgeTextColor = 0;
-    private int badgeBackgroundRes = 0;
+    private StringHolder badge;
+    private ColorHolder badgeTextColor;
+    private int badgeBackgroundRes = -1;
 
     public PrimaryDrawerItem withDescription(String description) {
-        this.descriptionRes = -1;
-        this.description = description;
+        this.description = new StringHolder(description);
         return this;
     }
 
     public PrimaryDrawerItem withDescription(int descriptionRes) {
-        this.description = null;
-        this.descriptionRes = descriptionRes;
+        this.description = new StringHolder(descriptionRes);
         return this;
     }
 
     public PrimaryDrawerItem withDescriptionTextColor(int color) {
-        this.descriptionTextColor = color;
+        this.descriptionTextColor = ColorHolder.fromColor(color);
+        return this;
+    }
+
+    public PrimaryDrawerItem withDescriptionTextColorRes(int colorRes) {
+        this.descriptionTextColor = ColorHolder.fromColorRes(colorRes);
         return this;
     }
 
     @Override
     public PrimaryDrawerItem withBadge(String badge) {
-        this.badge = badge;
+        this.badge = new StringHolder(badge);
+        return this;
+    }
+
+    @Override
+    public PrimaryDrawerItem withBadge(int badgeRes) {
+        this.badge = new StringHolder(badgeRes);
         return this;
     }
 
     @Override
     public PrimaryDrawerItem withBadgeTextColor(int color) {
-        this.badgeTextColor = color;
+        this.badgeTextColor = ColorHolder.fromColor(color);
+        return this;
+    }
+
+    @Override
+    public PrimaryDrawerItem withBadgeTextColorRes(int colorRes) {
+        this.badgeTextColor = ColorHolder.fromColorRes(colorRes);
         return this;
     }
 
@@ -72,50 +88,21 @@ public class PrimaryDrawerItem extends BaseDrawerItem<PrimaryDrawerItem> impleme
         return this;
     }
 
-
-    public String getDescription() {
+    public StringHolder getDescription() {
         return description;
     }
 
-    public void setDescription(String description) {
-        this.descriptionRes = -1;
-        this.description = description;
-    }
-
-    public int getDescriptionRes() {
-        return descriptionRes;
-    }
-
-    public void setDescriptionRes(int descriptionRes) {
-        this.description = null;
-        this.descriptionRes = descriptionRes;
-    }
-
-    public int getDescriptionTextColor() {
+    public ColorHolder getDescriptionTextColor() {
         return descriptionTextColor;
     }
 
-    public void setDescriptionTextColor(int color) {
-        this.descriptionTextColor = color;
-    }
-
-    public String getBadge() {
+    public StringHolder getBadge() {
         return badge;
     }
 
     @Override
-    public int getBadgeTextColor() {
+    public ColorHolder getBadgeTextColor() {
         return badgeTextColor;
-    }
-
-    @Override
-    public void setBadgeTextColor(int color) {
-        this.badgeTextColor = color;
-    }
-
-    @Override
-    public void setBadge(String badge) {
-        this.badge = badge;
     }
 
 
@@ -144,66 +131,33 @@ public class PrimaryDrawerItem extends BaseDrawerItem<PrimaryDrawerItem> impleme
         }
 
         //get the correct color for the background
-        int selectedColor = DrawerUIUtils.decideColor(ctx, getSelectedColor(), getSelectedColorRes(), R.attr.material_drawer_selected, R.color.material_drawer_selected);
+        int selectedColor = getSelectedColor(ctx);
         //get the correct color for the text
-        int color;
-        if (this.isEnabled()) {
-            color = DrawerUIUtils.decideColor(ctx, getTextColor(), getTextColorRes(), R.attr.material_drawer_primary_text, R.color.material_drawer_primary_text);
-        } else {
-            color = DrawerUIUtils.decideColor(ctx, getDisabledTextColor(), getDisabledTextColorRes(), R.attr.material_drawer_hint_text, R.color.material_drawer_hint_text);
-        }
-        int selectedTextColor = DrawerUIUtils.decideColor(ctx, getSelectedTextColor(), getSelectedTextColorRes(), R.attr.material_drawer_selected_text, R.color.material_drawer_selected_text);
+        int color = getColor(ctx);
+        int selectedTextColor = getSelectedTextColor(ctx);
         //get the correct color for the icon
-        int iconColor;
-        if (this.isEnabled()) {
-            iconColor = DrawerUIUtils.decideColor(ctx, getIconColor(), getIconColorRes(), R.attr.material_drawer_primary_icon, R.color.material_drawer_primary_icon);
-        } else {
-            iconColor = DrawerUIUtils.decideColor(ctx, getDisabledIconColor(), getDisabledIconColorRes(), R.attr.material_drawer_hint_text, R.color.material_drawer_hint_text);
-        }
-        int selectedIconColor = DrawerUIUtils.decideColor(ctx, getSelectedIconColor(), getSelectedIconColorRes(), R.attr.material_drawer_selected_text, R.color.material_drawer_selected_text);
+        int iconColor = getIconColor(ctx);
+        int selectedIconColor = getSelectedIconColor(ctx);
 
         //set the background for the item
+        // TODO perhaps remember the background here too and do not recreate it all the time
         UIUtils.setBackground(viewHolder.view, DrawerUIUtils.getDrawerItemBackground(selectedColor));
-
         //set the text for the name
-        if (this.getNameRes() != -1) {
-            viewHolder.name.setText(this.getNameRes());
-        } else {
-            viewHolder.name.setText(this.getName());
-        }
-
+        StringHolder.applyTo(this.getName(), viewHolder.name);
         //set the text for the description or hide
-        viewHolder.description.setVisibility(View.VISIBLE);
-        if (this.getDescriptionRes() != -1) {
-            viewHolder.description.setText(this.getDescriptionRes());
-        } else if (this.getDescription() != null) {
-            viewHolder.description.setText(this.getDescription());
-        } else {
-            viewHolder.description.setVisibility(View.GONE);
-        }
-
+        StringHolder.applyToOrHide(this.getDescription(), viewHolder.description);
         //set the text for the badge or hide
-        if (getBadge() != null) {
-            viewHolder.badge.setText(getBadge());
-            viewHolder.badge.setVisibility(View.VISIBLE);
-        } else {
-            viewHolder.badge.setVisibility(View.GONE);
-        }
+        StringHolder.applyToOrHide(badge, viewHolder.badge);
 
         //set the colors for textViews
-        viewHolder.name.setTextColor(DrawerUIUtils.getTextColorStateList(color, selectedTextColor));
-        if (descriptionTextColor != 0) {
-            viewHolder.description.setTextColor(descriptionTextColor);
-        } else {
-            viewHolder.description.setTextColor(DrawerUIUtils.getTextColorStateList(color, selectedTextColor));
-        }
-        if (badgeTextColor != 0) {
-            viewHolder.badge.setTextColor(badgeTextColor);
-        } else {
-            viewHolder.badge.setTextColor(DrawerUIUtils.getTextColorStateList(color, selectedTextColor));
-        }
+        viewHolder.name.setTextColor(getTextColorStateList(color, selectedTextColor));
+        //set the description text color
+        ColorHolder.applyToOr(getDescriptionTextColor(), viewHolder.description, getTextColorStateList(color, selectedTextColor));
+        //set the badge text color
+        ColorHolder.applyToOr(getBadgeTextColor(), viewHolder.badge, getTextColorStateList(color, selectedTextColor));
+
         //set background for badge
-        if (badgeBackgroundRes != 0) {
+        if (badgeBackgroundRes != -1) {
             viewHolder.badge.setBackgroundResource(badgeBackgroundRes);
         }
 
@@ -214,26 +168,10 @@ public class PrimaryDrawerItem extends BaseDrawerItem<PrimaryDrawerItem> impleme
             viewHolder.badge.setTypeface(getTypeface());
         }
 
-        //get the drawables for our icon
-        Drawable icon = DrawerUIUtils.decideIcon(ctx, getIcon(), getIIcon(), getIconRes(), iconColor, isIconTinted());
-        Drawable selectedIcon = DrawerUIUtils.decideIcon(ctx, getSelectedIcon(), getIIcon(), getSelectedIconRes(), selectedIconColor, isIconTinted());
-
-        //if we have an icon then we want to set it
-        if (icon != null) {
-            //if we got a different color for the selectedIcon we need a StateList
-            if (selectedIcon != null) {
-                viewHolder.icon.setImageDrawable(DrawerUIUtils.getIconStateList(icon, selectedIcon));
-            } else if (isIconTinted()) {
-                viewHolder.icon.setImageDrawable(new PressedEffectStateListDrawable(icon, iconColor, selectedIconColor));
-            } else {
-                viewHolder.icon.setImageDrawable(icon);
-            }
-            //make sure we display the icon
-            viewHolder.icon.setVisibility(View.VISIBLE);
-        } else {
-            //hide the icon
-            viewHolder.icon.setVisibility(View.GONE);
-        }
+        //get the drawables for our icon and set it
+        Drawable icon = ImageHolder.decideIcon(getIcon(), ctx, iconColor, isIconTinted(), 1);
+        Drawable selectedIcon = ImageHolder.decideIcon(getSelectedIcon(), ctx, selectedIconColor, isIconTinted(), 1);
+        ImageHolder.applyMultiIconTo(icon, iconColor, selectedIcon, selectedIconColor, isIconTinted(), viewHolder.icon);
 
         return convertView;
     }

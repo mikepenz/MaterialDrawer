@@ -46,7 +46,7 @@ public class ActionBarDrawerActivity extends AppCompatActivity {
                     @Override
                     public boolean onItemClick(AdapterView<?> parent, View view, int position, long id, IDrawerItem drawerItem) {
                         if (drawerItem instanceof Nameable) {
-                            Toast.makeText(ActionBarDrawerActivity.this, ActionBarDrawerActivity.this.getString(((Nameable) drawerItem).getNameRes()), Toast.LENGTH_SHORT).show();
+                            Toast.makeText(ActionBarDrawerActivity.this, ((Nameable) drawerItem).getName().getText(ActionBarDrawerActivity.this), Toast.LENGTH_SHORT).show();
                         }
 
                         return false;
