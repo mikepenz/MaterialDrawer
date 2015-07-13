@@ -17,7 +17,8 @@ import com.mikepenz.materialdrawer.model.interfaces.IProfile;
 import com.mikepenz.materialdrawer.model.interfaces.Identifyable;
 import com.mikepenz.materialdrawer.model.interfaces.Tagable;
 import com.mikepenz.materialdrawer.model.interfaces.Typefaceable;
-import com.mikepenz.materialdrawer.util.UIUtils;
+import com.mikepenz.materialdrawer.util.DrawerUIUtils;
+import com.mikepenz.materialize.util.UIUtils;
 
 /**
  * Created by mikepenz on 03.02.15.
@@ -300,11 +301,11 @@ public class ProfileDrawerItem implements IDrawerItem, IProfile<ProfileDrawerIte
         }
 
         //get the correct color for the background
-        int selectedColor = UIUtils.decideColor(ctx, getSelectedColor(), getSelectedColorRes(), R.attr.material_drawer_selected, R.color.material_drawer_selected);
+        int selectedColor = DrawerUIUtils.decideColor(ctx, getSelectedColor(), getSelectedColorRes(), R.attr.material_drawer_selected, R.color.material_drawer_selected);
         //get the correct color for the text
-        int color = UIUtils.decideColor(ctx, getTextColor(), getTextColorRes(), R.attr.material_drawer_primary_text, R.color.material_drawer_primary_text);
+        int color = DrawerUIUtils.decideColor(ctx, getTextColor(), getTextColorRes(), R.attr.material_drawer_primary_text, R.color.material_drawer_primary_text);
 
-        UIUtils.setBackground(viewHolder.view, UIUtils.getDrawerItemBackground(selectedColor));
+        UIUtils.setBackground(viewHolder.view, DrawerUIUtils.getDrawerItemBackground(selectedColor));
 
         if (nameShown) {
             viewHolder.name.setVisibility(View.VISIBLE);
@@ -334,7 +335,7 @@ public class ProfileDrawerItem implements IDrawerItem, IProfile<ProfileDrawerIte
 
         viewHolder.profileIcon.setVisibility(View.VISIBLE);
         if (this.getIconUri() != null) {
-            viewHolder.profileIcon.setImageDrawable(UIUtils.getPlaceHolder(ctx));
+            viewHolder.profileIcon.setImageDrawable(DrawerUIUtils.getPlaceHolder(ctx));
             viewHolder.profileIcon.setImageURI(this.iconUri);
         } else if (this.getIcon() != null) {
             viewHolder.profileIcon.setImageDrawable(this.getIcon());

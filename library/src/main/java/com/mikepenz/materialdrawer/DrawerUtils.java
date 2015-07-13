@@ -16,7 +16,8 @@ import com.mikepenz.materialdrawer.model.PrimaryDrawerItem;
 import com.mikepenz.materialdrawer.model.SecondaryDrawerItem;
 import com.mikepenz.materialdrawer.model.interfaces.Checkable;
 import com.mikepenz.materialdrawer.model.interfaces.IDrawerItem;
-import com.mikepenz.materialdrawer.util.UIUtils;
+import com.mikepenz.materialdrawer.util.DrawerUIUtils;
+import com.mikepenz.materialize.util.UIUtils;
 
 /**
  * Created by mikepenz on 23.05.15.
@@ -282,11 +283,11 @@ class DrawerUtils {
             }
 
             //handle the footer
-            DrawerUtils.fillStickyDrawerItemFooter(drawer, drawer.mStickyFooterView, new View.OnClickListener() {
+            com.mikepenz.materialdrawer.DrawerUtils.fillStickyDrawerItemFooter(drawer, drawer.mStickyFooterView, new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
                     IDrawerItem drawerItem = (IDrawerItem) v.getTag();
-                    DrawerUtils.onFooterDrawerItemClick(drawer, drawerItem, v, true);
+                    com.mikepenz.materialdrawer.DrawerUtils.onFooterDrawerItemClick(drawer, drawerItem, v, true);
                 }
             });
 
@@ -302,7 +303,7 @@ class DrawerUtils {
     public static void handleFooterView(DrawerBuilder drawer, View.OnClickListener onClickListener) {
         //use the StickyDrawerItems if set
         if (drawer.mStickyDrawerItems != null && drawer.mStickyDrawerItems.size() > 0) {
-            drawer.mStickyFooterView = DrawerUtils.buildStickyDrawerItemFooter(drawer, onClickListener);
+            drawer.mStickyFooterView = com.mikepenz.materialdrawer.DrawerUtils.buildStickyDrawerItemFooter(drawer, onClickListener);
         }
 
         //sticky footer view
@@ -421,7 +422,7 @@ class DrawerUtils {
             view.setTag(drawerItem);
 
             if (drawerItem.isEnabled()) {
-                UIUtils.setBackground(view, UIUtils.getSelectableBackground(container.getContext(), selected_color));
+                UIUtils.setBackground(view, DrawerUIUtils.getSelectableBackground(container.getContext(), selected_color));
                 view.setOnClickListener(onClickListener);
             }
 
@@ -465,7 +466,7 @@ class DrawerUtils {
             if (drawer.mDrawerWidth > -1) {
                 params.width = drawer.mDrawerWidth;
             } else {
-                params.width = UIUtils.getOptimalDrawerWidth(drawer.mActivity);
+                params.width = DrawerUIUtils.getOptimalDrawerWidth(drawer.mActivity);
             }
         }
 

@@ -35,9 +35,9 @@ import com.mikepenz.materialdrawer.model.PrimaryDrawerItem;
 import com.mikepenz.materialdrawer.model.SecondaryDrawerItem;
 import com.mikepenz.materialdrawer.model.interfaces.Checkable;
 import com.mikepenz.materialdrawer.model.interfaces.IDrawerItem;
-import com.mikepenz.materialdrawer.util.UIUtils;
-import com.mikepenz.materialdrawer.view.ScrimInsetsFrameLayout;
 import com.mikepenz.materialize.MaterializeBuilder;
+import com.mikepenz.materialize.util.UIUtils;
+import com.mikepenz.materialize.view.IScrimInsetsLayout;
 
 import java.util.ArrayList;
 import java.util.Collections;
@@ -56,7 +56,7 @@ public class DrawerBuilder {
     // the activity to use
     protected Activity mActivity;
     protected ViewGroup mRootView;
-    protected ScrimInsetsFrameLayout mDrawerContentRoot;
+    protected IScrimInsetsLayout mDrawerContentRoot;
 
     /**
      * default constructor
@@ -1253,7 +1253,7 @@ public class DrawerBuilder {
             // if we've set a custom gravity set it
             params.gravity = mDrawerGravity;
             // if this is a drawer from the right, change the margins :D
-            params = DrawerUtils.processDrawerLayoutParams(this, params);
+            params = com.mikepenz.materialdrawer.DrawerUtils.processDrawerLayoutParams(this, params);
             // set the new layout params
             mSliderLayout.setLayoutParams(params);
         }
@@ -1321,7 +1321,7 @@ public class DrawerBuilder {
         // set the gravity of this drawerGravity
         params.gravity = mDrawerGravity;
         // if this is a drawer from the right, change the margins :D
-        params = DrawerUtils.processDrawerLayoutParams(this, params);
+        params = com.mikepenz.materialdrawer.DrawerUtils.processDrawerLayoutParams(this, params);
         // set the new params
         mSliderLayout.setLayoutParams(params);
         // add the slider to the drawer
@@ -1418,14 +1418,14 @@ public class DrawerBuilder {
         }
 
         //handle the header
-        DrawerUtils.handleHeaderView(this);
+        com.mikepenz.materialdrawer.DrawerUtils.handleHeaderView(this);
 
         //handle the footer
-        DrawerUtils.handleFooterView(this, new View.OnClickListener() {
+        com.mikepenz.materialdrawer.DrawerUtils.handleFooterView(this, new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 IDrawerItem drawerItem = (IDrawerItem) v.getTag();
-                DrawerUtils.onFooterDrawerItemClick(DrawerBuilder.this, drawerItem, v, true);
+                com.mikepenz.materialdrawer.DrawerUtils.onFooterDrawerItemClick(DrawerBuilder.this, drawerItem, v, true);
             }
         });
 
@@ -1435,7 +1435,7 @@ public class DrawerBuilder {
             mListView.setAdapter(mAdapter);
 
             //predefine selection (should be the first element
-            DrawerUtils.setListSelection(this, mSelectedItem, false);
+            com.mikepenz.materialdrawer.DrawerUtils.setListSelection(this, mSelectedItem, false);
         }
 
         // add the onDrawerItemClickListener if set
@@ -1501,9 +1501,9 @@ public class DrawerBuilder {
         // try to restore all saved values again
         if (mSavedInstance != null) {
             int selection = mSavedInstance.getInt(Drawer.BUNDLE_SELECTION, -1);
-            DrawerUtils.setListSelection(this, selection, false);
+            com.mikepenz.materialdrawer.DrawerUtils.setListSelection(this, selection, false);
             int footerSelection = mSavedInstance.getInt(Drawer.BUNDLE_FOOTER_SELECTION, -1);
-            DrawerUtils.setFooterSelection(this, footerSelection, false);
+            com.mikepenz.materialdrawer.DrawerUtils.setFooterSelection(this, footerSelection, false);
         }
 
         // call initial onClick event to allow the dev to init the first view

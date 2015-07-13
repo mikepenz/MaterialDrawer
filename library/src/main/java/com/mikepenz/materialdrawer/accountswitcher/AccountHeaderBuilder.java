@@ -20,13 +20,13 @@ import android.widget.TextView;
 
 import com.mikepenz.google_material_typeface_library.GoogleMaterial;
 import com.mikepenz.iconics.IconicsDrawable;
-import com.mikepenz.iconics.utils.Utils;
 import com.mikepenz.materialdrawer.Drawer;
 import com.mikepenz.materialdrawer.R;
 import com.mikepenz.materialdrawer.model.interfaces.IDrawerItem;
 import com.mikepenz.materialdrawer.model.interfaces.IProfile;
-import com.mikepenz.materialdrawer.util.UIUtils;
+import com.mikepenz.materialdrawer.util.DrawerUIUtils;
 import com.mikepenz.materialdrawer.view.BezelImageView;
+import com.mikepenz.materialize.util.UIUtils;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -220,10 +220,9 @@ public class AccountHeaderBuilder {
     /**
      * set this to false if you want to hide the first line of the selection box in the header (first line would be the name)
      *
-     * @deprecated replaced by {@link #withSelectionFirstLineShown}
-     *
      * @param selectionFirstLineShown
      * @return
+     * @deprecated replaced by {@link #withSelectionFirstLineShown}
      */
     @Deprecated
     public AccountHeaderBuilder withSelectionFistLineShown(boolean selectionFirstLineShown) {
@@ -646,7 +645,7 @@ public class AccountHeaderBuilder {
         if (mHeightPx != -1) {
             height = mHeightPx;
         } else if (mHeightDp != -1) {
-            height = Utils.convertDpToPx(mActivity, mHeightDp);
+            height = (int) UIUtils.convertDpToPixel(mHeightDp, mActivity);
         } else if (mHeightRes != -1) {
             height = mActivity.getResources().getDimensionPixelSize(mHeightRes);
         } else {
@@ -654,7 +653,7 @@ public class AccountHeaderBuilder {
                 height = mActivity.getResources().getDimensionPixelSize(R.dimen.material_drawer_account_header_height_compact);
             } else {
                 //calculate the header height by getting the optimal drawer width and calculating it * 9 / 16
-                height = (int) (UIUtils.getOptimalDrawerWidth(mActivity) * AccountHeader.NAVIGATION_DRAWER_ACCOUNT_ASPECT_RATIO);
+                height = (int) (DrawerUIUtils.getOptimalDrawerWidth(mActivity) * AccountHeader.NAVIGATION_DRAWER_ACCOUNT_ASPECT_RATIO);
 
                 //if we are lower than api 19 (>= 19 we have a translucentStatusBar) the height should be a bit lower
                 //probably even if we are non translucent on > 19 devices?
@@ -706,7 +705,7 @@ public class AccountHeaderBuilder {
             mAccountHeaderTextSection = mAccountHeaderContainer.findViewById(R.id.account_header_drawer_text_section);
         }
 
-        mAccountHeaderTextSectionBackgroundResource = UIUtils.getSelectableBackground(mActivity);
+        mAccountHeaderTextSectionBackgroundResource = DrawerUIUtils.getSelectableBackground(mActivity);
         handleSelectionView(mCurrentProfile, true);
 
         // set the arrow :D
@@ -1073,10 +1072,10 @@ public class AccountHeaderBuilder {
      */
     private void setImageOrPlaceholder(ImageView iv, Drawable d, Bitmap b, Uri uri) {
         if (uri != null) {
-            iv.setImageDrawable(UIUtils.getPlaceHolder(iv.getContext()));
+            iv.setImageDrawable(DrawerUIUtils.getPlaceHolder(iv.getContext()));
             iv.setImageURI(uri);
         } else if (d == null && b == null) {
-            iv.setImageDrawable(UIUtils.getPlaceHolder(iv.getContext()));
+            iv.setImageDrawable(DrawerUIUtils.getPlaceHolder(iv.getContext()));
         } else if (b == null) {
             iv.setImageDrawable(d);
         } else {

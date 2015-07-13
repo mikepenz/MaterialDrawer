@@ -8,6 +8,7 @@ import android.widget.LinearLayout;
 
 import com.mikepenz.materialdrawer.R;
 import com.mikepenz.materialdrawer.model.interfaces.IDrawerItem;
+import com.mikepenz.materialize.util.UIUtils;
 
 import java.util.ArrayList;
 import java.util.Collections;
@@ -74,7 +75,7 @@ public class DrawerItemViewHelper {
             view.setTag(drawerItem);
 
             if (drawerItem.isEnabled()) {
-                view.setBackgroundResource(UIUtils.getSelectableBackground(mContext));
+                view.setBackgroundResource(DrawerUIUtils.getSelectableBackground(mContext));
                 view.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {

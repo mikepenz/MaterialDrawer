@@ -52,7 +52,4 @@
 
     <!-- Definition for the section item -->
     <dimen name="material_drawer_item_section_text">14sp</dimen>
-
-    <!-- Toolbar Padding -->
-    <dimen name="tool_bar_top_padding">0dp</dimen>
 </resources>

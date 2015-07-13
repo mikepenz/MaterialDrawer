@@ -18,8 +18,8 @@ import com.mikepenz.materialdrawer.model.interfaces.IDrawerItem;
 import com.mikepenz.materialdrawer.model.interfaces.Iconable;
 import com.mikepenz.materialdrawer.model.interfaces.Nameable;
 import com.mikepenz.materialdrawer.util.KeyboardUtil;
-import com.mikepenz.materialdrawer.util.UIUtils;
-import com.mikepenz.materialdrawer.view.ScrimInsetsFrameLayout;
+import com.mikepenz.materialize.util.UIUtils;
+import com.mikepenz.materialize.view.IScrimInsetsLayout;
 
 import java.util.ArrayList;
 import java.util.Collections;
@@ -103,7 +103,7 @@ public class Drawer {
      */
     public void setFullscreen(boolean fullscreen) {
         if (mDrawerBuilder.mDrawerContentRoot != null) {
-            mDrawerBuilder.mDrawerContentRoot.setEnabled(!fullscreen);
+            mDrawerBuilder.mDrawerContentRoot.getView().setEnabled(!fullscreen);
         }
     }
 
@@ -115,7 +115,7 @@ public class Drawer {
     public void setStatusBarColor(int statusBarColor) {
         if (mDrawerBuilder.mDrawerContentRoot != null) {
             mDrawerBuilder.mDrawerContentRoot.setInsetForeground(statusBarColor);
-            mDrawerBuilder.mDrawerContentRoot.invalidate();
+            mDrawerBuilder.mDrawerContentRoot.getView().invalidate();
         }
     }
 
@@ -124,7 +124,7 @@ public class Drawer {
      *
      * @return
      */
-    public ScrimInsetsFrameLayout getScrimInsetsFrameLayout() {
+    public IScrimInsetsLayout getScrimInsetsFrameLayout() {
         return mDrawerBuilder.mDrawerContentRoot;
     }
 
@@ -294,7 +294,7 @@ public class Drawer {
      * @return
      */
     public int getPositionFromIdentifier(int identifier) {
-        return DrawerUtils.getPositionFromIdentifier(mDrawerBuilder, identifier);
+        return com.mikepenz.materialdrawer.DrawerUtils.getPositionFromIdentifier(mDrawerBuilder, identifier);
     }
 
     /**
@@ -314,7 +314,7 @@ public class Drawer {
      * @return
      */
     public int getFooterPositionFromIdentifier(int identifier) {
-        return DrawerUtils.getFooterPositionFromIdentifier(mDrawerBuilder, identifier);
+        return com.mikepenz.materialdrawer.DrawerUtils.getFooterPositionFromIdentifier(mDrawerBuilder, identifier);
     }
 
     /**
@@ -408,7 +408,7 @@ public class Drawer {
      */
     public boolean setSelection(int position, boolean fireOnClick) {
         if (mDrawerBuilder.mListView != null) {
-            return DrawerUtils.setListSelection(mDrawerBuilder, position, fireOnClick, mDrawerBuilder.getDrawerItem(position, false));
+            return com.mikepenz.materialdrawer.DrawerUtils.setListSelection(mDrawerBuilder, position, fireOnClick, mDrawerBuilder.getDrawerItem(position, false));
         }
         return false;
     }
@@ -431,7 +431,7 @@ public class Drawer {
      * @param fireOnClick
      */
     public void setFooterSelection(int position, boolean fireOnClick) {
-        DrawerUtils.setFooterSelection(mDrawerBuilder, position, fireOnClick);
+        com.mikepenz.materialdrawer.DrawerUtils.setFooterSelection(mDrawerBuilder, position, fireOnClick);
     }
 
     /**
@@ -692,7 +692,7 @@ public class Drawer {
             mDrawerBuilder.mStickyDrawerItems.set(position, drawerItem);
         }
 
-        DrawerUtils.rebuildFooterView(mDrawerBuilder);
+        com.mikepenz.materialdrawer.DrawerUtils.rebuildFooterView(mDrawerBuilder);
     }
 
 
@@ -707,7 +707,7 @@ public class Drawer {
         }
         mDrawerBuilder.mStickyDrawerItems.add(drawerItem);
 
-        DrawerUtils.rebuildFooterView(mDrawerBuilder);
+        com.mikepenz.materialdrawer.DrawerUtils.rebuildFooterView(mDrawerBuilder);
     }
 
     /**
@@ -722,7 +722,7 @@ public class Drawer {
         }
         mDrawerBuilder.mStickyDrawerItems.add(position, drawerItem);
 
-        DrawerUtils.rebuildFooterView(mDrawerBuilder);
+        com.mikepenz.materialdrawer.DrawerUtils.rebuildFooterView(mDrawerBuilder);
     }
 
     /**
@@ -736,7 +736,7 @@ public class Drawer {
             mDrawerBuilder.mStickyDrawerItems.set(position, drawerItem);
         }
 
-        DrawerUtils.rebuildFooterView(mDrawerBuilder);
+        com.mikepenz.materialdrawer.DrawerUtils.rebuildFooterView(mDrawerBuilder);
     }
 
 
@@ -750,7 +750,7 @@ public class Drawer {
             mDrawerBuilder.mStickyDrawerItems.remove(position);
         }
 
-        DrawerUtils.rebuildFooterView(mDrawerBuilder);
+        com.mikepenz.materialdrawer.DrawerUtils.rebuildFooterView(mDrawerBuilder);
     }
 
     /**
