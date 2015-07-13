@@ -2,8 +2,8 @@
 
 <resources>
     <item name="md_menu_default_group" type="id" />
-    <item name="sticky_footer" type="id" />
-    <item name="sticky_header" type="id" />
-    <item name="animation" type="id" />
-    <item name="profile_header" type="id" />
+    <item name="md_sticky_footer" type="id" />
+    <item name="md_sticky_header" type="id" />
+    <item name="md_animation" type="id" />
+    <item name="md_profile_header" type="id" />
 </resources>

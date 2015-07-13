@@ -236,12 +236,12 @@ class DrawerUtils {
             //add the sticky footer view and align it to the bottom
             RelativeLayout.LayoutParams layoutParams = new RelativeLayout.LayoutParams(RelativeLayout.LayoutParams.MATCH_PARENT, RelativeLayout.LayoutParams.WRAP_CONTENT);
             layoutParams.addRule(RelativeLayout.ALIGN_PARENT_TOP, 1);
-            drawer.mStickyHeaderView.setId(R.id.sticky_header);
+            drawer.mStickyHeaderView.setId(R.id.md_sticky_header);
             drawer.mSliderLayout.addView(drawer.mStickyHeaderView, 0, layoutParams);
 
             //now align the listView above the stickyFooterView ;)
             RelativeLayout.LayoutParams layoutParamsListView = (RelativeLayout.LayoutParams) drawer.mListView.getLayoutParams();
-            layoutParamsListView.addRule(RelativeLayout.BELOW, R.id.sticky_header);
+            layoutParamsListView.addRule(RelativeLayout.BELOW, R.id.md_sticky_header);
             drawer.mListView.setLayoutParams(layoutParamsListView);
 
             //remove the padding of the listView again we have the header on top of it
@@ -311,7 +311,7 @@ class DrawerUtils {
             //add the sticky footer view and align it to the bottom
             RelativeLayout.LayoutParams layoutParams = new RelativeLayout.LayoutParams(RelativeLayout.LayoutParams.MATCH_PARENT, RelativeLayout.LayoutParams.WRAP_CONTENT);
             layoutParams.addRule(RelativeLayout.ALIGN_PARENT_BOTTOM, 1);
-            drawer.mStickyFooterView.setId(R.id.sticky_footer);
+            drawer.mStickyFooterView.setId(R.id.md_sticky_footer);
             drawer.mSliderLayout.addView(drawer.mStickyFooterView, layoutParams);
 
             if ((drawer.mTranslucentNavigationBar || drawer.mFullscreen) && Build.VERSION.SDK_INT >= 19) {
@@ -320,7 +320,7 @@ class DrawerUtils {
 
             //now align the listView above the stickyFooterView ;)
             RelativeLayout.LayoutParams layoutParamsListView = (RelativeLayout.LayoutParams) drawer.mListView.getLayoutParams();
-            layoutParamsListView.addRule(RelativeLayout.ABOVE, R.id.sticky_footer);
+            layoutParamsListView.addRule(RelativeLayout.ABOVE, R.id.md_sticky_footer);
             drawer.mListView.setLayoutParams(layoutParamsListView);
 
             //remove the padding of the listView again we have the footer below it

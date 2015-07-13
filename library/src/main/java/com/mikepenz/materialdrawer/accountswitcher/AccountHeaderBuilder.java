@@ -609,11 +609,11 @@ public class AccountHeaderBuilder {
             if (Build.VERSION.SDK_INT >= 21) {
                 ((FrameLayout) mAccountHeaderContainer).setForeground(UIUtils.getCompatDrawable(mAccountHeaderContainer.getContext(), mAccountHeaderTextSectionBackgroundResource));
                 mAccountHeaderContainer.setOnClickListener(onSelectionClickListener);
-                mAccountHeaderContainer.setTag(R.id.profile_header, profile);
+                mAccountHeaderContainer.setTag(R.id.md_profile_header, profile);
             } else {
                 mAccountHeaderTextSection.setBackgroundResource(mAccountHeaderTextSectionBackgroundResource);
                 mAccountHeaderTextSection.setOnClickListener(onSelectionClickListener);
-                mAccountHeaderTextSection.setTag(R.id.profile_header, profile);
+                mAccountHeaderTextSection.setTag(R.id.md_profile_header, profile);
             }
         } else {
             if (Build.VERSION.SDK_INT >= 21) {
@@ -963,13 +963,13 @@ public class AccountHeaderBuilder {
             mAccountHeaderTextSection.setVisibility(View.VISIBLE);
             handleSelectionView(mCurrentProfile, true);
             mAccountSwitcherArrow.setVisibility(View.VISIBLE);
-            mCurrentProfileView.setTag(R.id.profile_header, mCurrentProfile);
+            mCurrentProfileView.setTag(R.id.md_profile_header, mCurrentProfile);
             mCurrentProfileName.setText(mCurrentProfile.getName());
             mCurrentProfileEmail.setText(mCurrentProfile.getEmail());
 
             if (mProfileFirst != null && mProfileImagesVisible) {
                 setImageOrPlaceholder(mProfileFirstView, mProfileFirst.getIcon(), mProfileFirst.getIconBitmap(), mProfileFirst.getIconUri());
-                mProfileFirstView.setTag(R.id.profile_header, mProfileFirst);
+                mProfileFirstView.setTag(R.id.md_profile_header, mProfileFirst);
                 if (mProfileImagesClickable) {
                     mProfileFirstView.setOnClickListener(onProfileClickListener);
                     mProfileFirstView.disableTouchFeedback(false);
@@ -980,7 +980,7 @@ public class AccountHeaderBuilder {
             }
             if (mProfileSecond != null && mProfileImagesVisible) {
                 setImageOrPlaceholder(mProfileSecondView, mProfileSecond.getIcon(), mProfileSecond.getIconBitmap(), mProfileSecond.getIconUri());
-                mProfileSecondView.setTag(R.id.profile_header, mProfileSecond);
+                mProfileSecondView.setTag(R.id.md_profile_header, mProfileSecond);
                 if (mProfileImagesClickable) {
                     mProfileSecondView.setOnClickListener(onProfileClickListener);
                     mProfileSecondView.disableTouchFeedback(false);
@@ -994,7 +994,7 @@ public class AccountHeaderBuilder {
             }
             if (mProfileThird != null && mThreeSmallProfileImages && mProfileImagesVisible) {
                 setImageOrPlaceholder(mProfileThirdView, mProfileThird.getIcon(), mProfileThird.getIconBitmap(), mProfileThird.getIconUri());
-                mProfileThirdView.setTag(R.id.profile_header, mProfileThird);
+                mProfileThirdView.setTag(R.id.md_profile_header, mProfileThird);
                 if (mProfileImagesClickable) {
                     mProfileThirdView.setOnClickListener(onProfileClickListener);
                     mProfileThirdView.disableTouchFeedback(false);
@@ -1008,7 +1008,7 @@ public class AccountHeaderBuilder {
             }
         } else if (mProfiles != null && mProfiles.size() > 0) {
             IProfile profile = mProfiles.get(0);
-            mAccountHeaderTextSection.setTag(R.id.profile_header, profile);
+            mAccountHeaderTextSection.setTag(R.id.md_profile_header, profile);
             mAccountHeaderTextSection.setVisibility(View.VISIBLE);
             handleSelectionView(mCurrentProfile, true);
             mAccountSwitcherArrow.setVisibility(View.VISIBLE);
@@ -1104,7 +1104,7 @@ public class AccountHeaderBuilder {
     };
 
     protected void onProfileClick(View v, boolean current) {
-        final IProfile profile = (IProfile) v.getTag(R.id.profile_header);
+        final IProfile profile = (IProfile) v.getTag(R.id.md_profile_header);
         switchProfiles(profile);
 
         boolean consumed = false;
@@ -1153,7 +1153,7 @@ public class AccountHeaderBuilder {
         public void onClick(View v) {
             boolean consumed = false;
             if (mOnAccountHeaderSelectionViewClickListener != null) {
-                consumed = mOnAccountHeaderSelectionViewClickListener.onClick(v, (IProfile) v.getTag(R.id.profile_header));
+                consumed = mOnAccountHeaderSelectionViewClickListener.onClick(v, (IProfile) v.getTag(R.id.md_profile_header));
             }
 
             if (mAccountSwitcherArrow.getVisibility() == View.VISIBLE && !consumed) {
