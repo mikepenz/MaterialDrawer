@@ -22,7 +22,6 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AbsListView;
 import android.widget.AdapterView;
-import android.widget.FrameLayout;
 import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.RelativeLayout;
@@ -38,6 +37,7 @@ import com.mikepenz.materialdrawer.model.interfaces.Checkable;
 import com.mikepenz.materialdrawer.model.interfaces.IDrawerItem;
 import com.mikepenz.materialdrawer.util.UIUtils;
 import com.mikepenz.materialdrawer.view.ScrimInsetsFrameLayout;
+import com.mikepenz.materialize.MaterializeBuilder;
 
 import java.util.ArrayList;
 import java.util.Collections;
@@ -1121,96 +1121,19 @@ public class DrawerBuilder {
             withDrawerLayout(-1);
         }
 
-        //check if the activity was initialized correctly
-        if (mRootView == null || mRootView.getChildCount() == 0) {
-            throw new RuntimeException("You have to set your layout for this activity with setContentView() first. Or you build the drawer on your own with .buildView()");
-        }
-
-        //get the content view
-        View contentView = mRootView.getChildAt(0);
-        boolean alreadyInflated = contentView instanceof DrawerLayout;
-
-        //get the drawer root
-        mDrawerContentRoot = (ScrimInsetsFrameLayout) mDrawerLayout.getChildAt(0);
-
-        //do some magic specific to the statusBar
-        if (!alreadyInflated && mTranslucentStatusBar) {
-            if (Build.VERSION.SDK_INT >= 19 && Build.VERSION.SDK_INT < 21) {
-                DrawerUtils.setTranslucentStatusFlag(mActivity, true);
-            }
-            if (Build.VERSION.SDK_INT >= 19) {
-                if (mTranslucentStatusBarProgrammatically) {
-                    mActivity.getWindow().getDecorView().setSystemUiVisibility(View.SYSTEM_UI_FLAG_LAYOUT_STABLE | View.SYSTEM_UI_FLAG_LAYOUT_FULLSCREEN);
-                }
-            }
-            if (Build.VERSION.SDK_INT >= 21) {
-                DrawerUtils.setTranslucentStatusFlag(mActivity, false);
-                if (mTranslucentStatusBarProgrammatically) {
-                    mActivity.getWindow().setStatusBarColor(Color.TRANSPARENT);
-                }
-            }
-            mDrawerContentRoot.setPadding(0, UIUtils.getStatusBarHeight(mActivity), 0, 0);
-
-            // define the statusBarColor
-            if (mStatusBarColor == 0 && mStatusBarColorRes != -1) {
-                mStatusBarColor = mActivity.getResources().getColor(mStatusBarColorRes);
-            } else if (mStatusBarColor == 0) {
-                mStatusBarColor = UIUtils.getThemeColorFromAttrOrRes(mActivity, R.attr.colorPrimaryDark, R.color.material_drawer_primary_dark);
-            }
-            mDrawerContentRoot.setInsetForeground(mStatusBarColor);
-        }
-
-        //do some magic specific to the navigationBar
-        if (!alreadyInflated && mTranslucentNavigationBar) {
-            if (Build.VERSION.SDK_INT >= 19 && Build.VERSION.SDK_INT < 21) {
-                DrawerUtils.setTranslucentNavigationFlag(mActivity, true);
-            }
-            if (Build.VERSION.SDK_INT >= 19) {
-                if (mTranslucentNavigationBarProgrammatically) {
-                    mActivity.getWindow().getDecorView().setSystemUiVisibility(View.SYSTEM_UI_FLAG_LAYOUT_STABLE | View.SYSTEM_UI_FLAG_LAYOUT_FULLSCREEN);
-                    DrawerUtils.setTranslucentNavigationFlag(mActivity, true);
-                }
-            }
-            if (Build.VERSION.SDK_INT >= 21) {
-                if (mTranslucentNavigationBarProgrammatically) {
-                    mActivity.getWindow().setNavigationBarColor(Color.TRANSPARENT);
-                }
-            }
-        }
-
-        //if we are fullscreen disable the ScrimInsetsLayout
-        if (mFullscreen && Build.VERSION.SDK_INT >= 19) {
-            mDrawerContentRoot.setEnabled(false);
-        }
-
-        //only add the new layout if it wasn't done before
-        if (!alreadyInflated) {
-            // remove the contentView
-            mRootView.removeView(contentView);
-        } else {
-            //if it was already inflated we have to clean up again
-            mRootView.removeAllViews();
-        }
-
-        //create the layoutParams to use for the contentView
-        FrameLayout.LayoutParams layoutParamsContentView = new FrameLayout.LayoutParams(
-                ViewGroup.LayoutParams.MATCH_PARENT,
-                ViewGroup.LayoutParams.MATCH_PARENT
-        );
-
-        //if we have a translucent navigation bar set the bottom margin
-        if (mTranslucentNavigationBar && Build.VERSION.SDK_INT >= 19) {
-            layoutParamsContentView.bottomMargin = UIUtils.getNavigationBarHeight(mActivity);
-        }
-
-        //add the contentView to the drawer content frameLayout
-        mDrawerContentRoot.addView(contentView, layoutParamsContentView);
-
-        //add the drawerLayout to the root
-        mRootView.addView(mDrawerLayout, new ViewGroup.LayoutParams(
-                ViewGroup.LayoutParams.MATCH_PARENT,
-                ViewGroup.LayoutParams.MATCH_PARENT
-        ));
+        //some new Materialize magic ;)
+        new MaterializeBuilder()
+                .withActivity(mActivity)
+                .withRootView(mRootView)
+                .withFullscreen(mFullscreen)
+                .withTranslucentStatusBar(mTranslucentStatusBar)
+                .withTranslucentStatusBarProgrammatically(mTranslucentStatusBarProgrammatically)
+                .withTranslucentNavigationBar(mTranslucentNavigationBar)
+                .withTranslucentNavigationBarProgrammatically(mTranslucentNavigationBarProgrammatically)
+                .withContainer(mDrawerLayout)
+                .withStatusBarColor(mStatusBarColor)
+                .withStatusBarColorRes(mStatusBarColorRes)
+                .build();
 
         //set the navigationOnClickListener
         final View.OnClickListener toolbarNavigationListener = new View.OnClickListener() {

@@ -2,15 +2,4 @@
 <android.support.v4.widget.DrawerLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:id="@+id/drawer_layout"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
-
-    <!--
-    the clickable here should fix the hanging which occurs sometimes
-    http://stackoverflow.com/questions/18044277/android-navigation-drawer-bug-using-the-sample
-    -->
-    <com.mikepenz.materialdrawer.view.ScrimInsetsFrameLayout
-        android:clickable="true"
-        android:id="@+id/content_layout"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent" />
-</android.support.v4.widget.DrawerLayout>
+    android:layout_height="match_parent" />

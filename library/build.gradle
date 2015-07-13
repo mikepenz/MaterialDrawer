@@ -28,6 +28,8 @@ apply from: 'gradle-mvn-push.gradle'
 dependencies {
     compile "com.android.support:appcompat-v7:22.2.0"
 
+    compile "com.mikepenz:materialize:0.0.3-SNAPSHOT"
+
     compile('com.mikepenz:iconics:1.2.1@aar') {
         transitive = true
     }
