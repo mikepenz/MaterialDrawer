@@ -8,12 +8,12 @@ import android.view.ViewGroup;
 import android.widget.TextView;
 
 import com.mikepenz.materialdrawer.R;
+import com.mikepenz.materialdrawer.holder.StringHolder;
 import com.mikepenz.materialdrawer.model.interfaces.IDrawerItem;
 import com.mikepenz.materialdrawer.model.interfaces.Nameable;
 import com.mikepenz.materialdrawer.model.interfaces.Tagable;
 import com.mikepenz.materialdrawer.model.interfaces.Typefaceable;
 import com.mikepenz.materialdrawer.util.DrawerUIUtils;
-import com.mikepenz.materialdrawer.holder.StringHolder;
 import com.mikepenz.materialize.util.UIUtils;
 
 /**
@@ -149,6 +149,9 @@ public class SectionDrawerItem implements IDrawerItem, Nameable<SectionDrawerIte
         } else {
             viewHolder = (ViewHolder) convertView.getTag();
         }
+
+        //set the identifier from the drawerItem here. It can be used to run tests
+        convertView.setId(getIdentifier());
 
         viewHolder.view.setClickable(false);
         viewHolder.view.setEnabled(false);

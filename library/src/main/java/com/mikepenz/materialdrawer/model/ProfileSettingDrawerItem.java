@@ -275,6 +275,9 @@ public class ProfileSettingDrawerItem implements IDrawerItem, IProfile<ProfileSe
             viewHolder = (ViewHolder) convertView.getTag();
         }
 
+        //set the identifier from the drawerItem here. It can be used to run tests
+        convertView.setId(getIdentifier());
+
         //get the correct color for the background
         int selectedColor = ColorHolder.color(getSelectedColor(), ctx, R.attr.material_drawer_selected, R.color.material_drawer_selected);
         //get the correct color for the text

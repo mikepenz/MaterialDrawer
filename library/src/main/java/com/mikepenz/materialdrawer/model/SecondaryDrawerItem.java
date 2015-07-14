@@ -114,6 +114,9 @@ public class SecondaryDrawerItem extends BaseDrawerItem<SecondaryDrawerItem> imp
             viewHolder = (ViewHolder) convertView.getTag();
         }
 
+        //set the identifier from the drawerItem here. It can be used to run tests
+        convertView.setId(getIdentifier());
+
         //get the correct color for the background
         int selectedColor = getSelectedColor(ctx);
         //get the correct color for the text

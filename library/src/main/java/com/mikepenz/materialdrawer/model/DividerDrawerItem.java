@@ -53,6 +53,9 @@ public class DividerDrawerItem implements IDrawerItem {
             viewHolder = (ViewHolder) convertView.getTag();
         }
 
+        //set the identifier from the drawerItem here. It can be used to run tests
+        convertView.setId(getIdentifier());
+
         viewHolder.view.setClickable(false);
         viewHolder.view.setEnabled(false);
         viewHolder.view.setMinimumHeight(1);

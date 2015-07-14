@@ -71,7 +71,6 @@ public class PrimaryDrawerItem extends BaseDrawerItem<PrimaryDrawerItem> impleme
         return this;
     }
 
-
     @Override
     public void setBadgeBackgroundResource(int res) {
         this.badgeBackgroundRes = res;
@@ -105,7 +104,6 @@ public class PrimaryDrawerItem extends BaseDrawerItem<PrimaryDrawerItem> impleme
         return badgeTextColor;
     }
 
-
     @Override
     public String getType() {
         return "PRIMARY_ITEM";
@@ -129,6 +127,9 @@ public class PrimaryDrawerItem extends BaseDrawerItem<PrimaryDrawerItem> impleme
         } else {
             viewHolder = (ViewHolder) convertView.getTag();
         }
+
+        //set the identifier from the drawerItem here. It can be used to run tests
+        convertView.setId(getIdentifier());
 
         //get the correct color for the background
         int selectedColor = getSelectedColor(ctx);
