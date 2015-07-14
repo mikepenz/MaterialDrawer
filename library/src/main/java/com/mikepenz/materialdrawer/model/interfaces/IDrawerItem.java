@@ -8,15 +8,15 @@ import android.view.ViewGroup;
  * Created by mikepenz on 03.02.15.
  */
 public interface IDrawerItem {
-    public int getIdentifier();
+    int getIdentifier();
 
-    public Object getTag();
+    Object getTag();
 
-    public boolean isEnabled();
+    boolean isEnabled();
 
-    public String getType();
+    String getType();
 
-    public int getLayoutRes();
+    int getLayoutRes();
 
-    public View convertView(LayoutInflater inflater, View convertView, ViewGroup parent);
+    View convertView(LayoutInflater inflater, View convertView, ViewGroup parent);
 }
