@@ -10,34 +10,32 @@ import com.mikepenz.materialdrawer.holder.ImageHolder;
  * Created by mikepenz on 03.02.15.
  */
 public interface IProfile<T> {
-    public T withName(String name);
+    T withName(String name);
 
-    public String getName();
+    String getName();
 
-    public void setName(String name);
+    void setName(String name);
 
-    public T withEmail(String email);
+    T withEmail(String email);
 
-    public String getEmail();
+    String getEmail();
 
-    public void setEmail(String email);
+    void setEmail(String email);
 
-    public T withIcon(Drawable icon);
+    T withIcon(Drawable icon);
 
-    public T withIcon(Bitmap bitmap);
+    T withIcon(Bitmap bitmap);
 
-    public T withIcon(String url);
+    T withIcon(String url);
 
-    public T withIcon(Uri uri);
+    T withIcon(Uri uri);
 
-    public ImageHolder getIcon();
+    ImageHolder getIcon();
 
-    public T withSelectable(boolean selectable);
+    T withSelectable(boolean selectable);
 
-    public boolean isSelectable();
+    boolean isSelectable();
 
-    public T setSelectable(boolean selectable);
-
-    public int getIdentifier();
+    int getIdentifier();
 
 }

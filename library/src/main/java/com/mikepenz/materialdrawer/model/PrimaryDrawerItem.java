@@ -2,9 +2,8 @@ package com.mikepenz.materialdrawer.model;
 
 import android.content.Context;
 import android.graphics.drawable.Drawable;
-import android.view.LayoutInflater;
+import android.support.v7.widget.RecyclerView;
 import android.view.View;
-import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -13,6 +12,7 @@ import com.mikepenz.materialdrawer.holder.ColorHolder;
 import com.mikepenz.materialdrawer.holder.ImageHolder;
 import com.mikepenz.materialdrawer.holder.StringHolder;
 import com.mikepenz.materialdrawer.model.interfaces.ColorfulBadgeable;
+import com.mikepenz.materialdrawer.model.utils.ViewHolderFactory;
 import com.mikepenz.materialdrawer.util.DrawerUIUtils;
 import com.mikepenz.materialize.util.UIUtils;
 
@@ -115,21 +115,17 @@ public class PrimaryDrawerItem extends BaseDrawerItem<PrimaryDrawerItem> impleme
     }
 
     @Override
-    public View convertView(LayoutInflater inflater, View convertView, ViewGroup parent) {
-        Context ctx = parent.getContext();
+    public void bindView(RecyclerView.ViewHolder holder) {
+        Context ctx = holder.itemView.getContext();
 
-        //get the viewHolder
-        ViewHolder viewHolder;
-        if (convertView == null) {
-            convertView = inflater.inflate(getLayoutRes(), parent, false);
-            viewHolder = new ViewHolder(convertView);
-            convertView.setTag(viewHolder);
-        } else {
-            viewHolder = (ViewHolder) convertView.getTag();
-        }
+        //get our viewHolder
+        ViewHolder viewHolder = (ViewHolder) holder;
 
         //set the identifier from the drawerItem here. It can be used to run tests
-        convertView.setId(getIdentifier());
+        viewHolder.itemView.setId(getIdentifier());
+
+        //set the item selected if it is
+        viewHolder.itemView.setSelected(isSelected());
 
         //get the correct color for the background
         int selectedColor = getSelectedColor(ctx);
@@ -142,7 +138,7 @@ public class PrimaryDrawerItem extends BaseDrawerItem<PrimaryDrawerItem> impleme
 
         //set the background for the item
         // TODO perhaps remember the background here too and do not recreate it all the time
-        UIUtils.setBackground(viewHolder.view, DrawerUIUtils.getDrawerItemBackground(selectedColor));
+        UIUtils.setBackground(viewHolder.view, DrawerUIUtils.getSelectableBackground(ctx, selectedColor));
         //set the text for the name
         StringHolder.applyTo(this.getName(), viewHolder.name);
         //set the text for the description or hide
@@ -173,18 +169,29 @@ public class PrimaryDrawerItem extends BaseDrawerItem<PrimaryDrawerItem> impleme
         Drawable icon = ImageHolder.decideIcon(getIcon(), ctx, iconColor, isIconTinted(), 1);
         Drawable selectedIcon = ImageHolder.decideIcon(getSelectedIcon(), ctx, selectedIconColor, isIconTinted(), 1);
         ImageHolder.applyMultiIconTo(icon, iconColor, selectedIcon, selectedIconColor, isIconTinted(), viewHolder.icon);
-
-        return convertView;
     }
 
-    private static class ViewHolder {
+    @Override
+    public ViewHolderFactory getFactory() {
+        return new ItemFactory();
+    }
+
+    public static class ItemFactory implements ViewHolderFactory<ViewHolder> {
+        public ViewHolder factory(View v) {
+            return new ViewHolder(v);
+        }
+    }
+
+    private static class ViewHolder extends RecyclerView.ViewHolder {
         private View view;
         private ImageView icon;
         private TextView name;
         private TextView description;
         private TextView badge;
 
-        private ViewHolder(View view) {
+        public ViewHolder(View view) {
+            super(view);
+
             this.view = view;
             this.icon = (ImageView) view.findViewById(R.id.icon);
             this.name = (TextView) view.findViewById(R.id.name);

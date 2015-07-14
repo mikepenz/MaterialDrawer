@@ -2,6 +2,7 @@ package com.mikepenz.materialdrawer.holder;
 
 import android.content.Context;
 import android.content.res.ColorStateList;
+import android.view.View;
 import android.widget.TextView;
 
 import com.mikepenz.iconics.IconicsDrawable;
@@ -40,6 +41,20 @@ public class ColorHolder {
             iconicsDrawable.color(mColorInt);
         } else if (mColorRes != -1) {
             iconicsDrawable.colorRes(mColorRes);
+        }
+    }
+
+
+    /**
+     * set the textColor of the ColorHolder to a view
+     *
+     * @param view
+     */
+    public void applyToBackground(View view) {
+        if (mColorInt != 0) {
+            view.setBackgroundColor(mColorInt);
+        } else if (mColorRes != -1) {
+            view.setBackgroundResource(mColorRes);
         }
     }
 

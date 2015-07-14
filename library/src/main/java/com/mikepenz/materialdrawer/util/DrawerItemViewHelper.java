@@ -1,7 +1,6 @@
 package com.mikepenz.materialdrawer.util;
 
 import android.content.Context;
-import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.LinearLayout;
@@ -66,12 +65,9 @@ public class DrawerItemViewHelper {
             linearLayout.addView(divider);
         }
 
-        //get the inflater
-        LayoutInflater layoutInflater = LayoutInflater.from(mContext);
-
         //add all drawer items
         for (IDrawerItem drawerItem : mDrawerItems) {
-            View view = drawerItem.convertView(layoutInflater, null, linearLayout);
+            View view = drawerItem.generateView(mContext);
             view.setTag(drawerItem);
 
             if (drawerItem.isEnabled()) {

@@ -5,10 +5,10 @@ import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
+import android.support.v7.widget.RecyclerView;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.FrameLayout;
-import android.widget.ListView;
 import android.widget.RelativeLayout;
 
 import com.mikepenz.iconics.typeface.IIcon;
@@ -22,7 +22,6 @@ import com.mikepenz.materialize.util.UIUtils;
 import com.mikepenz.materialize.view.IScrimInsetsLayout;
 
 import java.util.ArrayList;
-import java.util.Collections;
 
 /**
  * Created by mikepenz on 03.02.15.
@@ -180,8 +179,8 @@ public class Drawer {
      *
      * @return
      */
-    public ListView getListView() {
-        return mDrawerBuilder.mListView;
+    public RecyclerView getRecyclerView() {
+        return mDrawerBuilder.mRecyclerView;
     }
 
     /**
@@ -199,7 +198,7 @@ public class Drawer {
      * @return
      */
     public ArrayList<IDrawerItem> getDrawerItems() {
-        return mDrawerBuilder.mDrawerItems;
+        return mDrawerBuilder.getAdapter().getDrawerItems();
     }
 
     /**
@@ -226,6 +225,8 @@ public class Drawer {
      * @param view
      */
     public void setHeader(View view) {
+        //TODO add headers as DrawerItems
+        /*
         if (getListView() != null) {
             BaseDrawerAdapter adapter = getAdapter();
             getListView().setAdapter(null);
@@ -237,17 +238,21 @@ public class Drawer {
             mDrawerBuilder.mHeaderView = view;
             mDrawerBuilder.mHeaderOffset = 1;
         }
+        */
     }
 
     /**
      * method to remove the header of the list
      */
     public void removeHeader() {
+        //TODO add headers as DrawerItems
+        /*
         if (getListView() != null && getHeader() != null) {
             getListView().removeHeaderView(getHeader());
             mDrawerBuilder.mHeaderView = null;
             mDrawerBuilder.mHeaderOffset = 0;
         }
+        */
     }
 
     /**
@@ -294,7 +299,7 @@ public class Drawer {
      * @return
      */
     public int getPositionFromIdentifier(int identifier) {
-        return com.mikepenz.materialdrawer.DrawerUtils.getPositionFromIdentifier(mDrawerBuilder, identifier);
+        return DrawerUtils.getPositionFromIdentifier(mDrawerBuilder, identifier);
     }
 
     /**
@@ -407,8 +412,8 @@ public class Drawer {
      * @return true if the event was consumed
      */
     public boolean setSelection(int position, boolean fireOnClick) {
-        if (mDrawerBuilder.mListView != null) {
-            return com.mikepenz.materialdrawer.DrawerUtils.setListSelection(mDrawerBuilder, position, fireOnClick, mDrawerBuilder.getDrawerItem(position, false));
+        if (mDrawerBuilder.mRecyclerView != null) {
+            return DrawerUtils.setRecyclerViewSelection(mDrawerBuilder, position, fireOnClick, mDrawerBuilder.getDrawerItem(position));
         }
         return false;
     }
@@ -452,8 +457,7 @@ public class Drawer {
      */
     public void updateItem(IDrawerItem drawerItem, int position) {
         if (mDrawerBuilder.checkDrawerItem(position, false)) {
-            mDrawerBuilder.mDrawerItems.set(position, drawerItem);
-            mDrawerBuilder.mAdapter.dataUpdated();
+            mDrawerBuilder.getAdapter().setDrawerItem(position, drawerItem);
         }
     }
 
@@ -463,10 +467,7 @@ public class Drawer {
      * @param drawerItem
      */
     public void addItem(IDrawerItem drawerItem) {
-        if (mDrawerBuilder.mDrawerItems != null) {
-            mDrawerBuilder.mDrawerItems.add(drawerItem);
-            mDrawerBuilder.mAdapter.dataUpdated();
-        }
+        mDrawerBuilder.getAdapter().addDrawerItem(drawerItem);
     }
 
     /**
@@ -476,10 +477,7 @@ public class Drawer {
      * @param position
      */
     public void addItem(IDrawerItem drawerItem, int position) {
-        if (mDrawerBuilder.mDrawerItems != null) {
-            mDrawerBuilder.mDrawerItems.add(position, drawerItem);
-            mDrawerBuilder.mAdapter.dataUpdated();
-        }
+        mDrawerBuilder.getAdapter().addDrawerItem(position, drawerItem);
     }
 
     /**
@@ -489,10 +487,7 @@ public class Drawer {
      * @param position
      */
     public void setItem(IDrawerItem drawerItem, int position) {
-        if (mDrawerBuilder.mDrawerItems != null) {
-            mDrawerBuilder.mDrawerItems.set(position, drawerItem);
-            mDrawerBuilder.mAdapter.dataUpdated();
-        }
+        mDrawerBuilder.getAdapter().addDrawerItem(position, drawerItem);
     }
 
     /**
@@ -502,8 +497,7 @@ public class Drawer {
      */
     public void removeItem(int position) {
         if (mDrawerBuilder.checkDrawerItem(position, false)) {
-            mDrawerBuilder.mDrawerItems.remove(position);
-            mDrawerBuilder.mAdapter.dataUpdated();
+            mDrawerBuilder.getAdapter().removeDrawerItem(position);
         }
     }
 
@@ -511,8 +505,7 @@ public class Drawer {
      * Removes all items from drawer
      */
     public void removeAllItems() {
-        mDrawerBuilder.mDrawerItems.clear();
-        mDrawerBuilder.mAdapter.dataUpdated();
+        mDrawerBuilder.getAdapter().clearDrawerItems();
     }
 
     /**
@@ -521,10 +514,7 @@ public class Drawer {
      * @param drawerItems
      */
     public void addItems(IDrawerItem... drawerItems) {
-        if (mDrawerBuilder.mDrawerItems != null) {
-            Collections.addAll(mDrawerBuilder.mDrawerItems, drawerItems);
-            mDrawerBuilder.mAdapter.dataUpdated();
-        }
+        mDrawerBuilder.getAdapter().addDrawerItems(drawerItems);
     }
 
     /**
@@ -543,16 +533,14 @@ public class Drawer {
      * @param switchedItems
      */
     private void setItems(ArrayList<IDrawerItem> drawerItems, boolean switchedItems) {
-        mDrawerBuilder.mDrawerItems = drawerItems;
-
         //if we are currently at a switched list set the new reference
         if (originalDrawerItems != null && !switchedItems) {
             originalDrawerItems = drawerItems;
         } else {
-            mDrawerBuilder.mAdapter.setDrawerItems(mDrawerBuilder.mDrawerItems);
+            mDrawerBuilder.getAdapter().setDrawerItems(drawerItems);
         }
 
-        mDrawerBuilder.mAdapter.dataUpdated();
+        mDrawerBuilder.mAdapter.notifyDataSetChanged();
     }
 
     /**
@@ -563,14 +551,13 @@ public class Drawer {
      */
     public void updateName(int nameRes, int position) {
         if (mDrawerBuilder.checkDrawerItem(position, false)) {
-            IDrawerItem drawerItem = mDrawerBuilder.mDrawerItems.get(position);
+            IDrawerItem drawerItem = mDrawerBuilder.getDrawerItem(position);
 
             if (drawerItem instanceof Nameable) {
                 ((Nameable) drawerItem).withName(nameRes);
             }
 
-            mDrawerBuilder.mDrawerItems.set(position, drawerItem);
-            mDrawerBuilder.mAdapter.notifyDataSetChanged();
+            mDrawerBuilder.getAdapter().setDrawerItem(position, drawerItem);
         }
     }
 
@@ -582,14 +569,13 @@ public class Drawer {
      */
     public void updateName(String name, int position) {
         if (mDrawerBuilder.checkDrawerItem(position, false)) {
-            IDrawerItem drawerItem = mDrawerBuilder.mDrawerItems.get(position);
+            IDrawerItem drawerItem = mDrawerBuilder.getDrawerItem(position);
 
             if (drawerItem instanceof Nameable) {
                 ((Nameable) drawerItem).withName(name);
             }
 
-            mDrawerBuilder.mDrawerItems.set(position, drawerItem);
-            mDrawerBuilder.mAdapter.notifyDataSetChanged();
+            mDrawerBuilder.getAdapter().setDrawerItem(position, drawerItem);
         }
     }
 
@@ -601,14 +587,13 @@ public class Drawer {
      */
     public void updateBadge(String badge, int position) {
         if (mDrawerBuilder.checkDrawerItem(position, false)) {
-            IDrawerItem drawerItem = mDrawerBuilder.mDrawerItems.get(position);
+            IDrawerItem drawerItem = mDrawerBuilder.getDrawerItem(position);
 
             if (drawerItem instanceof Badgeable) {
                 ((Badgeable) drawerItem).withBadge(badge);
             }
 
-            mDrawerBuilder.mDrawerItems.set(position, drawerItem);
-            mDrawerBuilder.mAdapter.notifyDataSetChanged();
+            mDrawerBuilder.getAdapter().setDrawerItem(position, drawerItem);
         }
     }
 
@@ -620,14 +605,13 @@ public class Drawer {
      */
     public void updateIcon(Drawable icon, int position) {
         if (mDrawerBuilder.checkDrawerItem(position, false)) {
-            IDrawerItem drawerItem = mDrawerBuilder.mDrawerItems.get(position);
+            IDrawerItem drawerItem = mDrawerBuilder.getDrawerItem(position);
 
             if (drawerItem instanceof Iconable) {
                 ((Iconable) drawerItem).withIcon(icon);
             }
 
-            mDrawerBuilder.mDrawerItems.set(position, drawerItem);
-            mDrawerBuilder.mAdapter.notifyDataSetChanged();
+            mDrawerBuilder.getAdapter().setDrawerItem(position, drawerItem);
         }
     }
 
@@ -639,14 +623,13 @@ public class Drawer {
      */
     public void updateIcon(int iconRes, int position) {
         if (mDrawerBuilder.mRootView != null && mDrawerBuilder.checkDrawerItem(position, false)) {
-            IDrawerItem drawerItem = mDrawerBuilder.mDrawerItems.get(position);
+            IDrawerItem drawerItem = mDrawerBuilder.getDrawerItem(position);
 
             if (drawerItem instanceof Iconable) {
                 ((Iconable) drawerItem).withIcon(UIUtils.getCompatDrawable(mDrawerBuilder.mRootView.getContext(), iconRes));
             }
 
-            mDrawerBuilder.mDrawerItems.set(position, drawerItem);
-            mDrawerBuilder.mAdapter.notifyDataSetChanged();
+            mDrawerBuilder.getAdapter().setDrawerItem(position, drawerItem);
         }
     }
 
@@ -658,14 +641,13 @@ public class Drawer {
      */
     public void updateIcon(IIcon icon, int position) {
         if (mDrawerBuilder.checkDrawerItem(position, false)) {
-            IDrawerItem drawerItem = mDrawerBuilder.mDrawerItems.get(position);
+            IDrawerItem drawerItem = mDrawerBuilder.getDrawerItem(position);
 
             if (drawerItem instanceof Iconable) {
                 ((Iconable) drawerItem).withIcon(icon);
             }
 
-            mDrawerBuilder.mDrawerItems.set(position, drawerItem);
-            mDrawerBuilder.mAdapter.notifyDataSetChanged();
+            mDrawerBuilder.getAdapter().setDrawerItem(position, drawerItem);
         }
     }
 
@@ -827,9 +809,10 @@ public class Drawer {
             //set the new items
             setOnDrawerItemClickListener(onDrawerItemClickListener);
             setItems(drawerItems, true);
-            setSelection(drawerSelection, false);
+            setSelection(getAdapter().getHeaderItemCount() + drawerSelection, false);
 
-            mDrawerBuilder.mAdapter.resetAnimation();
+            //TODO animation ?!
+            //mDrawerBuilder.mAdapter.resetAnimation();
 
             if (getStickyFooter() != null) {
                 getStickyFooter().setVisibility(View.GONE);
@@ -851,7 +834,11 @@ public class Drawer {
             originalDrawerItems = null;
             originalDrawerSelection = -1;
 
-            mDrawerBuilder.mAdapter.resetAnimation();
+            //if we switch back scroll back to the top
+            mDrawerBuilder.mRecyclerView.smoothScrollToPosition(0);
+
+            //TODO animation ?!
+            //mDrawerBuilder.mAdapter.resetAnimation();
 
             if (getStickyFooter() != null) {
                 getStickyFooter().setVisibility(View.VISIBLE);
@@ -884,26 +871,22 @@ public class Drawer {
 
     public interface OnDrawerItemClickListener {
         /**
-         * @param parent
          * @param view
          * @param position
-         * @param id
          * @param drawerItem
          * @return true if the event was consumed
          */
-        boolean onItemClick(AdapterView<?> parent, View view, int position, long id, IDrawerItem drawerItem);
+        boolean onItemClick(View view, int position, IDrawerItem drawerItem);
     }
 
     public interface OnDrawerItemLongClickListener {
         /**
-         * @param parent
          * @param view
          * @param position
-         * @param id
          * @param drawerItem
          * @return true if the event was consumed
          */
-        boolean onItemLongClick(AdapterView<?> parent, View view, int position, long id, IDrawerItem drawerItem);
+        boolean onItemLongClick(View view, int position, IDrawerItem drawerItem);
     }
 
     public interface OnDrawerListener {

@@ -5,31 +5,25 @@ import android.graphics.Bitmap;
 import android.graphics.Typeface;
 import android.graphics.drawable.Drawable;
 import android.net.Uri;
-import android.view.LayoutInflater;
+import android.support.v7.widget.RecyclerView;
 import android.view.View;
-import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.mikepenz.materialdrawer.R;
 import com.mikepenz.materialdrawer.holder.ColorHolder;
 import com.mikepenz.materialdrawer.holder.ImageHolder;
-import com.mikepenz.materialdrawer.model.interfaces.IDrawerItem;
 import com.mikepenz.materialdrawer.model.interfaces.IProfile;
-import com.mikepenz.materialdrawer.model.interfaces.Identifyable;
 import com.mikepenz.materialdrawer.model.interfaces.Tagable;
 import com.mikepenz.materialdrawer.model.interfaces.Typefaceable;
+import com.mikepenz.materialdrawer.model.utils.ViewHolderFactory;
 import com.mikepenz.materialdrawer.util.DrawerUIUtils;
 import com.mikepenz.materialize.util.UIUtils;
 
 /**
  * Created by mikepenz on 03.02.15.
  */
-public class ProfileDrawerItem implements IDrawerItem, IProfile<ProfileDrawerItem>, Tagable<ProfileDrawerItem>, Identifyable<ProfileDrawerItem>, Typefaceable<ProfileDrawerItem> {
-
-    private int identifier = -1;
-
-    private boolean selectable = true;
+public class ProfileDrawerItem extends AbstractDrawerItem<ProfileDrawerItem> implements IProfile<ProfileDrawerItem>, Tagable<ProfileDrawerItem>, Typefaceable<ProfileDrawerItem> {
     private boolean nameShown = false;
 
     private ImageHolder icon;
@@ -37,18 +31,10 @@ public class ProfileDrawerItem implements IDrawerItem, IProfile<ProfileDrawerIte
     private String name;
     private String email;
 
-    private boolean enabled = true;
-    private Object tag;
-
     private ColorHolder selectedColor;
     private ColorHolder textColor;
 
     private Typeface typeface = null;
-
-    public ProfileDrawerItem withIdentifier(int identifier) {
-        this.identifier = identifier;
-        return this;
-    }
 
     public ProfileDrawerItem withIcon(Drawable icon) {
         this.icon = new ImageHolder(icon);
@@ -82,16 +68,6 @@ public class ProfileDrawerItem implements IDrawerItem, IProfile<ProfileDrawerIte
         return this;
     }
 
-    public ProfileDrawerItem withTag(Object object) {
-        this.tag = object;
-        return this;
-    }
-
-    public ProfileDrawerItem setEnabled(boolean enabled) {
-        this.enabled = enabled;
-        return this;
-    }
-
     public ProfileDrawerItem withNameShown(boolean nameShown) {
         this.nameShown = nameShown;
         return this;
@@ -114,12 +90,6 @@ public class ProfileDrawerItem implements IDrawerItem, IProfile<ProfileDrawerIte
 
     public ProfileDrawerItem withTextColorRes(int textColorRes) {
         this.textColor = ColorHolder.fromColorRes(textColorRes);
-        return this;
-    }
-
-    @Override
-    public ProfileDrawerItem withSelectable(boolean selectable) {
-        this.selectable = selectable;
         return this;
     }
 
@@ -149,34 +119,8 @@ public class ProfileDrawerItem implements IDrawerItem, IProfile<ProfileDrawerIte
         return typeface;
     }
 
-    @Override
-    public void setTypeface(Typeface typeface) {
-        this.typeface = typeface;
-    }
-
-    @Override
-    public Object getTag() {
-        return tag;
-    }
-
-    @Override
-    public void setTag(Object tag) {
-        this.tag = tag;
-    }
-
     public ImageHolder getIcon() {
         return icon;
-    }
-
-    @Override
-    public boolean isSelectable() {
-        return selectable;
-    }
-
-    @Override
-    public ProfileDrawerItem setSelectable(boolean selectable) {
-        this.selectable = selectable;
-        return this;
     }
 
     @Override
@@ -198,20 +142,6 @@ public class ProfileDrawerItem implements IDrawerItem, IProfile<ProfileDrawerIte
     }
 
     @Override
-    public int getIdentifier() {
-        return identifier;
-    }
-
-    public void setIdentifier(int identifier) {
-        this.identifier = identifier;
-    }
-
-    @Override
-    public boolean isEnabled() {
-        return enabled;
-    }
-
-    @Override
     public String getType() {
         return "PROFILE_ITEM";
     }
@@ -222,27 +152,24 @@ public class ProfileDrawerItem implements IDrawerItem, IProfile<ProfileDrawerIte
     }
 
     @Override
-    public View convertView(LayoutInflater inflater, View convertView, ViewGroup parent) {
-        Context ctx = parent.getContext();
+    public void bindView(RecyclerView.ViewHolder holder) {
+        Context ctx = holder.itemView.getContext();
 
-        ViewHolder viewHolder;
-        if (convertView == null) {
-            convertView = inflater.inflate(getLayoutRes(), parent, false);
-            viewHolder = new ViewHolder(convertView);
-            convertView.setTag(viewHolder);
-        } else {
-            viewHolder = (ViewHolder) convertView.getTag();
-        }
+        //get our viewHolder
+        ViewHolder viewHolder = (ViewHolder) holder;
 
         //set the identifier from the drawerItem here. It can be used to run tests
-        convertView.setId(getIdentifier());
+        viewHolder.itemView.setId(getIdentifier());
+
+        //set the item selected if it is
+        viewHolder.itemView.setSelected(isSelected());
 
         //get the correct color for the background
         int selectedColor = ColorHolder.color(getSelectedColor(), ctx, R.attr.material_drawer_selected, R.color.material_drawer_selected);
         //get the correct color for the text
         int color = ColorHolder.color(getTextColor(), ctx, R.attr.material_drawer_primary_text, R.color.material_drawer_primary_text);
 
-        UIUtils.setBackground(viewHolder.view, DrawerUIUtils.getDrawerItemBackground(selectedColor));
+        UIUtils.setBackground(viewHolder.view, DrawerUIUtils.getSelectableBackground(ctx, selectedColor));
 
         if (nameShown) {
             viewHolder.name.setVisibility(View.VISIBLE);
@@ -272,17 +199,27 @@ public class ProfileDrawerItem implements IDrawerItem, IProfile<ProfileDrawerIte
 
         //set the icon
         ImageHolder.applyToOrSetInvisible(getIcon(), viewHolder.profileIcon);
-
-        return convertView;
     }
 
-    private static class ViewHolder {
+    @Override
+    public ViewHolderFactory getFactory() {
+        return new ItemFactory();
+    }
+
+    public static class ItemFactory implements ViewHolderFactory<ViewHolder> {
+        public ViewHolder factory(View v) {
+            return new ViewHolder(v);
+        }
+    }
+
+    private static class ViewHolder extends RecyclerView.ViewHolder {
         private View view;
         private ImageView profileIcon;
         private TextView name;
         private TextView email;
 
         private ViewHolder(View view) {
+            super(view);
             this.view = view;
             this.profileIcon = (ImageView) view.findViewById(R.id.profileIcon);
             this.name = (TextView) view.findViewById(R.id.name);

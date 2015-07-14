@@ -65,7 +65,7 @@ public class DrawerUIUtils {
     public static StateListDrawable getDrawerItemBackground(int selected_color) {
         ColorDrawable clrActive = new ColorDrawable(selected_color);
         StateListDrawable states = new StateListDrawable();
-        states.addState(new int[]{android.R.attr.state_activated}, clrActive);
+        states.addState(new int[]{android.R.attr.state_selected}, clrActive);
         return states;
     }
 

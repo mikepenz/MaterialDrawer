@@ -2,7 +2,6 @@ package com.mikepenz.materialdrawer;
 
 import android.app.Activity;
 import android.content.SharedPreferences;
-import android.graphics.Color;
 import android.graphics.drawable.Drawable;
 import android.os.Build;
 import android.os.Bundle;
@@ -14,16 +13,16 @@ import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.internal.view.SupportMenuInflater;
 import android.support.v7.internal.view.menu.MenuBuilder;
+import android.support.v7.widget.DefaultItemAnimator;
+import android.support.v7.widget.LinearLayoutManager;
+import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.AbsListView;
-import android.widget.AdapterView;
 import android.widget.LinearLayout;
-import android.widget.ListView;
 import android.widget.RelativeLayout;
 
 import com.mikepenz.iconics.utils.Utils;
@@ -33,8 +32,8 @@ import com.mikepenz.materialdrawer.adapter.DrawerAdapter;
 import com.mikepenz.materialdrawer.model.DividerDrawerItem;
 import com.mikepenz.materialdrawer.model.PrimaryDrawerItem;
 import com.mikepenz.materialdrawer.model.SecondaryDrawerItem;
-import com.mikepenz.materialdrawer.model.interfaces.Checkable;
 import com.mikepenz.materialdrawer.model.interfaces.IDrawerItem;
+import com.mikepenz.materialdrawer.model.interfaces.Selectable;
 import com.mikepenz.materialize.MaterializeBuilder;
 import com.mikepenz.materialize.util.UIUtils;
 import com.mikepenz.materialize.view.IScrimInsetsLayout;
@@ -55,6 +54,7 @@ public class DrawerBuilder {
 
     // the activity to use
     protected Activity mActivity;
+    protected RecyclerView.LayoutManager mLayoutManager;
     protected ViewGroup mRootView;
     protected IScrimInsetsLayout mDrawerContentRoot;
 
@@ -73,6 +73,7 @@ public class DrawerBuilder {
     public DrawerBuilder(Activity activity) {
         this.mRootView = (ViewGroup) activity.findViewById(android.R.id.content);
         this.mActivity = activity;
+        this.mLayoutManager = new LinearLayoutManager(mActivity);
     }
 
     /**
@@ -85,6 +86,7 @@ public class DrawerBuilder {
     public DrawerBuilder withActivity(Activity activity) {
         this.mRootView = (ViewGroup) activity.findViewById(android.R.id.content);
         this.mActivity = activity;
+        this.mLayoutManager = new LinearLayoutManager(mActivity);
         return this;
     }
 
@@ -507,11 +509,6 @@ public class DrawerBuilder {
     public DrawerBuilder withAccountHeader(AccountHeader accountHeader, boolean accountHeaderSticky) {
         this.mAccountHeader = accountHeader;
         this.mAccountHeaderSticky = accountHeaderSticky;
-
-        //set the header offset
-        if (!accountHeaderSticky) {
-            mHeaderOffset = 1;
-        }
         return this;
     }
 
@@ -561,9 +558,23 @@ public class DrawerBuilder {
         return this;
     }
 
+    // defines if the drawer should scroll to top after click
+    protected boolean mScrollToTopAfterClick = false;
+
+    /**
+     * defines if the drawer should scroll to top after click
+     *
+     * @param scrollToTopAfterClick
+     * @return
+     */
+    public DrawerBuilder withScrollToTopAfterClick(boolean scrollToTopAfterClick) {
+        this.mScrollToTopAfterClick = scrollToTopAfterClick;
+        return this;
+    }
+
+
     // header view
     protected View mHeaderView;
-    protected int mHeaderOffset = 0;
     protected boolean mHeaderDivider = true;
     protected boolean mHeaderClickable = false;
 
@@ -575,8 +586,6 @@ public class DrawerBuilder {
      */
     public DrawerBuilder withHeader(View headerView) {
         this.mHeaderView = headerView;
-        //set the header offset
-        mHeaderOffset = 1;
         return this;
     }
 
@@ -594,8 +603,6 @@ public class DrawerBuilder {
         if (headerViewRes != -1) {
             //i know there should be a root, bit i got none here
             this.mHeaderView = mActivity.getLayoutInflater().inflate(headerViewRes, null, false);
-            //set the headerOffset :D
-            mHeaderOffset = 1;
         }
 
         return this;
@@ -786,18 +793,18 @@ public class DrawerBuilder {
         return this;
     }
 
-    // an ListView to use within the drawer :D
-    protected ListView mListView;
+    // an RecyclerView to use within the drawer :D
+    protected RecyclerView mRecyclerView;
 
     /**
-     * Define a custom ListView which will be used in the drawer
+     * Define a custom RecyclerView which will be used in the drawer
      * NOTE: this is not recommended
      *
-     * @param listView
+     * @param recyclerView
      * @return
      */
-    public DrawerBuilder withListView(ListView listView) {
-        this.mListView = listView;
+    public DrawerBuilder withRecyclerView(RecyclerView recyclerView) {
+        this.mRecyclerView = recyclerView;
         return this;
     }
 
@@ -812,8 +819,23 @@ public class DrawerBuilder {
      * @return
      */
     public DrawerBuilder withAdapter(BaseDrawerAdapter adapter) {
+        if (mAdapter != null) {
+            throw new RuntimeException("the adapter was already set or items were added to it");
+        }
         this.mAdapter = adapter;
         return this;
+    }
+
+    /**
+     * get the adapter (null safe)
+     *
+     * @return
+     */
+    protected BaseDrawerAdapter getAdapter() {
+        if (mAdapter == null) {
+            mAdapter = new DrawerAdapter();
+        }
+        return mAdapter;
     }
 
     // animate the drawerItems
@@ -830,9 +852,6 @@ public class DrawerBuilder {
         return this;
     }
 
-    // list in drawer
-    protected ArrayList<IDrawerItem> mDrawerItems = new ArrayList<>();
-
     /**
      * Set the initial List of IDrawerItems for the Drawer
      *
@@ -840,7 +859,7 @@ public class DrawerBuilder {
      * @return
      */
     public DrawerBuilder withDrawerItems(ArrayList<IDrawerItem> drawerItems) {
-        this.mDrawerItems = drawerItems;
+        this.getAdapter().setDrawerItems(drawerItems);
         return this;
     }
 
@@ -851,13 +870,7 @@ public class DrawerBuilder {
      * @return
      */
     public DrawerBuilder addDrawerItems(IDrawerItem... drawerItems) {
-        if (this.mDrawerItems == null) {
-            this.mDrawerItems = new ArrayList<>();
-        }
-
-        if (drawerItems != null) {
-            Collections.addAll(this.mDrawerItems, drawerItems);
-        }
+        this.getAdapter().addDrawerItems(drawerItems);
         return this;
     }
 
@@ -920,7 +933,7 @@ public class DrawerBuilder {
             if (!subMenu && mMenuItem.getGroupId() != groupId && mMenuItem.getGroupId() != 0) {
                 groupId = mMenuItem.getGroupId();
                 iDrawerItem = new DividerDrawerItem();
-                mDrawerItems.add(iDrawerItem);
+                getAdapter().addDrawerItems(iDrawerItem);
             }
             if (mMenuItem.hasSubMenu()) {
                 iDrawerItem = new PrimaryDrawerItem()
@@ -928,8 +941,8 @@ public class DrawerBuilder {
                         .withIcon(mMenuItem.getIcon())
                         .withIdentifier(mMenuItem.getItemId())
                         .withEnabled(mMenuItem.isEnabled())
-                        .withCheckable(false);
-                mDrawerItems.add(iDrawerItem);
+                        .withSelectable(false);
+                getAdapter().addDrawerItems(iDrawerItem);
                 addMenuItems(mMenuItem.getSubMenu(), true);
             } else if (mMenuItem.getGroupId() != 0 || subMenu) {
                 iDrawerItem = new SecondaryDrawerItem()
@@ -937,14 +950,14 @@ public class DrawerBuilder {
                         .withIcon(mMenuItem.getIcon())
                         .withIdentifier(mMenuItem.getItemId())
                         .withEnabled(mMenuItem.isEnabled());
-                mDrawerItems.add(iDrawerItem);
+                getAdapter().addDrawerItems(iDrawerItem);
             } else {
                 iDrawerItem = new PrimaryDrawerItem()
                         .withName(mMenuItem.getTitle().toString())
                         .withIcon(mMenuItem.getIcon())
                         .withIdentifier(mMenuItem.getItemId())
                         .withEnabled(mMenuItem.isEnabled());
-                mDrawerItems.add(iDrawerItem);
+                getAdapter().addDrawerItems(iDrawerItem);
             }
         }
     }
@@ -964,7 +977,7 @@ public class DrawerBuilder {
     }
 
     // delay drawer close to prevent lag
-    protected int mDelayOnDrawerClose = 150;
+    protected int mDelayOnDrawerClose = 50;
 
     /**
      * Define the delay for the drawer close operation after a click.
@@ -1253,7 +1266,7 @@ public class DrawerBuilder {
             // if we've set a custom gravity set it
             params.gravity = mDrawerGravity;
             // if this is a drawer from the right, change the margins :D
-            params = com.mikepenz.materialdrawer.DrawerUtils.processDrawerLayoutParams(this, params);
+            params = DrawerUtils.processDrawerLayoutParams(this, params);
             // set the new layout params
             mSliderLayout.setLayoutParams(params);
         }
@@ -1321,7 +1334,7 @@ public class DrawerBuilder {
         // set the gravity of this drawerGravity
         params.gravity = mDrawerGravity;
         // if this is a drawer from the right, change the margins :D
-        params = com.mikepenz.materialdrawer.DrawerUtils.processDrawerLayoutParams(this, params);
+        params = DrawerUtils.processDrawerLayoutParams(this, params);
         // set the new params
         mSliderLayout.setLayoutParams(params);
         // add the slider to the drawer
@@ -1352,20 +1365,17 @@ public class DrawerBuilder {
         }
 
         // if we have an adapter (either by defining a custom one or the included one add a list :D
-        if (mListView == null) {
-            mListView = new ListView(mActivity);
-            mListView.setChoiceMode(AbsListView.CHOICE_MODE_SINGLE);
-            mListView.setDivider(null);
+        if (mRecyclerView == null) {
+            mRecyclerView = new RecyclerView(mActivity);
             //some style improvements on older devices
-            mListView.setFadingEdgeLength(0);
-            mListView.setCacheColorHint(Color.TRANSPARENT);
+            mRecyclerView.setFadingEdgeLength(0);
+
             //set the drawing cache background to the same color as the slider to improve performance
-            mListView.setDrawingCacheBackgroundColor(UIUtils.getThemeColorFromAttrOrRes(mActivity, R.attr.material_drawer_background, R.color.material_drawer_background));
-            //only draw the selector on top if we are on a newer api than 21 because this makes only sense for ripples
-            if (Build.VERSION.SDK_INT > 21) {
-                mListView.setDrawSelectorOnTop(true);
-            }
-            mListView.setClipToPadding(false);
+            //mRecyclerView.setDrawingCacheBackgroundColor(UIUtils.getThemeColorFromAttrOrRes(mActivity, R.attr.material_drawer_background, R.color.material_drawer_background));
+            mRecyclerView.setClipToPadding(false);
+            //additional stuff
+            mRecyclerView.setLayoutManager(mLayoutManager);
+            mRecyclerView.setItemAnimator(new DefaultItemAnimator());
 
             int paddingTop = 0;
             if ((mTranslucentStatusBar && !mTranslucentActionBarCompatibility) || mFullscreen) {
@@ -1376,7 +1386,7 @@ public class DrawerBuilder {
                 paddingBottom = UIUtils.getNavigationBarHeight(mActivity);
             }
 
-            mListView.setPadding(0, paddingTop, 0, paddingBottom);
+            mRecyclerView.setPadding(0, paddingTop, 0, paddingBottom);
         }
 
         LinearLayout.LayoutParams params = new LinearLayout.LayoutParams(
@@ -1384,7 +1394,7 @@ public class DrawerBuilder {
                 ViewGroup.LayoutParams.MATCH_PARENT
         );
         params.weight = 1f;
-        mSliderLayout.addView(mListView, params);
+        mSliderLayout.addView(mRecyclerView, params);
 
         //find the shadow view
         View statusBarShadow = mSliderLayout.findViewById(R.id.shadow_top);
@@ -1412,50 +1422,39 @@ public class DrawerBuilder {
             statusBarShadow.setVisibility(View.GONE);
         }
 
-        // initialize list if there is an adapter or set items
-        if (mDrawerItems != null && mAdapter == null) {
-            mAdapter = new DrawerAdapter(mActivity, mDrawerItems, mAnimateDrawerItems);
-        }
-
         //handle the header
-        com.mikepenz.materialdrawer.DrawerUtils.handleHeaderView(this);
+        DrawerUtils.handleHeaderView(this);
 
         //handle the footer
-        com.mikepenz.materialdrawer.DrawerUtils.handleFooterView(this, new View.OnClickListener() {
+        DrawerUtils.handleFooterView(this, new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 IDrawerItem drawerItem = (IDrawerItem) v.getTag();
-                com.mikepenz.materialdrawer.DrawerUtils.onFooterDrawerItemClick(DrawerBuilder.this, drawerItem, v, true);
+                DrawerUtils.onFooterDrawerItemClick(DrawerBuilder.this, drawerItem, v, true);
             }
         });
 
         //after adding the header do the setAdapter and set the selection
-        if (mAdapter != null) {
-            //set the adapter on the listView
-            mListView.setAdapter(mAdapter);
 
-            //predefine selection (should be the first element
-            com.mikepenz.materialdrawer.DrawerUtils.setListSelection(this, mSelectedItem, false);
-        }
+        //set the adapter on the listView
+        mRecyclerView.setAdapter(getAdapter());
+
+        //predefine selection (should be the first element
+        DrawerUtils.setRecyclerViewSelection(this, mSelectedItem, false);
 
         // add the onDrawerItemClickListener if set
-        mListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+        mAdapter.setOnClickListener(new BaseDrawerAdapter.OnClickListener() {
             @Override
-            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                IDrawerItem i = getDrawerItem(position, true);
-
-                if (i != null && i instanceof Checkable && !((Checkable) i).isCheckable()) {
-                    mListView.setSelection(mCurrentSelection + mHeaderOffset);
-                    mListView.setItemChecked(mCurrentSelection + mHeaderOffset, true);
-                } else {
+            public void onClick(View view, int position, IDrawerItem item) {
+                if (!(item != null && item instanceof Selectable && !((Selectable) item).isSelectable())) {
                     resetStickyFooterSelection();
-                    mCurrentSelection = position - mHeaderOffset;
+                    mCurrentSelection = position;
                     mCurrentFooterSelection = -1;
                 }
 
                 boolean consumed = false;
                 if (mOnDrawerItemClickListener != null) {
-                    consumed = mOnDrawerItemClickListener.onItemClick(parent, view, position - mHeaderOffset, id, i);
+                    consumed = mOnDrawerItemClickListener.onItemClick(view, position, item);
                 }
 
                 if (!consumed) {
@@ -1466,17 +1465,20 @@ public class DrawerBuilder {
         });
 
         // add the onDrawerItemLongClickListener if set
-        mListView.setOnItemLongClickListener(new AdapterView.OnItemLongClickListener() {
+        mAdapter.setOnLongClickListener(new BaseDrawerAdapter.OnLongClickListener() {
             @Override
-            public boolean onItemLongClick(AdapterView<?> parent, View view, int position, long id) {
+            public boolean onLongClick(View view, int position, IDrawerItem item) {
                 if (mOnDrawerItemLongClickListener != null) {
-                    return mOnDrawerItemLongClickListener.onItemLongClick(parent, view, position - mHeaderOffset, id, getDrawerItem(position, true));
+                    return mOnDrawerItemLongClickListener.onItemLongClick(view, position, getDrawerItem(position));
                 }
                 return false;
             }
         });
 
         // add the onDrawerItemSelectedListener if set
+
+        //WTF SELECTING WITHOUT A CLICK?!
+        /*
         mListView.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
@@ -1493,22 +1495,23 @@ public class DrawerBuilder {
                 }
             }
         });
+        */
 
-        if (mListView != null) {
-            mListView.smoothScrollToPosition(0);
+        if (mRecyclerView != null) {
+            mRecyclerView.scrollToPosition(0);
         }
 
         // try to restore all saved values again
         if (mSavedInstance != null) {
             int selection = mSavedInstance.getInt(Drawer.BUNDLE_SELECTION, -1);
-            com.mikepenz.materialdrawer.DrawerUtils.setListSelection(this, selection, false);
+            DrawerUtils.setRecyclerViewSelection(this, selection, false);
             int footerSelection = mSavedInstance.getInt(Drawer.BUNDLE_FOOTER_SELECTION, -1);
-            com.mikepenz.materialdrawer.DrawerUtils.setFooterSelection(this, footerSelection, false);
+            DrawerUtils.setFooterSelection(this, footerSelection, false);
         }
 
         // call initial onClick event to allow the dev to init the first view
         if (mFireInitialOnClick && mOnDrawerItemClickListener != null) {
-            mOnDrawerItemClickListener.onItemClick(null, null, mCurrentSelection, mCurrentSelection, getDrawerItem(mCurrentSelection, false));
+            mOnDrawerItemClickListener.onItemClick(null, mCurrentSelection, getDrawerItem(mCurrentSelection));
         }
     }
 
@@ -1522,6 +1525,10 @@ public class DrawerBuilder {
                     @Override
                     public void run() {
                         mDrawerLayout.closeDrawers();
+
+                        if (mScrollToTopAfterClick) {
+                            mRecyclerView.smoothScrollToPosition(0);
+                        }
                     }
                 }, mDelayOnDrawerClose);
             } else {
@@ -1536,17 +1543,8 @@ public class DrawerBuilder {
      * @param position
      * @return
      */
-    protected IDrawerItem getDrawerItem(int position, boolean includeOffset) {
-        if (includeOffset) {
-            if (mDrawerItems != null && mDrawerItems.size() > (position - mHeaderOffset) && (position - mHeaderOffset) > -1) {
-                return mDrawerItems.get(position - mHeaderOffset);
-            }
-        } else {
-            if (mDrawerItems != null && mDrawerItems.size() > position && position > -1) {
-                return mDrawerItems.get(position);
-            }
-        }
-        return null;
+    protected IDrawerItem getDrawerItem(int position) {
+        return getAdapter().getItem(position);
     }
 
     /**
@@ -1557,16 +1555,7 @@ public class DrawerBuilder {
      * @return
      */
     protected boolean checkDrawerItem(int position, boolean includeOffset) {
-        if (includeOffset) {
-            if (mDrawerItems != null && mDrawerItems.size() > (position - mHeaderOffset) && (position - mHeaderOffset) > -1) {
-                return true;
-            }
-        } else {
-            if (mDrawerItems != null && mDrawerItems.size() > position && position > -1) {
-                return true;
-            }
-        }
-        return false;
+        return getAdapter().getItem(position) != null;
     }
 
     /**
@@ -1574,11 +1563,11 @@ public class DrawerBuilder {
      */
     protected void resetStickyFooterSelection() {
         if (mStickyFooterView instanceof LinearLayout) {
-            for (int i = 0; i < ((LinearLayout) mStickyFooterView).getChildCount(); i++) {
+            for (int i = 0; i < (mStickyFooterView).getChildCount(); i++) {
                 if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.HONEYCOMB) {
-                    ((LinearLayout) mStickyFooterView).getChildAt(i).setActivated(false);
+                    (mStickyFooterView).getChildAt(i).setActivated(false);
                 }
-                ((LinearLayout) mStickyFooterView).getChildAt(i).setSelected(false);
+                (mStickyFooterView).getChildAt(i).setSelected(false);
             }
         }
     }

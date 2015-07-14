@@ -11,10 +11,7 @@ import com.mikepenz.materialdrawer.R;
 import com.mikepenz.materialdrawer.holder.ColorHolder;
 import com.mikepenz.materialdrawer.holder.ImageHolder;
 import com.mikepenz.materialdrawer.holder.StringHolder;
-import com.mikepenz.materialdrawer.model.interfaces.Checkable;
-import com.mikepenz.materialdrawer.model.interfaces.IDrawerItem;
 import com.mikepenz.materialdrawer.model.interfaces.Iconable;
-import com.mikepenz.materialdrawer.model.interfaces.Identifyable;
 import com.mikepenz.materialdrawer.model.interfaces.Nameable;
 import com.mikepenz.materialdrawer.model.interfaces.Tagable;
 import com.mikepenz.materialdrawer.model.interfaces.Typefaceable;
@@ -23,16 +20,10 @@ import com.mikepenz.materialdrawer.util.DrawerUIUtils;
 /**
  * Created by mikepenz on 03.02.15.
  */
-public abstract class BaseDrawerItem<T> implements IDrawerItem, Nameable<T>, Iconable<T>, Checkable<T>, Tagable<T>, Identifyable<T>, Typefaceable<T> {
-
-    private int identifier = -1;
-
+public abstract class BaseDrawerItem<T> extends AbstractDrawerItem<T> implements Nameable<T>, Iconable<T>, Tagable<T>, Typefaceable<T> {
     private ImageHolder icon;
     private ImageHolder selectedIcon;
     private StringHolder name;
-    private boolean enabled = true;
-    private boolean checkable = true;
-    private Object tag;
 
     private boolean iconTinted = false;
 
@@ -48,11 +39,6 @@ public abstract class BaseDrawerItem<T> implements IDrawerItem, Nameable<T>, Ico
     private Typeface typeface = null;
 
     private Pair<Integer, ColorStateList> colorStateList;
-
-    public T withIdentifier(int identifier) {
-        this.identifier = identifier;
-        return (T) this;
-    }
 
     public T withIcon(Drawable icon) {
         this.icon = new ImageHolder(icon);
@@ -87,26 +73,6 @@ public abstract class BaseDrawerItem<T> implements IDrawerItem, Nameable<T>, Ico
 
     public T withName(int nameRes) {
         this.name = new StringHolder(nameRes);
-        return (T) this;
-    }
-
-    public T withTag(Object object) {
-        this.tag = object;
-        return (T) this;
-    }
-
-    public T withCheckable(boolean checkable) {
-        this.checkable = checkable;
-        return (T) this;
-    }
-
-    public T withEnabled(boolean enabled) {
-        this.enabled = enabled;
-        return (T) this;
-    }
-
-    public T setEnabled(boolean enabled) {
-        this.enabled = enabled;
         return (T) this;
     }
 
@@ -238,16 +204,6 @@ public abstract class BaseDrawerItem<T> implements IDrawerItem, Nameable<T>, Ico
         this.iconTinted = iconTinted;
     }
 
-    @Override
-    public Object getTag() {
-        return tag;
-    }
-
-    @Override
-    public void setTag(Object tag) {
-        this.tag = tag;
-    }
-
     public ImageHolder getIcon() {
         return icon;
     }
@@ -258,30 +214,6 @@ public abstract class BaseDrawerItem<T> implements IDrawerItem, Nameable<T>, Ico
 
     public StringHolder getName() {
         return name;
-    }
-
-    @Override
-    public int getIdentifier() {
-        return identifier;
-    }
-
-    public void setIdentifier(int identifier) {
-        this.identifier = identifier;
-    }
-
-    @Override
-    public boolean isEnabled() {
-        return enabled;
-    }
-
-    @Override
-    public boolean isCheckable() {
-        return checkable;
-    }
-
-    @Override
-    public void setCheckable(boolean checkable) {
-        this.checkable = checkable;
     }
 
     public ColorHolder getDisabledIconColor() {

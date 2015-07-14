@@ -1,22 +1,20 @@
 package com.mikepenz.materialdrawer;
 
-import android.app.Activity;
 import android.os.Build;
 import android.support.v4.widget.DrawerLayout;
 import android.view.Gravity;
-import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.view.Window;
-import android.view.WindowManager;
 import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 
+import com.mikepenz.materialdrawer.adapter.BaseDrawerAdapter;
 import com.mikepenz.materialdrawer.holder.ColorHolder;
+import com.mikepenz.materialdrawer.model.ContainerDrawerItem;
 import com.mikepenz.materialdrawer.model.PrimaryDrawerItem;
 import com.mikepenz.materialdrawer.model.SecondaryDrawerItem;
-import com.mikepenz.materialdrawer.model.interfaces.Checkable;
 import com.mikepenz.materialdrawer.model.interfaces.IDrawerItem;
+import com.mikepenz.materialdrawer.model.interfaces.Selectable;
 import com.mikepenz.materialdrawer.util.DrawerUIUtils;
 import com.mikepenz.materialize.util.UIUtils;
 
@@ -33,7 +31,7 @@ class DrawerUtils {
      * @param fireOnClick
      */
     public static void onFooterDrawerItemClick(DrawerBuilder drawer, IDrawerItem drawerItem, View v, boolean fireOnClick) {
-        boolean checkable = !(drawerItem != null && drawerItem instanceof Checkable && !((Checkable) drawerItem).isCheckable());
+        boolean checkable = !(drawerItem != null && drawerItem instanceof Selectable && !((Selectable) drawerItem).isSelectable());
         if (checkable) {
             drawer.resetStickyFooterSelection();
 
@@ -43,8 +41,7 @@ class DrawerUtils {
             v.setSelected(true);
 
             //remove the selection in the list
-            drawer.mListView.setSelection(-1);
-            drawer.mListView.setItemChecked(drawer.mCurrentSelection + drawer.mHeaderOffset, false);
+            drawer.mAdapter.handleSelection(null, -1);
 
             //set currentSelection to -1 because we selected a stickyFooter element
             drawer.mCurrentSelection = -1;
@@ -64,7 +61,7 @@ class DrawerUtils {
 
         boolean consumed = false;
         if (fireOnClick && drawer.mOnDrawerItemClickListener != null) {
-            consumed = drawer.mOnDrawerItemClickListener.onItemClick(null, v, -1, -1, drawerItem);
+            consumed = drawer.mOnDrawerItemClickListener.onItemClick(v, -1, drawerItem);
         }
 
         if (!consumed) {
@@ -81,8 +78,8 @@ class DrawerUtils {
      * @param fireOnClick
      * @return
      */
-    public static boolean setListSelection(DrawerBuilder drawer, int position, boolean fireOnClick) {
-        return setListSelection(drawer, position, fireOnClick, null);
+    public static boolean setRecyclerViewSelection(DrawerBuilder drawer, int position, boolean fireOnClick) {
+        return setRecyclerViewSelection(drawer, position, fireOnClick, null);
     }
 
     /**
@@ -94,19 +91,18 @@ class DrawerUtils {
      * @param drawerItem
      * @return
      */
-    public static boolean setListSelection(DrawerBuilder drawer, int position, boolean fireOnClick, IDrawerItem drawerItem) {
+    public static boolean setRecyclerViewSelection(DrawerBuilder drawer, int position, boolean fireOnClick, IDrawerItem drawerItem) {
         if (position >= -1) {
             //predefine selection (should be the first element
-            if (drawer.mListView != null && (position + drawer.mHeaderOffset) > -1) {
+            if (drawer.mAdapter != null && (position) > -1) {
                 drawer.resetStickyFooterSelection();
-                drawer.mListView.setSelection(position + drawer.mHeaderOffset);
-                drawer.mListView.setItemChecked(position + drawer.mHeaderOffset, true);
+                drawer.mAdapter.handleSelection(null, position);
                 drawer.mCurrentSelection = position;
                 drawer.mCurrentFooterSelection = -1;
             }
 
             if (fireOnClick && drawer.mOnDrawerItemClickListener != null) {
-                return drawer.mOnDrawerItemClickListener.onItemClick(null, null, position, -1, drawerItem);
+                return drawer.mOnDrawerItemClickListener.onItemClick(null, position, drawerItem);
             }
         }
 
@@ -141,13 +137,10 @@ class DrawerUtils {
      */
     public static int getPositionFromIdentifier(DrawerBuilder drawer, int identifier) {
         if (identifier >= 0) {
-            if (drawer.mDrawerItems != null) {
-                int position = 0;
-                for (IDrawerItem i : drawer.mDrawerItems) {
-                    if (i.getIdentifier() == identifier) {
-                        return position;
-                    }
-                    position = position + 1;
+            BaseDrawerAdapter adapter = drawer.getAdapter();
+            for (int i = 0; i < adapter.getItemCount(); i++) {
+                if (adapter.getItem(i).getIdentifier() == identifier) {
+                    return i;
                 }
             }
         }
@@ -179,45 +172,6 @@ class DrawerUtils {
     }
 
     /**
-     * helper method to set the TranslucentStatusFlag
-     *
-     * @param on
-     */
-    public static void setTranslucentStatusFlag(Activity activity, boolean on) {
-        if (Build.VERSION.SDK_INT >= 19) {
-            setFlag(activity, WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS, on);
-        }
-    }
-
-    /**
-     * helper method to set the TranslucentNavigationFlag
-     *
-     * @param on
-     */
-    public static void setTranslucentNavigationFlag(Activity activity, boolean on) {
-        if (Build.VERSION.SDK_INT >= 19) {
-            setFlag(activity, WindowManager.LayoutParams.FLAG_TRANSLUCENT_NAVIGATION, on);
-        }
-    }
-
-    /**
-     * helper method to activate or deactivate a specific flag
-     *
-     * @param bits
-     * @param on
-     */
-    public static void setFlag(Activity activity, final int bits, boolean on) {
-        Window win = activity.getWindow();
-        WindowManager.LayoutParams winParams = win.getAttributes();
-        if (on) {
-            winParams.flags |= bits;
-        } else {
-            winParams.flags &= ~bits;
-        }
-        win.setAttributes(winParams);
-    }
-
-    /**
      * helper method to handle the headerView
      *
      * @param drawer
@@ -240,35 +194,28 @@ class DrawerUtils {
             drawer.mStickyHeaderView.setId(R.id.md_sticky_header);
             drawer.mSliderLayout.addView(drawer.mStickyHeaderView, 0, layoutParams);
 
-            //now align the listView above the stickyFooterView ;)
-            RelativeLayout.LayoutParams layoutParamsListView = (RelativeLayout.LayoutParams) drawer.mListView.getLayoutParams();
+            //now align the recyclerView above the stickyFooterView ;)
+            RelativeLayout.LayoutParams layoutParamsListView = (RelativeLayout.LayoutParams) drawer.mRecyclerView.getLayoutParams();
             layoutParamsListView.addRule(RelativeLayout.BELOW, R.id.md_sticky_header);
-            drawer.mListView.setLayoutParams(layoutParamsListView);
+            drawer.mRecyclerView.setLayoutParams(layoutParamsListView);
 
-            //remove the padding of the listView again we have the header on top of it
-            drawer.mListView.setPadding(0, 0, 0, 0);
+            //remove the padding of the recyclerView again we have the header on top of it
+            drawer.mRecyclerView.setPadding(0, 0, 0, 0);
         }
 
         // set the header (do this before the setAdapter because some devices will crash else
         if (drawer.mHeaderView != null) {
-            if (drawer.mListView == null) {
-                throw new RuntimeException("can't use a headerView without a listView");
+            if (drawer.mRecyclerView == null) {
+                throw new RuntimeException("can't use a headerView without a recyclerView");
             }
 
             if (drawer.mHeaderDivider) {
-                LinearLayout headerContainer = (LinearLayout) drawer.mActivity.getLayoutInflater().inflate(R.layout.material_drawer_item_header, drawer.mListView, false);
-                headerContainer.addView(drawer.mHeaderView, 0);
-                //set the color for the divider
-                headerContainer.findViewById(R.id.divider).setBackgroundColor(UIUtils.getThemeColorFromAttrOrRes(drawer.mActivity, R.attr.material_drawer_divider, R.color.material_drawer_divider));
-                //add the headerContainer to the list
-                drawer.mListView.addHeaderView(headerContainer, null, drawer.mHeaderClickable);
-                //link the view including the container to the headerView field
-                drawer.mHeaderView = headerContainer;
+                drawer.mAdapter.addHeaderDrawerItems(new ContainerDrawerItem().withView(drawer.mHeaderView).withViewPosition(ContainerDrawerItem.Position.TOP));
             } else {
-                drawer.mListView.addHeaderView(drawer.mHeaderView, null, drawer.mHeaderClickable);
+                drawer.mAdapter.addHeaderDrawerItems(new ContainerDrawerItem().withView(drawer.mHeaderView).withViewPosition(ContainerDrawerItem.Position.NONE));
             }
             //set the padding on the top to 0
-            drawer.mListView.setPadding(drawer.mListView.getPaddingLeft(), 0, drawer.mListView.getPaddingRight(), drawer.mListView.getPaddingBottom());
+            drawer.mRecyclerView.setPadding(drawer.mRecyclerView.getPaddingLeft(), 0, drawer.mRecyclerView.getPaddingRight(), drawer.mRecyclerView.getPaddingBottom());
         }
     }
 
@@ -304,7 +251,7 @@ class DrawerUtils {
     public static void handleFooterView(DrawerBuilder drawer, View.OnClickListener onClickListener) {
         //use the StickyDrawerItems if set
         if (drawer.mStickyDrawerItems != null && drawer.mStickyDrawerItems.size() > 0) {
-            drawer.mStickyFooterView = com.mikepenz.materialdrawer.DrawerUtils.buildStickyDrawerItemFooter(drawer, onClickListener);
+            drawer.mStickyFooterView = DrawerUtils.buildStickyDrawerItemFooter(drawer, onClickListener);
         }
 
         //sticky footer view
@@ -319,32 +266,25 @@ class DrawerUtils {
                 drawer.mStickyFooterView.setPadding(0, 0, 0, UIUtils.getNavigationBarHeight(drawer.mActivity));
             }
 
-            //now align the listView above the stickyFooterView ;)
-            RelativeLayout.LayoutParams layoutParamsListView = (RelativeLayout.LayoutParams) drawer.mListView.getLayoutParams();
+            //now align the recyclerView above the stickyFooterView ;)
+            RelativeLayout.LayoutParams layoutParamsListView = (RelativeLayout.LayoutParams) drawer.mRecyclerView.getLayoutParams();
             layoutParamsListView.addRule(RelativeLayout.ABOVE, R.id.md_sticky_footer);
-            drawer.mListView.setLayoutParams(layoutParamsListView);
+            drawer.mRecyclerView.setLayoutParams(layoutParamsListView);
 
-            //remove the padding of the listView again we have the footer below it
-            drawer.mListView.setPadding(drawer.mListView.getPaddingLeft(), drawer.mListView.getPaddingTop(), drawer.mListView.getPaddingRight(), drawer.mActivity.getResources().getDimensionPixelSize(R.dimen.material_drawer_padding));
+            //remove the padding of the recyclerView again we have the footer below it
+            drawer.mRecyclerView.setPadding(drawer.mRecyclerView.getPaddingLeft(), drawer.mRecyclerView.getPaddingTop(), drawer.mRecyclerView.getPaddingRight(), drawer.mActivity.getResources().getDimensionPixelSize(R.dimen.material_drawer_padding));
         }
 
         // set the footer (do this before the setAdapter because some devices will crash else
         if (drawer.mFooterView != null) {
-            if (drawer.mListView == null) {
-                throw new RuntimeException("can't use a footerView without a listView");
+            if (drawer.mRecyclerView == null) {
+                throw new RuntimeException("can't use a footerView without a recyclerView");
             }
 
             if (drawer.mFooterDivider) {
-                LinearLayout footerContainer = (LinearLayout) drawer.mActivity.getLayoutInflater().inflate(R.layout.material_drawer_item_footer, drawer.mListView, false);
-                footerContainer.addView(drawer.mFooterView, 1);
-                //set the color for the divider
-                footerContainer.findViewById(R.id.divider).setBackgroundColor(UIUtils.getThemeColorFromAttrOrRes(drawer.mActivity, R.attr.material_drawer_divider, R.color.material_drawer_divider));
-                //add the footerContainer to the list
-                drawer.mListView.addFooterView(footerContainer, null, drawer.mFooterClickable);
-                //link the view including the container to the footerView field
-                drawer.mFooterView = footerContainer;
+                drawer.mAdapter.addHeaderDrawerItems(new ContainerDrawerItem().withView(drawer.mFooterView).withViewPosition(ContainerDrawerItem.Position.BOTTOM));
             } else {
-                drawer.mListView.addFooterView(drawer.mFooterView, null, drawer.mFooterClickable);
+                drawer.mAdapter.addHeaderDrawerItems(new ContainerDrawerItem().withView(drawer.mFooterView).withViewPosition(ContainerDrawerItem.Position.NONE));
             }
         }
     }
@@ -398,9 +338,6 @@ class DrawerUtils {
      * @param onClickListener
      */
     public static void fillStickyDrawerItemFooter(DrawerBuilder drawer, ViewGroup container, View.OnClickListener onClickListener) {
-        //get the inflater
-        LayoutInflater layoutInflater = LayoutInflater.from(container.getContext());
-
         //add all drawer items
         for (IDrawerItem drawerItem : drawer.mStickyDrawerItems) {
             //get the selected_color
@@ -411,7 +348,7 @@ class DrawerUtils {
                 selected_color = ColorHolder.color(((SecondaryDrawerItem) drawerItem).getSelectedColor(), container.getContext(), R.attr.material_drawer_selected, R.color.material_drawer_selected);
             }
 
-            View view = drawerItem.convertView(layoutInflater, null, container);
+            View view = drawerItem.generateView(container.getContext(), container);
             view.setTag(drawerItem);
 
             if (drawerItem.isEnabled()) {

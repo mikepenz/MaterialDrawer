@@ -1,6 +1,7 @@
 package com.mikepenz.materialdrawer.model.interfaces;
 
-import android.view.LayoutInflater;
+import android.content.Context;
+import android.support.v7.widget.RecyclerView;
 import android.view.View;
 import android.view.ViewGroup;
 
@@ -14,9 +15,19 @@ public interface IDrawerItem {
 
     boolean isEnabled();
 
+    boolean isSelected();
+
+    void withSetSelected(boolean selected);
+
     String getType();
 
     int getLayoutRes();
 
-    View convertView(LayoutInflater inflater, View convertView, ViewGroup parent);
+    View generateView(Context ctx);
+
+    View generateView(Context ctx, ViewGroup parent);
+
+    RecyclerView.ViewHolder getViewHolder(ViewGroup parent);
+
+    void bindView(RecyclerView.ViewHolder holder);
 }

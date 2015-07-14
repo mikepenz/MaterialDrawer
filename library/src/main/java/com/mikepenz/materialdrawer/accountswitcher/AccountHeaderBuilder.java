@@ -10,7 +10,6 @@ import android.os.Handler;
 import android.text.TextUtils;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.AdapterView;
 import android.widget.FrameLayout;
 import android.widget.ImageView;
 import android.widget.RelativeLayout;
@@ -1190,6 +1189,7 @@ public class AccountHeaderBuilder {
                     }
                 }
                 if (profile instanceof IDrawerItem) {
+                    ((IDrawerItem) profile).withSetSelected(false);
                     profileDrawerItems.add((IDrawerItem) profile);
                 }
                 position = position + 1;
@@ -1203,7 +1203,7 @@ public class AccountHeaderBuilder {
      */
     private Drawer.OnDrawerItemClickListener onDrawerItemClickListener = new Drawer.OnDrawerItemClickListener() {
         @Override
-        public boolean onItemClick(AdapterView<?> parent, final View view, int position, long id, final IDrawerItem drawerItem) {
+        public boolean onItemClick(final View view, int position, final IDrawerItem drawerItem) {
             final boolean isCurrentSelectedProfile;
             if (drawerItem != null && drawerItem instanceof IProfile && ((IProfile) drawerItem).isSelectable()) {
                 isCurrentSelectedProfile = switchProfiles((IProfile) drawerItem);
@@ -1239,7 +1239,9 @@ public class AccountHeaderBuilder {
      * helper method to reset the drawer content
      */
     private void resetDrawerContent(Context ctx) {
-        mDrawer.resetDrawerContent();
+        if (mDrawer != null) {
+            mDrawer.resetDrawerContent();
+        }
         mAccountSwitcherArrow.setImageDrawable(new IconicsDrawable(ctx, GoogleMaterial.Icon.gmd_arrow_drop_down).sizeDp(24).paddingDp(6).color(mTextColor));
     }
 
