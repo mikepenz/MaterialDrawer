@@ -7,12 +7,16 @@ import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
+import android.view.Menu;
+import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.CompoundButton;
 import android.widget.FrameLayout;
+import android.widget.Toast;
 
 import com.mikepenz.google_material_typeface_library.GoogleMaterial;
+import com.mikepenz.iconics.IconicsDrawable;
 import com.mikepenz.iconics.typeface.FontAwesome;
 import com.mikepenz.materialdrawer.AccountHeader;
 import com.mikepenz.materialdrawer.AccountHeaderBuilder;
@@ -41,6 +45,7 @@ public class EmbeddedDrawerActivity extends AppCompatActivity {
     //save our header or result
     private AccountHeader headerResult = null;
     private Drawer result = null;
+    private MiniDrawer miniResult = null;
 
     private CrossFader crossFader;
 
@@ -97,6 +102,13 @@ public class EmbeddedDrawerActivity extends AppCompatActivity {
                             }
                         }
 
+                        if (SystemUtils.getScreenOrientation() == Configuration.ORIENTATION_LANDSCAPE) {
+                            if (!crossFader.isCrossFaded()) {
+                                crossFader.crossFade();
+                                miniResult.update();
+                            }
+                        }
+
                         //false if you have not consumed the event and it should close the drawer
                         return false;
                     }
@@ -111,12 +123,12 @@ public class EmbeddedDrawerActivity extends AppCompatActivity {
                 .withTranslucentStatusBar(false)
                 .withAccountHeader(headerResult) //set the AccountHeader we created earlier for the header
                 .addDrawerItems(
-                        new PrimaryDrawerItem().withName(R.string.drawer_item_compact_header).withIcon(GoogleMaterial.Icon.gmd_wb_sunny),
-                        new PrimaryDrawerItem().withName(R.string.drawer_item_action_bar).withIcon(FontAwesome.Icon.faw_home),
-                        new PrimaryDrawerItem().withName(R.string.drawer_item_multi_drawer).withIcon(FontAwesome.Icon.faw_gamepad),
-                        new PrimaryDrawerItem().withName(R.string.drawer_item_non_translucent_status_drawer).withIcon(FontAwesome.Icon.faw_eye),
-                        new PrimaryDrawerItem().withDescription("A more complex sample").withName(R.string.drawer_item_complex_header_drawer).withIcon(GoogleMaterial.Icon.gmd_adb),
-                        new PrimaryDrawerItem().withName(R.string.drawer_item_simple_fragment_drawer).withIcon(GoogleMaterial.Icon.gmd_style),
+                        new PrimaryDrawerItem().withName(R.string.drawer_item_compact_header).withIcon(GoogleMaterial.Icon.gmd_wb_sunny).withIdentifier(1),
+                        new PrimaryDrawerItem().withName(R.string.drawer_item_action_bar).withIcon(FontAwesome.Icon.faw_home).withIdentifier(2),
+                        new PrimaryDrawerItem().withName(R.string.drawer_item_multi_drawer).withIcon(FontAwesome.Icon.faw_gamepad).withIdentifier(3),
+                        new PrimaryDrawerItem().withName(R.string.drawer_item_non_translucent_status_drawer).withIcon(FontAwesome.Icon.faw_eye).withIdentifier(4),
+                        new PrimaryDrawerItem().withDescription("A more complex sample").withName(R.string.drawer_item_complex_header_drawer).withIcon(GoogleMaterial.Icon.gmd_adb).withIdentifier(5),
+                        new PrimaryDrawerItem().withName(R.string.drawer_item_simple_fragment_drawer).withIcon(GoogleMaterial.Icon.gmd_style).withIdentifier(6),
                         new SectionDrawerItem().withName(R.string.drawer_item_section_header),
                         new SecondaryDrawerItem().withName(R.string.drawer_item_open_source).withIcon(FontAwesome.Icon.faw_github),
                         new SecondaryDrawerItem().withName(R.string.drawer_item_contact).withIcon(GoogleMaterial.Icon.gmd_format_color_fill).withTag("Bullhorn"),
@@ -124,19 +136,36 @@ public class EmbeddedDrawerActivity extends AppCompatActivity {
                         new SwitchDrawerItem().withName("Switch").withIcon(Octicons.Icon.oct_tools).withChecked(true).withOnCheckedChangeListener(onCheckedChangeListener),
                         new ToggleDrawerItem().withName("Toggle").withIcon(Octicons.Icon.oct_tools).withChecked(true).withOnCheckedChangeListener(onCheckedChangeListener)
                 ) // add the items we want to use with our Drawer
+                .withOnDrawerItemClickListener(new Drawer.OnDrawerItemClickListener() {
+                    @Override
+                    public boolean onItemClick(View view, int position, IDrawerItem drawerItem) {
+                        if (drawerItem instanceof Nameable) {
+                            Toast.makeText(EmbeddedDrawerActivity.this, ((Nameable) drawerItem).getName().getText(EmbeddedDrawerActivity.this), Toast.LENGTH_SHORT).show();
+                        }
+
+                        if (SystemUtils.getScreenOrientation() == Configuration.ORIENTATION_LANDSCAPE) {
+                            if (!crossFader.isCrossFaded()) {
+                                crossFader.crossFade();
+                                miniResult.update();
+                            }
+                        }
+
+                        return true;
+                    }
+                })
                 .withSavedInstance(savedInstanceState);
 
         // Embed only if orientation is Landscape (regular drawer in Portrait)
         if (SystemUtils.getScreenOrientation() == Configuration.ORIENTATION_LANDSCAPE) {
             result = builder.buildView();
-
-            View tv = new View(this);
-            tv.setBackgroundColor(Color.GREEN);
+            miniResult = new MiniDrawer().withDrawer(result).withAccountHeader(headerResult);
 
             crossFader = new CrossFader()
-                    .withGeneratedStructure(findViewById(R.id.crossfade_content), result.getSlider(), tv)
+                    .withGeneratedStructure(findViewById(R.id.crossfade_content), result.getSlider(), miniResult.build(this))
                     .withPanelWidthsDp(360, 72)
                     .build();
+
+            miniResult.withCrossFader(crossFader);
         } else {
             result = builder.build();
         }
@@ -164,14 +193,32 @@ public class EmbeddedDrawerActivity extends AppCompatActivity {
     }
 
     @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        MenuInflater inflater = getMenuInflater();
+        if (SystemUtils.getScreenOrientation() == Configuration.ORIENTATION_LANDSCAPE) {
+            inflater.inflate(R.menu.embedded, menu);
+            menu.findItem(R.id.menu_1).setIcon(new IconicsDrawable(this, GoogleMaterial.Icon.gmd_sort).color(Color.WHITE).actionBar());
+        }
+        return true;
+    }
+
+    @Override
     public void onBackPressed() {
-        crossFader.crossFade();
+        //handle the back press :D close the drawer first and if the drawer is closed close the activity
+        if (result != null && result.isDrawerOpen()) {
+            result.closeDrawer();
+        } else {
+            super.onBackPressed();
+        }
     }
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         //handle the click on the back arrow click
         switch (item.getItemId()) {
+            case R.id.menu_1:
+                crossFader.crossFade();
+                return true;
             case android.R.id.home:
                 onBackPressed();
                 return true;

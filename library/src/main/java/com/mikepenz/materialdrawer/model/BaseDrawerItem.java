@@ -279,7 +279,7 @@ public abstract class BaseDrawerItem<T> extends AbstractDrawerItem<T> implements
      * @param ctx
      * @return
      */
-    protected int getIconColor(Context ctx) {
+    public int getIconColor(Context ctx) {
         int iconColor;
         if (this.isEnabled()) {
             iconColor = ColorHolder.color(getIconColor(), ctx, R.attr.material_drawer_primary_icon, R.color.material_drawer_primary_icon);

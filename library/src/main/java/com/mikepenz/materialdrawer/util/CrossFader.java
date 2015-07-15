@@ -103,6 +103,10 @@ public class CrossFader {
 
     private boolean mCrossFaded = false;
 
+    public boolean isCrossFaded() {
+        return mCrossFaded;
+    }
+
     public void crossFade() {
         animateCrossFade(mCrossFaded);
         mCrossFaded = !mCrossFaded;
