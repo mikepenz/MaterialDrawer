@@ -1068,7 +1068,7 @@ public class AccountHeaderBuilder {
      */
     private void setImageOrPlaceholder(ImageView iv, ImageHolder imageHolder) {
         iv.setImageDrawable(DrawerUIUtils.getPlaceHolder(iv.getContext()));
-        imageHolder.applyTo(iv);
+        ImageHolder.applyTo(imageHolder, iv);
     }
 
     /**
