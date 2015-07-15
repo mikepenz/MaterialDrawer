@@ -820,7 +820,7 @@ public class DrawerBuilder {
      */
     public DrawerBuilder withAdapter(BaseDrawerAdapter adapter) {
         if (mAdapter != null) {
-            throw new RuntimeException("the adapter was already set or items were added to it");
+            throw new RuntimeException("the adapter was already set or items were added to it. A header is also a RecyclerItem");
         }
         this.mAdapter = adapter;
         return this;
@@ -838,17 +838,35 @@ public class DrawerBuilder {
         return mAdapter;
     }
 
-    // animate the drawerItems
-    protected boolean mAnimateDrawerItems = false;
+    // Defines a Adapter which wraps the main Adapter used in the RecyclerView to allow extended navigation and other stuff
+    protected RecyclerView.Adapter mAdapterWrapper;
 
     /**
-     * define if the items should be animated on their first view / and when switching the drawer
+     * Defines a Adapter which wraps the main Adapter used in the RecyclerView to allow extended navigation and other stuff
      *
-     * @param animateDrawerItems
+     * @param adapterWrapper
      * @return
      */
-    public DrawerBuilder withAnimateDrawerItems(boolean animateDrawerItems) {
-        this.mAnimateDrawerItems = animateDrawerItems;
+    public DrawerBuilder withAdapterWrapper(RecyclerView.Adapter adapterWrapper) {
+        if (mAdapter == null) {
+            throw new RuntimeException("this adapter has to be set in conjunction to a normal adapter which is used inside this wrapper adapter");
+        }
+        this.mAdapterWrapper = adapterWrapper;
+        return this;
+    }
+
+
+    //defines the itemAnimator to be used in conjunction with the RecyclerView
+    protected RecyclerView.ItemAnimator mItemAnimator = null;
+
+    /**
+     * defines the itemAnimator to be used in conjunction with the RecyclerView
+     *
+     * @param itemAnimator
+     * @return
+     */
+    public DrawerBuilder withItemAnimator(RecyclerView.ItemAnimator itemAnimator) {
+        mItemAnimator = itemAnimator;
         return this;
     }
 
@@ -1367,6 +1385,12 @@ public class DrawerBuilder {
         // if we have an adapter (either by defining a custom one or the included one add a list :D
         if (mRecyclerView == null) {
             mRecyclerView = new RecyclerView(mActivity);
+            //set the itemAnimator
+            if (mItemAnimator == null) {
+                mRecyclerView.setItemAnimator(new DefaultItemAnimator());
+            } else {
+                mRecyclerView.setItemAnimator(mItemAnimator);
+            }
             //some style improvements on older devices
             mRecyclerView.setFadingEdgeLength(0);
 
@@ -1375,7 +1399,6 @@ public class DrawerBuilder {
             mRecyclerView.setClipToPadding(false);
             //additional stuff
             mRecyclerView.setLayoutManager(mLayoutManager);
-            mRecyclerView.setItemAnimator(new DefaultItemAnimator());
 
             int paddingTop = 0;
             if ((mTranslucentStatusBar && !mTranslucentActionBarCompatibility) || mFullscreen) {
@@ -1437,7 +1460,11 @@ public class DrawerBuilder {
         //after adding the header do the setAdapter and set the selection
 
         //set the adapter on the listView
-        mRecyclerView.setAdapter(getAdapter());
+        if (mAdapterWrapper == null) {
+            mRecyclerView.setAdapter(getAdapter());
+        } else {
+            mRecyclerView.setAdapter(mAdapterWrapper);
+        }
 
         //predefine selection (should be the first element
         DrawerUtils.setRecyclerViewSelection(this, mSelectedItem, false);
