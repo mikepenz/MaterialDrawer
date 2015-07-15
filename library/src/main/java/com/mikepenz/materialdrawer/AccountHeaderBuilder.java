@@ -1093,15 +1093,15 @@ public class AccountHeaderBuilder {
         final IProfile profile = (IProfile) v.getTag(R.id.md_profile_header);
         switchProfiles(profile);
 
+        //reset the drawer content
+        resetDrawerContent(v.getContext());
+
         boolean consumed = false;
         if (mOnAccountHeaderListener != null) {
             consumed = mOnAccountHeaderListener.onProfileChanged(v, profile, current);
         }
 
         if (!consumed) {
-            //reset the drawer content
-            resetDrawerContent(v.getContext());
-
             new Handler().postDelayed(new Runnable() {
                 @Override
                 public void run() {
