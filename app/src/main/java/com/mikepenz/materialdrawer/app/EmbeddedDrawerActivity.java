@@ -1,6 +1,7 @@
 package com.mikepenz.materialdrawer.app;
 
 import android.content.res.Configuration;
+import android.graphics.Color;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
@@ -17,7 +18,9 @@ import com.mikepenz.materialdrawer.Drawer;
 import com.mikepenz.materialdrawer.DrawerBuilder;
 import com.mikepenz.materialdrawer.accountswitcher.AccountHeader;
 import com.mikepenz.materialdrawer.accountswitcher.AccountHeaderBuilder;
+import com.mikepenz.materialdrawer.util.CrossFader;
 import com.mikepenz.materialdrawer.app.utils.SystemUtils;
+import com.mikepenz.materialdrawer.interfaces.OnCheckedChangeListener;
 import com.mikepenz.materialdrawer.model.DividerDrawerItem;
 import com.mikepenz.materialdrawer.model.PrimaryDrawerItem;
 import com.mikepenz.materialdrawer.model.ProfileDrawerItem;
@@ -29,7 +32,6 @@ import com.mikepenz.materialdrawer.model.ToggleDrawerItem;
 import com.mikepenz.materialdrawer.model.interfaces.IDrawerItem;
 import com.mikepenz.materialdrawer.model.interfaces.IProfile;
 import com.mikepenz.materialdrawer.model.interfaces.Nameable;
-import com.mikepenz.materialdrawer.interfaces.OnCheckedChangeListener;
 import com.mikepenz.octicons_typeface_library.Octicons;
 
 public class EmbeddedDrawerActivity extends AppCompatActivity {
@@ -38,6 +40,8 @@ public class EmbeddedDrawerActivity extends AppCompatActivity {
     //save our header or result
     private AccountHeader headerResult = null;
     private Drawer result = null;
+
+    private CrossFader crossFader;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -124,11 +128,19 @@ public class EmbeddedDrawerActivity extends AppCompatActivity {
         // Embed only if orientation is Landscape (regular drawer in Portrait)
         if (SystemUtils.getScreenOrientation() == Configuration.ORIENTATION_LANDSCAPE) {
             result = builder.buildView();
-            frameLayout.addView(result.getSlider());
+
+            View tv = new View(this);
+            tv.setBackgroundColor(Color.GREEN);
+
+            crossFader = new CrossFader()
+                    .withGeneratedStructure(findViewById(R.id.crossfade_content), result.getSlider(), tv)
+                    .withPanelWidthsDp(360, 72)
+                    .build();
         } else {
             result = builder.build();
         }
     }
+
 
     private OnCheckedChangeListener onCheckedChangeListener = new OnCheckedChangeListener() {
         @Override
@@ -152,12 +164,7 @@ public class EmbeddedDrawerActivity extends AppCompatActivity {
 
     @Override
     public void onBackPressed() {
-        //handle the back press :D close the drawer first and if the drawer is closed close the activity
-        if (result != null && result.isDrawerOpen()) {
-            result.closeDrawer();
-        } else {
-            super.onBackPressed();
-        }
+        crossFader.crossFade();
     }
 
     @Override
