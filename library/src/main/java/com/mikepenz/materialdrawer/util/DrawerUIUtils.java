@@ -3,7 +3,6 @@ package com.mikepenz.materialdrawer.util;
 import android.annotation.SuppressLint;
 import android.content.Context;
 import android.content.res.ColorStateList;
-import android.graphics.PorterDuff;
 import android.graphics.drawable.ColorDrawable;
 import android.graphics.drawable.Drawable;
 import android.graphics.drawable.StateListDrawable;
@@ -13,7 +12,6 @@ import android.util.TypedValue;
 
 import com.mikepenz.google_material_typeface_library.GoogleMaterial;
 import com.mikepenz.iconics.IconicsDrawable;
-import com.mikepenz.iconics.typeface.IIcon;
 import com.mikepenz.materialdrawer.R;
 import com.mikepenz.materialize.util.UIUtils;
 
@@ -136,53 +134,5 @@ public class DrawerUIUtils {
      */
     public static Drawable getPlaceHolder(Context ctx) {
         return new IconicsDrawable(ctx, GoogleMaterial.Icon.gmd_person).colorRes(R.color.accent).backgroundColorRes(R.color.primary).sizeDp(56).paddingDp(16);
-    }
-
-
-    /**
-     * a small helper method to simplify the color decision and get the correct value
-     *
-     * @param ctx
-     * @param color
-     * @param colorRes
-     * @param defStyle
-     * @param defColor
-     * @return
-     */
-    public static int decideColor(Context ctx, int color, int colorRes, int defStyle, int defColor) {
-        if (color == 0 && colorRes != -1) {
-            color = ctx.getResources().getColor(colorRes);
-        } else if (color == 0) {
-            color = UIUtils.getThemeColorFromAttrOrRes(ctx, defStyle, defColor);
-        }
-        return color;
-    }
-
-    /**
-     * a small helper method to simplify the icon decision and coloring for the drawerItems
-     *
-     * @param ctx
-     * @param icon
-     * @param iicon
-     * @param iconRes
-     * @param iconColor
-     * @param tint
-     * @return
-     */
-    public static Drawable decideIcon(Context ctx, Drawable icon, IIcon iicon, int iconRes, int iconColor, boolean tint) {
-        if (icon == null && iicon != null) {
-            icon = new IconicsDrawable(ctx, iicon).color(iconColor).actionBarSize().paddingDp(1);
-        } else if (icon == null && iconRes > -1) {
-            icon = UIUtils.getCompatDrawable(ctx, iconRes);
-        }
-
-        //if we got an icon AND we have auto tinting enabled AND it is no IIcon, tint it ;)
-        if (icon != null && tint && iicon == null) {
-            icon = icon.mutate();
-            icon.setColorFilter(iconColor, PorterDuff.Mode.SRC_IN);
-            //icon.setAlpha(Color.alpha(iconColor));
-        }
-
-        return icon;
     }
 }
