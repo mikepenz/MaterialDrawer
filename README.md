@@ -45,8 +45,11 @@ You can try it out here [Google Play](https://play.google.com/store/apps/details
 ##Using Maven
 The MaterialDrawer Library is pushed to [Maven Central](http://search.maven.org/#search|ga|1|g%3A%22com.mikepenz%22), so you just need to add the following dependency to your `build.gradle`.
 
-```javascript
-compile('com.mikepenz:materialdrawer:3.1.2@aar') {
+```gradle
+//requires the SNAPSHOT repo
+//maven { url "https://oss.sonatype.org/content/repositories/snapshots/" }
+
+compile('com.mikepenz:materialdrawer:4.0.0-SNAPSHOT@aar') {
 	transitive = true
 }
 ```
@@ -57,33 +60,14 @@ You can find a detailed description of all methods in the [WIKI](https://github.
 
 
 ###Upgrade Notes
+#### < v4.0.0
+* This version got heavy refactoring, and many packages and functions moved. Please make sure that you reimport not found classes first before continuing
+
 #### < v3.0.0
 * There is no more `Drawer.Result`. To create a drawer use the new `DrawerBuilder` instead of the `Drawer`. The result is now a `Drawer`.
 * There is no more `AccountHeader.Result`. To create a drawer use the new `AccountHeaderBuilder` instead of the `AccountHeader`. The result is now a `AccountHeader`.
 * `new Drawer()` --> `new DrawerBuilder()`, `Drawer.Result` --> `Drawer`, `new AccountHeader()` --> `new AccountHeaderBuilder()`, `AccountHeader.Result` --> `AccountHeader`
 * The `onDrawerItemClick` listener now returns a `boolean` defining if the event was consumed
-
-#### < v2.9.8
-Changed maven group. You can get all updates via the new one `com.mikepenz:materialdrawer:x.y.z@aar`
-
-#### < v2.9.5
-Tinting is now off by DEFAULT again. Enable it for your items with `withIconTintingEnabled(true)` if needed. This release now also tint's the normal state of the icon.
-
-#### < v2.9.0
-v2.9.0 now uses the latest com.android.support:appcompat version 22.1.1. Please update if you use an older version. It is now also required to set the theme within your layout for toolbars. (Especially for the DarkToolbar theme)
-```java
-<android.support.v7.widget.Toolbar
-        android:id="@+id/toolbar"
-        android:layout_width="match_parent"
-        android:layout_height="?attr/actionBarSize"
-        android:background="?attr/colorPrimary"
-        android:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar"
-        app:popupTheme="@style/ThemeOverlay.AppCompat.Light"
-        android:elevation="4dp"/>
-```
-
-#### < v2.8.0
-v2.8.0 now uses the latest com.android.support:appcompat version 22.1.0. Please update if you use an older version.
 
 ###Minimal SetUp
 
@@ -106,7 +90,7 @@ Drawer result = new DrawerBuilder()
     )
     .withOnDrawerItemClickListener(new Drawer.OnDrawerItemClickListener() {
     @Override
-    public boolean onItemClick(AdapterView<?> parent, View view, int position, long id, IDrawerItem drawerItem) {
+    public boolean onItemClick(View view, int position, IDrawerItem drawerItem) {
     	// do something with the clicked item :D
     }
     })
@@ -154,7 +138,7 @@ Drawer result = new DrawerBuilder()
     )
     .withOnDrawerItemClickListener(new Drawer.OnDrawerItemClickListener() {
     @Override
-    public boolean onItemClick(AdapterView<?> parent, View view, int position, long id, IDrawerItem drawerItem) {
+    public boolean onItemClick(View view, int position, IDrawerItem drawerItem) {
     	// do something with the clicked item :D
     }
     })
@@ -271,7 +255,6 @@ Create your custom style and use one of the provided themes as parent. If you do
 
         <!-- MaterialDrawer specific values -->
         <item name="material_drawer_background">@color/material_drawer_background</item>
-        <item name="material_drawer_icons">@color/material_drawer_icons</item>
         <item name="material_drawer_primary_text">@color/material_drawer_primary_text</item>
         <item name="material_drawer_primary_icon">@color/material_drawer_primary_icon</item>
         <item name="material_drawer_secondary_text">@color/material_drawer_secondary_text</item>
@@ -296,7 +279,6 @@ No need to create a custom theme. Just set these colors (or some of them) and yo
     <!-- MaterialDrawer DEFAULT colors -->
     <color name="material_drawer_background">#F9F9F9</color>
     <!-- Material DEFAULT text / items colors -->
-    <color name="material_drawer_icons">#FFF</color>
     <color name="material_drawer_primary_text">#DE000000</color>
     <color name="material_drawer_primary_icon">#8A000000</color>
     <color name="material_drawer_secondary_text">#8A000000</color>
@@ -311,7 +293,6 @@ No need to create a custom theme. Just set these colors (or some of them) and yo
     <!-- MaterialDrawer DEFAULT DARK colors -->
     <color name="material_drawer_dark_background">#303030</color>
     <!-- MaterialDrawer DEFAULT DARK text / items colors -->
-    <color name="material_drawer_dark_icons">#000</color>
     <color name="material_drawer_dark_primary_text">#DEFFFFFF</color>
     <color name="material_drawer_dark_primary_icon">#8AFFFFFF</color>
     <color name="material_drawer_dark_secondary_text">#8AFFFFFF</color>
