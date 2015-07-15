@@ -136,7 +136,6 @@ public class ImageHolder {
      *
      * @param imageHolder
      * @param imageView
-     * @return
      */
     public static void applyToOrSetInvisible(ImageHolder imageHolder, ImageView imageView) {
         boolean imageSet = applyTo(imageHolder, imageView);
@@ -154,7 +153,6 @@ public class ImageHolder {
      *
      * @param imageHolder
      * @param imageView
-     * @return
      */
     public static void applyToOrSetGone(ImageHolder imageHolder, ImageView imageView) {
         boolean imageSet = applyTo(imageHolder, imageView);
