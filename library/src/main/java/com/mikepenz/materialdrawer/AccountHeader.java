@@ -1,4 +1,4 @@
-package com.mikepenz.materialdrawer.accountswitcher;
+package com.mikepenz.materialdrawer;
 
 import android.content.Context;
 import android.graphics.drawable.Drawable;
@@ -6,7 +6,6 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.ImageView;
 
-import com.mikepenz.materialdrawer.Drawer;
 import com.mikepenz.materialdrawer.model.interfaces.IProfile;
 import com.mikepenz.materialdrawer.model.interfaces.Identifyable;
 
@@ -156,6 +155,15 @@ public class AccountHeader {
                 }
             }
         }
+    }
+
+    /**
+     * get the current active profile
+     *
+     * @return
+     */
+    public IProfile getActiveProfile() {
+        return mAccountHeaderBuilder.mCurrentProfile;
     }
 
     /**

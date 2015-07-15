@@ -1,4 +1,4 @@
-package com.mikepenz.materialdrawer.accountswitcher;
+package com.mikepenz.materialdrawer;
 
 import android.app.Activity;
 import android.content.Context;
@@ -17,8 +17,6 @@ import android.widget.TextView;
 
 import com.mikepenz.google_material_typeface_library.GoogleMaterial;
 import com.mikepenz.iconics.IconicsDrawable;
-import com.mikepenz.materialdrawer.Drawer;
-import com.mikepenz.materialdrawer.R;
 import com.mikepenz.materialdrawer.holder.ImageHolder;
 import com.mikepenz.materialdrawer.model.interfaces.IDrawerItem;
 import com.mikepenz.materialdrawer.model.interfaces.IProfile;
@@ -108,7 +106,7 @@ public class AccountHeaderBuilder {
 
     /**
      * Define the typeface which will be used for name textView in the AccountHeader.
-     * Overrides typeface supplied to {@link com.mikepenz.materialdrawer.accountswitcher.AccountHeaderBuilder#withTypeface(android.graphics.Typeface)}
+     * Overrides typeface supplied to {@link AccountHeaderBuilder#withTypeface(android.graphics.Typeface)}
      *
      * @param typeface
      * @return
@@ -121,7 +119,7 @@ public class AccountHeaderBuilder {
 
     /**
      * Define the typeface which will be used for email textView in the AccountHeader.
-     * Overrides typeface supplied to {@link com.mikepenz.materialdrawer.accountswitcher.AccountHeaderBuilder#withTypeface(android.graphics.Typeface)}
+     * Overrides typeface supplied to {@link AccountHeaderBuilder#withTypeface(android.graphics.Typeface)}
      *
      * @param typeface
      * @return
