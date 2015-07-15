@@ -73,7 +73,7 @@ public class ImageHolder {
             imageView.setImageDrawable(mIcon);
         } else if (mBitmap != null) {
             imageView.setImageBitmap(mBitmap);
-        } else if (mIconRes != 0) {
+        } else if (mIconRes != -1) {
             imageView.setImageResource(mIconRes);
         } else if (mIIcon != null) {
             imageView.setImageDrawable(new IconicsDrawable(imageView.getContext(), mIIcon).actionBarSize().paddingDp(1));
@@ -97,7 +97,7 @@ public class ImageHolder {
 
         if (mIIcon != null) {
             icon = new IconicsDrawable(ctx, mIIcon).color(iconColor).actionBarSize().paddingDp(paddingDp);
-        } else if (mIconRes > -1) {
+        } else if (mIconRes != -1) {
             icon = UIUtils.getCompatDrawable(ctx, mIconRes);
         } else if (mUri != null) {
             try {
