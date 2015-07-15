@@ -1301,7 +1301,7 @@ public class DrawerBuilder {
         }
 
         //set the shadow for the drawer
-        if (Build.VERSION.SDK_INT < 21) {
+        if (Build.VERSION.SDK_INT < 21 && mDrawerLayout != null) {
             mDrawerLayout.setDrawerShadow(R.drawable.drawer_shadow, mDrawerGravity);
         }
 
