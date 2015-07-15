@@ -811,9 +811,6 @@ public class Drawer {
             setItems(drawerItems, true);
             setSelection(getAdapter().getHeaderItemCount() + drawerSelection, false);
 
-            //TODO animation ?!
-            //mDrawerBuilder.mAdapter.resetAnimation();
-
             if (getStickyFooter() != null) {
                 getStickyFooter().setVisibility(View.GONE);
             }
@@ -836,9 +833,6 @@ public class Drawer {
 
             //if we switch back scroll back to the top
             mDrawerBuilder.mRecyclerView.smoothScrollToPosition(0);
-
-            //TODO animation ?!
-            //mDrawerBuilder.mAdapter.resetAnimation();
 
             if (getStickyFooter() != null) {
                 getStickyFooter().setVisibility(View.VISIBLE);
