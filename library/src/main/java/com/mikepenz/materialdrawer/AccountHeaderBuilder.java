@@ -1214,20 +1214,14 @@ public class AccountHeaderBuilder {
             }
 
             //wrap the onSelection call and the reset stuff within a handler to prevent lag
-            new Handler().postDelayed(new Runnable() {
-                @Override
-                public void run() {
-                    if (mResetDrawerOnProfileListClick && mDrawer != null && view != null && view.getContext() != null) {
-                        resetDrawerContent(view.getContext());
-                    }
-                    if (drawerItem != null && drawerItem instanceof IProfile) {
-                        if (mOnAccountHeaderListener != null) {
-                            mOnAccountHeaderListener.onProfileChanged(view, (IProfile) drawerItem, isCurrentSelectedProfile);
-                        }
-                    }
-
+            if (mResetDrawerOnProfileListClick && mDrawer != null && view != null && view.getContext() != null) {
+                resetDrawerContent(view.getContext());
+            }
+            if (drawerItem != null && drawerItem instanceof IProfile) {
+                if (mOnAccountHeaderListener != null) {
+                    mOnAccountHeaderListener.onProfileChanged(view, (IProfile) drawerItem, isCurrentSelectedProfile);
                 }
-            }, 350);
+            }
 
             return !mCloseDrawerOnProfileListClick;
         }
