@@ -135,8 +135,7 @@ public class DrawerUIUtils {
      * @return
      */
     public static Drawable getPlaceHolder(Context ctx) {
-        int textColor = UIUtils.getThemeColorFromAttrOrRes(ctx, R.attr.material_drawer_primary_text, R.color.material_drawer_primary_text);
-        return new IconicsDrawable(ctx, GoogleMaterial.Icon.gmd_person).color(textColor).backgroundColorRes(R.color.primary).sizeDp(56).paddingDp(16);
+        return new IconicsDrawable(ctx, GoogleMaterial.Icon.gmd_person).colorRes(R.color.accent).backgroundColorRes(R.color.primary).sizeDp(56).paddingDp(16);
     }
 
 
