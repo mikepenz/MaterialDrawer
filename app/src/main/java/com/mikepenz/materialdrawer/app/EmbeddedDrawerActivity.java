@@ -12,7 +12,6 @@ import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.CompoundButton;
-import android.widget.FrameLayout;
 import android.widget.Toast;
 
 import com.mikepenz.google_material_typeface_library.GoogleMaterial;
@@ -116,7 +115,6 @@ public class EmbeddedDrawerActivity extends AppCompatActivity {
                 .withSavedInstance(savedInstanceState)
                 .build();
 
-        FrameLayout frameLayout = (FrameLayout) findViewById(R.id.drawer_container);
         DrawerBuilder builder = new DrawerBuilder()
                 .withActivity(this)
                 .withToolbar(toolbar)
@@ -170,7 +168,6 @@ public class EmbeddedDrawerActivity extends AppCompatActivity {
             result = builder.build();
         }
     }
-
 
     private OnCheckedChangeListener onCheckedChangeListener = new OnCheckedChangeListener() {
         @Override
