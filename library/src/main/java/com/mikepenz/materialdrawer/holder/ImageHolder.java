@@ -76,7 +76,7 @@ public class ImageHolder {
         } else if (mIconRes != -1) {
             imageView.setImageResource(mIconRes);
         } else if (mIIcon != null) {
-            imageView.setImageDrawable(new IconicsDrawable(imageView.getContext(), mIIcon).actionBarSize().paddingDp(1));
+            imageView.setImageDrawable(new IconicsDrawable(imageView.getContext(), mIIcon).actionBar());
         } else {
             imageView.setImageBitmap(null);
             return false;
