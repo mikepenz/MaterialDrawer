@@ -220,18 +220,8 @@ public class ProfileSettingDrawerItem extends AbstractDrawerItem<ProfileSettingD
             viewHolder.name.setTypeface(getTypeface());
         }
 
-        //get the correct icon
-        //can't use applyTo here because we want those icons to be colored
-        Drawable drawable = ImageHolder.decideIcon(icon, ctx, iconColor, isIconTinted(), 2);
-        if (drawable != null) {
-            viewHolder.icon.setImageDrawable(drawable);
-            viewHolder.icon.setVisibility(View.VISIBLE);
-        } else if (icon != null && icon.getBitmap() != null) {
-            viewHolder.icon.setImageBitmap(icon.getBitmap());
-            viewHolder.icon.setVisibility(View.VISIBLE);
-        } else {
-            viewHolder.icon.setVisibility(View.GONE);
-        }
+        //set the correct icon
+        ImageHolder.applyDecidedIconOrSetGone(icon, viewHolder.icon, iconColor, isIconTinted(), 2);
 
         //fix padding issues
         viewHolder.view.setPadding((int) UIUtils.convertDpToPixel(16, ctx), 0, (int) UIUtils.convertDpToPixel(16, ctx), 0);

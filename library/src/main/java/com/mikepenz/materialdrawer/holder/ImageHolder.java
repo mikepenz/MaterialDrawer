@@ -183,6 +183,32 @@ public class ImageHolder {
     }
 
     /**
+     * decides which icon to apply or hide this view
+     *
+     * @param imageHolder
+     * @param imageView
+     * @param iconColor
+     * @param tint
+     * @param paddingDp
+     */
+    public static void applyDecidedIconOrSetGone(ImageHolder imageHolder, ImageView imageView, int iconColor, boolean tint, int paddingDp) {
+        if (imageHolder != null && imageView != null) {
+            Drawable drawable = ImageHolder.decideIcon(imageHolder, imageView.getContext(), iconColor, tint, paddingDp);
+            if (drawable != null) {
+                imageView.setImageDrawable(drawable);
+                imageView.setVisibility(View.VISIBLE);
+            } else if (imageHolder.getBitmap() != null) {
+                imageView.setImageBitmap(imageHolder.getBitmap());
+                imageView.setVisibility(View.VISIBLE);
+            } else {
+                imageView.setVisibility(View.GONE);
+            }
+        } else if (imageView != null) {
+            imageView.setVisibility(View.GONE);
+        }
+    }
+
+    /**
      * a small static helper to set a multi state drawable on a view
      *
      * @param icon
