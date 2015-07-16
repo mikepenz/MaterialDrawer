@@ -30,7 +30,7 @@ public class DrawerUIUtils {
     public static ColorStateList getTextColorStateList(int text_color, int selected_text_color) {
         return new ColorStateList(
                 new int[][]{
-                        new int[]{android.R.attr.state_activated},
+                        new int[]{android.R.attr.state_selected},
                         new int[]{}
                 },
                 new int[]{
@@ -49,7 +49,7 @@ public class DrawerUIUtils {
      */
     public static StateListDrawable getIconStateList(Drawable icon, Drawable selectedIcon) {
         StateListDrawable iconStateListDrawable = new StateListDrawable();
-        iconStateListDrawable.addState(new int[]{android.R.attr.state_activated}, selectedIcon);
+        iconStateListDrawable.addState(new int[]{android.R.attr.state_selected}, selectedIcon);
         iconStateListDrawable.addState(new int[]{}, icon);
         return iconStateListDrawable;
     }
