@@ -226,6 +226,11 @@ public abstract class BaseDrawerAdapter extends RecyclerView.Adapter<RecyclerVie
                 cur.withSetSelected(true);
             }
             notifyItemChanged(pos);
+
+            if (v != null) {
+                v.setSelected(true);
+                v.invalidate();
+            }
         }
         previousSelection = pos;
     }
