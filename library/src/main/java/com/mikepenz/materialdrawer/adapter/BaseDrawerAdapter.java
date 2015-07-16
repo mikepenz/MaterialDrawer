@@ -92,6 +92,20 @@ public abstract class BaseDrawerAdapter extends RecyclerView.Adapter<RecyclerVie
         notifyItemRangeRemoved(getHeaderItemCount(), count);
     }
 
+    public void clearHeaderItems() {
+        int size = mHeaderDrawerItems.size();
+        mHeaderDrawerItems.clear();
+        if (size > 0) {
+            notifyItemRemoved(0);
+        }
+    }
+
+    public void clearFooterItems() {
+        int count = mFooterDrawerItems.size();
+        mFooterDrawerItems.clear();
+        notifyItemRangeRemoved(getHeaderItemCount() + getDrawerItemCount(), count);
+    }
+
     public ArrayList<IDrawerItem> getHeaderDrawerItems() {
         return mHeaderDrawerItems;
     }

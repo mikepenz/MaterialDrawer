@@ -17,6 +17,7 @@ import android.widget.RelativeLayout;
 
 import com.mikepenz.iconics.typeface.IIcon;
 import com.mikepenz.materialdrawer.adapter.BaseDrawerAdapter;
+import com.mikepenz.materialdrawer.model.ContainerDrawerItem;
 import com.mikepenz.materialdrawer.model.interfaces.Badgeable;
 import com.mikepenz.materialdrawer.model.interfaces.IDrawerItem;
 import com.mikepenz.materialdrawer.model.interfaces.Iconable;
@@ -229,34 +230,15 @@ public class Drawer {
      * @param view
      */
     public void setHeader(@NonNull View view) {
-        //TODO add headers as DrawerItems
-        /*
-        if (getListView() != null) {
-            BaseDrawerAdapter adapter = getAdapter();
-            getListView().setAdapter(null);
-            if (getHeader() != null) {
-                getListView().removeHeaderView(getHeader());
-            }
-            getListView().addHeaderView(view);
-            getListView().setAdapter(adapter);
-            mDrawerBuilder.mHeaderView = view;
-            mDrawerBuilder.mHeaderOffset = 1;
-        }
-        */
+        getAdapter().clearHeaderItems();
+        getAdapter().addHeaderDrawerItems(new ContainerDrawerItem().withView(view).withViewPosition(ContainerDrawerItem.Position.TOP));
     }
 
     /**
      * method to remove the header of the list
      */
     public void removeHeader() {
-        //TODO add headers as DrawerItems
-        /*
-        if (getListView() != null && getHeader() != null) {
-            getListView().removeHeaderView(getHeader());
-            mDrawerBuilder.mHeaderView = null;
-            mDrawerBuilder.mHeaderOffset = 0;
-        }
-        */
+        getAdapter().clearHeaderItems();
     }
 
     /**
