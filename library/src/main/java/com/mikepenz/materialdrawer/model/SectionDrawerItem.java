@@ -122,7 +122,6 @@ public class SectionDrawerItem extends AbstractDrawerItem<SectionDrawerItem> imp
 
         //set the color for the divider
         viewHolder.divider.setBackgroundColor(UIUtils.getThemeColorFromAttrOrRes(ctx, R.attr.material_drawer_divider, R.color.material_drawer_divider));
-
     }
 
     @Override

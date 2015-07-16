@@ -2,7 +2,11 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="@dimen/material_drawer_item_profile">
+    android:layout_height="@dimen/material_drawer_item_profile"
+    android:paddingEnd="@dimen/material_drawer_vertical_padding"
+    android:paddingLeft="@dimen/material_drawer_vertical_padding"
+    android:paddingRight="@dimen/material_drawer_vertical_padding"
+    android:paddingStart="@dimen/material_drawer_vertical_padding">
 
     <ImageView
         android:id="@+id/icon"
@@ -11,17 +15,13 @@
         android:layout_gravity="center_vertical"
         android:layout_marginBottom="@dimen/material_drawer_item_profile_setting_icon_padding"
         android:layout_marginEnd="@dimen/material_drawer_item_profile_setting_icon_padding_right"
-        android:layout_marginLeft="@dimen/material_drawer_vertical_padding"
         android:layout_marginRight="@dimen/material_drawer_item_profile_setting_icon_padding_right"
-        android:layout_marginStart="@dimen/material_drawer_vertical_padding"
         android:layout_marginTop="@dimen/material_drawer_item_profile_setting_icon_padding" />
 
     <TextView
         android:id="@+id/name"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_marginEnd="@dimen/material_drawer_padding"
-        android:layout_marginRight="@dimen/material_drawer_padding"
         android:layout_toEndOf="@id/icon"
         android:layout_toRightOf="@id/icon"
         android:fontFamily="sans-serif"

@@ -232,6 +232,9 @@ public class ProfileSettingDrawerItem extends AbstractDrawerItem<ProfileSettingD
         } else {
             viewHolder.icon.setVisibility(View.GONE);
         }
+
+        //fix padding issues
+        viewHolder.view.setPadding((int) UIUtils.convertDpToPixel(16, ctx), 0, (int) UIUtils.convertDpToPixel(16, ctx), 0);
     }
 
     @Override

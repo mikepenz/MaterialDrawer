@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="@dimen/material_drawer_item_profile"
     android:layout_height="64dp"
     android:paddingBottom="4dp"
@@ -16,4 +16,4 @@
         android:layout_gravity="center"
         android:padding="16dp"
         android:scaleType="centerInside" />
-</RelativeLayout>
+</LinearLayout>
