@@ -274,8 +274,8 @@ public class Drawer {
      * @param drawerItem
      * @return
      */
-    public int getPositionByIdentifier(@NonNull IDrawerItem drawerItem) {
-        return getPositionByIdentifier(drawerItem.getIdentifier());
+    public int getPosition(@NonNull IDrawerItem drawerItem) {
+        return getPosition(drawerItem.getIdentifier());
     }
 
     /**
@@ -284,7 +284,7 @@ public class Drawer {
      * @param identifier
      * @return
      */
-    public int getPositionByIdentifier(int identifier) {
+    public int getPosition(int identifier) {
         return DrawerUtils.getPositionByIdentifier(mDrawerBuilder, identifier);
     }
 
@@ -294,8 +294,8 @@ public class Drawer {
      * @param identifier
      * @return
      */
-    public IDrawerItem getDrawerItemByIdentifier(int identifier) {
-        return getAdapter().getItem(getPositionByIdentifier(identifier));
+    public IDrawerItem getDrawerItem(int identifier) {
+        return getAdapter().getItem(getPosition(identifier));
     }
 
     /**
@@ -304,8 +304,8 @@ public class Drawer {
      * @param drawerItem
      * @return
      */
-    public int getFooterPositionByIdentifier(@NonNull IDrawerItem drawerItem) {
-        return getFooterPositionByIdentifier(drawerItem.getIdentifier());
+    public int getFooterPosition(@NonNull IDrawerItem drawerItem) {
+        return getFooterPosition(drawerItem.getIdentifier());
     }
 
     /**
@@ -314,7 +314,7 @@ public class Drawer {
      * @param identifier
      * @return
      */
-    public int getFooterPositionByIdentifier(int identifier) {
+    public int getFooterPosition(int identifier) {
         return DrawerUtils.getFooterPositionByIdentifier(mDrawerBuilder, identifier);
     }
 
@@ -342,8 +342,8 @@ public class Drawer {
      *
      * @param identifier
      */
-    public boolean setSelectionByIdentifier(int identifier) {
-        return setSelection(getPositionByIdentifier(identifier), true);
+    public boolean setSelection(int identifier) {
+        return setSelectionAtPosition(getPosition(identifier), true);
     }
 
     /**
@@ -353,8 +353,8 @@ public class Drawer {
      * @param identifier
      * @param fireOnClick
      */
-    public boolean setSelectionByIdentifier(int identifier, boolean fireOnClick) {
-        return setSelection(getPositionByIdentifier(identifier), fireOnClick);
+    public boolean setSelection(int identifier, boolean fireOnClick) {
+        return setSelectionAtPosition(getPosition(identifier), fireOnClick);
     }
 
     /**
@@ -364,8 +364,8 @@ public class Drawer {
      * @param identifier
      * @param fireOnClick
      */
-    public void setFooterSelectionByIdentifier(int identifier, boolean fireOnClick) {
-        setFooterSelection(getPositionByIdentifier(identifier), fireOnClick);
+    public void setFooterSelection(int identifier, boolean fireOnClick) {
+        setFooterSelectionAtPosition(getPosition(identifier), fireOnClick);
     }
 
     /**
@@ -375,7 +375,7 @@ public class Drawer {
      * @param drawerItem
      */
     public boolean setSelection(@NonNull IDrawerItem drawerItem) {
-        return setSelection(getPositionByIdentifier(drawerItem), true);
+        return setSelectionAtPosition(getPosition(drawerItem), true);
     }
 
     /**
@@ -386,7 +386,7 @@ public class Drawer {
      * @param fireOnClick
      */
     public boolean setSelection(@NonNull IDrawerItem drawerItem, boolean fireOnClick) {
-        return setSelection(getPositionByIdentifier(drawerItem), fireOnClick);
+        return setSelectionAtPosition(getPosition(drawerItem), fireOnClick);
     }
 
     /**
@@ -395,8 +395,8 @@ public class Drawer {
      *
      * @param position the position to select
      */
-    public boolean setSelection(int position) {
-        return setSelection(position, true);
+    public boolean setSelectionAtPosition(int position) {
+        return setSelectionAtPosition(position, true);
     }
 
     /*
@@ -407,7 +407,7 @@ public class Drawer {
      * @param fireOnClick
      * @return true if the event was consumed
      */
-    public boolean setSelection(int position, boolean fireOnClick) {
+    public boolean setSelectionAtPosition(int position, boolean fireOnClick) {
         if (mDrawerBuilder.mRecyclerView != null) {
             return DrawerUtils.setRecyclerViewSelection(mDrawerBuilder, position, fireOnClick, mDrawerBuilder.getDrawerItem(position));
         }
@@ -420,8 +420,8 @@ public class Drawer {
      *
      * @param position the position to select
      */
-    public void setFooterSelection(int position) {
-        setFooterSelection(position, true);
+    public void setFooterSelectionAtPosition(int position) {
+        setFooterSelectionAtPosition(position, true);
     }
 
     /**
@@ -431,7 +431,7 @@ public class Drawer {
      * @param position
      * @param fireOnClick
      */
-    public void setFooterSelection(int position, boolean fireOnClick) {
+    public void setFooterSelectionAtPosition(int position, boolean fireOnClick) {
         DrawerUtils.setFooterSelection(mDrawerBuilder, position, fireOnClick);
     }
 
@@ -442,7 +442,7 @@ public class Drawer {
      * @param drawerItem
      */
     public void updateItem(@NonNull IDrawerItem drawerItem) {
-        updateItem(drawerItem, getPositionByIdentifier(drawerItem));
+        updateItemAtPosition(drawerItem, getPosition(drawerItem));
     }
 
     /**
@@ -451,7 +451,7 @@ public class Drawer {
      * @param drawerItem
      * @param position
      */
-    public void updateItem(@NonNull IDrawerItem drawerItem, int position) {
+    public void updateItemAtPosition(@NonNull IDrawerItem drawerItem, int position) {
         if (mDrawerBuilder.checkDrawerItem(position, false)) {
             mDrawerBuilder.getAdapter().setDrawerItem(position, drawerItem);
         }
@@ -472,7 +472,7 @@ public class Drawer {
      * @param drawerItem
      * @param position
      */
-    public void addItem(@NonNull IDrawerItem drawerItem, int position) {
+    public void addItemAtPosition(@NonNull IDrawerItem drawerItem, int position) {
         mDrawerBuilder.getAdapter().addDrawerItem(position, drawerItem);
     }
 
@@ -482,7 +482,7 @@ public class Drawer {
      * @param drawerItem
      * @param position
      */
-    public void setItem(@NonNull IDrawerItem drawerItem, int position) {
+    public void setItemAtPosition(@NonNull IDrawerItem drawerItem, int position) {
         mDrawerBuilder.getAdapter().addDrawerItem(position, drawerItem);
     }
 
@@ -491,7 +491,19 @@ public class Drawer {
      *
      * @param position
      */
-    public void removeItem(int position) {
+    public void removeItemByPosition(int position) {
+        if (mDrawerBuilder.checkDrawerItem(position, false)) {
+            mDrawerBuilder.getAdapter().removeDrawerItem(position);
+        }
+    }
+
+    /**
+     * Remove a drawerItem by the identifier
+     *
+     * @param identifier
+     */
+    public void removeItem(int identifier) {
+        int position = getPosition(identifier);
         if (mDrawerBuilder.checkDrawerItem(position, false)) {
             mDrawerBuilder.getAdapter().removeDrawerItem(position);
         }
@@ -543,9 +555,10 @@ public class Drawer {
      * Update the name of a drawer item if its an instance of nameable
      *
      * @param nameRes
-     * @param position
+     * @param identifier
      */
-    public void updateName(@StringRes int nameRes, int position) {
+    public void updateName(@StringRes int nameRes, int identifier) {
+        int position = getPosition(identifier);
         if (mDrawerBuilder.checkDrawerItem(position, false)) {
             IDrawerItem drawerItem = mDrawerBuilder.getDrawerItem(position);
 
@@ -561,9 +574,10 @@ public class Drawer {
      * Update the name of a drawer item if its an instance of nameable
      *
      * @param name
-     * @param position
+     * @param identifier
      */
-    public void updateName(String name, int position) {
+    public void updateName(String name, int identifier) {
+        int position = getPosition(identifier);
         if (mDrawerBuilder.checkDrawerItem(position, false)) {
             IDrawerItem drawerItem = mDrawerBuilder.getDrawerItem(position);
 
@@ -579,9 +593,10 @@ public class Drawer {
      * Update the badge of a drawer item if its an instance of badgeable
      *
      * @param badge
-     * @param position
+     * @param identifier
      */
-    public void updateBadge(String badge, int position) {
+    public void updateBadge(String badge, int identifier) {
+        int position = getPosition(identifier);
         if (mDrawerBuilder.checkDrawerItem(position, false)) {
             IDrawerItem drawerItem = mDrawerBuilder.getDrawerItem(position);
 
@@ -597,9 +612,10 @@ public class Drawer {
      * Update the icon of a drawer item if its an instance of iconable
      *
      * @param icon
-     * @param position
+     * @param identifier
      */
-    public void updateIcon(Drawable icon, int position) {
+    public void updateIcon(Drawable icon, int identifier) {
+        int position = getPosition(identifier);
         if (mDrawerBuilder.checkDrawerItem(position, false)) {
             IDrawerItem drawerItem = mDrawerBuilder.getDrawerItem(position);
 
@@ -615,9 +631,10 @@ public class Drawer {
      * Update the icon of a drawer item from an iconRes
      *
      * @param iconRes
-     * @param position
+     * @param identifier
      */
-    public void updateIcon(@DrawableRes int iconRes, int position) {
+    public void updateIcon(@DrawableRes int iconRes, int identifier) {
+        int position = getPosition(identifier);
         if (mDrawerBuilder.mRootView != null && mDrawerBuilder.checkDrawerItem(position, false)) {
             IDrawerItem drawerItem = mDrawerBuilder.getDrawerItem(position);
 
@@ -633,9 +650,10 @@ public class Drawer {
      * Update the icon of a drawer item if its an instance of iconable
      *
      * @param icon
-     * @param position
+     * @param identifier
      */
-    public void updateIcon(@NonNull IIcon icon, int position) {
+    public void updateIcon(@NonNull IIcon icon, int identifier) {
+        int position = getPosition(identifier);
         if (mDrawerBuilder.checkDrawerItem(position, false)) {
             IDrawerItem drawerItem = mDrawerBuilder.getDrawerItem(position);
 
@@ -654,7 +672,7 @@ public class Drawer {
      * @param drawerItem
      */
     public void updateFooterItem(@NonNull IDrawerItem drawerItem) {
-        updateFooterItem(drawerItem, getFooterPositionByIdentifier(drawerItem));
+        updateFooterItemAtPosition(drawerItem, getFooterPosition(drawerItem));
     }
 
     /**
@@ -663,7 +681,7 @@ public class Drawer {
      * @param drawerItem
      * @param position
      */
-    public void updateFooterItem(@NonNull IDrawerItem drawerItem, int position) {
+    public void updateFooterItemAtPosition(@NonNull IDrawerItem drawerItem, int position) {
         if (mDrawerBuilder.mStickyDrawerItems != null && mDrawerBuilder.mStickyDrawerItems.size() > position) {
             mDrawerBuilder.mStickyDrawerItems.set(position, drawerItem);
         }
@@ -692,7 +710,7 @@ public class Drawer {
      * @param drawerItem
      * @param position
      */
-    public void addFooterItem(@NonNull IDrawerItem drawerItem, int position) {
+    public void addFooterItemAtPosition(@NonNull IDrawerItem drawerItem, int position) {
         if (mDrawerBuilder.mStickyDrawerItems == null) {
             mDrawerBuilder.mStickyDrawerItems = new ArrayList<>();
         }
@@ -707,7 +725,7 @@ public class Drawer {
      * @param drawerItem
      * @param position
      */
-    public void setFooterItem(@NonNull IDrawerItem drawerItem, int position) {
+    public void setFooterItemAtPosition(@NonNull IDrawerItem drawerItem, int position) {
         if (mDrawerBuilder.mStickyDrawerItems != null && mDrawerBuilder.mStickyDrawerItems.size() > position) {
             mDrawerBuilder.mStickyDrawerItems.set(position, drawerItem);
         }
@@ -721,7 +739,7 @@ public class Drawer {
      *
      * @param position
      */
-    public void removeFooterItem(int position) {
+    public void removeFooterItemAtPosition(int position) {
         if (mDrawerBuilder.mStickyDrawerItems != null && mDrawerBuilder.mStickyDrawerItems.size() > position) {
             mDrawerBuilder.mStickyDrawerItems.remove(position);
         }
@@ -805,7 +823,7 @@ public class Drawer {
             //set the new items
             setOnDrawerItemClickListener(onDrawerItemClickListener);
             setItems(drawerItems, true);
-            setSelection(getAdapter().getHeaderItemCount() + drawerSelection, false);
+            setSelectionAtPosition(getAdapter().getHeaderItemCount() + drawerSelection, false);
 
             if (getStickyFooter() != null) {
                 getStickyFooter().setVisibility(View.GONE);
@@ -821,7 +839,7 @@ public class Drawer {
             //set the new items
             setOnDrawerItemClickListener(originalOnDrawerItemClickListener);
             setItems(originalDrawerItems, true);
-            setSelection(originalDrawerSelection, false);
+            setSelectionAtPosition(originalDrawerSelection, false);
             //remove the references
             originalOnDrawerItemClickListener = null;
             originalDrawerItems = null;

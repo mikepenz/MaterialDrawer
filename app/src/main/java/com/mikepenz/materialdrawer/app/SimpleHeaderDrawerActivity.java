@@ -173,7 +173,7 @@ public class SimpleHeaderDrawerActivity extends AppCompatActivity {
         //only set the active selection or active profile if we do not recreate the activity
         if (savedInstanceState == null) {
             // set the selection to the item with the identifier 11
-            result.setSelectionByIdentifier(11, false);
+            result.setSelection(11, false);
 
             //set the active profile
             headerResult.setActiveProfile(profile3);
