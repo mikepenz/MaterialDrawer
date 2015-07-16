@@ -135,7 +135,7 @@ class DrawerUtils {
      * @param identifier
      * @return
      */
-    public static int getPositionFromIdentifier(DrawerBuilder drawer, int identifier) {
+    public static int getPositionByIdentifier(DrawerBuilder drawer, int identifier) {
         if (identifier >= 0) {
             BaseDrawerAdapter adapter = drawer.getAdapter();
             for (int i = 0; i < adapter.getItemCount(); i++) {
@@ -154,7 +154,7 @@ class DrawerUtils {
      * @param identifier
      * @return
      */
-    public static int getFooterPositionFromIdentifier(DrawerBuilder drawer, int identifier) {
+    public static int getFooterPositionByIdentifier(DrawerBuilder drawer, int identifier) {
         if (identifier >= 0) {
             if (drawer.mStickyFooterView != null && drawer.mStickyFooterView instanceof LinearLayout) {
                 LinearLayout footer = (LinearLayout) drawer.mStickyFooterView;

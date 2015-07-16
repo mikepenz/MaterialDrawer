@@ -288,8 +288,8 @@ public class Drawer {
      * @param drawerItem
      * @return
      */
-    public int getPositionFromIdentifier(IDrawerItem drawerItem) {
-        return getPositionFromIdentifier(drawerItem.getIdentifier());
+    public int getPositionByIdentifier(IDrawerItem drawerItem) {
+        return getPositionByIdentifier(drawerItem.getIdentifier());
     }
 
     /**
@@ -298,8 +298,18 @@ public class Drawer {
      * @param identifier
      * @return
      */
-    public int getPositionFromIdentifier(int identifier) {
-        return DrawerUtils.getPositionFromIdentifier(mDrawerBuilder, identifier);
+    public int getPositionByIdentifier(int identifier) {
+        return DrawerUtils.getPositionByIdentifier(mDrawerBuilder, identifier);
+    }
+
+    /**
+     * return sthe DrawerItem by the given identifier
+     *
+     * @param identifier
+     * @return
+     */
+    public IDrawerItem getDrawerItemByIdentifier(int identifier) {
+        return getAdapter().getItem(getPositionByIdentifier(identifier));
     }
 
     /**
@@ -308,8 +318,8 @@ public class Drawer {
      * @param drawerItem
      * @return
      */
-    public int getFooterPositionFromIdentifier(IDrawerItem drawerItem) {
-        return getFooterPositionFromIdentifier(drawerItem.getIdentifier());
+    public int getFooterPositionByIdentifier(IDrawerItem drawerItem) {
+        return getFooterPositionByIdentifier(drawerItem.getIdentifier());
     }
 
     /**
@@ -318,8 +328,8 @@ public class Drawer {
      * @param identifier
      * @return
      */
-    public int getFooterPositionFromIdentifier(int identifier) {
-        return com.mikepenz.materialdrawer.DrawerUtils.getFooterPositionFromIdentifier(mDrawerBuilder, identifier);
+    public int getFooterPositionByIdentifier(int identifier) {
+        return DrawerUtils.getFooterPositionByIdentifier(mDrawerBuilder, identifier);
     }
 
     /**
@@ -347,7 +357,7 @@ public class Drawer {
      * @param identifier
      */
     public boolean setSelectionByIdentifier(int identifier) {
-        return setSelection(getPositionFromIdentifier(identifier), true);
+        return setSelection(getPositionByIdentifier(identifier), true);
     }
 
     /**
@@ -358,7 +368,7 @@ public class Drawer {
      * @param fireOnClick
      */
     public boolean setSelectionByIdentifier(int identifier, boolean fireOnClick) {
-        return setSelection(getPositionFromIdentifier(identifier), fireOnClick);
+        return setSelection(getPositionByIdentifier(identifier), fireOnClick);
     }
 
     /**
@@ -369,7 +379,7 @@ public class Drawer {
      * @param fireOnClick
      */
     public void setFooterSelectionByIdentifier(int identifier, boolean fireOnClick) {
-        setFooterSelection(getPositionFromIdentifier(identifier), fireOnClick);
+        setFooterSelection(getPositionByIdentifier(identifier), fireOnClick);
     }
 
     /**
@@ -379,7 +389,7 @@ public class Drawer {
      * @param drawerItem
      */
     public boolean setSelection(IDrawerItem drawerItem) {
-        return setSelection(getPositionFromIdentifier(drawerItem), true);
+        return setSelection(getPositionByIdentifier(drawerItem), true);
     }
 
     /**
@@ -390,7 +400,7 @@ public class Drawer {
      * @param fireOnClick
      */
     public boolean setSelection(IDrawerItem drawerItem, boolean fireOnClick) {
-        return setSelection(getPositionFromIdentifier(drawerItem), fireOnClick);
+        return setSelection(getPositionByIdentifier(drawerItem), fireOnClick);
     }
 
     /**
@@ -436,7 +446,7 @@ public class Drawer {
      * @param fireOnClick
      */
     public void setFooterSelection(int position, boolean fireOnClick) {
-        com.mikepenz.materialdrawer.DrawerUtils.setFooterSelection(mDrawerBuilder, position, fireOnClick);
+        DrawerUtils.setFooterSelection(mDrawerBuilder, position, fireOnClick);
     }
 
     /**
@@ -446,7 +456,7 @@ public class Drawer {
      * @param drawerItem
      */
     public void updateItem(IDrawerItem drawerItem) {
-        updateItem(drawerItem, getPositionFromIdentifier(drawerItem));
+        updateItem(drawerItem, getPositionByIdentifier(drawerItem));
     }
 
     /**
@@ -658,7 +668,7 @@ public class Drawer {
      * @param drawerItem
      */
     public void updateFooterItem(IDrawerItem drawerItem) {
-        updateFooterItem(drawerItem, getFooterPositionFromIdentifier(drawerItem));
+        updateFooterItem(drawerItem, getFooterPositionByIdentifier(drawerItem));
     }
 
     /**
@@ -672,7 +682,7 @@ public class Drawer {
             mDrawerBuilder.mStickyDrawerItems.set(position, drawerItem);
         }
 
-        com.mikepenz.materialdrawer.DrawerUtils.rebuildFooterView(mDrawerBuilder);
+        DrawerUtils.rebuildFooterView(mDrawerBuilder);
     }
 
 
@@ -687,7 +697,7 @@ public class Drawer {
         }
         mDrawerBuilder.mStickyDrawerItems.add(drawerItem);
 
-        com.mikepenz.materialdrawer.DrawerUtils.rebuildFooterView(mDrawerBuilder);
+        DrawerUtils.rebuildFooterView(mDrawerBuilder);
     }
 
     /**
@@ -702,7 +712,7 @@ public class Drawer {
         }
         mDrawerBuilder.mStickyDrawerItems.add(position, drawerItem);
 
-        com.mikepenz.materialdrawer.DrawerUtils.rebuildFooterView(mDrawerBuilder);
+        DrawerUtils.rebuildFooterView(mDrawerBuilder);
     }
 
     /**
@@ -716,7 +726,7 @@ public class Drawer {
             mDrawerBuilder.mStickyDrawerItems.set(position, drawerItem);
         }
 
-        com.mikepenz.materialdrawer.DrawerUtils.rebuildFooterView(mDrawerBuilder);
+        DrawerUtils.rebuildFooterView(mDrawerBuilder);
     }
 
 
@@ -730,7 +740,7 @@ public class Drawer {
             mDrawerBuilder.mStickyDrawerItems.remove(position);
         }
 
-        com.mikepenz.materialdrawer.DrawerUtils.rebuildFooterView(mDrawerBuilder);
+        DrawerUtils.rebuildFooterView(mDrawerBuilder);
     }
 
     /**
