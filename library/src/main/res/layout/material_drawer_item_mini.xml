@@ -14,5 +14,6 @@
         android:layout_width="56dp"
         android:layout_height="56dp"
         android:layout_gravity="center"
-        android:padding="16dp" />
+        android:padding="16dp"
+        android:scaleType="centerInside" />
 </RelativeLayout>

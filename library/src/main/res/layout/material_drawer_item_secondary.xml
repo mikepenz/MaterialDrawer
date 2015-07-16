@@ -2,11 +2,7 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="@dimen/material_drawer_item_secondary"
-    android:paddingEnd="@dimen/material_drawer_vertical_padding"
-    android:paddingLeft="@dimen/material_drawer_vertical_padding"
-    android:paddingRight="@dimen/material_drawer_vertical_padding"
-    android:paddingStart="@dimen/material_drawer_vertical_padding">
+    android:layout_height="@dimen/material_drawer_item_secondary">
 
     <ImageView
         android:id="@+id/icon"
@@ -16,7 +12,9 @@
         android:layout_alignParentStart="true"
         android:layout_gravity="center_vertical"
         android:layout_marginEnd="@dimen/material_drawer_item_secondary_icon_margin_right"
+        android:layout_marginLeft="@dimen/material_drawer_vertical_padding"
         android:layout_marginRight="@dimen/material_drawer_item_secondary_icon_margin_right"
+        android:layout_marginStart="@dimen/material_drawer_vertical_padding"
         android:paddingBottom="@dimen/material_drawer_item_secondary_icon_padding"
         android:paddingTop="@dimen/material_drawer_item_secondary_icon_padding" />
 
@@ -41,7 +39,9 @@
         android:layout_height="match_parent"
         android:layout_alignParentEnd="true"
         android:layout_alignParentRight="true"
+        android:layout_marginEnd="@dimen/material_drawer_padding"
         android:layout_marginLeft="@dimen/material_drawer_padding"
+        android:layout_marginRight="@dimen/material_drawer_padding"
         android:layout_marginStart="@dimen/material_drawer_padding"
         android:fontFamily="sans-serif"
         android:gravity="center_vertical|end"
