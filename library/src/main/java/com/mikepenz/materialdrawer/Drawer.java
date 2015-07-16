@@ -764,7 +764,7 @@ public class Drawer {
      *
      * @param onDrawerItemClickListener
      */
-    public void setOnDrawerItemClickListener(@NonNull OnDrawerItemClickListener onDrawerItemClickListener) {
+    public void setOnDrawerItemClickListener(OnDrawerItemClickListener onDrawerItemClickListener) {
         mDrawerBuilder.mOnDrawerItemClickListener = onDrawerItemClickListener;
     }
 
@@ -782,7 +782,7 @@ public class Drawer {
      *
      * @param onDrawerItemLongClickListener
      */
-    public void setOnDrawerItemLongClickListener(@NonNull OnDrawerItemLongClickListener onDrawerItemLongClickListener) {
+    public void setOnDrawerItemLongClickListener(OnDrawerItemLongClickListener onDrawerItemLongClickListener) {
         mDrawerBuilder.mOnDrawerItemLongClickListener = onDrawerItemLongClickListener;
     }
 
@@ -801,8 +801,22 @@ public class Drawer {
     private ArrayList<IDrawerItem> originalDrawerItems;
     private int originalDrawerSelection = -1;
 
+    /**
+     * information if the current drawer content is switched by alternative content (profileItems)
+     *
+     * @return
+     */
     public boolean switchedDrawerContent() {
         return !(originalOnDrawerItemClickListener == null && originalDrawerItems == null && originalDrawerSelection == -1);
+    }
+
+    /**
+     * get the original list of drawerItems
+     *
+     * @return
+     */
+    public ArrayList<IDrawerItem> getOriginalDrawerItems() {
+        return originalDrawerItems;
     }
 
     /**

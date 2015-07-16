@@ -18,6 +18,8 @@ import com.mikepenz.materialdrawer.util.CrossFader;
 import com.mikepenz.materialdrawer.util.DrawerUIUtils;
 import com.mikepenz.materialize.util.UIUtils;
 
+import java.util.ArrayList;
+
 /**
  * Created by mikepenz on 15.07.15.
  * Don't count this for real yet. it's just a quick try on creating a Gmail like panel
@@ -77,7 +79,6 @@ public class MiniDrawer {
                     @Override
                     public void onClick(View v) {
                         if (mCrossFader != null) {
-                            mAccountHeader.toggleSelectionList(v.getContext());
                             mCrossFader.crossFade();
                         }
                     }
@@ -90,7 +91,13 @@ public class MiniDrawer {
         if (mDrawer != null) {
             if (mDrawer.getDrawerItems() != null) {
                 int selected_color = UIUtils.getThemeColorFromAttrOrRes(ctx, R.attr.material_drawer_selected, R.color.material_drawer_selected);
-                for (IDrawerItem drawerItem : mDrawer.getDrawerItems()) {
+
+                ArrayList<IDrawerItem> drawerItems = mDrawer.getDrawerItems();
+                if (mDrawer.switchedDrawerContent()) {
+                    drawerItems = mDrawer.getOriginalDrawerItems();
+                }
+
+                for (IDrawerItem drawerItem : drawerItems) {
                     if (drawerItem instanceof PrimaryDrawerItem) {
                         PrimaryDrawerItem primaryDrawerItem = (PrimaryDrawerItem) drawerItem;
 
