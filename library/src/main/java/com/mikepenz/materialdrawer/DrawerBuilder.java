@@ -17,6 +17,7 @@ import android.support.v7.widget.DefaultItemAnimator;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
+import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
@@ -1383,7 +1384,7 @@ public class DrawerBuilder {
 
         // if we have an adapter (either by defining a custom one or the included one add a list :D
         if (mRecyclerView == null) {
-            mRecyclerView = new RecyclerView(mActivity);
+            mRecyclerView = (RecyclerView) LayoutInflater.from(mActivity).inflate(R.layout.material_drawer_recycler_view, mSliderLayout, false);
             //set the itemAnimator
             if (mItemAnimator == null) {
                 mRecyclerView.setItemAnimator(new DefaultItemAnimator());
