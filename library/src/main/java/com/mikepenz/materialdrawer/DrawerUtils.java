@@ -383,13 +383,7 @@ class DrawerUtils {
                 }
             }
 
-            if (drawer.mTranslucentActionBarCompatibility) {
-                int topMargin = UIUtils.getActionBarHeight(drawer.mActivity);
-                if (drawer.mTranslucentStatusBar) {
-                    topMargin = topMargin + UIUtils.getStatusBarHeight(drawer.mActivity);
-                }
-                params.topMargin = topMargin;
-            } else if (drawer.mDisplayBelowStatusBar != null && drawer.mDisplayBelowStatusBar) {
+            if (drawer.mDisplayBelowStatusBar != null && drawer.mDisplayBelowStatusBar) {
                 params.topMargin = UIUtils.getStatusBarHeight(drawer.mActivity, true);
             }
 

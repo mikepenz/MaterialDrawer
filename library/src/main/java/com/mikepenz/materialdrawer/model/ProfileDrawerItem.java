@@ -5,6 +5,9 @@ import android.graphics.Bitmap;
 import android.graphics.Typeface;
 import android.graphics.drawable.Drawable;
 import android.net.Uri;
+import android.support.annotation.ColorInt;
+import android.support.annotation.ColorRes;
+import android.support.annotation.LayoutRes;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
 import android.widget.ImageView;
@@ -73,22 +76,22 @@ public class ProfileDrawerItem extends AbstractDrawerItem<ProfileDrawerItem> imp
         return this;
     }
 
-    public ProfileDrawerItem withSelectedColor(int selectedColor) {
+    public ProfileDrawerItem withSelectedColor(@ColorInt int selectedColor) {
         this.selectedColor = ColorHolder.fromColor(selectedColor);
         return this;
     }
 
-    public ProfileDrawerItem withSelectedColorRes(int selectedColorRes) {
+    public ProfileDrawerItem withSelectedColorRes(@ColorRes int selectedColorRes) {
         this.selectedColor = ColorHolder.fromColorRes(selectedColorRes);
         return this;
     }
 
-    public ProfileDrawerItem withTextColor(int textColor) {
+    public ProfileDrawerItem withTextColor(@ColorInt int textColor) {
         this.textColor = ColorHolder.fromColor(textColor);
         return this;
     }
 
-    public ProfileDrawerItem withTextColorRes(int textColorRes) {
+    public ProfileDrawerItem withTextColorRes(@ColorRes int textColorRes) {
         this.textColor = ColorHolder.fromColorRes(textColorRes);
         return this;
     }
@@ -147,6 +150,7 @@ public class ProfileDrawerItem extends AbstractDrawerItem<ProfileDrawerItem> imp
     }
 
     @Override
+    @LayoutRes
     public int getLayoutRes() {
         return R.layout.material_drawer_item_profile;
     }

@@ -7,7 +7,14 @@ import android.os.Build;
 import android.os.Bundle;
 import android.os.Handler;
 import android.preference.PreferenceManager;
+import android.support.annotation.ColorInt;
+import android.support.annotation.ColorRes;
+import android.support.annotation.DimenRes;
+import android.support.annotation.DrawableRes;
+import android.support.annotation.IdRes;
+import android.support.annotation.LayoutRes;
 import android.support.annotation.MenuRes;
+import android.support.annotation.NonNull;
 import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
@@ -66,24 +73,24 @@ public class DrawerBuilder {
     }
 
     /**
-     * constructor with activity instead of
+     * Construct a Drawer by passing the activity to use for the generation
      *
-     * @param activity
+     * @param activity current activity which will contain the drawer
      */
-    public DrawerBuilder(Activity activity) {
+    public DrawerBuilder(@NonNull Activity activity) {
         this.mRootView = (ViewGroup) activity.findViewById(android.R.id.content);
         this.mActivity = activity;
         this.mLayoutManager = new LinearLayoutManager(mActivity);
     }
 
     /**
-     * Pass the activity you use the drawer in ;)
-     * This is required if you want to set any values by resource
+     * Sets the activity which will be generated for the generation
+     * The activity is required and will be used to inflate the content in.
+     * After generation it is set to null to prevent a memory leak.
      *
-     * @param activity
-     * @return
+     * @param activity current activity which will contain the drawer
      */
-    public DrawerBuilder withActivity(Activity activity) {
+    public DrawerBuilder withActivity(@NonNull Activity activity) {
         this.mRootView = (ViewGroup) activity.findViewById(android.R.id.content);
         this.mActivity = activity;
         this.mLayoutManager = new LinearLayoutManager(mActivity);
@@ -91,12 +98,12 @@ public class DrawerBuilder {
     }
 
     /**
-     * Pass the rootView of the DrawerBuilder which will be used to inflate the DrawerLayout in
+     * Sets the rootView which will host the DrawerLayout
+     * The content of this view will be extracted and added as the new content inside the drawerLayout
      *
-     * @param rootView
-     * @return
+     * @param rootView a view which will get switched out by the DrawerLayout and added as its child
      */
-    public DrawerBuilder withRootView(ViewGroup rootView) {
+    public DrawerBuilder withRootView(@NonNull ViewGroup rootView) {
         this.mRootView = rootView;
 
         //disable the translucent statusBar we don't need it
@@ -106,12 +113,12 @@ public class DrawerBuilder {
     }
 
     /**
-     * Pass the rootView as resource of the DrawerBuilder which will be used to inflate the DrawerLayout in
+     * Sets the rootView which will host the DrawerLayout
+     * The content of this view will be extracted and added as the new content inside the drawerLayout
      *
-     * @param rootViewRes
-     * @return
+     * @param rootViewRes the id of a view which will get switched out by the DrawerLayout and added as its child
      */
-    public DrawerBuilder withRootView(int rootViewRes) {
+    public DrawerBuilder withRootView(@IdRes int rootViewRes) {
         if (mActivity == null) {
             throw new RuntimeException("please pass an activity first to use this call");
         }
@@ -119,41 +126,14 @@ public class DrawerBuilder {
         return withRootView((ViewGroup) mActivity.findViewById(rootViewRes));
     }
 
-    // set actionbar Compatibility mode
-    protected boolean mTranslucentActionBarCompatibility = false;
-
-    /**
-     * Set this to true to use a translucent StatusBar in an activity with a good old
-     * ActionBar. Should be a rare scenario.
-     *
-     * @param translucentActionBarCompatibility
-     * @return
-     */
-    public DrawerBuilder withTranslucentActionBarCompatibility(boolean translucentActionBarCompatibility) {
-        this.mTranslucentActionBarCompatibility = translucentActionBarCompatibility;
-        return this;
-    }
-
-    /**
-     * Set this to true if you want your drawer to be displayed below the toolbar.
-     * Note this will add a margin above the drawer
-     *
-     * @param displayBelowToolbar
-     * @return
-     */
-    public DrawerBuilder withDisplayBelowToolbar(boolean displayBelowToolbar) {
-        this.mTranslucentActionBarCompatibility = displayBelowToolbar;
-        return this;
-    }
-
     // set non translucent statusBar mode
     protected boolean mTranslucentStatusBar = true;
 
     /**
-     * Set to false to disable the use of a translucent statusBar
+     * Sets that the view which hosts the DrawerLayout should have a translucent statusBar
+     * This is true by default, so it's possible to display the drawer under the statusBar
      *
-     * @param translucentStatusBar
-     * @return
+     * @param translucentStatusBar sets whether the statusBar is transparent (and the drawer is displayed under it) or not
      */
     public DrawerBuilder withTranslucentStatusBar(boolean translucentStatusBar) {
         this.mTranslucentStatusBar = translucentStatusBar;
@@ -165,14 +145,13 @@ public class DrawerBuilder {
         return this;
     }
 
-    // set if we want to display the specific Drawer below the statusbar
+    // set if we want to display the specific Drawer below the statusBar
     protected Boolean mDisplayBelowStatusBar;
 
     /**
-     * set to true if the current drawer should be displayed below the statusBar
+     * Sets that the slider of this Drawer should be displayed below the statusBar even with a translucentStatusBar
      *
-     * @param displayBelowStatusBar
-     * @return
+     * @param displayBelowStatusBar sets wheter the slider of the drawer is displayed below the statusBar or not
      */
     public DrawerBuilder withDisplayBelowStatusBar(boolean displayBelowStatusBar) {
         this.mDisplayBelowStatusBar = displayBelowStatusBar;
@@ -184,11 +163,10 @@ public class DrawerBuilder {
     protected boolean mTranslucentStatusBarProgrammatically = true;
 
     /**
-     * set this to false if you want no translucent statusBar. or
-     * if you want to create this behavior only by theme.
+     * Sets if the drawer should handle and make the statusBar translucent
+     * This is true by default, so it's possible to display the drawer under the statusBar
      *
-     * @param translucentStatusBarProgrammatically
-     * @return
+     * @param translucentStatusBarProgrammatically sets whether the statusBar should be transparent (and the drawer is displayed under it) or not
      */
     public DrawerBuilder withTranslucentStatusBarProgrammatically(boolean translucentStatusBarProgrammatically) {
         this.mTranslucentStatusBarProgrammatically = translucentStatusBarProgrammatically;
@@ -203,11 +181,9 @@ public class DrawerBuilder {
     protected Boolean mTranslucentStatusBarShadow = null;
 
     /**
-     * set this to true or false if you want activate or deactivate this
-     * set it to null if you want the default behavior (activated for lollipop and up)
+     * Sets if the MaterialDrawer should add the translucent shadow overlay under the statusBar to get the same effect as the toolbar with a colored statusBar
      *
-     * @param translucentStatusBarShadow
-     * @return
+     * @param translucentStatusBarShadow sets wheter the drawer should handle a shadow under the translucent statusBar or not
      */
     public DrawerBuilder withTranslucentStatusBarShadow(Boolean translucentStatusBarShadow) {
         this.mTranslucentStatusBarShadow = translucentStatusBarShadow;
@@ -219,14 +195,13 @@ public class DrawerBuilder {
     protected Toolbar mToolbar;
 
     /**
-     * Add the toolbar which is used in combination with this drawer.
-     * NOTE: if you use the drawer in a subActivity you don't need this, if you
-     * want to display the back arrow.
+     * Sets the toolbar which should be used in combination with the drawer
+     * This will handle the ActionBarDrawerToggle for you.
+     * Do not set this if you are in a sub activity and want to handle the back arrow on your own
      *
-     * @param toolbar
-     * @return
+     * @param toolbar the toolbar which is used in combination with the draer
      */
-    public DrawerBuilder withToolbar(Toolbar toolbar) {
+    public DrawerBuilder withToolbar(@NonNull Toolbar toolbar) {
         this.mToolbar = toolbar;
         return this;
     }
@@ -301,7 +276,7 @@ public class DrawerBuilder {
      * @param customView
      * @return
      */
-    public DrawerBuilder withCustomView(View customView) {
+    public DrawerBuilder withCustomView(@NonNull View customView) {
         this.mCustomView = customView;
         return this;
     }
@@ -317,7 +292,7 @@ public class DrawerBuilder {
      * @param drawerLayout
      * @return
      */
-    public DrawerBuilder withDrawerLayout(DrawerLayout drawerLayout) {
+    public DrawerBuilder withDrawerLayout(@NonNull DrawerLayout drawerLayout) {
         this.mDrawerLayout = drawerLayout;
         return this;
     }
@@ -329,7 +304,7 @@ public class DrawerBuilder {
      * @param resLayout
      * @return
      */
-    public DrawerBuilder withDrawerLayout(int resLayout) {
+    public DrawerBuilder withDrawerLayout(@LayoutRes int resLayout) {
         if (mActivity == null) {
             throw new RuntimeException("please pass an activity first to use this call");
         }
@@ -353,7 +328,7 @@ public class DrawerBuilder {
      * @param statusBarColor
      * @return
      */
-    public DrawerBuilder withStatusBarColor(int statusBarColor) {
+    public DrawerBuilder withStatusBarColor(@ColorInt int statusBarColor) {
         this.mStatusBarColor = statusBarColor;
         return this;
     }
@@ -364,7 +339,7 @@ public class DrawerBuilder {
      * @param statusBarColorRes
      * @return
      */
-    public DrawerBuilder withStatusBarColorRes(int statusBarColorRes) {
+    public DrawerBuilder withStatusBarColorRes(@ColorRes int statusBarColorRes) {
         this.mStatusBarColorRes = statusBarColorRes;
         return this;
     }
@@ -382,7 +357,7 @@ public class DrawerBuilder {
      * @param sliderBackgroundColor
      * @return
      */
-    public DrawerBuilder withSliderBackgroundColor(int sliderBackgroundColor) {
+    public DrawerBuilder withSliderBackgroundColor(@ColorInt int sliderBackgroundColor) {
         this.mSliderBackgroundColor = sliderBackgroundColor;
         return this;
     }
@@ -394,7 +369,7 @@ public class DrawerBuilder {
      * @param sliderBackgroundColorRes
      * @return
      */
-    public DrawerBuilder withSliderBackgroundColorRes(int sliderBackgroundColorRes) {
+    public DrawerBuilder withSliderBackgroundColorRes(@ColorRes int sliderBackgroundColorRes) {
         this.mSliderBackgroundColorRes = sliderBackgroundColorRes;
         return this;
     }
@@ -407,7 +382,7 @@ public class DrawerBuilder {
      * @param sliderBackgroundDrawable
      * @return
      */
-    public DrawerBuilder withSliderBackgroundDrawable(Drawable sliderBackgroundDrawable) {
+    public DrawerBuilder withSliderBackgroundDrawable(@NonNull Drawable sliderBackgroundDrawable) {
         this.mSliderBackgroundDrawable = sliderBackgroundDrawable;
         return this;
     }
@@ -420,7 +395,7 @@ public class DrawerBuilder {
      * @param sliderBackgroundDrawableRes
      * @return
      */
-    public DrawerBuilder withSliderBackgroundDrawableRes(int sliderBackgroundDrawableRes) {
+    public DrawerBuilder withSliderBackgroundDrawableRes(@DrawableRes int sliderBackgroundDrawableRes) {
         this.mSliderBackgroundDrawableRes = sliderBackgroundDrawableRes;
         return this;
     }
@@ -460,7 +435,7 @@ public class DrawerBuilder {
      * @param drawerWidthRes
      * @return
      */
-    public DrawerBuilder withDrawerWidthRes(int drawerWidthRes) {
+    public DrawerBuilder withDrawerWidthRes(@DimenRes int drawerWidthRes) {
         if (mActivity == null) {
             throw new RuntimeException("please pass an activity first to use this call");
         }
@@ -494,7 +469,7 @@ public class DrawerBuilder {
      * @param accountHeader
      * @return
      */
-    public DrawerBuilder withAccountHeader(AccountHeader accountHeader) {
+    public DrawerBuilder withAccountHeader(@NonNull AccountHeader accountHeader) {
         return withAccountHeader(accountHeader, false);
     }
 
@@ -506,7 +481,7 @@ public class DrawerBuilder {
      * @param accountHeaderSticky
      * @return
      */
-    public DrawerBuilder withAccountHeader(AccountHeader accountHeader, boolean accountHeaderSticky) {
+    public DrawerBuilder withAccountHeader(@NonNull AccountHeader accountHeader, boolean accountHeaderSticky) {
         this.mAccountHeader = accountHeader;
         this.mAccountHeaderSticky = accountHeaderSticky;
         return this;
@@ -552,7 +527,7 @@ public class DrawerBuilder {
      * @param actionBarDrawerToggle
      * @return
      */
-    public DrawerBuilder withActionBarDrawerToggle(ActionBarDrawerToggle actionBarDrawerToggle) {
+    public DrawerBuilder withActionBarDrawerToggle(@NonNull ActionBarDrawerToggle actionBarDrawerToggle) {
         this.mActionBarDrawerToggleEnabled = true;
         this.mActionBarDrawerToggle = actionBarDrawerToggle;
         return this;
@@ -584,7 +559,7 @@ public class DrawerBuilder {
      * @param headerView
      * @return
      */
-    public DrawerBuilder withHeader(View headerView) {
+    public DrawerBuilder withHeader(@NonNull View headerView) {
         this.mHeaderView = headerView;
         return this;
     }
@@ -595,7 +570,7 @@ public class DrawerBuilder {
      * @param headerViewRes
      * @return
      */
-    public DrawerBuilder withHeader(int headerViewRes) {
+    public DrawerBuilder withHeader(@LayoutRes int headerViewRes) {
         if (mActivity == null) {
             throw new RuntimeException("please pass an activity first to use this call");
         }
@@ -639,7 +614,7 @@ public class DrawerBuilder {
      * @param stickyHeader
      * @return
      */
-    public DrawerBuilder withStickyHeader(View stickyHeader) {
+    public DrawerBuilder withStickyHeader(@NonNull View stickyHeader) {
         this.mStickyHeaderView = stickyHeader;
         return this;
     }
@@ -650,7 +625,7 @@ public class DrawerBuilder {
      * @param stickyHeaderRes
      * @return
      */
-    public DrawerBuilder withStickyHeader(int stickyHeaderRes) {
+    public DrawerBuilder withStickyHeader(@LayoutRes int stickyHeaderRes) {
         if (mActivity == null) {
             throw new RuntimeException("please pass an activity first to use this call");
         }
@@ -674,7 +649,7 @@ public class DrawerBuilder {
      * @param footerView
      * @return
      */
-    public DrawerBuilder withFooter(View footerView) {
+    public DrawerBuilder withFooter(@NonNull View footerView) {
         this.mFooterView = footerView;
         return this;
     }
@@ -685,7 +660,7 @@ public class DrawerBuilder {
      * @param footerViewRes
      * @return
      */
-    public DrawerBuilder withFooter(int footerViewRes) {
+    public DrawerBuilder withFooter(@LayoutRes int footerViewRes) {
         if (mActivity == null) {
             throw new RuntimeException("please pass an activity first to use this call");
         }
@@ -730,7 +705,7 @@ public class DrawerBuilder {
      * @param stickyFooter
      * @return
      */
-    public DrawerBuilder withStickyFooter(ViewGroup stickyFooter) {
+    public DrawerBuilder withStickyFooter(@NonNull ViewGroup stickyFooter) {
         this.mStickyFooterView = stickyFooter;
         return this;
     }
@@ -741,7 +716,7 @@ public class DrawerBuilder {
      * @param stickyFooterRes
      * @return
      */
-    public DrawerBuilder withStickyFooter(int stickyFooterRes) {
+    public DrawerBuilder withStickyFooter(@LayoutRes int stickyFooterRes) {
         if (mActivity == null) {
             throw new RuntimeException("please pass an activity first to use this call");
         }
@@ -803,7 +778,7 @@ public class DrawerBuilder {
      * @param recyclerView
      * @return
      */
-    public DrawerBuilder withRecyclerView(RecyclerView recyclerView) {
+    public DrawerBuilder withRecyclerView(@NonNull RecyclerView recyclerView) {
         this.mRecyclerView = recyclerView;
         return this;
     }
@@ -818,7 +793,7 @@ public class DrawerBuilder {
      * @param adapter
      * @return
      */
-    public DrawerBuilder withAdapter(BaseDrawerAdapter adapter) {
+    public DrawerBuilder withAdapter(@NonNull BaseDrawerAdapter adapter) {
         if (mAdapter != null) {
             throw new RuntimeException("the adapter was already set or items were added to it. A header is also a RecyclerItem");
         }
@@ -847,7 +822,7 @@ public class DrawerBuilder {
      * @param adapterWrapper
      * @return
      */
-    public DrawerBuilder withAdapterWrapper(RecyclerView.Adapter adapterWrapper) {
+    public DrawerBuilder withAdapterWrapper(@NonNull RecyclerView.Adapter adapterWrapper) {
         if (mAdapter == null) {
             throw new RuntimeException("this adapter has to be set in conjunction to a normal adapter which is used inside this wrapper adapter");
         }
@@ -865,7 +840,7 @@ public class DrawerBuilder {
      * @param itemAnimator
      * @return
      */
-    public DrawerBuilder withItemAnimator(RecyclerView.ItemAnimator itemAnimator) {
+    public DrawerBuilder withItemAnimator(@NonNull RecyclerView.ItemAnimator itemAnimator) {
         mItemAnimator = itemAnimator;
         return this;
     }
@@ -876,7 +851,7 @@ public class DrawerBuilder {
      * @param drawerItems
      * @return
      */
-    public DrawerBuilder withDrawerItems(ArrayList<IDrawerItem> drawerItems) {
+    public DrawerBuilder withDrawerItems(@NonNull ArrayList<IDrawerItem> drawerItems) {
         this.getAdapter().setDrawerItems(drawerItems);
         return this;
     }
@@ -887,7 +862,7 @@ public class DrawerBuilder {
      * @param drawerItems
      * @return
      */
-    public DrawerBuilder addDrawerItems(IDrawerItem... drawerItems) {
+    public DrawerBuilder addDrawerItems(@NonNull IDrawerItem... drawerItems) {
         this.getAdapter().addDrawerItems(drawerItems);
         return this;
     }
@@ -901,7 +876,7 @@ public class DrawerBuilder {
      * @param stickyDrawerItems
      * @return
      */
-    public DrawerBuilder withStickyDrawerItems(ArrayList<IDrawerItem> stickyDrawerItems) {
+    public DrawerBuilder withStickyDrawerItems(@NonNull ArrayList<IDrawerItem> stickyDrawerItems) {
         this.mStickyDrawerItems = stickyDrawerItems;
         return this;
     }
@@ -912,7 +887,7 @@ public class DrawerBuilder {
      * @param stickyDrawerItems
      * @return
      */
-    public DrawerBuilder addStickyDrawerItems(IDrawerItem... stickyDrawerItems) {
+    public DrawerBuilder addStickyDrawerItems(@NonNull IDrawerItem... stickyDrawerItems) {
         if (this.mStickyDrawerItems == null) {
             this.mStickyDrawerItems = new ArrayList<>();
         }
@@ -923,10 +898,13 @@ public class DrawerBuilder {
         return this;
     }
 
-    // menu
-
+    /**
+     * Inflates the DrawerItems from a menu.xml
+     *
+     * @param menuRes
+     * @return
+     */
     public DrawerBuilder inflateMenu(@MenuRes int menuRes) {
-
         MenuInflater menuInflater = new SupportMenuInflater(mActivity);
         MenuBuilder mMenu = new MenuBuilder(mActivity);
 
@@ -1021,7 +999,7 @@ public class DrawerBuilder {
      * @param onDrawerListener
      * @return this
      */
-    public DrawerBuilder withOnDrawerListener(Drawer.OnDrawerListener onDrawerListener) {
+    public DrawerBuilder withOnDrawerListener(@NonNull Drawer.OnDrawerListener onDrawerListener) {
         this.mOnDrawerListener = onDrawerListener;
         return this;
     }
@@ -1035,7 +1013,7 @@ public class DrawerBuilder {
      * @param onDrawerItemClickListener
      * @return
      */
-    public DrawerBuilder withOnDrawerItemClickListener(Drawer.OnDrawerItemClickListener onDrawerItemClickListener) {
+    public DrawerBuilder withOnDrawerItemClickListener(@NonNull Drawer.OnDrawerItemClickListener onDrawerItemClickListener) {
         this.mOnDrawerItemClickListener = onDrawerItemClickListener;
         return this;
     }
@@ -1049,7 +1027,7 @@ public class DrawerBuilder {
      * @param onDrawerItemLongClickListener
      * @return
      */
-    public DrawerBuilder withOnDrawerItemLongClickListener(Drawer.OnDrawerItemLongClickListener onDrawerItemLongClickListener) {
+    public DrawerBuilder withOnDrawerItemLongClickListener(@NonNull Drawer.OnDrawerItemLongClickListener onDrawerItemLongClickListener) {
         this.mOnDrawerItemLongClickListener = onDrawerItemLongClickListener;
         return this;
     }
@@ -1063,7 +1041,7 @@ public class DrawerBuilder {
      * @param onDrawerItemSelectedListener
      * @return
      */
-    public DrawerBuilder withOnDrawerItemSelectedListener(Drawer.OnDrawerItemSelectedListener onDrawerItemSelectedListener) {
+    public DrawerBuilder withOnDrawerItemSelectedListener(@NonNull Drawer.OnDrawerItemSelectedListener onDrawerItemSelectedListener) {
         this.mOnDrawerItemSelectedListener = onDrawerItemSelectedListener;
         return this;
     }
@@ -1077,7 +1055,7 @@ public class DrawerBuilder {
      * @param onDrawerNavigationListener
      * @return this
      */
-    public DrawerBuilder withOnDrawerNavigationListener(Drawer.OnDrawerNavigationListener onDrawerNavigationListener) {
+    public DrawerBuilder withOnDrawerNavigationListener(@NonNull Drawer.OnDrawerNavigationListener onDrawerNavigationListener) {
         this.mOnDrawerNavigationListener = onDrawerNavigationListener;
         return this;
     }
@@ -1330,7 +1308,7 @@ public class DrawerBuilder {
      * @param result the Drawer.Result of an existing Drawer
      * @return
      */
-    public Drawer append(Drawer result) {
+    public Drawer append(@NonNull Drawer result) {
         if (mUsed) {
             throw new RuntimeException("you must not reuse a DrawerBuilder builder");
         }
@@ -1401,7 +1379,7 @@ public class DrawerBuilder {
             mRecyclerView.setLayoutManager(mLayoutManager);
 
             int paddingTop = 0;
-            if ((mTranslucentStatusBar && !mTranslucentActionBarCompatibility) || mFullscreen) {
+            if (mTranslucentStatusBar || mFullscreen) {
                 paddingTop = UIUtils.getStatusBarHeight(mActivity);
             }
             int paddingBottom = 0;
@@ -1426,7 +1404,7 @@ public class DrawerBuilder {
         statusBarShadow.setLayoutParams(shadowLayoutParams);
 
         //some extra stuff to beautify the whole thing ;)
-        if ((mTranslucentStatusBar && !mTranslucentActionBarCompatibility) || (mTranslucentStatusBarShadow != null && mTranslucentStatusBarShadow)) {
+        if (mTranslucentStatusBar || (mTranslucentStatusBarShadow != null && mTranslucentStatusBarShadow)) {
             if (mTranslucentStatusBarShadow == null) {
                 //if we use the default behavior show it only if we are above API Level 20
                 if (Build.VERSION.SDK_INT > 20) {

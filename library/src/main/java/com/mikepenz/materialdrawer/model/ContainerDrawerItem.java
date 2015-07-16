@@ -1,6 +1,7 @@
 package com.mikepenz.materialdrawer.model;
 
 import android.content.Context;
+import android.support.annotation.LayoutRes;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
 import android.view.ViewGroup;
@@ -48,6 +49,7 @@ public class ContainerDrawerItem extends AbstractDrawerItem<ContainerDrawerItem>
     }
 
     @Override
+    @LayoutRes
     public int getLayoutRes() {
         return R.layout.material_drawer_item_container;
     }

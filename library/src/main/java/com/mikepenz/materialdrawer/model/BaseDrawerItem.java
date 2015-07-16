@@ -4,6 +4,10 @@ import android.content.Context;
 import android.content.res.ColorStateList;
 import android.graphics.Typeface;
 import android.graphics.drawable.Drawable;
+import android.support.annotation.ColorInt;
+import android.support.annotation.ColorRes;
+import android.support.annotation.DrawableRes;
+import android.support.annotation.StringRes;
 import android.util.Pair;
 
 import com.mikepenz.iconics.typeface.IIcon;
@@ -45,7 +49,7 @@ public abstract class BaseDrawerItem<T> extends AbstractDrawerItem<T> implements
         return (T) this;
     }
 
-    public T withIcon(int iconRes) {
+    public T withIcon(@DrawableRes int iconRes) {
         this.icon = new ImageHolder(iconRes);
         return (T) this;
     }
@@ -55,7 +59,7 @@ public abstract class BaseDrawerItem<T> extends AbstractDrawerItem<T> implements
         return (T) this;
     }
 
-    public T withSelectedIcon(int selectedIconRes) {
+    public T withSelectedIcon(@DrawableRes int selectedIconRes) {
         this.selectedIcon = new ImageHolder(selectedIconRes);
         return (T) this;
     }
@@ -71,77 +75,77 @@ public abstract class BaseDrawerItem<T> extends AbstractDrawerItem<T> implements
         return (T) this;
     }
 
-    public T withName(int nameRes) {
+    public T withName(@StringRes int nameRes) {
         this.name = new StringHolder(nameRes);
         return (T) this;
     }
 
-    public T withSelectedColor(int selectedColor) {
+    public T withSelectedColor(@ColorInt int selectedColor) {
         this.selectedColor = ColorHolder.fromColor(selectedColor);
         return (T) this;
     }
 
-    public T withSelectedColorRes(int selectedColorRes) {
+    public T withSelectedColorRes(@ColorRes int selectedColorRes) {
         this.selectedColor = ColorHolder.fromColorRes(selectedColorRes);
         return (T) this;
     }
 
-    public T withTextColor(int textColor) {
+    public T withTextColor(@ColorInt int textColor) {
         this.textColor = ColorHolder.fromColor(textColor);
         return (T) this;
     }
 
-    public T withTextColorRes(int textColorRes) {
+    public T withTextColorRes(@ColorRes int textColorRes) {
         this.textColor = ColorHolder.fromColorRes(textColorRes);
         return (T) this;
     }
 
-    public T withSelectedTextColor(int selectedTextColor) {
+    public T withSelectedTextColor(@ColorInt int selectedTextColor) {
         this.selectedTextColor = ColorHolder.fromColor(selectedTextColor);
         return (T) this;
     }
 
-    public T withSelectedTextColorRes(int selectedColorRes) {
+    public T withSelectedTextColorRes(@ColorRes int selectedColorRes) {
         this.selectedTextColor = ColorHolder.fromColorRes(selectedColorRes);
         return (T) this;
     }
 
-    public T withDisabledTextColor(int disabledTextColor) {
+    public T withDisabledTextColor(@ColorInt int disabledTextColor) {
         this.disabledTextColor = ColorHolder.fromColor(disabledTextColor);
         return (T) this;
     }
 
-    public T withDisabledTextColorRes(int disabledTextColorRes) {
+    public T withDisabledTextColorRes(@ColorRes int disabledTextColorRes) {
         this.disabledTextColor = ColorHolder.fromColorRes(disabledTextColorRes);
         return (T) this;
     }
 
-    public T withIconColor(int iconColor) {
+    public T withIconColor(@ColorInt int iconColor) {
         this.iconColor = ColorHolder.fromColor(iconColor);
         return (T) this;
     }
 
-    public T withIconColorRes(int iconColorRes) {
+    public T withIconColorRes(@ColorRes int iconColorRes) {
         this.iconColor = ColorHolder.fromColorRes(iconColorRes);
         return (T) this;
     }
 
-    public T withSelectedIconColor(int selectedIconColor) {
+    public T withSelectedIconColor(@ColorInt int selectedIconColor) {
         this.selectedIconColor = ColorHolder.fromColor(selectedIconColor);
         return (T) this;
     }
 
-    public T withSelectedIconColorRes(int selectedColorRes) {
+    public T withSelectedIconColorRes(@ColorRes int selectedColorRes) {
         this.selectedIconColor = ColorHolder.fromColorRes(selectedColorRes);
         return (T) this;
     }
 
-    public T withDisabledIconColor(int disabledIconColor) {
+    public T withDisabledIconColor(@ColorInt int disabledIconColor) {
         this.disabledIconColor = ColorHolder.fromColor(disabledIconColor);
         return (T) this;
     }
 
-    public T withDisabledIconColorRes(int disabledIconColorRes) {
+    public T withDisabledIconColorRes(@ColorRes int disabledIconColorRes) {
         this.disabledIconColor = ColorHolder.fromColorRes(disabledIconColorRes);
         return (T) this;
     }
@@ -198,10 +202,6 @@ public abstract class BaseDrawerItem<T> extends AbstractDrawerItem<T> implements
 
     public boolean isIconTinted() {
         return iconTinted;
-    }
-
-    public void setIconTinted(boolean iconTinted) {
-        this.iconTinted = iconTinted;
     }
 
     public ImageHolder getIcon() {
@@ -306,7 +306,7 @@ public abstract class BaseDrawerItem<T> extends AbstractDrawerItem<T> implements
      * @param selectedTextColor
      * @return
      */
-    protected ColorStateList getTextColorStateList(int color, int selectedTextColor) {
+    protected ColorStateList getTextColorStateList(@ColorInt int color, @ColorInt int selectedTextColor) {
         if (colorStateList == null || color + selectedTextColor != colorStateList.first) {
             colorStateList = new Pair<>(color + selectedTextColor, DrawerUIUtils.getTextColorStateList(color, selectedTextColor));
         }

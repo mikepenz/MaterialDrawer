@@ -2,6 +2,10 @@ package com.mikepenz.materialdrawer.model;
 
 import android.content.Context;
 import android.graphics.drawable.Drawable;
+import android.support.annotation.ColorInt;
+import android.support.annotation.ColorRes;
+import android.support.annotation.LayoutRes;
+import android.support.annotation.StringRes;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
 import android.widget.ImageView;
@@ -30,7 +34,7 @@ public class SecondaryDrawerItem extends BaseDrawerItem<SecondaryDrawerItem> imp
         return this;
     }
 
-    public SecondaryDrawerItem withBadge(int badgeRes) {
+    public SecondaryDrawerItem withBadge(@StringRes int badgeRes) {
         this.badge = new StringHolder(badgeRes);
         return this;
     }
@@ -40,13 +44,13 @@ public class SecondaryDrawerItem extends BaseDrawerItem<SecondaryDrawerItem> imp
     }
 
     @Override
-    public SecondaryDrawerItem withBadgeTextColor(int color) {
+    public SecondaryDrawerItem withBadgeTextColor(@ColorInt int color) {
         this.badgeTextColor = ColorHolder.fromColor(color);
         return this;
     }
 
     @Override
-    public SecondaryDrawerItem withBadgeTextColorRes(int colorRes) {
+    public SecondaryDrawerItem withBadgeTextColorRes(@ColorRes int colorRes) {
         this.badgeTextColor = ColorHolder.fromColorRes(colorRes);
         return this;
     }
@@ -54,11 +58,6 @@ public class SecondaryDrawerItem extends BaseDrawerItem<SecondaryDrawerItem> imp
     @Override
     public ColorHolder getBadgeTextColor() {
         return badgeTextColor;
-    }
-
-    @Override
-    public void setBadgeBackgroundResource(int res) {
-        this.badgeBackgroundRes = res;
     }
 
     @Override
@@ -78,6 +77,7 @@ public class SecondaryDrawerItem extends BaseDrawerItem<SecondaryDrawerItem> imp
     }
 
     @Override
+    @LayoutRes
     public int getLayoutRes() {
         return R.layout.material_drawer_item_secondary;
     }

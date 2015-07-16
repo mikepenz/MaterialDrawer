@@ -2,6 +2,8 @@ package com.mikepenz.materialdrawer.model;
 
 import android.content.Context;
 import android.graphics.Typeface;
+import android.support.annotation.LayoutRes;
+import android.support.annotation.StringRes;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
 import android.widget.TextView;
@@ -31,7 +33,7 @@ public class SectionDrawerItem extends AbstractDrawerItem<SectionDrawerItem> imp
         return this;
     }
 
-    public SectionDrawerItem withName(int nameRes) {
+    public SectionDrawerItem withName(@StringRes int nameRes) {
         this.name = new StringHolder(nameRes);
         return this;
     }
@@ -84,6 +86,7 @@ public class SectionDrawerItem extends AbstractDrawerItem<SectionDrawerItem> imp
     }
 
     @Override
+    @LayoutRes
     public int getLayoutRes() {
         return R.layout.material_drawer_item_section;
     }

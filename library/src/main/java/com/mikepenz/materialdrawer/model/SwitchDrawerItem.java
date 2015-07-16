@@ -2,6 +2,10 @@ package com.mikepenz.materialdrawer.model;
 
 import android.content.Context;
 import android.graphics.drawable.Drawable;
+import android.support.annotation.ColorInt;
+import android.support.annotation.ColorRes;
+import android.support.annotation.LayoutRes;
+import android.support.annotation.StringRes;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.SwitchCompat;
 import android.view.View;
@@ -35,17 +39,17 @@ public class SwitchDrawerItem extends BaseDrawerItem<SwitchDrawerItem> {
         return this;
     }
 
-    public SwitchDrawerItem withDescription(int descriptionRes) {
+    public SwitchDrawerItem withDescription(@StringRes int descriptionRes) {
         this.description = new StringHolder(descriptionRes);
         return this;
     }
 
-    public SwitchDrawerItem withDescriptionTextColor(int color) {
+    public SwitchDrawerItem withDescriptionTextColor(@ColorInt int color) {
         this.descriptionTextColor = ColorHolder.fromColor(color);
         return this;
     }
 
-    public SwitchDrawerItem withDescriptionTextColorRes(int colorRes) {
+    public SwitchDrawerItem withDescriptionTextColorRes(@ColorRes int colorRes) {
         this.descriptionTextColor = ColorHolder.fromColorRes(colorRes);
         return this;
     }
@@ -95,6 +99,7 @@ public class SwitchDrawerItem extends BaseDrawerItem<SwitchDrawerItem> {
     }
 
     @Override
+    @LayoutRes
     public int getLayoutRes() {
         return R.layout.material_drawer_item_switch;
     }

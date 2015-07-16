@@ -7,6 +7,12 @@ import android.graphics.drawable.Drawable;
 import android.os.Build;
 import android.os.Bundle;
 import android.os.Handler;
+import android.support.annotation.ColorInt;
+import android.support.annotation.ColorRes;
+import android.support.annotation.DimenRes;
+import android.support.annotation.DrawableRes;
+import android.support.annotation.LayoutRes;
+import android.support.annotation.NonNull;
 import android.text.TextUtils;
 import android.view.View;
 import android.view.ViewGroup;
@@ -65,7 +71,7 @@ public class AccountHeaderBuilder {
      * @param activity
      * @return
      */
-    public AccountHeaderBuilder withActivity(Activity activity) {
+    public AccountHeaderBuilder withActivity(@NonNull Activity activity) {
         this.mActivity = activity;
         return this;
     }
@@ -99,7 +105,7 @@ public class AccountHeaderBuilder {
      * @param typeface
      * @return
      */
-    public AccountHeaderBuilder withTypeface(Typeface typeface) {
+    public AccountHeaderBuilder withTypeface(@NonNull Typeface typeface) {
         this.mTypeface = typeface;
         return this;
     }
@@ -112,7 +118,7 @@ public class AccountHeaderBuilder {
      * @return
      * @see #withTypeface(android.graphics.Typeface)
      */
-    public AccountHeaderBuilder withNameTypeface(Typeface typeface) {
+    public AccountHeaderBuilder withNameTypeface(@NonNull Typeface typeface) {
         this.mNameTypeface = typeface;
         return this;
     }
@@ -125,7 +131,7 @@ public class AccountHeaderBuilder {
      * @return
      * @see #withTypeface(android.graphics.Typeface)
      */
-    public AccountHeaderBuilder withEmailTypeface(Typeface typeface) {
+    public AccountHeaderBuilder withEmailTypeface(@NonNull Typeface typeface) {
         this.mEmailTypeface = typeface;
         return this;
     }
@@ -164,7 +170,7 @@ public class AccountHeaderBuilder {
      * @param heightRes
      * @return
      */
-    public AccountHeaderBuilder withHeightRes(int heightRes) {
+    public AccountHeaderBuilder withHeightRes(@DimenRes int heightRes) {
         this.mHeightRes = heightRes;
         return this;
     }
@@ -179,7 +185,7 @@ public class AccountHeaderBuilder {
      * @param textColor
      * @return
      */
-    public AccountHeaderBuilder withTextColor(int textColor) {
+    public AccountHeaderBuilder withTextColor(@ColorInt int textColor) {
         this.mTextColor = textColor;
         return this;
     }
@@ -190,7 +196,7 @@ public class AccountHeaderBuilder {
      * @param textColorRes
      * @return
      */
-    public AccountHeaderBuilder withTextColorRes(int textColorRes) {
+    public AccountHeaderBuilder withTextColorRes(@ColorRes int textColorRes) {
         this.mTextColorRes = textColorRes;
         return this;
     }
@@ -312,7 +318,7 @@ public class AccountHeaderBuilder {
      * @param headerBackgroundRes
      * @return
      */
-    public AccountHeaderBuilder withHeaderBackground(int headerBackgroundRes) {
+    public AccountHeaderBuilder withHeaderBackground(@DrawableRes int headerBackgroundRes) {
         this.mHeaderBackgroundRes = headerBackgroundRes;
         return this;
     }
@@ -466,7 +472,7 @@ public class AccountHeaderBuilder {
      * @param accountHeader
      * @return
      */
-    public AccountHeaderBuilder withAccountHeader(View accountHeader) {
+    public AccountHeaderBuilder withAccountHeader(@NonNull View accountHeader) {
         this.mAccountHeaderContainer = accountHeader;
         return this;
     }
@@ -477,7 +483,7 @@ public class AccountHeaderBuilder {
      * @param resLayout
      * @return
      */
-    public AccountHeaderBuilder withAccountHeader(int resLayout) {
+    public AccountHeaderBuilder withAccountHeader(@LayoutRes int resLayout) {
         if (mActivity == null) {
             throw new RuntimeException("please pass an activity first to use this call");
         }
@@ -504,7 +510,7 @@ public class AccountHeaderBuilder {
      * @param profiles
      * @return
      */
-    public AccountHeaderBuilder withProfiles(ArrayList<IProfile> profiles) {
+    public AccountHeaderBuilder withProfiles(@NonNull ArrayList<IProfile> profiles) {
         this.mProfiles = profiles;
         return this;
     }
@@ -515,7 +521,7 @@ public class AccountHeaderBuilder {
      * @param profiles
      * @return
      */
-    public AccountHeaderBuilder addProfiles(IProfile... profiles) {
+    public AccountHeaderBuilder addProfiles(@NonNull IProfile... profiles) {
         if (this.mProfiles == null) {
             this.mProfiles = new ArrayList<>();
         }
@@ -535,7 +541,7 @@ public class AccountHeaderBuilder {
      * @param onAccountHeaderListener
      * @return
      */
-    public AccountHeaderBuilder withOnAccountHeaderListener(AccountHeader.OnAccountHeaderListener onAccountHeaderListener) {
+    public AccountHeaderBuilder withOnAccountHeaderListener(@NonNull AccountHeader.OnAccountHeaderListener onAccountHeaderListener) {
         this.mOnAccountHeaderListener = onAccountHeaderListener;
         return this;
     }
@@ -547,7 +553,7 @@ public class AccountHeaderBuilder {
      * @param drawer
      * @return
      */
-    public AccountHeaderBuilder withDrawer(Drawer drawer) {
+    public AccountHeaderBuilder withDrawer(@NonNull Drawer drawer) {
         this.mDrawer = drawer;
         return this;
     }

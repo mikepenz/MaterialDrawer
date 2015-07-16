@@ -2,6 +2,10 @@ package com.mikepenz.materialdrawer.model;
 
 import android.content.Context;
 import android.graphics.drawable.Drawable;
+import android.support.annotation.ColorInt;
+import android.support.annotation.ColorRes;
+import android.support.annotation.LayoutRes;
+import android.support.annotation.StringRes;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
 import android.widget.CompoundButton;
@@ -35,17 +39,17 @@ public class ToggleDrawerItem extends BaseDrawerItem<ToggleDrawerItem> {
         return this;
     }
 
-    public ToggleDrawerItem withDescription(int descriptionRes) {
+    public ToggleDrawerItem withDescription(@StringRes int descriptionRes) {
         this.description = new StringHolder(descriptionRes);
         return this;
     }
 
-    public ToggleDrawerItem withDescriptionTextColor(int color) {
+    public ToggleDrawerItem withDescriptionTextColor(@ColorInt int color) {
         this.descriptionTextColor = ColorHolder.fromColor(color);
         return this;
     }
 
-    public ToggleDrawerItem withDescriptionTextColorRes(int colorRes) {
+    public ToggleDrawerItem withDescriptionTextColorRes(@ColorRes int colorRes) {
         this.descriptionTextColor = ColorHolder.fromColorRes(colorRes);
         return this;
     }
@@ -103,6 +107,7 @@ public class ToggleDrawerItem extends BaseDrawerItem<ToggleDrawerItem> {
     }
 
     @Override
+    @LayoutRes
     public int getLayoutRes() {
         return R.layout.material_drawer_item_toggle;
     }

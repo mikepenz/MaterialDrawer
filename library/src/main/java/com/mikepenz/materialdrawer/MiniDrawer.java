@@ -2,6 +2,7 @@ package com.mikepenz.materialdrawer;
 
 import android.content.Context;
 import android.graphics.drawable.Drawable;
+import android.support.annotation.NonNull;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -27,21 +28,21 @@ public class MiniDrawer {
 
     private Drawer mDrawer;
 
-    public MiniDrawer withDrawer(Drawer drawer) {
+    public MiniDrawer withDrawer(@NonNull Drawer drawer) {
         this.mDrawer = drawer;
         return this;
     }
 
     private AccountHeader mAccountHeader;
 
-    public MiniDrawer withAccountHeader(AccountHeader accountHeader) {
+    public MiniDrawer withAccountHeader(@NonNull AccountHeader accountHeader) {
         this.mAccountHeader = accountHeader;
         return this;
     }
 
     private CrossFader mCrossFader;
 
-    public MiniDrawer withCrossFader(CrossFader crossFader) {
+    public MiniDrawer withCrossFader(@NonNull CrossFader crossFader) {
         this.mCrossFader = crossFader;
         return this;
     }

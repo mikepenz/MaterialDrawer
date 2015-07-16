@@ -3,6 +3,8 @@ package com.mikepenz.materialdrawer;
 import android.content.Context;
 import android.graphics.drawable.Drawable;
 import android.os.Bundle;
+import android.support.annotation.DrawableRes;
+import android.support.annotation.NonNull;
 import android.view.View;
 import android.widget.ImageView;
 
@@ -68,7 +70,7 @@ public class AccountHeader {
      *
      * @param headerBackgroundRes
      */
-    public void setBackgroundRes(int headerBackgroundRes) {
+    public void setBackgroundRes(@DrawableRes int headerBackgroundRes) {
         mAccountHeaderBuilder.mAccountHeaderBackground.setImageResource(headerBackgroundRes);
     }
 
@@ -171,7 +173,7 @@ public class AccountHeader {
      *
      * @param newProfile
      */
-    public void updateProfileByIdentifier(IProfile newProfile) {
+    public void updateProfileByIdentifier(@NonNull IProfile newProfile) {
         if (mAccountHeaderBuilder.mProfiles != null && newProfile != null && newProfile.getIdentifier() >= 0) {
             int found = -1;
             for (int i = 0; i < mAccountHeaderBuilder.mProfiles.size(); i++) {
@@ -195,7 +197,7 @@ public class AccountHeader {
      *
      * @param profiles
      */
-    public void addProfiles(IProfile... profiles) {
+    public void addProfiles(@NonNull IProfile... profiles) {
         if (mAccountHeaderBuilder.mProfiles == null) {
             mAccountHeaderBuilder.mProfiles = new ArrayList<>();
         }
@@ -212,7 +214,7 @@ public class AccountHeader {
      * @param profile
      * @param position
      */
-    public void addProfile(IProfile profile, int position) {
+    public void addProfile(@NonNull IProfile profile, int position) {
         if (mAccountHeaderBuilder.mProfiles == null) {
             mAccountHeaderBuilder.mProfiles = new ArrayList<>();
         }
@@ -239,7 +241,7 @@ public class AccountHeader {
      *
      * @param profile
      */
-    public void removeProfile(IProfile profile) {
+    public void removeProfile(@NonNull IProfile profile) {
         if (mAccountHeaderBuilder.mProfiles != null) {
             mAccountHeaderBuilder.mProfiles.remove(profile);
         }

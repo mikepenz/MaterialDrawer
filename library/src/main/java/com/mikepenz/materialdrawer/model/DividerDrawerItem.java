@@ -1,12 +1,12 @@
 package com.mikepenz.materialdrawer.model;
 
 import android.content.Context;
+import android.support.annotation.LayoutRes;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
 
 import com.mikepenz.materialdrawer.R;
 import com.mikepenz.materialdrawer.model.utils.ViewHolderFactory;
-import com.mikepenz.materialize.util.UIUtils;
 
 /**
  * Created by mikepenz on 03.02.15.
@@ -18,6 +18,7 @@ public class DividerDrawerItem extends AbstractDrawerItem<DividerDrawerItem> {
     }
 
     @Override
+    @LayoutRes
     public int getLayoutRes() {
         return R.layout.material_drawer_item_divider;
     }

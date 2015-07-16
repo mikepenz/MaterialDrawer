@@ -2,6 +2,10 @@ package com.mikepenz.materialdrawer.model;
 
 import android.content.Context;
 import android.graphics.drawable.Drawable;
+import android.support.annotation.ColorInt;
+import android.support.annotation.ColorRes;
+import android.support.annotation.LayoutRes;
+import android.support.annotation.StringRes;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
 import android.widget.ImageView;
@@ -32,17 +36,17 @@ public class PrimaryDrawerItem extends BaseDrawerItem<PrimaryDrawerItem> impleme
         return this;
     }
 
-    public PrimaryDrawerItem withDescription(int descriptionRes) {
+    public PrimaryDrawerItem withDescription(@StringRes int descriptionRes) {
         this.description = new StringHolder(descriptionRes);
         return this;
     }
 
-    public PrimaryDrawerItem withDescriptionTextColor(int color) {
+    public PrimaryDrawerItem withDescriptionTextColor(@ColorInt int color) {
         this.descriptionTextColor = ColorHolder.fromColor(color);
         return this;
     }
 
-    public PrimaryDrawerItem withDescriptionTextColorRes(int colorRes) {
+    public PrimaryDrawerItem withDescriptionTextColorRes(@ColorRes int colorRes) {
         this.descriptionTextColor = ColorHolder.fromColorRes(colorRes);
         return this;
     }
@@ -54,26 +58,21 @@ public class PrimaryDrawerItem extends BaseDrawerItem<PrimaryDrawerItem> impleme
     }
 
     @Override
-    public PrimaryDrawerItem withBadge(int badgeRes) {
+    public PrimaryDrawerItem withBadge(@StringRes int badgeRes) {
         this.badge = new StringHolder(badgeRes);
         return this;
     }
 
     @Override
-    public PrimaryDrawerItem withBadgeTextColor(int color) {
+    public PrimaryDrawerItem withBadgeTextColor(@ColorInt int color) {
         this.badgeTextColor = ColorHolder.fromColor(color);
         return this;
     }
 
     @Override
-    public PrimaryDrawerItem withBadgeTextColorRes(int colorRes) {
+    public PrimaryDrawerItem withBadgeTextColorRes(@ColorRes int colorRes) {
         this.badgeTextColor = ColorHolder.fromColorRes(colorRes);
         return this;
-    }
-
-    @Override
-    public void setBadgeBackgroundResource(int res) {
-        this.badgeBackgroundRes = res;
     }
 
     @Override
@@ -110,6 +109,7 @@ public class PrimaryDrawerItem extends BaseDrawerItem<PrimaryDrawerItem> impleme
     }
 
     @Override
+    @LayoutRes
     public int getLayoutRes() {
         return R.layout.material_drawer_item_primary;
     }

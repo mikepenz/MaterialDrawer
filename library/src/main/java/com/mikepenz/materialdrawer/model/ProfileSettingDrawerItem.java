@@ -5,6 +5,9 @@ import android.graphics.Bitmap;
 import android.graphics.Typeface;
 import android.graphics.drawable.Drawable;
 import android.net.Uri;
+import android.support.annotation.ColorInt;
+import android.support.annotation.ColorRes;
+import android.support.annotation.LayoutRes;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
 import android.widget.ImageView;
@@ -81,32 +84,32 @@ public class ProfileSettingDrawerItem extends AbstractDrawerItem<ProfileSettingD
         return this;
     }
 
-    public ProfileSettingDrawerItem withSelectedColor(int selectedColor) {
+    public ProfileSettingDrawerItem withSelectedColor(@ColorInt int selectedColor) {
         this.selectedColor = ColorHolder.fromColor(selectedColor);
         return this;
     }
 
-    public ProfileSettingDrawerItem withSelectedColorRes(int selectedColorRes) {
+    public ProfileSettingDrawerItem withSelectedColorRes(@ColorRes int selectedColorRes) {
         this.selectedColor = ColorHolder.fromColorRes(selectedColorRes);
         return this;
     }
 
-    public ProfileSettingDrawerItem withTextColor(int textColor) {
+    public ProfileSettingDrawerItem withTextColor(@ColorInt int textColor) {
         this.textColor = ColorHolder.fromColor(textColor);
         return this;
     }
 
-    public ProfileSettingDrawerItem withTextColorRes(int textColorRes) {
+    public ProfileSettingDrawerItem withTextColorRes(@ColorRes int textColorRes) {
         this.textColor = ColorHolder.fromColorRes(textColorRes);
         return this;
     }
 
-    public ProfileSettingDrawerItem withIconColor(int iconColor) {
+    public ProfileSettingDrawerItem withIconColor(@ColorInt int iconColor) {
         this.iconColor = ColorHolder.fromColor(iconColor);
         return this;
     }
 
-    public ProfileSettingDrawerItem withIconColorRes(int iconColorRes) {
+    public ProfileSettingDrawerItem withIconColorRes(@ColorRes int iconColorRes) {
         this.iconColor = ColorHolder.fromColorRes(iconColorRes);
         return this;
     }
@@ -188,6 +191,7 @@ public class ProfileSettingDrawerItem extends AbstractDrawerItem<ProfileSettingD
     }
 
     @Override
+    @LayoutRes
     public int getLayoutRes() {
         return R.layout.material_drawer_item_profile_setting;
     }

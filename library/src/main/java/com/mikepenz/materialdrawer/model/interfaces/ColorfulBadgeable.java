@@ -14,8 +14,6 @@ public interface ColorfulBadgeable<T> extends Badgeable<T> {
 
     T withBadgeBackgroundResource(int res);
 
-    void setBadgeBackgroundResource(int res);
-
     int getBadgeBackgroundResource();
 
 }
