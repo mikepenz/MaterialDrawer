@@ -25,24 +25,24 @@ import com.mikepenz.materialdrawer.util.DrawerUIUtils;
  * Created by mikepenz on 03.02.15.
  */
 public abstract class BaseDrawerItem<T> extends AbstractDrawerItem<T> implements Nameable<T>, Iconable<T>, Tagable<T>, Typefaceable<T> {
-    private ImageHolder icon;
-    private ImageHolder selectedIcon;
-    private StringHolder name;
+    protected ImageHolder icon;
+    protected ImageHolder selectedIcon;
+    protected StringHolder name;
 
-    private boolean iconTinted = false;
+    protected boolean iconTinted = false;
 
-    private ColorHolder selectedColor;
-    private ColorHolder textColor;
-    private ColorHolder selectedTextColor;
-    private ColorHolder disabledTextColor;
+    protected ColorHolder selectedColor;
+    protected ColorHolder textColor;
+    protected ColorHolder selectedTextColor;
+    protected ColorHolder disabledTextColor;
 
-    private ColorHolder iconColor;
-    private ColorHolder selectedIconColor;
-    private ColorHolder disabledIconColor;
+    protected ColorHolder iconColor;
+    protected ColorHolder selectedIconColor;
+    protected ColorHolder disabledIconColor;
 
-    private Typeface typeface = null;
+    protected Typeface typeface = null;
 
-    private Pair<Integer, ColorStateList> colorStateList;
+    protected Pair<Integer, ColorStateList> colorStateList;
 
     public T withIcon(Drawable icon) {
         this.icon = new ImageHolder(icon);

@@ -15,8 +15,8 @@ import com.mikepenz.materialdrawer.model.utils.ViewHolderFactory;
 /**
  * Created by mikepenz on 14.07.15.
  */
-public abstract class AbstractDrawerItem<T> implements IDrawerItem, Identifyable<T>, Selectable<T>, Tagable<T> {
-    private int mIdentifier = -1;
+public abstract class AbstractDrawerItem<T> implements IDrawerItem<T>, Identifyable<T>, Selectable<T>, Tagable<T> {
+    protected int mIdentifier = -1;
 
     public T withIdentifier(int identifier) {
         this.mIdentifier = identifier;
@@ -28,7 +28,7 @@ public abstract class AbstractDrawerItem<T> implements IDrawerItem, Identifyable
         return mIdentifier;
     }
 
-    private Object mTag;
+    protected Object mTag;
 
     public T withTag(Object object) {
         this.mTag = object;
@@ -40,7 +40,7 @@ public abstract class AbstractDrawerItem<T> implements IDrawerItem, Identifyable
         return mTag;
     }
 
-    private boolean mEnabled = true;
+    protected boolean mEnabled = true;
 
     public T withEnabled(boolean enabled) {
         this.mEnabled = enabled;
@@ -52,11 +52,12 @@ public abstract class AbstractDrawerItem<T> implements IDrawerItem, Identifyable
         return mEnabled;
     }
 
-    private boolean mSelected = false;
+    protected boolean mSelected = false;
 
     @Override
-    public void withSetSelected(boolean selected) {
+    public T withSetSelected(boolean selected) {
         this.mSelected = selected;
+        return (T) this;
     }
 
     @Override
@@ -64,7 +65,7 @@ public abstract class AbstractDrawerItem<T> implements IDrawerItem, Identifyable
         return mSelected;
     }
 
-    private boolean mSelectable = true;
+    protected boolean mSelectable = true;
 
     @Override
     public T withSelectable(boolean selectable) {

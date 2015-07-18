@@ -1,22 +1,21 @@
 package com.mikepenz.materialdrawer;
 
 import android.content.Context;
-import android.graphics.drawable.Drawable;
 import android.support.annotation.NonNull;
-import android.view.LayoutInflater;
+import android.support.v7.widget.DefaultItemAnimator;
+import android.support.v7.widget.LinearLayoutManager;
+import android.support.v7.widget.RecyclerView;
 import android.view.View;
-import android.view.ViewGroup;
-import android.widget.ImageView;
-import android.widget.LinearLayout;
-import android.widget.ScrollView;
 
-import com.mikepenz.materialdrawer.holder.ImageHolder;
+import com.mikepenz.materialdrawer.adapter.BaseDrawerAdapter;
+import com.mikepenz.materialdrawer.adapter.DrawerAdapter;
 import com.mikepenz.materialdrawer.interfaces.ICrossfader;
+import com.mikepenz.materialdrawer.model.MiniDrawerItem;
+import com.mikepenz.materialdrawer.model.MiniProfileDrawerItem;
 import com.mikepenz.materialdrawer.model.PrimaryDrawerItem;
+import com.mikepenz.materialdrawer.model.ProfileDrawerItem;
 import com.mikepenz.materialdrawer.model.interfaces.IDrawerItem;
 import com.mikepenz.materialdrawer.model.interfaces.IProfile;
-import com.mikepenz.materialdrawer.util.DrawerUIUtils;
-import com.mikepenz.materialize.util.UIUtils;
 
 import java.util.ArrayList;
 
@@ -25,8 +24,8 @@ import java.util.ArrayList;
  * Don't count this for real yet. it's just a quick try on creating a Gmail like panel
  */
 public class MiniDrawer {
-    private ScrollView mScrollView;
-    private LinearLayout mLinearLayout;
+    private RecyclerView mRecyclerView;
+    private DrawerAdapter mDrawerAdapter;
 
     private Drawer mDrawer;
 
@@ -50,97 +49,112 @@ public class MiniDrawer {
     }
 
     public View build(Context ctx) {
-        mScrollView = new ScrollView(ctx);
+        mRecyclerView = new RecyclerView(ctx);
 
-        mLinearLayout = new LinearLayout(ctx);
-        mLinearLayout.setOrientation(LinearLayout.VERTICAL);
+        //set the itemAnimator
+        mRecyclerView.setItemAnimator(new DefaultItemAnimator());
+        //some style improvements on older devices
+        mRecyclerView.setFadingEdgeLength(0);
+        //set the drawing cache background to the same color as the slider to improve performance
+        //mRecyclerView.setDrawingCacheBackgroundColor(UIUtils.getThemeColorFromAttrOrRes(mActivity, R.attr.material_drawer_background, R.color.material_drawer_background));
+        mRecyclerView.setClipToPadding(false);
+        //additional stuff
+        mRecyclerView.setLayoutManager(new LinearLayoutManager(ctx));
+        //adapter
+        mDrawerAdapter = new DrawerAdapter();
+        mRecyclerView.setAdapter(mDrawerAdapter);
 
-        mScrollView.addView(mLinearLayout, ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT);
+        createItems();
 
-        update();
-
-        return mScrollView;
+        return mRecyclerView;
     }
 
+    public void onProfileClick() {
+        //crossfade if we are cross faded
+        if (mCrossFader != null) {
+            if (mCrossFader.isCrossfaded()) {
+                mCrossFader.crossfade();
+            }
+        }
 
-    public void update() {
-        Context ctx = mLinearLayout.getContext();
-        mLinearLayout.removeAllViews();
+        //update the current profile
+        if (mAccountHeader != null) {
+            IProfile profile = mAccountHeader.getActiveProfile();
+            if (profile instanceof ProfileDrawerItem) {
+                mDrawerAdapter.setDrawerItem(0, new MiniProfileDrawerItem((ProfileDrawerItem) profile));
+            }
+        }
+    }
 
-        int size = (int) UIUtils.convertDpToPixel(72, ctx);
+    public void onItemClick(IDrawerItem selectedDrawerItem) {
+        //crossfade if we are cross faded
+        if (mCrossFader != null) {
+            if (mCrossFader.isCrossfaded()) {
+                mCrossFader.crossfade();
+            }
+        }
+
+        //We only need to clear if the new item is selectable
+        if (selectedDrawerItem.isSelectable()) {
+            //get the identifier
+            int identifier = selectedDrawerItem.getIdentifier();
+
+            //update everything
+            if (mDrawer != null) {
+                for (IDrawerItem drawerItem : mDrawerAdapter.getDrawerItems()) {
+                    drawerItem.withSetSelected(drawerItem.getIdentifier() == identifier);
+                }
+                mDrawerAdapter.notifyDataSetChanged();
+            }
+        }
+    }
+
+    public void createItems() {
+        mDrawerAdapter.clearDrawerItems();
 
         if (mAccountHeader != null) {
             IProfile profile = mAccountHeader.getActiveProfile();
-            if (profile != null) {
-                View view = LayoutInflater.from(ctx).inflate(R.layout.material_drawer_item_mini_profile, null);
-                ImageHolder.applyTo(profile.getIcon(), (ImageView) view.findViewById(R.id.icon));
-
-                view.findViewById(R.id.icon).setOnClickListener(new View.OnClickListener() {
-                    @Override
-                    public void onClick(View v) {
-                        if (mAccountHeader != null) {
-                            if (!mAccountHeader.isSelectionListShown()) {
-                                mAccountHeader.toggleSelectionList(v.getContext());
-                            }
-                        }
-                        if (mCrossFader != null) {
-                            mCrossFader.crossfade();
-                        }
-                    }
-                });
-
-                mLinearLayout.addView(view, size, size);
+            if (profile instanceof ProfileDrawerItem) {
+                mDrawerAdapter.addDrawerItem(new MiniProfileDrawerItem((ProfileDrawerItem) profile));
             }
         }
 
         if (mDrawer != null) {
             if (mDrawer.getDrawerItems() != null) {
-                int selected_color = UIUtils.getThemeColorFromAttrOrRes(ctx, R.attr.material_drawer_selected, R.color.material_drawer_selected);
-
                 ArrayList<IDrawerItem> drawerItems = mDrawer.getDrawerItems();
                 if (mDrawer.switchedDrawerContent()) {
                     drawerItems = mDrawer.getOriginalDrawerItems();
                 }
 
+                //migrate to miniDrawerItems
                 for (IDrawerItem drawerItem : drawerItems) {
                     if (drawerItem instanceof PrimaryDrawerItem) {
-                        PrimaryDrawerItem primaryDrawerItem = (PrimaryDrawerItem) drawerItem;
-
-                        View view = LayoutInflater.from(ctx).inflate(R.layout.material_drawer_item_mini, null);
-                        view.setTag(primaryDrawerItem);
-
-                        ImageView imageView = (ImageView) view.findViewById(R.id.icon);
-
-                        UIUtils.setBackground(imageView, DrawerUIUtils.getSelectableBackground(ctx, selected_color));
-
-                        Drawable icon = ImageHolder.decideIcon(primaryDrawerItem.getIcon(), ctx, primaryDrawerItem.getIconColor(ctx), primaryDrawerItem.isIconTinted(), 1);
-                        imageView.setImageDrawable(icon);
-
-                        view.setOnClickListener(new View.OnClickListener() {
-                            @Override
-                            public void onClick(View v) {
-                                mDrawer.setSelection((IDrawerItem) v.getTag(), true);
-
-                                clearSelections();
-                                v.findViewById(R.id.icon).setSelected(true);
-                            }
-                        });
-
-                        if (drawerItem.isSelected()) {
-                            imageView.setSelected(true);
-                        }
-
-                        mLinearLayout.addView(view, size, size);
+                        mDrawerAdapter.addDrawerItem(new MiniDrawerItem((PrimaryDrawerItem) drawerItem));
                     }
                 }
             }
         }
-        mScrollView.scrollTo(0, 0);
-    }
 
-    protected void clearSelections() {
-        for (int i = 0; i < mLinearLayout.getChildCount(); i++) {
-            mLinearLayout.getChildAt(i).findViewById(R.id.icon).setSelected(false);
-        }
+        //listener
+        mDrawerAdapter.setOnClickListener(new BaseDrawerAdapter.OnClickListener() {
+            @Override
+            public void onClick(View v, int position, IDrawerItem item) {
+                if (item instanceof MiniDrawerItem) {
+                    if (mDrawerAdapter != null) {
+                        mDrawer.setSelection(item, true);
+                    }
+                } else if (item instanceof MiniProfileDrawerItem) {
+                    if (mAccountHeader != null) {
+                        if (!mAccountHeader.isSelectionListShown()) {
+                            mAccountHeader.toggleSelectionList(v.getContext());
+                        }
+                    }
+                    if (mCrossFader != null) {
+                        mCrossFader.crossfade();
+                    }
+                }
+            }
+        });
+        mRecyclerView.scrollToPosition(0);
     }
 }

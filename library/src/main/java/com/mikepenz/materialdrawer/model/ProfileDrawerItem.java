@@ -27,17 +27,17 @@ import com.mikepenz.materialize.util.UIUtils;
  * Created by mikepenz on 03.02.15.
  */
 public class ProfileDrawerItem extends AbstractDrawerItem<ProfileDrawerItem> implements IProfile<ProfileDrawerItem>, Tagable<ProfileDrawerItem>, Typefaceable<ProfileDrawerItem> {
-    private boolean nameShown = false;
+    protected boolean nameShown = false;
 
-    private ImageHolder icon;
+    protected ImageHolder icon;
 
-    private String name;
-    private String email;
+    protected String name;
+    protected String email;
 
-    private ColorHolder selectedColor;
-    private ColorHolder textColor;
+    protected ColorHolder selectedColor;
+    protected ColorHolder textColor;
 
-    private Typeface typeface = null;
+    protected Typeface typeface = null;
 
     public ProfileDrawerItem withIcon(Drawable icon) {
         this.icon = new ImageHolder(icon);

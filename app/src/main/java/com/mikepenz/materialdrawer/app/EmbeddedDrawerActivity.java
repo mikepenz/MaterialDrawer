@@ -47,7 +47,6 @@ public class EmbeddedDrawerActivity extends AppCompatActivity {
     private AccountHeader headerResult = null;
     private Drawer result = null;
     private MiniDrawer miniResult = null;
-
     private Crossfader crossFader;
 
     @Override
@@ -104,10 +103,7 @@ public class EmbeddedDrawerActivity extends AppCompatActivity {
                         }
 
                         if (SystemUtils.getScreenOrientation() == Configuration.ORIENTATION_LANDSCAPE) {
-                            if (crossFader.isCrossFaded()) {
-                                crossFader.crossFade();
-                                miniResult.update();
-                            }
+                            miniResult.onProfileClick();
                         }
 
                         //false if you have not consumed the event and it should close the drawer
@@ -144,10 +140,7 @@ public class EmbeddedDrawerActivity extends AppCompatActivity {
                         }
 
                         if (SystemUtils.getScreenOrientation() == Configuration.ORIENTATION_LANDSCAPE) {
-                            if (crossFader.isCrossFaded()) {
-                                crossFader.crossFade();
-                                miniResult.update();
-                            }
+                            miniResult.onItemClick(drawerItem);
                         }
 
                         return true;

@@ -17,4 +17,9 @@ public class CrossfadeWrapper implements ICrossfader {
     public void crossfade() {
         mCrossfader.crossFade();
     }
+
+    @Override
+    public boolean isCrossfaded() {
+        return mCrossfader.isCrossFaded();
+    }
 }

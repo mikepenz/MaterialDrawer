@@ -8,7 +8,7 @@ import android.view.ViewGroup;
 /**
  * Created by mikepenz on 03.02.15.
  */
-public interface IDrawerItem {
+public interface IDrawerItem<T> {
     int getIdentifier();
 
     Object getTag();
@@ -17,7 +17,11 @@ public interface IDrawerItem {
 
     boolean isSelected();
 
-    void withSetSelected(boolean selected);
+    T withSetSelected(boolean selected);
+
+    boolean isSelectable();
+
+    T withSelectable(boolean selectable);
 
     String getType();
 
