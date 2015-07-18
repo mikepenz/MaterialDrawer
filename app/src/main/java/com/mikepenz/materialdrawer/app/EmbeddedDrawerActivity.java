@@ -14,6 +14,8 @@ import android.view.View;
 import android.widget.CompoundButton;
 import android.widget.Toast;
 
+import com.mikepenz.crossfader.Crossfader;
+import com.mikepenz.crossfader.util.UIUtils;
 import com.mikepenz.google_material_typeface_library.GoogleMaterial;
 import com.mikepenz.iconics.IconicsDrawable;
 import com.mikepenz.iconics.typeface.FontAwesome;
@@ -22,6 +24,7 @@ import com.mikepenz.materialdrawer.AccountHeaderBuilder;
 import com.mikepenz.materialdrawer.Drawer;
 import com.mikepenz.materialdrawer.DrawerBuilder;
 import com.mikepenz.materialdrawer.MiniDrawer;
+import com.mikepenz.materialdrawer.app.utils.CrossfadeWrapper;
 import com.mikepenz.materialdrawer.app.utils.SystemUtils;
 import com.mikepenz.materialdrawer.interfaces.OnCheckedChangeListener;
 import com.mikepenz.materialdrawer.model.DividerDrawerItem;
@@ -35,7 +38,6 @@ import com.mikepenz.materialdrawer.model.ToggleDrawerItem;
 import com.mikepenz.materialdrawer.model.interfaces.IDrawerItem;
 import com.mikepenz.materialdrawer.model.interfaces.IProfile;
 import com.mikepenz.materialdrawer.model.interfaces.Nameable;
-import com.mikepenz.materialdrawer.util.CrossFader;
 import com.mikepenz.octicons_typeface_library.Octicons;
 
 public class EmbeddedDrawerActivity extends AppCompatActivity {
@@ -46,7 +48,7 @@ public class EmbeddedDrawerActivity extends AppCompatActivity {
     private Drawer result = null;
     private MiniDrawer miniResult = null;
 
-    private CrossFader crossFader;
+    private Crossfader crossFader;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -102,7 +104,7 @@ public class EmbeddedDrawerActivity extends AppCompatActivity {
                         }
 
                         if (SystemUtils.getScreenOrientation() == Configuration.ORIENTATION_LANDSCAPE) {
-                            if (!crossFader.isCrossFaded()) {
+                            if (crossFader.isCrossFaded()) {
                                 crossFader.crossFade();
                                 miniResult.update();
                             }
@@ -142,7 +144,7 @@ public class EmbeddedDrawerActivity extends AppCompatActivity {
                         }
 
                         if (SystemUtils.getScreenOrientation() == Configuration.ORIENTATION_LANDSCAPE) {
-                            if (!crossFader.isCrossFaded()) {
+                            if (crossFader.isCrossFaded()) {
                                 crossFader.crossFade();
                                 miniResult.update();
                             }
@@ -158,12 +160,16 @@ public class EmbeddedDrawerActivity extends AppCompatActivity {
             result = builder.buildView();
             miniResult = new MiniDrawer().withDrawer(result).withAccountHeader(headerResult);
 
-            crossFader = new CrossFader()
-                    .withGeneratedStructure(findViewById(R.id.crossfade_content), result.getSlider(), miniResult.build(this))
-                    .withPanelWidthsDp(360, 72)
+            int first = (int) UIUtils.convertDpToPixel(360, this);
+            int second = (int) UIUtils.convertDpToPixel(72, this);
+
+            crossFader = new Crossfader()
+                    .withContent(findViewById(R.id.crossfade_content))
+                    .withFirst(result.getSlider(), first)
+                    .withSecond(miniResult.build(this), second)
                     .build();
 
-            miniResult.withCrossFader(crossFader);
+            miniResult.withCrossFader(new CrossfadeWrapper(crossFader));
         } else {
             result = builder.build();
         }

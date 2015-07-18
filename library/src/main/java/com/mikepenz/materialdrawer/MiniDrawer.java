@@ -11,10 +11,10 @@ import android.widget.LinearLayout;
 import android.widget.ScrollView;
 
 import com.mikepenz.materialdrawer.holder.ImageHolder;
+import com.mikepenz.materialdrawer.interfaces.ICrossfader;
 import com.mikepenz.materialdrawer.model.PrimaryDrawerItem;
 import com.mikepenz.materialdrawer.model.interfaces.IDrawerItem;
 import com.mikepenz.materialdrawer.model.interfaces.IProfile;
-import com.mikepenz.materialdrawer.util.CrossFader;
 import com.mikepenz.materialdrawer.util.DrawerUIUtils;
 import com.mikepenz.materialize.util.UIUtils;
 
@@ -42,9 +42,9 @@ public class MiniDrawer {
         return this;
     }
 
-    private CrossFader mCrossFader;
+    private ICrossfader mCrossFader;
 
-    public MiniDrawer withCrossFader(@NonNull CrossFader crossFader) {
+    public MiniDrawer withCrossFader(@NonNull ICrossfader crossFader) {
         this.mCrossFader = crossFader;
         return this;
     }
@@ -78,8 +78,13 @@ public class MiniDrawer {
                 view.findViewById(R.id.icon).setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
+                        if (mAccountHeader != null) {
+                            if (!mAccountHeader.isSelectionListShown()) {
+                                mAccountHeader.toggleSelectionList(v.getContext());
+                            }
+                        }
                         if (mCrossFader != null) {
-                            mCrossFader.crossFade();
+                            mCrossFader.crossfade();
                         }
                     }
                 });

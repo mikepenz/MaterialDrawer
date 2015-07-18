@@ -53,6 +53,7 @@ dependencies {
     compile('com.mikepenz:aboutlibraries:5.0.7@aar') {
         transitive = true
     }
+    compile 'com.mikepenz:crossfader:0.0.2@aar'
     compile 'com.mikepenz:octicons-typeface:2.2.0@aar'
     compile 'com.squareup.picasso:picasso:2.5.2'
 }
