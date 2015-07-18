@@ -30,7 +30,7 @@ dependencies {
     compile 'com.android.support:recyclerview-v7:22.2.1'
     compile 'com.android.support:support-annotations:22.2.1'
 
-    compile "com.mikepenz:materialize:0.1.0"
+    compile "com.mikepenz:materialize:0.1.1"
 
     compile('com.mikepenz:iconics:1.3.0@aar') {
         transitive = true
