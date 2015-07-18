@@ -246,13 +246,13 @@ public abstract class BaseDrawerAdapter extends RecyclerView.Adapter<RecyclerVie
     }
 
     public IDrawerItem getItem(int position) {
-        if (position < 0 || position > getItemCount()) {
+        if (position < 0 || position >= getItemCount()) {
             return null;
         }
 
         if (position < getHeaderItemCount()) {
             return mHeaderDrawerItems.get(position);
-        } else if (position < getHeaderItemCount() + getDrawerItemCount()) {
+        } else if (position < (getHeaderItemCount() + getDrawerItemCount())) {
             return mDrawerItems.get(position - getHeaderItemCount());
         } else {
             return mFooterDrawerItems.get(position - getHeaderItemCount() - getDrawerItemCount());
