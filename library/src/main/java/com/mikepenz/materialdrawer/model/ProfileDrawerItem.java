@@ -20,6 +20,7 @@ import com.mikepenz.materialdrawer.model.interfaces.IProfile;
 import com.mikepenz.materialdrawer.model.interfaces.Tagable;
 import com.mikepenz.materialdrawer.model.interfaces.Typefaceable;
 import com.mikepenz.materialdrawer.model.utils.ViewHolderFactory;
+import com.mikepenz.materialdrawer.util.DrawerImageLoader;
 import com.mikepenz.materialdrawer.util.DrawerUIUtils;
 import com.mikepenz.materialize.util.UIUtils;
 
@@ -201,6 +202,8 @@ public class ProfileDrawerItem extends AbstractDrawerItem<ProfileDrawerItem> imp
         }
         viewHolder.email.setTextColor(color);
 
+        //cancel previous started image loading processes
+        DrawerImageLoader.getInstance().cancelImage(viewHolder.profileIcon);
         //set the icon
         ImageHolder.applyToOrSetInvisible(getIcon(), viewHolder.profileIcon);
 

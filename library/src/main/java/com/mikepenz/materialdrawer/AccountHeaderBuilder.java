@@ -26,6 +26,7 @@ import com.mikepenz.iconics.IconicsDrawable;
 import com.mikepenz.materialdrawer.holder.ImageHolder;
 import com.mikepenz.materialdrawer.model.interfaces.IDrawerItem;
 import com.mikepenz.materialdrawer.model.interfaces.IProfile;
+import com.mikepenz.materialdrawer.util.DrawerImageLoader;
 import com.mikepenz.materialdrawer.util.DrawerUIUtils;
 import com.mikepenz.materialdrawer.view.BezelImageView;
 import com.mikepenz.materialize.util.UIUtils;
@@ -1071,7 +1072,11 @@ public class AccountHeaderBuilder {
      * @param imageHolder
      */
     private void setImageOrPlaceholder(ImageView iv, ImageHolder imageHolder) {
+        //cancel previous started image loading processes
+        DrawerImageLoader.getInstance().cancelImage(iv);
+        //set the placeholder
         iv.setImageDrawable(DrawerUIUtils.getPlaceHolder(iv.getContext()));
+        //set the real image (probably also the uri)
         ImageHolder.applyTo(imageHolder, iv);
     }
 
