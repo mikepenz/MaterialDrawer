@@ -6,8 +6,8 @@ import android.graphics.drawable.Drawable;
 import android.net.Uri;
 import android.widget.ImageView;
 
+import com.bumptech.glide.Glide;
 import com.mikepenz.materialdrawer.util.DrawerImageLoader;
-import com.squareup.picasso.Picasso;
 
 /**
  * Created by mikepenz on 27.03.15.
@@ -18,6 +18,7 @@ public class CustomApplication extends Application {
     public void onCreate() {
         super.onCreate();
 
+        /*
         //initialize and create the image loader logic
         DrawerImageLoader.init(new DrawerImageLoader.IDrawerImageLoader() {
             @Override
@@ -35,9 +36,10 @@ public class CustomApplication extends Application {
                 return null;
             }
         });
+        */
 
-        /*
-        TODO FIND LOGIC TO SUPPORT GLIDE
+
+        //TODO FIND LOGIC TO SUPPORT GLIDE
         //initialize and create the image loader logic
         DrawerImageLoader.init(new DrawerImageLoader.IDrawerImageLoader() {
             @Override
@@ -55,6 +57,5 @@ public class CustomApplication extends Application {
                 return null;
             }
         });
-        */
     }
 }
