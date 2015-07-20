@@ -38,8 +38,6 @@ public class CustomApplication extends Application {
         });
         */
 
-
-        //TODO FIND LOGIC TO SUPPORT GLIDE
         //initialize and create the image loader logic
         DrawerImageLoader.init(new DrawerImageLoader.IDrawerImageLoader() {
             @Override
