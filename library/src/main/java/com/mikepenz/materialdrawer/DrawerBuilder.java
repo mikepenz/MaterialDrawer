@@ -1267,17 +1267,6 @@ public class DrawerBuilder {
             mSliderLayout.setLayoutParams(params);
         }
 
-        // set the background
-        if (mSliderBackgroundColor != 0) {
-            mSliderLayout.setBackgroundColor(mSliderBackgroundColor);
-        } else if (mSliderBackgroundColorRes != -1) {
-            mSliderLayout.setBackgroundColor(mActivity.getResources().getColor(mSliderBackgroundColorRes));
-        } else if (mSliderBackgroundDrawable != null) {
-            UIUtils.setBackground(mSliderLayout, mSliderBackgroundDrawable);
-        } else if (mSliderBackgroundDrawableRes != -1) {
-            UIUtils.setBackground(mSliderLayout, mSliderBackgroundColorRes);
-        }
-
         //set the shadow for the drawer
         if (Build.VERSION.SDK_INT < 21 && mDrawerLayout != null) {
             mDrawerLayout.setDrawerShadow(R.drawable.drawer_shadow, mDrawerGravity);
@@ -1402,6 +1391,17 @@ public class DrawerBuilder {
         RelativeLayout.LayoutParams shadowLayoutParams = (RelativeLayout.LayoutParams) statusBarShadow.getLayoutParams();
         shadowLayoutParams.height = UIUtils.getStatusBarHeight(mActivity, true);
         statusBarShadow.setLayoutParams(shadowLayoutParams);
+
+        // set the background
+        if (mSliderBackgroundColor != 0) {
+            mSliderLayout.setBackgroundColor(mSliderBackgroundColor);
+        } else if (mSliderBackgroundColorRes != -1) {
+            mSliderLayout.setBackgroundColor(mActivity.getResources().getColor(mSliderBackgroundColorRes));
+        } else if (mSliderBackgroundDrawable != null) {
+            UIUtils.setBackground(mSliderLayout, mSliderBackgroundDrawable);
+        } else if (mSliderBackgroundDrawableRes != -1) {
+            UIUtils.setBackground(mSliderLayout, mSliderBackgroundColorRes);
+        }
 
         //some extra stuff to beautify the whole thing ;)
         if (mTranslucentStatusBar || (mTranslucentStatusBarShadow != null && mTranslucentStatusBarShadow)) {
