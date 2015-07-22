@@ -1404,10 +1404,10 @@ public class DrawerBuilder {
         }
 
         //some extra stuff to beautify the whole thing ;)
-        if (mTranslucentStatusBar || (mTranslucentStatusBarShadow != null && mTranslucentStatusBarShadow)) {
+        if ((mTranslucentStatusBar || (mTranslucentStatusBarShadow != null && mTranslucentStatusBarShadow))) {
             if (mTranslucentStatusBarShadow == null) {
-                //if we use the default behavior show it only if we are above API Level 20
-                if (Build.VERSION.SDK_INT > 20) {
+                //if we use the default behavior show it only if we are >= API Level 21
+                if (Build.VERSION.SDK_INT >= 21) {
                     //bring shadow bar to front again
                     statusBarShadow.bringToFront();
                 } else {
@@ -1420,6 +1420,11 @@ public class DrawerBuilder {
             }
         } else {
             //disable the shadow if we don't use a translucent activity
+            statusBarShadow.setVisibility(View.GONE);
+        }
+
+        if (mDisplayBelowStatusBar != null && mDisplayBelowStatusBar) {
+            //disable the shadow if we are below the statusBar
             statusBarShadow.setVisibility(View.GONE);
         }
 
