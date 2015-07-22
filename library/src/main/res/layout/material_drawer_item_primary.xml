@@ -20,8 +20,9 @@
         android:paddingTop="@dimen/material_drawer_item_primary_icon_padding" />
 
     <LinearLayout
-        android:layout_width="match_parent"
+        android:layout_width="0dp"
         android:layout_height="match_parent"
+        android:layout_weight="1"
         android:gravity="center_vertical|start"
         android:orientation="vertical">
 
