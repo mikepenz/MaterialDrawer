@@ -383,7 +383,7 @@ class DrawerUtils {
                 }
             }
 
-            if (drawer.mDisplayBelowStatusBar != null && drawer.mDisplayBelowStatusBar) {
+            if (drawer.mDisplayBelowStatusBar != null && drawer.mDisplayBelowStatusBar && Build.VERSION.SDK_INT >= 19) {
                 params.topMargin = UIUtils.getStatusBarHeight(drawer.mActivity, true);
             }
 
