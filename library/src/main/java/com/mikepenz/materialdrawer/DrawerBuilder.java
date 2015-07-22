@@ -1267,11 +1267,6 @@ public class DrawerBuilder {
             mSliderLayout.setLayoutParams(params);
         }
 
-        //set the shadow for the drawer
-        if (Build.VERSION.SDK_INT < 21 && mDrawerLayout != null) {
-            mDrawerLayout.setDrawerShadow(R.drawable.drawer_shadow, mDrawerGravity);
-        }
-
         //create the content
         createContent();
 
@@ -1347,6 +1342,15 @@ public class DrawerBuilder {
             contentParams.weight = 1f;
             mSliderLayout.addView(mCustomView, contentParams);
             return;
+        }
+
+        //set the shadow for the drawer
+        if (Build.VERSION.SDK_INT < 21 && mDrawerLayout != null) {
+            if (mDrawerGravity == GravityCompat.START) {
+                mDrawerLayout.setDrawerShadow(R.drawable.drawer_shadow, mDrawerGravity);
+            } else {
+                mDrawerLayout.setDrawerShadow(R.drawable.drawer_shadow_left, mDrawerGravity);
+            }
         }
 
         // if we have an adapter (either by defining a custom one or the included one add a list :D
