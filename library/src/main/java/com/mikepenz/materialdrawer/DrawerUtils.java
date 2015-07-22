@@ -282,9 +282,9 @@ class DrawerUtils {
             }
 
             if (drawer.mFooterDivider) {
-                drawer.mAdapter.addHeaderDrawerItems(new ContainerDrawerItem().withView(drawer.mFooterView).withViewPosition(ContainerDrawerItem.Position.BOTTOM));
+                drawer.mAdapter.addFooterDrawerItems(new ContainerDrawerItem().withView(drawer.mFooterView).withViewPosition(ContainerDrawerItem.Position.BOTTOM));
             } else {
-                drawer.mAdapter.addHeaderDrawerItems(new ContainerDrawerItem().withView(drawer.mFooterView).withViewPosition(ContainerDrawerItem.Position.NONE));
+                drawer.mAdapter.addFooterDrawerItems(new ContainerDrawerItem().withView(drawer.mFooterView).withViewPosition(ContainerDrawerItem.Position.NONE));
             }
         }
     }
