@@ -145,7 +145,7 @@ public class MiniDrawerActivity extends AppCompatActivity {
 
         // Embed only if orientation is Landscape (regular drawer in Portrait)
         result = builder.buildView();
-        miniResult = new MiniDrawer().withDrawer(result).withAccountHeader(headerResult);
+        miniResult = new MiniDrawer().withDrawer(result).withInnerShadow(true).withAccountHeader(headerResult);
 
         int first = (int) UIUtils.convertDpToPixel(300, this);
         int second = (int) UIUtils.convertDpToPixel(72, this);
