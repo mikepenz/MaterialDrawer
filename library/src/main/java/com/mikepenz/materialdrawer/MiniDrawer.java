@@ -6,6 +6,8 @@ import android.support.v7.widget.DefaultItemAnimator;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
+import android.view.ViewGroup;
+import android.widget.LinearLayout;
 
 import com.mikepenz.materialdrawer.adapter.BaseDrawerAdapter;
 import com.mikepenz.materialdrawer.adapter.DrawerAdapter;
@@ -24,6 +26,7 @@ import java.util.ArrayList;
  * Don't count this for real yet. it's just a quick try on creating a Gmail like panel
  */
 public class MiniDrawer {
+    private LinearLayout mContainer;
     private RecyclerView mRecyclerView;
     private DrawerAdapter mDrawerAdapter;
 
@@ -48,8 +51,42 @@ public class MiniDrawer {
         return this;
     }
 
+    private boolean mInnerShadow = false;
+
+    public MiniDrawer withInnerShadow(boolean innerShadow) {
+        this.mInnerShadow = innerShadow;
+        return this;
+    }
+
+    public RecyclerView getRecyclerView() {
+        return mRecyclerView;
+    }
+
+    public DrawerAdapter getDrawerAdapter() {
+        return mDrawerAdapter;
+    }
+
+    public Drawer getDrawer() {
+        return mDrawer;
+    }
+
+    public AccountHeader getAccountHeader() {
+        return mAccountHeader;
+    }
+
+    public ICrossfader getCrossFader() {
+        return mCrossFader;
+    }
+
     public View build(Context ctx) {
+        mContainer = new LinearLayout(ctx);
+        if (mInnerShadow) {
+            mContainer.setBackgroundResource(R.drawable.material_drawer_shadow_left);
+        }
+
+        //create and append recyclerView
         mRecyclerView = new RecyclerView(ctx);
+        mContainer.addView(mRecyclerView, ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.MATCH_PARENT);
 
         //set the itemAnimator
         mRecyclerView.setItemAnimator(new DefaultItemAnimator());
@@ -64,9 +101,10 @@ public class MiniDrawer {
         mDrawerAdapter = new DrawerAdapter();
         mRecyclerView.setAdapter(mDrawerAdapter);
 
+        //set the adapter with the items
         createItems();
 
-        return mRecyclerView;
+        return mContainer;
     }
 
     public void onProfileClick() {
