@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="@dimen/material_drawer_item_profile"
     android:layout_height="64dp"
     android:paddingBottom="4dp"
@@ -16,4 +17,19 @@
         android:layout_gravity="center"
         android:padding="16dp"
         android:scaleType="centerInside" />
-</LinearLayout>
+
+
+    <TextView
+        android:id="@+id/badge"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="top|end"
+        android:fontFamily="sans-serif"
+        android:gravity="center"
+        android:lines="1"
+        android:minWidth="14dp"
+        android:padding="1dp"
+        android:singleLine="true"
+        android:textSize="@dimen/material_drawer_item_mini_badge_text"
+        tools:text="99" />
+</FrameLayout>

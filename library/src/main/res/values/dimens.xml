@@ -52,4 +52,7 @@
 
     <!-- Definition for the section item -->
     <dimen name="material_drawer_item_section_text">14sp</dimen>
+
+    <!-- Definition for the mini drawer item -->
+    <dimen name="material_drawer_item_mini_badge_text">12sp</dimen>
 </resources>

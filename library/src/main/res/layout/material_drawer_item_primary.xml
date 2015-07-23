@@ -52,12 +52,15 @@
     <TextView
         android:id="@+id/badge"
         android:layout_width="wrap_content"
-        android:layout_height="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_vertical|end"
         android:layout_marginLeft="@dimen/material_drawer_padding"
         android:layout_marginStart="@dimen/material_drawer_padding"
         android:fontFamily="sans-serif"
-        android:gravity="center_vertical|end"
+        android:gravity="center"
         android:lines="1"
+        android:minWidth="20dp"
+        android:padding="2dp"
         android:singleLine="true"
         android:textSize="@dimen/material_drawer_item_primary_text"
         tools:text="99" />
