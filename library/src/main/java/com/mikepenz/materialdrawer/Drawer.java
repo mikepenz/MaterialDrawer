@@ -1,12 +1,9 @@
 package com.mikepenz.materialdrawer;
 
 import android.app.Activity;
-import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.support.annotation.ColorInt;
-import android.support.annotation.DrawableRes;
 import android.support.annotation.NonNull;
-import android.support.annotation.StringRes;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.widget.RecyclerView;
@@ -15,15 +12,10 @@ import android.widget.AdapterView;
 import android.widget.FrameLayout;
 import android.widget.RelativeLayout;
 
-import com.mikepenz.iconics.typeface.IIcon;
 import com.mikepenz.materialdrawer.adapter.BaseDrawerAdapter;
 import com.mikepenz.materialdrawer.model.ContainerDrawerItem;
-import com.mikepenz.materialdrawer.model.interfaces.Badgeable;
 import com.mikepenz.materialdrawer.model.interfaces.IDrawerItem;
-import com.mikepenz.materialdrawer.model.interfaces.Iconable;
-import com.mikepenz.materialdrawer.model.interfaces.Nameable;
 import com.mikepenz.materialdrawer.util.KeyboardUtil;
-import com.mikepenz.materialize.util.UIUtils;
 import com.mikepenz.materialize.view.IScrimInsetsLayout;
 
 import java.util.ArrayList;
@@ -549,120 +541,6 @@ public class Drawer {
         }
 
         mDrawerBuilder.mAdapter.notifyDataSetChanged();
-    }
-
-    /**
-     * Update the name of a drawer item if its an instance of nameable
-     *
-     * @param nameRes
-     * @param identifier
-     */
-    public void updateName(@StringRes int nameRes, int identifier) {
-        int position = getPosition(identifier);
-        if (mDrawerBuilder.checkDrawerItem(position, false)) {
-            IDrawerItem drawerItem = mDrawerBuilder.getDrawerItem(position);
-
-            if (drawerItem instanceof Nameable) {
-                ((Nameable) drawerItem).withName(nameRes);
-            }
-
-            mDrawerBuilder.getAdapter().setDrawerItem(position, drawerItem);
-        }
-    }
-
-    /**
-     * Update the name of a drawer item if its an instance of nameable
-     *
-     * @param name
-     * @param identifier
-     */
-    public void updateName(String name, int identifier) {
-        int position = getPosition(identifier);
-        if (mDrawerBuilder.checkDrawerItem(position, false)) {
-            IDrawerItem drawerItem = mDrawerBuilder.getDrawerItem(position);
-
-            if (drawerItem instanceof Nameable) {
-                ((Nameable) drawerItem).withName(name);
-            }
-
-            mDrawerBuilder.getAdapter().setDrawerItem(position, drawerItem);
-        }
-    }
-
-    /**
-     * Update the badge of a drawer item if its an instance of badgeable
-     *
-     * @param badge
-     * @param identifier
-     */
-    public void updateBadge(String badge, int identifier) {
-        int position = getPosition(identifier);
-        if (mDrawerBuilder.checkDrawerItem(position, false)) {
-            IDrawerItem drawerItem = mDrawerBuilder.getDrawerItem(position);
-
-            if (drawerItem instanceof Badgeable) {
-                ((Badgeable) drawerItem).withBadge(badge);
-            }
-
-            mDrawerBuilder.getAdapter().setDrawerItem(position, drawerItem);
-        }
-    }
-
-    /**
-     * Update the icon of a drawer item if its an instance of iconable
-     *
-     * @param icon
-     * @param identifier
-     */
-    public void updateIcon(Drawable icon, int identifier) {
-        int position = getPosition(identifier);
-        if (mDrawerBuilder.checkDrawerItem(position, false)) {
-            IDrawerItem drawerItem = mDrawerBuilder.getDrawerItem(position);
-
-            if (drawerItem instanceof Iconable) {
-                ((Iconable) drawerItem).withIcon(icon);
-            }
-
-            mDrawerBuilder.getAdapter().setDrawerItem(position, drawerItem);
-        }
-    }
-
-    /**
-     * Update the icon of a drawer item from an iconRes
-     *
-     * @param iconRes
-     * @param identifier
-     */
-    public void updateIcon(@DrawableRes int iconRes, int identifier) {
-        int position = getPosition(identifier);
-        if (mDrawerBuilder.mRootView != null && mDrawerBuilder.checkDrawerItem(position, false)) {
-            IDrawerItem drawerItem = mDrawerBuilder.getDrawerItem(position);
-
-            if (drawerItem instanceof Iconable) {
-                ((Iconable) drawerItem).withIcon(UIUtils.getCompatDrawable(mDrawerBuilder.mRootView.getContext(), iconRes));
-            }
-
-            mDrawerBuilder.getAdapter().setDrawerItem(position, drawerItem);
-        }
-    }
-
-    /**
-     * Update the icon of a drawer item if its an instance of iconable
-     *
-     * @param icon
-     * @param identifier
-     */
-    public void updateIcon(@NonNull IIcon icon, int identifier) {
-        int position = getPosition(identifier);
-        if (mDrawerBuilder.checkDrawerItem(position, false)) {
-            IDrawerItem drawerItem = mDrawerBuilder.getDrawerItem(position);
-
-            if (drawerItem instanceof Iconable) {
-                ((Iconable) drawerItem).withIcon(icon);
-            }
-
-            mDrawerBuilder.getAdapter().setDrawerItem(position, drawerItem);
-        }
     }
 
     /**
