@@ -1561,7 +1561,7 @@ public class DrawerBuilder {
      * @return
      */
     protected IDrawerItem getDrawerItem(int position) {
-        return getAdapter().getItem(position);
+        return getAdapter().getDrawerItem(position);
     }
 
     /**
@@ -1572,7 +1572,7 @@ public class DrawerBuilder {
      * @return
      */
     protected boolean checkDrawerItem(int position, boolean includeOffset) {
-        return getAdapter().getItem(position) != null;
+        return getAdapter().getDrawerItem(position) != null;
     }
 
     /**

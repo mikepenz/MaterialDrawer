@@ -245,6 +245,13 @@ public abstract class BaseDrawerAdapter extends RecyclerView.Adapter<RecyclerVie
         return item != null && item.isSelected();
     }
 
+    public IDrawerItem getDrawerItem(int position) {
+        if (position < 0 || position >= getDrawerItemCount()) {
+            return null;
+        }
+        return mDrawerItems.get(position);
+    }
+
     public IDrawerItem getItem(int position) {
         if (position < 0 || position >= getItemCount()) {
             return null;
