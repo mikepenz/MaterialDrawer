@@ -2,6 +2,8 @@ package com.mikepenz.materialdrawer.holder;
 
 import android.content.Context;
 import android.content.res.ColorStateList;
+import android.graphics.Color;
+import android.graphics.drawable.GradientDrawable;
 import android.view.View;
 import android.widget.TextView;
 
@@ -44,6 +46,20 @@ public class ColorHolder {
         }
     }
 
+    /**
+     * set the textColor of the ColorHolder to an drawable
+     *
+     * @param ctx
+     * @param drawable
+     */
+    public void applyTo(Context ctx, GradientDrawable drawable) {
+        if (mColorInt != 0) {
+            drawable.setColor(mColorInt);
+        } else if (mColorRes != -1) {
+            drawable.setColor(ctx.getResources().getColor(mColorRes));
+        }
+    }
+
 
     /**
      * set the textColor of the ColorHolder to a view
@@ -69,7 +85,7 @@ public class ColorHolder {
             textView.setTextColor(mColorInt);
         } else if (mColorRes != -1) {
             textView.setTextColor(textView.getContext().getResources().getColor(mColorRes));
-        } else {
+        } else if (colorDefault != null) {
             textView.setTextColor(colorDefault);
         }
     }
@@ -120,6 +136,21 @@ public class ColorHolder {
             colorHolder.applyToOr(textView, colorDefault);
         } else if (textView != null) {
             textView.setTextColor(colorDefault);
+        }
+    }
+
+    /**
+     * a small static helper to set the color to a GradientDrawable null save
+     *
+     * @param colorHolder
+     * @param ctx
+     * @param gradientDrawable
+     */
+    public static void applyToOrTransparent(ColorHolder colorHolder, Context ctx, GradientDrawable gradientDrawable) {
+        if (colorHolder != null && gradientDrawable != null) {
+            colorHolder.applyTo(ctx, gradientDrawable);
+        } else if (gradientDrawable != null) {
+            gradientDrawable.setColor(Color.TRANSPARENT);
         }
     }
 }
