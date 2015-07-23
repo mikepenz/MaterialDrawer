@@ -31,6 +31,7 @@ public class ActionBarDrawerActivity extends AppCompatActivity {
                 .withActivity(this)
                 .withTranslucentStatusBar(false)
                 .withActionBarDrawerToggle(false)
+                .withSavedInstance(savedInstanceState)
                 .addDrawerItems(
                         new PrimaryDrawerItem().withName(R.string.drawer_item_home).withIcon(FontAwesome.Icon.faw_home),
                         new PrimaryDrawerItem().withName(R.string.drawer_item_free_play).withIcon(FontAwesome.Icon.faw_gamepad),
@@ -54,6 +55,13 @@ public class ActionBarDrawerActivity extends AppCompatActivity {
 
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         getSupportActionBar().setHomeButtonEnabled(false);
+    }
+
+    @Override
+    protected void onSaveInstanceState(Bundle outState) {
+        //add the values which need to be saved from the drawer to the bundle
+        outState = result.saveInstanceState(outState);
+        super.onSaveInstanceState(outState);
     }
 
     @Override

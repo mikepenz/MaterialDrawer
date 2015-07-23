@@ -22,6 +22,7 @@ import com.mikepenz.materialdrawer.model.interfaces.Nameable;
 public class MultiDrawerActivity extends AppCompatActivity {
 
     private Drawer result = null;
+    private Drawer resultAppended = null;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -38,6 +39,7 @@ public class MultiDrawerActivity extends AppCompatActivity {
         result = new DrawerBuilder()
                 .withActivity(this)
                 .withHeader(R.layout.header)
+                .withSavedInstance(savedInstanceState)
                 .addDrawerItems(
                         new PrimaryDrawerItem().withName(R.string.drawer_item_home).withIcon(FontAwesome.Icon.faw_home).withBadge("99").withIdentifier(1),
                         new PrimaryDrawerItem().withName(R.string.drawer_item_free_play).withIcon(FontAwesome.Icon.faw_gamepad),
@@ -108,10 +110,11 @@ public class MultiDrawerActivity extends AppCompatActivity {
 
         //now we add the second drawer on the other site.
         //use the .append method to add this drawer to the first one
-        new DrawerBuilder()
+        resultAppended = new DrawerBuilder()
                 .withActivity(this)
                 .withFooter(R.layout.footer)
                 .withDisplayBelowStatusBar(true)
+                .withSavedInstance(savedInstanceState)
                 .addDrawerItems(
                         new PrimaryDrawerItem().withName(R.string.drawer_item_custom).withIcon(FontAwesome.Icon.faw_eye),
                         new PrimaryDrawerItem().withName(R.string.drawer_item_home).withIcon(FontAwesome.Icon.faw_home),
@@ -131,6 +134,16 @@ public class MultiDrawerActivity extends AppCompatActivity {
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         getSupportActionBar().setHomeButtonEnabled(false);
     }
+
+    @Override
+    protected void onSaveInstanceState(Bundle outState) {
+        //add the values which need to be saved from the drawer to the bundle
+        outState = result.saveInstanceState(outState);
+        //add the values which need to be saved from the apppended drawer to the bundle
+        outState = resultAppended.saveInstanceState(outState);
+        super.onSaveInstanceState(outState);
+    }
+
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
