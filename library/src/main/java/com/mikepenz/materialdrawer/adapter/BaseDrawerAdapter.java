@@ -112,12 +112,14 @@ public abstract class BaseDrawerAdapter extends RecyclerView.Adapter<RecyclerVie
 
     public void setHeaderDrawerItems(ArrayList<IDrawerItem> mHeaderDrawerItems) {
         this.mHeaderDrawerItems = mHeaderDrawerItems;
+        notifyItemRangeInserted(0, mHeaderDrawerItems.size());
         mapPossibleTypes(mHeaderDrawerItems);
     }
 
     public void addHeaderDrawerItems(IDrawerItem... drawerItems) {
         if (drawerItems != null) {
             Collections.addAll(mHeaderDrawerItems, drawerItems);
+            notifyItemRangeInserted(0, drawerItems.length);
         }
         mapPossibleTypes(mHeaderDrawerItems);
     }
@@ -128,12 +130,14 @@ public abstract class BaseDrawerAdapter extends RecyclerView.Adapter<RecyclerVie
 
     public void setFooterDrawerItems(ArrayList<IDrawerItem> mFooterDrawerItems) {
         this.mFooterDrawerItems = mFooterDrawerItems;
+        notifyItemRangeInserted(0, mFooterDrawerItems.size());
         mapPossibleTypes(mFooterDrawerItems);
     }
 
     public void addFooterDrawerItems(IDrawerItem... drawerItems) {
         if (drawerItems != null) {
             Collections.addAll(mFooterDrawerItems, drawerItems);
+            notifyItemRangeInserted(0, drawerItems.length);
         }
         mapPossibleTypes(mFooterDrawerItems);
     }
