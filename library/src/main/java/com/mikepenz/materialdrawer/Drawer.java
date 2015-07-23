@@ -28,7 +28,9 @@ public class Drawer {
      * BUNDLE param to store the selection
      */
     protected static final String BUNDLE_SELECTION = "bundle_selection";
+    protected static final String BUNDLE_SELECTION_APPENDED = "bundle_selection_appended";
     protected static final String BUNDLE_FOOTER_SELECTION = "bundle_footer_selection";
+    protected static final String BUNDLE_FOOTER_SELECTION_APPENDED = "bundle_footer_selection_APPENDED";
 
     /**
      * Per the design guidelines, you should show the drawer on launch until the user manually
@@ -759,8 +761,13 @@ public class Drawer {
      */
     public Bundle saveInstanceState(Bundle savedInstanceState) {
         if (savedInstanceState != null) {
-            savedInstanceState.putInt(BUNDLE_SELECTION, mDrawerBuilder.mCurrentSelection);
-            savedInstanceState.putInt(BUNDLE_FOOTER_SELECTION, mDrawerBuilder.mCurrentFooterSelection);
+            if (!mDrawerBuilder.mAppended) {
+                savedInstanceState.putInt(BUNDLE_SELECTION, mDrawerBuilder.mCurrentSelection);
+                savedInstanceState.putInt(BUNDLE_FOOTER_SELECTION, mDrawerBuilder.mCurrentFooterSelection);
+            } else {
+                savedInstanceState.putInt(BUNDLE_SELECTION_APPENDED, mDrawerBuilder.mCurrentSelection);
+                savedInstanceState.putInt(BUNDLE_FOOTER_SELECTION_APPENDED, mDrawerBuilder.mCurrentFooterSelection);
+            }
         }
         return savedInstanceState;
     }

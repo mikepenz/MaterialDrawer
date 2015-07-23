@@ -58,6 +58,7 @@ public class DrawerBuilder {
     protected boolean mUsed = false;
     protected int mCurrentSelection = -1;
     protected int mCurrentFooterSelection = -1;
+    protected boolean mAppended = false;
 
     // the activity to use
     protected Activity mActivity;
@@ -1302,6 +1303,7 @@ public class DrawerBuilder {
 
         //set that this builder was used. now you have to create a new one
         mUsed = true;
+        mAppended = true;
 
         //get the drawer layout from the previous drawer
         mDrawerLayout = result.getDrawerLayout();
@@ -1492,38 +1494,19 @@ public class DrawerBuilder {
             }
         });
 
-        // add the onDrawerItemSelectedListener if set
-
-        //WTF SELECTING WITHOUT A CLICK?!
-        /*
-        mListView.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
-            @Override
-            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
-                if (mOnDrawerItemSelectedListener != null) {
-                    mOnDrawerItemSelectedListener.onItemSelected(parent, view, position - mHeaderOffset, id, getDrawerItem(position, true));
-                }
-                mCurrentSelection = position - mHeaderOffset;
-            }
-
-            @Override
-            public void onNothingSelected(AdapterView<?> parent) {
-                if (mOnDrawerItemSelectedListener != null) {
-                    mOnDrawerItemSelectedListener.onNothingSelected(parent);
-                }
-            }
-        });
-        */
-
         if (mRecyclerView != null) {
             mRecyclerView.scrollToPosition(0);
         }
 
         // try to restore all saved values again
         if (mSavedInstance != null) {
-            int selection = mSavedInstance.getInt(Drawer.BUNDLE_SELECTION, -1);
-            DrawerUtils.setRecyclerViewSelection(this, selection, false);
-            int footerSelection = mSavedInstance.getInt(Drawer.BUNDLE_FOOTER_SELECTION, -1);
-            DrawerUtils.setFooterSelection(this, footerSelection, false);
+            if (!mAppended) {
+                DrawerUtils.setRecyclerViewSelection(this, mSavedInstance.getInt(Drawer.BUNDLE_SELECTION, -1), false);
+                DrawerUtils.setFooterSelection(this, mSavedInstance.getInt(Drawer.BUNDLE_FOOTER_SELECTION, -1), false);
+            } else {
+                DrawerUtils.setRecyclerViewSelection(this, mSavedInstance.getInt(Drawer.BUNDLE_SELECTION_APPENDED, -1), false);
+                DrawerUtils.setFooterSelection(this, mSavedInstance.getInt(Drawer.BUNDLE_FOOTER_SELECTION_APPENDED, -1), false);
+            }
         }
 
         // call initial onClick event to allow the dev to init the first view
