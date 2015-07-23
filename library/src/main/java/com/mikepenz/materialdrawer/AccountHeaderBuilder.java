@@ -1194,7 +1194,7 @@ public class AccountHeaderBuilder {
                     if (mCurrentHiddenInList) {
                         continue;
                     } else {
-                        selectedPosition = position;
+                        selectedPosition = position + mDrawer.getAdapter().getHeaderOffset();
                     }
                 }
                 if (profile instanceof IDrawerItem) {
