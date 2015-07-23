@@ -29,15 +29,18 @@ public class StringHolder {
         }
     }
 
-    public void applyToOrHide(TextView textView) {
+    public boolean applyToOrHide(TextView textView) {
         if (mText != null) {
             textView.setText(mText);
             textView.setVisibility(View.VISIBLE);
+            return true;
         } else if (mTextRes != -1) {
             textView.setText(mTextRes);
             textView.setVisibility(View.VISIBLE);
+            return true;
         } else {
             textView.setVisibility(View.GONE);
+            return false;
         }
     }
 
@@ -57,12 +60,14 @@ public class StringHolder {
         }
     }
 
-    public static void applyToOrHide(StringHolder text, TextView textView) {
+    public static boolean applyToOrHide(StringHolder text, TextView textView) {
         if (text != null && textView != null) {
-            text.applyToOrHide(textView);
+            return text.applyToOrHide(textView);
         } else if (textView != null) {
             textView.setVisibility(View.GONE);
+            return false;
         }
+        return false;
     }
 
     @Override
