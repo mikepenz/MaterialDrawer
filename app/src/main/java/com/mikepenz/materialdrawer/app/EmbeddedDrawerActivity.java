@@ -1,31 +1,23 @@
 package com.mikepenz.materialdrawer.app;
 
-import android.content.res.Configuration;
 import android.graphics.Color;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
-import android.view.Menu;
-import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
+import android.view.ViewGroup;
 import android.widget.CompoundButton;
 import android.widget.Toast;
 
-import com.mikepenz.crossfader.Crossfader;
-import com.mikepenz.crossfader.util.UIUtils;
 import com.mikepenz.google_material_typeface_library.GoogleMaterial;
-import com.mikepenz.iconics.IconicsDrawable;
 import com.mikepenz.iconics.typeface.FontAwesome;
 import com.mikepenz.materialdrawer.AccountHeader;
 import com.mikepenz.materialdrawer.AccountHeaderBuilder;
 import com.mikepenz.materialdrawer.Drawer;
 import com.mikepenz.materialdrawer.DrawerBuilder;
-import com.mikepenz.materialdrawer.MiniDrawer;
-import com.mikepenz.materialdrawer.app.utils.CrossfadeWrapper;
-import com.mikepenz.materialdrawer.app.utils.SystemUtils;
 import com.mikepenz.materialdrawer.holder.BadgeStyle;
 import com.mikepenz.materialdrawer.interfaces.OnCheckedChangeListener;
 import com.mikepenz.materialdrawer.model.DividerDrawerItem;
@@ -47,13 +39,11 @@ public class EmbeddedDrawerActivity extends AppCompatActivity {
     //save our header or result
     private AccountHeader headerResult = null;
     private Drawer result = null;
-    private MiniDrawer miniResult = null;
-    private Crossfader crossFader;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_dualpane);
+        setContentView(R.layout.activity_embedded);
 
         // Handle Toolbar
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
@@ -102,10 +92,6 @@ public class EmbeddedDrawerActivity extends AppCompatActivity {
                             }
                         }
 
-                        if (SystemUtils.getScreenOrientation() == Configuration.ORIENTATION_LANDSCAPE) {
-                            miniResult.onProfileClick();
-                        }
-
                         //false if you have not consumed the event and it should close the drawer
                         return false;
                     }
@@ -113,7 +99,7 @@ public class EmbeddedDrawerActivity extends AppCompatActivity {
                 .withSavedInstance(savedInstanceState)
                 .build();
 
-        DrawerBuilder builder = new DrawerBuilder()
+        result = new DrawerBuilder()
                 .withActivity(this)
                 .withToolbar(toolbar)
                 .withTranslucentStatusBar(false)
@@ -139,33 +125,13 @@ public class EmbeddedDrawerActivity extends AppCompatActivity {
                             Toast.makeText(EmbeddedDrawerActivity.this, ((Nameable) drawerItem).getName().getText(EmbeddedDrawerActivity.this), Toast.LENGTH_SHORT).show();
                         }
 
-                        if (SystemUtils.getScreenOrientation() == Configuration.ORIENTATION_LANDSCAPE) {
-                            miniResult.onItemClick(drawerItem);
-                        }
-
                         return true;
                     }
                 })
-                .withSavedInstance(savedInstanceState);
+                .withSavedInstance(savedInstanceState)
+                .buildView();
 
-        // Embed only if orientation is Landscape (regular drawer in Portrait)
-        if (SystemUtils.getScreenOrientation() == Configuration.ORIENTATION_LANDSCAPE) {
-            result = builder.buildView();
-            miniResult = new MiniDrawer().withDrawer(result).withAccountHeader(headerResult);
-
-            int first = (int) UIUtils.convertDpToPixel(360, this);
-            int second = (int) UIUtils.convertDpToPixel(72, this);
-
-            crossFader = new Crossfader()
-                    .withContent(findViewById(R.id.crossfade_content))
-                    .withFirst(result.getSlider(), first)
-                    .withSecond(miniResult.build(this), second)
-                    .build();
-
-            miniResult.withCrossFader(new CrossfadeWrapper(crossFader));
-        } else {
-            result = builder.build();
-        }
+        ((ViewGroup) findViewById(R.id.frame_container)).addView(result.getSlider());
     }
 
     private OnCheckedChangeListener onCheckedChangeListener = new OnCheckedChangeListener() {
@@ -189,16 +155,6 @@ public class EmbeddedDrawerActivity extends AppCompatActivity {
     }
 
     @Override
-    public boolean onCreateOptionsMenu(Menu menu) {
-        MenuInflater inflater = getMenuInflater();
-        if (SystemUtils.getScreenOrientation() == Configuration.ORIENTATION_LANDSCAPE) {
-            inflater.inflate(R.menu.embedded, menu);
-            menu.findItem(R.id.menu_1).setIcon(new IconicsDrawable(this, GoogleMaterial.Icon.gmd_sort).color(Color.WHITE).actionBar());
-        }
-        return true;
-    }
-
-    @Override
     public void onBackPressed() {
         //handle the back press :D close the drawer first and if the drawer is closed close the activity
         if (result != null && result.isDrawerOpen()) {
@@ -212,9 +168,6 @@ public class EmbeddedDrawerActivity extends AppCompatActivity {
     public boolean onOptionsItemSelected(MenuItem item) {
         //handle the click on the back arrow click
         switch (item.getItemId()) {
-            case R.id.menu_1:
-                crossFader.crossFade();
-                return true;
             case android.R.id.home:
                 onBackPressed();
                 return true;
