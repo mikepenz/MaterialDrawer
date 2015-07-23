@@ -45,7 +45,7 @@ public class MultiDrawerActivity extends AppCompatActivity {
                         new SectionDrawerItem().withName(R.string.drawer_item_section_header),
                         new SecondaryDrawerItem().withName(R.string.drawer_item_settings).withIcon(FontAwesome.Icon.faw_cog),
                         new SecondaryDrawerItem().withName(R.string.drawer_item_help).withIcon(FontAwesome.Icon.faw_question).withEnabled(false),
-                        new SecondaryDrawerItem().withName(R.string.drawer_item_open_source).withIcon(FontAwesome.Icon.faw_github).withBadge("12").withIdentifier(1),
+                        new SecondaryDrawerItem().withName(R.string.drawer_item_open_source).withIcon(FontAwesome.Icon.faw_github).withBadge("12").withIdentifier(3),
                         new SecondaryDrawerItem().withName(R.string.drawer_item_contact).withIcon(FontAwesome.Icon.faw_bullhorn)
                 )
                 .withOnDrawerListener(new Drawer.OnDrawerListener() {
@@ -85,7 +85,8 @@ public class MultiDrawerActivity extends AppCompatActivity {
                                     //only use toString() if you set the test as String
                                     int badge = Integer.valueOf(badgeable.getBadge().toString());
                                     if (badge > 0) {
-                                        result.updateBadge(String.valueOf(badge - 1), position);
+                                        badgeable.withBadge(String.valueOf(badge - 1));
+                                        result.updateItem(drawerItem);
                                     }
                                 }
                             }
