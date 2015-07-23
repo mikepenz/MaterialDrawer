@@ -743,6 +743,11 @@ public class Drawer {
             if (getStickyFooter() != null) {
                 getStickyFooter().setVisibility(View.VISIBLE);
             }
+
+            //if we currently show the accountHeader selection list make sure to reset this attr
+            if (mDrawerBuilder.mAccountHeader != null && mDrawerBuilder.mAccountHeader.mAccountHeaderBuilder != null) {
+                mDrawerBuilder.mAccountHeader.mAccountHeaderBuilder.mSelectionListShown = false;
+            }
         }
     }
 
