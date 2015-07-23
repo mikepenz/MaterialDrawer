@@ -172,8 +172,6 @@ public class ComplexHeaderDrawerActivity extends AppCompatActivity {
                 //we want to replace our current header with a compact header
                 //build the new compact header
                 buildHeader(true, null);
-                //remove the current header
-                result.removeHeader();
                 //set the view to the result
                 result.setHeader(headerResult.getView());
                 //set the drawer to the header (so it will manage the profile list correctly)

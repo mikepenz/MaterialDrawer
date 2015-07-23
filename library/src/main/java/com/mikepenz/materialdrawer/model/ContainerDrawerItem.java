@@ -77,6 +77,9 @@ public class ContainerDrawerItem extends AbstractDrawerItem<ContainerDrawerItem>
             ((ViewGroup) mView.getParent()).removeView(mView);
         }
 
+        //make sure the header view is empty
+        ((ViewGroup) viewHolder.view).removeAllViews();
+
         //depending on the position we add the view
         if (mViewPosition == Position.TOP) {
             ((ViewGroup) viewHolder.view).addView(mView, 0);
