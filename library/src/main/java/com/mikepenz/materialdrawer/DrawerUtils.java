@@ -138,8 +138,8 @@ class DrawerUtils {
     public static int getPositionByIdentifier(DrawerBuilder drawer, int identifier) {
         if (identifier >= 0) {
             BaseDrawerAdapter adapter = drawer.getAdapter();
-            for (int i = 0; i < adapter.getDrawerItemCount(); i++) {
-                if (adapter.getDrawerItem(i).getIdentifier() == identifier) {
+            for (int i = 0; i < adapter.getItemCount(); i++) {
+                if (adapter.getItem(i).getIdentifier() == identifier) {
                     return i;
                 }
             }

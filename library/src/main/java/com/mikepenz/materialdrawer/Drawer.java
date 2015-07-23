@@ -717,7 +717,7 @@ public class Drawer {
             //set the new items
             setOnDrawerItemClickListener(onDrawerItemClickListener);
             setItems(drawerItems, true);
-            setSelectionAtPosition(getAdapter().getHeaderItemCount() + drawerSelection, false);
+            setSelectionAtPosition(drawerSelection, false);
 
             if (getStickyFooter() != null) {
                 getStickyFooter().setVisibility(View.GONE);

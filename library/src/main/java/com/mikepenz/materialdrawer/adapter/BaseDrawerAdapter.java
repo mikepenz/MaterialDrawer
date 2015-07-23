@@ -206,10 +206,6 @@ public abstract class BaseDrawerAdapter extends RecyclerView.Adapter<RecyclerVie
     }
 
     public void handleSelection(View v, int pos) {
-        if (previousSelection == pos) {
-            return;
-        }
-
         //deselect the previous item
         if (previousSelection > -1) {
             IDrawerItem prev = getItem(previousSelection);
@@ -245,13 +241,6 @@ public abstract class BaseDrawerAdapter extends RecyclerView.Adapter<RecyclerVie
         return item != null && item.isSelected();
     }
 
-    public IDrawerItem getDrawerItem(int position) {
-        if (position < 0 || position >= getDrawerItemCount()) {
-            return null;
-        }
-        return mDrawerItems.get(position);
-    }
-
     public IDrawerItem getItem(int position) {
         if (position < 0 || position >= getItemCount()) {
             return null;
@@ -281,15 +270,15 @@ public abstract class BaseDrawerAdapter extends RecyclerView.Adapter<RecyclerVie
         return getHeaderItemCount();
     }
 
-    public int getHeaderItemCount() {
+    protected int getHeaderItemCount() {
         return mHeaderDrawerItems == null ? 0 : mHeaderDrawerItems.size();
     }
 
-    public int getDrawerItemCount() {
+    protected int getDrawerItemCount() {
         return mDrawerItems == null ? 0 : mDrawerItems.size();
     }
 
-    public int getFooterItemCount() {
+    protected int getFooterItemCount() {
         return mFooterDrawerItems == null ? 0 : mFooterDrawerItems.size();
     }
 
