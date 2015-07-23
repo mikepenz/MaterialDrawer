@@ -44,7 +44,7 @@
             android:layout_marginStart="@dimen/material_drawer_vertical_padding"
             android:clickable="true"
             android:elevation="2dp"
-            app:biv_maskDrawable="@drawable/circle_mask"
+            app:biv_maskDrawable="@drawable/material_drawer_circle_mask"
             app:biv_selectorOnPress="@color/material_drawer_primary" />
 
         <LinearLayout

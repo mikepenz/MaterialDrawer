@@ -17,5 +17,5 @@
         android:layout_marginTop="@dimen/material_drawer_item_profile_icon_padding"
         android:clickable="false"
         android:elevation="1dp"
-        app:biv_maskDrawable="@drawable/circle_mask" />
+        app:biv_maskDrawable="@drawable/material_drawer_circle_mask" />
 </LinearLayout>
