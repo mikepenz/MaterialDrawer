@@ -23,7 +23,7 @@ public class AccountHeader {
     protected static final String BUNDLE_SELECTION_HEADER = "bundle_selection_header";
 
 
-    private final AccountHeaderBuilder mAccountHeaderBuilder;
+    protected final AccountHeaderBuilder mAccountHeaderBuilder;
 
     protected AccountHeader(AccountHeaderBuilder accountHeaderBuilder) {
         this.mAccountHeaderBuilder = accountHeaderBuilder;

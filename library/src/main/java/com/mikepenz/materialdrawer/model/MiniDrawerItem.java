@@ -6,9 +6,12 @@ import android.support.annotation.LayoutRes;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
 import android.widget.ImageView;
+import android.widget.TextView;
 
 import com.mikepenz.materialdrawer.R;
+import com.mikepenz.materialdrawer.holder.BadgeStyle;
 import com.mikepenz.materialdrawer.holder.ImageHolder;
+import com.mikepenz.materialdrawer.holder.StringHolder;
 import com.mikepenz.materialdrawer.model.utils.ViewHolderFactory;
 import com.mikepenz.materialdrawer.util.DrawerUIUtils;
 import com.mikepenz.materialize.util.UIUtils;
@@ -17,6 +20,8 @@ import com.mikepenz.materialize.util.UIUtils;
  * Created by mikepenz on 03.02.15.
  */
 public class MiniDrawerItem extends BaseDrawerItem<MiniDrawerItem> {
+    private StringHolder mBadge;
+    private BadgeStyle mBadgeStyle = new BadgeStyle();
 
     public MiniDrawerItem() {
 
@@ -25,6 +30,9 @@ public class MiniDrawerItem extends BaseDrawerItem<MiniDrawerItem> {
     public MiniDrawerItem(PrimaryDrawerItem primaryDrawerItem) {
         this.mIdentifier = primaryDrawerItem.mIdentifier;
         this.mTag = primaryDrawerItem.mTag;
+
+        this.mBadge = primaryDrawerItem.mBadge;
+        this.mBadgeStyle = primaryDrawerItem.mBadgeStyle;
 
         this.mEnabled = primaryDrawerItem.mEnabled;
         this.mSelectable = primaryDrawerItem.mSelectable;
@@ -65,6 +73,9 @@ public class MiniDrawerItem extends BaseDrawerItem<MiniDrawerItem> {
         //set the item selected if it is
         viewHolder.itemView.setSelected(isSelected());
 
+        //
+        viewHolder.itemView.setTag(this);
+
         //get the correct color for the background
         int selectedColor = getSelectedColor(ctx);
         //get the correct color for the icon
@@ -73,6 +84,13 @@ public class MiniDrawerItem extends BaseDrawerItem<MiniDrawerItem> {
 
         //set the background for the item
         UIUtils.setBackground(viewHolder.view, DrawerUIUtils.getSelectableBackground(ctx, selectedColor));
+
+        //set the text for the badge or hide
+        boolean badgeVisible = StringHolder.applyToOrHide(mBadge, viewHolder.badge);
+        //style the badge if it is visible
+        if (badgeVisible) {
+            mBadgeStyle.style(viewHolder.badge);
+        }
 
         //get the drawables for our icon and set it
         Drawable icon = ImageHolder.decideIcon(getIcon(), ctx, iconColor, isIconTinted(), 1);
@@ -95,12 +113,14 @@ public class MiniDrawerItem extends BaseDrawerItem<MiniDrawerItem> {
     private static class ViewHolder extends RecyclerView.ViewHolder {
         private View view;
         private ImageView icon;
+        private TextView badge;
 
         public ViewHolder(View view) {
             super(view);
 
             this.view = view;
             this.icon = (ImageView) view.findViewById(R.id.icon);
+            this.badge = (TextView) view.findViewById(R.id.badge);
         }
     }
 }

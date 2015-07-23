@@ -13,8 +13,8 @@ import com.mikepenz.materialize.util.UIUtils;
  */
 public class BadgeStyle {
     private int mGradientDrawable = R.drawable.material_drawer_badge;
-    private ColorHolder mColor = ColorHolder.fromColor(Color.RED);
-    private ColorHolder mColorPressed = ColorHolder.fromColor(Color.GREEN);
+    private ColorHolder mColor;
+    private ColorHolder mColorPressed;
     private ColorHolder mTextColor = ColorHolder.fromColor(Color.WHITE);
     private DimenHolder mCorners;
     private DimenHolder mPadding = DimenHolder.fromDp(2); //2 looks best

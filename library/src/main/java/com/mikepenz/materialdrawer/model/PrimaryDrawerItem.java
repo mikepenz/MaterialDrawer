@@ -12,6 +12,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.mikepenz.materialdrawer.R;
+import com.mikepenz.materialdrawer.holder.BadgeStyle;
 import com.mikepenz.materialdrawer.holder.ColorHolder;
 import com.mikepenz.materialdrawer.holder.ImageHolder;
 import com.mikepenz.materialdrawer.holder.StringHolder;
@@ -24,12 +25,11 @@ import com.mikepenz.materialize.util.UIUtils;
  * Created by mikepenz on 03.02.15.
  */
 public class PrimaryDrawerItem extends BaseDrawerItem<PrimaryDrawerItem> implements ColorfulBadgeable<PrimaryDrawerItem> {
-    private StringHolder description;
-    private ColorHolder descriptionTextColor;
+    protected StringHolder description;
+    protected ColorHolder descriptionTextColor;
 
-    private StringHolder badge;
-    private ColorHolder badgeTextColor;
-    private int badgeBackgroundRes = -1;
+    protected StringHolder mBadge;
+    protected BadgeStyle mBadgeStyle = new BadgeStyle();
 
     public PrimaryDrawerItem withDescription(String description) {
         this.description = new StringHolder(description);
@@ -53,38 +53,22 @@ public class PrimaryDrawerItem extends BaseDrawerItem<PrimaryDrawerItem> impleme
 
     @Override
     public PrimaryDrawerItem withBadge(String badge) {
-        this.badge = new StringHolder(badge);
+        this.mBadge = new StringHolder(badge);
         return this;
     }
 
     @Override
     public PrimaryDrawerItem withBadge(@StringRes int badgeRes) {
-        this.badge = new StringHolder(badgeRes);
+        this.mBadge = new StringHolder(badgeRes);
         return this;
     }
 
     @Override
-    public PrimaryDrawerItem withBadgeTextColor(@ColorInt int color) {
-        this.badgeTextColor = ColorHolder.fromColor(color);
+    public PrimaryDrawerItem withBadgeStyle(BadgeStyle badgeStyle) {
+        this.mBadgeStyle = badgeStyle;
         return this;
     }
 
-    @Override
-    public PrimaryDrawerItem withBadgeTextColorRes(@ColorRes int colorRes) {
-        this.badgeTextColor = ColorHolder.fromColorRes(colorRes);
-        return this;
-    }
-
-    @Override
-    public int getBadgeBackgroundResource() {
-        return badgeBackgroundRes;
-    }
-
-    @Override
-    public PrimaryDrawerItem withBadgeBackgroundResource(int res) {
-        this.badgeBackgroundRes = res;
-        return this;
-    }
 
     public StringHolder getDescription() {
         return description;
@@ -95,12 +79,11 @@ public class PrimaryDrawerItem extends BaseDrawerItem<PrimaryDrawerItem> impleme
     }
 
     public StringHolder getBadge() {
-        return badge;
+        return mBadge;
     }
 
-    @Override
-    public ColorHolder getBadgeTextColor() {
-        return badgeTextColor;
+    public BadgeStyle getBadgeStyle() {
+        return mBadgeStyle;
     }
 
     @Override
@@ -127,6 +110,9 @@ public class PrimaryDrawerItem extends BaseDrawerItem<PrimaryDrawerItem> impleme
         //set the item selected if it is
         viewHolder.itemView.setSelected(isSelected());
 
+        //
+        viewHolder.itemView.setTag(this);
+
         //get the correct color for the background
         int selectedColor = getSelectedColor(ctx);
         //get the correct color for the text
@@ -143,19 +129,17 @@ public class PrimaryDrawerItem extends BaseDrawerItem<PrimaryDrawerItem> impleme
         StringHolder.applyTo(this.getName(), viewHolder.name);
         //set the text for the description or hide
         StringHolder.applyToOrHide(this.getDescription(), viewHolder.description);
-        //set the text for the badge or hide
-        StringHolder.applyToOrHide(badge, viewHolder.badge);
 
         //set the colors for textViews
         viewHolder.name.setTextColor(getTextColorStateList(color, selectedTextColor));
         //set the description text color
         ColorHolder.applyToOr(getDescriptionTextColor(), viewHolder.description, getTextColorStateList(color, selectedTextColor));
-        //set the badge text color
-        ColorHolder.applyToOr(getBadgeTextColor(), viewHolder.badge, getTextColorStateList(color, selectedTextColor));
 
-        //set background for badge
-        if (badgeBackgroundRes != -1) {
-            viewHolder.badge.setBackgroundResource(badgeBackgroundRes);
+        //set the text for the badge or hide
+        boolean badgeVisible = StringHolder.applyToOrHide(mBadge, viewHolder.badge);
+        //style the badge if it is visible
+        if (badgeVisible) {
+            mBadgeStyle.style(viewHolder.badge);
         }
 
         //define the typeface for our textViews
