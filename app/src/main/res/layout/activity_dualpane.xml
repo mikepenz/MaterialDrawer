@@ -23,7 +23,7 @@
             android:layout_gravity="center"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="@string/drawer_item_embedded_drawer_dualpane_desc"
+            android:text="@string/drawer_item_embedded_drawer_desc"
             android:gravity="center"
             android:textSize="16sp" />
     </FrameLayout>

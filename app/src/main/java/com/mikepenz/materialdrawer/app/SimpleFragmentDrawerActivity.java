@@ -30,6 +30,7 @@ public class SimpleFragmentDrawerActivity extends AppCompatActivity {
         // Handle Toolbar
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
+        getSupportActionBar().setTitle(R.string.drawer_item_simple_fragment_drawer);
 
         //Create the drawer
         result = new DrawerBuilder()

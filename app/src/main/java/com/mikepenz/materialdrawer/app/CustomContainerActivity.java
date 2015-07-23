@@ -24,6 +24,7 @@ public class CustomContainerActivity extends AppCompatActivity {
         // Handle Toolbar
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
+        getSupportActionBar().setTitle(R.string.drawer_item_custom_container_drawer);
 
         //Create the drawer
         result = new DrawerBuilder(this)

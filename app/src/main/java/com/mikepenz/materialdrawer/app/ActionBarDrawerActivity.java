@@ -25,6 +25,7 @@ public class ActionBarDrawerActivity extends AppCompatActivity {
 
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_sample_actionbar);
+        setTitle(R.string.drawer_item_action_bar);
 
         // Handle Toolbar
         result = new DrawerBuilder()

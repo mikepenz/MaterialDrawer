@@ -30,6 +30,7 @@ public class SimpleNonTranslucentDrawerActivity extends AppCompatActivity {
         // Handle Toolbar
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
+        getSupportActionBar().setTitle(R.string.drawer_item_non_translucent_status_drawer);
 
         // Create a few sample profile
         result = new DrawerBuilder()

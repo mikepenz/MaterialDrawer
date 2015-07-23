@@ -29,6 +29,7 @@ public class FullscreenDrawerActivity extends AppCompatActivity {
         setSupportActionBar(toolbar);
         toolbar.setBackgroundColor(Color.BLACK);
         toolbar.getBackground().setAlpha(90);
+        getSupportActionBar().setTitle(R.string.drawer_item_fullscreen_drawer);
 
         //Create the drawer
         result = new DrawerBuilder()

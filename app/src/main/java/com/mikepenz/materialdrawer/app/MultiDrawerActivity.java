@@ -34,6 +34,7 @@ public class MultiDrawerActivity extends AppCompatActivity {
         // Handle Toolbar
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
+        getSupportActionBar().setTitle(R.string.drawer_item_multi_drawer);
 
         //first create the main drawer (this one will be used to add the second drawer on the other side)
         result = new DrawerBuilder()

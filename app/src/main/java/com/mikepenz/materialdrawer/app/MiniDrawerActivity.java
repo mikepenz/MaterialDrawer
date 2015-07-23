@@ -57,11 +57,10 @@ public class MiniDrawerActivity extends AppCompatActivity {
 
         // Handle Toolbar
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
-        if (null != toolbar) {
-            setSupportActionBar(toolbar);
-            //set the back arrow in the toolbar
-            getSupportActionBar().setDisplayHomeAsUpEnabled(true);
-        }
+        setSupportActionBar(toolbar);
+        //set the back arrow in the toolbar
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        getSupportActionBar().setTitle(R.string.drawer_item_mini_drawer);
 
         // Create a few sample profile
         // NOTE you have to define the loader logic too. See the CustomApplication for more details
