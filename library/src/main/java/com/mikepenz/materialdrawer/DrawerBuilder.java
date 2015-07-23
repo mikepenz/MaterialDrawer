@@ -1374,7 +1374,7 @@ public class DrawerBuilder {
             mRecyclerView.setLayoutManager(mLayoutManager);
 
             int paddingTop = 0;
-            if (mTranslucentStatusBar || mFullscreen) {
+            if ((mTranslucentStatusBar || mFullscreen) && (mDisplayBelowStatusBar == null || !mDisplayBelowStatusBar)) {
                 paddingTop = UIUtils.getStatusBarHeight(mActivity);
             }
             int paddingBottom = 0;
