@@ -85,7 +85,7 @@ public class ContainerDrawerItem extends AbstractDrawerItem<ContainerDrawerItem>
             ((ViewGroup) viewHolder.view).addView(mView, 0);
             layoutParams.bottomMargin = ctx.getResources().getDimensionPixelSize(R.dimen.material_drawer_padding);
         } else if (mViewPosition == Position.BOTTOM) {
-            ((ViewGroup) viewHolder.view).addView(mView, 1);
+            ((ViewGroup) viewHolder.view).addView(mView);
             layoutParams.topMargin = ctx.getResources().getDimensionPixelSize(R.dimen.material_drawer_padding);
         } else {
             viewHolder.divider.setVisibility(View.GONE);
