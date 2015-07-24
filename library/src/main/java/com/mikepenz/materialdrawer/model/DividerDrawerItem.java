@@ -7,6 +7,7 @@ import android.view.View;
 
 import com.mikepenz.materialdrawer.R;
 import com.mikepenz.materialdrawer.model.utils.ViewHolderFactory;
+import com.mikepenz.materialize.util.UIUtils;
 
 /**
  * Created by mikepenz on 03.02.15.
@@ -37,6 +38,9 @@ public class DividerDrawerItem extends AbstractDrawerItem<DividerDrawerItem> {
         viewHolder.view.setClickable(false);
         viewHolder.view.setEnabled(false);
         viewHolder.view.setMinimumHeight(1);
+
+        //set the color for the divider
+        viewHolder.divider.setBackgroundColor(UIUtils.getThemeColorFromAttrOrRes(ctx, R.attr.material_drawer_divider, R.color.material_drawer_divider));
     }
 
     @Override
