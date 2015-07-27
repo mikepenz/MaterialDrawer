@@ -551,8 +551,8 @@ public class Drawer {
      *
      * @param drawerItem
      */
-    public void updateFooterItem(@NonNull IDrawerItem drawerItem) {
-        updateFooterItemAtPosition(drawerItem, getFooterPosition(drawerItem));
+    public void updateStickyFooterItem(@NonNull IDrawerItem drawerItem) {
+        updateStickyFooterItemAtPosition(drawerItem, getFooterPosition(drawerItem));
     }
 
     /**
@@ -561,12 +561,12 @@ public class Drawer {
      * @param drawerItem
      * @param position
      */
-    public void updateFooterItemAtPosition(@NonNull IDrawerItem drawerItem, int position) {
+    public void updateStickyFooterItemAtPosition(@NonNull IDrawerItem drawerItem, int position) {
         if (mDrawerBuilder.mStickyDrawerItems != null && mDrawerBuilder.mStickyDrawerItems.size() > position) {
             mDrawerBuilder.mStickyDrawerItems.set(position, drawerItem);
         }
 
-        DrawerUtils.rebuildFooterView(mDrawerBuilder);
+        DrawerUtils.rebuildStickyFooterView(mDrawerBuilder);
     }
 
 
@@ -575,13 +575,13 @@ public class Drawer {
      *
      * @param drawerItem
      */
-    public void addFooterItem(@NonNull IDrawerItem drawerItem) {
+    public void addStickyFooterItem(@NonNull IDrawerItem drawerItem) {
         if (mDrawerBuilder.mStickyDrawerItems == null) {
             mDrawerBuilder.mStickyDrawerItems = new ArrayList<>();
         }
         mDrawerBuilder.mStickyDrawerItems.add(drawerItem);
 
-        DrawerUtils.rebuildFooterView(mDrawerBuilder);
+        DrawerUtils.rebuildStickyFooterView(mDrawerBuilder);
     }
 
     /**
@@ -590,13 +590,13 @@ public class Drawer {
      * @param drawerItem
      * @param position
      */
-    public void addFooterItemAtPosition(@NonNull IDrawerItem drawerItem, int position) {
+    public void addStickyFooterItemAtPosition(@NonNull IDrawerItem drawerItem, int position) {
         if (mDrawerBuilder.mStickyDrawerItems == null) {
             mDrawerBuilder.mStickyDrawerItems = new ArrayList<>();
         }
         mDrawerBuilder.mStickyDrawerItems.add(position, drawerItem);
 
-        DrawerUtils.rebuildFooterView(mDrawerBuilder);
+        DrawerUtils.rebuildStickyFooterView(mDrawerBuilder);
     }
 
     /**
@@ -605,12 +605,12 @@ public class Drawer {
      * @param drawerItem
      * @param position
      */
-    public void setFooterItemAtPosition(@NonNull IDrawerItem drawerItem, int position) {
+    public void setStickyFooterItemAtPosition(@NonNull IDrawerItem drawerItem, int position) {
         if (mDrawerBuilder.mStickyDrawerItems != null && mDrawerBuilder.mStickyDrawerItems.size() > position) {
             mDrawerBuilder.mStickyDrawerItems.set(position, drawerItem);
         }
 
-        DrawerUtils.rebuildFooterView(mDrawerBuilder);
+        DrawerUtils.rebuildStickyFooterView(mDrawerBuilder);
     }
 
 
@@ -619,18 +619,18 @@ public class Drawer {
      *
      * @param position
      */
-    public void removeFooterItemAtPosition(int position) {
+    public void removeStickyFooterItemAtPosition(int position) {
         if (mDrawerBuilder.mStickyDrawerItems != null && mDrawerBuilder.mStickyDrawerItems.size() > position) {
             mDrawerBuilder.mStickyDrawerItems.remove(position);
         }
 
-        DrawerUtils.rebuildFooterView(mDrawerBuilder);
+        DrawerUtils.rebuildStickyFooterView(mDrawerBuilder);
     }
 
     /**
      * Removes all footerItems from drawer
      */
-    public void removeAllFooterItems() {
+    public void removeAllStickyFooterItems() {
         if (mDrawerBuilder.mStickyDrawerItems != null) {
             mDrawerBuilder.mStickyDrawerItems.clear();
         }

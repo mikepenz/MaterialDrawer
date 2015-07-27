@@ -224,7 +224,7 @@ class DrawerUtils {
      *
      * @param drawer
      */
-    public static void rebuildFooterView(final DrawerBuilder drawer) {
+    public static void rebuildStickyFooterView(final DrawerBuilder drawer) {
         if (drawer.mSliderLayout != null) {
             if (drawer.mStickyFooterView != null && drawer.mStickyFooterView instanceof ViewGroup) {
                 ((LinearLayout) drawer.mStickyFooterView).removeAllViews();
