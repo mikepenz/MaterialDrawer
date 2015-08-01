@@ -98,7 +98,7 @@ public class SecondaryDrawerItem extends BaseDrawerItem<SecondaryDrawerItem> imp
         boolean badgeVisible = StringHolder.applyToOrHide(mBadge, viewHolder.badge);
         //style the badge if it is visible
         if (badgeVisible) {
-            mBadgeStyle.style(viewHolder.badge);
+            mBadgeStyle.style(viewHolder.badge, getTextColorStateList(color, selectedTextColor));
         }
 
         //define the typeface for our textViews

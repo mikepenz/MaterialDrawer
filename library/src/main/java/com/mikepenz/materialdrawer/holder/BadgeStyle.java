@@ -1,7 +1,7 @@
 package com.mikepenz.materialdrawer.holder;
 
 import android.content.Context;
-import android.graphics.Color;
+import android.content.res.ColorStateList;
 import android.widget.TextView;
 
 import com.mikepenz.materialdrawer.R;
@@ -15,7 +15,7 @@ public class BadgeStyle {
     private int mGradientDrawable = R.drawable.material_drawer_badge;
     private ColorHolder mColor;
     private ColorHolder mColorPressed;
-    private ColorHolder mTextColor = ColorHolder.fromColor(Color.WHITE);
+    private ColorHolder mTextColor;
     private DimenHolder mCorners;
     private DimenHolder mPadding = DimenHolder.fromDp(2); //2 looks best
     private DimenHolder mMinWidth = DimenHolder.fromDp(20); //20 looks nice
@@ -100,12 +100,20 @@ public class BadgeStyle {
     }
 
     public void style(TextView badgeTextView) {
+        style(badgeTextView, null);
+    }
+
+    public void style(TextView badgeTextView, ColorStateList colorStateList) {
         Context ctx = badgeTextView.getContext();
         //set background for badge
         UIUtils.setBackground(badgeTextView, new BadgeDrawableBuilder(this).build(ctx));
 
         //set the badge text color
-        ColorHolder.applyToOr(mTextColor, badgeTextView, null);
+        if (mTextColor != null) {
+            ColorHolder.applyToOr(mTextColor, badgeTextView, null);
+        } else if (colorStateList != null) {
+            badgeTextView.setTextColor(colorStateList);
+        }
 
         //set the padding
         int padding = mPadding.asPixel(ctx);
