@@ -17,6 +17,7 @@ The **MaterialDrawer** library aims to provide the easiest possible implementati
 - comes with various themes which help to get your own themes clean
 - modify the colors on the go
 - **uses the AppCompat support library**
+- based on a **RecyclerView**
 - compatible down to **API Level 10**
 - **supports multiple drawers**
 - comes with multiple default drawer items
@@ -49,7 +50,7 @@ The MaterialDrawer Library is pushed to [Maven Central](http://search.maven.org/
 //requires the SNAPSHOT repo
 //maven { url "https://oss.sonatype.org/content/repositories/snapshots/" }
 
-compile('com.mikepenz:materialdrawer:4.0.0-SNAPSHOT@aar') {
+compile('com.mikepenz:materialdrawer:4.0.0.rc2-SNAPSHOT@aar') {
 	transitive = true
 }
 ```
@@ -61,13 +62,18 @@ You can find a detailed description of all methods in the [WIKI](https://github.
 
 ###Upgrade Notes
 #### < v4.0.0
-* This version got heavy refactoring, and many packages and functions moved. Please make sure that you reimport not found classes first before continuing
-
-#### < v3.0.0
-* There is no more `Drawer.Result`. To create a drawer use the new `DrawerBuilder` instead of the `Drawer`. The result is now a `Drawer`.
-* There is no more `AccountHeader.Result`. To create a drawer use the new `AccountHeaderBuilder` instead of the `AccountHeader`. The result is now a `AccountHeader`.
-* `new Drawer()` --> `new DrawerBuilder()`, `Drawer.Result` --> `Drawer`, `new AccountHeader()` --> `new AccountHeaderBuilder()`, `AccountHeader.Result` --> `AccountHeader`
-* The `onDrawerItemClick` listener now returns a `boolean` defining if the event was consumed
+* now most methods require you to have an identifier set for the DrawerItems
+* it is higly recommended that you use the identifier
+* some packages changed. re-import classes which are not found
+* no more updateName, updateBadge, ... methods. Use the drawerItem set the value new and call `result.updateItem`
+* changed the `ListView` to a `RecyclerView`
+* no more setters on the items. use the `with*` methods
+* `withCheckable()` was renamed to `withSelectable()`
+* most values of the DrawerItem's are now wrapped in `Holder` classes
+* the `OnDrawerItemClickListener`was simplified to `onItemClick(View view, int position, IDrawerItem drawerItem)`
+* the `IDrawerItem` interface was modified to now reflect the format required for a `RecyclerView`
+* the position specific methods are now absolut and will also contain the count of the Header items (use identifier based methods)
+* `*ByIdentifier` was removed from the methods to force their usage
 
 ###Minimal SetUp
 
