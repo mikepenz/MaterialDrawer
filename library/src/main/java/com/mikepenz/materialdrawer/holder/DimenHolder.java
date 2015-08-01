@@ -34,6 +34,18 @@ public class DimenHolder {
         return dimenHolder;
     }
 
+    public int getPixel() {
+        return mPixel;
+    }
+
+    public int getDp() {
+        return mDp;
+    }
+
+    public int getResource() {
+        return mResource;
+    }
+
     public int asPixel(Context ctx) {
         if (mPixel != Integer.MIN_VALUE) {
             return mPixel;

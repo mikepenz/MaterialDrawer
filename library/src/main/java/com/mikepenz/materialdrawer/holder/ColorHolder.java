@@ -33,6 +33,14 @@ public class ColorHolder {
         return colorHolder;
     }
 
+    public int getColorInt() {
+        return mColorInt;
+    }
+
+    public int getColorRes() {
+        return mColorRes;
+    }
+
     /**
      * set the textColor of the ColorHolder to an iconicsDrawable
      *

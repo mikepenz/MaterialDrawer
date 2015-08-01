@@ -19,6 +19,14 @@ public class StringHolder {
         this.mTextRes = textRes;
     }
 
+    public String getText() {
+        return mText;
+    }
+
+    public int getTextRes() {
+        return mTextRes;
+    }
+
     public void applyTo(TextView textView) {
         if (mText != null) {
             textView.setText(mText);

@@ -52,8 +52,24 @@ public class ImageHolder {
         this.mIIcon = iicon;
     }
 
+    public Uri getUri() {
+        return mUri;
+    }
+
+    public Drawable getIcon() {
+        return mIcon;
+    }
+
     public Bitmap getBitmap() {
         return mBitmap;
+    }
+
+    public int getIconRes() {
+        return mIconRes;
+    }
+
+    public IIcon getIIcon() {
+        return mIIcon;
     }
 
     /**
