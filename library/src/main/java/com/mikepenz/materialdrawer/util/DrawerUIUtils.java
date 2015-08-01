@@ -10,9 +10,9 @@ import android.os.Build;
 import android.util.DisplayMetrics;
 import android.util.TypedValue;
 
-import com.mikepenz.google_material_typeface_library.GoogleMaterial;
 import com.mikepenz.iconics.IconicsDrawable;
 import com.mikepenz.materialdrawer.R;
+import com.mikepenz.materialdrawer.icons.MaterialDrawerFont;
 import com.mikepenz.materialize.util.UIUtils;
 
 /**
@@ -133,6 +133,6 @@ public class DrawerUIUtils {
      * @return
      */
     public static Drawable getPlaceHolder(Context ctx) {
-        return new IconicsDrawable(ctx, GoogleMaterial.Icon.gmd_person).colorRes(R.color.accent).backgroundColorRes(R.color.primary).sizeDp(56).paddingDp(16);
+        return new IconicsDrawable(ctx, MaterialDrawerFont.Icon.mdf_person).colorRes(R.color.accent).backgroundColorRes(R.color.primary).sizeDp(56).paddingDp(16);
     }
 }
