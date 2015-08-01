@@ -181,6 +181,16 @@ public class SimpleHeaderDrawerActivity extends AppCompatActivity {
             //set the active profile
             headerResult.setActiveProfile(profile3);
         }
+
+        updateBadge(4, 10);
+    }
+
+    private void updateBadge(int identifier, int badgeCount) {
+        PrimaryDrawerItem pdi = ((PrimaryDrawerItem) result.getDrawerItem(identifier));
+        if (pdi != null) {
+            pdi.withBadge(badgeCount + "");
+            result.updateItem(pdi);
+        }
     }
 
     private OnCheckedChangeListener onCheckedChangeListener = new OnCheckedChangeListener() {
