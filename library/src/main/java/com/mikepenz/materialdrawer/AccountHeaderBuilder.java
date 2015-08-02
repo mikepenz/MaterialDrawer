@@ -671,7 +671,7 @@ public class AccountHeaderBuilder {
 
         // handle everything if we don't have a translucent status bar
         if (mTranslucentStatusBar) {
-            mAccountHeader.setPadding(0, UIUtils.getStatusBarHeight(mActivity), 0, 0);
+            mAccountHeader.setPadding(mAccountHeader.getPaddingLeft(), mAccountHeader.getPaddingTop() + UIUtils.getStatusBarHeight(mActivity), mAccountHeader.getPaddingRight(), mAccountHeader.getPaddingBottom());
             //in fact it makes no difference if we have a translucent statusBar or not. we want 9/16 just if we are not compact
             if (mCompactStyle) {
                 height = height + UIUtils.getStatusBarHeight(mActivity);
