@@ -99,6 +99,9 @@ public class SecondaryDrawerItem extends BaseDrawerItem<SecondaryDrawerItem> imp
         //style the badge if it is visible
         if (badgeVisible) {
             mBadgeStyle.style(viewHolder.badge, getTextColorStateList(color, selectedTextColor));
+            viewHolder.badgeContainer.setVisibility(View.VISIBLE);
+        } else {
+            viewHolder.badgeContainer.setVisibility(View.GONE);
         }
 
         //define the typeface for our textViews
@@ -111,9 +114,6 @@ public class SecondaryDrawerItem extends BaseDrawerItem<SecondaryDrawerItem> imp
         Drawable icon = ImageHolder.decideIcon(getIcon(), ctx, iconColor, isIconTinted(), 1);
         Drawable selectedIcon = ImageHolder.decideIcon(getSelectedIcon(), ctx, selectedIconColor, isIconTinted(), 1);
         ImageHolder.applyMultiIconTo(icon, iconColor, selectedIcon, selectedIconColor, isIconTinted(), viewHolder.icon);
-
-        //fix padding issues
-        viewHolder.view.setPadding((int) UIUtils.convertDpToPixel(16, ctx), 0, (int) UIUtils.convertDpToPixel(16, ctx), 0);
     }
 
     /**
@@ -149,6 +149,7 @@ public class SecondaryDrawerItem extends BaseDrawerItem<SecondaryDrawerItem> imp
         private View view;
         private ImageView icon;
         private TextView name;
+        private View badgeContainer;
         private TextView badge;
 
         private ViewHolder(View view) {
@@ -156,6 +157,7 @@ public class SecondaryDrawerItem extends BaseDrawerItem<SecondaryDrawerItem> imp
             this.view = view;
             this.icon = (ImageView) view.findViewById(R.id.icon);
             this.name = (TextView) view.findViewById(R.id.name);
+            this.badgeContainer = view.findViewById(R.id.badgeContainer);
             this.badge = (TextView) view.findViewById(R.id.badge);
         }
     }

@@ -1,37 +1,33 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="@dimen/material_drawer_item_primary"
     android:descendantFocusability="blocksDescendants"
-    android:orientation="horizontal"
-    android:paddingEnd="@dimen/material_drawer_vertical_padding"
-    android:paddingLeft="@dimen/material_drawer_vertical_padding"
-    android:paddingRight="@dimen/material_drawer_vertical_padding"
-    android:paddingStart="@dimen/material_drawer_vertical_padding">
+    android:orientation="horizontal">
 
     <ImageView
         android:id="@+id/icon"
         android:layout_width="@dimen/material_drawer_item_primary_width"
         android:layout_height="@dimen/material_drawer_item_primary"
-        android:layout_alignParentLeft="true"
-        android:layout_alignParentStart="true"
         android:layout_gravity="center_vertical"
-        android:layout_marginEnd="@dimen/material_drawer_item_primary_icon_margin_right"
-        android:layout_marginRight="@dimen/material_drawer_item_primary_icon_margin_right"
         android:paddingBottom="@dimen/material_drawer_item_primary_icon_padding"
+        android:paddingEnd="@dimen/material_drawer_vertical_padding"
+        android:paddingLeft="@dimen/material_drawer_vertical_padding"
+        android:paddingRight="@dimen/material_drawer_vertical_padding"
+        android:paddingStart="@dimen/material_drawer_vertical_padding"
         android:paddingTop="@dimen/material_drawer_item_primary_icon_padding" />
 
     <LinearLayout
-        android:layout_width="match_parent"
+        android:layout_width="0dp"
         android:layout_height="match_parent"
-        android:layout_centerInParent="true"
-        android:layout_toEndOf="@id/icon"
-        android:layout_toLeftOf="@+id/toggle"
-        android:layout_toRightOf="@id/icon"
-        android:layout_toStartOf="@+id/toggle"
+        android:layout_weight="1"
         android:gravity="center_vertical|start"
-        android:orientation="vertical">
+        android:orientation="vertical"
+        android:paddingEnd="@dimen/material_drawer_vertical_padding"
+        android:paddingLeft="@dimen/material_drawer_vertical_padding"
+        android:paddingRight="@dimen/material_drawer_vertical_padding"
+        android:paddingStart="@dimen/material_drawer_vertical_padding">
 
         <TextView
             android:id="@+id/name"
@@ -56,12 +52,19 @@
             tools:text="Some drawer text" />
     </LinearLayout>
 
-    <ToggleButton
-        android:id="@+id/toggle"
+    <LinearLayout
+        android:id="@+id/badgeContainer"
         android:layout_width="wrap_content"
         android:layout_height="match_parent"
-        android:layout_alignParentEnd="true"
-        android:layout_alignParentRight="true"
-        android:gravity="center_vertical|end"
-        android:textSize="@dimen/material_drawer_item_primary_text" />
-</RelativeLayout>
+        android:gravity="center"
+        android:paddingLeft="@dimen/material_drawer_vertical_padding"
+        android:paddingRight="@dimen/material_drawer_vertical_padding">
+
+        <ToggleButton
+            android:id="@+id/toggle"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:gravity="center_vertical|end"
+            android:textSize="@dimen/material_drawer_item_primary_text" />
+    </LinearLayout>
+</LinearLayout>
