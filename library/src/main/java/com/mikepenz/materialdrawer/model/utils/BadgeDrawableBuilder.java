@@ -26,7 +26,11 @@ public class BadgeDrawableBuilder {
         GradientDrawable selected = (GradientDrawable) normal.getConstantState().newDrawable().mutate();
 
         ColorHolder.applyToOrTransparent(mStyle.getColor(), ctx, normal);
-        ColorHolder.applyToOrTransparent(mStyle.getColorPressed(), ctx, selected);
+        if (mStyle.getColorPressed() == null) {
+            ColorHolder.applyToOrTransparent(mStyle.getColor(), ctx, selected);
+        } else {
+            ColorHolder.applyToOrTransparent(mStyle.getColorPressed(), ctx, selected);
+        }
 
         if (mStyle.getCorners() != null) {
             normal.setCornerRadius(mStyle.getCorners().asPixel(ctx));
