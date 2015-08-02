@@ -50,7 +50,7 @@ The MaterialDrawer Library is pushed to [Maven Central](http://search.maven.org/
 //requires the SNAPSHOT repo
 //maven { url "https://oss.sonatype.org/content/repositories/snapshots/" }
 
-compile('com.mikepenz:materialdrawer:4.0.0.rc2-SNAPSHOT@aar') {
+compile('com.mikepenz:materialdrawer:4.0.0.rc3-SNAPSHOT@aar') {
 	transitive = true
 }
 ```
