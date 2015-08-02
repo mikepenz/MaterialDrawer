@@ -196,10 +196,21 @@ class DrawerUtils {
             drawer.mStickyHeaderView.setId(R.id.md_sticky_header);
             drawer.mSliderLayout.addView(drawer.mStickyHeaderView, 0, layoutParams);
 
-            //now align the recyclerView above the stickyFooterView ;)
+            //now align the recyclerView below the stickyFooterView ;)
             RelativeLayout.LayoutParams layoutParamsListView = (RelativeLayout.LayoutParams) drawer.mRecyclerView.getLayoutParams();
             layoutParamsListView.addRule(RelativeLayout.BELOW, R.id.md_sticky_header);
             drawer.mRecyclerView.setLayoutParams(layoutParamsListView);
+
+            //add a shadow
+            View view = new View(drawer.mActivity);
+            view.setBackgroundResource(R.drawable.material_drawer_shadow_bottom);
+            drawer.mSliderLayout.addView(view, RelativeLayout.LayoutParams.MATCH_PARENT, RelativeLayout.LayoutParams.WRAP_CONTENT);
+            //now align the shadow below the stickyHeader ;)
+            RelativeLayout.LayoutParams lps = (RelativeLayout.LayoutParams) view.getLayoutParams();
+            lps.addRule(RelativeLayout.BELOW, R.id.md_sticky_header);
+            view.setLayoutParams(layoutParamsListView);
+
+            //drawer.mStickyHeaderView.setElevation(UIUtils.convertDpToPixel(8, drawer.mActivity));
 
             //remove the padding of the recyclerView again we have the header on top of it
             drawer.mRecyclerView.setPadding(0, 0, 0, 0);
