@@ -23,6 +23,7 @@ import android.widget.TextView;
 
 import com.mikepenz.iconics.IconicsDrawable;
 import com.mikepenz.materialdrawer.holder.ImageHolder;
+import com.mikepenz.materialdrawer.holder.StringHolder;
 import com.mikepenz.materialdrawer.icons.MaterialDrawerFont;
 import com.mikepenz.materialdrawer.model.interfaces.IDrawerItem;
 import com.mikepenz.materialdrawer.model.interfaces.IProfile;
@@ -967,8 +968,9 @@ public class AccountHeaderBuilder {
             handleSelectionView(mCurrentProfile, true);
             mAccountSwitcherArrow.setVisibility(View.VISIBLE);
             mCurrentProfileView.setTag(R.id.md_profile_header, mCurrentProfile);
-            mCurrentProfileName.setText(mCurrentProfile.getName());
-            mCurrentProfileEmail.setText(mCurrentProfile.getEmail());
+
+            StringHolder.applyTo(mCurrentProfile.getName(), mCurrentProfileName);
+            StringHolder.applyTo(mCurrentProfile.getEmail(), mCurrentProfileEmail);
 
             if (mProfileFirst != null && mProfileImagesVisible) {
                 setImageOrPlaceholder(mProfileFirstView, mProfileFirst.getIcon());
@@ -1015,8 +1017,8 @@ public class AccountHeaderBuilder {
             mAccountHeaderTextSection.setVisibility(View.VISIBLE);
             handleSelectionView(mCurrentProfile, true);
             mAccountSwitcherArrow.setVisibility(View.VISIBLE);
-            mCurrentProfileName.setText(profile.getName());
-            mCurrentProfileEmail.setText(profile.getEmail());
+            StringHolder.applyTo(mCurrentProfile.getName(), mCurrentProfileName);
+            StringHolder.applyTo(mCurrentProfile.getEmail(), mCurrentProfileEmail);
         }
 
         if (!mSelectionFirstLineShown) {

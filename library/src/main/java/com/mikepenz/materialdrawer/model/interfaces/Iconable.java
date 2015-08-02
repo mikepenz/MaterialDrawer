@@ -13,5 +13,7 @@ public interface Iconable<T> {
 
     T withIcon(IIcon iicon);
 
+    T withIcon(ImageHolder icon);
+
     ImageHolder getIcon();
 }

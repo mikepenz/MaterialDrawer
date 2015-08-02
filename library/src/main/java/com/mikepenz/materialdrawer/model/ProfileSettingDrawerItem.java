@@ -17,6 +17,7 @@ import com.mikepenz.iconics.typeface.IIcon;
 import com.mikepenz.materialdrawer.R;
 import com.mikepenz.materialdrawer.holder.ColorHolder;
 import com.mikepenz.materialdrawer.holder.ImageHolder;
+import com.mikepenz.materialdrawer.holder.StringHolder;
 import com.mikepenz.materialdrawer.model.interfaces.IProfile;
 import com.mikepenz.materialdrawer.model.interfaces.Tagable;
 import com.mikepenz.materialdrawer.model.interfaces.Typefaceable;
@@ -30,8 +31,8 @@ import com.mikepenz.materialize.util.UIUtils;
 public class ProfileSettingDrawerItem extends AbstractDrawerItem<ProfileSettingDrawerItem> implements IProfile<ProfileSettingDrawerItem>, Tagable<ProfileSettingDrawerItem>, Typefaceable<ProfileSettingDrawerItem> {
     private ImageHolder icon;
 
-    private String name;
-    private String email;
+    private StringHolder name;
+    private StringHolder email;
 
     private boolean iconTinted = false;
 
@@ -69,18 +70,18 @@ public class ProfileSettingDrawerItem extends AbstractDrawerItem<ProfileSettingD
     }
 
     public ProfileSettingDrawerItem withName(String name) {
-        this.name = name;
+        this.name = new StringHolder(name);
         return this;
     }
 
     public ProfileSettingDrawerItem withDescription(String description) {
-        this.email = description;
+        this.email = new StringHolder(description);
         return this;
     }
 
     //NOTE we reuse the IProfile here to allow custom items within the AccountSwitcher. There is an alias method withDescription for this
     public ProfileSettingDrawerItem withEmail(String email) {
-        this.email = email;
+        this.email = new StringHolder(email);
         return this;
     }
 
@@ -155,24 +156,15 @@ public class ProfileSettingDrawerItem extends AbstractDrawerItem<ProfileSettingD
     }
 
     @Override
-    public String getName() {
+    public StringHolder getName() {
         return name;
     }
 
-    @Override
-    public void setName(String name) {
-        this.name = name;
-    }
-
-    public String getEmail() {
+    public StringHolder getEmail() {
         return email;
     }
 
-    public void setEmail(String email) {
-        this.email = email;
-    }
-
-    public String getDescription() {
+    public StringHolder getDescription() {
         return email;
     }
 
@@ -217,7 +209,7 @@ public class ProfileSettingDrawerItem extends AbstractDrawerItem<ProfileSettingD
 
         UIUtils.setBackground(viewHolder.view, DrawerUIUtils.getSelectableBackground(ctx, selectedColor));
 
-        viewHolder.name.setText(this.getName());
+        StringHolder.applyTo(this.getName(), viewHolder.name);
         viewHolder.name.setTextColor(color);
 
         if (getTypeface() != null) {

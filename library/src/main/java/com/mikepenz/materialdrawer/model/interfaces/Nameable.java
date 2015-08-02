@@ -10,5 +10,7 @@ public interface Nameable<T> {
 
     T withName(int nameRes);
 
+    T withName(StringHolder name);
+
     StringHolder getName();
 }

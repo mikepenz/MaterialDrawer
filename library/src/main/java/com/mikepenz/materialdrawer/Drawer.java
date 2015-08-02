@@ -13,8 +13,13 @@ import android.widget.FrameLayout;
 import android.widget.RelativeLayout;
 
 import com.mikepenz.materialdrawer.adapter.BaseDrawerAdapter;
+import com.mikepenz.materialdrawer.holder.ImageHolder;
+import com.mikepenz.materialdrawer.holder.StringHolder;
 import com.mikepenz.materialdrawer.model.ContainerDrawerItem;
+import com.mikepenz.materialdrawer.model.interfaces.Badgeable;
 import com.mikepenz.materialdrawer.model.interfaces.IDrawerItem;
+import com.mikepenz.materialdrawer.model.interfaces.Iconable;
+import com.mikepenz.materialdrawer.model.interfaces.Nameable;
 import com.mikepenz.materialdrawer.util.KeyboardUtil;
 import com.mikepenz.materialize.view.IScrimInsetsLayout;
 
@@ -437,6 +442,51 @@ public class Drawer {
      */
     public void updateItem(@NonNull IDrawerItem drawerItem) {
         updateItemAtPosition(drawerItem, getPosition(drawerItem));
+    }
+
+    /**
+     * update the badge for a specific drawerItem
+     * identified by its id
+     *
+     * @param identifier
+     * @param badge
+     */
+    public void updateBadge(int identifier, StringHolder badge) {
+        Badgeable badgeable = ((Badgeable) getDrawerItem(identifier));
+        if (badgeable != null) {
+            badgeable.withBadge(badge);
+            updateItem((IDrawerItem) badgeable);
+        }
+    }
+
+    /**
+     * update the name for a specific drawerItem
+     * identified by its id
+     *
+     * @param identifier
+     * @param name
+     */
+    public void updateName(int identifier, StringHolder name) {
+        Nameable pdi = ((Nameable) getDrawerItem(identifier));
+        if (pdi != null) {
+            pdi.withName(name);
+            updateItem((IDrawerItem) pdi);
+        }
+    }
+
+    /**
+     * update the name for a specific drawerItem
+     * identified by its id
+     *
+     * @param identifier
+     * @param image
+     */
+    public void updateIcon(int identifier, ImageHolder image) {
+        Iconable pdi = ((Iconable) getDrawerItem(identifier));
+        if (pdi != null) {
+            pdi.withIcon(image);
+            updateItem((IDrawerItem) pdi);
+        }
     }
 
     /**

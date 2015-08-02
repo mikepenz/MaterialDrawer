@@ -5,6 +5,7 @@ import android.graphics.drawable.Drawable;
 import android.net.Uri;
 
 import com.mikepenz.materialdrawer.holder.ImageHolder;
+import com.mikepenz.materialdrawer.holder.StringHolder;
 
 /**
  * Created by mikepenz on 03.02.15.
@@ -12,15 +13,11 @@ import com.mikepenz.materialdrawer.holder.ImageHolder;
 public interface IProfile<T> {
     T withName(String name);
 
-    String getName();
-
-    void setName(String name);
+    StringHolder getName();
 
     T withEmail(String email);
 
-    String getEmail();
-
-    void setEmail(String email);
+    StringHolder getEmail();
 
     T withIcon(Drawable icon);
 

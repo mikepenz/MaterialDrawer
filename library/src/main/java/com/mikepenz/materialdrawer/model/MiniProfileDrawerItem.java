@@ -10,6 +10,7 @@ import android.widget.ImageView;
 
 import com.mikepenz.materialdrawer.R;
 import com.mikepenz.materialdrawer.holder.ImageHolder;
+import com.mikepenz.materialdrawer.holder.StringHolder;
 import com.mikepenz.materialdrawer.model.interfaces.IProfile;
 import com.mikepenz.materialdrawer.model.utils.ViewHolderFactory;
 
@@ -33,13 +34,8 @@ public class MiniProfileDrawerItem extends AbstractDrawerItem<MiniProfileDrawerI
     }
 
     @Override
-    public String getName() {
+    public StringHolder getName() {
         return null;
-    }
-
-    @Override
-    public void setName(String name) {
-
     }
 
     @Override
@@ -48,13 +44,8 @@ public class MiniProfileDrawerItem extends AbstractDrawerItem<MiniProfileDrawerI
     }
 
     @Override
-    public String getEmail() {
+    public StringHolder getEmail() {
         return null;
-    }
-
-    @Override
-    public void setEmail(String email) {
-
     }
 
     public MiniProfileDrawerItem withIcon(Drawable icon) {

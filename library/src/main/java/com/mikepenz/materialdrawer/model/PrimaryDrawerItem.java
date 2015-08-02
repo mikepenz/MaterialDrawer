@@ -52,6 +52,12 @@ public class PrimaryDrawerItem extends BaseDrawerItem<PrimaryDrawerItem> impleme
     }
 
     @Override
+    public PrimaryDrawerItem withBadge(StringHolder badge) {
+        this.mBadge = badge;
+        return this;
+    }
+
+    @Override
     public PrimaryDrawerItem withBadge(String badge) {
         this.mBadge = new StringHolder(badge);
         return this;
@@ -123,7 +129,6 @@ public class PrimaryDrawerItem extends BaseDrawerItem<PrimaryDrawerItem> impleme
         int selectedIconColor = getSelectedIconColor(ctx);
 
         //set the background for the item
-        // TODO perhaps remember the background here too and do not recreate it all the time
         UIUtils.setBackground(viewHolder.view, DrawerUIUtils.getSelectableBackground(ctx, selectedColor));
         //set the text for the name
         StringHolder.applyTo(this.getName(), viewHolder.name);

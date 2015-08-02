@@ -10,5 +10,7 @@ public interface Badgeable<T> {
 
     T withBadge(int badgeRes);
 
+    T withBadge(StringHolder badgeRes);
+
     StringHolder getBadge();
 }

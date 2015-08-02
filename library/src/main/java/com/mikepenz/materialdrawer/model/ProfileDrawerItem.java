@@ -16,6 +16,7 @@ import android.widget.TextView;
 import com.mikepenz.materialdrawer.R;
 import com.mikepenz.materialdrawer.holder.ColorHolder;
 import com.mikepenz.materialdrawer.holder.ImageHolder;
+import com.mikepenz.materialdrawer.holder.StringHolder;
 import com.mikepenz.materialdrawer.model.interfaces.IProfile;
 import com.mikepenz.materialdrawer.model.interfaces.Tagable;
 import com.mikepenz.materialdrawer.model.interfaces.Typefaceable;
@@ -32,8 +33,8 @@ public class ProfileDrawerItem extends AbstractDrawerItem<ProfileDrawerItem> imp
 
     protected ImageHolder icon;
 
-    protected String name;
-    protected String email;
+    protected StringHolder name;
+    protected StringHolder email;
 
     protected ColorHolder selectedColor;
     protected ColorHolder textColor;
@@ -63,12 +64,12 @@ public class ProfileDrawerItem extends AbstractDrawerItem<ProfileDrawerItem> imp
     }
 
     public ProfileDrawerItem withName(String name) {
-        this.name = name;
+        this.name = new StringHolder(name);
         return this;
     }
 
     public ProfileDrawerItem withEmail(String email) {
-        this.email = email;
+        this.email = new StringHolder(email);
         return this;
     }
 
@@ -128,21 +129,12 @@ public class ProfileDrawerItem extends AbstractDrawerItem<ProfileDrawerItem> imp
     }
 
     @Override
-    public String getName() {
+    public StringHolder getName() {
         return name;
     }
 
-    @Override
-    public void setName(String name) {
-        this.name = name;
-    }
-
-    public String getEmail() {
+    public StringHolder getEmail() {
         return email;
-    }
-
-    public void setEmail(String email) {
-        this.email = email;
     }
 
     @Override
@@ -178,7 +170,7 @@ public class ProfileDrawerItem extends AbstractDrawerItem<ProfileDrawerItem> imp
 
         if (nameShown) {
             viewHolder.name.setVisibility(View.VISIBLE);
-            viewHolder.name.setText(this.getName());
+            StringHolder.applyTo(this.getName(), viewHolder.name);
         } else {
             viewHolder.name.setVisibility(View.GONE);
         }
@@ -187,9 +179,9 @@ public class ProfileDrawerItem extends AbstractDrawerItem<ProfileDrawerItem> imp
         //some developers. And if you only set the name, the item would be empty
         //so here's a small fallback which will prevent this issue of empty items ;)
         if (!nameShown && this.getEmail() == null && this.getName() != null) {
-            viewHolder.email.setText(this.getName());
+            StringHolder.applyTo(this.getName(), viewHolder.email);
         } else {
-            viewHolder.email.setText(this.getEmail());
+            StringHolder.applyTo(this.getEmail(), viewHolder.email);
         }
 
         if (getTypeface() != null) {

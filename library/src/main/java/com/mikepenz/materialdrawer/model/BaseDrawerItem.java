@@ -44,6 +44,11 @@ public abstract class BaseDrawerItem<T> extends AbstractDrawerItem<T> implements
 
     protected Pair<Integer, ColorStateList> colorStateList;
 
+    public T withIcon(ImageHolder icon) {
+        this.icon = icon;
+        return (T) this;
+    }
+
     public T withIcon(Drawable icon) {
         this.icon = new ImageHolder(icon);
         return (T) this;
@@ -67,6 +72,11 @@ public abstract class BaseDrawerItem<T> extends AbstractDrawerItem<T> implements
     public T withIcon(IIcon iicon) {
         this.icon = new ImageHolder(iicon);
         this.selectedIcon = new ImageHolder(iicon);
+        return (T) this;
+    }
+
+    public T withName(StringHolder name) {
+        this.name = name;
         return (T) this;
     }
 

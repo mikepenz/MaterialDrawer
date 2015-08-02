@@ -28,6 +28,11 @@ public class SectionDrawerItem extends AbstractDrawerItem<SectionDrawerItem> imp
 
     private Typeface typeface = null;
 
+    public SectionDrawerItem withName(StringHolder name) {
+        this.name = name;
+        return this;
+    }
+
     public SectionDrawerItem withName(String name) {
         this.name = new StringHolder(name);
         return this;

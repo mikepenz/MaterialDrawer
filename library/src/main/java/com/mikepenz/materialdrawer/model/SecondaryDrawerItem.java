@@ -28,6 +28,12 @@ public class SecondaryDrawerItem extends BaseDrawerItem<SecondaryDrawerItem> imp
     private BadgeStyle mBadgeStyle = new BadgeStyle();
 
     @Override
+    public SecondaryDrawerItem withBadge(StringHolder badge) {
+        this.mBadge = badge;
+        return this;
+    }
+
+    @Override
     public SecondaryDrawerItem withBadge(String badge) {
         this.mBadge = new StringHolder(badge);
         return this;
