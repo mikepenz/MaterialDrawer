@@ -18,6 +18,7 @@ import com.mikepenz.materialdrawer.AccountHeader;
 import com.mikepenz.materialdrawer.AccountHeaderBuilder;
 import com.mikepenz.materialdrawer.Drawer;
 import com.mikepenz.materialdrawer.DrawerBuilder;
+import com.mikepenz.materialdrawer.holder.StringHolder;
 import com.mikepenz.materialdrawer.interfaces.OnCheckedChangeListener;
 import com.mikepenz.materialdrawer.model.DividerDrawerItem;
 import com.mikepenz.materialdrawer.model.PrimaryDrawerItem;
@@ -182,15 +183,7 @@ public class SimpleHeaderDrawerActivity extends AppCompatActivity {
             headerResult.setActiveProfile(profile3);
         }
 
-        updateBadge(4, 10);
-    }
-
-    private void updateBadge(int identifier, int badgeCount) {
-        PrimaryDrawerItem pdi = ((PrimaryDrawerItem) result.getDrawerItem(identifier));
-        if (pdi != null) {
-            pdi.withBadge(badgeCount + "");
-            result.updateItem(pdi);
-        }
+        result.updateBadge(4, new StringHolder(10 + ""));
     }
 
     private OnCheckedChangeListener onCheckedChangeListener = new OnCheckedChangeListener() {
