@@ -1349,7 +1349,7 @@ public class DrawerBuilder {
         //set the shadow for the drawer
         if (Build.VERSION.SDK_INT < 21 && mDrawerLayout != null) {
             if (mDrawerGravity == GravityCompat.START) {
-                mDrawerLayout.setDrawerShadow(R.drawable.material_drawer_shadow, mDrawerGravity);
+                mDrawerLayout.setDrawerShadow(R.drawable.material_drawer_shadow_right, mDrawerGravity);
             } else {
                 mDrawerLayout.setDrawerShadow(R.drawable.material_drawer_shadow_left, mDrawerGravity);
             }

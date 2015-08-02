@@ -201,14 +201,21 @@ class DrawerUtils {
             layoutParamsListView.addRule(RelativeLayout.BELOW, R.id.md_sticky_header);
             drawer.mRecyclerView.setLayoutParams(layoutParamsListView);
 
+            //set a background color or the elevation will not work
+            drawer.mStickyHeaderView.setBackgroundColor(UIUtils.getThemeColorFromAttrOrRes(drawer.mActivity, R.attr.material_drawer_background, R.color.material_drawer_background));
+
             //add a shadow
-            View view = new View(drawer.mActivity);
-            view.setBackgroundResource(R.drawable.material_drawer_shadow_bottom);
-            drawer.mSliderLayout.addView(view, RelativeLayout.LayoutParams.MATCH_PARENT, RelativeLayout.LayoutParams.WRAP_CONTENT);
-            //now align the shadow below the stickyHeader ;)
-            RelativeLayout.LayoutParams lps = (RelativeLayout.LayoutParams) view.getLayoutParams();
-            lps.addRule(RelativeLayout.BELOW, R.id.md_sticky_header);
-            view.setLayoutParams(layoutParamsListView);
+            if (Build.VERSION.SDK_INT >= 21) {
+                drawer.mStickyHeaderView.setElevation(UIUtils.convertDpToPixel(4, drawer.mActivity));
+            } else {
+                View view = new View(drawer.mActivity);
+                view.setBackgroundResource(R.drawable.material_drawer_shadow_bottom);
+                drawer.mSliderLayout.addView(view, RelativeLayout.LayoutParams.MATCH_PARENT, (int) UIUtils.convertDpToPixel(4, drawer.mActivity));
+                //now align the shadow below the stickyHeader ;)
+                RelativeLayout.LayoutParams lps = (RelativeLayout.LayoutParams) view.getLayoutParams();
+                lps.addRule(RelativeLayout.BELOW, R.id.md_sticky_header);
+                view.setLayoutParams(lps);
+            }
 
             //remove the padding of the recyclerView again we have the header on top of it
             drawer.mRecyclerView.setPadding(0, 0, 0, 0);
@@ -238,7 +245,7 @@ class DrawerUtils {
     public static void rebuildStickyFooterView(final DrawerBuilder drawer) {
         if (drawer.mSliderLayout != null) {
             if (drawer.mStickyFooterView != null && drawer.mStickyFooterView instanceof ViewGroup) {
-                ((LinearLayout) drawer.mStickyFooterView).removeAllViews();
+                drawer.mStickyFooterView.removeAllViews();
             }
 
             //handle the footer
@@ -282,6 +289,23 @@ class DrawerUtils {
             layoutParamsListView.addRule(RelativeLayout.ABOVE, R.id.md_sticky_footer);
             drawer.mRecyclerView.setLayoutParams(layoutParamsListView);
 
+            //handle elevation
+            /*
+            //currently always use the drawable as elevation as elevation for top is not (yet?) possible
+            if (Build.VERSION.SDK_INT >= 21) {
+                //set the elevation shadow
+                drawer.mStickyFooterView.setElevation(UIUtils.convertDpToPixel(8f, drawer.mActivity));
+            } else {
+            }
+            */
+            View view = new View(drawer.mActivity);
+            view.setBackgroundResource(R.drawable.material_drawer_shadow_top);
+            drawer.mSliderLayout.addView(view, RelativeLayout.LayoutParams.MATCH_PARENT, (int) UIUtils.convertDpToPixel(4, drawer.mActivity));
+            //now align the shadow below the stickyHeader ;)
+            RelativeLayout.LayoutParams lps = (RelativeLayout.LayoutParams) view.getLayoutParams();
+            lps.addRule(RelativeLayout.ABOVE, R.id.md_sticky_footer);
+            view.setLayoutParams(lps);
+
             //remove the padding of the recyclerView again we have the footer below it
             drawer.mRecyclerView.setPadding(drawer.mRecyclerView.getPaddingLeft(), drawer.mRecyclerView.getPaddingTop(), drawer.mRecyclerView.getPaddingRight(), drawer.mActivity.getResources().getDimensionPixelSize(R.dimen.material_drawer_padding));
         }
@@ -313,16 +337,6 @@ class DrawerUtils {
         linearLayout.setOrientation(LinearLayout.VERTICAL);
         //set the background color to the drawer background color (if it has alpha the shadow won't be visible)
         linearLayout.setBackgroundColor(UIUtils.getThemeColorFromAttrOrRes(drawer.mActivity, R.attr.material_drawer_background, R.color.material_drawer_background));
-
-        if (Build.VERSION.SDK_INT >= 21) {
-            //set the elevation shadow
-            linearLayout.setElevation(UIUtils.convertDpToPixel(4f, drawer.mActivity));
-        } else {
-            //if we use the default values and we are on a older sdk version we want the divider
-            if (drawer.mStickyFooterDivider == null) {
-                drawer.mStickyFooterDivider = true;
-            }
-        }
 
         //create the divider
         if (drawer.mStickyFooterDivider != null && drawer.mStickyFooterDivider) {
