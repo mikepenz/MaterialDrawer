@@ -210,8 +210,6 @@ class DrawerUtils {
             lps.addRule(RelativeLayout.BELOW, R.id.md_sticky_header);
             view.setLayoutParams(layoutParamsListView);
 
-            //drawer.mStickyHeaderView.setElevation(UIUtils.convertDpToPixel(8, drawer.mActivity));
-
             //remove the padding of the recyclerView again we have the header on top of it
             drawer.mRecyclerView.setPadding(0, 0, 0, 0);
         }
