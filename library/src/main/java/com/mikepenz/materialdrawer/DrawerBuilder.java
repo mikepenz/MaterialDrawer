@@ -1502,10 +1502,10 @@ public class DrawerBuilder {
         if (mSavedInstance != null) {
             if (!mAppended) {
                 DrawerUtils.setRecyclerViewSelection(this, mSavedInstance.getInt(Drawer.BUNDLE_SELECTION, -1), false);
-                DrawerUtils.setFooterSelection(this, mSavedInstance.getInt(Drawer.BUNDLE_FOOTER_SELECTION, -1), false);
+                DrawerUtils.setFooterSelection(this, mSavedInstance.getInt(Drawer.BUNDLE_FOOTER_SELECTION, -1), null);
             } else {
                 DrawerUtils.setRecyclerViewSelection(this, mSavedInstance.getInt(Drawer.BUNDLE_SELECTION_APPENDED, -1), false);
-                DrawerUtils.setFooterSelection(this, mSavedInstance.getInt(Drawer.BUNDLE_FOOTER_SELECTION_APPENDED, -1), false);
+                DrawerUtils.setFooterSelection(this, mSavedInstance.getInt(Drawer.BUNDLE_FOOTER_SELECTION_APPENDED, -1), null);
             }
         }
 

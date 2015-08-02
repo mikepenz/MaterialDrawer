@@ -28,9 +28,9 @@ class DrawerUtils {
      * @param drawer
      * @param drawerItem
      * @param v
-     * @param fireOnClick
+     * @param fireOnClick true if we should call the listener, false if not, null to not call the listener and not close the drawer
      */
-    public static void onFooterDrawerItemClick(DrawerBuilder drawer, IDrawerItem drawerItem, View v, boolean fireOnClick) {
+    public static void onFooterDrawerItemClick(DrawerBuilder drawer, IDrawerItem drawerItem, View v, Boolean fireOnClick) {
         boolean checkable = !(drawerItem != null && drawerItem instanceof Selectable && !((Selectable) drawerItem).isSelectable());
         if (checkable) {
             drawer.resetStickyFooterSelection();
@@ -59,14 +59,16 @@ class DrawerUtils {
         }
 
 
-        boolean consumed = false;
-        if (fireOnClick && drawer.mOnDrawerItemClickListener != null) {
-            consumed = drawer.mOnDrawerItemClickListener.onItemClick(v, -1, drawerItem);
-        }
+        if (fireOnClick != null) {
+            boolean consumed = false;
+            if (fireOnClick && drawer.mOnDrawerItemClickListener != null) {
+                consumed = drawer.mOnDrawerItemClickListener.onItemClick(v, -1, drawerItem);
+            }
 
-        if (!consumed) {
-            //close the drawer after click
-            drawer.closeDrawerDelayed();
+            if (!consumed) {
+                //close the drawer after click
+                drawer.closeDrawerDelayed();
+            }
         }
     }
 
@@ -116,7 +118,7 @@ class DrawerUtils {
      * @param position
      * @param fireOnClick
      */
-    public static void setFooterSelection(DrawerBuilder drawer, int position, boolean fireOnClick) {
+    public static void setFooterSelection(DrawerBuilder drawer, int position, Boolean fireOnClick) {
         if (position > -1) {
             if (drawer.mStickyFooterView != null && drawer.mStickyFooterView instanceof LinearLayout) {
                 LinearLayout footer = (LinearLayout) drawer.mStickyFooterView;
