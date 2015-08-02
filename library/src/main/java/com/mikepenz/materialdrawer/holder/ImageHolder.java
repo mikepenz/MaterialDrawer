@@ -5,6 +5,7 @@ import android.graphics.Bitmap;
 import android.graphics.PorterDuff;
 import android.graphics.drawable.Drawable;
 import android.net.Uri;
+import android.support.annotation.DrawableRes;
 import android.view.View;
 import android.widget.ImageView;
 
@@ -44,7 +45,7 @@ public class ImageHolder {
         this.mBitmap = bitmap;
     }
 
-    public ImageHolder(int iconRes) {
+    public ImageHolder(@DrawableRes int iconRes) {
         this.mIconRes = iconRes;
     }
 

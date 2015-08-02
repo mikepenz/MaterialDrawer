@@ -4,6 +4,9 @@ import android.content.Context;
 import android.content.res.ColorStateList;
 import android.graphics.Color;
 import android.graphics.drawable.GradientDrawable;
+import android.support.annotation.AttrRes;
+import android.support.annotation.ColorInt;
+import android.support.annotation.ColorRes;
 import android.view.View;
 import android.widget.TextView;
 
@@ -21,13 +24,13 @@ public class ColorHolder {
 
     }
 
-    public static ColorHolder fromColorRes(int colorRes) {
+    public static ColorHolder fromColorRes(@ColorRes int colorRes) {
         ColorHolder colorHolder = new ColorHolder();
         colorHolder.mColorRes = colorRes;
         return colorHolder;
     }
 
-    public static ColorHolder fromColor(int colorInt) {
+    public static ColorHolder fromColor(@ColorInt int colorInt) {
         ColorHolder colorHolder = new ColorHolder();
         colorHolder.mColorInt = colorInt;
         return colorHolder;
@@ -103,14 +106,14 @@ public class ColorHolder {
      *
      * @param ctx
      * @param colorStyle
-     * @param colorDefault
+     * @param colorDefaultRes
      * @return
      */
-    public int color(Context ctx, int colorStyle, int colorDefault) {
+    public int color(Context ctx, @AttrRes int colorStyle, @ColorRes int colorDefaultRes) {
         if (mColorInt == 0 && mColorRes != -1) {
             mColorInt = ctx.getResources().getColor(mColorRes);
         } else if (mColorInt == 0) {
-            mColorInt = UIUtils.getThemeColorFromAttrOrRes(ctx, colorStyle, colorDefault);
+            mColorInt = UIUtils.getThemeColorFromAttrOrRes(ctx, colorStyle, colorDefaultRes);
         }
         return mColorInt;
     }
@@ -124,7 +127,7 @@ public class ColorHolder {
      * @param colorDefault
      * @return
      */
-    public static int color(ColorHolder colorHolder, Context ctx, int colorStyle, int colorDefault) {
+    public static int color(ColorHolder colorHolder, Context ctx, @AttrRes int colorStyle, @ColorRes int colorDefault) {
         if (colorHolder == null) {
             return UIUtils.getThemeColorFromAttrOrRes(ctx, colorStyle, colorDefault);
         } else {

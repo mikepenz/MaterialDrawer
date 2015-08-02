@@ -1,6 +1,7 @@
 package com.mikepenz.materialdrawer.holder;
 
 import android.content.Context;
+import android.support.annotation.DimenRes;
 
 import com.mikepenz.materialize.util.UIUtils;
 
@@ -28,7 +29,7 @@ public class DimenHolder {
         return dimenHolder;
     }
 
-    public static DimenHolder fromResource(int resource) {
+    public static DimenHolder fromResource(@DimenRes int resource) {
         DimenHolder dimenHolder = new DimenHolder();
         dimenHolder.mResource = resource;
         return dimenHolder;

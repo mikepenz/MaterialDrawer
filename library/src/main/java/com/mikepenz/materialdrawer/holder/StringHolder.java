@@ -1,6 +1,7 @@
 package com.mikepenz.materialdrawer.holder;
 
 import android.content.Context;
+import android.support.annotation.StringRes;
 import android.view.View;
 import android.widget.TextView;
 
@@ -15,7 +16,7 @@ public class StringHolder {
         this.mText = text;
     }
 
-    public StringHolder(int textRes) {
+    public StringHolder(@StringRes int textRes) {
         this.mTextRes = textRes;
     }
 
