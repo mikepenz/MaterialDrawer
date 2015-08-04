@@ -104,12 +104,29 @@ Drawer result = new DrawerBuilder()
 
 //use the result object to get different views of the drawer or modify it's data
 //some sample calls
-result.setSelectionByIdentifier(1);
+
+//set the selection to the item with the identifier 1
+//true states that the listener is called
+result.setSelection(1, true);
+//set the selection to the item at position 4 (start to count with 0, a header counts also here)
+//true states that the listener is called
+result.setSelectionAtPosition(4, true)
+
+//add an item
+result.addItem(..);
+
+//update the item with the identifier 1 with the label "hi :D"
+result.updateBadge(1, new StringHolder("hi :D"));
+
+//update a complete item (note it will match with the identifier in the item)
+result.updateItem(drawerItem);
+
+//drawer actions
 result.openDrawer();
 result.closeDrawer();
 result.isDrawerOpen();
-result.addItem(..);
-..
+
+//many additional calls
 
 ```
 
@@ -208,6 +225,7 @@ DrawerImageLoader.init(new DrawerImageLoader.IDrawerImageLoader() {
         return null;
     }
 });
+//An implementation with [GLIDE](https://github.com/mikepenz/MaterialDrawer/blob/develop/app/src/main/java/com/mikepenz/materialdrawer/app/CustomApplication.java#L42) can be found in the sample application
 ```
 
 
@@ -315,18 +333,6 @@ No need to create a custom theme. Just set these colors (or some of them) and yo
 ```java
 //just use this with the Drawer
 .withSelectedItem(-1)
-```
-
-#####How can i use this with espresso
-```java
-androidTestCompile ('com.android.support.test.espresso:espresso-contrib:2.0') {
-//this library uses the newest app compat v22 but the espresso contrib still v21. 
-//you have to specifically exclude the older verisions of the contrib library or
-// there will be some conflicts
-    exclude module: 'support-annotations'
-    exclude module: 'support-v4'
-    exclude module: 'recyclerview-v7'
-}
 ```
 
 #####I have problems with the SoftKeyboard. How can i fix this?
