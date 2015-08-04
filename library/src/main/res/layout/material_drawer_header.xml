@@ -19,77 +19,67 @@
             android:layout_width="@dimen/material_drawer_account_header_selected"
             android:layout_height="@dimen/material_drawer_account_header_selected"
             android:layout_alignParentLeft="true"
-            android:layout_alignParentStart="true"
             android:layout_alignParentTop="true"
             android:layout_marginBottom="@dimen/material_drawer_account_header_horizontal_bottom"
             android:layout_marginLeft="@dimen/material_drawer_vertical_padding"
-            android:layout_marginStart="@dimen/material_drawer_vertical_padding"
             android:layout_marginTop="@dimen/material_drawer_account_header_horizontal_top"
             android:clickable="true"
             android:elevation="2dp"
             app:biv_maskDrawable="@drawable/material_drawer_circle_mask"
             app:biv_selectorOnPress="@color/material_drawer_primary" />
 
-        <com.mikepenz.materialdrawer.view.BezelImageView
-            android:id="@+id/account_header_drawer_small_first"
-            android:layout_width="@dimen/material_drawer_account_header_secondary"
-            android:layout_height="@dimen/material_drawer_account_header_secondary"
-            android:layout_alignTop="@+id/account_header_drawer_current"
-            android:layout_marginEnd="@dimen/material_drawer_vertical_padding"
-            android:layout_marginRight="@dimen/material_drawer_vertical_padding"
-            android:layout_toLeftOf="@+id/account_header_drawer_small_second"
-            android:layout_toStartOf="@+id/account_header_drawer_small_second"
-            android:clickable="true"
-            android:elevation="2dp"
-            android:visibility="gone"
-            app:biv_maskDrawable="@drawable/material_drawer_circle_mask"
-            app:biv_selectorOnPress="@color/material_drawer_primary" />
-
-        <com.mikepenz.materialdrawer.view.BezelImageView
-            android:id="@+id/account_header_drawer_small_second"
-            android:layout_width="@dimen/material_drawer_account_header_secondary"
-            android:layout_height="@dimen/material_drawer_account_header_secondary"
-            android:layout_alignTop="@+id/account_header_drawer_current"
-            android:layout_marginEnd="@dimen/material_drawer_vertical_padding"
-            android:layout_marginRight="@dimen/material_drawer_vertical_padding"
-            android:layout_toLeftOf="@+id/account_header_drawer_small_third"
-            android:layout_toStartOf="@+id/account_header_drawer_small_third"
-            android:clickable="true"
-            android:elevation="2dp"
-            android:visibility="gone"
-            app:biv_maskDrawable="@drawable/material_drawer_circle_mask"
-            app:biv_selectorOnPress="@color/material_drawer_primary" />
-
-        <com.mikepenz.materialdrawer.view.BezelImageView
-            android:id="@+id/account_header_drawer_small_third"
-            android:layout_width="@dimen/material_drawer_account_header_secondary"
-            android:layout_height="@dimen/material_drawer_account_header_secondary"
-            android:layout_alignParentEnd="true"
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
             android:layout_alignParentRight="true"
             android:layout_alignTop="@+id/account_header_drawer_current"
-            android:layout_marginEnd="@dimen/material_drawer_vertical_padding"
-            android:layout_marginRight="@dimen/material_drawer_vertical_padding"
-            android:clickable="true"
-            android:elevation="2dp"
-            android:visibility="gone"
-            app:biv_maskDrawable="@drawable/material_drawer_circle_mask"
-            app:biv_selectorOnPress="@color/material_drawer_primary" />
+            android:gravity="right">
+
+            <com.mikepenz.materialdrawer.view.BezelImageView
+                android:id="@+id/account_header_drawer_small_first"
+                android:layout_width="@dimen/material_drawer_account_header_secondary"
+                android:layout_height="@dimen/material_drawer_account_header_secondary"
+                android:layout_marginRight="@dimen/material_drawer_vertical_padding"
+                android:clickable="true"
+                android:elevation="2dp"
+                android:visibility="gone"
+                app:biv_maskDrawable="@drawable/material_drawer_circle_mask"
+                app:biv_selectorOnPress="@color/material_drawer_primary" />
+
+            <com.mikepenz.materialdrawer.view.BezelImageView
+                android:id="@+id/account_header_drawer_small_second"
+                android:layout_width="@dimen/material_drawer_account_header_secondary"
+                android:layout_height="@dimen/material_drawer_account_header_secondary"
+                android:layout_marginRight="@dimen/material_drawer_vertical_padding"
+                android:clickable="true"
+                android:elevation="2dp"
+                android:visibility="gone"
+                app:biv_maskDrawable="@drawable/material_drawer_circle_mask"
+                app:biv_selectorOnPress="@color/material_drawer_primary" />
+
+            <com.mikepenz.materialdrawer.view.BezelImageView
+                android:id="@+id/account_header_drawer_small_third"
+                android:layout_width="@dimen/material_drawer_account_header_secondary"
+                android:layout_height="@dimen/material_drawer_account_header_secondary"
+                android:layout_marginRight="@dimen/material_drawer_vertical_padding"
+                android:clickable="true"
+                android:elevation="2dp"
+                android:visibility="gone"
+                app:biv_maskDrawable="@drawable/material_drawer_circle_mask"
+                app:biv_selectorOnPress="@color/material_drawer_primary" />
+        </LinearLayout>
 
         <LinearLayout
             android:id="@+id/account_header_drawer_text_section"
             android:layout_width="match_parent"
             android:layout_height="56dp"
             android:layout_alignParentBottom="true"
-            android:layout_alignParentEnd="true"
             android:layout_alignParentLeft="true"
             android:layout_alignParentRight="true"
-            android:layout_alignParentStart="true"
             android:layout_marginBottom="@dimen/material_drawer_padding"
             android:layout_toLeftOf="@+id/account_header_drawer_text_switcher"
-            android:layout_toStartOf="@+id/account_header_drawer_text_switcher"
             android:gravity="center_vertical"
             android:orientation="vertical"
-            android:paddingEnd="56dp"
             android:paddingRight="56dp">
 
             <TextView
@@ -97,7 +87,6 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="@dimen/material_drawer_vertical_padding"
-                android:layout_marginStart="@dimen/material_drawer_vertical_padding"
                 android:fontFamily="sans-serif-medium"
                 android:lines="1"
                 android:singleLine="true"
@@ -108,7 +97,6 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="@dimen/material_drawer_vertical_padding"
-                android:layout_marginStart="@dimen/material_drawer_vertical_padding"
                 android:fontFamily="sans-serif"
                 android:lines="1"
                 android:singleLine="true"
@@ -121,10 +109,8 @@
             android:layout_width="@dimen/material_drawer_account_header_dropdown"
             android:layout_height="@dimen/material_drawer_account_header_dropdown"
             android:layout_alignParentBottom="true"
-            android:layout_alignParentEnd="true"
             android:layout_alignParentRight="true"
             android:layout_marginBottom="@dimen/material_drawer_account_header_dropdown_margin_bottom"
-            android:layout_marginEnd="@dimen/material_drawer_vertical_padding"
             android:layout_marginRight="@dimen/material_drawer_vertical_padding" />
 
     </RelativeLayout>

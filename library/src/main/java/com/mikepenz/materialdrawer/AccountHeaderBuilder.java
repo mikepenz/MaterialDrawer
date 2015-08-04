@@ -18,7 +18,6 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.FrameLayout;
 import android.widget.ImageView;
-import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.mikepenz.iconics.IconicsDrawable;
@@ -945,7 +944,7 @@ public class AccountHeaderBuilder {
         mProfileFirstView.setOnClickListener(null);
         mProfileSecondView.setVisibility(View.INVISIBLE);
         mProfileSecondView.setOnClickListener(null);
-        mProfileThirdView.setVisibility(View.INVISIBLE);
+        mProfileThirdView.setVisibility(View.GONE);
         mProfileThirdView.setOnClickListener(null);
 
         handleSelectionView(mCurrentProfile, true);
@@ -993,9 +992,6 @@ public class AccountHeaderBuilder {
                     mProfileSecondView.disableTouchFeedback(true);
                 }
                 mProfileSecondView.setVisibility(View.VISIBLE);
-                alignParentLayoutParam(mProfileFirstView, 0);
-            } else {
-                alignParentLayoutParam(mProfileFirstView, 1);
             }
             if (mProfileThird != null && mThreeSmallProfileImages && mProfileImagesVisible) {
                 setImageOrPlaceholder(mProfileThirdView, mProfileThird.getIcon());
@@ -1007,9 +1003,6 @@ public class AccountHeaderBuilder {
                     mProfileThirdView.disableTouchFeedback(true);
                 }
                 mProfileThirdView.setVisibility(View.VISIBLE);
-                alignParentLayoutParam(mProfileSecondView, 0);
-            } else {
-                alignParentLayoutParam(mProfileSecondView, 1);
             }
         } else if (mProfiles != null && mProfiles.size() > 0) {
             IProfile profile = mProfiles.get(0);
@@ -1050,21 +1043,6 @@ public class AccountHeaderBuilder {
         if (mOnAccountHeaderSelectionViewClickListener != null) {
             handleSelectionView(mCurrentProfile, true);
         }
-    }
-
-    /**
-     * small helper method to change the align parent lp for the view
-     *
-     * @param view
-     * @param add
-     */
-    private void alignParentLayoutParam(View view, int add) {
-        RelativeLayout.LayoutParams lp = (RelativeLayout.LayoutParams) view.getLayoutParams();
-        lp.addRule(RelativeLayout.ALIGN_PARENT_RIGHT, add);
-        if (Build.VERSION.SDK_INT >= 17) {
-            lp.addRule(RelativeLayout.ALIGN_PARENT_END, add);
-        }
-        view.setLayoutParams(lp);
     }
 
     /**
