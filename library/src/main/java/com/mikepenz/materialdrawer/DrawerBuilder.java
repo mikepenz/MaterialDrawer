@@ -200,7 +200,7 @@ public class DrawerBuilder {
      * This will handle the ActionBarDrawerToggle for you.
      * Do not set this if you are in a sub activity and want to handle the back arrow on your own
      *
-     * @param toolbar the toolbar which is used in combination with the draer
+     * @param toolbar the toolbar which is used in combination with the drawer
      */
     public DrawerBuilder withToolbar(@NonNull Toolbar toolbar) {
         this.mToolbar = toolbar;
@@ -1145,6 +1145,22 @@ public class DrawerBuilder {
                 .withStatusBarColorRes(mStatusBarColorRes)
                 .build();
 
+        //handle the navigation stuff of the ActionBarDrawerToggle and the drawer in general
+        handleDrawerNavigation(mActivity);
+
+        //build the view which will be set to the drawer
+        Drawer result = buildView();
+
+        // add the slider to the drawer
+        mDrawerLayout.addView(mSliderLayout, 1);
+
+        return result;
+    }
+
+    /**
+     * handles the different logics for the Drawer Navigation Listeners / Indications (ActionBarDrawertoggle)
+     */
+    protected void handleDrawerNavigation(Activity activity) {
         //set the navigationOnClickListener
         final View.OnClickListener toolbarNavigationListener = new View.OnClickListener() {
             @Override
@@ -1166,7 +1182,7 @@ public class DrawerBuilder {
 
         // create the ActionBarDrawerToggle if not set and enabled and if we have a toolbar
         if (mActionBarDrawerToggleEnabled && mActionBarDrawerToggle == null && mToolbar != null) {
-            this.mActionBarDrawerToggle = new ActionBarDrawerToggle(mActivity, mDrawerLayout, mToolbar, R.string.drawer_open, R.string.drawer_close) {
+            this.mActionBarDrawerToggle = new ActionBarDrawerToggle(activity, mDrawerLayout, mToolbar, R.string.drawer_open, R.string.drawer_close) {
                 @Override
                 public void onDrawerOpened(View drawerView) {
                     if (mOnDrawerListener != null) {
@@ -1238,14 +1254,6 @@ public class DrawerBuilder {
                 }
             });
         }
-
-        //build the view which will be set to the drawer
-        Drawer result = buildView();
-
-        // add the slider to the drawer
-        mDrawerLayout.addView(mSliderLayout, 1);
-
-        return result;
     }
 
     /**

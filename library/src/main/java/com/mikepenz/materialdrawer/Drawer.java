@@ -7,6 +7,7 @@ import android.support.annotation.NonNull;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.widget.RecyclerView;
+import android.support.v7.widget.Toolbar;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.FrameLayout;
@@ -64,6 +65,30 @@ public class Drawer {
      */
     public DrawerLayout getDrawerLayout() {
         return this.mDrawerBuilder.mDrawerLayout;
+    }
+
+    /**
+     * Sets the toolbar which should be used in combination with the drawer
+     * This will handle the ActionBarDrawerToggle for you.
+     * Do not set this if you are in a sub activity and want to handle the back arrow on your own
+     *
+     * @param toolbar the toolbar which is used in combination with the drawer
+     */
+    public void setToolbar(@NonNull Activity activity, @NonNull Toolbar toolbar) {
+        this.mDrawerBuilder.mToolbar = toolbar;
+        this.mDrawerBuilder.handleDrawerNavigation(activity);
+    }
+
+    /**
+     * Add a custom ActionBarDrawerToggle which will be used in combination with this drawer.
+     *
+     * @param actionBarDrawerToggle
+     * @return
+     */
+    public void setActionBarDrawerToggle(@NonNull ActionBarDrawerToggle actionBarDrawerToggle) {
+        this.mDrawerBuilder.mActionBarDrawerToggleEnabled = true;
+        this.mDrawerBuilder.mActionBarDrawerToggle = actionBarDrawerToggle;
+        this.mDrawerBuilder.handleDrawerNavigation(null);
     }
 
     /**
