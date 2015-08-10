@@ -1464,7 +1464,7 @@ public class DrawerBuilder {
         }
 
         //predefine selection (should be the first element
-        if (mHeaderView != null) {
+        if (mHeaderView != null && mSelectedItem != -1) {
             mSelectedItem = 1;
         }
         DrawerUtils.setRecyclerViewSelection(this, mSelectedItem, false);
