@@ -1010,8 +1010,10 @@ public class AccountHeaderBuilder {
             mAccountHeaderTextSection.setVisibility(View.VISIBLE);
             handleSelectionView(mCurrentProfile, true);
             mAccountSwitcherArrow.setVisibility(View.VISIBLE);
-            StringHolder.applyTo(mCurrentProfile.getName(), mCurrentProfileName);
-            StringHolder.applyTo(mCurrentProfile.getEmail(), mCurrentProfileEmail);
+            if (mCurrentProfile != null) {
+                StringHolder.applyTo(mCurrentProfile.getName(), mCurrentProfileName);
+                StringHolder.applyTo(mCurrentProfile.getEmail(), mCurrentProfileEmail);
+            }
         }
 
         if (!mSelectionFirstLineShown) {
