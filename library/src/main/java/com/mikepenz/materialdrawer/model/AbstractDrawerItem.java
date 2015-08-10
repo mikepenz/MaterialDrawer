@@ -98,4 +98,21 @@ public abstract class AbstractDrawerItem<T> implements IDrawerItem<T>, Identifya
     public RecyclerView.ViewHolder getViewHolder(ViewGroup parent) {
         return getFactory().factory(LayoutInflater.from(parent.getContext()).inflate(getLayoutRes(), parent, false));
     }
+
+    public boolean equals(Integer id) {
+        return id != null && id == mIdentifier;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        AbstractDrawerItem<?> that = (AbstractDrawerItem<?>) o;
+        return mIdentifier == that.mIdentifier;
+    }
+
+    @Override
+    public int hashCode() {
+        return mIdentifier;
+    }
 }

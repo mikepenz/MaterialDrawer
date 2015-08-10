@@ -34,4 +34,8 @@ public interface IDrawerItem<T> {
     RecyclerView.ViewHolder getViewHolder(ViewGroup parent);
 
     void bindView(RecyclerView.ViewHolder holder);
+
+    boolean equals(Integer id);
+
+    boolean equals(Object o);
 }
