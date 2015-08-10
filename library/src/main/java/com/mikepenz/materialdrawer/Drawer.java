@@ -83,7 +83,6 @@ public class Drawer {
      * Add a custom ActionBarDrawerToggle which will be used in combination with this drawer.
      *
      * @param actionBarDrawerToggle
-     * @return
      */
     public void setActionBarDrawerToggle(@NonNull ActionBarDrawerToggle actionBarDrawerToggle) {
         this.mDrawerBuilder.mActionBarDrawerToggleEnabled = true;
