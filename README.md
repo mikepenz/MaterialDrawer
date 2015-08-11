@@ -2,6 +2,7 @@
 
 [![Join the chat at https://gitter.im/mikepenz/MaterialDrawer](https://badges.gitter.im/Join%20Chat.svg)](https://gitter.im/mikepenz/MaterialDrawer?utm_source=badge&utm_medium=badge&utm_campaign=pr-badge&utm_content=badge)
 
+![Image](https://raw.githubusercontent.com/mikepenz/MaterialDrawer/feature/refactoring/DEV/github/banner.png)
 
 > Does your application **contain a Drawer**? Do you want to have it **up and running in less than 5 minutes**? Do you want your drawer to follow the **Android Design Guidelines**?
 Do you have **profiles**? Do you need **flexibility**? Is Google's navigation Drawer of the **design support** not enough for you? Do you want a **simple and easy** to understand api?
@@ -81,11 +82,10 @@ compile('com.mikepenz:materialdrawer:4.0.0@aar') {
 new DrawerBuilder().withActivity(this).build();
 ```
 
-##3. There is no step `3`
+Great. Your drawer is now ready to use.
 
 
-#Add some data
-
+#Additional Setup
 ##Add items and adding some functionality
 
 ```java
@@ -134,7 +134,6 @@ new DrawerBuilder()
 
 
 #Advanced Setup
-
 ##Activity with ActionBar
 ###Code:
 ```java
@@ -191,8 +190,9 @@ DrawerImageLoader.init(new DrawerImageLoader.IDrawerImageLoader() {
         return null;
     }
 });
-//An implementation with [GLIDE](https://github.com/mikepenz/MaterialDrawer/blob/develop/app/src/main/java/com/mikepenz/materialdrawer/app/CustomApplication.java#L42) can be found in the sample application
 ```
+
+An implementation with [GLIDE](https://github.com/mikepenz/MaterialDrawer/blob/develop/app/src/main/java/com/mikepenz/materialdrawer/app/CustomApplication.java#L42) can be found in the sample application
 
 
 ##Switching between Back-Arrow or Hamburger-Icon
@@ -344,7 +344,6 @@ drawerLayout.setDrawerLockMode(int lockMode); //or (int lockMode, int edgeGravit
 
 #Articles about the MaterialDrawer
 * [java-help.ru](http://java-help.ru/material-navigationdrawer/)
-
 
 
 #Credits
