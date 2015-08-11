@@ -3,12 +3,12 @@
 [![Join the chat at https://gitter.im/mikepenz/MaterialDrawer](https://badges.gitter.im/Join%20Chat.svg)](https://gitter.im/mikepenz/MaterialDrawer?utm_source=badge&utm_medium=badge&utm_campaign=pr-badge&utm_content=badge)
 
 
-> Does your application contain a Drawer? Do you want to have it up and running in less than 5 minutes? Do you want your drawer to follow the Android Design Guidelines?
-Do you have profiles? Do you need flexibility? Is Google's navigation Drawer of the design support not enough for you? Do you want a simple and easy to understand api?
+> Does your application **contain a Drawer**? Do you want to have it **up and running in less than 5 minutes**? Do you want your drawer to follow the **Android Design Guidelines**?
+Do you have **profiles**? Do you need **flexibility**? Is Google's navigation Drawer of the **design support** not enough for you? Do you want a **simple and easy** to understand api?
 
 If any (or all) of these questions seem familiar, the **MaterialDrawer** is the perfect library for you.
 
-Never waste your time again.
+**Never** waste your time again.
 It provides you with the easiest possible implementation of a navigation drawer for your application.
 There  is a Header with profiles (**AccountHeader**), a **MiniDrawer** for Tablets (like Gmail), provide
 **custom DrawerItems**, **custom colors**, **custom themes**, ... **No limits** for customizations.
