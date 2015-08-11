@@ -2,9 +2,18 @@
 
 [![Join the chat at https://gitter.im/mikepenz/MaterialDrawer](https://badges.gitter.im/Join%20Chat.svg)](https://gitter.im/mikepenz/MaterialDrawer?utm_source=badge&utm_medium=badge&utm_campaign=pr-badge&utm_content=badge)
 
-The **MaterialDrawer** library aims to provide the easiest possible implementation of a navigation drawer for your application. It provides a great amount of out of the box customizations and also includes an easy to use header which can be used as **AccountSwitcher**.
 
+> Does your application contain a Drawer? Do you want to have it up and running in less than 5 minutes? Do you want your drawer to follow the Android Design Guidelines?
+Do you have profiles? Do you need flexibility? Is Google's navigation Drawer of the design support not enough for you? Do you want a simple and easy to understand api?
 
+If any (or all) of these questions seem familiar, the **MaterialDrawer** is the perfect library for you.
+
+Never waste your time again.
+It provides you with the easiest possible implementation of a navigation drawer for your application.
+There  is a Header with profiles (**AccountHeader**), a **MiniDrawer** for Tablets (like Gmail), provide
+**custom DrawerItems**, **custom colors**, **custom themes**, ... **No limits** for customizations.
+
+###A quick overview what it includes
 - **the easiest possible integration**
  - integrate in less then **5 minutes**
 - includes an **AccountSwitcher**
@@ -42,24 +51,6 @@ You can try it out here [Google Play](https://play.google.com/store/apps/details
 ![Image](https://raw.githubusercontent.com/mikepenz/MaterialDrawer/master/DEV/screenshots/screenshot4_small.png)
 
 
-#Include in your project
-##Using Maven
-The MaterialDrawer Library is pushed to [Maven Central](http://search.maven.org/#search|ga|1|g%3A%22com.mikepenz%22), so you just need to add the following dependency to your `build.gradle`.
-
-```gradle
-//requires the SNAPSHOT repo
-//maven { url "https://oss.sonatype.org/content/repositories/snapshots/" }
-
-compile('com.mikepenz:materialdrawer:4.0.0.rc6-SNAPSHOT@aar') {
-	transitive = true
-}
-```
-
-##How to use
-Here's a quick overview what you have to do within your application.
-You can find a detailed description of all methods in the [WIKI](https://github.com/mikepenz/MaterialDrawer/wiki).
-
-
 ###Upgrade Notes
 #### < v4.0.0
 * now most methods require you to have an identifier set for the DrawerItems
@@ -75,16 +66,28 @@ You can find a detailed description of all methods in the [WIKI](https://github.
 * `*ByIdentifier` was removed from the methods to force their usage
 * `addItem(IDrawerItem, pos)` was renamed to `addItemAtPosition`
 
-###Minimal SetUp
 
-####Code:
-It's (theoretically) a one-liner :D. This will create an empty drawer.
+#Setup
+##1. Provide the gradle dependency
+
+```gradle
+compile('com.mikepenz:materialdrawer:4.0.0@aar') {
+	transitive = true
+}
+```
+
+##2. Add your drawer
 ```java
 new DrawerBuilder().withActivity(this).build();
 ```
 
-###Activity with Toolbar
-####Code:
+##3. There is no step `3`
+
+
+#Add some data
+
+##Add items and adding some functionality
+
 ```java
 Drawer result = new DrawerBuilder()
     .withActivity(this)
@@ -101,39 +104,10 @@ Drawer result = new DrawerBuilder()
     }
     })
     .build();
-
-//use the result object to get different views of the drawer or modify it's data
-//some sample calls
-
-//set the selection to the item with the identifier 1
-//true states that the listener is called
-result.setSelection(1, true);
-//set the selection to the item at position 4 (start to count with 0, a header counts also here)
-//true states that the listener is called
-result.setSelectionAtPosition(4, true)
-
-//add an item
-result.addItem(..);
-
-//update the item with the identifier 1 with the label "hi :D"
-result.updateBadge(1, new StringHolder("hi :D"));
-
-//update a complete item (note it will match with the identifier in the item)
-result.updateItem(drawerItem);
-
-//drawer actions
-result.openDrawer();
-result.closeDrawer();
-result.isDrawerOpen();
-
-//many additional calls
-
 ```
 
-###Drawer with AccountSwitcher
-####Code:
+##Add profiles and an AccountHeader
 ```java
-
 // Create the AccountHeader
 AccountHeader headerResult = new AccountHeaderBuilder()
 	.withActivity(this)
@@ -148,29 +122,21 @@ AccountHeader headerResult = new AccountHeaderBuilder()
 		}
 	})
 	.build();
-                
+
 //Now create your drawer and pass the AccountHeader.Result
-Drawer result = new DrawerBuilder()
-    .withActivity(this)
-    .withToolbar(toolbar)
+new DrawerBuilder()
     .withAccountHeader(headerResult)
-    .addDrawerItems(
-	    new PrimaryDrawerItem().withName(R.string.drawer_item_home),
-	    new DividerDrawerItem(),
-	    new SecondaryDrawerItem().withName(R.string.drawer_item_settings)
-    )
-    .withOnDrawerItemClickListener(new Drawer.OnDrawerItemClickListener() {
-    @Override
-    public boolean onItemClick(View view, int position, IDrawerItem drawerItem) {
-    	// do something with the clicked item :D
-    }
-    })
+    //additional Drawer setup as shown above
+    ...
     .build();
 
 ```
 
-###Activity with ActionBar
-####Code:
+
+#Advanced Setup
+
+##Activity with ActionBar
+###Code:
 ```java
 new DrawerBuilder()
 	.withActivity(this)
@@ -182,8 +148,8 @@ new DrawerBuilder()
 	.build();
 ```
 
-###Activity with Multiple Drawers
-####Code:
+##Activity with Multiple Drawers
+###Code:
 ```java
 Drawer result = new DrawerBuilder()
 	.withActivity(this)
@@ -202,10 +168,10 @@ new DrawerBuilder()
     .append(result);
 ```
 
-###Load images via url
+##Load images via url
 The MaterialDrawer supports fetching images from URLs and setting them for the Profile icons. As the MaterialDrawer does not contain an ImageLoading library
 the dev can choose his own implementation (Picasso, Glide, ...). This has to be done, before the first image should be loaded via URL. (Should be done in the Application, but any other spot before loading the first image is working too)
-####Code:
+###Code:
 ```java
 //SAMPLE using [PICASSO](https://github.com/square/picasso)
 //initialize and create the image loader logic
@@ -229,22 +195,22 @@ DrawerImageLoader.init(new DrawerImageLoader.IDrawerImageLoader() {
 ```
 
 
-###Switching between Back-Arrow or Hamburger-Icon
+##Switching between Back-Arrow or Hamburger-Icon
 If you use the included ActionBarDrawerToggle you can switch between back-arrow or hamburger-icon
 with the following code snippet. (Please note that the order of these lines matter)
-####Code - Show the back arrow:
+###Code - Show the back arrow:
 ```java
 result.getActionBarDrawerToggle().setDrawerIndicatorEnabled(false);
 getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 ```
-####Code - Show the hamburger icon:
+###Code - Show the hamburger icon:
 ```java
 getSupportActionBar().setDisplayHomeAsUpEnabled(false);
 result.getActionBarDrawerToggle().setDrawerIndicatorEnabled(true);
 ```
 
 
-###AndroidManifest.xml
+##AndroidManifest.xml
 Use one of the provided themes. They all use the AppCompat theme as parent and define the color values for the drawer.
 
 **NOTE:** The theme states ActionBar and not NoActionBar like the Appcompat style
@@ -263,11 +229,11 @@ Use one of the provided themes. They all use the AppCompat theme as parent and d
 - **MaterialDrawerTheme.Light.DarkToolbar.ActionBar.TranslucentStatus**
   
 
-###Style the drawer
-#### Use of a none MaterialDrawer.* style
+##Style the drawer
+### Use of a none MaterialDrawer.* style
 If you don't use one of the provided styles you have to add the style values to your style. Here's a simple sample. 
 This is the same as the Custom style just with a parent like `parent="Theme.AppCompat.Light.DarkActionBar"`
-#### Custom style - styles.xml
+### Custom style - styles.xml
 Create your custom style and use one of the provided themes as parent. If you don't need a custom theme see the next section, how you can set the colors just by overwriting the original colors.
 
 ```xml
@@ -290,7 +256,7 @@ Create your custom style and use one of the provided themes as parent. If you do
     </style>
 ```
 
-### Custom colors - colors.xml
+## Custom colors - colors.xml
 No need to create a custom theme. Just set these colors (or some of them) and you have your own style.
 ```xml
 	<!-- Material DEFAULT colors -->
@@ -328,14 +294,14 @@ No need to create a custom theme. Just set these colors (or some of them) and yo
     <color name="material_drawer_dark_header_selection_text">#FFF</color>
 ```
 
-##FAQ
-#####How can i create a drawer without a default selection
+#FAQ
+###How can i create a drawer without a default selection
 ```java
 //just use this with the Drawer
 .withSelectedItem(-1)
 ```
 
-#####I have problems with the SoftKeyboard. How can i fix this?
+###I have problems with the SoftKeyboard. How can i fix this?
 The MaterialDrawer will display your activity as FullScreen. Starting with API 19
 the `adjustResize` works different then. This is default Android behavior. 
 This is a big issue for a lot of devs so i've created a helper which "fixes" this issue. 
@@ -348,7 +314,7 @@ drawer to be displayed under the StatusBar). `.withTranslucentStatusBar(false)`
 
 You can read about this here: https://github.com/mikepenz/MaterialDrawer/issues/95, https://github.com/mikepenz/MaterialDrawer/issues/183, https://github.com/mikepenz/MaterialDrawer/issues/196
 
-#####Can I lock the Drawer
+###Can I lock the Drawer
 As the MaterialDrawer will just create a normal DrawerLayout (with some magic around it) everything a normal
 DrawerLayout can do is also available in the MaterialDrawer. 
 ```java
@@ -359,7 +325,7 @@ drawerLayout.setDrawerLockMode(int lockMode); //or (int lockMode, int edgeGravit
 ```
 
 
-##Apps using the MaterialDrawer
+#Apps using the MaterialDrawer
 (feel free to send me new projects)
 
 * [wall:splash](https://play.google.com/store/apps/details?id=com.mikepenz.unsplash)
@@ -376,7 +342,7 @@ drawerLayout.setDrawerLockMode(int lockMode); //or (int lockMode, int edgeGravit
 
 
 
-##Articles about the MaterialDrawer
+#Articles about the MaterialDrawer
 * [java-help.ru](http://java-help.ru/material-navigationdrawer/)
 
 
