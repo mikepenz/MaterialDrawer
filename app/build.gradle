@@ -50,13 +50,16 @@ android {
 
 dependencies {
     compile project(':library')
+
+    compile 'com.squareup.picasso:picasso:2.5.2'
+    compile 'com.github.bumptech.glide:glide:3.6.0'
+
     compile('com.mikepenz:aboutlibraries:5.1.1@aar') {
         transitive = true
     }
     compile 'com.mikepenz:crossfader:1.0.1@aar'
-    compile 'com.mikepenz:octicons-typeface:2.2.1@aar'
-    compile 'com.squareup.picasso:picasso:2.5.2'
-    compile 'com.github.bumptech.glide:glide:3.6.0'
 
-    compile 'com.mikepenz:iconics:1.6.2@aar'
+    compile 'com.mikepenz:google-material-typeface:1.2.0@aar'
+    compile 'com.mikepenz:fontawesome-typeface:4.4.0@aar'
+    compile 'com.mikepenz:octicons-typeface:3.0.1@aar'
 }
