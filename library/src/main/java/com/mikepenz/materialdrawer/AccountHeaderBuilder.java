@@ -352,6 +352,20 @@ public class AccountHeaderBuilder {
         return this;
     }
 
+    //only the main profile image is visible
+    protected boolean mOnlyMainProfileImageVisible = false;
+
+    /**
+     * define if only the main (current selected) profile image should be visible
+     *
+     * @param onlyMainProfileImageVisible
+     * @return
+     */
+    public AccountHeaderBuilder withOnlyMainProfileImageVisible(boolean onlyMainProfileImageVisible) {
+        this.mOnlyMainProfileImageVisible = onlyMainProfileImageVisible;
+        return this;
+    }
+
     //close the drawer after a profile was clicked in the list
     protected boolean mCloseDrawerOnProfileListClick = true;
 
@@ -950,7 +964,7 @@ public class AccountHeaderBuilder {
         handleSelectionView(mCurrentProfile, true);
 
         if (mCurrentProfile != null) {
-            if (mProfileImagesVisible) {
+            if (mProfileImagesVisible || mOnlyMainProfileImageVisible) {
                 setImageOrPlaceholder(mCurrentProfileView, mCurrentProfile.getIcon());
                 if (mProfileImagesClickable) {
                     mCurrentProfileView.setOnClickListener(onProfileClickListener);
@@ -971,7 +985,7 @@ public class AccountHeaderBuilder {
             StringHolder.applyTo(mCurrentProfile.getName(), mCurrentProfileName);
             StringHolder.applyTo(mCurrentProfile.getEmail(), mCurrentProfileEmail);
 
-            if (mProfileFirst != null && mProfileImagesVisible) {
+            if (mProfileFirst != null && mProfileImagesVisible && !mOnlyMainProfileImageVisible) {
                 setImageOrPlaceholder(mProfileFirstView, mProfileFirst.getIcon());
                 mProfileFirstView.setTag(R.id.md_profile_header, mProfileFirst);
                 if (mProfileImagesClickable) {
@@ -982,7 +996,7 @@ public class AccountHeaderBuilder {
                 }
                 mProfileFirstView.setVisibility(View.VISIBLE);
             }
-            if (mProfileSecond != null && mProfileImagesVisible) {
+            if (mProfileSecond != null && mProfileImagesVisible && !mOnlyMainProfileImageVisible) {
                 setImageOrPlaceholder(mProfileSecondView, mProfileSecond.getIcon());
                 mProfileSecondView.setTag(R.id.md_profile_header, mProfileSecond);
                 if (mProfileImagesClickable) {
@@ -993,7 +1007,7 @@ public class AccountHeaderBuilder {
                 }
                 mProfileSecondView.setVisibility(View.VISIBLE);
             }
-            if (mProfileThird != null && mThreeSmallProfileImages && mProfileImagesVisible) {
+            if (mProfileThird != null && mThreeSmallProfileImages && mProfileImagesVisible && !mOnlyMainProfileImageVisible) {
                 setImageOrPlaceholder(mProfileThirdView, mProfileThird.getIcon());
                 mProfileThirdView.setTag(R.id.md_profile_header, mProfileThird);
                 if (mProfileImagesClickable) {
