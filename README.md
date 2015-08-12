@@ -16,28 +16,24 @@ There  is a Header with profiles (**AccountHeader**), a **MiniDrawer** for Table
 
 ###A quick overview what it includes
 - **the easiest possible integration**
- - integrate in less then **5 minutes**
+- integrate in less then **5 minutes**
+- compatible down to **API Level 10**
 - includes an **AccountSwitcher**
- - Easy to use
- - No additional setup
- - Many additional usecases possible
- - Compact style included
 - quick and simple api
 - follows the **Google Material Design Guidelines**
-- comes with various themes which help to get your own themes clean
+- use **vector** (.svg) icons and **icon fonts** via the [Android-Iconics](https://github.com/mikepenz/Android-Iconics) integration
+ - **Google Material Design Icons**, Google **Material Community** Design Icons, FontAwesome and more
+- comes with various **themes** which help to get your own themes clean
 - modify the colors on the go
 - **uses the AppCompat support library**
 - based on a **RecyclerView**
-- compatible down to **API Level 10**
+- Gmail like **MiniDrawer**
 - **supports multiple drawers**
 - comes with multiple default drawer items
 - **badge** support
 - define custom drawer items
 - tested and **stable**
-- many many options how to display the drawer
- - Translucent StatusBar
- - Display Above the Toolbar
- - Display Under the Toolbar
+- **absolutely NO limits**
 
 
 #Preview
