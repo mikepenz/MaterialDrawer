@@ -2,6 +2,9 @@ package com.mikepenz.materialdrawer.holder;
 
 import android.content.Context;
 import android.content.res.ColorStateList;
+import android.support.annotation.ColorInt;
+import android.support.annotation.ColorRes;
+import android.support.annotation.DrawableRes;
 import android.widget.TextView;
 
 import com.mikepenz.materialdrawer.R;
@@ -24,7 +27,7 @@ public class BadgeStyle {
         return mGradientDrawable;
     }
 
-    public BadgeStyle withGradientDrawable(int gradientDrawable) {
+    public BadgeStyle withGradientDrawable(@DrawableRes int gradientDrawable) {
         this.mGradientDrawable = gradientDrawable;
         return this;
     }
@@ -33,8 +36,13 @@ public class BadgeStyle {
         return mColor;
     }
 
-    public BadgeStyle withColor(int color) {
+    public BadgeStyle withColor(@ColorInt int color) {
         this.mColor = ColorHolder.fromColor(color);
+        return this;
+    }
+
+    public BadgeStyle withColorRes(@ColorRes int color) {
+        this.mColor = ColorHolder.fromColorRes(color);
         return this;
     }
 
@@ -42,8 +50,13 @@ public class BadgeStyle {
         return mColorPressed;
     }
 
-    public BadgeStyle withColorPressed(int colorPressed) {
+    public BadgeStyle withColorPressed(@ColorInt int colorPressed) {
         this.mColorPressed = ColorHolder.fromColor(colorPressed);
+        return this;
+    }
+
+    public BadgeStyle withColorPressedRes(@ColorRes int colorPressed) {
+        this.mColorPressed = ColorHolder.fromColorRes(colorPressed);
         return this;
     }
 
@@ -51,8 +64,13 @@ public class BadgeStyle {
         return mTextColor;
     }
 
-    public BadgeStyle withTextColor(int textColor) {
+    public BadgeStyle withTextColor(@ColorInt int textColor) {
         this.mTextColor = ColorHolder.fromColor(textColor);
+        return this;
+    }
+
+    public BadgeStyle withTextColorRes(@ColorRes int textColor) {
+        this.mTextColor = ColorHolder.fromColorRes(textColor);
         return this;
     }
 
@@ -87,12 +105,12 @@ public class BadgeStyle {
         return this;
     }
 
-    public BadgeStyle(int color, int colorPressed) {
+    public BadgeStyle(@ColorInt int color, @ColorInt int colorPressed) {
         this.mColor = ColorHolder.fromColor(color);
         this.mColorPressed = ColorHolder.fromColor(colorPressed);
     }
 
-    public BadgeStyle(int gradientDrawable, int color, int colorPressed, int textColor) {
+    public BadgeStyle(@DrawableRes int gradientDrawable, @ColorInt int color, @ColorInt int colorPressed, @ColorInt int textColor) {
         this.mGradientDrawable = gradientDrawable;
         this.mColor = ColorHolder.fromColor(color);
         this.mColorPressed = ColorHolder.fromColor(colorPressed);
@@ -117,7 +135,7 @@ public class BadgeStyle {
 
         //set the padding
         int padding = mPadding.asPixel(ctx);
-        badgeTextView.setPadding(padding, padding, padding, padding);
+        badgeTextView.setPadding(badgeTextView.getPaddingLeft() + padding, badgeTextView.getPaddingTop() + padding, badgeTextView.getPaddingRight() + padding, badgeTextView.getPaddingBottom() + padding);
 
         //set the min width
         badgeTextView.setMinWidth(mMinWidth.asPixel(ctx));

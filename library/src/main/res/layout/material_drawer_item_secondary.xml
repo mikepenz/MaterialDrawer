@@ -57,6 +57,8 @@
             android:gravity="center"
             android:lines="1"
             android:minWidth="20dp"
+            android:paddingLeft="1dp"
+            android:paddingRight="1dp"
             android:singleLine="true"
             android:textSize="@dimen/material_drawer_item_primary_text"
             tools:text="99" />
