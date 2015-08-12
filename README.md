@@ -26,13 +26,14 @@ There  is a Header with profiles (**AccountHeader**), a **MiniDrawer** for Table
 - comes with various **themes** which help to get your own themes clean
 - modify the colors on the go
 - **uses the AppCompat support library**
-- based on a **RecyclerView**
-- Gmail like **MiniDrawer**
-- **supports multiple drawers**
 - comes with multiple default drawer items
+- based on a **RecyclerView**
+- **RTL** support
+- Gmail like **MiniDrawer**
 - **badge** support
 - define custom drawer items
 - tested and **stable**
+- sticky footer or headers
 - **absolutely NO limits**
 
 
@@ -41,11 +42,8 @@ There  is a Header with profiles (**AccountHeader**), a **MiniDrawer** for Table
 You can try it out here [Google Play](https://play.google.com/store/apps/details?id=com.mikepenz.unsplash) (wall:splash an open source application which uses this drawer implementation). Or you try the [Sample Application](https://play.google.com/store/apps/details?id=com.mikepenz.materialdrawer.app)
 
 ##Screenshots
-![Image](https://raw.githubusercontent.com/mikepenz/MaterialDrawer/master/DEV/screenshots/screenshot1_small.png)
-![Image](https://raw.githubusercontent.com/mikepenz/MaterialDrawer/master/DEV/screenshots/screenshot2_small.png)
-
-![Image](https://raw.githubusercontent.com/mikepenz/MaterialDrawer/master/DEV/screenshots/screenshot3_small.png)
-![Image](https://raw.githubusercontent.com/mikepenz/MaterialDrawer/master/DEV/screenshots/screenshot4_small.png)
+![Image](https://raw.githubusercontent.com/mikepenz/MaterialDrawer/feature/refactoring/DEV/github/screenshots1.jpg)
+![Image](https://raw.githubusercontent.com/mikepenz/MaterialDrawer/feature/refactoring/DEV/github/screenshots2.jpg)
 
 
 ###Upgrade Notes
