@@ -14,6 +14,8 @@ It provides you with the easiest possible implementation of a navigation drawer 
 There  is a Header with profiles (**AccountHeader**), a **MiniDrawer** for Tablets (like Gmail), provide
 **custom DrawerItems**, **custom colors**, **custom themes**, ... **No limits** for customizations.
 
+> If you upgrade from < 4.0.0 follow the [MIGRATION GUIDE](https://github.com/mikepenz/MaterialDrawer/blob/feature/refactoring/MIGRATION.md)
+
 ###A quick overview what it includes
 - **the easiest possible integration**
 - integrate in less then **5 minutes**
@@ -36,7 +38,6 @@ There  is a Header with profiles (**AccountHeader**), a **MiniDrawer** for Table
 - sticky footer or headers
 - **absolutely NO limits**
 
-
 #Preview
 ##Demo
 You can try it out here [Google Play](https://play.google.com/store/apps/details?id=com.mikepenz.unsplash) (wall:splash an open source application which uses this drawer implementation). Or you try the [Sample Application](https://play.google.com/store/apps/details?id=com.mikepenz.materialdrawer.app)
@@ -44,23 +45,6 @@ You can try it out here [Google Play](https://play.google.com/store/apps/details
 ##Screenshots
 ![Image](https://raw.githubusercontent.com/mikepenz/MaterialDrawer/feature/refactoring/DEV/github/screenshots1.jpg)
 ![Image](https://raw.githubusercontent.com/mikepenz/MaterialDrawer/feature/refactoring/DEV/github/screenshots2.jpg)
-
-
-###Upgrade Notes
-#### < v4.0.0
-* now most methods require you to have an identifier set for the DrawerItems
-* it is higly recommended that you use the identifier
-* some packages changed. re-import classes which are not found
-* changed the `ListView` to a `RecyclerView`
-* no more setters on the items. use the `with*` methods
-* `withCheckable()` was renamed to `withSelectable()`
-* most values of the DrawerItem's are now wrapped in `Holder` classes
-* the `OnDrawerItemClickListener`was simplified to `onItemClick(View view, int position, IDrawerItem drawerItem)`
-* the `IDrawerItem` interface was modified to now reflect the format required for a `RecyclerView`
-* the position specific methods are now absolut and will also contain the count of the Header items (use identifier based methods)
-* `*ByIdentifier` was removed from the methods to force their usage
-* `addItem(IDrawerItem, pos)` was renamed to `addItemAtPosition`
-
 
 #Setup
 ##1. Provide the gradle dependency
