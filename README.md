@@ -14,8 +14,6 @@ It provides you with the easiest possible implementation of a navigation drawer 
 There  is a Header with profiles (**AccountHeader**), a **MiniDrawer** for Tablets (like Gmail), provide
 **custom DrawerItems**, **custom colors**, **custom themes**, ... **No limits** for customizations.
 
-> If you upgrade from < 4.0.0 follow the [MIGRATION GUIDE](https://github.com/mikepenz/MaterialDrawer/blob/feature/refactoring/MIGRATION.md)
-
 ###A quick overview what's in
 - **the easiest possible integration**
 - integrate in less then **5 minutes**
@@ -37,6 +35,8 @@ There  is a Header with profiles (**AccountHeader**), a **MiniDrawer** for Table
 - tested and **stable**
 - sticky footer or headers
 - **absolutely NO limits**
+
+> If you upgrade from < 4.0.0 follow the [MIGRATION GUIDE](https://github.com/mikepenz/MaterialDrawer/blob/feature/refactoring/MIGRATION.md)
 
 #Preview
 ##Demo
