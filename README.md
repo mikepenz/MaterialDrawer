@@ -14,9 +14,7 @@ It provides you with the easiest possible implementation of a navigation drawer 
 There  is a Header with profiles (**AccountHeader**), a **MiniDrawer** for Tablets (like Gmail), provide
 **custom DrawerItems**, **custom colors**, **custom themes**, ... **No limits** for customizations.
 
-> If you upgrade from < 4.0.0 follow the [MIGRATION GUIDE](https://github.com/mikepenz/MaterialDrawer/blob/feature/refactoring/MIGRATION.md)
-
-###A quick overview what it includes
+###A quick overview what's in
 - **the easiest possible integration**
 - integrate in less then **5 minutes**
 - compatible down to **API Level 10**
@@ -37,6 +35,8 @@ There  is a Header with profiles (**AccountHeader**), a **MiniDrawer** for Table
 - tested and **stable**
 - sticky footer or headers
 - **absolutely NO limits**
+
+> If you upgrade from < 4.0.0 follow the [MIGRATION GUIDE](https://github.com/mikepenz/MaterialDrawer/blob/feature/refactoring/MIGRATION.md)
 
 #Preview
 ##Demo
@@ -67,12 +67,18 @@ Great. Your drawer is now ready to use.
 ##Add items and adding some functionality
 
 ```java
+//if you want to update the items at a later time it is recommended to keep it in a variable
+PrimaryDrawerItem item1 = new PrimaryDrawerItem().withName(R.string.drawer_item_home).withIdentifier(1);
+SecondaryDrawerItem item2 = new SecondaryDrawerItem().withName(R.string.drawer_item_settings).withIdentifier(2);
+
+//create the drawer and remember the `Drawer` result object
 Drawer result = new DrawerBuilder()
     .withActivity(this)
     .withToolbar(toolbar)
     .addDrawerItems(
-	    new PrimaryDrawerItem().withName(R.string.drawer_item_home),
+	    item1,
 	    new DividerDrawerItem(),
+	    item2,
 	    new SecondaryDrawerItem().withName(R.string.drawer_item_settings)
     )
     .withOnDrawerItemClickListener(new Drawer.OnDrawerItemClickListener() {
@@ -82,6 +88,42 @@ Drawer result = new DrawerBuilder()
     }
     })
     .build();
+```
+
+##Selecting an item
+```java
+//set the selection to the item with the identifier 1
+result.setSelection(1);
+//set the selection to the item with the identifier 2
+result.setSelection(item2);
+//set the selection and also fire the `onItemClick`-listener
+result.setSelection(1, true);
+```
+
+##Modify items or the drawer
+
+```java
+//modify an item of the drawer
+item1.withName("A new name for this drawerItem").withBadge("19").withBadgeStyle(new BadgeStyle().withTextColor(Color.WHITE).withColorRes(R.color.md_red_700));
+//notify the drawer about the updated element. it will take care about everything else
+result.updateItem(item1);
+
+//to update only the name, badge, icon you can also use one of the quick methods
+result.updateName(1, "A new name");
+
+//the result object also allows you to add new items, remove items, add footer, sticky footer, ..
+result.addItem(new DividerDrawerItem());
+result.addStickyFooterItem(new PrimaryDrawerItem().withName("StickyFooterItem"));
+
+//remove items with an identifier
+result.removeItem(2);
+
+//open / close the drawer
+result.openDrawer();
+result.closeDrawer();
+
+//get the reference to the `DrawerLayout` itself
+result.getDrawerLayout();
 ```
 
 ##Add profiles and an AccountHeader
