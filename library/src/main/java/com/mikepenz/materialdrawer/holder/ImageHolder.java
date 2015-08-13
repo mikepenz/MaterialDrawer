@@ -113,7 +113,7 @@ public class ImageHolder {
         Drawable icon = mIcon;
 
         if (mIIcon != null) {
-            icon = new IconicsDrawable(ctx, mIIcon).color(iconColor).actionBarSize().paddingDp(paddingDp);
+            icon = new IconicsDrawable(ctx, mIIcon).color(iconColor).sizeDp(24).paddingDp(paddingDp);
         } else if (mIconRes != -1) {
             icon = UIUtils.getCompatDrawable(ctx, mIconRes);
         } else if (mUri != null) {
