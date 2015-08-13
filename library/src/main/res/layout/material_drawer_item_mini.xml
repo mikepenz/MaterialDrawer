@@ -2,22 +2,21 @@
 <FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="@dimen/material_drawer_item_profile"
-    android:layout_height="64dp"
-    android:paddingBottom="4dp"
+    android:layout_height="@dimen/material_mini_drawer_item"
+    android:paddingBottom="@dimen/material_mini_drawer_item_padding"
     android:paddingEnd="@dimen/material_drawer_padding"
     android:paddingLeft="@dimen/material_drawer_padding"
     android:paddingRight="@dimen/material_drawer_padding"
     android:paddingStart="@dimen/material_drawer_padding"
-    android:paddingTop="4dp">
+    android:paddingTop="@dimen/material_mini_drawer_item_padding">
 
     <ImageView
         android:id="@+id/icon"
-        android:layout_width="56dp"
-        android:layout_height="56dp"
+        android:layout_width="@dimen/material_mini_drawer_item_icon"
+        android:layout_height="@dimen/material_mini_drawer_item_icon"
         android:layout_gravity="center"
-        android:padding="16dp"
+        android:padding="@dimen/material_mini_drawer_item_icon_padding"
         android:scaleType="centerInside" />
-
 
     <TextView
         android:id="@+id/badge"
@@ -27,9 +26,10 @@
         android:fontFamily="sans-serif"
         android:gravity="center"
         android:lines="1"
-        android:minWidth="14dp"
         android:padding="1dp"
+        android:paddingLeft="1dp"
+        android:paddingRight="1dp"
         android:singleLine="true"
-        android:textSize="@dimen/material_drawer_item_mini_badge_text"
+        android:textSize="@dimen/material_mini_drawer_item_badge_text"
         tools:text="99" />
 </FrameLayout>

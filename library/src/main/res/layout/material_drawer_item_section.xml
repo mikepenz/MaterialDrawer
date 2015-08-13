@@ -16,10 +16,9 @@
         android:layout_height="@dimen/material_drawer_item_primary"
         android:fontFamily="sans-serif-medium"
         android:gravity="center_vertical|start"
-        android:textSize="@dimen/material_drawer_item_section_text"
+        android:lines="1"
         android:paddingLeft="@dimen/material_drawer_vertical_padding"
         android:paddingRight="@dimen/material_drawer_vertical_padding"
-        android:paddingEnd="@dimen/material_drawer_vertical_padding"
-        android:lines="1"
-        android:singleLine="true" />
+        android:singleLine="true"
+        android:textSize="@dimen/material_drawer_item_section_text" />
 </LinearLayout>

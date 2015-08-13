@@ -96,6 +96,11 @@ public class MiniDrawerItem extends BaseDrawerItem<MiniDrawerItem> {
         Drawable icon = ImageHolder.decideIcon(getIcon(), ctx, iconColor, isIconTinted(), 1);
         Drawable selectedIcon = ImageHolder.decideIcon(getSelectedIcon(), ctx, selectedIconColor, isIconTinted(), 1);
         ImageHolder.applyMultiIconTo(icon, iconColor, selectedIcon, selectedIconColor, isIconTinted(), viewHolder.icon);
+
+        //for android API 17 --> Padding not applied via xml
+        int verticalPadding = ctx.getResources().getDimensionPixelSize(R.dimen.material_drawer_padding);
+        int topBottomPadding = ctx.getResources().getDimensionPixelSize(R.dimen.material_mini_drawer_item_padding);
+        viewHolder.itemView.setPadding(verticalPadding, topBottomPadding, verticalPadding, topBottomPadding);
     }
 
     @Override

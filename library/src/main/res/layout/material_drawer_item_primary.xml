@@ -15,9 +15,9 @@
         android:layout_height="@dimen/material_drawer_item_primary"
         android:layout_gravity="center_vertical"
         android:paddingBottom="@dimen/material_drawer_item_primary_icon_padding"
-        android:paddingEnd="@dimen/material_drawer_item_primary_icon_margin_right"
+        android:paddingEnd="@dimen/material_drawer_item_primary_icon_padding_right"
         android:paddingLeft="0dp"
-        android:paddingRight="@dimen/material_drawer_item_primary_icon_margin_right"
+        android:paddingRight="@dimen/material_drawer_item_primary_icon_padding_right"
         android:paddingStart="0dp"
         android:paddingTop="@dimen/material_drawer_item_primary_icon_padding" />
 
@@ -39,7 +39,7 @@
             android:fontFamily="sans-serif-medium"
             android:gravity="center_vertical|start"
             android:lines="1"
-            android:paddingRight="@dimen/material_drawer_item_primary_icon_margin_right"
+            android:paddingRight="@dimen/material_drawer_item_primary_icon_padding_right"
             android:singleLine="true"
             android:textDirection="anyRtl"
             android:textSize="@dimen/material_drawer_item_primary_text"

@@ -219,8 +219,8 @@ public class ProfileSettingDrawerItem extends AbstractDrawerItem<ProfileSettingD
         //set the correct icon
         ImageHolder.applyDecidedIconOrSetGone(icon, viewHolder.icon, iconColor, isIconTinted(), 2);
 
-        //fix padding issues
-        viewHolder.view.setPadding((int) UIUtils.convertDpToPixel(16, ctx), 0, (int) UIUtils.convertDpToPixel(16, ctx), 0);
+        //for android API 17 --> Padding not applied via xml
+        DrawerUIUtils.setDrawerVerticalPadding(viewHolder.view);
     }
 
     @Override

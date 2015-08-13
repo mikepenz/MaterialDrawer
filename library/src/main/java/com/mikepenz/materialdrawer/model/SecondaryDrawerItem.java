@@ -120,6 +120,9 @@ public class SecondaryDrawerItem extends BaseDrawerItem<SecondaryDrawerItem> imp
         Drawable icon = ImageHolder.decideIcon(getIcon(), ctx, iconColor, isIconTinted(), 1);
         Drawable selectedIcon = ImageHolder.decideIcon(getSelectedIcon(), ctx, selectedIconColor, isIconTinted(), 1);
         ImageHolder.applyMultiIconTo(icon, iconColor, selectedIcon, selectedIconColor, isIconTinted(), viewHolder.icon);
+
+        //for android API 17 --> Padding not applied via xml
+        DrawerUIUtils.setDrawerVerticalPadding(viewHolder.view);
     }
 
     /**
