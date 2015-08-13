@@ -9,6 +9,7 @@ import android.graphics.drawable.StateListDrawable;
 import android.os.Build;
 import android.util.DisplayMetrics;
 import android.util.TypedValue;
+import android.view.View;
 
 import com.mikepenz.iconics.IconicsDrawable;
 import com.mikepenz.materialdrawer.R;
@@ -20,6 +21,8 @@ import com.mikepenz.materialize.util.UIUtils;
  */
 @SuppressLint("InlinedApi")
 public class DrawerUIUtils {
+
+
     /**
      * helper to create a colorStateList for the text
      *
@@ -134,5 +137,16 @@ public class DrawerUIUtils {
      */
     public static Drawable getPlaceHolder(Context ctx) {
         return new IconicsDrawable(ctx, MaterialDrawerFont.Icon.mdf_person).colorRes(R.color.accent).backgroundColorRes(R.color.primary).sizeDp(56).paddingDp(16);
+    }
+
+    /**
+     * helper to set the vertical padding to the DrawerItems
+     * this is required because on API Level 17 the padding is ignored which is set via the XML
+     *
+     * @param v
+     */
+    public static void setDrawerVerticalPadding(View v) {
+        int verticalPadding = v.getContext().getResources().getDimensionPixelSize(R.dimen.material_drawer_vertical_padding);
+        v.setPadding(verticalPadding, 0, verticalPadding, 0);
     }
 }

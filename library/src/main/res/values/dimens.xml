@@ -27,9 +27,8 @@
     <dimen name="material_drawer_item_padding">8dp</dimen>
     <!-- Definition for the primary item -->
     <dimen name="material_drawer_item_primary">48dp</dimen>
-    <dimen name="material_drawer_item_primary_width">56dp</dimen>
     <dimen name="material_drawer_item_primary_icon_padding">12dp</dimen>
-    <dimen name="material_drawer_item_primary_icon_margin_right">32dp</dimen>
+    <dimen name="material_drawer_item_primary_icon_margin_right">24dp</dimen>
     <dimen name="material_drawer_item_primary_text">14sp</dimen>
     <dimen name="material_drawer_item_primary_description">14sp</dimen>
     <!-- Definition for the secondary item -->
