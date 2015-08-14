@@ -64,8 +64,7 @@ public abstract class BaseDrawerAdapter extends RecyclerView.Adapter<RecyclerVie
     }
 
     public void setDrawerItem(int position, IDrawerItem drawerItem) {
-        position = position - getHeaderItemCount();
-        mDrawerItems.set(position, drawerItem);
+        mDrawerItems.set(position - getHeaderItemCount(), drawerItem);
         notifyItemChanged(position);
         mapPossibleType(drawerItem);
     }
@@ -77,15 +76,13 @@ public abstract class BaseDrawerAdapter extends RecyclerView.Adapter<RecyclerVie
     }
 
     public void addDrawerItem(int position, IDrawerItem drawerItem) {
-        position = position - getHeaderItemCount();
-        mDrawerItems.add(position, drawerItem);
+        mDrawerItems.add(position - getHeaderItemCount(), drawerItem);
         notifyItemInserted(position);
         mapPossibleType(drawerItem);
     }
 
     public void removeDrawerItem(int position) {
-        position = position - getHeaderItemCount();
-        mDrawerItems.remove(position);
+        mDrawerItems.remove(position - getHeaderItemCount());
         notifyItemRemoved(position);
     }
 
