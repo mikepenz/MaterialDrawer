@@ -186,15 +186,19 @@ public abstract class BaseDrawerAdapter extends RecyclerView.Adapter<RecyclerVie
                 int pos = holder.getAdapterPosition();
                 IDrawerItem drawerItem = getItem(pos);
 
-                if (drawerItem.isEnabled()) {
-                    if (drawerItem instanceof Selectable) {
-                        if (((Selectable) drawerItem).isSelectable()) {
-                            handleSelection(v, pos);
+                //make sure there is a DrawerItem for the specific position
+                if (drawerItem != null) {
+                    //if we are enabled allow the selection and call the onClick
+                    if (drawerItem.isEnabled()) {
+                        if (drawerItem instanceof Selectable) {
+                            if (drawerItem.isSelectable()) {
+                                handleSelection(v, pos);
+                            }
                         }
-                    }
 
-                    if (mOnClickListener != null) {
-                        mOnClickListener.onClick(v, pos, drawerItem);
+                        if (mOnClickListener != null) {
+                            mOnClickListener.onClick(v, pos, drawerItem);
+                        }
                     }
                 }
             }
