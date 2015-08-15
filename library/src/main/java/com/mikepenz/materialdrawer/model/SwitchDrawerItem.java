@@ -223,6 +223,16 @@ public class SwitchDrawerItem extends BaseDrawerItem<SwitchDrawerItem> {
         return convertView;
     }
 
+    @Override
+    public Drawable getDrawable() {
+        return super.getIcon();
+    }
+
+    @Override
+    public String getTitle() {
+        return super.getName();
+    }
+
     private static class ViewHolder {
         private View view;
         private ImageView icon;

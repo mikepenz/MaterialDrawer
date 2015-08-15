@@ -347,6 +347,16 @@ public class ProfileDrawerItem implements IDrawerItem, IProfile<ProfileDrawerIte
         return convertView;
     }
 
+    @Override
+    public Drawable getDrawable() {
+        return this.icon;
+    }
+
+    @Override
+    public String getTitle() {
+        return this.name;
+    }
+
     private static class ViewHolder {
         private View view;
         private ImageView profileIcon;

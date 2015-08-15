@@ -224,6 +224,16 @@ public class ToggleDrawerItem extends BaseDrawerItem<ToggleDrawerItem> {
         return convertView;
     }
 
+    @Override
+    public Drawable getDrawable() {
+        return super.getIcon();
+    }
+
+    @Override
+    public String getTitle() {
+        return super.getName();
+    }
+
     private static class ViewHolder {
         private View view;
         private ImageView icon;

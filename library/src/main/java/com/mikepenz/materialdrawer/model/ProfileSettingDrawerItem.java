@@ -388,6 +388,16 @@ public class ProfileSettingDrawerItem implements IDrawerItem, IProfile<ProfileSe
         return convertView;
     }
 
+    @Override
+    public Drawable getDrawable() {
+        return this.icon;
+    }
+
+    @Override
+    public String getTitle() {
+        return this.name;
+    }
+
     private static class ViewHolder {
         private View view;
         private ImageView icon;
