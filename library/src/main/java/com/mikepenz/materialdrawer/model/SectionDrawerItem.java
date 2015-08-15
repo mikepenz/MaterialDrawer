@@ -2,6 +2,7 @@ package com.mikepenz.materialdrawer.model;
 
 import android.content.Context;
 import android.graphics.Typeface;
+import android.graphics.drawable.Drawable;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -188,6 +189,16 @@ public class SectionDrawerItem implements IDrawerItem, Nameable<SectionDrawerIte
         viewHolder.divider.setBackgroundColor(UIUtils.getThemeColorFromAttrOrRes(parent.getContext(), R.attr.material_drawer_divider, R.color.material_drawer_divider));
 
         return convertView;
+    }
+
+    @Override
+    public Drawable getDrawable() {
+        return null;
+    }
+
+    @Override
+    public String getTitle() {
+        return null;
     }
 
     private static class ViewHolder {
