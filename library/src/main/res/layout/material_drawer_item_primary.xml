@@ -11,7 +11,7 @@
 
     <ImageView
         android:id="@+id/icon"
-        android:layout_width="@dimen/material_drawer_item_primary"
+        android:layout_width="@dimen/material_drawer_item_primary_icon"
         android:layout_height="@dimen/material_drawer_item_primary"
         android:layout_gravity="center_vertical"
         android:paddingBottom="@dimen/material_drawer_item_primary_icon_padding"
@@ -26,11 +26,7 @@
         android:layout_height="match_parent"
         android:layout_weight="1"
         android:gravity="center_vertical|start"
-        android:orientation="vertical"
-        android:paddingEnd="0dp"
-        android:paddingLeft="@dimen/material_drawer_padding"
-        android:paddingRight="0dp"
-        android:paddingStart="@dimen/material_drawer_padding">
+        android:orientation="vertical">
 
         <TextView
             android:id="@+id/name"
