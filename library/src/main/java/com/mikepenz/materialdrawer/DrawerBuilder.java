@@ -41,9 +41,9 @@ import com.mikepenz.materialdrawer.model.PrimaryDrawerItem;
 import com.mikepenz.materialdrawer.model.SecondaryDrawerItem;
 import com.mikepenz.materialdrawer.model.interfaces.IDrawerItem;
 import com.mikepenz.materialdrawer.model.interfaces.Selectable;
+import com.mikepenz.materialize.Materialize;
 import com.mikepenz.materialize.MaterializeBuilder;
 import com.mikepenz.materialize.util.UIUtils;
-import com.mikepenz.materialize.view.IScrimInsetsLayout;
 
 import java.util.ArrayList;
 import java.util.Collections;
@@ -64,7 +64,7 @@ public class DrawerBuilder {
     protected Activity mActivity;
     protected RecyclerView.LayoutManager mLayoutManager;
     protected ViewGroup mRootView;
-    protected IScrimInsetsLayout mDrawerContentRoot;
+    protected Materialize mMaterialize;
 
     /**
      * default constructor
@@ -1132,7 +1132,7 @@ public class DrawerBuilder {
         }
 
         //some new Materialize magic ;)
-        new MaterializeBuilder()
+        mMaterialize = new MaterializeBuilder()
                 .withActivity(mActivity)
                 .withRootView(mRootView)
                 .withFullscreen(mFullscreen)

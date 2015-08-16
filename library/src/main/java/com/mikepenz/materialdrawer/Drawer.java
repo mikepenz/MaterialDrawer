@@ -22,6 +22,7 @@ import com.mikepenz.materialdrawer.model.interfaces.IDrawerItem;
 import com.mikepenz.materialdrawer.model.interfaces.Iconable;
 import com.mikepenz.materialdrawer.model.interfaces.Nameable;
 import com.mikepenz.materialdrawer.util.KeyboardUtil;
+import com.mikepenz.materialize.Materialize;
 import com.mikepenz.materialize.view.IScrimInsetsLayout;
 
 import java.util.ArrayList;
@@ -129,8 +130,8 @@ public class Drawer {
      * @param fullscreen
      */
     public void setFullscreen(boolean fullscreen) {
-        if (mDrawerBuilder.mDrawerContentRoot != null) {
-            mDrawerBuilder.mDrawerContentRoot.getView().setEnabled(!fullscreen);
+        if (mDrawerBuilder.mMaterialize != null) {
+            mDrawerBuilder.mMaterialize.setFullscreen(fullscreen);
         }
     }
 
@@ -140,9 +141,9 @@ public class Drawer {
      * @param statusBarColor
      */
     public void setStatusBarColor(@ColorInt int statusBarColor) {
-        if (mDrawerBuilder.mDrawerContentRoot != null) {
-            mDrawerBuilder.mDrawerContentRoot.setInsetForeground(statusBarColor);
-            mDrawerBuilder.mDrawerContentRoot.getView().invalidate();
+        if (mDrawerBuilder.mMaterialize != null) {
+            mDrawerBuilder.mMaterialize.setStatusBarColor(statusBarColor);
+            mDrawerBuilder.mMaterialize.getScrimInsetsFrameLayout().getView().invalidate();
         }
     }
 
@@ -152,9 +153,20 @@ public class Drawer {
      * @return
      */
     public IScrimInsetsLayout getScrimInsetsFrameLayout() {
-        return mDrawerBuilder.mDrawerContentRoot;
+        if (mDrawerBuilder.mMaterialize != null) {
+            return mDrawerBuilder.mMaterialize.getScrimInsetsFrameLayout();
+        }
+        return null;
     }
 
+    /**
+     * get the Materialize object used to beautify your activity
+     *
+     * @return
+     */
+    public Materialize getMaterialize() {
+        return mDrawerBuilder.mMaterialize;
+    }
 
     /**
      * a helper method to enable the keyboardUtil for a specific activity
