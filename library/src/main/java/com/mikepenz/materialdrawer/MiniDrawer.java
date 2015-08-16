@@ -124,16 +124,16 @@ public class MiniDrawer {
         }
     }
 
-    public void onItemClick(IDrawerItem selectedDrawerItem) {
-        //crossfade if we are cross faded
-        if (mCrossFader != null) {
-            if (mCrossFader.isCrossfaded()) {
-                mCrossFader.crossfade();
-            }
-        }
-
+    public boolean onItemClick(IDrawerItem selectedDrawerItem) {
         //We only need to clear if the new item is selectable
         if (selectedDrawerItem.isSelectable()) {
+            //crossfade if we are cross faded
+            if (mCrossFader != null) {
+                if (mCrossFader.isCrossfaded()) {
+                    mCrossFader.crossfade();
+                }
+            }
+
             //get the identifier
             int identifier = selectedDrawerItem.getIdentifier();
 
@@ -144,6 +144,10 @@ public class MiniDrawer {
                 }
                 mDrawerAdapter.notifyDataSetChanged();
             }
+
+            return false;
+        } else {
+            return true;
         }
     }
 
@@ -178,7 +182,7 @@ public class MiniDrawer {
             @Override
             public void onClick(View v, int position, IDrawerItem item) {
                 if (item instanceof MiniDrawerItem) {
-                    if (mDrawerAdapter != null) {
+                    if (mDrawerAdapter != null && item.isSelectable()) {
                         mDrawer.setSelection(item, true);
                     }
                 } else if (item instanceof MiniProfileDrawerItem) {
