@@ -954,9 +954,9 @@ public class AccountHeaderBuilder {
         mCurrentProfileView.setVisibility(View.INVISIBLE);
         mAccountHeaderTextSection.setVisibility(View.INVISIBLE);
         mAccountSwitcherArrow.setVisibility(View.INVISIBLE);
-        mProfileFirstView.setVisibility(View.INVISIBLE);
+        mProfileFirstView.setVisibility(View.GONE);
         mProfileFirstView.setOnClickListener(null);
-        mProfileSecondView.setVisibility(View.INVISIBLE);
+        mProfileSecondView.setVisibility(View.GONE);
         mProfileSecondView.setOnClickListener(null);
         mProfileThirdView.setVisibility(View.GONE);
         mProfileThirdView.setOnClickListener(null);
