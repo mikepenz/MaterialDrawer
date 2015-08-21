@@ -8,7 +8,7 @@ android {
         minSdkVersion 10
         targetSdkVersion 23
         versionCode 400
-        versionName '4.0.0.rc12-SNAPSHOT'
+        versionName '4.0.0'
     }
     buildTypes {
         release {
