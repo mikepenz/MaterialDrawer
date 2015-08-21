@@ -600,14 +600,14 @@ public class AccountHeaderBuilder {
                 mAccountHeaderContainer.setLayoutParams(params);
             }
 
-            View accountHeader = mAccountHeaderContainer.findViewById(R.id.account_header_drawer);
+            View accountHeader = mAccountHeaderContainer.findViewById(R.id.material_drawer_account_header);
             if (accountHeader != null) {
                 params = accountHeader.getLayoutParams();
                 params.height = height;
                 accountHeader.setLayoutParams(params);
             }
 
-            View accountHeaderBackground = mAccountHeaderContainer.findViewById(R.id.account_header_drawer_background);
+            View accountHeaderBackground = mAccountHeaderContainer.findViewById(R.id.material_drawer_account_header_background);
             if (accountHeaderBackground != null) {
                 params = accountHeaderBackground.getLayoutParams();
                 params.height = height;
@@ -626,11 +626,11 @@ public class AccountHeaderBuilder {
             if (Build.VERSION.SDK_INT >= 21) {
                 ((FrameLayout) mAccountHeaderContainer).setForeground(UIUtils.getCompatDrawable(mAccountHeaderContainer.getContext(), mAccountHeaderTextSectionBackgroundResource));
                 mAccountHeaderContainer.setOnClickListener(onSelectionClickListener);
-                mAccountHeaderContainer.setTag(R.id.md_profile_header, profile);
+                mAccountHeaderContainer.setTag(R.id.material_drawer_profile_header, profile);
             } else {
                 mAccountHeaderTextSection.setBackgroundResource(mAccountHeaderTextSectionBackgroundResource);
                 mAccountHeaderTextSection.setOnClickListener(onSelectionClickListener);
-                mAccountHeaderTextSection.setTag(R.id.md_profile_header, profile);
+                mAccountHeaderTextSection.setTag(R.id.material_drawer_profile_header, profile);
             }
         } else {
             if (Build.VERSION.SDK_INT >= 21) {
@@ -655,7 +655,7 @@ public class AccountHeaderBuilder {
         }
 
         // get the header view within the container
-        mAccountHeader = mAccountHeaderContainer.findViewById(R.id.account_header_drawer);
+        mAccountHeader = mAccountHeaderContainer.findViewById(R.id.material_drawer_account_header);
 
         // handle the height for the header
         int height = -1;
@@ -696,7 +696,7 @@ public class AccountHeaderBuilder {
         setHeaderHeight(height);
 
         // get the background view
-        mAccountHeaderBackground = (ImageView) mAccountHeaderContainer.findViewById(R.id.account_header_drawer_background);
+        mAccountHeaderBackground = (ImageView) mAccountHeaderContainer.findViewById(R.id.material_drawer_account_header_background);
         // set the background
         if (mHeaderBackground != null) {
             mAccountHeaderBackground.setImageDrawable(mHeaderBackground);
@@ -719,20 +719,20 @@ public class AccountHeaderBuilder {
         if (mCompactStyle) {
             mAccountHeaderTextSection = mAccountHeader;
         } else {
-            mAccountHeaderTextSection = mAccountHeaderContainer.findViewById(R.id.account_header_drawer_text_section);
+            mAccountHeaderTextSection = mAccountHeaderContainer.findViewById(R.id.material_drawer_account_header_text_section);
         }
 
         mAccountHeaderTextSectionBackgroundResource = DrawerUIUtils.getSelectableBackground(mActivity);
         handleSelectionView(mCurrentProfile, true);
 
         // set the arrow :D
-        mAccountSwitcherArrow = (ImageView) mAccountHeaderContainer.findViewById(R.id.account_header_drawer_text_switcher);
+        mAccountSwitcherArrow = (ImageView) mAccountHeaderContainer.findViewById(R.id.material_drawer_account_header_text_switcher);
         mAccountSwitcherArrow.setImageDrawable(new IconicsDrawable(mActivity, MaterialDrawerFont.Icon.mdf_arrow_drop_down).sizeDp(24).paddingDp(6).color(mTextColor));
 
         //get the fields for the name
-        mCurrentProfileView = (BezelImageView) mAccountHeader.findViewById(R.id.account_header_drawer_current);
-        mCurrentProfileName = (TextView) mAccountHeader.findViewById(R.id.account_header_drawer_name);
-        mCurrentProfileEmail = (TextView) mAccountHeader.findViewById(R.id.account_header_drawer_email);
+        mCurrentProfileView = (BezelImageView) mAccountHeader.findViewById(R.id.material_drawer_account_header_current);
+        mCurrentProfileName = (TextView) mAccountHeader.findViewById(R.id.material_drawer_account_header_name);
+        mCurrentProfileEmail = (TextView) mAccountHeader.findViewById(R.id.material_drawer_account_header_email);
 
         //set the typeface for the AccountHeader
         if (mNameTypeface != null) {
@@ -750,9 +750,9 @@ public class AccountHeaderBuilder {
         mCurrentProfileName.setTextColor(mTextColor);
         mCurrentProfileEmail.setTextColor(mTextColor);
 
-        mProfileFirstView = (BezelImageView) mAccountHeader.findViewById(R.id.account_header_drawer_small_first);
-        mProfileSecondView = (BezelImageView) mAccountHeader.findViewById(R.id.account_header_drawer_small_second);
-        mProfileThirdView = (BezelImageView) mAccountHeader.findViewById(R.id.account_header_drawer_small_third);
+        mProfileFirstView = (BezelImageView) mAccountHeader.findViewById(R.id.material_drawer_account_header_small_first);
+        mProfileSecondView = (BezelImageView) mAccountHeader.findViewById(R.id.material_drawer_account_header_small_second);
+        mProfileThirdView = (BezelImageView) mAccountHeader.findViewById(R.id.material_drawer_account_header_small_third);
 
         //calculate the profiles to set
         calculateProfiles();
@@ -980,14 +980,14 @@ public class AccountHeaderBuilder {
             mAccountHeaderTextSection.setVisibility(View.VISIBLE);
             handleSelectionView(mCurrentProfile, true);
             mAccountSwitcherArrow.setVisibility(View.VISIBLE);
-            mCurrentProfileView.setTag(R.id.md_profile_header, mCurrentProfile);
+            mCurrentProfileView.setTag(R.id.material_drawer_profile_header, mCurrentProfile);
 
             StringHolder.applyTo(mCurrentProfile.getName(), mCurrentProfileName);
             StringHolder.applyTo(mCurrentProfile.getEmail(), mCurrentProfileEmail);
 
             if (mProfileFirst != null && mProfileImagesVisible && !mOnlyMainProfileImageVisible) {
                 setImageOrPlaceholder(mProfileFirstView, mProfileFirst.getIcon());
-                mProfileFirstView.setTag(R.id.md_profile_header, mProfileFirst);
+                mProfileFirstView.setTag(R.id.material_drawer_profile_header, mProfileFirst);
                 if (mProfileImagesClickable) {
                     mProfileFirstView.setOnClickListener(onProfileClickListener);
                     mProfileFirstView.disableTouchFeedback(false);
@@ -998,7 +998,7 @@ public class AccountHeaderBuilder {
             }
             if (mProfileSecond != null && mProfileImagesVisible && !mOnlyMainProfileImageVisible) {
                 setImageOrPlaceholder(mProfileSecondView, mProfileSecond.getIcon());
-                mProfileSecondView.setTag(R.id.md_profile_header, mProfileSecond);
+                mProfileSecondView.setTag(R.id.material_drawer_profile_header, mProfileSecond);
                 if (mProfileImagesClickable) {
                     mProfileSecondView.setOnClickListener(onProfileClickListener);
                     mProfileSecondView.disableTouchFeedback(false);
@@ -1009,7 +1009,7 @@ public class AccountHeaderBuilder {
             }
             if (mProfileThird != null && mThreeSmallProfileImages && mProfileImagesVisible && !mOnlyMainProfileImageVisible) {
                 setImageOrPlaceholder(mProfileThirdView, mProfileThird.getIcon());
-                mProfileThirdView.setTag(R.id.md_profile_header, mProfileThird);
+                mProfileThirdView.setTag(R.id.material_drawer_profile_header, mProfileThird);
                 if (mProfileImagesClickable) {
                     mProfileThirdView.setOnClickListener(onProfileClickListener);
                     mProfileThirdView.disableTouchFeedback(false);
@@ -1020,7 +1020,7 @@ public class AccountHeaderBuilder {
             }
         } else if (mProfiles != null && mProfiles.size() > 0) {
             IProfile profile = mProfiles.get(0);
-            mAccountHeaderTextSection.setTag(R.id.md_profile_header, profile);
+            mAccountHeaderTextSection.setTag(R.id.material_drawer_profile_header, profile);
             mAccountHeaderTextSection.setVisibility(View.VISIBLE);
             handleSelectionView(mCurrentProfile, true);
             mAccountSwitcherArrow.setVisibility(View.VISIBLE);
@@ -1097,7 +1097,7 @@ public class AccountHeaderBuilder {
     };
 
     protected void onProfileClick(View v, boolean current) {
-        final IProfile profile = (IProfile) v.getTag(R.id.md_profile_header);
+        final IProfile profile = (IProfile) v.getTag(R.id.material_drawer_profile_header);
         switchProfiles(profile);
 
         //reset the drawer content
@@ -1146,7 +1146,7 @@ public class AccountHeaderBuilder {
         public void onClick(View v) {
             boolean consumed = false;
             if (mOnAccountHeaderSelectionViewClickListener != null) {
-                consumed = mOnAccountHeaderSelectionViewClickListener.onClick(v, (IProfile) v.getTag(R.id.md_profile_header));
+                consumed = mOnAccountHeaderSelectionViewClickListener.onClick(v, (IProfile) v.getTag(R.id.material_drawer_profile_header));
             }
 
             if (mAccountSwitcherArrow.getVisibility() == View.VISIBLE && !consumed) {

@@ -127,8 +127,8 @@ public class MiniDrawerItem extends BaseDrawerItem<MiniDrawerItem> {
             super(view);
 
             this.view = view;
-            this.icon = (ImageView) view.findViewById(R.id.icon);
-            this.badge = (TextView) view.findViewById(R.id.badge);
+            this.icon = (ImageView) view.findViewById(R.id.material_drawer_icon);
+            this.badge = (TextView) view.findViewById(R.id.material_drawer_badge);
         }
     }
 }

@@ -64,7 +64,7 @@ public class DividerDrawerItem extends AbstractDrawerItem<DividerDrawerItem> {
         private ViewHolder(View view) {
             super(view);
             this.view = view;
-            this.divider = view.findViewById(R.id.divider);
+            this.divider = view.findViewById(R.id.material_drawer_divider);
         }
     }
 }

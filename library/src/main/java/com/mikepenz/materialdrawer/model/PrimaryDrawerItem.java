@@ -192,11 +192,11 @@ public class PrimaryDrawerItem extends BaseDrawerItem<PrimaryDrawerItem> impleme
             super(view);
 
             this.view = view;
-            this.icon = (ImageView) view.findViewById(R.id.icon);
-            this.name = (TextView) view.findViewById(R.id.name);
-            this.description = (TextView) view.findViewById(R.id.description);
-            this.badgeContainer = view.findViewById(R.id.badgeContainer);
-            this.badge = (TextView) view.findViewById(R.id.badge);
+            this.icon = (ImageView) view.findViewById(R.id.material_drawer_icon);
+            this.name = (TextView) view.findViewById(R.id.material_drawer_name);
+            this.description = (TextView) view.findViewById(R.id.material_drawer_description);
+            this.badgeContainer = view.findViewById(R.id.material_drawer_badge_container);
+            this.badge = (TextView) view.findViewById(R.id.material_drawer_badge);
         }
     }
 }

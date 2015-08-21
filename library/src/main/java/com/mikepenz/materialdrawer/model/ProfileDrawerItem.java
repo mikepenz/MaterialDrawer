@@ -226,9 +226,9 @@ public class ProfileDrawerItem extends AbstractDrawerItem<ProfileDrawerItem> imp
         private ViewHolder(View view) {
             super(view);
             this.view = view;
-            this.profileIcon = (ImageView) view.findViewById(R.id.profileIcon);
-            this.name = (TextView) view.findViewById(R.id.name);
-            this.email = (TextView) view.findViewById(R.id.email);
+            this.profileIcon = (ImageView) view.findViewById(R.id.material_drawer_profileIcon);
+            this.name = (TextView) view.findViewById(R.id.material_drawer_name);
+            this.email = (TextView) view.findViewById(R.id.material_drawer_email);
         }
     }
 }

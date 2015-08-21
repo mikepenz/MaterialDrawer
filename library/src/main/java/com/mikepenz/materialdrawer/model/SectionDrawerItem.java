@@ -154,8 +154,8 @@ public class SectionDrawerItem extends AbstractDrawerItem<SectionDrawerItem> imp
         private ViewHolder(View view) {
             super(view);
             this.view = view;
-            this.divider = view.findViewById(R.id.divider);
-            this.name = (TextView) view.findViewById(R.id.name);
+            this.divider = view.findViewById(R.id.material_drawer_divider);
+            this.name = (TextView) view.findViewById(R.id.material_drawer_name);
         }
     }
 }

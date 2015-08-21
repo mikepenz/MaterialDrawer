@@ -11,7 +11,7 @@
     android:paddingTop="@dimen/material_mini_drawer_item_padding">
 
     <ImageView
-        android:id="@+id/icon"
+        android:id="@+id/material_drawer_icon"
         android:layout_width="@dimen/material_mini_drawer_item_icon"
         android:layout_height="@dimen/material_mini_drawer_item_icon"
         android:layout_gravity="center"
@@ -19,7 +19,7 @@
         android:scaleType="centerInside" />
 
     <TextView
-        android:id="@+id/badge"
+        android:id="@+id/material_drawer_badge"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="top|end"

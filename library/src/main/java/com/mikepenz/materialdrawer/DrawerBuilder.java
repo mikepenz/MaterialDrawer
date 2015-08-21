@@ -923,7 +923,7 @@ public class DrawerBuilder {
      * @param subMenu
      */
     private void addMenuItems(Menu mMenu, boolean subMenu) {
-        int groupId = R.id.md_menu_default_group;
+        int groupId = R.id.material_drawer_menu_default_group;
         for (int i = 0; i < mMenu.size(); i++) {
             MenuItem mMenuItem = mMenu.getItem(i);
             IDrawerItem iDrawerItem;
@@ -1182,7 +1182,7 @@ public class DrawerBuilder {
 
         // create the ActionBarDrawerToggle if not set and enabled and if we have a toolbar
         if (mActionBarDrawerToggleEnabled && mActionBarDrawerToggle == null && mToolbar != null) {
-            this.mActionBarDrawerToggle = new ActionBarDrawerToggle(activity, mDrawerLayout, mToolbar, R.string.drawer_open, R.string.drawer_close) {
+            this.mActionBarDrawerToggle = new ActionBarDrawerToggle(activity, mDrawerLayout, mToolbar, R.string.material_drawer_open, R.string.material_drawer_close) {
                 @Override
                 public void onDrawerOpened(View drawerView) {
                     if (mOnDrawerListener != null) {
@@ -1401,7 +1401,7 @@ public class DrawerBuilder {
         mSliderLayout.addView(mRecyclerView, params);
 
         //find the shadow view
-        View statusBarShadow = mSliderLayout.findViewById(R.id.shadow_top);
+        View statusBarShadow = mSliderLayout.findViewById(R.id.material_drawer_shadow_top);
         RelativeLayout.LayoutParams shadowLayoutParams = (RelativeLayout.LayoutParams) statusBarShadow.getLayoutParams();
         shadowLayoutParams.height = UIUtils.getStatusBarHeight(mActivity, true);
         statusBarShadow.setLayoutParams(shadowLayoutParams);

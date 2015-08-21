@@ -193,10 +193,10 @@ public class SwitchDrawerItem extends BaseDrawerItem<SwitchDrawerItem> {
         private ViewHolder(View view) {
             super(view);
             this.view = view;
-            this.icon = (ImageView) view.findViewById(R.id.icon);
-            this.name = (TextView) view.findViewById(R.id.name);
-            this.description = (TextView) view.findViewById(R.id.description);
-            this.switchView = (SwitchCompat) view.findViewById(R.id.switchView);
+            this.icon = (ImageView) view.findViewById(R.id.material_drawer_icon);
+            this.name = (TextView) view.findViewById(R.id.material_drawer_name);
+            this.description = (TextView) view.findViewById(R.id.material_drawer_description);
+            this.switchView = (SwitchCompat) view.findViewById(R.id.material_drawer_switch);
         }
     }
 

@@ -193,12 +193,12 @@ class DrawerUtils {
             //add the sticky footer view and align it to the bottom
             RelativeLayout.LayoutParams layoutParams = new RelativeLayout.LayoutParams(RelativeLayout.LayoutParams.MATCH_PARENT, RelativeLayout.LayoutParams.WRAP_CONTENT);
             layoutParams.addRule(RelativeLayout.ALIGN_PARENT_TOP, 1);
-            drawer.mStickyHeaderView.setId(R.id.md_sticky_header);
+            drawer.mStickyHeaderView.setId(R.id.material_drawer_sticky_header);
             drawer.mSliderLayout.addView(drawer.mStickyHeaderView, 0, layoutParams);
 
             //now align the recyclerView below the stickyFooterView ;)
             RelativeLayout.LayoutParams layoutParamsListView = (RelativeLayout.LayoutParams) drawer.mRecyclerView.getLayoutParams();
-            layoutParamsListView.addRule(RelativeLayout.BELOW, R.id.md_sticky_header);
+            layoutParamsListView.addRule(RelativeLayout.BELOW, R.id.material_drawer_sticky_header);
             drawer.mRecyclerView.setLayoutParams(layoutParamsListView);
 
             //set a background color or the elevation will not work
@@ -213,7 +213,7 @@ class DrawerUtils {
                 drawer.mSliderLayout.addView(view, RelativeLayout.LayoutParams.MATCH_PARENT, (int) UIUtils.convertDpToPixel(4, drawer.mActivity));
                 //now align the shadow below the stickyHeader ;)
                 RelativeLayout.LayoutParams lps = (RelativeLayout.LayoutParams) view.getLayoutParams();
-                lps.addRule(RelativeLayout.BELOW, R.id.md_sticky_header);
+                lps.addRule(RelativeLayout.BELOW, R.id.material_drawer_sticky_header);
                 view.setLayoutParams(lps);
             }
 
@@ -277,7 +277,7 @@ class DrawerUtils {
             //add the sticky footer view and align it to the bottom
             RelativeLayout.LayoutParams layoutParams = new RelativeLayout.LayoutParams(RelativeLayout.LayoutParams.MATCH_PARENT, RelativeLayout.LayoutParams.WRAP_CONTENT);
             layoutParams.addRule(RelativeLayout.ALIGN_PARENT_BOTTOM, 1);
-            drawer.mStickyFooterView.setId(R.id.md_sticky_footer);
+            drawer.mStickyFooterView.setId(R.id.material_drawer_sticky_footer);
             drawer.mSliderLayout.addView(drawer.mStickyFooterView, layoutParams);
 
             if ((drawer.mTranslucentNavigationBar || drawer.mFullscreen) && Build.VERSION.SDK_INT >= 19) {
@@ -286,7 +286,7 @@ class DrawerUtils {
 
             //now align the recyclerView above the stickyFooterView ;)
             RelativeLayout.LayoutParams layoutParamsListView = (RelativeLayout.LayoutParams) drawer.mRecyclerView.getLayoutParams();
-            layoutParamsListView.addRule(RelativeLayout.ABOVE, R.id.md_sticky_footer);
+            layoutParamsListView.addRule(RelativeLayout.ABOVE, R.id.material_drawer_sticky_footer);
             drawer.mRecyclerView.setLayoutParams(layoutParamsListView);
 
             //handle elevation
@@ -303,7 +303,7 @@ class DrawerUtils {
             drawer.mSliderLayout.addView(view, RelativeLayout.LayoutParams.MATCH_PARENT, (int) UIUtils.convertDpToPixel(4, drawer.mActivity));
             //now align the shadow below the stickyHeader ;)
             RelativeLayout.LayoutParams lps = (RelativeLayout.LayoutParams) view.getLayoutParams();
-            lps.addRule(RelativeLayout.ABOVE, R.id.md_sticky_footer);
+            lps.addRule(RelativeLayout.ABOVE, R.id.material_drawer_sticky_footer);
             view.setLayoutParams(lps);
 
             //remove the padding of the recyclerView again we have the footer below it

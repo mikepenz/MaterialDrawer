@@ -167,10 +167,10 @@ public class SecondaryDrawerItem extends BaseDrawerItem<SecondaryDrawerItem> imp
         private ViewHolder(View view) {
             super(view);
             this.view = view;
-            this.icon = (ImageView) view.findViewById(R.id.icon);
-            this.name = (TextView) view.findViewById(R.id.name);
-            this.badgeContainer = view.findViewById(R.id.badgeContainer);
-            this.badge = (TextView) view.findViewById(R.id.badge);
+            this.icon = (ImageView) view.findViewById(R.id.material_drawer_icon);
+            this.name = (TextView) view.findViewById(R.id.material_drawer_name);
+            this.badgeContainer = view.findViewById(R.id.material_drawer_badge_container);
+            this.badge = (TextView) view.findViewById(R.id.material_drawer_badge);
         }
     }
 }

@@ -119,7 +119,7 @@ public class MiniProfileDrawerItem extends AbstractDrawerItem<MiniProfileDrawerI
         public ViewHolder(View view) {
             super(view);
 
-            this.icon = (ImageView) view.findViewById(R.id.icon);
+            this.icon = (ImageView) view.findViewById(R.id.material_drawer_icon);
         }
     }
 }
