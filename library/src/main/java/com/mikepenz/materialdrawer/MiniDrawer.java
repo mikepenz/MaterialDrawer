@@ -18,6 +18,7 @@ import com.mikepenz.materialdrawer.model.PrimaryDrawerItem;
 import com.mikepenz.materialdrawer.model.ProfileDrawerItem;
 import com.mikepenz.materialdrawer.model.interfaces.IDrawerItem;
 import com.mikepenz.materialdrawer.model.interfaces.IProfile;
+import com.mikepenz.materialize.util.UIUtils;
 
 import java.util.ArrayList;
 
@@ -100,6 +101,11 @@ public class MiniDrawer {
         //adapter
         mDrawerAdapter = new DrawerAdapter();
         mRecyclerView.setAdapter(mDrawerAdapter);
+
+        //if the activity with the drawer should be fullscreen add the padding for the navigationBar
+        if (mDrawer != null && mDrawer.mDrawerBuilder != null && (mDrawer.mDrawerBuilder.mFullscreen || mDrawer.mDrawerBuilder.mTranslucentNavigationBar)) {
+            mRecyclerView.setPadding(0, 0, 0, UIUtils.getNavigationBarHeight(ctx));
+        }
 
         //set the adapter with the items
         createItems();

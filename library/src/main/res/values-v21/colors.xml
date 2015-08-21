@@ -8,6 +8,7 @@
     <!-- MaterialDrawer DEFAULT text / items colors -->
     <color name="material_drawer_primary_icon">@color/md_light_secondary</color>
     <color name="material_drawer_hint_icon">@color/md_light_disabled</color>
+
     <!-- MaterialDrawer DEFAULT DARK text / items colors -->
     <color name="material_drawer_dark_primary_icon">@color/md_dark_primary_icon</color>
     <color name="material_drawer_dark_hint_icon">@color/md_dark_disabled</color>
