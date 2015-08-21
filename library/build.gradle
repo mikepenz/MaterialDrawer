@@ -6,9 +6,9 @@ android {
 
     defaultConfig {
         minSdkVersion 10
-        targetSdkVersion 22
-        versionCode 312
-        versionName '3.1.2'
+        targetSdkVersion 23
+        versionCode 400
+        versionName '4.0.0'
     }
     buildTypes {
         release {
@@ -26,9 +26,11 @@ android {
 apply from: 'gradle-mvn-push.gradle'
 
 dependencies {
-    compile "com.android.support:appcompat-v7:22.2.0"
+    compile "com.android.support:appcompat-v7:23.0.0"
+    compile 'com.android.support:recyclerview-v7:23.0.0'
+    compile 'com.android.support:support-annotations:23.0.0'
 
-    compile('com.mikepenz:iconics:1.2.0@aar') {
-        transitive = true
-    }
+    compile "com.mikepenz:materialize:0.2.0"
+
+    compile 'com.mikepenz:iconics-core:1.7.3@aar'
 }

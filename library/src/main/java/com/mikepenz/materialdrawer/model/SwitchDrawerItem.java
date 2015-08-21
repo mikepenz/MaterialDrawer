@@ -2,41 +2,55 @@ package com.mikepenz.materialdrawer.model;
 
 import android.content.Context;
 import android.graphics.drawable.Drawable;
+import android.support.annotation.ColorInt;
+import android.support.annotation.ColorRes;
+import android.support.annotation.LayoutRes;
+import android.support.annotation.StringRes;
+import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.SwitchCompat;
-import android.view.LayoutInflater;
 import android.view.View;
-import android.view.ViewGroup;
 import android.widget.CompoundButton;
 import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.mikepenz.materialdrawer.R;
-import com.mikepenz.materialdrawer.model.interfaces.OnCheckedChangeListener;
-import com.mikepenz.materialdrawer.util.PressedEffectStateListDrawable;
-import com.mikepenz.materialdrawer.util.UIUtils;
+import com.mikepenz.materialdrawer.holder.ColorHolder;
+import com.mikepenz.materialdrawer.holder.ImageHolder;
+import com.mikepenz.materialdrawer.holder.StringHolder;
+import com.mikepenz.materialdrawer.interfaces.OnCheckedChangeListener;
+import com.mikepenz.materialdrawer.model.utils.ViewHolderFactory;
+import com.mikepenz.materialdrawer.util.DrawerUIUtils;
+import com.mikepenz.materialize.util.UIUtils;
 
 /**
  * Created by mikepenz on 03.02.15.
  */
 public class SwitchDrawerItem extends BaseDrawerItem<SwitchDrawerItem> {
-    private String description;
-    private int descriptionRes = -1;
+    private StringHolder description;
+    private ColorHolder descriptionTextColor;
 
     private boolean switchEnabled = true;
 
-    private boolean checkable = false;
     private boolean checked = false;
     private OnCheckedChangeListener onCheckedChangeListener = null;
 
     public SwitchDrawerItem withDescription(String description) {
-        this.descriptionRes = -1;
-        this.description = description;
+        this.description = new StringHolder(description);
         return this;
     }
 
-    public SwitchDrawerItem withDescription(int descriptionRes) {
-        this.description = null;
-        this.descriptionRes = descriptionRes;
+    public SwitchDrawerItem withDescription(@StringRes int descriptionRes) {
+        this.description = new StringHolder(descriptionRes);
+        return this;
+    }
+
+    public SwitchDrawerItem withDescriptionTextColor(@ColorInt int color) {
+        this.descriptionTextColor = ColorHolder.fromColor(color);
+        return this;
+    }
+
+    public SwitchDrawerItem withDescriptionTextColorRes(@ColorRes int colorRes) {
+        this.descriptionTextColor = ColorHolder.fromColorRes(colorRes);
         return this;
     }
 
@@ -56,60 +70,27 @@ public class SwitchDrawerItem extends BaseDrawerItem<SwitchDrawerItem> {
     }
 
     public SwitchDrawerItem withCheckable(boolean checkable) {
-        this.checkable = checkable;
-        return this;
+        return withSelectable(checkable);
     }
 
-    public String getDescription() {
+    public StringHolder getDescription() {
         return description;
     }
 
-    public void setDescription(String description) {
-        this.descriptionRes = -1;
-        this.description = description;
-    }
-
-    public int getDescriptionRes() {
-        return descriptionRes;
-    }
-
-    public void setDescriptionRes(int descriptionRes) {
-        this.description = null;
-        this.descriptionRes = descriptionRes;
+    public ColorHolder getDescriptionTextColor() {
+        return descriptionTextColor;
     }
 
     public boolean isChecked() {
         return checked;
     }
 
-    public void setChecked(boolean checked) {
-        this.checked = checked;
-    }
-
     public boolean isSwitchEnabled() {
         return switchEnabled;
     }
 
-    public void setSwitchEnabled(boolean switchEnabled) {
-        this.switchEnabled = switchEnabled;
-    }
-
     public OnCheckedChangeListener getOnCheckedChangeListener() {
         return onCheckedChangeListener;
-    }
-
-    public void setOnCheckedChangeListener(OnCheckedChangeListener onCheckedChangeListener) {
-        this.onCheckedChangeListener = onCheckedChangeListener;
-    }
-
-    @Override
-    public boolean isCheckable() {
-        return checkable;
-    }
-
-    @Override
-    public void setCheckable(boolean checkable) {
-        this.checkable = checkable;
     }
 
     @Override
@@ -118,63 +99,42 @@ public class SwitchDrawerItem extends BaseDrawerItem<SwitchDrawerItem> {
     }
 
     @Override
+    @LayoutRes
     public int getLayoutRes() {
         return R.layout.material_drawer_item_switch;
     }
 
     @Override
-    public View convertView(LayoutInflater inflater, View convertView, ViewGroup parent) {
-        Context ctx = parent.getContext();
+    public void bindView(RecyclerView.ViewHolder holder) {
+        Context ctx = holder.itemView.getContext();
 
-        final ViewHolder viewHolder;
-        if (convertView == null) {
-            convertView = inflater.inflate(getLayoutRes(), parent, false);
-            viewHolder = new ViewHolder(convertView);
-            convertView.setTag(viewHolder);
-        } else {
-            viewHolder = (ViewHolder) convertView.getTag();
-        }
+        //get our viewHolder
+        final ViewHolder viewHolder = (ViewHolder) holder;
+
+        //set the identifier from the drawerItem here. It can be used to run tests
+        viewHolder.itemView.setId(getIdentifier());
+
+        //set the item selected if it is
+        viewHolder.itemView.setSelected(isSelected());
 
         //get the correct color for the background
-        int selectedColor = UIUtils.decideColor(ctx, getSelectedColor(), getSelectedColorRes(), R.attr.material_drawer_selected, R.color.material_drawer_selected);
+        int selectedColor = getSelectedColor(ctx);
         //get the correct color for the text
-        int color;
-        if (this.isEnabled()) {
-            color = UIUtils.decideColor(ctx, getTextColor(), getTextColorRes(), R.attr.material_drawer_primary_text, R.color.material_drawer_primary_text);
-        } else {
-            color = UIUtils.decideColor(ctx, getDisabledTextColor(), getDisabledTextColorRes(), R.attr.material_drawer_hint_text, R.color.material_drawer_hint_text);
-        }
-        int selectedTextColor = UIUtils.decideColor(ctx, getSelectedTextColor(), getSelectedTextColorRes(), R.attr.material_drawer_selected_text, R.color.material_drawer_selected_text);
+        int color = getColor(ctx);
+        int selectedTextColor = getSelectedTextColor(ctx);
         //get the correct color for the icon
-        int iconColor;
-        if (this.isEnabled()) {
-            iconColor = UIUtils.decideColor(ctx, getIconColor(), getIconColorRes(), R.attr.material_drawer_primary_icon, R.color.material_drawer_primary_icon);
-        } else {
-            iconColor = UIUtils.decideColor(ctx, getDisabledIconColor(), getDisabledIconColorRes(), R.attr.material_drawer_hint_text, R.color.material_drawer_hint_text);
-        }
-        int selectedIconColor = UIUtils.decideColor(ctx, getSelectedIconColor(), getSelectedIconColorRes(), R.attr.material_drawer_selected_text, R.color.material_drawer_selected_text);
+        int iconColor = getIconColor(ctx);
+        int selectedIconColor = getSelectedIconColor(ctx);
 
         //set the background for the item
-        UIUtils.setBackground(viewHolder.view, UIUtils.getDrawerItemBackground(selectedColor));
+        UIUtils.setBackground(viewHolder.view, DrawerUIUtils.getSelectableBackground(ctx, selectedColor));
 
         //set the text for the name
-        if (this.getNameRes() != -1) {
-            viewHolder.name.setText(this.getNameRes());
-        } else {
-            viewHolder.name.setText(this.getName());
-        }
-
+        StringHolder.applyTo(this.getName(), viewHolder.name);
         //set the text for the description or hide
-        viewHolder.description.setVisibility(View.VISIBLE);
-        if (this.getDescriptionRes() != -1) {
-            viewHolder.description.setText(this.getDescriptionRes());
-        } else if (this.getDescription() != null) {
-            viewHolder.description.setText(this.getDescription());
-        } else {
-            viewHolder.description.setVisibility(View.GONE);
-        }
+        StringHolder.applyToOrHide(this.getDescription(), viewHolder.description);
 
-        if (!isCheckable()) {
+        if (!isSelectable()) {
             viewHolder.view.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
@@ -190,8 +150,9 @@ public class SwitchDrawerItem extends BaseDrawerItem<SwitchDrawerItem> {
         viewHolder.switchView.setEnabled(switchEnabled);
 
         //set the colors for textViews
-        viewHolder.name.setTextColor(UIUtils.getTextColorStateList(color, selectedTextColor));
-        viewHolder.description.setTextColor(UIUtils.getTextColorStateList(color, selectedTextColor));
+        viewHolder.name.setTextColor(getTextColorStateList(color, selectedTextColor));
+        //set the description text color
+        ColorHolder.applyToOr(getDescriptionTextColor(), viewHolder.description, getTextColorStateList(color, selectedTextColor));
 
         //define the typeface for our textViews
         if (getTypeface() != null) {
@@ -199,31 +160,30 @@ public class SwitchDrawerItem extends BaseDrawerItem<SwitchDrawerItem> {
             viewHolder.description.setTypeface(getTypeface());
         }
 
-        //get the drawables for our icon
-        Drawable icon = UIUtils.decideIcon(ctx, getIcon(), getIIcon(), getIconRes(), iconColor, isIconTinted());
-        Drawable selectedIcon = UIUtils.decideIcon(ctx, getSelectedIcon(), getIIcon(), getSelectedIconRes(), selectedIconColor, isIconTinted());
+        //get the drawables for our icon and set it
+        Drawable icon = ImageHolder.decideIcon(getIcon(), ctx, iconColor, isIconTinted(), 1);
+        Drawable selectedIcon = ImageHolder.decideIcon(getSelectedIcon(), ctx, selectedIconColor, isIconTinted(), 1);
+        ImageHolder.applyMultiIconTo(icon, iconColor, selectedIcon, selectedIconColor, isIconTinted(), viewHolder.icon);
 
-        //if we have an icon then we want to set it
-        if (icon != null) {
-            //if we got a different color for the selectedIcon we need a StateList
-            if (selectedIcon != null) {
-                viewHolder.icon.setImageDrawable(UIUtils.getIconStateList(icon, selectedIcon));
-            } else if (isIconTinted()) {
-                viewHolder.icon.setImageDrawable(new PressedEffectStateListDrawable(icon, iconColor, selectedIconColor));
-            } else {
-                viewHolder.icon.setImageDrawable(icon);
-            }
-            //make sure we display the icon
-            viewHolder.icon.setVisibility(View.VISIBLE);
-        } else {
-            //hide the icon
-            viewHolder.icon.setVisibility(View.GONE);
-        }
+        //for android API 17 --> Padding not applied via xml
+        DrawerUIUtils.setDrawerVerticalPadding(viewHolder.view);
 
-        return convertView;
+        //call the onPostBindView method to trigger post bind view actions (like the listener to modify the item if required)
+        onPostBindView(this, holder.itemView);
     }
 
-    private static class ViewHolder {
+    @Override
+    public ViewHolderFactory getFactory() {
+        return new ItemFactory();
+    }
+
+    public static class ItemFactory implements ViewHolderFactory<ViewHolder> {
+        public ViewHolder factory(View v) {
+            return new ViewHolder(v);
+        }
+    }
+
+    private static class ViewHolder extends RecyclerView.ViewHolder {
         private View view;
         private ImageView icon;
         private TextView name;
@@ -231,11 +191,12 @@ public class SwitchDrawerItem extends BaseDrawerItem<SwitchDrawerItem> {
         private SwitchCompat switchView;
 
         private ViewHolder(View view) {
+            super(view);
             this.view = view;
-            this.icon = (ImageView) view.findViewById(R.id.icon);
-            this.name = (TextView) view.findViewById(R.id.name);
-            this.description = (TextView) view.findViewById(R.id.description);
-            this.switchView = (SwitchCompat) view.findViewById(R.id.switchView);
+            this.icon = (ImageView) view.findViewById(R.id.material_drawer_icon);
+            this.name = (TextView) view.findViewById(R.id.material_drawer_name);
+            this.description = (TextView) view.findViewById(R.id.material_drawer_description);
+            this.switchView = (SwitchCompat) view.findViewById(R.id.material_drawer_switch);
         }
     }
 

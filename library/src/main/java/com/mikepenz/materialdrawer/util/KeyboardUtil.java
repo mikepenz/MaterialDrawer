@@ -23,6 +23,8 @@ import android.view.View;
 import android.view.ViewTreeObserver;
 import android.view.inputmethod.InputMethodManager;
 
+import com.mikepenz.materialize.util.UIUtils;
+
 /**
  * Created by mikepenz on 14.03.15.
  * This class implements a hack to change the layout padding on bottom if the keyboard is shown
