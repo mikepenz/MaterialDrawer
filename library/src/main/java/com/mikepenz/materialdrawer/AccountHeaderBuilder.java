@@ -367,7 +367,7 @@ public class AccountHeaderBuilder {
     }
 
     //close the drawer after a profile was clicked in the list
-    protected boolean mCloseDrawerOnProfileListClick = true;
+    protected Boolean mCloseDrawerOnProfileListClick = null;
 
     /**
      * define if the drawer should close if the user clicks on a profile item if the selection list is shown
@@ -1224,13 +1224,20 @@ public class AccountHeaderBuilder {
             if (mResetDrawerOnProfileListClick && mDrawer != null && view != null && view.getContext() != null) {
                 resetDrawerContent(view.getContext());
             }
+
+            boolean consumed = false;
             if (drawerItem != null && drawerItem instanceof IProfile) {
                 if (mOnAccountHeaderListener != null) {
-                    mOnAccountHeaderListener.onProfileChanged(view, (IProfile) drawerItem, isCurrentSelectedProfile);
+                    consumed = mOnAccountHeaderListener.onProfileChanged(view, (IProfile) drawerItem, isCurrentSelectedProfile);
                 }
             }
 
-            return !mCloseDrawerOnProfileListClick;
+            //if a custom behavior was chosen via the CloseDrawerOnProfileListClick then use this. else react on the result of the onProfileChanged listener
+            if (mCloseDrawerOnProfileListClick != null) {
+                return !mCloseDrawerOnProfileListClick;
+            } else {
+                return consumed;
+            }
         }
     };
 
