@@ -8,6 +8,7 @@ import android.view.ViewGroup;
 
 import com.mikepenz.materialdrawer.model.interfaces.IDrawerItem;
 import com.mikepenz.materialdrawer.model.interfaces.Identifyable;
+import com.mikepenz.materialdrawer.model.interfaces.OnPostBindViewListener;
 import com.mikepenz.materialdrawer.model.interfaces.Selectable;
 import com.mikepenz.materialdrawer.model.interfaces.Tagable;
 import com.mikepenz.materialdrawer.model.utils.ViewHolderFactory;
@@ -76,6 +77,29 @@ public abstract class AbstractDrawerItem<T> implements IDrawerItem<T>, Identifya
     @Override
     public boolean isSelectable() {
         return mSelectable;
+    }
+
+    protected OnPostBindViewListener mOnPostBindViewListener = null;
+
+    public OnPostBindViewListener getOnPostBindViewListener() {
+        return mOnPostBindViewListener;
+    }
+
+    public T withPostOnBindViewListener(OnPostBindViewListener onPostBindViewListener) {
+        this.mOnPostBindViewListener = onPostBindViewListener;
+        return (T) this;
+    }
+
+    /**
+     * is called after bindView to allow some post creation setps
+     *
+     * @param drawerItem the drawerItem which is bound to the view
+     * @param view       the currently view which will be bound
+     */
+    public void onPostBindView(IDrawerItem drawerItem, View view) {
+        if (mOnPostBindViewListener != null) {
+            mOnPostBindViewListener.onBindView(drawerItem, view);
+        }
     }
 
     public abstract ViewHolderFactory getFactory();

@@ -176,6 +176,9 @@ public class ToggleDrawerItem extends BaseDrawerItem<ToggleDrawerItem> {
 
         //for android API 17 --> Padding not applied via xml
         DrawerUIUtils.setDrawerVerticalPadding(viewHolder.view);
+
+        //call the onPostBindView method to trigger post bind view actions (like the listener to modify the item if required)
+        onPostBindView(this, holder.itemView);
     }
 
     @Override

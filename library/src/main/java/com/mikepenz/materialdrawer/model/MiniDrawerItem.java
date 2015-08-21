@@ -101,6 +101,9 @@ public class MiniDrawerItem extends BaseDrawerItem<MiniDrawerItem> {
         int verticalPadding = ctx.getResources().getDimensionPixelSize(R.dimen.material_drawer_padding);
         int topBottomPadding = ctx.getResources().getDimensionPixelSize(R.dimen.material_mini_drawer_item_padding);
         viewHolder.itemView.setPadding(verticalPadding, topBottomPadding, verticalPadding, topBottomPadding);
+
+        //call the onPostBindView method to trigger post bind view actions (like the listener to modify the item if required)
+        onPostBindView(this, holder.itemView);
     }
 
     @Override

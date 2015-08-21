@@ -96,6 +96,9 @@ public class MiniProfileDrawerItem extends AbstractDrawerItem<MiniProfileDrawerI
 
         //set the icon
         ImageHolder.applyToOrSetInvisible(getIcon(), viewHolder.icon);
+
+        //call the onPostBindView method to trigger post bind view actions (like the listener to modify the item if required)
+        onPostBindView(this, holder.itemView);
     }
 
     @Override

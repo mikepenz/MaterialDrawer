@@ -41,6 +41,9 @@ public class DividerDrawerItem extends AbstractDrawerItem<DividerDrawerItem> {
 
         //set the color for the divider
         viewHolder.divider.setBackgroundColor(UIUtils.getThemeColorFromAttrOrRes(ctx, R.attr.material_drawer_divider, R.color.material_drawer_divider));
+
+        //call the onPostBindView method to trigger post bind view actions (like the listener to modify the item if required)
+        onPostBindView(this, holder.itemView);
     }
 
     @Override
