@@ -158,8 +158,8 @@ The MaterialDrawer comes with the `core` of the [Android-Iconics](https://github
 Choose the fonts you need. [Available Fonts](https://github.com/mikepenz/Android-Iconics#2-choose-your-desired-fonts)
 **build.gradle**
 ```gradle
-compile 'com.mikepenz:google-material-typeface:1.2.0@aar' //Google Material Icons
-compile 'com.mikepenz:fontawesome-typeface:4.4.0@aar'     //FontAwesome
+compile 'com.mikepenz:google-material-typeface:x.y.z@aar' //Google Material Icons
+compile 'com.mikepenz:fontawesome-typeface:x.y.z@aar'     //FontAwesome
 ```
 
 **java**
