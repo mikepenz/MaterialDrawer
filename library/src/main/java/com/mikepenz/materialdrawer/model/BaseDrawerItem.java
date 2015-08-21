@@ -294,7 +294,7 @@ public abstract class BaseDrawerItem<T> extends AbstractDrawerItem<T> implements
         if (this.isEnabled()) {
             iconColor = ColorHolder.color(getIconColor(), ctx, R.attr.material_drawer_primary_icon, R.color.material_drawer_primary_icon);
         } else {
-            iconColor = ColorHolder.color(getDisabledIconColor(), ctx, R.attr.material_drawer_hint_text, R.color.material_drawer_hint_text);
+            iconColor = ColorHolder.color(getDisabledIconColor(), ctx, R.attr.material_drawer_hint_icon, R.color.material_drawer_hint_icon);
         }
         return iconColor;
     }
