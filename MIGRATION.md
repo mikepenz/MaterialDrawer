@@ -21,8 +21,8 @@ import com.mikepenz.materialdrawer.AccountHeaderBuilder
  * add the fonts you use https://github.com/mikepenz/Android-Iconics#2-choose-your-desired-fonts
 * pre MaterialDrawer v4.0.0 following fonts were included
 ```gradle
-compile 'com.mikepenz:google-material-typeface:1.2.0@aar'
-compile 'com.mikepenz:fontawesome-typeface:4.4.0@aar' //**NOTE:** the packagename changed for this font
+compile 'com.mikepenz:google-material-typeface:1.2.0.1@aar' //Google Material Design Icons
+compile 'com.mikepenz:fontawesome-typeface:4.4.0.1@aar' //FontAwesome **NOTE:** the packagename changed for this font
 ```
 
 #####Advanced usage changes
