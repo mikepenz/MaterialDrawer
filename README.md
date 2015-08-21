@@ -126,24 +126,6 @@ result.closeDrawer();
 result.getDrawerLayout();
 ```
 
-##Use the included icon font functionality
-The MaterialDrawer comes with the `core` of the [Android-Iconics](https://github.com/mikepenz/Android-Iconics) library. This allows you to create your `DrawerItems` with an icon from any font.
-
-Choose the fonts you need. [Available Fonts](https://github.com/mikepenz/Android-Iconics#2-choose-your-desired-fonts)
-**build.gradle**
-```gradle
-compile 'com.mikepenz:google-material-typeface:1.2.0@aar' //Google Material Icons
-compile 'com.mikepenz:fontawesome-typeface:4.4.0@aar'     //FontAwesome
-```
-
-**java**
-```
-//now you can simply use any icon of the Google Material Icons font
-new PrimaryDrawerItem().withIcon(GoogleMaterial.Icon.gmd_wb_sunny)
-//Or an icon from FontAwesome
-new SecondaryDrawerItem().withIcon(FontAwesome.Icon.faw_github)
-```
-
 ##Add profiles and an AccountHeader
 ```java
 // Create the AccountHeader
@@ -170,6 +152,23 @@ new DrawerBuilder()
 
 ```
 
+##Use the included icon font
+The MaterialDrawer comes with the `core` of the [Android-Iconics](https://github.com/mikepenz/Android-Iconics) library. This allows you to create your `DrawerItems` with an icon from any font.
+
+Choose the fonts you need. [Available Fonts](https://github.com/mikepenz/Android-Iconics#2-choose-your-desired-fonts)
+**build.gradle**
+```gradle
+compile 'com.mikepenz:google-material-typeface:1.2.0@aar' //Google Material Icons
+compile 'com.mikepenz:fontawesome-typeface:4.4.0@aar'     //FontAwesome
+```
+
+**java**
+```
+//now you can simply use any icon of the Google Material Icons font
+new PrimaryDrawerItem().withIcon(GoogleMaterial.Icon.gmd_wb_sunny)
+//Or an icon from FontAwesome
+new SecondaryDrawerItem().withIcon(FontAwesome.Icon.faw_github)
+```
 
 #Advanced Setup
 ##Activity with ActionBar
