@@ -5,21 +5,17 @@
         <attr name="material_drawer_window_background" format="color|reference" />
         <attr name="material_drawer_background" format="color|reference" />
 
-        <attr name="material_drawer_icons" format="color|reference" />
         <attr name="material_drawer_primary_text" format="color|reference" />
         <attr name="material_drawer_primary_icon" format="color|reference" />
         <attr name="material_drawer_secondary_text" format="color|reference" />
         <attr name="material_drawer_hint_text" format="color|reference" />
+        <attr name="material_drawer_hint_icon" format="color|reference" />
         <attr name="material_drawer_divider" format="color|reference" />
 
         <attr name="material_drawer_selected" format="color|reference" />
         <attr name="material_drawer_selected_text" format="color|reference" />
         <!-- material drawer header attrs-->
         <attr name="material_drawer_header_selection_text" format="color|reference" />
-    </declare-styleable>
-
-    <declare-styleable name="ScrimInsetsView">
-        <attr name="siv_insetForeground" format="reference|color" />
     </declare-styleable>
 
     <declare-styleable name="BezelImageView">

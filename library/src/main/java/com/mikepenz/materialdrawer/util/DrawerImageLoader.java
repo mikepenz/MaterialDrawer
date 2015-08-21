@@ -51,7 +51,7 @@ public class DrawerImageLoader {
             Drawable placeHolder = imageLoader.placeholder(imageView.getContext());
 
             if (placeHolder == null) {
-                placeHolder = UIUtils.getPlaceHolder(imageView.getContext());
+                placeHolder = DrawerUIUtils.getPlaceHolder(imageView.getContext());
             }
 
             imageLoader.set(imageView, uri, placeHolder);

@@ -21,7 +21,7 @@ public class PressedEffectStateListDrawable extends StateListDrawable {
 
         drawable = drawable.mutate();
 
-        addState(new int[]{android.R.attr.state_activated}, drawable);
+        addState(new int[]{android.R.attr.state_selected}, drawable);
         addState(new int[]{}, drawable);
 
         this.color = color;
@@ -32,7 +32,7 @@ public class PressedEffectStateListDrawable extends StateListDrawable {
     protected boolean onStateChange(int[] states) {
         boolean isStatePressedInArray = false;
         for (int state : states) {
-            if (state == android.R.attr.state_activated) {
+            if (state == android.R.attr.state_selected) {
                 isStatePressedInArray = true;
             }
         }

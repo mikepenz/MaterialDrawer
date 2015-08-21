@@ -1,55 +1,69 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="@dimen/material_drawer_item_profile"
+    android:orientation="horizontal"
+    android:paddingEnd="@dimen/material_drawer_vertical_padding"
     android:paddingLeft="@dimen/material_drawer_vertical_padding"
-    android:paddingStart="@dimen/material_drawer_vertical_padding"
     android:paddingRight="@dimen/material_drawer_vertical_padding"
-    android:paddingEnd="@dimen/material_drawer_vertical_padding">
-
-    <com.mikepenz.materialdrawer.view.BezelImageView
-        android:id="@+id/profileIcon"
-        android:layout_width="@dimen/material_drawer_item_profile_icon"
-        android:layout_height="@dimen/material_drawer_item_profile_icon"
-        android:layout_marginTop="@dimen/material_drawer_item_profile_icon_padding"
-        android:layout_marginBottom="@dimen/material_drawer_item_profile_icon_padding"
-        android:layout_marginRight="@dimen/material_drawer_item_profile_icon_padding"
-        android:layout_marginEnd="@dimen/material_drawer_item_profile_icon_padding"
-        android:layout_gravity="center_vertical"
-        android:clickable="false"
-        android:elevation="1dp"
-        app:biv_maskDrawable="@drawable/circle_mask" />
+    android:paddingStart="@dimen/material_drawer_vertical_padding">
 
     <LinearLayout
-        android:layout_toRightOf="@id/profileIcon"
-        android:layout_toEndOf="@id/profileIcon"
+        android:layout_width="@dimen/material_drawer_item_profile_icon_width"
+        android:layout_height="@dimen/material_drawer_item_profile"
+        android:paddingBottom="@dimen/material_drawer_item_profile_icon_padding"
+        android:paddingEnd="@dimen/material_drawer_item_profile_icon_padding_right"
+        android:paddingLeft="0dp"
+        android:paddingRight="@dimen/material_drawer_item_profile_icon_padding_right"
+        android:paddingStart="0dp"
+        android:paddingTop="@dimen/material_drawer_item_profile_icon_padding">
+
+        <com.mikepenz.materialdrawer.view.BezelImageView
+            android:id="@+id/material_drawer_profileIcon"
+            android:layout_width="@dimen/material_drawer_item_profile_icon"
+            android:layout_height="@dimen/material_drawer_item_profile_icon"
+            android:layout_gravity="center_vertical"
+            android:clickable="false"
+            android:elevation="1dp"
+            app:biv_maskDrawable="@drawable/material_drawer_circle_mask" />
+    </LinearLayout>
+
+
+    <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_centerInParent="true"
-        android:orientation="vertical">
+        android:layout_height="match_parent"
+        android:gravity="center_vertical|start"
+        android:orientation="vertical"
+        android:paddingEnd="0dp"
+        android:paddingLeft="@dimen/material_drawer_padding"
+        android:paddingRight="0dp"
+        android:paddingStart="@dimen/material_drawer_padding">
 
         <TextView
-            android:id="@+id/name"
-            android:fontFamily="sans-serif-medium"
+            android:id="@+id/material_drawer_name"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:textSize="@dimen/material_drawer_item_profile_text"
+            android:fontFamily="sans-serif-medium"
             android:gravity="center_vertical|start"
             android:lines="1"
+            android:paddingRight="@dimen/material_drawer_item_primary_icon_padding_right"
             android:singleLine="true"
+            android:textDirection="anyRtl"
+            android:textSize="@dimen/material_drawer_item_profile_text"
             tools:text="Some drawer text" />
 
         <TextView
-            android:id="@+id/email"
-            android:fontFamily="sans-serif"
+            android:id="@+id/material_drawer_email"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:textSize="@dimen/material_drawer_item_profile_description"
+            android:fontFamily="sans-serif"
             android:gravity="center_vertical|start"
             android:lines="1"
             android:singleLine="true"
+            android:textDirection="anyRtl"
+            android:textSize="@dimen/material_drawer_item_profile_description"
             tools:text="Some drawer text" />
     </LinearLayout>
-</RelativeLayout>
+</LinearLayout>

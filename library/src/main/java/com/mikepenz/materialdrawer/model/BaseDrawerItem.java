@@ -1,184 +1,162 @@
 package com.mikepenz.materialdrawer.model;
 
+import android.content.Context;
+import android.content.res.ColorStateList;
 import android.graphics.Typeface;
 import android.graphics.drawable.Drawable;
+import android.support.annotation.ColorInt;
+import android.support.annotation.ColorRes;
+import android.support.annotation.DrawableRes;
+import android.support.annotation.StringRes;
+import android.util.Pair;
 
 import com.mikepenz.iconics.typeface.IIcon;
-import com.mikepenz.materialdrawer.model.interfaces.Checkable;
-import com.mikepenz.materialdrawer.model.interfaces.IDrawerItem;
+import com.mikepenz.materialdrawer.R;
+import com.mikepenz.materialdrawer.holder.ColorHolder;
+import com.mikepenz.materialdrawer.holder.ImageHolder;
+import com.mikepenz.materialdrawer.holder.StringHolder;
 import com.mikepenz.materialdrawer.model.interfaces.Iconable;
-import com.mikepenz.materialdrawer.model.interfaces.Identifyable;
 import com.mikepenz.materialdrawer.model.interfaces.Nameable;
 import com.mikepenz.materialdrawer.model.interfaces.Tagable;
 import com.mikepenz.materialdrawer.model.interfaces.Typefaceable;
+import com.mikepenz.materialdrawer.util.DrawerUIUtils;
 
 /**
  * Created by mikepenz on 03.02.15.
  */
-public abstract class BaseDrawerItem<T> implements IDrawerItem, Nameable<T>, Iconable<T>, Checkable<T>, Tagable<T>, Identifyable<T>, Typefaceable<T> {
+public abstract class BaseDrawerItem<T> extends AbstractDrawerItem<T> implements Nameable<T>, Iconable<T>, Tagable<T>, Typefaceable<T> {
+    protected ImageHolder icon;
+    protected ImageHolder selectedIcon;
+    protected StringHolder name;
 
-    private int identifier = -1;
-    private Drawable icon;
-    private int iconRes = -1;
-    private IIcon iicon;
-    private Drawable selectedIcon;
-    private int selectedIconRes = -1;
-    private String name;
-    private int nameRes = -1;
-    private boolean enabled = true;
-    private boolean checkable = true;
-    private Object tag;
+    protected boolean iconTinted = false;
 
-    private boolean iconTinted = false;
+    protected ColorHolder selectedColor;
+    protected ColorHolder textColor;
+    protected ColorHolder selectedTextColor;
+    protected ColorHolder disabledTextColor;
 
-    private int selectedColor = 0;
-    private int selectedColorRes = -1;
+    protected ColorHolder iconColor;
+    protected ColorHolder selectedIconColor;
+    protected ColorHolder disabledIconColor;
 
-    private int textColor = 0;
-    private int textColorRes = -1;
-    private int selectedTextColor = 0;
-    private int selectedTextColorRes = -1;
-    private int disabledTextColor = 0;
-    private int disabledTextColorRes = -1;
+    protected Typeface typeface = null;
 
-    private int iconColor = 0;
-    private int iconColorRes = -1;
-    private int selectedIconColor = 0;
-    private int selectedIconColorRes = -1;
-    private int disabledIconColor = 0;
-    private int disabledIconColorRes = -1;
+    protected Pair<Integer, ColorStateList> colorStateList;
 
-    private Typeface typeface = null;
-
-    public T withIdentifier(int identifier) {
-        this.identifier = identifier;
-        return (T) this;
-    }
-
-    public T withIcon(Drawable icon) {
+    public T withIcon(ImageHolder icon) {
         this.icon = icon;
         return (T) this;
     }
 
-    public T withIcon(int iconRes) {
-        this.iconRes = iconRes;
+    public T withIcon(Drawable icon) {
+        this.icon = new ImageHolder(icon);
         return (T) this;
     }
 
-    public T withIcon(IIcon iicon) {
-        this.iicon = iicon;
+    public T withIcon(@DrawableRes int iconRes) {
+        this.icon = new ImageHolder(iconRes);
         return (T) this;
     }
 
     public T withSelectedIcon(Drawable selectedIcon) {
-        this.selectedIcon = selectedIcon;
+        this.selectedIcon = new ImageHolder(selectedIcon);
         return (T) this;
     }
 
-    public T withSelectedIcon(int selectedIconRes) {
-        this.selectedIconRes = selectedIconRes;
+    public T withSelectedIcon(@DrawableRes int selectedIconRes) {
+        this.selectedIcon = new ImageHolder(selectedIconRes);
+        return (T) this;
+    }
+
+    public T withIcon(IIcon iicon) {
+        this.icon = new ImageHolder(iicon);
+        this.selectedIcon = new ImageHolder(iicon);
+        return (T) this;
+    }
+
+    public T withName(StringHolder name) {
+        this.name = name;
         return (T) this;
     }
 
     public T withName(String name) {
-        this.name = name;
-        this.nameRes = -1;
+        this.name = new StringHolder(name);
         return (T) this;
     }
 
-    public T withName(int nameRes) {
-        this.nameRes = nameRes;
-        this.name = null;
+    public T withName(@StringRes int nameRes) {
+        this.name = new StringHolder(nameRes);
         return (T) this;
     }
 
-    public T withTag(Object object) {
-        this.tag = object;
+    public T withSelectedColor(@ColorInt int selectedColor) {
+        this.selectedColor = ColorHolder.fromColor(selectedColor);
         return (T) this;
     }
 
-    public T withCheckable(boolean checkable) {
-        this.checkable = checkable;
+    public T withSelectedColorRes(@ColorRes int selectedColorRes) {
+        this.selectedColor = ColorHolder.fromColorRes(selectedColorRes);
         return (T) this;
     }
 
-    public T withEnabled(boolean enabled) {
-        this.enabled = enabled;
+    public T withTextColor(@ColorInt int textColor) {
+        this.textColor = ColorHolder.fromColor(textColor);
         return (T) this;
     }
 
-    public T setEnabled(boolean enabled) {
-        this.enabled = enabled;
+    public T withTextColorRes(@ColorRes int textColorRes) {
+        this.textColor = ColorHolder.fromColorRes(textColorRes);
         return (T) this;
     }
 
-    public T withSelectedColor(int selectedColor) {
-        this.selectedColor = selectedColor;
+    public T withSelectedTextColor(@ColorInt int selectedTextColor) {
+        this.selectedTextColor = ColorHolder.fromColor(selectedTextColor);
         return (T) this;
     }
 
-    public T withSelectedColorRes(int selectedColorRes) {
-        this.selectedColorRes = selectedColorRes;
+    public T withSelectedTextColorRes(@ColorRes int selectedColorRes) {
+        this.selectedTextColor = ColorHolder.fromColorRes(selectedColorRes);
         return (T) this;
     }
 
-    public T withTextColor(int textColor) {
-        this.textColor = textColor;
+    public T withDisabledTextColor(@ColorInt int disabledTextColor) {
+        this.disabledTextColor = ColorHolder.fromColor(disabledTextColor);
         return (T) this;
     }
 
-    public T withTextColorRes(int textColorRes) {
-        this.textColorRes = textColorRes;
+    public T withDisabledTextColorRes(@ColorRes int disabledTextColorRes) {
+        this.disabledTextColor = ColorHolder.fromColorRes(disabledTextColorRes);
         return (T) this;
     }
 
-    public T withSelectedTextColor(int selectedTextColor) {
-        this.selectedTextColor = selectedTextColor;
+    public T withIconColor(@ColorInt int iconColor) {
+        this.iconColor = ColorHolder.fromColor(iconColor);
         return (T) this;
     }
 
-    public T withSelectedTextColorRes(int selectedColorRes) {
-        this.selectedTextColorRes = selectedColorRes;
+    public T withIconColorRes(@ColorRes int iconColorRes) {
+        this.iconColor = ColorHolder.fromColorRes(iconColorRes);
         return (T) this;
     }
 
-    public T withDisabledTextColor(int disabledTextColor) {
-        this.disabledTextColor = disabledTextColor;
+    public T withSelectedIconColor(@ColorInt int selectedIconColor) {
+        this.selectedIconColor = ColorHolder.fromColor(selectedIconColor);
         return (T) this;
     }
 
-    public T withDisabledTextColorRes(int disabledTextColorRes) {
-        this.disabledTextColorRes = disabledTextColorRes;
+    public T withSelectedIconColorRes(@ColorRes int selectedColorRes) {
+        this.selectedIconColor = ColorHolder.fromColorRes(selectedColorRes);
         return (T) this;
     }
 
-    public T withIconColor(int iconColor) {
-        this.iconColor = iconColor;
+    public T withDisabledIconColor(@ColorInt int disabledIconColor) {
+        this.disabledIconColor = ColorHolder.fromColor(disabledIconColor);
         return (T) this;
     }
 
-    public T withIconColorRes(int iconColorRes) {
-        this.iconColorRes = iconColorRes;
-        return (T) this;
-    }
-
-    public T withSelectedIconColor(int selectedIconColor) {
-        this.selectedIconColor = selectedIconColor;
-        return (T) this;
-    }
-
-    public T withSelectedIconColorRes(int selectedColorRes) {
-        this.selectedIconColorRes = selectedColorRes;
-        return (T) this;
-    }
-
-    public T withDisabledIconColor(int disabledIconColor) {
-        this.disabledIconColor = disabledIconColor;
-        return (T) this;
-    }
-
-    public T withDisabledIconColorRes(int disabledIconColorRes) {
-        this.disabledIconColorRes = disabledIconColorRes;
+    public T withDisabledIconColorRes(@ColorRes int disabledIconColorRes) {
+        this.disabledIconColor = ColorHolder.fromColorRes(disabledIconColorRes);
         return (T) this;
     }
 
@@ -216,220 +194,48 @@ public abstract class BaseDrawerItem<T> implements IDrawerItem, Nameable<T>, Ico
         return (T) this;
     }
 
-    public int getSelectedColor() {
+    public ColorHolder getSelectedColor() {
         return selectedColor;
     }
 
-    public void setSelectedColor(int selectedColor) {
-        this.selectedColor = selectedColor;
-    }
-
-    public int getSelectedColorRes() {
-        return selectedColorRes;
-    }
-
-    public void setSelectedColorRes(int selectedColorRes) {
-        this.selectedColorRes = selectedColorRes;
-    }
-
-    public int getTextColor() {
+    public ColorHolder getTextColor() {
         return textColor;
     }
 
-    public void setTextColor(int textColor) {
-        this.textColor = textColor;
-    }
-
-    public int getTextColorRes() {
-        return textColorRes;
-    }
-
-    public void setTextColorRes(int textColorRes) {
-        this.textColorRes = textColorRes;
-    }
-
-    public int getSelectedTextColor() {
+    public ColorHolder getSelectedTextColor() {
         return selectedTextColor;
     }
 
-    public void setSelectedTextColor(int selectedTextColor) {
-        this.selectedTextColor = selectedTextColor;
-    }
-
-    public int getSelectedTextColorRes() {
-        return selectedTextColorRes;
-    }
-
-    public void setSelectedTextColorRes(int selectedTextColorRes) {
-        this.selectedTextColorRes = selectedTextColorRes;
-    }
-
-    public int getDisabledTextColor() {
+    public ColorHolder getDisabledTextColor() {
         return disabledTextColor;
-    }
-
-    public void setDisabledTextColor(int disabledTextColor) {
-        this.disabledTextColor = disabledTextColor;
-    }
-
-    public int getDisabledTextColorRes() {
-        return disabledTextColorRes;
-    }
-
-    public void setDisabledTextColorRes(int disabledTextColorRes) {
-        this.disabledTextColorRes = disabledTextColorRes;
     }
 
     public boolean isIconTinted() {
         return iconTinted;
     }
 
-    public void setIconTinted(boolean iconTinted) {
-        this.iconTinted = iconTinted;
-    }
-
-    @Override
-    public Object getTag() {
-        return tag;
-    }
-
-    @Override
-    public void setTag(Object tag) {
-        this.tag = tag;
-    }
-
-    public Drawable getIcon() {
+    public ImageHolder getIcon() {
         return icon;
     }
 
-    @Override
-    public void setIcon(Drawable icon) {
-        this.icon = icon;
-    }
-
-    public int getIconRes() {
-        return iconRes;
-    }
-
-    public void setIconRes(int iconRes) {
-        this.iconRes = iconRes;
-    }
-
-    public int getSelectedIconRes() {
-        return selectedIconRes;
-    }
-
-    public void setSelectedIconRes(int selectedIconRes) {
-        this.selectedIconRes = selectedIconRes;
-    }
-
-    public IIcon getIIcon() {
-        return iicon;
-    }
-
-    @Override
-    public void setIIcon(IIcon iicon) {
-        this.iicon = iicon;
-    }
-
-    public Drawable getSelectedIcon() {
+    public ImageHolder getSelectedIcon() {
         return selectedIcon;
     }
 
-    public void setSelectedIcon(Drawable selectedIcon) {
-        this.selectedIcon = selectedIcon;
-    }
-
-    public String getName() {
+    public StringHolder getName() {
         return name;
     }
 
-    @Override
-    public void setName(String name) {
-        this.name = name;
-        this.nameRes = -1;
-    }
-
-    public int getNameRes() {
-        return nameRes;
-    }
-
-    @Override
-    public void setNameRes(int nameRes) {
-        this.nameRes = nameRes;
-        this.name = null;
-    }
-
-    @Override
-    public int getIdentifier() {
-        return identifier;
-    }
-
-    public void setIdentifier(int identifier) {
-        this.identifier = identifier;
-    }
-
-    @Override
-    public boolean isEnabled() {
-        return enabled;
-    }
-
-    @Override
-    public boolean isCheckable() {
-        return checkable;
-    }
-
-    @Override
-    public void setCheckable(boolean checkable) {
-        this.checkable = checkable;
-    }
-
-    public int getDisabledIconColorRes() {
-        return disabledIconColorRes;
-    }
-
-    public void setDisabledIconColorRes(int disabledIconColorRes) {
-        this.disabledIconColorRes = disabledIconColorRes;
-    }
-
-    public int getDisabledIconColor() {
+    public ColorHolder getDisabledIconColor() {
         return disabledIconColor;
     }
 
-    public void setDisabledIconColor(int disabledIconColor) {
-        this.disabledIconColor = disabledIconColor;
-    }
-
-    public int getSelectedIconColorRes() {
-        return selectedIconColorRes;
-    }
-
-    public void setSelectedIconColorRes(int selectedIconColorRes) {
-        this.selectedIconColorRes = selectedIconColorRes;
-    }
-
-    public int getSelectedIconColor() {
+    public ColorHolder getSelectedIconColor() {
         return selectedIconColor;
     }
 
-    public void setSelectedIconColor(int selectedIconColor) {
-        this.selectedIconColor = selectedIconColor;
-    }
-
-    public int getIconColorRes() {
-        return iconColorRes;
-    }
-
-    public void setIconColorRes(int iconColorRes) {
-        this.iconColorRes = iconColorRes;
-    }
-
-    public int getIconColor() {
+    public ColorHolder getIconColor() {
         return iconColor;
-    }
-
-    public void setIconColor(int iconColor) {
-        this.iconColor = iconColor;
     }
 
     public Typeface getTypeface() {
@@ -438,5 +244,83 @@ public abstract class BaseDrawerItem<T> implements IDrawerItem, Nameable<T>, Ico
 
     public void setTypeface(Typeface typeface) {
         this.typeface = typeface;
+    }
+
+
+    /**
+     * helper method to decide for the correct color
+     *
+     * @param ctx
+     * @return
+     */
+    protected int getSelectedColor(Context ctx) {
+        return ColorHolder.color(getSelectedColor(), ctx, R.attr.material_drawer_selected, R.color.material_drawer_selected);
+    }
+
+    /**
+     * helper method to decide for the correct color
+     *
+     * @param ctx
+     * @return
+     */
+    protected int getColor(Context ctx) {
+        int color;
+        if (this.isEnabled()) {
+            color = ColorHolder.color(getTextColor(), ctx, R.attr.material_drawer_primary_text, R.color.material_drawer_primary_text);
+        } else {
+            color = ColorHolder.color(getDisabledTextColor(), ctx, R.attr.material_drawer_hint_text, R.color.material_drawer_hint_text);
+        }
+        return color;
+    }
+
+    /**
+     * helper method to decide for the correct color
+     *
+     * @param ctx
+     * @return
+     */
+    protected int getSelectedTextColor(Context ctx) {
+        return ColorHolder.color(getSelectedTextColor(), ctx, R.attr.material_drawer_selected_text, R.color.material_drawer_selected_text);
+    }
+
+    /**
+     * helper method to decide for the correct color
+     *
+     * @param ctx
+     * @return
+     */
+    public int getIconColor(Context ctx) {
+        int iconColor;
+        if (this.isEnabled()) {
+            iconColor = ColorHolder.color(getIconColor(), ctx, R.attr.material_drawer_primary_icon, R.color.material_drawer_primary_icon);
+        } else {
+            iconColor = ColorHolder.color(getDisabledIconColor(), ctx, R.attr.material_drawer_hint_icon, R.color.material_drawer_hint_icon);
+        }
+        return iconColor;
+    }
+
+    /**
+     * helper method to decide for the correct color
+     *
+     * @param ctx
+     * @return
+     */
+    protected int getSelectedIconColor(Context ctx) {
+        return ColorHolder.color(getSelectedIconColor(), ctx, R.attr.material_drawer_selected_text, R.color.material_drawer_selected_text);
+    }
+
+    /**
+     * helper to get the ColorStateList for the text and remembering it so we do not have to recreate it all the time
+     *
+     * @param color
+     * @param selectedTextColor
+     * @return
+     */
+    protected ColorStateList getTextColorStateList(@ColorInt int color, @ColorInt int selectedTextColor) {
+        if (colorStateList == null || color + selectedTextColor != colorStateList.first) {
+            colorStateList = new Pair<>(color + selectedTextColor, DrawerUIUtils.getTextColorStateList(color, selectedTextColor));
+        }
+
+        return colorStateList.second;
     }
 }

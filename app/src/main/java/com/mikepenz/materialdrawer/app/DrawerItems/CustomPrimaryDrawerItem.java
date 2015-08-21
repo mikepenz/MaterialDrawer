@@ -1,38 +1,30 @@
 package com.mikepenz.materialdrawer.app.DrawerItems;
 
-import android.view.LayoutInflater;
-import android.view.View;
-import android.view.ViewGroup;
+import android.support.v7.widget.RecyclerView;
 
+import com.mikepenz.materialdrawer.holder.ColorHolder;
 import com.mikepenz.materialdrawer.model.PrimaryDrawerItem;
 
 public class CustomPrimaryDrawerItem extends PrimaryDrawerItem {
 
-    private int backgroundRes = -1;
-    private int backgroundColor = 0;
+    private ColorHolder background;
 
-
-    public CustomPrimaryDrawerItem withBackgroundRes(int backgroundRes) {
-        this.backgroundRes = backgroundRes;
+    public CustomPrimaryDrawerItem withBackgroundColor(int backgroundColor) {
+        this.background = ColorHolder.fromColor(backgroundColor);
         return this;
     }
 
-    public CustomPrimaryDrawerItem withBackgroundColor(int backgroundColor) {
-        this.backgroundColor = backgroundColor;
+    public CustomPrimaryDrawerItem withBackgroundRes(int backgroundRes) {
+        this.background = ColorHolder.fromColorRes(backgroundRes);
         return this;
     }
 
     @Override
-    public View convertView(LayoutInflater inflater, View convertView, ViewGroup parent) {
-        //use the logic of our PrimaryDrawerItem
-        convertView = super.convertView(inflater, convertView, parent);
+    public void bindView(RecyclerView.ViewHolder holder) {
+        super.bindView(holder);
 
-        if (backgroundColor != 0) {
-            convertView.setBackgroundColor(backgroundColor);
-        } else if (backgroundRes != -1) {
-            convertView.setBackgroundResource(backgroundRes);
+        if (background != null) {
+            background.applyToBackground(holder.itemView);
         }
-
-        return convertView;
     }
 }

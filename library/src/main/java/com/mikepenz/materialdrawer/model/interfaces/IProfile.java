@@ -4,51 +4,35 @@ import android.graphics.Bitmap;
 import android.graphics.drawable.Drawable;
 import android.net.Uri;
 
+import com.mikepenz.materialdrawer.holder.ImageHolder;
+import com.mikepenz.materialdrawer.holder.StringHolder;
+
 /**
  * Created by mikepenz on 03.02.15.
  */
 public interface IProfile<T> {
-    public T withName(String name);
+    T withName(String name);
 
-    public String getName();
+    StringHolder getName();
 
-    public void setName(String name);
+    T withEmail(String email);
 
-    public T withEmail(String email);
+    StringHolder getEmail();
 
-    public String getEmail();
+    T withIcon(Drawable icon);
 
-    public void setEmail(String email);
+    T withIcon(Bitmap bitmap);
 
-    public T withIcon(Drawable icon);
+    T withIcon(String url);
 
-    public T withIcon(Bitmap bitmap);
+    T withIcon(Uri uri);
 
-    public T withIcon(String url);
+    ImageHolder getIcon();
 
-    public T withIcon(Uri uri);
+    T withSelectable(boolean selectable);
 
-    public Drawable getIcon();
+    boolean isSelectable();
 
-    public Bitmap getIconBitmap();
-
-    public Uri getIconUri();
-
-    public void setIcon(Drawable icon);
-
-    public void setIconBitmap(Bitmap bitmap);
-
-    public void setIcon(String url);
-
-    public void setIcon(Uri uri);
-
-
-    public T withSelectable(boolean selectable);
-
-    public boolean isSelectable();
-
-    public T setSelectable(boolean selectable);
-
-    public int getIdentifier();
+    int getIdentifier();
 
 }

@@ -1,12 +1,16 @@
 package com.mikepenz.materialdrawer.model.interfaces;
 
+import com.mikepenz.materialdrawer.holder.StringHolder;
+
 /**
  * Created by mikepenz on 03.02.15.
  */
 public interface Badgeable<T> {
-    public T withBadge(String badge);
+    T withBadge(String badge);
 
-    public String getBadge();
+    T withBadge(int badgeRes);
 
-    public void setBadge(String badge);
+    T withBadge(StringHolder badgeRes);
+
+    StringHolder getBadge();
 }

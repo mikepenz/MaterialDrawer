@@ -1,18 +1,16 @@
 package com.mikepenz.materialdrawer.model.interfaces;
 
+import com.mikepenz.materialdrawer.holder.StringHolder;
+
 /**
  * Created by mikepenz on 03.02.15.
  */
 public interface Nameable<T> {
-    public T withName(String name);
+    T withName(String name);
 
-    public T withName(int nameRes);
+    T withName(int nameRes);
 
-    public String getName();
+    T withName(StringHolder name);
 
-    public int getNameRes();
-
-    public void setName(String name);
-
-    public void setNameRes(int nameRes);
+    StringHolder getName();
 }

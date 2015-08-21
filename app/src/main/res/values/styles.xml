@@ -9,7 +9,6 @@
 
         <!-- MaterialDrawer specific values -->
         <item name="material_drawer_background">@color/material_drawer_dark_background</item>
-        <item name="material_drawer_icons">@color/material_drawer_dark_icons</item>
         <item name="material_drawer_primary_text">@color/material_drawer_dark_primary_text</item>
         <item name="material_drawer_secondary_text">@color/material_drawer_dark_secondary_text
         </item>

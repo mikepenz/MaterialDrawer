@@ -1,75 +1,70 @@
 package com.mikepenz.materialdrawer.model;
 
-import android.view.LayoutInflater;
+import android.content.Context;
+import android.support.annotation.LayoutRes;
+import android.support.v7.widget.RecyclerView;
 import android.view.View;
-import android.view.ViewGroup;
 
 import com.mikepenz.materialdrawer.R;
-import com.mikepenz.materialdrawer.model.interfaces.IDrawerItem;
-import com.mikepenz.materialdrawer.util.UIUtils;
+import com.mikepenz.materialdrawer.model.utils.ViewHolderFactory;
+import com.mikepenz.materialize.util.UIUtils;
 
 /**
  * Created by mikepenz on 03.02.15.
  */
-public class DividerDrawerItem implements IDrawerItem {
-
-    public DividerDrawerItem() {
-
-    }
-
-    @Override
-    public int getIdentifier() {
-        return -1;
-    }
-
-    @Override
-    public Object getTag() {
-        return null;
-    }
-
-    @Override
-    public boolean isEnabled() {
-        return false;
-    }
-
+public class DividerDrawerItem extends AbstractDrawerItem<DividerDrawerItem> {
     @Override
     public String getType() {
         return "DIVIDER_ITEM";
     }
 
     @Override
+    @LayoutRes
     public int getLayoutRes() {
         return R.layout.material_drawer_item_divider;
     }
 
     @Override
-    public View convertView(LayoutInflater inflater, View convertView, ViewGroup parent) {
-        ViewHolder viewHolder;
-        if (convertView == null) {
-            convertView = inflater.inflate(getLayoutRes(), parent, false);
-            viewHolder = new ViewHolder(convertView);
-            convertView.setTag(viewHolder);
-        } else {
-            viewHolder = (ViewHolder) convertView.getTag();
-        }
+    public void bindView(RecyclerView.ViewHolder holder) {
+        Context ctx = holder.itemView.getContext();
 
+        //get our viewHolder
+        ViewHolder viewHolder = (ViewHolder) holder;
+
+        //set the identifier from the drawerItem here. It can be used to run tests
+        holder.itemView.setId(getIdentifier());
+
+        //define how the divider should look like
         viewHolder.view.setClickable(false);
         viewHolder.view.setEnabled(false);
         viewHolder.view.setMinimumHeight(1);
 
         //set the color for the divider
-        viewHolder.divider.setBackgroundColor(UIUtils.getThemeColorFromAttrOrRes(parent.getContext(), R.attr.material_drawer_divider, R.color.material_drawer_divider));
+        viewHolder.divider.setBackgroundColor(UIUtils.getThemeColorFromAttrOrRes(ctx, R.attr.material_drawer_divider, R.color.material_drawer_divider));
 
-        return convertView;
+        //call the onPostBindView method to trigger post bind view actions (like the listener to modify the item if required)
+        onPostBindView(this, holder.itemView);
     }
 
-    private static class ViewHolder {
+    @Override
+    public ViewHolderFactory getFactory() {
+        return new ItemFactory();
+    }
+
+    public static class ItemFactory implements ViewHolderFactory<ViewHolder> {
+        public ViewHolder factory(View v) {
+            return new ViewHolder(v);
+        }
+    }
+
+    private static class ViewHolder extends RecyclerView.ViewHolder {
         private View view;
         private View divider;
 
         private ViewHolder(View view) {
+            super(view);
             this.view = view;
-            this.divider = view.findViewById(R.id.divider);
+            this.divider = view.findViewById(R.id.material_drawer_divider);
         }
     }
 }
