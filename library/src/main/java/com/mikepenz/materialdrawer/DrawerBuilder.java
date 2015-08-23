@@ -756,16 +756,16 @@ public class DrawerBuilder {
     }
 
     // item to select
-    protected int mSelectedItem = 0;
+    protected int mSelectedItemPosition = 0;
 
     /**
      * Set this to the index of the item, you would love to select upon start
      *
-     * @param selectedItem
+     * @param selectedItemPosition
      * @return
      */
-    public DrawerBuilder withSelectedItem(int selectedItem) {
-        this.mSelectedItem = selectedItem;
+    public DrawerBuilder withSelectedItemByPosition(int selectedItemPosition) {
+        this.mSelectedItemPosition = selectedItemPosition;
         return this;
     }
 
@@ -1464,10 +1464,10 @@ public class DrawerBuilder {
         }
 
         //predefine selection (should be the first element
-        if (mHeaderView != null && mSelectedItem != -1) {
-            mSelectedItem = 1;
+        if (mHeaderView != null && mSelectedItemPosition == 0) {
+            mSelectedItemPosition = 1;
         }
-        DrawerUtils.setRecyclerViewSelection(this, mSelectedItem, false);
+        DrawerUtils.setRecyclerViewSelection(this, mSelectedItemPosition, false);
 
         // add the onDrawerItemClickListener if set
         mAdapter.setOnClickListener(new BaseDrawerAdapter.OnClickListener() {
