@@ -20,7 +20,8 @@ public class BadgeStyle {
     private ColorHolder mColorPressed;
     private ColorHolder mTextColor;
     private DimenHolder mCorners;
-    private DimenHolder mPadding = DimenHolder.fromDp(2); //2 looks best
+    private DimenHolder mPaddingTopBottom = DimenHolder.fromDp(2); //2 looks best
+    private DimenHolder mPaddingLeftRight = DimenHolder.fromDp(3); //3 looks best
     private DimenHolder mMinWidth = DimenHolder.fromDp(20); //20 looks nice
 
     public int getGradientDrawable() {
@@ -83,13 +84,38 @@ public class BadgeStyle {
         return this;
     }
 
-    public DimenHolder getPadding() {
-        return mPadding;
+    public BadgeStyle withCornersDp(int corners) {
+        this.mCorners = DimenHolder.fromDp(corners);
+        return this;
     }
 
-    public BadgeStyle withPadding(int padding) {
-        this.mPadding = DimenHolder.fromPixel(padding);
-        return this;
+    public DimenHolder getPaddingLeftRight() {
+        return mPaddingLeftRight;
+    }
+
+    public void withPaddingLeftRightPx(int paddingLeftRight) {
+        this.mPaddingLeftRight = DimenHolder.fromPixel(paddingLeftRight);
+    }
+
+    public void withPaddingLeftRightDp(int paddingLeftRight) {
+        this.mPaddingLeftRight = DimenHolder.fromDp(paddingLeftRight);
+    }
+
+    public DimenHolder getPaddingTopBottom() {
+        return mPaddingTopBottom;
+    }
+
+    public void withPaddingTopBottomPx(int paddingTopBottom) {
+        this.mPaddingTopBottom = DimenHolder.fromPixel(paddingTopBottom);
+    }
+
+    public void withPaddingTopBottomDp(int paddingTopBottom) {
+        this.mPaddingTopBottom = DimenHolder.fromDp(paddingTopBottom);
+    }
+
+    public void withPadding(int padding) {
+        this.mPaddingLeftRight = DimenHolder.fromPixel(padding);
+        this.mPaddingTopBottom = DimenHolder.fromPixel(padding);
     }
 
     public BadgeStyle() {
@@ -134,8 +160,9 @@ public class BadgeStyle {
         }
 
         //set the padding
-        int padding = mPadding.asPixel(ctx);
-        badgeTextView.setPadding(badgeTextView.getPaddingLeft() + padding, badgeTextView.getPaddingTop() + padding, badgeTextView.getPaddingRight() + padding, badgeTextView.getPaddingBottom() + padding);
+        int paddingLeftRight = mPaddingLeftRight.asPixel(ctx);
+        int paddingTopBottom = mPaddingTopBottom.asPixel(ctx);
+        badgeTextView.setPadding(paddingLeftRight, paddingTopBottom, paddingLeftRight, paddingTopBottom);
 
         //set the min width
         badgeTextView.setMinWidth(mMinWidth.asPixel(ctx));
