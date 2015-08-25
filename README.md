@@ -50,7 +50,7 @@ You can try it out here [Google Play](https://play.google.com/store/apps/details
 ##1. Provide the gradle dependency
 
 ```gradle
-compile('com.mikepenz:materialdrawer:4.0.0@aar') {
+compile('com.mikepenz:materialdrawer:4.0.1@aar') {
 	transitive = true
 }
 ```
@@ -368,6 +368,7 @@ drawerLayout.setDrawerLockMode(int lockMode); //or (int lockMode, int edgeGravit
 * [wall:splash](https://play.google.com/store/apps/details?id=com.mikepenz.unsplash)
 
 * [GitSkarios](https://play.google.com/store/apps/details?id=com.alorma.github)
+* [Screener](https://play.google.com/store/apps/details?id=de.toastcode.screener)
 * [Academic Schedule](https://play.google.com/store/apps/details?id=com.auebcsschedule.ppt)
 * [Strength](https://play.google.com/store/apps/details?id=com.e13engineering.strength)
 * [Sprit Club](https://play.google.com/store/apps/details?id=at.idev.spritpreise)
@@ -376,6 +377,7 @@ drawerLayout.setDrawerLockMode(int lockMode); //or (int lockMode, int edgeGravit
 * [Smartphone Italia](https://play.google.com/store/apps/details?id=rebus.smartphone.italia)
 * [MLManager](https://github.com/javiersantos/MLManager)
 * [Hold'Em Poker Manager](https://play.google.com/store/apps/details?id=pt.massena.holdemtracker.free)
+* [Fimpl](https://play.google.com/store/apps/details?id=com.danielZET.fimpl)
 
 
 

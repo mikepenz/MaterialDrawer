@@ -41,7 +41,7 @@ class DrawerUtils {
             v.setSelected(true);
 
             //remove the selection in the list
-            drawer.mAdapter.handleSelection(null, -1);
+            drawer.getAdapter().handleSelection(null, -1);
 
             //set currentSelection to -1 because we selected a stickyFooter element
             drawer.mCurrentSelection = -1;
@@ -228,9 +228,9 @@ class DrawerUtils {
             }
 
             if (drawer.mHeaderDivider) {
-                drawer.mAdapter.addHeaderDrawerItems(new ContainerDrawerItem().withView(drawer.mHeaderView).withViewPosition(ContainerDrawerItem.Position.TOP));
+                drawer.getAdapter().addHeaderDrawerItems(new ContainerDrawerItem().withView(drawer.mHeaderView).withViewPosition(ContainerDrawerItem.Position.TOP));
             } else {
-                drawer.mAdapter.addHeaderDrawerItems(new ContainerDrawerItem().withView(drawer.mHeaderView).withViewPosition(ContainerDrawerItem.Position.NONE));
+                drawer.getAdapter().addHeaderDrawerItems(new ContainerDrawerItem().withView(drawer.mHeaderView).withViewPosition(ContainerDrawerItem.Position.NONE));
             }
             //set the padding on the top to 0
             drawer.mRecyclerView.setPadding(drawer.mRecyclerView.getPaddingLeft(), 0, drawer.mRecyclerView.getPaddingRight(), drawer.mRecyclerView.getPaddingBottom());
@@ -317,9 +317,9 @@ class DrawerUtils {
             }
 
             if (drawer.mFooterDivider) {
-                drawer.mAdapter.addFooterDrawerItems(new ContainerDrawerItem().withView(drawer.mFooterView).withViewPosition(ContainerDrawerItem.Position.BOTTOM));
+                drawer.getAdapter().addFooterDrawerItems(new ContainerDrawerItem().withView(drawer.mFooterView).withViewPosition(ContainerDrawerItem.Position.BOTTOM));
             } else {
-                drawer.mAdapter.addFooterDrawerItems(new ContainerDrawerItem().withView(drawer.mFooterView).withViewPosition(ContainerDrawerItem.Position.NONE));
+                drawer.getAdapter().addFooterDrawerItems(new ContainerDrawerItem().withView(drawer.mFooterView).withViewPosition(ContainerDrawerItem.Position.NONE));
             }
         }
     }

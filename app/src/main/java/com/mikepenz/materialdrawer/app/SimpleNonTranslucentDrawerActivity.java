@@ -55,7 +55,7 @@ public class SimpleNonTranslucentDrawerActivity extends AppCompatActivity {
                         return false;
                     }
                 })
-                .withSelectedItem(2)
+                .withSelectedItemByPosition(2)
                 .withSavedInstance(savedInstanceState)
                 .build();
 

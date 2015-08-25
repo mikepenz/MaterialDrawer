@@ -90,6 +90,8 @@ public class ContainerDrawerItem extends AbstractDrawerItem<ContainerDrawerItem>
             layoutParams.topMargin = ctx.getResources().getDimensionPixelSize(R.dimen.material_drawer_padding);
             ((ViewGroup) viewHolder.view).addView(divider, layoutParams);
             ((ViewGroup) viewHolder.view).addView(mView);
+        } else {
+            ((ViewGroup) viewHolder.view).addView(mView);
         }
 
         //call the onPostBindView method to trigger post bind view actions (like the listener to modify the item if required)

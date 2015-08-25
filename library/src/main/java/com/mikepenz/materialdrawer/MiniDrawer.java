@@ -79,6 +79,12 @@ public class MiniDrawer {
         return mCrossFader;
     }
 
+    /**
+     * build the MiniDrawer
+     *
+     * @param ctx
+     * @return
+     */
     public View build(Context ctx) {
         mContainer = new LinearLayout(ctx);
         if (mInnerShadow) {
@@ -113,6 +119,9 @@ public class MiniDrawer {
         return mContainer;
     }
 
+    /**
+     * call this method to trigger the onProfileClick on the MiniDrawer
+     */
     public void onProfileClick() {
         //crossfade if we are cross faded
         if (mCrossFader != null) {
@@ -130,6 +139,12 @@ public class MiniDrawer {
         }
     }
 
+    /**
+     * call this method to trigger the onItemClick on the MiniDrawer
+     *
+     * @param selectedDrawerItem
+     * @return
+     */
     public boolean onItemClick(IDrawerItem selectedDrawerItem) {
         //We only need to clear if the new item is selectable
         if (selectedDrawerItem.isSelectable()) {
@@ -157,6 +172,28 @@ public class MiniDrawer {
         }
     }
 
+    /**
+     * update a MiniDrawerItem (after updating the main Drawer) via its identifier
+     *
+     * @param identifier the identifier of the item which was updated
+     */
+    public void updateItem(int identifier) {
+        if (mDrawer != null && mDrawerAdapter != null && mDrawerAdapter.getDrawerItems() != null && identifier != -1) {
+            IDrawerItem drawerItem = mDrawer.getDrawerItem(identifier);
+
+            if (drawerItem instanceof PrimaryDrawerItem) {
+                for (int i = 0; i < mDrawerAdapter.getDrawerItems().size(); i++) {
+                    if (mDrawerAdapter.getDrawerItems().get(i).getIdentifier() == drawerItem.getIdentifier()) {
+                        mDrawerAdapter.setDrawerItem(i, new MiniDrawerItem((PrimaryDrawerItem) drawerItem));
+                    }
+                }
+            }
+        }
+    }
+
+    /**
+     * creates the items for the MiniDrawer
+     */
     public void createItems() {
         mDrawerAdapter.clearDrawerItems();
 
