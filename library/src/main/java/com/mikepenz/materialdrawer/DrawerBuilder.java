@@ -57,7 +57,7 @@ public class DrawerBuilder {
     // variable to check if a builder is only used once
     protected boolean mUsed = false;
     protected int mCurrentSelection = -1;
-    protected int mCurrentFooterSelection = -1;
+    protected int mCurrentStickyFooterSelection = -1;
     protected boolean mAppended = false;
 
     // the activity to use
@@ -1476,7 +1476,7 @@ public class DrawerBuilder {
                 if (!(item != null && item instanceof Selectable && !((Selectable) item).isSelectable())) {
                     resetStickyFooterSelection();
                     mCurrentSelection = position;
-                    mCurrentFooterSelection = -1;
+                    mCurrentStickyFooterSelection = -1;
                 }
 
                 boolean consumed = false;
@@ -1510,10 +1510,10 @@ public class DrawerBuilder {
         if (mSavedInstance != null) {
             if (!mAppended) {
                 DrawerUtils.setRecyclerViewSelection(this, mSavedInstance.getInt(Drawer.BUNDLE_SELECTION, -1), false);
-                DrawerUtils.setFooterSelection(this, mSavedInstance.getInt(Drawer.BUNDLE_FOOTER_SELECTION, -1), null);
+                DrawerUtils.setStickyFooterSelection(this, mSavedInstance.getInt(Drawer.BUNDLE_FOOTER_SELECTION, -1), null);
             } else {
                 DrawerUtils.setRecyclerViewSelection(this, mSavedInstance.getInt(Drawer.BUNDLE_SELECTION_APPENDED, -1), false);
-                DrawerUtils.setFooterSelection(this, mSavedInstance.getInt(Drawer.BUNDLE_FOOTER_SELECTION_APPENDED, -1), null);
+                DrawerUtils.setStickyFooterSelection(this, mSavedInstance.getInt(Drawer.BUNDLE_FOOTER_SELECTION_APPENDED, -1), null);
             }
         }
 

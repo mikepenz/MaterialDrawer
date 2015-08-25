@@ -51,7 +51,7 @@ class DrawerUtils {
                 LinearLayout footer = (LinearLayout) drawer.mStickyFooterView;
                 for (int i = 0; i < footer.getChildCount(); i++) {
                     if (footer.getChildAt(i) == v) {
-                        drawer.mCurrentFooterSelection = i;
+                        drawer.mCurrentStickyFooterSelection = i;
                         break;
                     }
                 }
@@ -100,7 +100,7 @@ class DrawerUtils {
                 drawer.resetStickyFooterSelection();
                 drawer.mAdapter.handleSelection(null, position);
                 drawer.mCurrentSelection = position;
-                drawer.mCurrentFooterSelection = -1;
+                drawer.mCurrentStickyFooterSelection = -1;
             }
 
             if (fireOnClick && drawer.mOnDrawerItemClickListener != null) {
@@ -118,7 +118,7 @@ class DrawerUtils {
      * @param position
      * @param fireOnClick
      */
-    public static void setFooterSelection(DrawerBuilder drawer, int position, Boolean fireOnClick) {
+    public static void setStickyFooterSelection(DrawerBuilder drawer, int position, Boolean fireOnClick) {
         if (position > -1) {
             if (drawer.mStickyFooterView != null && drawer.mStickyFooterView instanceof LinearLayout) {
                 LinearLayout footer = (LinearLayout) drawer.mStickyFooterView;
@@ -156,7 +156,7 @@ class DrawerUtils {
      * @param identifier
      * @return
      */
-    public static int getFooterPositionByIdentifier(DrawerBuilder drawer, int identifier) {
+    public static int getStickyFooterPositionByIdentifier(DrawerBuilder drawer, int identifier) {
         if (identifier >= 0) {
             if (drawer.mStickyFooterView != null && drawer.mStickyFooterView instanceof LinearLayout) {
                 LinearLayout footer = (LinearLayout) drawer.mStickyFooterView;
@@ -257,7 +257,7 @@ class DrawerUtils {
                 }
             });
 
-            setFooterSelection(drawer, drawer.mCurrentFooterSelection, false);
+            setStickyFooterSelection(drawer, drawer.mCurrentStickyFooterSelection, false);
         }
     }
 
