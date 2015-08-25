@@ -769,6 +769,20 @@ public class DrawerBuilder {
         return this;
     }
 
+    // item to select
+    protected int mSelectedItemIdentifier = 0;
+
+    /**
+     * Set this to the identifier of the item, you would love to select upon start
+     *
+     * @param selectedItemIdentifier
+     * @return
+     */
+    public DrawerBuilder withSelectedItem(int selectedItemIdentifier) {
+        this.mSelectedItemIdentifier = selectedItemIdentifier;
+        return this;
+    }
+
     // an RecyclerView to use within the drawer :D
     protected RecyclerView mRecyclerView;
 
@@ -1464,6 +1478,9 @@ public class DrawerBuilder {
         }
 
         //predefine selection (should be the first element
+        if(mSelectedItemPosition == 0 && mSelectedItemIdentifier != 0) {
+            mSelectedItemPosition = DrawerUtils.getPositionByIdentifier(this, mSelectedItemIdentifier);
+        }
         if (mHeaderView != null && mSelectedItemPosition == 0) {
             mSelectedItemPosition = 1;
         }
