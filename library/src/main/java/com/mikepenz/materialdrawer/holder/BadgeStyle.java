@@ -2,6 +2,7 @@ package com.mikepenz.materialdrawer.holder;
 
 import android.content.Context;
 import android.content.res.ColorStateList;
+import android.graphics.drawable.Drawable;
 import android.support.annotation.ColorInt;
 import android.support.annotation.ColorRes;
 import android.support.annotation.DrawableRes;
@@ -16,6 +17,7 @@ import com.mikepenz.materialize.util.UIUtils;
  */
 public class BadgeStyle {
     private int mGradientDrawable = R.drawable.material_drawer_badge;
+    private Drawable mBadgeBackground;
     private ColorHolder mColor;
     private ColorHolder mColorPressed;
     private ColorHolder mTextColor;
@@ -30,6 +32,17 @@ public class BadgeStyle {
 
     public BadgeStyle withGradientDrawable(@DrawableRes int gradientDrawable) {
         this.mGradientDrawable = gradientDrawable;
+        this.mBadgeBackground = null;
+        return this;
+    }
+
+    public Drawable getBadgeBackground() {
+        return mBadgeBackground;
+    }
+
+    public BadgeStyle withBadgeBackground(Drawable badgeBackground) {
+        this.mBadgeBackground = badgeBackground;
+        this.mGradientDrawable = -1;
         return this;
     }
 
@@ -150,7 +163,11 @@ public class BadgeStyle {
     public void style(TextView badgeTextView, ColorStateList colorStateList) {
         Context ctx = badgeTextView.getContext();
         //set background for badge
-        UIUtils.setBackground(badgeTextView, new BadgeDrawableBuilder(this).build(ctx));
+        if (mBadgeBackground == null) {
+            UIUtils.setBackground(badgeTextView, new BadgeDrawableBuilder(this).build(ctx));
+        } else {
+            UIUtils.setBackground(badgeTextView, mBadgeBackground);
+        }
 
         //set the badge text color
         if (mTextColor != null) {
