@@ -1047,20 +1047,6 @@ public class DrawerBuilder {
         return this;
     }
 
-    // onDrawerItemClickListeners
-    protected Drawer.OnDrawerItemSelectedListener mOnDrawerItemSelectedListener;
-
-    /**
-     * Define a OnDrawerItemSelectedListener for this Drawer
-     *
-     * @param onDrawerItemSelectedListener
-     * @return
-     */
-    public DrawerBuilder withOnDrawerItemSelectedListener(@NonNull Drawer.OnDrawerItemSelectedListener onDrawerItemSelectedListener) {
-        this.mOnDrawerItemSelectedListener = onDrawerItemSelectedListener;
-        return this;
-    }
-
     // onDrawerListener
     protected Drawer.OnDrawerNavigationListener mOnDrawerNavigationListener;
 
@@ -1478,7 +1464,7 @@ public class DrawerBuilder {
         }
 
         //predefine selection (should be the first element
-        if(mSelectedItemPosition == 0 && mSelectedItemIdentifier != 0) {
+        if (mSelectedItemPosition == 0 && mSelectedItemIdentifier != 0) {
             mSelectedItemPosition = DrawerUtils.getPositionByIdentifier(this, mSelectedItemIdentifier);
         }
         if (mHeaderView != null && mSelectedItemPosition == 0) {
