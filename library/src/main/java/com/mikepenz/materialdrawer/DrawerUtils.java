@@ -96,7 +96,7 @@ class DrawerUtils {
     public static boolean setRecyclerViewSelection(DrawerBuilder drawer, int position, boolean fireOnClick, IDrawerItem drawerItem) {
         if (position >= -1) {
             //predefine selection (should be the first element
-            if (drawer.mAdapter != null && (position) > -1) {
+            if (drawer.mAdapter != null) {
                 drawer.resetStickyFooterSelection();
                 drawer.mAdapter.handleSelection(null, position);
                 drawer.mCurrentSelection = position;
