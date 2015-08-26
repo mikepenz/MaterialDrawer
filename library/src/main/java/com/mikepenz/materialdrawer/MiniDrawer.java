@@ -59,6 +59,14 @@ public class MiniDrawer {
         return this;
     }
 
+    private boolean mInRTL = false;
+
+    public MiniDrawer withInRTL(boolean inRTL) {
+        this.mInRTL = inRTL;
+        return this;
+    }
+
+
     public RecyclerView getRecyclerView() {
         return mRecyclerView;
     }
@@ -88,7 +96,11 @@ public class MiniDrawer {
     public View build(Context ctx) {
         mContainer = new LinearLayout(ctx);
         if (mInnerShadow) {
-            mContainer.setBackgroundResource(R.drawable.material_drawer_shadow_left);
+            if (!mInRTL) {
+                mContainer.setBackgroundResource(R.drawable.material_drawer_shadow_left);
+            } else {
+                mContainer.setBackgroundResource(R.drawable.material_drawer_shadow_right);
+            }
         }
 
         //create and append recyclerView

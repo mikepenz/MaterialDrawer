@@ -1,5 +1,6 @@
 package com.mikepenz.materialdrawer;
 
+import android.content.Context;
 import android.os.Build;
 import android.support.v4.widget.DrawerLayout;
 import android.view.Gravity;
@@ -51,7 +52,7 @@ class DrawerUtils {
                 LinearLayout footer = (LinearLayout) drawer.mStickyFooterView;
                 for (int i = 0; i < footer.getChildCount(); i++) {
                     if (footer.getChildAt(i) == v) {
-                        drawer.mCurrentFooterSelection = i;
+                        drawer.mCurrentStickyFooterSelection = i;
                         break;
                     }
                 }
@@ -96,11 +97,11 @@ class DrawerUtils {
     public static boolean setRecyclerViewSelection(DrawerBuilder drawer, int position, boolean fireOnClick, IDrawerItem drawerItem) {
         if (position >= -1) {
             //predefine selection (should be the first element
-            if (drawer.mAdapter != null && (position) > -1) {
+            if (drawer.mAdapter != null) {
                 drawer.resetStickyFooterSelection();
                 drawer.mAdapter.handleSelection(null, position);
                 drawer.mCurrentSelection = position;
-                drawer.mCurrentFooterSelection = -1;
+                drawer.mCurrentStickyFooterSelection = -1;
             }
 
             if (fireOnClick && drawer.mOnDrawerItemClickListener != null) {
@@ -118,7 +119,7 @@ class DrawerUtils {
      * @param position
      * @param fireOnClick
      */
-    public static void setFooterSelection(DrawerBuilder drawer, int position, Boolean fireOnClick) {
+    public static void setStickyFooterSelection(DrawerBuilder drawer, int position, Boolean fireOnClick) {
         if (position > -1) {
             if (drawer.mStickyFooterView != null && drawer.mStickyFooterView instanceof LinearLayout) {
                 LinearLayout footer = (LinearLayout) drawer.mStickyFooterView;
@@ -156,7 +157,7 @@ class DrawerUtils {
      * @param identifier
      * @return
      */
-    public static int getFooterPositionByIdentifier(DrawerBuilder drawer, int identifier) {
+    public static int getStickyFooterPositionByIdentifier(DrawerBuilder drawer, int identifier) {
         if (identifier >= 0) {
             if (drawer.mStickyFooterView != null && drawer.mStickyFooterView instanceof LinearLayout) {
                 LinearLayout footer = (LinearLayout) drawer.mStickyFooterView;
@@ -244,7 +245,16 @@ class DrawerUtils {
      */
     public static void rebuildStickyFooterView(final DrawerBuilder drawer) {
         if (drawer.mSliderLayout != null) {
-            if (drawer.mStickyFooterView != null && drawer.mStickyFooterView instanceof ViewGroup) {
+            if (drawer.mStickyFooterView != null) {
+                drawer.mStickyFooterView.removeAllViews();
+            } else {
+                DrawerUtils.handleFooterView(drawer, new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        IDrawerItem drawerItem = (IDrawerItem) v.getTag();
+                        DrawerUtils.onFooterDrawerItemClick(drawer, drawerItem, v, true);
+                    }
+                });
                 drawer.mStickyFooterView.removeAllViews();
             }
 
@@ -257,7 +267,7 @@ class DrawerUtils {
                 }
             });
 
-            setFooterSelection(drawer, drawer.mCurrentFooterSelection, false);
+            setStickyFooterSelection(drawer, drawer.mCurrentStickyFooterSelection, false);
         }
     }
 
@@ -267,9 +277,11 @@ class DrawerUtils {
      * @param drawer
      */
     public static void handleFooterView(DrawerBuilder drawer, View.OnClickListener onClickListener) {
+        Context ctx = drawer.mSliderLayout.getContext();
+
         //use the StickyDrawerItems if set
         if (drawer.mStickyDrawerItems != null && drawer.mStickyDrawerItems.size() > 0) {
-            drawer.mStickyFooterView = DrawerUtils.buildStickyDrawerItemFooter(drawer, onClickListener);
+            drawer.mStickyFooterView = DrawerUtils.buildStickyDrawerItemFooter(ctx, drawer, onClickListener);
         }
 
         //sticky footer view
@@ -281,7 +293,7 @@ class DrawerUtils {
             drawer.mSliderLayout.addView(drawer.mStickyFooterView, layoutParams);
 
             if ((drawer.mTranslucentNavigationBar || drawer.mFullscreen) && Build.VERSION.SDK_INT >= 19) {
-                drawer.mStickyFooterView.setPadding(0, 0, 0, UIUtils.getNavigationBarHeight(drawer.mActivity));
+                drawer.mStickyFooterView.setPadding(0, 0, 0, UIUtils.getNavigationBarHeight(ctx));
             }
 
             //now align the recyclerView above the stickyFooterView ;)
@@ -294,20 +306,20 @@ class DrawerUtils {
             //currently always use the drawable as elevation as elevation for top is not (yet?) possible
             if (Build.VERSION.SDK_INT >= 21) {
                 //set the elevation shadow
-                drawer.mStickyFooterView.setElevation(UIUtils.convertDpToPixel(8f, drawer.mActivity));
+                drawer.mStickyFooterView.setElevation(UIUtils.convertDpToPixel(8f, ctx));
             } else {
             }
             */
-            View view = new View(drawer.mActivity);
+            View view = new View(ctx);
             view.setBackgroundResource(R.drawable.material_drawer_shadow_top);
-            drawer.mSliderLayout.addView(view, RelativeLayout.LayoutParams.MATCH_PARENT, (int) UIUtils.convertDpToPixel(4, drawer.mActivity));
+            drawer.mSliderLayout.addView(view, RelativeLayout.LayoutParams.MATCH_PARENT, (int) UIUtils.convertDpToPixel(4, ctx));
             //now align the shadow below the stickyHeader ;)
             RelativeLayout.LayoutParams lps = (RelativeLayout.LayoutParams) view.getLayoutParams();
             lps.addRule(RelativeLayout.ABOVE, R.id.material_drawer_sticky_footer);
             view.setLayoutParams(lps);
 
             //remove the padding of the recyclerView again we have the footer below it
-            drawer.mRecyclerView.setPadding(drawer.mRecyclerView.getPaddingLeft(), drawer.mRecyclerView.getPaddingTop(), drawer.mRecyclerView.getPaddingRight(), drawer.mActivity.getResources().getDimensionPixelSize(R.dimen.material_drawer_padding));
+            drawer.mRecyclerView.setPadding(drawer.mRecyclerView.getPaddingLeft(), drawer.mRecyclerView.getPaddingTop(), drawer.mRecyclerView.getPaddingRight(), ctx.getResources().getDimensionPixelSize(R.dimen.material_drawer_padding));
         }
 
         // set the footer (do this before the setAdapter because some devices will crash else
@@ -330,23 +342,23 @@ class DrawerUtils {
      *
      * @return
      */
-    public static ViewGroup buildStickyDrawerItemFooter(DrawerBuilder drawer, View.OnClickListener onClickListener) {
+    public static ViewGroup buildStickyDrawerItemFooter(Context ctx, DrawerBuilder drawer, View.OnClickListener onClickListener) {
         //create the container view
-        final LinearLayout linearLayout = new LinearLayout(drawer.mActivity);
+        final LinearLayout linearLayout = new LinearLayout(ctx);
         linearLayout.setLayoutParams(new LinearLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT));
         linearLayout.setOrientation(LinearLayout.VERTICAL);
         //set the background color to the drawer background color (if it has alpha the shadow won't be visible)
-        linearLayout.setBackgroundColor(UIUtils.getThemeColorFromAttrOrRes(drawer.mActivity, R.attr.material_drawer_background, R.color.material_drawer_background));
+        linearLayout.setBackgroundColor(UIUtils.getThemeColorFromAttrOrRes(ctx, R.attr.material_drawer_background, R.color.material_drawer_background));
 
         //create the divider
         if (drawer.mStickyFooterDivider != null && drawer.mStickyFooterDivider) {
-            LinearLayout divider = new LinearLayout(drawer.mActivity);
+            LinearLayout divider = new LinearLayout(ctx);
             LinearLayout.LayoutParams dividerParams = new LinearLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT);
             //remove bottomMargin --> See inbox it also has no margin here
             //dividerParams.bottomMargin = mActivity.getResources().getDimensionPixelSize(R.dimen.material_drawer_padding);
-            divider.setMinimumHeight((int) UIUtils.convertDpToPixel(1, drawer.mActivity));
+            divider.setMinimumHeight((int) UIUtils.convertDpToPixel(1, ctx));
             divider.setOrientation(LinearLayout.VERTICAL);
-            divider.setBackgroundColor(UIUtils.getThemeColorFromAttrOrRes(drawer.mActivity, R.attr.material_drawer_divider, R.color.material_drawer_divider));
+            divider.setBackgroundColor(UIUtils.getThemeColorFromAttrOrRes(ctx, R.attr.material_drawer_divider, R.color.material_drawer_divider));
             linearLayout.addView(divider, dividerParams);
         }
 

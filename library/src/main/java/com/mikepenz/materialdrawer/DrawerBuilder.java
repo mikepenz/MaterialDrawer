@@ -57,7 +57,7 @@ public class DrawerBuilder {
     // variable to check if a builder is only used once
     protected boolean mUsed = false;
     protected int mCurrentSelection = -1;
-    protected int mCurrentFooterSelection = -1;
+    protected int mCurrentStickyFooterSelection = -1;
     protected boolean mAppended = false;
 
     // the activity to use
@@ -769,6 +769,20 @@ public class DrawerBuilder {
         return this;
     }
 
+    // item to select
+    protected int mSelectedItemIdentifier = 0;
+
+    /**
+     * Set this to the identifier of the item, you would love to select upon start
+     *
+     * @param selectedItemIdentifier
+     * @return
+     */
+    public DrawerBuilder withSelectedItem(int selectedItemIdentifier) {
+        this.mSelectedItemIdentifier = selectedItemIdentifier;
+        return this;
+    }
+
     // an RecyclerView to use within the drawer :D
     protected RecyclerView mRecyclerView;
 
@@ -1030,20 +1044,6 @@ public class DrawerBuilder {
      */
     public DrawerBuilder withOnDrawerItemLongClickListener(@NonNull Drawer.OnDrawerItemLongClickListener onDrawerItemLongClickListener) {
         this.mOnDrawerItemLongClickListener = onDrawerItemLongClickListener;
-        return this;
-    }
-
-    // onDrawerItemClickListeners
-    protected Drawer.OnDrawerItemSelectedListener mOnDrawerItemSelectedListener;
-
-    /**
-     * Define a OnDrawerItemSelectedListener for this Drawer
-     *
-     * @param onDrawerItemSelectedListener
-     * @return
-     */
-    public DrawerBuilder withOnDrawerItemSelectedListener(@NonNull Drawer.OnDrawerItemSelectedListener onDrawerItemSelectedListener) {
-        this.mOnDrawerItemSelectedListener = onDrawerItemSelectedListener;
         return this;
     }
 
@@ -1464,6 +1464,9 @@ public class DrawerBuilder {
         }
 
         //predefine selection (should be the first element
+        if (mSelectedItemPosition == 0 && mSelectedItemIdentifier != 0) {
+            mSelectedItemPosition = DrawerUtils.getPositionByIdentifier(this, mSelectedItemIdentifier);
+        }
         if (mHeaderView != null && mSelectedItemPosition == 0) {
             mSelectedItemPosition = 1;
         }
@@ -1476,7 +1479,7 @@ public class DrawerBuilder {
                 if (!(item != null && item instanceof Selectable && !((Selectable) item).isSelectable())) {
                     resetStickyFooterSelection();
                     mCurrentSelection = position;
-                    mCurrentFooterSelection = -1;
+                    mCurrentStickyFooterSelection = -1;
                 }
 
                 boolean consumed = false;
@@ -1510,10 +1513,10 @@ public class DrawerBuilder {
         if (mSavedInstance != null) {
             if (!mAppended) {
                 DrawerUtils.setRecyclerViewSelection(this, mSavedInstance.getInt(Drawer.BUNDLE_SELECTION, -1), false);
-                DrawerUtils.setFooterSelection(this, mSavedInstance.getInt(Drawer.BUNDLE_FOOTER_SELECTION, -1), null);
+                DrawerUtils.setStickyFooterSelection(this, mSavedInstance.getInt(Drawer.BUNDLE_STICKY_FOOTER_SELECTION, -1), null);
             } else {
                 DrawerUtils.setRecyclerViewSelection(this, mSavedInstance.getInt(Drawer.BUNDLE_SELECTION_APPENDED, -1), false);
-                DrawerUtils.setFooterSelection(this, mSavedInstance.getInt(Drawer.BUNDLE_FOOTER_SELECTION_APPENDED, -1), null);
+                DrawerUtils.setStickyFooterSelection(this, mSavedInstance.getInt(Drawer.BUNDLE_STICKY_FOOTER_SELECTION_APPENDED, -1), null);
             }
         }
 

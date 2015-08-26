@@ -36,8 +36,8 @@ public class Drawer {
      */
     protected static final String BUNDLE_SELECTION = "bundle_selection";
     protected static final String BUNDLE_SELECTION_APPENDED = "bundle_selection_appended";
-    protected static final String BUNDLE_FOOTER_SELECTION = "bundle_footer_selection";
-    protected static final String BUNDLE_FOOTER_SELECTION_APPENDED = "bundle_footer_selection_APPENDED";
+    protected static final String BUNDLE_STICKY_FOOTER_SELECTION = "bundle_sticky_footer_selection";
+    protected static final String BUNDLE_STICKY_FOOTER_SELECTION_APPENDED = "bundle_sticky_footer_selection_APPENDED";
 
     /**
      * Per the design guidelines, you should show the drawer on launch until the user manually
@@ -339,8 +339,8 @@ public class Drawer {
      * @param drawerItem
      * @return
      */
-    public int getFooterPosition(@NonNull IDrawerItem drawerItem) {
-        return getFooterPosition(drawerItem.getIdentifier());
+    public int getStickyFooterPosition(@NonNull IDrawerItem drawerItem) {
+        return getStickyFooterPosition(drawerItem.getIdentifier());
     }
 
     /**
@@ -349,26 +349,39 @@ public class Drawer {
      * @param identifier
      * @return
      */
-    public int getFooterPosition(int identifier) {
-        return DrawerUtils.getFooterPositionByIdentifier(mDrawerBuilder, identifier);
+    public int getStickyFooterPosition(int identifier) {
+        return DrawerUtils.getStickyFooterPositionByIdentifier(mDrawerBuilder, identifier);
     }
 
     /**
-     * get the current selection
+     * get the current position of the selected drawer element
      *
      * @return
      */
-    public int getCurrentSelection() {
+    public int getCurrentSelectedPosition() {
         return mDrawerBuilder.mCurrentSelection;
     }
 
     /**
-     * get the current footer selection
+     * get the current selected item identifier
      *
      * @return
      */
-    public int getCurrentFooterSelection() {
-        return mDrawerBuilder.mCurrentFooterSelection;
+    public int getCurrentSelection() {
+        IDrawerItem drawerItem = mDrawerBuilder.getDrawerItem(mDrawerBuilder.mCurrentSelection);
+        if (drawerItem != null) {
+            return drawerItem.getIdentifier();
+        }
+        return -1;
+    }
+
+    /**
+     * get the current position of the selected sticky footer element
+     *
+     * @return
+     */
+    public int getCurrentStickyFooterSelectedPosition() {
+        return mDrawerBuilder.mCurrentStickyFooterSelection;
     }
 
     /**
@@ -399,8 +412,8 @@ public class Drawer {
      * @param identifier
      * @param fireOnClick
      */
-    public void setFooterSelection(int identifier, boolean fireOnClick) {
-        setFooterSelectionAtPosition(getPosition(identifier), fireOnClick);
+    public void setStickyFooterSelection(int identifier, boolean fireOnClick) {
+        setStickyFooterSelectionAtPosition(getPosition(identifier), fireOnClick);
     }
 
     /**
@@ -455,8 +468,8 @@ public class Drawer {
      *
      * @param position the position to select
      */
-    public void setFooterSelectionAtPosition(int position) {
-        setFooterSelectionAtPosition(position, true);
+    public void setStickyFooterSelectionAtPosition(int position) {
+        setStickyFooterSelectionAtPosition(position, true);
     }
 
     /**
@@ -466,8 +479,8 @@ public class Drawer {
      * @param position
      * @param fireOnClick
      */
-    public void setFooterSelectionAtPosition(int position, boolean fireOnClick) {
-        DrawerUtils.setFooterSelection(mDrawerBuilder, position, fireOnClick);
+    public void setStickyFooterSelectionAtPosition(int position, boolean fireOnClick) {
+        DrawerUtils.setStickyFooterSelection(mDrawerBuilder, position, fireOnClick);
     }
 
     /**
@@ -638,7 +651,7 @@ public class Drawer {
      * @param drawerItem
      */
     public void updateStickyFooterItem(@NonNull IDrawerItem drawerItem) {
-        updateStickyFooterItemAtPosition(drawerItem, getFooterPosition(drawerItem));
+        updateStickyFooterItemAtPosition(drawerItem, getStickyFooterPosition(drawerItem));
     }
 
     /**
@@ -798,7 +811,7 @@ public class Drawer {
             //save out previous values
             originalOnDrawerItemClickListener = getOnDrawerItemClickListener();
             originalDrawerItems = getDrawerItems();
-            originalDrawerSelection = getCurrentSelection();
+            originalDrawerSelection = getCurrentSelectedPosition();
 
             //set the new items
             setOnDrawerItemClickListener(onDrawerItemClickListener);
@@ -849,10 +862,10 @@ public class Drawer {
         if (savedInstanceState != null) {
             if (!mDrawerBuilder.mAppended) {
                 savedInstanceState.putInt(BUNDLE_SELECTION, mDrawerBuilder.mCurrentSelection);
-                savedInstanceState.putInt(BUNDLE_FOOTER_SELECTION, mDrawerBuilder.mCurrentFooterSelection);
+                savedInstanceState.putInt(BUNDLE_STICKY_FOOTER_SELECTION, mDrawerBuilder.mCurrentStickyFooterSelection);
             } else {
                 savedInstanceState.putInt(BUNDLE_SELECTION_APPENDED, mDrawerBuilder.mCurrentSelection);
-                savedInstanceState.putInt(BUNDLE_FOOTER_SELECTION_APPENDED, mDrawerBuilder.mCurrentFooterSelection);
+                savedInstanceState.putInt(BUNDLE_STICKY_FOOTER_SELECTION_APPENDED, mDrawerBuilder.mCurrentStickyFooterSelection);
             }
         }
         return savedInstanceState;
