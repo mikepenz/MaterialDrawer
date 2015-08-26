@@ -1,4 +1,10 @@
 ###Upgrade Notes
+
+#### v4.0.0 -> v4.0.2
+* `getCurrentSelection()` will now return the `identifier` of the current selection or `null`
+* `getCurrentSelectedPosition()` was added
+* renamed all `*Footer*` methods to `*StickyFooter*` to prevent confusion
+
 #### < v4.0.0
 
 #####Common changes
