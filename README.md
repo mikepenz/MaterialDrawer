@@ -2,7 +2,7 @@
 
 [![Join the chat at https://gitter.im/mikepenz/MaterialDrawer](https://badges.gitter.im/Join%20Chat.svg)](https://gitter.im/mikepenz/MaterialDrawer?utm_source=badge&utm_medium=badge&utm_campaign=pr-badge&utm_content=badge)
 
-![Image](https://raw.githubusercontent.com/mikepenz/MaterialDrawer/feature/refactoring/DEV/github/banner.png)
+![Image](https://raw.githubusercontent.com/mikepenz/MaterialDrawer/develop/DEV/github/banner.png)
 
 > Does your application **contain a Drawer**? Do you want to have it **up and running in less than 5 minutes**? Do you want your drawer to follow the **Android Design Guidelines**?
 Do you have **profiles**? Do you need **flexibility**? Is Google's navigation Drawer of the **design support** not enough for you? Do you want a **simple and easy** to understand api?
@@ -36,15 +36,15 @@ There  is a Header with profiles (**AccountHeader**), a **MiniDrawer** for Table
 - sticky footer or headers
 - **absolutely NO limits**
 
-> If you upgrade from < 4.0.0 follow the [MIGRATION GUIDE](https://github.com/mikepenz/MaterialDrawer/blob/feature/refactoring/MIGRATION.md)
+> If you upgrade from < 4.0.0 follow the [MIGRATION GUIDE](https://github.com/mikepenz/MaterialDrawer/blob/develop/MIGRATION.md)
 
 #Preview
 ##Demo
 You can try it out here [Google Play](https://play.google.com/store/apps/details?id=com.mikepenz.unsplash) (wall:splash an open source application which uses this drawer implementation). Or you try the [Sample Application](https://play.google.com/store/apps/details?id=com.mikepenz.materialdrawer.app)
 
 ##Screenshots
-![Image](https://raw.githubusercontent.com/mikepenz/MaterialDrawer/feature/refactoring/DEV/github/screenshots1.jpg)
-![Image](https://raw.githubusercontent.com/mikepenz/MaterialDrawer/feature/refactoring/DEV/github/screenshots2.jpg)
+![Image](https://raw.githubusercontent.com/mikepenz/MaterialDrawer/develop/DEV/github/screenshots1.jpg)
+![Image](https://raw.githubusercontent.com/mikepenz/MaterialDrawer/develop/DEV/github/screenshots2.jpg)
 
 #Setup
 ##1. Provide the gradle dependency
