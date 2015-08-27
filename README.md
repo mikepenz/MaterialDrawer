@@ -366,7 +366,6 @@ drawerLayout.setDrawerLockMode(int lockMode); //or (int lockMode, int edgeGravit
 (feel free to send me new projects)
 
 * [wall:splash](https://play.google.com/store/apps/details?id=com.mikepenz.unsplash)
-
 * [GitSkarios](https://play.google.com/store/apps/details?id=com.alorma.github)
 * [Screener](https://play.google.com/store/apps/details?id=de.toastcode.screener)
 * [Academic Schedule](https://play.google.com/store/apps/details?id=com.auebcsschedule.ppt)
@@ -378,6 +377,7 @@ drawerLayout.setDrawerLockMode(int lockMode); //or (int lockMode, int edgeGravit
 * [MLManager](https://github.com/javiersantos/MLManager)
 * [Hold'Em Poker Manager](https://play.google.com/store/apps/details?id=pt.massena.holdemtracker.free)
 * [Fimpl](https://play.google.com/store/apps/details?id=com.danielZET.fimpl)
+* [+UEA](https://play.google.com/store/apps/details?id=br.edu.uea.app)
 
 
 
