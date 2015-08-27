@@ -394,6 +394,9 @@ class DrawerUtils {
             }
 
             container.addView(view);
+
+            //for android API 17 --> Padding not applied via xml
+            DrawerUIUtils.setDrawerVerticalPadding(view);
         }
         //and really. don't ask about this. it won't set the padding if i don't set the padding for the container
         container.setPadding(0, 0, 0, 0);
