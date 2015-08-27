@@ -8,6 +8,7 @@
 #### < v4.0.0
 
 #####Common changes
+* depends on the latest `v23` **support libraries**. Those also require you to have `compileSDKVersion 23`
 * change the `onItemClick` listener to `onItemClick(View view, int i, IDrawerItem iDrawerItem)`
 * modify the import of the `AccountHeader` and `AccountHeaderBuilder` to
 ```gradle
