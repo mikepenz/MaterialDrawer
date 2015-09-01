@@ -1,5 +1,4 @@
 <FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="@dimen/material_drawer_account_header_height_compact">
 
@@ -43,9 +42,7 @@
             android:layout_marginLeft="@dimen/material_drawer_vertical_padding"
             android:layout_marginStart="@dimen/material_drawer_vertical_padding"
             android:clickable="true"
-            android:elevation="2dp"
-            app:biv_maskDrawable="@drawable/material_drawer_circle_mask"
-            app:biv_selectorOnPress="@color/material_drawer_primary" />
+            android:elevation="2dp" />
 
         <LinearLayout
             android:id="@+id/material_drawer_account_header_text_section"
