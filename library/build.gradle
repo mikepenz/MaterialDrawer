@@ -32,5 +32,5 @@ dependencies {
 
     compile "com.mikepenz:materialize:0.2.0"
 
-    compile 'com.mikepenz:iconics-core:1.7.4@aar'
+    compile 'com.mikepenz:iconics-core:1.7.5@aar'
 }
