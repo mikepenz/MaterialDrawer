@@ -50,7 +50,7 @@ You can try it out here [Google Play](https://play.google.com/store/apps/details
 ##1. Provide the gradle dependency
 
 ```gradle
-compile('com.mikepenz:materialdrawer:4.0.3@aar') {
+compile('com.mikepenz:materialdrawer:4.0.4@aar') {
 	transitive = true
 }
 ```
@@ -378,7 +378,7 @@ drawerLayout.setDrawerLockMode(int lockMode); //or (int lockMode, int edgeGravit
 * [Hold'Em Poker Manager](https://play.google.com/store/apps/details?id=pt.massena.holdemtracker.free)
 * [Fimpl](https://play.google.com/store/apps/details?id=com.danielZET.fimpl)
 * [+UEA](https://play.google.com/store/apps/details?id=br.edu.uea.app)
-
+* [PixCell8](https://play.google.com/store/apps/details?id=com.pixcell8.prod)
 
 
 #Articles about the MaterialDrawer

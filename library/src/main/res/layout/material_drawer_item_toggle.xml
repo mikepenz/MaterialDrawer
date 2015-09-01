@@ -32,7 +32,6 @@
             android:fontFamily="sans-serif-medium"
             android:gravity="center_vertical|start"
             android:lines="1"
-            android:paddingRight="@dimen/material_drawer_item_primary_icon_padding_right"
             android:singleLine="true"
             android:textDirection="anyRtl"
             android:textSize="@dimen/material_drawer_item_primary_text"

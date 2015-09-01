@@ -20,6 +20,7 @@
 
     <declare-styleable name="BezelImageView">
         <attr name="biv_maskDrawable" format="reference" />
+        <attr name="biv_drawCircularShadow" format="boolean" />
         <attr name="biv_selectorOnPress" format="color|reference" />
     </declare-styleable>
 </resources>

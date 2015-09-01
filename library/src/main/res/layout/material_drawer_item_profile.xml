@@ -1,6 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="@dimen/material_drawer_item_profile"
@@ -26,8 +25,7 @@
             android:layout_height="@dimen/material_drawer_item_profile_icon"
             android:layout_gravity="center_vertical"
             android:clickable="false"
-            android:elevation="1dp"
-            app:biv_maskDrawable="@drawable/material_drawer_circle_mask" />
+            android:elevation="1dp" />
     </LinearLayout>
 
 
