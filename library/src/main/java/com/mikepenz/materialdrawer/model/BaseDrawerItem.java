@@ -4,6 +4,7 @@ import android.content.Context;
 import android.content.res.ColorStateList;
 import android.graphics.Typeface;
 import android.graphics.drawable.Drawable;
+import android.os.Build;
 import android.support.annotation.ColorInt;
 import android.support.annotation.ColorRes;
 import android.support.annotation.DrawableRes;
@@ -71,7 +72,14 @@ public abstract class BaseDrawerItem<T> extends AbstractDrawerItem<T> implements
 
     public T withIcon(IIcon iicon) {
         this.icon = new ImageHolder(iicon);
-        this.selectedIcon = new ImageHolder(iicon);
+        //if we are on api 21 or higher we use the IconicsDrawable for selection too and color it with the correct color
+        //else we use just the one drawable and enable tinting on press
+        if (Build.VERSION.SDK_INT >= 21) {
+            this.selectedIcon = new ImageHolder(iicon);
+        } else {
+            this.withIconTintingEnabled(true);
+        }
+
         return (T) this;
     }
 
