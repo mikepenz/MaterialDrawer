@@ -32,6 +32,7 @@
     <dimen name="material_drawer_item_primary_icon_padding_right">32dp</dimen>
     <dimen name="material_drawer_item_primary_text">14sp</dimen>
     <dimen name="material_drawer_item_primary_description">14sp</dimen>
+    <dimen name="material_drawer_item_secondary_description">12sp</dimen>
     <!-- Definition for the secondary item -->
     <dimen name="material_drawer_item_secondary">42dp</dimen>
     <dimen name="material_drawer_item_secondary_icon">56dp</dimen>
