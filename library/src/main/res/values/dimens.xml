@@ -38,6 +38,7 @@
     <dimen name="material_drawer_item_secondary_icon_padding">12dp</dimen>
     <dimen name="material_drawer_item_secondary_icon_padding_right">36dp</dimen>
     <dimen name="material_drawer_item_secondary_text">14sp</dimen>
+    <dimen name="material_drawer_item_secondary_extra_text">12sp</dimen>
     <!-- Definition for the profile item -->
     <dimen name="material_drawer_item_profile">72dp</dimen>
     <dimen name="material_drawer_item_profile_icon">40dp</dimen>
