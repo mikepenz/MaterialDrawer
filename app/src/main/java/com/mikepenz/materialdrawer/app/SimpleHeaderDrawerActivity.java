@@ -99,7 +99,6 @@ public class SimpleHeaderDrawerActivity extends AppCompatActivity {
                         return false;
                     }
                 })
-                .withDividerBelowHeader(false)
                 .withSavedInstance(savedInstanceState)
                 .build();
 
