@@ -57,7 +57,7 @@ dependencies {
     compile('com.mikepenz:aboutlibraries:5.2.1@aar') {
         transitive = true
     }
-    compile 'com.mikepenz:crossfader:1.0.3@aar'
+    compile 'com.mikepenz:crossfader:1.0.5@aar'
 
     compile 'com.mikepenz:google-material-typeface:1.2.0.1@aar'
     compile 'com.mikepenz:fontawesome-typeface:4.4.0.1@aar'
