@@ -22,7 +22,7 @@ import com.mikepenz.materialize.util.UIUtils;
 /**
  * Created by mikepenz on 03.02.15.
  */
-public class SecondaryDrawerItem extends BaseDrawerItem<SecondaryDrawerItem> implements ColorfulBadgeable<SecondaryDrawerItem> {
+public class SecondaryDrawerItem extends BaseSecondaryDrawerItem<SecondaryDrawerItem> implements ColorfulBadgeable<SecondaryDrawerItem> {
 
     private StringHolder mBadge;
     private BadgeStyle mBadgeStyle = new BadgeStyle();
@@ -126,24 +126,6 @@ public class SecondaryDrawerItem extends BaseDrawerItem<SecondaryDrawerItem> imp
 
         //call the onPostBindView method to trigger post bind view actions (like the listener to modify the item if required)
         onPostBindView(this, holder.itemView);
-    }
-
-    /**
-     * helper method to decide for the correct color
-     * OVERWRITE to get the correct secondary color
-     *
-     * @param ctx
-     * @return
-     */
-    @Override
-    protected int getColor(Context ctx) {
-        int color;
-        if (this.isEnabled()) {
-            color = ColorHolder.color(getTextColor(), ctx, R.attr.material_drawer_secondary_text, R.color.material_drawer_secondary_text);
-        } else {
-            color = ColorHolder.color(getDisabledTextColor(), ctx, R.attr.material_drawer_hint_text, R.color.material_drawer_hint_text);
-        }
-        return color;
     }
 
     @Override
