@@ -250,11 +250,6 @@ public abstract class BaseDrawerItem<T> extends AbstractDrawerItem<T> implements
         return typeface;
     }
 
-    public void setTypeface(Typeface typeface) {
-        this.typeface = typeface;
-    }
-
-
     /**
      * helper method to decide for the correct color
      *
