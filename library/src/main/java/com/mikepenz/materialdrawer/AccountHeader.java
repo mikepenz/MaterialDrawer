@@ -168,13 +168,24 @@ public class AccountHeader {
         return mAccountHeaderBuilder.mCurrentProfile;
     }
 
+
     /**
      * Helper method to update a profile using it's identifier
      *
      * @param newProfile
      */
+    public void updateProfile(@NonNull IProfile newProfile) {
+        updateProfileByIdentifier(newProfile);
+    }
+
+    /**
+     * Helper method to update a profile using it's identifier
+     *
+     * @param newProfile
+     */
+    @Deprecated
     public void updateProfileByIdentifier(@NonNull IProfile newProfile) {
-        if (mAccountHeaderBuilder.mProfiles != null && newProfile != null && newProfile.getIdentifier() >= 0) {
+        if (mAccountHeaderBuilder.mProfiles != null && newProfile.getIdentifier() >= 0) {
             int found = -1;
             for (int i = 0; i < mAccountHeaderBuilder.mProfiles.size(); i++) {
                 if (mAccountHeaderBuilder.mProfiles.get(i) instanceof Identifyable) {
@@ -201,9 +212,8 @@ public class AccountHeader {
         if (mAccountHeaderBuilder.mProfiles == null) {
             mAccountHeaderBuilder.mProfiles = new ArrayList<>();
         }
-        if (profiles != null) {
-            Collections.addAll(mAccountHeaderBuilder.mProfiles, profiles);
-        }
+
+        Collections.addAll(mAccountHeaderBuilder.mProfiles, profiles);
 
         mAccountHeaderBuilder.updateHeaderAndList();
     }
