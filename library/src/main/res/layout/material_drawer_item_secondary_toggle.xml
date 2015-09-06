@@ -3,11 +3,8 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="@dimen/material_drawer_item_secondary"
-    android:orientation="horizontal"
-    android:paddingEnd="@dimen/material_drawer_vertical_padding"
-    android:paddingLeft="@dimen/material_drawer_vertical_padding"
-    android:paddingRight="@dimen/material_drawer_vertical_padding"
-    android:paddingStart="@dimen/material_drawer_vertical_padding">
+    android:descendantFocusability="blocksDescendants"
+    android:orientation="horizontal">
 
     <ImageView
         android:id="@+id/material_drawer_icon"
@@ -63,18 +60,11 @@
         android:paddingRight="0dp"
         android:paddingStart="@dimen/material_drawer_padding">
 
-        <TextView
-            android:id="@+id/material_drawer_badge"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:fontFamily="sans-serif"
-            android:gravity="center"
-            android:lines="1"
-            android:minWidth="20dp"
-            android:paddingLeft="1dp"
-            android:paddingRight="1dp"
-            android:singleLine="true"
-            android:textSize="@dimen/material_drawer_item_secondary_text"
-            tools:text="99" />
+        <ToggleButton
+            android:id="@+id/material_drawer_toggle"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:gravity="center_vertical|end"
+            android:textSize="@dimen/material_drawer_item_secondary_extra_text" />
     </LinearLayout>
 </LinearLayout>

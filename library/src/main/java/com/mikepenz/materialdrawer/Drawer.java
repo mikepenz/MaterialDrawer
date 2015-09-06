@@ -265,8 +265,22 @@ public class Drawer {
      * @param view
      */
     public void setHeader(@NonNull View view) {
+        setHeader(view, true);
+    }
+
+    /**
+     * method to replace a previous set header
+     *
+     * @param view
+     * @param divider
+     */
+    public void setHeader(@NonNull View view, boolean divider) {
         getAdapter().clearHeaderItems();
-        getAdapter().addHeaderDrawerItems(new ContainerDrawerItem().withView(view).withViewPosition(ContainerDrawerItem.Position.TOP));
+        if (divider) {
+            getAdapter().addHeaderDrawerItems(new ContainerDrawerItem().withView(view).withViewPosition(ContainerDrawerItem.Position.TOP));
+        } else {
+            getAdapter().addHeaderDrawerItems(new ContainerDrawerItem().withView(view).withViewPosition(ContainerDrawerItem.Position.NONE));
+        }
     }
 
     /**

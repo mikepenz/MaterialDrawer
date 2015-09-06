@@ -186,6 +186,7 @@ class DrawerUtils {
                 drawer.mStickyHeaderView = drawer.mAccountHeader.getView();
             } else {
                 drawer.mHeaderView = drawer.mAccountHeader.getView();
+                drawer.mHeaderDivider = drawer.mAccountHeader.mAccountHeaderBuilder.mDividerBelowHeader;
             }
         }
 

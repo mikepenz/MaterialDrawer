@@ -43,7 +43,7 @@ public class SectionDrawerItem extends AbstractDrawerItem<SectionDrawerItem> imp
         return this;
     }
 
-    public SectionDrawerItem setDivider(boolean divider) {
+    public SectionDrawerItem withDivider(boolean divider) {
         this.divider = divider;
         return this;
     }
