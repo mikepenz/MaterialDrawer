@@ -20,7 +20,7 @@ import com.mikepenz.materialize.util.UIUtils;
 /**
  * Created by mikepenz on 03.02.15.
  */
-public abstract class BaseSecondaryDrawerItem<T> extends BaseDrawerItem<T> {
+public abstract class BasePrimaryDrawerItem<T> extends BaseDrawerItem<T> {
     private StringHolder description;
     private ColorHolder descriptionTextColor;
 
@@ -53,24 +53,6 @@ public abstract class BaseSecondaryDrawerItem<T> extends BaseDrawerItem<T> {
     }
 
     /**
-     * helper method to decide for the correct color
-     * OVERWRITE to get the correct secondary color
-     *
-     * @param ctx
-     * @return
-     */
-    @Override
-    protected int getColor(Context ctx) {
-        int color;
-        if (this.isEnabled()) {
-            color = ColorHolder.color(getTextColor(), ctx, R.attr.material_drawer_secondary_text, R.color.material_drawer_secondary_text);
-        } else {
-            color = ColorHolder.color(getDisabledTextColor(), ctx, R.attr.material_drawer_hint_text, R.color.material_drawer_hint_text);
-        }
-        return color;
-    }
-
-    /**
      * a helper method to have the logic for all secondaryDrawerItems only once
      *
      * @param viewHolder
@@ -83,6 +65,9 @@ public abstract class BaseSecondaryDrawerItem<T> extends BaseDrawerItem<T> {
 
         //set the item selected if it is
         viewHolder.itemView.setSelected(isSelected());
+
+        //
+        viewHolder.itemView.setTag(this);
 
         //get the correct color for the background
         int selectedColor = getSelectedColor(ctx);
@@ -97,15 +82,13 @@ public abstract class BaseSecondaryDrawerItem<T> extends BaseDrawerItem<T> {
         UIUtils.setBackground(viewHolder.view, DrawerUIUtils.getSelectableBackground(ctx, selectedColor));
         //set the text for the name
         StringHolder.applyTo(this.getName(), viewHolder.name);
-
         //set the text for the description or hide
         StringHolder.applyToOrHide(this.getDescription(), viewHolder.description);
 
         //set the colors for textViews
         viewHolder.name.setTextColor(getTextColorStateList(color, selectedTextColor));
-
         //set the description text color
-        ColorHolder.applyToOr(getDescriptionTextColor(), viewHolder.description, getTextColorStateList(getColor(ctx), getSelectedColor(ctx)));
+        ColorHolder.applyToOr(getDescriptionTextColor(), viewHolder.description, getTextColorStateList(color, selectedTextColor));
 
         //define the typeface for our textViews
         if (getTypeface() != null) {
@@ -126,7 +109,7 @@ public abstract class BaseSecondaryDrawerItem<T> extends BaseDrawerItem<T> {
         protected View view;
         protected ImageView icon;
         protected TextView name;
-        private TextView description;
+        protected TextView description;
 
         public BaseViewHolder(View view) {
             super(view);

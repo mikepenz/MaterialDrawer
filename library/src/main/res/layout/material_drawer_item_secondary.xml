@@ -39,6 +39,18 @@
             android:textDirection="anyRtl"
             android:textSize="@dimen/material_drawer_item_secondary_text"
             tools:text="Some secondary text" />
+
+        <TextView
+            android:id="@+id/material_drawer_description"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:fontFamily="sans-serif"
+            android:gravity="center_vertical|start"
+            android:lines="1"
+            android:singleLine="true"
+            android:textDirection="anyRtl"
+            android:textSize="@dimen/material_drawer_item_secondary_description"
+            tools:text="Some drawer text" />
     </LinearLayout>
 
     <LinearLayout
