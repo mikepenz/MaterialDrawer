@@ -77,7 +77,7 @@ public class PrimaryDrawerItem extends BasePrimaryDrawerItem<PrimaryDrawerItem> 
         boolean badgeVisible = StringHolder.applyToOrHide(mBadge, viewHolder.badge);
         //style the badge if it is visible
         if (badgeVisible) {
-            mBadgeStyle.style(viewHolder.badge, getTextColorStateList(getColor(ctx), getSelectedColor(ctx)));
+            mBadgeStyle.style(viewHolder.badge, getTextColorStateList(getColor(ctx), getSelectedTextColor(ctx)));
             viewHolder.badgeContainer.setVisibility(View.VISIBLE);
         } else {
             viewHolder.badgeContainer.setVisibility(View.GONE);
