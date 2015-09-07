@@ -1146,7 +1146,7 @@ public class DrawerBuilder {
                 .build();
 
         //handle the navigation stuff of the ActionBarDrawerToggle and the drawer in general
-        handleDrawerNavigation(mActivity);
+        handleDrawerNavigation(mActivity, false);
 
         //build the view which will be set to the drawer
         Drawer result = buildView();
@@ -1160,7 +1160,7 @@ public class DrawerBuilder {
     /**
      * handles the different logics for the Drawer Navigation Listeners / Indications (ActionBarDrawertoggle)
      */
-    protected void handleDrawerNavigation(Activity activity) {
+    protected void handleDrawerNavigation(Activity activity, boolean recreateActionBarDrawerToggle) {
         //set the navigationOnClickListener
         final View.OnClickListener toolbarNavigationListener = new View.OnClickListener() {
             @Override
@@ -1179,6 +1179,10 @@ public class DrawerBuilder {
                 }
             }
         };
+
+        if (recreateActionBarDrawerToggle) {
+            mActionBarDrawerToggle = null;
+        }
 
         // create the ActionBarDrawerToggle if not set and enabled and if we have a toolbar
         if (mActionBarDrawerToggleEnabled && mActionBarDrawerToggle == null && mToolbar != null) {
