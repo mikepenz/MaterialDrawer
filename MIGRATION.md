@@ -1,5 +1,9 @@
 ###Upgrade Notes
 
+#### v4.0.2 -> v4.0.7
+* renamed `setDivider()` to `withDivider`
+* remove `setTypeface()` use `withTypeface()` instead
+
 #### v4.0.0 -> v4.0.2
 * `getCurrentSelection()` will now return the `identifier` of the current selection or `null`
 * `getCurrentSelectedPosition()` was added
