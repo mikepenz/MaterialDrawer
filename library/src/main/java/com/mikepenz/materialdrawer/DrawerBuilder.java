@@ -15,6 +15,7 @@ import android.support.annotation.IdRes;
 import android.support.annotation.LayoutRes;
 import android.support.annotation.MenuRes;
 import android.support.annotation.NonNull;
+import android.support.v4.content.ContextCompat;
 import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
@@ -191,6 +192,19 @@ public class DrawerBuilder {
         return this;
     }
 
+    //defines if we want a inner shadow (used in with the MiniDrawer)
+    private boolean mInnerShadow = false;
+
+    /**
+     * sets if the drawer should show an inner shadow or not
+     *
+     * @param innerShadow sets wheter the drawer should display an inner shadow or not
+     * @return
+     */
+    public DrawerBuilder withInnerShadow(boolean innerShadow) {
+        this.mInnerShadow = innerShadow;
+        return this;
+    }
 
     // the toolbar of the activity
     protected Toolbar mToolbar;
@@ -1432,11 +1446,22 @@ public class DrawerBuilder {
         shadowLayoutParams.height = UIUtils.getStatusBarHeight(mActivity, true);
         statusBarShadow.setLayoutParams(shadowLayoutParams);
 
+        if (mInnerShadow) {
+            View innerShadow = mSliderLayout.findViewById(R.id.material_drawer_inner_shadow);
+            innerShadow.setVisibility(View.VISIBLE);
+            innerShadow.bringToFront();
+            if (mDrawerGravity == GravityCompat.START) {
+                innerShadow.setBackgroundResource(R.drawable.material_drawer_shadow_left);
+            } else {
+                innerShadow.setBackgroundResource(R.drawable.material_drawer_shadow_right);
+            }
+        }
+
         // set the background
         if (mSliderBackgroundColor != 0) {
             mSliderLayout.setBackgroundColor(mSliderBackgroundColor);
         } else if (mSliderBackgroundColorRes != -1) {
-            mSliderLayout.setBackgroundColor(mActivity.getResources().getColor(mSliderBackgroundColorRes));
+            mSliderLayout.setBackgroundColor(ContextCompat.getColor(mActivity, mSliderBackgroundColorRes));
         } else if (mSliderBackgroundDrawable != null) {
             UIUtils.setBackground(mSliderLayout, mSliderBackgroundDrawable);
         } else if (mSliderBackgroundDrawableRes != -1) {
