@@ -15,6 +15,7 @@ import android.support.annotation.IdRes;
 import android.support.annotation.LayoutRes;
 import android.support.annotation.MenuRes;
 import android.support.annotation.NonNull;
+import android.support.v4.content.ContextCompat;
 import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
@@ -191,6 +192,19 @@ public class DrawerBuilder {
         return this;
     }
 
+    //defines if we want a inner shadow (used in with the MiniDrawer)
+    private boolean mInnerShadow = false;
+
+    /**
+     * sets if the drawer should show an inner shadow or not
+     *
+     * @param innerShadow sets wheter the drawer should display an inner shadow or not
+     * @return
+     */
+    public DrawerBuilder withInnerShadow(boolean innerShadow) {
+        this.mInnerShadow = innerShadow;
+        return this;
+    }
 
     // the toolbar of the activity
     protected Toolbar mToolbar;
@@ -266,6 +280,27 @@ public class DrawerBuilder {
 
         return this;
     }
+
+    // set to no systemUI visible mode
+    protected boolean mSystemUIHidden = false;
+
+    /**
+     * Set to true if you use your app in complete fullscreen mode
+     * with hidden statusBar and navigationBar
+     *
+     * @param systemUIHidden
+     * @return
+     */
+    public DrawerBuilder withSystemUIHidden(boolean systemUIHidden) {
+        this.mSystemUIHidden = systemUIHidden;
+
+        if (systemUIHidden) {
+            withFullscreen(systemUIHidden);
+        }
+
+        return this;
+    }
+
 
     // a custom view to be used instead of everything else
     protected View mCustomView;
@@ -1136,6 +1171,7 @@ public class DrawerBuilder {
                 .withActivity(mActivity)
                 .withRootView(mRootView)
                 .withFullscreen(mFullscreen)
+                .withSystemUIHidden(mSystemUIHidden)
                 .withTranslucentStatusBar(mTranslucentStatusBar)
                 .withTranslucentStatusBarProgrammatically(mTranslucentStatusBarProgrammatically)
                 .withTranslucentNavigationBar(mTranslucentNavigationBar)
@@ -1146,7 +1182,7 @@ public class DrawerBuilder {
                 .build();
 
         //handle the navigation stuff of the ActionBarDrawerToggle and the drawer in general
-        handleDrawerNavigation(mActivity);
+        handleDrawerNavigation(mActivity, false);
 
         //build the view which will be set to the drawer
         Drawer result = buildView();
@@ -1160,7 +1196,7 @@ public class DrawerBuilder {
     /**
      * handles the different logics for the Drawer Navigation Listeners / Indications (ActionBarDrawertoggle)
      */
-    protected void handleDrawerNavigation(Activity activity) {
+    protected void handleDrawerNavigation(Activity activity, boolean recreateActionBarDrawerToggle) {
         //set the navigationOnClickListener
         final View.OnClickListener toolbarNavigationListener = new View.OnClickListener() {
             @Override
@@ -1179,6 +1215,10 @@ public class DrawerBuilder {
                 }
             }
         };
+
+        if (recreateActionBarDrawerToggle) {
+            mActionBarDrawerToggle = null;
+        }
 
         // create the ActionBarDrawerToggle if not set and enabled and if we have a toolbar
         if (mActionBarDrawerToggleEnabled && mActionBarDrawerToggle == null && mToolbar != null) {
@@ -1382,11 +1422,11 @@ public class DrawerBuilder {
             mRecyclerView.setLayoutManager(mLayoutManager);
 
             int paddingTop = 0;
-            if ((mTranslucentStatusBar || mFullscreen) && (mDisplayBelowStatusBar == null || !mDisplayBelowStatusBar)) {
+            if ((mTranslucentStatusBar || mFullscreen) && (mDisplayBelowStatusBar == null || !mDisplayBelowStatusBar) && !mSystemUIHidden) {
                 paddingTop = UIUtils.getStatusBarHeight(mActivity);
             }
             int paddingBottom = 0;
-            if ((mTranslucentNavigationBar || mFullscreen) && Build.VERSION.SDK_INT >= 19) {
+            if (((mTranslucentNavigationBar || mFullscreen) && Build.VERSION.SDK_INT >= 19) && !mSystemUIHidden) {
                 paddingBottom = UIUtils.getNavigationBarHeight(mActivity);
             }
 
@@ -1406,11 +1446,22 @@ public class DrawerBuilder {
         shadowLayoutParams.height = UIUtils.getStatusBarHeight(mActivity, true);
         statusBarShadow.setLayoutParams(shadowLayoutParams);
 
+        if (mInnerShadow) {
+            View innerShadow = mSliderLayout.findViewById(R.id.material_drawer_inner_shadow);
+            innerShadow.setVisibility(View.VISIBLE);
+            innerShadow.bringToFront();
+            if (mDrawerGravity == GravityCompat.START) {
+                innerShadow.setBackgroundResource(R.drawable.material_drawer_shadow_left);
+            } else {
+                innerShadow.setBackgroundResource(R.drawable.material_drawer_shadow_right);
+            }
+        }
+
         // set the background
         if (mSliderBackgroundColor != 0) {
             mSliderLayout.setBackgroundColor(mSliderBackgroundColor);
         } else if (mSliderBackgroundColorRes != -1) {
-            mSliderLayout.setBackgroundColor(mActivity.getResources().getColor(mSliderBackgroundColorRes));
+            mSliderLayout.setBackgroundColor(ContextCompat.getColor(mActivity, mSliderBackgroundColorRes));
         } else if (mSliderBackgroundDrawable != null) {
             UIUtils.setBackground(mSliderLayout, mSliderBackgroundDrawable);
         } else if (mSliderBackgroundDrawableRes != -1) {

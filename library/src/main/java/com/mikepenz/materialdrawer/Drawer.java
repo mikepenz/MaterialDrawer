@@ -73,11 +73,25 @@ public class Drawer {
      * This will handle the ActionBarDrawerToggle for you.
      * Do not set this if you are in a sub activity and want to handle the back arrow on your own
      *
-     * @param toolbar the toolbar which is used in combination with the drawer
+     * @param activity
+     * @param toolbar  the toolbar which is used in combination with the drawer
      */
     public void setToolbar(@NonNull Activity activity, @NonNull Toolbar toolbar) {
+        setToolbar(activity, toolbar, false);
+    }
+
+    /**
+     * Sets the toolbar which should be used in combination with the drawer
+     * This will handle the ActionBarDrawerToggle for you.
+     * Do not set this if you are in a sub activity and want to handle the back arrow on your own
+     *
+     * @param activity
+     * @param toolbar                       the toolbar which is used in combination with the drawer
+     * @param recreateActionBarDrawerToggle defines if the ActionBarDrawerToggle needs to be recreated with the new set Toolbar
+     */
+    public void setToolbar(@NonNull Activity activity, @NonNull Toolbar toolbar, boolean recreateActionBarDrawerToggle) {
         this.mDrawerBuilder.mToolbar = toolbar;
-        this.mDrawerBuilder.handleDrawerNavigation(activity);
+        this.mDrawerBuilder.handleDrawerNavigation(activity, recreateActionBarDrawerToggle);
     }
 
     /**
@@ -88,7 +102,7 @@ public class Drawer {
     public void setActionBarDrawerToggle(@NonNull ActionBarDrawerToggle actionBarDrawerToggle) {
         this.mDrawerBuilder.mActionBarDrawerToggleEnabled = true;
         this.mDrawerBuilder.mActionBarDrawerToggle = actionBarDrawerToggle;
-        this.mDrawerBuilder.handleDrawerNavigation(null);
+        this.mDrawerBuilder.handleDrawerNavigation(null, false);
     }
 
     /**

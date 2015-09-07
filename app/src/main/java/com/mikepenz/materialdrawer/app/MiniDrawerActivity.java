@@ -113,6 +113,7 @@ public class MiniDrawerActivity extends AppCompatActivity {
         DrawerBuilder builder = new DrawerBuilder()
                 .withActivity(this)
                 .withToolbar(toolbar)
+                .withInnerShadow(true)
                 .withTranslucentStatusBar(false)
                 .withAccountHeader(headerResult) //set the AccountHeader we created earlier for the header
                 .addDrawerItems(
