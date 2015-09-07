@@ -267,6 +267,27 @@ public class DrawerBuilder {
         return this;
     }
 
+    // set to no systemUI visible mode
+    protected boolean mSystemUIHidden = false;
+
+    /**
+     * Set to true if you use your app in complete fullscreen mode
+     * with hidden statusBar and navigationBar
+     *
+     * @param systemUIHidden
+     * @return
+     */
+    public DrawerBuilder withSystemUIHidden(boolean systemUIHidden) {
+        this.mSystemUIHidden = systemUIHidden;
+
+        if (systemUIHidden) {
+            withFullscreen(systemUIHidden);
+        }
+
+        return this;
+    }
+
+
     // a custom view to be used instead of everything else
     protected View mCustomView;
 
@@ -1136,6 +1157,7 @@ public class DrawerBuilder {
                 .withActivity(mActivity)
                 .withRootView(mRootView)
                 .withFullscreen(mFullscreen)
+                .withSystemUIHidden(mSystemUIHidden)
                 .withTranslucentStatusBar(mTranslucentStatusBar)
                 .withTranslucentStatusBarProgrammatically(mTranslucentStatusBarProgrammatically)
                 .withTranslucentNavigationBar(mTranslucentNavigationBar)
@@ -1386,11 +1408,11 @@ public class DrawerBuilder {
             mRecyclerView.setLayoutManager(mLayoutManager);
 
             int paddingTop = 0;
-            if ((mTranslucentStatusBar || mFullscreen) && (mDisplayBelowStatusBar == null || !mDisplayBelowStatusBar)) {
+            if ((mTranslucentStatusBar || mFullscreen) && (mDisplayBelowStatusBar == null || !mDisplayBelowStatusBar) && !mSystemUIHidden) {
                 paddingTop = UIUtils.getStatusBarHeight(mActivity);
             }
             int paddingBottom = 0;
-            if ((mTranslucentNavigationBar || mFullscreen) && Build.VERSION.SDK_INT >= 19) {
+            if (((mTranslucentNavigationBar || mFullscreen) && Build.VERSION.SDK_INT >= 19) && !mSystemUIHidden) {
                 paddingBottom = UIUtils.getNavigationBarHeight(mActivity);
             }
 
