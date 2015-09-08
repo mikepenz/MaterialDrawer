@@ -7,6 +7,7 @@ import android.graphics.drawable.Drawable;
 import android.net.Uri;
 import android.support.annotation.ColorInt;
 import android.support.annotation.ColorRes;
+import android.support.annotation.DrawableRes;
 import android.support.annotation.LayoutRes;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
@@ -43,6 +44,11 @@ public class ProfileDrawerItem extends AbstractDrawerItem<ProfileDrawerItem> imp
 
     public ProfileDrawerItem withIcon(Drawable icon) {
         this.icon = new ImageHolder(icon);
+        return this;
+    }
+
+    public ProfileDrawerItem withIcon(@DrawableRes int iconRes) {
+        this.icon = new ImageHolder(iconRes);
         return this;
     }
 
