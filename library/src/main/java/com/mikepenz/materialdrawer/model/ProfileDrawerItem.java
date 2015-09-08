@@ -42,16 +42,19 @@ public class ProfileDrawerItem extends AbstractDrawerItem<ProfileDrawerItem> imp
 
     protected Typeface typeface = null;
 
+    @Override
     public ProfileDrawerItem withIcon(Drawable icon) {
         this.icon = new ImageHolder(icon);
         return this;
     }
 
+    @Override
     public ProfileDrawerItem withIcon(@DrawableRes int iconRes) {
         this.icon = new ImageHolder(iconRes);
         return this;
     }
 
+    @Override
     public ProfileDrawerItem withIcon(Bitmap iconBitmap) {
         this.icon = new ImageHolder(iconBitmap);
         return this;
