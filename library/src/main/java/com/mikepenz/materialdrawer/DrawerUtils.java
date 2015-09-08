@@ -302,22 +302,16 @@ class DrawerUtils {
             layoutParamsListView.addRule(RelativeLayout.ABOVE, R.id.material_drawer_sticky_footer);
             drawer.mRecyclerView.setLayoutParams(layoutParamsListView);
 
-            //handle elevation
-            /*
-            //currently always use the drawable as elevation as elevation for top is not (yet?) possible
-            if (Build.VERSION.SDK_INT >= 21) {
-                //set the elevation shadow
-                drawer.mStickyFooterView.setElevation(UIUtils.convertDpToPixel(8f, ctx));
-            } else {
+            //handle shadow on top of the sticky footer
+            if (drawer.mStickyFooterShadow) {
+                View view = new View(ctx);
+                view.setBackgroundResource(R.drawable.material_drawer_shadow_top);
+                drawer.mSliderLayout.addView(view, RelativeLayout.LayoutParams.MATCH_PARENT, (int) UIUtils.convertDpToPixel(4, ctx));
+                //now align the shadow below the stickyHeader ;)
+                RelativeLayout.LayoutParams lps = (RelativeLayout.LayoutParams) view.getLayoutParams();
+                lps.addRule(RelativeLayout.ABOVE, R.id.material_drawer_sticky_footer);
+                view.setLayoutParams(lps);
             }
-            */
-            View view = new View(ctx);
-            view.setBackgroundResource(R.drawable.material_drawer_shadow_top);
-            drawer.mSliderLayout.addView(view, RelativeLayout.LayoutParams.MATCH_PARENT, (int) UIUtils.convertDpToPixel(4, ctx));
-            //now align the shadow below the stickyHeader ;)
-            RelativeLayout.LayoutParams lps = (RelativeLayout.LayoutParams) view.getLayoutParams();
-            lps.addRule(RelativeLayout.ABOVE, R.id.material_drawer_sticky_footer);
-            view.setLayoutParams(lps);
 
             //remove the padding of the recyclerView again we have the footer below it
             drawer.mRecyclerView.setPadding(drawer.mRecyclerView.getPaddingLeft(), drawer.mRecyclerView.getPaddingTop(), drawer.mRecyclerView.getPaddingRight(), ctx.getResources().getDimensionPixelSize(R.dimen.material_drawer_padding));
@@ -352,7 +346,7 @@ class DrawerUtils {
         linearLayout.setBackgroundColor(UIUtils.getThemeColorFromAttrOrRes(ctx, R.attr.material_drawer_background, R.color.material_drawer_background));
 
         //create the divider
-        if (drawer.mStickyFooterDivider != null && drawer.mStickyFooterDivider) {
+        if (drawer.mStickyFooterDivider) {
             LinearLayout divider = new LinearLayout(ctx);
             LinearLayout.LayoutParams dividerParams = new LinearLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT);
             //remove bottomMargin --> See inbox it also has no margin here

@@ -3,11 +3,13 @@ package com.mikepenz.materialdrawer.model;
 import android.graphics.Bitmap;
 import android.graphics.drawable.Drawable;
 import android.net.Uri;
+import android.support.annotation.DrawableRes;
 import android.support.annotation.LayoutRes;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
 import android.widget.ImageView;
 
+import com.mikepenz.iconics.typeface.IIcon;
 import com.mikepenz.materialdrawer.R;
 import com.mikepenz.materialdrawer.holder.ImageHolder;
 import com.mikepenz.materialdrawer.holder.StringHolder;
@@ -48,11 +50,19 @@ public class MiniProfileDrawerItem extends AbstractDrawerItem<MiniProfileDrawerI
         return null;
     }
 
+    @Override
     public MiniProfileDrawerItem withIcon(Drawable icon) {
         this.icon = new ImageHolder(icon);
         return this;
     }
 
+    @Override
+    public MiniProfileDrawerItem withIcon(@DrawableRes int iconRes) {
+        this.icon = new ImageHolder(iconRes);
+        return this;
+    }
+
+    @Override
     public MiniProfileDrawerItem withIcon(Bitmap iconBitmap) {
         this.icon = new ImageHolder(iconBitmap);
         return this;
@@ -67,6 +77,12 @@ public class MiniProfileDrawerItem extends AbstractDrawerItem<MiniProfileDrawerI
     @Override
     public MiniProfileDrawerItem withIcon(Uri uri) {
         this.icon = new ImageHolder(uri);
+        return this;
+    }
+
+    @Override
+    public MiniProfileDrawerItem withIcon(IIcon icon) {
+        this.icon = new ImageHolder(icon);
         return this;
     }
 

@@ -7,12 +7,14 @@ import android.graphics.drawable.Drawable;
 import android.net.Uri;
 import android.support.annotation.ColorInt;
 import android.support.annotation.ColorRes;
+import android.support.annotation.DrawableRes;
 import android.support.annotation.LayoutRes;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.mikepenz.iconics.typeface.IIcon;
 import com.mikepenz.materialdrawer.R;
 import com.mikepenz.materialdrawer.holder.ColorHolder;
 import com.mikepenz.materialdrawer.holder.ImageHolder;
@@ -41,13 +43,27 @@ public class ProfileDrawerItem extends AbstractDrawerItem<ProfileDrawerItem> imp
 
     protected Typeface typeface = null;
 
+    @Override
     public ProfileDrawerItem withIcon(Drawable icon) {
         this.icon = new ImageHolder(icon);
         return this;
     }
 
+    @Override
+    public ProfileDrawerItem withIcon(@DrawableRes int iconRes) {
+        this.icon = new ImageHolder(iconRes);
+        return this;
+    }
+
+    @Override
     public ProfileDrawerItem withIcon(Bitmap iconBitmap) {
         this.icon = new ImageHolder(iconBitmap);
+        return this;
+    }
+
+    @Override
+    public ProfileDrawerItem withIcon(IIcon icon) {
+        this.icon = new ImageHolder(icon);
         return this;
     }
 

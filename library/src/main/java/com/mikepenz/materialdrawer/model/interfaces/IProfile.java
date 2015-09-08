@@ -3,7 +3,9 @@ package com.mikepenz.materialdrawer.model.interfaces;
 import android.graphics.Bitmap;
 import android.graphics.drawable.Drawable;
 import android.net.Uri;
+import android.support.annotation.DrawableRes;
 
+import com.mikepenz.iconics.typeface.IIcon;
 import com.mikepenz.materialdrawer.holder.ImageHolder;
 import com.mikepenz.materialdrawer.holder.StringHolder;
 
@@ -23,9 +25,13 @@ public interface IProfile<T> {
 
     T withIcon(Bitmap bitmap);
 
+    T withIcon(@DrawableRes int iconRes);
+
     T withIcon(String url);
 
     T withIcon(Uri uri);
+
+    T withIcon(IIcon icon);
 
     ImageHolder getIcon();
 
