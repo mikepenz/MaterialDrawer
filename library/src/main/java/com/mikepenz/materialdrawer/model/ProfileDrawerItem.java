@@ -14,6 +14,7 @@ import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.mikepenz.iconics.typeface.IIcon;
 import com.mikepenz.materialdrawer.R;
 import com.mikepenz.materialdrawer.holder.ColorHolder;
 import com.mikepenz.materialdrawer.holder.ImageHolder;
@@ -57,6 +58,12 @@ public class ProfileDrawerItem extends AbstractDrawerItem<ProfileDrawerItem> imp
     @Override
     public ProfileDrawerItem withIcon(Bitmap iconBitmap) {
         this.icon = new ImageHolder(iconBitmap);
+        return this;
+    }
+
+    @Override
+    public ProfileDrawerItem withIcon(IIcon icon) {
+        this.icon = new ImageHolder(icon);
         return this;
     }
 

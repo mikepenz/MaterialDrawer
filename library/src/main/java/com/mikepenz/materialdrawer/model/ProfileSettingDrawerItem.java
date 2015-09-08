@@ -7,6 +7,7 @@ import android.graphics.drawable.Drawable;
 import android.net.Uri;
 import android.support.annotation.ColorInt;
 import android.support.annotation.ColorRes;
+import android.support.annotation.DrawableRes;
 import android.support.annotation.LayoutRes;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
@@ -42,16 +43,25 @@ public class ProfileSettingDrawerItem extends AbstractDrawerItem<ProfileSettingD
 
     private Typeface typeface = null;
 
+    @Override
     public ProfileSettingDrawerItem withIcon(Drawable icon) {
         this.icon = new ImageHolder(icon);
         return this;
     }
 
+    @Override
+    public ProfileSettingDrawerItem withIcon(@DrawableRes int iconRes) {
+        this.icon = new ImageHolder(iconRes);
+        return this;
+    }
+
+    @Override
     public ProfileSettingDrawerItem withIcon(Bitmap icon) {
         this.icon = new ImageHolder(icon);
         return this;
     }
 
+    @Override
     public ProfileSettingDrawerItem withIcon(IIcon iicon) {
         this.icon = new ImageHolder(iicon);
         return this;
