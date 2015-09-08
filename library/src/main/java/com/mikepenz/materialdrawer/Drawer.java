@@ -37,7 +37,9 @@ public class Drawer {
     protected static final String BUNDLE_SELECTION = "bundle_selection";
     protected static final String BUNDLE_SELECTION_APPENDED = "bundle_selection_appended";
     protected static final String BUNDLE_STICKY_FOOTER_SELECTION = "bundle_sticky_footer_selection";
-    protected static final String BUNDLE_STICKY_FOOTER_SELECTION_APPENDED = "bundle_sticky_footer_selection_APPENDED";
+    protected static final String BUNDLE_STICKY_FOOTER_SELECTION_APPENDED = "bundle_sticky_footer_selection_appended";
+    protected static final String BUNDLE_DRAWER_CONTENT_SWITCHED = "bundle_drawer_content_switched";
+    protected static final String BUNDLE_DRAWER_CONTENT_SWITCHED_APPENDED = "bundle_drawer_content_switched_appended";
 
     /**
      * Per the design guidelines, you should show the drawer on launch until the user manually
@@ -889,11 +891,13 @@ public class Drawer {
     public Bundle saveInstanceState(Bundle savedInstanceState) {
         if (savedInstanceState != null) {
             if (!mDrawerBuilder.mAppended) {
-                savedInstanceState.putInt(BUNDLE_SELECTION, mDrawerBuilder.mCurrentSelection);
+                savedInstanceState.putInt(BUNDLE_SELECTION, switchedDrawerContent() ? originalDrawerSelection : mDrawerBuilder.mCurrentSelection);
                 savedInstanceState.putInt(BUNDLE_STICKY_FOOTER_SELECTION, mDrawerBuilder.mCurrentStickyFooterSelection);
+                savedInstanceState.putBoolean(BUNDLE_DRAWER_CONTENT_SWITCHED, switchedDrawerContent());
             } else {
-                savedInstanceState.putInt(BUNDLE_SELECTION_APPENDED, mDrawerBuilder.mCurrentSelection);
+                savedInstanceState.putInt(BUNDLE_SELECTION_APPENDED, switchedDrawerContent() ? originalDrawerSelection : mDrawerBuilder.mCurrentSelection);
                 savedInstanceState.putInt(BUNDLE_STICKY_FOOTER_SELECTION_APPENDED, mDrawerBuilder.mCurrentStickyFooterSelection);
+                savedInstanceState.putBoolean(BUNDLE_DRAWER_CONTENT_SWITCHED_APPENDED, switchedDrawerContent());
             }
         }
         return savedInstanceState;

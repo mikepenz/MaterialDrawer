@@ -1340,6 +1340,11 @@ public class DrawerBuilder {
             mAccountHeader.setDrawer(result);
         }
 
+        //toggle selection list if we were previously on the account list
+        if (mSavedInstance != null && mSavedInstance.getBoolean(Drawer.BUNDLE_DRAWER_CONTENT_SWITCHED, false)) {
+            mAccountHeader.toggleSelectionList(mActivity);
+        }
+
         //handle if the drawer should be shown on first launch
         handleShowOnFirstLaunch();
 
@@ -1387,10 +1392,18 @@ public class DrawerBuilder {
         //create the content
         createContent();
 
+        //create the result object
+        Drawer appendedResult = new Drawer(this);
+
+        //toggle selection list if we were previously on the account list
+        if (mSavedInstance != null && mSavedInstance.getBoolean(Drawer.BUNDLE_DRAWER_CONTENT_SWITCHED_APPENDED, false)) {
+            mAccountHeader.toggleSelectionList(mActivity);
+        }
+
         //forget the reference to the activity
         mActivity = null;
 
-        return new Drawer(this);
+        return appendedResult;
     }
 
     /**
