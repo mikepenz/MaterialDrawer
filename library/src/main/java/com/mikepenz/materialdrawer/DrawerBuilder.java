@@ -733,7 +733,10 @@ public class DrawerBuilder {
 
     // sticky view
     protected ViewGroup mStickyFooterView;
-    protected Boolean mStickyFooterDivider = null;
+    // divider shown on top of the sticky footer
+    protected boolean mStickyFooterDivider = false;
+    // shadow shown on the top of the sticky footer
+    protected boolean mStickyFooterShadow = true;
 
     /**
      * Add a sticky footer below the DrawerBuilder ListView. This can be any view
@@ -766,13 +769,24 @@ public class DrawerBuilder {
     }
 
     /**
-     * Set this to false if you don't need the divider above the sticky footer
+     * Set this to true if you want the divider above the sticky footer
      *
      * @param stickyFooterDivider
      * @return
      */
-    public DrawerBuilder withStickyFooterDivider(Boolean stickyFooterDivider) {
+    public DrawerBuilder withStickyFooterDivider(boolean stickyFooterDivider) {
         this.mStickyFooterDivider = stickyFooterDivider;
+        return this;
+    }
+
+    /**
+     * Set this to false if you don't want the shadow on top of the sticky footer
+     *
+     * @param stickyFooterShadow
+     * @return
+     */
+    public DrawerBuilder withStickyFooterShadow(boolean stickyFooterShadow) {
+        this.mStickyFooterShadow = stickyFooterShadow;
         return this;
     }
 
