@@ -28,7 +28,7 @@ import com.mikepenz.materialdrawer.model.interfaces.IDrawerItem;
 import com.mikepenz.materialdrawer.model.interfaces.IProfile;
 import com.mikepenz.materialdrawer.util.DrawerImageLoader;
 import com.mikepenz.materialdrawer.util.DrawerUIUtils;
-import com.mikepenz.materialdrawer.view.BezelImageView;
+import com.mikepenz.materialdrawer.view.shaderimageview.ShaderImageView;
 import com.mikepenz.materialize.util.UIUtils;
 
 import java.util.ArrayList;
@@ -43,14 +43,14 @@ public class AccountHeaderBuilder {
     // global references to views we need later
     protected View mAccountHeader;
     protected ImageView mAccountHeaderBackground;
-    protected BezelImageView mCurrentProfileView;
+    protected ShaderImageView mCurrentProfileView;
     protected View mAccountHeaderTextSection;
     protected ImageView mAccountSwitcherArrow;
     protected TextView mCurrentProfileName;
     protected TextView mCurrentProfileEmail;
-    protected BezelImageView mProfileFirstView;
-    protected BezelImageView mProfileSecondView;
-    protected BezelImageView mProfileThirdView;
+    protected ShaderImageView mProfileFirstView;
+    protected ShaderImageView mProfileSecondView;
+    protected ShaderImageView mProfileThirdView;
 
     // global references to the profiles
     protected IProfile mCurrentProfile;
@@ -745,7 +745,7 @@ public class AccountHeaderBuilder {
         mAccountSwitcherArrow.setImageDrawable(new IconicsDrawable(mActivity, MaterialDrawerFont.Icon.mdf_arrow_drop_down).sizeDp(24).paddingDp(6).color(mTextColor));
 
         //get the fields for the name
-        mCurrentProfileView = (BezelImageView) mAccountHeader.findViewById(R.id.material_drawer_account_header_current);
+        mCurrentProfileView = (ShaderImageView) mAccountHeader.findViewById(R.id.material_drawer_account_header_current);
         mCurrentProfileName = (TextView) mAccountHeader.findViewById(R.id.material_drawer_account_header_name);
         mCurrentProfileEmail = (TextView) mAccountHeader.findViewById(R.id.material_drawer_account_header_email);
 
@@ -765,9 +765,9 @@ public class AccountHeaderBuilder {
         mCurrentProfileName.setTextColor(mTextColor);
         mCurrentProfileEmail.setTextColor(mTextColor);
 
-        mProfileFirstView = (BezelImageView) mAccountHeader.findViewById(R.id.material_drawer_account_header_small_first);
-        mProfileSecondView = (BezelImageView) mAccountHeader.findViewById(R.id.material_drawer_account_header_small_second);
-        mProfileThirdView = (BezelImageView) mAccountHeader.findViewById(R.id.material_drawer_account_header_small_third);
+        mProfileFirstView = (ShaderImageView) mAccountHeader.findViewById(R.id.material_drawer_account_header_small_first);
+        mProfileSecondView = (ShaderImageView) mAccountHeader.findViewById(R.id.material_drawer_account_header_small_second);
+        mProfileThirdView = (ShaderImageView) mAccountHeader.findViewById(R.id.material_drawer_account_header_small_third);
 
         //calculate the profiles to set
         calculateProfiles();
