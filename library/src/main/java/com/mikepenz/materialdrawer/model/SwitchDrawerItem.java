@@ -81,6 +81,7 @@ public class SwitchDrawerItem extends BasePrimaryDrawerItem<SwitchDrawerItem> {
             });
         }
 
+        viewHolder.switchView.setOnCheckedChangeListener(null);
         viewHolder.switchView.setChecked(checked);
         viewHolder.switchView.setOnCheckedChangeListener(checkedChangeListener);
         viewHolder.switchView.setEnabled(switchEnabled);

@@ -124,6 +124,7 @@ public class SecondaryToggleDrawerItem extends BaseSecondaryDrawerItem<Secondary
             });
         }
 
+        viewHolder.toggle.setOnCheckedChangeListener(null);
         viewHolder.toggle.setChecked(checked);
         viewHolder.toggle.setOnCheckedChangeListener(checkedChangeListener);
         viewHolder.toggle.setEnabled(toggleEnabled);

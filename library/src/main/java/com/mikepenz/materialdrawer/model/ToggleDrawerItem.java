@@ -88,6 +88,7 @@ public class ToggleDrawerItem extends BasePrimaryDrawerItem<ToggleDrawerItem> {
             });
         }
 
+        viewHolder.toggle.setOnCheckedChangeListener(null);
         viewHolder.toggle.setChecked(checked);
         viewHolder.toggle.setOnCheckedChangeListener(checkedChangeListener);
         viewHolder.toggle.setEnabled(toggleEnabled);
