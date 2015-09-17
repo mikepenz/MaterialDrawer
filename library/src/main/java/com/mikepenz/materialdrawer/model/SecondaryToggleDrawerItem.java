@@ -1,17 +1,12 @@
 package com.mikepenz.materialdrawer.model;
 
-import android.support.annotation.ColorInt;
-import android.support.annotation.ColorRes;
 import android.support.annotation.LayoutRes;
-import android.support.annotation.StringRes;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
 import android.widget.CompoundButton;
 import android.widget.ToggleButton;
 
 import com.mikepenz.materialdrawer.R;
-import com.mikepenz.materialdrawer.holder.ColorHolder;
-import com.mikepenz.materialdrawer.holder.StringHolder;
 import com.mikepenz.materialdrawer.interfaces.OnCheckedChangeListener;
 import com.mikepenz.materialdrawer.model.utils.ViewHolderFactory;
 
@@ -19,33 +14,10 @@ import com.mikepenz.materialdrawer.model.utils.ViewHolderFactory;
  * Created by mikepenz on 03.02.15.
  */
 public class SecondaryToggleDrawerItem extends BaseSecondaryDrawerItem<SecondaryToggleDrawerItem> {
-    private StringHolder description;
-    private ColorHolder descriptionTextColor;
-
     private boolean toggleEnabled = true;
 
     private boolean checked = false;
     private OnCheckedChangeListener onCheckedChangeListener = null;
-
-    public SecondaryToggleDrawerItem withDescription(String description) {
-        this.description = new StringHolder(description);
-        return this;
-    }
-
-    public SecondaryToggleDrawerItem withDescription(@StringRes int descriptionRes) {
-        this.description = new StringHolder(descriptionRes);
-        return this;
-    }
-
-    public SecondaryToggleDrawerItem withDescriptionTextColor(@ColorInt int color) {
-        this.descriptionTextColor = ColorHolder.fromColor(color);
-        return this;
-    }
-
-    public SecondaryToggleDrawerItem withDescriptionTextColorRes(@ColorRes int colorRes) {
-        this.descriptionTextColor = ColorHolder.fromColorRes(colorRes);
-        return this;
-    }
 
     public SecondaryToggleDrawerItem withChecked(boolean checked) {
         this.checked = checked;
@@ -60,14 +32,6 @@ public class SecondaryToggleDrawerItem extends BaseSecondaryDrawerItem<Secondary
     public SecondaryToggleDrawerItem withOnCheckedChangeListener(OnCheckedChangeListener onCheckedChangeListener) {
         this.onCheckedChangeListener = onCheckedChangeListener;
         return this;
-    }
-
-    public StringHolder getDescription() {
-        return description;
-    }
-
-    public ColorHolder getDescriptionTextColor() {
-        return descriptionTextColor;
     }
 
     public boolean isChecked() {
