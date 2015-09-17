@@ -988,6 +988,8 @@ public class AccountHeaderBuilder {
                     mCurrentProfileView.disableTouchFeedback(true);
                 }
                 mCurrentProfileView.setVisibility(View.VISIBLE);
+
+                mCurrentProfileView.invalidate();
             } else if (mCompactStyle) {
                 mCurrentProfileView.setVisibility(View.GONE);
             }
@@ -1010,6 +1012,7 @@ public class AccountHeaderBuilder {
                     mProfileFirstView.disableTouchFeedback(true);
                 }
                 mProfileFirstView.setVisibility(View.VISIBLE);
+                mProfileFirstView.invalidate();
             }
             if (mProfileSecond != null && mProfileImagesVisible && !mOnlyMainProfileImageVisible) {
                 setImageOrPlaceholder(mProfileSecondView, mProfileSecond.getIcon());
@@ -1021,6 +1024,7 @@ public class AccountHeaderBuilder {
                     mProfileSecondView.disableTouchFeedback(true);
                 }
                 mProfileSecondView.setVisibility(View.VISIBLE);
+                mProfileSecondView.invalidate();
             }
             if (mProfileThird != null && mThreeSmallProfileImages && mProfileImagesVisible && !mOnlyMainProfileImageVisible) {
                 setImageOrPlaceholder(mProfileThirdView, mProfileThird.getIcon());
@@ -1032,6 +1036,7 @@ public class AccountHeaderBuilder {
                     mProfileThirdView.disableTouchFeedback(true);
                 }
                 mProfileThirdView.setVisibility(View.VISIBLE);
+                mProfileThirdView.invalidate();
             }
         } else if (mProfiles != null && mProfiles.size() > 0) {
             IProfile profile = mProfiles.get(0);

@@ -248,7 +248,19 @@ class DrawerUtils {
         if (drawer.mSliderLayout != null) {
             if (drawer.mStickyFooterView != null) {
                 drawer.mStickyFooterView.removeAllViews();
+
+                //fill the footer with items
+                com.mikepenz.materialdrawer.DrawerUtils.fillStickyDrawerItemFooter(drawer, drawer.mStickyFooterView, new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        IDrawerItem drawerItem = (IDrawerItem) v.getTag();
+                        com.mikepenz.materialdrawer.DrawerUtils.onFooterDrawerItemClick(drawer, drawerItem, v, true);
+                    }
+                });
+
+                drawer.mStickyFooterView.setVisibility(View.VISIBLE);
             } else {
+                //there was no footer yet. now just create one
                 DrawerUtils.handleFooterView(drawer, new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
@@ -256,17 +268,7 @@ class DrawerUtils {
                         DrawerUtils.onFooterDrawerItemClick(drawer, drawerItem, v, true);
                     }
                 });
-                drawer.mStickyFooterView.removeAllViews();
             }
-
-            //handle the footer
-            com.mikepenz.materialdrawer.DrawerUtils.fillStickyDrawerItemFooter(drawer, drawer.mStickyFooterView, new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    IDrawerItem drawerItem = (IDrawerItem) v.getTag();
-                    com.mikepenz.materialdrawer.DrawerUtils.onFooterDrawerItemClick(drawer, drawerItem, v, true);
-                }
-            });
 
             setStickyFooterSelection(drawer, drawer.mCurrentStickyFooterSelection, false);
         }
