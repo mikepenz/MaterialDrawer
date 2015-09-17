@@ -6,8 +6,10 @@ import android.view.View;
 import android.widget.CompoundButton;
 import android.widget.ToggleButton;
 
+import com.mikepenz.materialdrawer.Drawer;
 import com.mikepenz.materialdrawer.R;
 import com.mikepenz.materialdrawer.interfaces.OnCheckedChangeListener;
+import com.mikepenz.materialdrawer.model.interfaces.IDrawerItem;
 import com.mikepenz.materialdrawer.model.utils.ViewHolderFactory;
 
 /**
@@ -77,21 +79,24 @@ public class ToggleDrawerItem extends BasePrimaryDrawerItem<ToggleDrawerItem> {
         //bind the basic view parts
         bindViewHelper((BaseViewHolder) holder);
 
-        if (!isSelectable()) {
-            viewHolder.view.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    if (toggleEnabled) {
-                        viewHolder.toggle.setChecked(!viewHolder.toggle.isChecked());
-                    }
-                }
-            });
-        }
-
+        //handle the toggle
         viewHolder.toggle.setOnCheckedChangeListener(null);
         viewHolder.toggle.setChecked(checked);
         viewHolder.toggle.setOnCheckedChangeListener(checkedChangeListener);
         viewHolder.toggle.setEnabled(toggleEnabled);
+
+        //add a onDrawerItemClickListener here to be able to check / uncheck if the drawerItem can't be selected
+        withOnDrawerItemClickListener(new Drawer.OnDrawerItemClickListener() {
+            @Override
+            public boolean onItemClick(View view, int position, IDrawerItem drawerItem) {
+                if (!isSelectable()) {
+                    checked = !checked;
+                    viewHolder.toggle.setChecked(checked);
+                }
+
+                return false;
+            }
+        });
 
         //call the onPostBindView method to trigger post bind view actions (like the listener to modify the item if required)
         onPostBindView(this, holder.itemView);
@@ -120,10 +125,15 @@ public class ToggleDrawerItem extends BasePrimaryDrawerItem<ToggleDrawerItem> {
     private CompoundButton.OnCheckedChangeListener checkedChangeListener = new CompoundButton.OnCheckedChangeListener() {
         @Override
         public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
-            checked = isChecked;
-
-            if (getOnCheckedChangeListener() != null) {
-                getOnCheckedChangeListener().onCheckedChanged(ToggleDrawerItem.this, buttonView, isChecked);
+            if (isEnabled()) {
+                checked = isChecked;
+                if (getOnCheckedChangeListener() != null) {
+                    getOnCheckedChangeListener().onCheckedChanged(ToggleDrawerItem.this, buttonView, isChecked);
+                }
+            } else {
+                buttonView.setOnCheckedChangeListener(null);
+                buttonView.setChecked(!isChecked);
+                buttonView.setOnCheckedChangeListener(checkedChangeListener);
             }
         }
     };

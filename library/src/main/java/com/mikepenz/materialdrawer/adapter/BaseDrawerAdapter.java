@@ -4,6 +4,7 @@ import android.support.v7.widget.RecyclerView;
 import android.view.View;
 import android.view.ViewGroup;
 
+import com.mikepenz.materialdrawer.model.AbstractDrawerItem;
 import com.mikepenz.materialdrawer.model.interfaces.IDrawerItem;
 import com.mikepenz.materialdrawer.model.interfaces.Selectable;
 
@@ -195,6 +196,14 @@ public abstract class BaseDrawerAdapter extends RecyclerView.Adapter<RecyclerVie
 
                         if (mOnClickListener != null) {
                             mOnClickListener.onClick(v, pos, drawerItem);
+                        }
+
+                        //if this is an abstractDrawerItem and it has an onDrawerItemClickListener call it
+                        if (drawerItem instanceof AbstractDrawerItem) {
+                            AbstractDrawerItem adi = (AbstractDrawerItem) drawerItem;
+                            if (adi.getOnDrawerItemClickListener() != null) {
+                                adi.getOnDrawerItemClickListener().onItemClick(v, pos, drawerItem);
+                            }
                         }
                     }
                 }

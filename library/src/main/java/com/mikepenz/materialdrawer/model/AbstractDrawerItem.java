@@ -6,6 +6,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import com.mikepenz.materialdrawer.Drawer;
 import com.mikepenz.materialdrawer.model.interfaces.IDrawerItem;
 import com.mikepenz.materialdrawer.model.interfaces.Identifyable;
 import com.mikepenz.materialdrawer.model.interfaces.OnPostBindViewListener;
@@ -79,12 +80,37 @@ public abstract class AbstractDrawerItem<T> implements IDrawerItem<T>, Identifya
         return mSelectable;
     }
 
+    public Drawer.OnDrawerItemClickListener mOnDrawerItemClickListener = null;
+
+    public Drawer.OnDrawerItemClickListener getOnDrawerItemClickListener() {
+        return mOnDrawerItemClickListener;
+    }
+
+    /**
+     * this listener is called when an item is clicked in the drawer.
+     * WARNING: don't overwrite this in the Switch / Toggle drawerItems if you want the toggle / switch to be selected
+     * if the item is clicked and the item is not selectable.
+     *
+     * @param onDrawerItemClickListener
+     * @return
+     */
+    public T withOnDrawerItemClickListener(Drawer.OnDrawerItemClickListener onDrawerItemClickListener) {
+        this.mOnDrawerItemClickListener = onDrawerItemClickListener;
+        return (T) this;
+    }
+
     protected OnPostBindViewListener mOnPostBindViewListener = null;
 
     public OnPostBindViewListener getOnPostBindViewListener() {
         return mOnPostBindViewListener;
     }
 
+    /**
+     * add this listener and hook in if you want to modify a drawerItems view without creating a custom drawer item
+     *
+     * @param onPostBindViewListener
+     * @return
+     */
     public T withPostOnBindViewListener(OnPostBindViewListener onPostBindViewListener) {
         this.mOnPostBindViewListener = onPostBindViewListener;
         return (T) this;
