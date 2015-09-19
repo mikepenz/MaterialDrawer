@@ -280,6 +280,15 @@ public abstract class BaseDrawerAdapter extends RecyclerView.Adapter<RecyclerVie
     }
 
     @Override
+    public long getItemId(int position) {
+        IDrawerItem item = getItem(position);
+        if (item != null && item.getIdentifier() != -1) {
+            return item.getIdentifier();
+        }
+        return super.getItemId(position);
+    }
+
+    @Override
     public int getItemCount() {
         int itemCount = 0;
 
