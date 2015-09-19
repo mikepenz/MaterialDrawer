@@ -872,7 +872,7 @@ public class DrawerBuilder {
     protected BaseDrawerAdapter getAdapter() {
         if (mAdapter == null) {
             mAdapter = new DrawerAdapter();
-            mAdapter.setHasStableIds(true);
+            //mAdapter.setHasStableIds(true);
         }
         return mAdapter;
     }
