@@ -1,5 +1,8 @@
 ###Upgrade Notes
 
+#### v4.2.0
+* it is now not necessary anymore to define an identifier for the items, they get one automatically. if you do not have logics which require you to do so, you are safe to forget about the identifier now.
+
 #### v4.0.2 -> v4.0.7
 * renamed `setDivider()` to `withDivider`
 * remove `setTypeface()` use `withTypeface()` instead

@@ -12,7 +12,7 @@ import com.mikepenz.materialdrawer.holder.StringHolder;
 /**
  * Created by mikepenz on 03.02.15.
  */
-public interface IProfile<T> {
+public interface IProfile<T> extends Identifyable<T> {
     T withName(String name);
 
     StringHolder getName();
@@ -38,7 +38,4 @@ public interface IProfile<T> {
     T withSelectable(boolean selectable);
 
     boolean isSelectable();
-
-    int getIdentifier();
-
 }

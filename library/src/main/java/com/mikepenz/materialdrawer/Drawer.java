@@ -21,6 +21,7 @@ import com.mikepenz.materialdrawer.model.interfaces.Badgeable;
 import com.mikepenz.materialdrawer.model.interfaces.IDrawerItem;
 import com.mikepenz.materialdrawer.model.interfaces.Iconable;
 import com.mikepenz.materialdrawer.model.interfaces.Nameable;
+import com.mikepenz.materialdrawer.util.IdDistributor;
 import com.mikepenz.materialdrawer.util.KeyboardUtil;
 import com.mikepenz.materialize.Materialize;
 import com.mikepenz.materialize.view.IScrimInsetsLayout;
@@ -589,7 +590,7 @@ public class Drawer {
      * @param drawerItem
      */
     public void addItem(@NonNull IDrawerItem drawerItem) {
-        mDrawerBuilder.getAdapter().addDrawerItem(drawerItem);
+        mDrawerBuilder.getAdapter().addDrawerItem(IdDistributor.checkId(drawerItem));
     }
 
     /**
@@ -599,7 +600,7 @@ public class Drawer {
      * @param position
      */
     public void addItemAtPosition(@NonNull IDrawerItem drawerItem, int position) {
-        mDrawerBuilder.getAdapter().addDrawerItem(position, drawerItem);
+        mDrawerBuilder.getAdapter().addDrawerItem(position, IdDistributor.checkId(drawerItem));
     }
 
     /**
@@ -609,7 +610,7 @@ public class Drawer {
      * @param position
      */
     public void setItemAtPosition(@NonNull IDrawerItem drawerItem, int position) {
-        mDrawerBuilder.getAdapter().addDrawerItem(position, drawerItem);
+        mDrawerBuilder.getAdapter().addDrawerItem(position, IdDistributor.checkId(drawerItem));
     }
 
     /**
@@ -648,7 +649,7 @@ public class Drawer {
      * @param drawerItems
      */
     public void addItems(@NonNull IDrawerItem... drawerItems) {
-        mDrawerBuilder.getAdapter().addDrawerItems(drawerItems);
+        mDrawerBuilder.getAdapter().addDrawerItems(IdDistributor.checkIds(drawerItems));
     }
 
     /**
@@ -657,7 +658,7 @@ public class Drawer {
      * @param drawerItems
      */
     public void setItems(@NonNull ArrayList<IDrawerItem> drawerItems) {
-        setItems(drawerItems, false);
+        setItems(IdDistributor.checkIds(drawerItems), false);
     }
 
     /**
@@ -711,7 +712,7 @@ public class Drawer {
         if (mDrawerBuilder.mStickyDrawerItems == null) {
             mDrawerBuilder.mStickyDrawerItems = new ArrayList<>();
         }
-        mDrawerBuilder.mStickyDrawerItems.add(drawerItem);
+        mDrawerBuilder.mStickyDrawerItems.add(IdDistributor.checkId(drawerItem));
 
         DrawerUtils.rebuildStickyFooterView(mDrawerBuilder);
     }
@@ -726,7 +727,7 @@ public class Drawer {
         if (mDrawerBuilder.mStickyDrawerItems == null) {
             mDrawerBuilder.mStickyDrawerItems = new ArrayList<>();
         }
-        mDrawerBuilder.mStickyDrawerItems.add(position, drawerItem);
+        mDrawerBuilder.mStickyDrawerItems.add(position, IdDistributor.checkId(drawerItem));
 
         DrawerUtils.rebuildStickyFooterView(mDrawerBuilder);
     }
@@ -739,7 +740,7 @@ public class Drawer {
      */
     public void setStickyFooterItemAtPosition(@NonNull IDrawerItem drawerItem, int position) {
         if (mDrawerBuilder.mStickyDrawerItems != null && mDrawerBuilder.mStickyDrawerItems.size() > position) {
-            mDrawerBuilder.mStickyDrawerItems.set(position, drawerItem);
+            mDrawerBuilder.mStickyDrawerItems.set(position, IdDistributor.checkId(drawerItem));
         }
 
         DrawerUtils.rebuildStickyFooterView(mDrawerBuilder);

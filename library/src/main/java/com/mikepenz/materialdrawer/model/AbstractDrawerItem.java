@@ -8,7 +8,6 @@ import android.view.ViewGroup;
 
 import com.mikepenz.materialdrawer.Drawer;
 import com.mikepenz.materialdrawer.model.interfaces.IDrawerItem;
-import com.mikepenz.materialdrawer.model.interfaces.Identifyable;
 import com.mikepenz.materialdrawer.model.interfaces.OnPostBindViewListener;
 import com.mikepenz.materialdrawer.model.interfaces.Selectable;
 import com.mikepenz.materialdrawer.model.interfaces.Tagable;
@@ -17,7 +16,7 @@ import com.mikepenz.materialdrawer.model.utils.ViewHolderFactory;
 /**
  * Created by mikepenz on 14.07.15.
  */
-public abstract class AbstractDrawerItem<T> implements IDrawerItem<T>, Identifyable<T>, Selectable<T>, Tagable<T> {
+public abstract class AbstractDrawerItem<T> implements IDrawerItem<T>, Selectable<T>, Tagable<T> {
     protected int mIdentifier = -1;
 
     public T withIdentifier(int identifier) {
