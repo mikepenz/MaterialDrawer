@@ -7,6 +7,7 @@ import android.view.ViewGroup;
 import com.mikepenz.materialdrawer.model.AbstractDrawerItem;
 import com.mikepenz.materialdrawer.model.interfaces.IDrawerItem;
 import com.mikepenz.materialdrawer.model.interfaces.Selectable;
+import com.mikepenz.materialdrawer.util.RecyclerViewCacheUtil;
 
 import java.util.ArrayList;
 import java.util.Collections;
@@ -171,7 +172,13 @@ public abstract class BaseDrawerAdapter extends RecyclerView.Adapter<RecyclerVie
 
     @Override
     public RecyclerView.ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
-        return mTypeInstances.get(mTypeIds.get(viewType)).getViewHolder(parent);
+        //first check if we (probably) have this item in the cache
+        RecyclerView.ViewHolder vh = RecyclerViewCacheUtil.getInstance().obtain(mTypeIds.get(viewType));
+        if (vh == null) {
+            return mTypeInstances.get(mTypeIds.get(viewType)).getViewHolder(parent);
+        } else {
+            return vh;
+        }
     }
 
     @Override

@@ -7,6 +7,7 @@ import android.graphics.drawable.GradientDrawable;
 import android.support.annotation.AttrRes;
 import android.support.annotation.ColorInt;
 import android.support.annotation.ColorRes;
+import android.support.v4.content.ContextCompat;
 import android.view.View;
 import android.widget.TextView;
 
@@ -110,10 +111,24 @@ public class ColorHolder {
      * @return
      */
     public int color(Context ctx, @AttrRes int colorStyle, @ColorRes int colorDefaultRes) {
+        //get the color from the holder else from the theme
+        int color = color(ctx);
+        if (color == 0) {
+            return UIUtils.getThemeColorFromAttrOrRes(ctx, colorStyle, colorDefaultRes);
+        } else {
+            return color;
+        }
+    }
+
+    /**
+     * a small helper to get the color from the colorHolder
+     *
+     * @param ctx
+     * @return
+     */
+    public int color(Context ctx) {
         if (mColorInt == 0 && mColorRes != -1) {
-            mColorInt = ctx.getResources().getColor(mColorRes);
-        } else if (mColorInt == 0) {
-            mColorInt = UIUtils.getThemeColorFromAttrOrRes(ctx, colorStyle, colorDefaultRes);
+            mColorInt = ContextCompat.getColor(ctx, mColorRes);
         }
         return mColorInt;
     }
@@ -132,6 +147,21 @@ public class ColorHolder {
             return UIUtils.getThemeColorFromAttrOrRes(ctx, colorStyle, colorDefault);
         } else {
             return colorHolder.color(ctx, colorStyle, colorDefault);
+        }
+    }
+
+    /**
+     * a small static helper class to get the color from the colorHolder
+     *
+     * @param colorHolder
+     * @param ctx
+     * @return
+     */
+    public static int color(ColorHolder colorHolder, Context ctx) {
+        if (colorHolder == null) {
+            return 0;
+        } else {
+            return colorHolder.color(ctx);
         }
     }
 

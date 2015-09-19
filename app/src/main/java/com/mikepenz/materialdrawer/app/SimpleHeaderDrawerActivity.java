@@ -35,6 +35,7 @@ import com.mikepenz.materialdrawer.model.ToggleDrawerItem;
 import com.mikepenz.materialdrawer.model.interfaces.IDrawerItem;
 import com.mikepenz.materialdrawer.model.interfaces.IProfile;
 import com.mikepenz.materialdrawer.model.interfaces.Nameable;
+import com.mikepenz.materialdrawer.util.RecyclerViewCacheUtil;
 import com.mikepenz.octicons_typeface_library.Octicons;
 
 public class SimpleHeaderDrawerActivity extends AppCompatActivity {
@@ -182,6 +183,11 @@ public class SimpleHeaderDrawerActivity extends AppCompatActivity {
                 .withSavedInstance(savedInstanceState)
                 .withShowDrawerOnFirstLaunch(true)
                 .build();
+
+        //if you have many different types of DrawerItems you can magically pre-cache those items to get a better scroll performance
+        RecyclerViewCacheUtil.getInstance()
+                .withCacheSize(2)
+                .init(result);
 
         //only set the active selection or active profile if we do not recreate the activity
         if (savedInstanceState == null) {

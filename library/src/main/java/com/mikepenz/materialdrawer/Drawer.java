@@ -531,8 +531,9 @@ public class Drawer {
      * @param badge
      */
     public void updateBadge(int identifier, StringHolder badge) {
-        Badgeable badgeable = ((Badgeable) getDrawerItem(identifier));
-        if (badgeable != null) {
+        IDrawerItem drawerItem = getDrawerItem(identifier);
+        if (drawerItem instanceof Badgeable) {
+            Badgeable badgeable = (Badgeable) drawerItem;
             badgeable.withBadge(badge);
             updateItem((IDrawerItem) badgeable);
         }
@@ -546,8 +547,9 @@ public class Drawer {
      * @param name
      */
     public void updateName(int identifier, StringHolder name) {
-        Nameable pdi = ((Nameable) getDrawerItem(identifier));
-        if (pdi != null) {
+        IDrawerItem drawerItem = getDrawerItem(identifier);
+        if (drawerItem instanceof Nameable) {
+            Nameable pdi = (Nameable) drawerItem;
             pdi.withName(name);
             updateItem((IDrawerItem) pdi);
         }
@@ -561,8 +563,9 @@ public class Drawer {
      * @param image
      */
     public void updateIcon(int identifier, ImageHolder image) {
-        Iconable pdi = ((Iconable) getDrawerItem(identifier));
-        if (pdi != null) {
+        IDrawerItem drawerItem = getDrawerItem(identifier);
+        if (drawerItem instanceof Iconable) {
+            Iconable pdi = (Iconable) drawerItem;
             pdi.withIcon(image);
             updateItem((IDrawerItem) pdi);
         }

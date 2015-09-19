@@ -8,6 +8,7 @@ import android.support.annotation.NonNull;
 import android.view.View;
 import android.widget.ImageView;
 
+import com.mikepenz.materialdrawer.holder.ImageHolder;
 import com.mikepenz.materialdrawer.model.interfaces.IProfile;
 import com.mikepenz.materialdrawer.model.interfaces.Identifyable;
 
@@ -54,6 +55,15 @@ public class AccountHeader {
      */
     public ImageView getHeaderBackgroundView() {
         return mAccountHeaderBuilder.mAccountHeaderBackground;
+    }
+
+    /**
+     * set the background for the header via the ImageHolder class
+     *
+     * @param imageHolder
+     */
+    public void setHeaderBackground(ImageHolder imageHolder) {
+        ImageHolder.applyTo(imageHolder, mAccountHeaderBuilder.mAccountHeaderBackground);
     }
 
     /**

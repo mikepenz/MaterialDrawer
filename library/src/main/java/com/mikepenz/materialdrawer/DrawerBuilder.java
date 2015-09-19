@@ -21,7 +21,6 @@ import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.internal.view.SupportMenuInflater;
 import android.support.v7.internal.view.menu.MenuBuilder;
-import android.support.v7.widget.DefaultItemAnimator;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
@@ -873,6 +872,7 @@ public class DrawerBuilder {
     protected BaseDrawerAdapter getAdapter() {
         if (mAdapter == null) {
             mAdapter = new DrawerAdapter();
+            mAdapter.setHasStableIds(true);
         }
         return mAdapter;
     }
@@ -1435,7 +1435,7 @@ public class DrawerBuilder {
             mRecyclerView = (RecyclerView) LayoutInflater.from(mActivity).inflate(R.layout.material_drawer_recycler_view, mSliderLayout, false);
             //set the itemAnimator
             if (mItemAnimator == null) {
-                mRecyclerView.setItemAnimator(new DefaultItemAnimator());
+                mRecyclerView.setItemAnimator(null);
             } else {
                 mRecyclerView.setItemAnimator(mItemAnimator);
             }
