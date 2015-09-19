@@ -42,6 +42,7 @@ import com.mikepenz.materialdrawer.model.PrimaryDrawerItem;
 import com.mikepenz.materialdrawer.model.SecondaryDrawerItem;
 import com.mikepenz.materialdrawer.model.interfaces.IDrawerItem;
 import com.mikepenz.materialdrawer.model.interfaces.Selectable;
+import com.mikepenz.materialdrawer.util.IdDistributor;
 import com.mikepenz.materialize.Materialize;
 import com.mikepenz.materialize.MaterializeBuilder;
 import com.mikepenz.materialize.util.UIUtils;
@@ -933,7 +934,7 @@ public class DrawerBuilder {
      * @return
      */
     public DrawerBuilder withDrawerItems(@NonNull ArrayList<IDrawerItem> drawerItems) {
-        this.getAdapter().setDrawerItems(drawerItems);
+        this.getAdapter().setDrawerItems(IdDistributor.checkIds(drawerItems));
         return this;
     }
 
@@ -944,7 +945,7 @@ public class DrawerBuilder {
      * @return
      */
     public DrawerBuilder addDrawerItems(@NonNull IDrawerItem... drawerItems) {
-        this.getAdapter().addDrawerItems(drawerItems);
+        this.getAdapter().addDrawerItems(IdDistributor.checkIds(drawerItems));
         return this;
     }
 
@@ -958,7 +959,7 @@ public class DrawerBuilder {
      * @return
      */
     public DrawerBuilder withStickyDrawerItems(@NonNull ArrayList<IDrawerItem> stickyDrawerItems) {
-        this.mStickyDrawerItems = stickyDrawerItems;
+        this.mStickyDrawerItems = IdDistributor.checkIds(stickyDrawerItems);
         return this;
     }
 
@@ -973,9 +974,8 @@ public class DrawerBuilder {
             this.mStickyDrawerItems = new ArrayList<>();
         }
 
-        if (stickyDrawerItems != null) {
-            Collections.addAll(this.mStickyDrawerItems, stickyDrawerItems);
-        }
+        Collections.addAll(this.mStickyDrawerItems, IdDistributor.checkIds(stickyDrawerItems));
+
         return this;
     }
 
