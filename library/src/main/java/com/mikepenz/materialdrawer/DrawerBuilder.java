@@ -21,6 +21,7 @@ import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.internal.view.SupportMenuInflater;
 import android.support.v7.internal.view.menu.MenuBuilder;
+import android.support.v7.widget.DefaultItemAnimator;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
@@ -846,6 +847,22 @@ public class DrawerBuilder {
         return this;
     }
 
+    // if the adapter should enable hasStableIds to improve performance and allow animations
+    protected boolean mHasStableIds = false;
+
+    /**
+     * define this if you want enable hasStableIds for the adapter which is generated.
+     * WARNING: only use this if you have set an identifer for all of your items else this could cause
+     * many weird things
+     *
+     * @param hasStableIds
+     * @return
+     */
+    public DrawerBuilder withHasStableIds(boolean hasStableIds) {
+        this.mHasStableIds = hasStableIds;
+        return this;
+    }
+
     // an adapter to use for the list
     protected BaseDrawerAdapter mAdapter;
 
@@ -872,7 +889,7 @@ public class DrawerBuilder {
     protected BaseDrawerAdapter getAdapter() {
         if (mAdapter == null) {
             mAdapter = new DrawerAdapter();
-            //mAdapter.setHasStableIds(true);
+            mAdapter.setHasStableIds(mHasStableIds);
         }
         return mAdapter;
     }
@@ -1435,7 +1452,7 @@ public class DrawerBuilder {
             mRecyclerView = (RecyclerView) LayoutInflater.from(mActivity).inflate(R.layout.material_drawer_recycler_view, mSliderLayout, false);
             //set the itemAnimator
             if (mItemAnimator == null) {
-                mRecyclerView.setItemAnimator(null);
+                mRecyclerView.setItemAnimator(new DefaultItemAnimator());
             } else {
                 mRecyclerView.setItemAnimator(mItemAnimator);
             }
