@@ -21,6 +21,8 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.mikepenz.iconics.IconicsDrawable;
+import com.mikepenz.materialdrawer.holder.ColorHolder;
+import com.mikepenz.materialdrawer.holder.DimenHolder;
 import com.mikepenz.materialdrawer.holder.ImageHolder;
 import com.mikepenz.materialdrawer.holder.StringHolder;
 import com.mikepenz.materialdrawer.icons.MaterialDrawerFont;
@@ -138,9 +140,7 @@ public class AccountHeaderBuilder {
     }
 
     // set the account header height
-    protected int mHeightPx = -1;
-    protected int mHeightDp = -1;
-    protected int mHeightRes = -1;
+    protected DimenHolder mHeight;
 
     /**
      * set the height for the header
@@ -149,7 +149,7 @@ public class AccountHeaderBuilder {
      * @return
      */
     public AccountHeaderBuilder withHeightPx(int heightPx) {
-        this.mHeightPx = heightPx;
+        this.mHeight = DimenHolder.fromPixel(heightPx);
         return this;
     }
 
@@ -161,7 +161,7 @@ public class AccountHeaderBuilder {
      * @return
      */
     public AccountHeaderBuilder withHeightDp(int heightDp) {
-        this.mHeightDp = heightDp;
+        this.mHeight = DimenHolder.fromDp(heightDp);
         return this;
     }
 
@@ -172,13 +172,12 @@ public class AccountHeaderBuilder {
      * @return
      */
     public AccountHeaderBuilder withHeightRes(@DimenRes int heightRes) {
-        this.mHeightRes = heightRes;
+        this.mHeight = DimenHolder.fromResource(heightRes);
         return this;
     }
 
     //the background color for the slider
-    protected int mTextColor = 0;
-    protected int mTextColorRes = -1;
+    protected ColorHolder mTextColor;
 
     /**
      * set the background for the slider as color
@@ -187,7 +186,7 @@ public class AccountHeaderBuilder {
      * @return
      */
     public AccountHeaderBuilder withTextColor(@ColorInt int textColor) {
-        this.mTextColor = textColor;
+        this.mTextColor = ColorHolder.fromColor(textColor);
         return this;
     }
 
@@ -198,7 +197,7 @@ public class AccountHeaderBuilder {
      * @return
      */
     public AccountHeaderBuilder withTextColorRes(@ColorRes int textColorRes) {
-        this.mTextColorRes = textColorRes;
+        this.mTextColor = ColorHolder.fromColorRes(textColorRes);
         return this;
     }
 
@@ -314,8 +313,7 @@ public class AccountHeaderBuilder {
     }
 
     //the background for the header
-    protected Drawable mHeaderBackground = null;
-    protected int mHeaderBackgroundRes = -1;
+    protected ImageHolder mHeaderBackground;
 
     /**
      * set the background for the slider as color
@@ -324,7 +322,7 @@ public class AccountHeaderBuilder {
      * @return
      */
     public AccountHeaderBuilder withHeaderBackground(Drawable headerBackground) {
-        this.mHeaderBackground = headerBackground;
+        this.mHeaderBackground = new ImageHolder(headerBackground);
         return this;
     }
 
@@ -335,7 +333,18 @@ public class AccountHeaderBuilder {
      * @return
      */
     public AccountHeaderBuilder withHeaderBackground(@DrawableRes int headerBackgroundRes) {
-        this.mHeaderBackgroundRes = headerBackgroundRes;
+        this.mHeaderBackground = new ImageHolder(headerBackgroundRes);
+        return this;
+    }
+
+    /**
+     * set the background for the header via the ImageHolder class
+     *
+     * @param headerBackground
+     * @return
+     */
+    public AccountHeaderBuilder withHeaderBackground(ImageHolder headerBackground) {
+        this.mHeaderBackground = headerBackground;
         return this;
     }
 
@@ -673,13 +682,9 @@ public class AccountHeaderBuilder {
         mAccountHeader = mAccountHeaderContainer.findViewById(R.id.material_drawer_account_header);
 
         // handle the height for the header
-        int height = -1;
-        if (mHeightPx != -1) {
-            height = mHeightPx;
-        } else if (mHeightDp != -1) {
-            height = (int) UIUtils.convertDpToPixel(mHeightDp, mActivity);
-        } else if (mHeightRes != -1) {
-            height = mActivity.getResources().getDimensionPixelSize(mHeightRes);
+        int height;
+        if (mHeight != null) {
+            height = mHeight.asPixel(mActivity);
         } else {
             if (mCompactStyle) {
                 height = mActivity.getResources().getDimensionPixelSize(R.dimen.material_drawer_account_header_height_compact);
@@ -713,22 +718,14 @@ public class AccountHeaderBuilder {
         // get the background view
         mAccountHeaderBackground = (ImageView) mAccountHeaderContainer.findViewById(R.id.material_drawer_account_header_background);
         // set the background
-        if (mHeaderBackground != null) {
-            mAccountHeaderBackground.setImageDrawable(mHeaderBackground);
-        } else if (mHeaderBackgroundRes != -1) {
-            mAccountHeaderBackground.setImageResource(mHeaderBackgroundRes);
-        }
+        ImageHolder.applyTo(mHeaderBackground, mAccountHeaderBackground);
 
         if (mHeaderBackgroundScaleType != null) {
             mAccountHeaderBackground.setScaleType(mHeaderBackgroundScaleType);
         }
 
         // get the text color to use for the text section
-        if (mTextColor == 0 && mTextColorRes != -1) {
-            mTextColor = mActivity.getResources().getColor(mTextColorRes);
-        } else if (mTextColor == 0) {
-            mTextColor = UIUtils.getThemeColorFromAttrOrRes(mActivity, R.attr.material_drawer_header_selection_text, R.color.material_drawer_header_selection_text);
-        }
+        int textColor = ColorHolder.color(mTextColor, mActivity, R.attr.material_drawer_header_selection_text, R.color.material_drawer_header_selection_text);
 
         // set the background for the section
         if (mCompactStyle) {
@@ -742,7 +739,7 @@ public class AccountHeaderBuilder {
 
         // set the arrow :D
         mAccountSwitcherArrow = (ImageView) mAccountHeaderContainer.findViewById(R.id.material_drawer_account_header_text_switcher);
-        mAccountSwitcherArrow.setImageDrawable(new IconicsDrawable(mActivity, MaterialDrawerFont.Icon.mdf_arrow_drop_down).sizeDp(24).paddingDp(6).color(mTextColor));
+        mAccountSwitcherArrow.setImageDrawable(new IconicsDrawable(mActivity, MaterialDrawerFont.Icon.mdf_arrow_drop_down).sizeDp(24).paddingDp(6).color(textColor));
 
         //get the fields for the name
         mCurrentProfileView = (BezelImageView) mAccountHeader.findViewById(R.id.material_drawer_account_header_current);
@@ -762,8 +759,8 @@ public class AccountHeaderBuilder {
             mCurrentProfileEmail.setTypeface(mTypeface);
         }
 
-        mCurrentProfileName.setTextColor(mTextColor);
-        mCurrentProfileEmail.setTextColor(mTextColor);
+        mCurrentProfileName.setTextColor(textColor);
+        mCurrentProfileEmail.setTextColor(textColor);
 
         mProfileFirstView = (BezelImageView) mAccountHeader.findViewById(R.id.material_drawer_account_header_small_first);
         mProfileSecondView = (BezelImageView) mAccountHeader.findViewById(R.id.material_drawer_account_header_small_second);
@@ -1191,7 +1188,7 @@ public class AccountHeaderBuilder {
                 buildDrawerSelectionList();
 
                 // update the arrow image within the drawer
-                mAccountSwitcherArrow.setImageDrawable(new IconicsDrawable(ctx, MaterialDrawerFont.Icon.mdf_arrow_drop_up).sizeDp(24).paddingDp(6).color(mTextColor));
+                mAccountSwitcherArrow.setImageDrawable(new IconicsDrawable(ctx, MaterialDrawerFont.Icon.mdf_arrow_drop_up).sizeDp(24).paddingDp(6).color(ColorHolder.color(mTextColor, ctx, R.attr.material_drawer_header_selection_text, R.color.material_drawer_header_selection_text)));
                 mSelectionListShown = true;
             }
         }
@@ -1230,7 +1227,7 @@ public class AccountHeaderBuilder {
         @Override
         public boolean onItemClick(final View view, int position, final IDrawerItem drawerItem) {
             final boolean isCurrentSelectedProfile;
-            if (drawerItem != null && drawerItem instanceof IProfile && ((IProfile) drawerItem).isSelectable()) {
+            if (drawerItem != null && drawerItem instanceof IProfile && drawerItem.isSelectable()) {
                 isCurrentSelectedProfile = switchProfiles((IProfile) drawerItem);
             } else {
                 isCurrentSelectedProfile = false;
@@ -1268,7 +1265,7 @@ public class AccountHeaderBuilder {
         if (mDrawer != null) {
             mDrawer.resetDrawerContent();
         }
-        mAccountSwitcherArrow.setImageDrawable(new IconicsDrawable(ctx, MaterialDrawerFont.Icon.mdf_arrow_drop_down).sizeDp(24).paddingDp(6).color(mTextColor));
+        mAccountSwitcherArrow.setImageDrawable(new IconicsDrawable(ctx, MaterialDrawerFont.Icon.mdf_arrow_drop_down).sizeDp(24).paddingDp(6).color(ColorHolder.color(mTextColor, ctx, R.attr.material_drawer_header_selection_text, R.color.material_drawer_header_selection_text)));
     }
 
     /**
