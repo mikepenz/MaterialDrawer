@@ -50,7 +50,7 @@ You can try it out here [Google Play](https://play.google.com/store/apps/details
 ##1. Provide the gradle dependency
 
 ```gradle
-compile('com.mikepenz:materialdrawer:4.1.2@aar') {
+compile('com.mikepenz:materialdrawer:4.2.0@aar') {
 	transitive = true
 }
 ```
@@ -68,8 +68,8 @@ Great. Your drawer is now ready to use.
 
 ```java
 //if you want to update the items at a later time it is recommended to keep it in a variable
-PrimaryDrawerItem item1 = new PrimaryDrawerItem().withName(R.string.drawer_item_home).withIdentifier(1);
-SecondaryDrawerItem item2 = new SecondaryDrawerItem().withName(R.string.drawer_item_settings).withIdentifier(2);
+PrimaryDrawerItem item1 = new PrimaryDrawerItem().withName(R.string.drawer_item_home);
+SecondaryDrawerItem item2 = new SecondaryDrawerItem().withName(R.string.drawer_item_settings);
 
 //create the drawer and remember the `Drawer` result object
 Drawer result = new DrawerBuilder()
