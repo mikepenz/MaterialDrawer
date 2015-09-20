@@ -21,6 +21,7 @@
     <dimen name="material_drawer_account_header_compact">56dp</dimen>
     <dimen name="material_drawer_account_header_text">14sp</dimen>
     <dimen name="material_drawer_account_header_dropdown">22dp</dimen>
+    <dimen name="material_drawer_account_header_dropdown_padding">5dp</dimen>
     <dimen name="material_drawer_account_header_dropdown_margin_bottom">14dp</dimen>
 
     <!-- General profileIcon margins for the drawer item -->
