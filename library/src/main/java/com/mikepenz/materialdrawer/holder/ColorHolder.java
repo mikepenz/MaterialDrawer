@@ -68,7 +68,7 @@ public class ColorHolder {
         if (mColorInt != 0) {
             drawable.setColor(mColorInt);
         } else if (mColorRes != -1) {
-            drawable.setColor(ctx.getResources().getColor(mColorRes));
+            drawable.setColor(ContextCompat.getColor(ctx, mColorRes));
         }
     }
 
@@ -96,7 +96,7 @@ public class ColorHolder {
         if (mColorInt != 0) {
             textView.setTextColor(mColorInt);
         } else if (mColorRes != -1) {
-            textView.setTextColor(textView.getContext().getResources().getColor(mColorRes));
+            textView.setTextColor(ContextCompat.getColor(textView.getContext(), mColorRes));
         } else if (colorDefault != null) {
             textView.setTextColor(colorDefault);
         }

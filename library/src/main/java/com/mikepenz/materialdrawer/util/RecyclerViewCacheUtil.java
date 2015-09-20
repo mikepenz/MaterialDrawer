@@ -51,6 +51,13 @@ public class RecyclerViewCacheUtil {
     }
 
     /**
+     * clear the CACHE
+     */
+    public void clear() {
+        CACHE.clear();
+    }
+
+    /**
      * init the cache on your own.
      *
      * @param recyclerView

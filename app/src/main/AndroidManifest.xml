@@ -10,36 +10,35 @@
         android:label="@string/app_name">
         <!-- android:supportsRtl="true" -->
         <activity
-            android:name=".SimpleHeaderDrawerActivity"
+            android:name=".DrawerActivity"
             android:label="@string/app_name"
             android:theme="@style/MaterialDrawerTheme.Light.DarkToolbar.TranslucentStatus">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
-
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
         <activity
-            android:name=".SimpleCompactHeaderDrawerActivity"
+            android:name=".CompactHeaderDrawerActivity"
             android:label="@string/app_name"
             android:theme="@style/CustomTheme" />
         <activity
-            android:name=".ActionBarDrawerActivity"
+            android:name=".ActionBarActivity"
             android:theme="@style/MaterialDrawerTheme.ActionBar" />
         <activity
             android:name=".MenuDrawerActivity"
             android:theme="@style/MaterialDrawerTheme.Light.DarkToolbar.TranslucentStatus" />
         <activity
-            android:name=".SimpleNonTranslucentDrawerActivity"
+            android:name=".NonTranslucentDrawerActivity"
             android:theme="@style/MaterialDrawerTheme" />
         <activity
             android:name=".MultiDrawerActivity"
             android:theme="@style/MaterialDrawerTheme.TranslucentStatus" />
         <activity
-            android:name=".ComplexHeaderDrawerActivity"
+            android:name=".AdvancedActivity"
             android:theme="@style/MaterialDrawerTheme.TranslucentStatus" />
         <activity
-            android:name=".SimpleFragmentDrawerActivity"
+            android:name=".KeyboardUtilActivity"
             android:theme="@style/MaterialDrawerTheme.Light.DarkToolbar.TranslucentStatus"
             android:windowSoftInputMode="stateHidden" />
         <activity
@@ -53,6 +52,9 @@
             android:theme="@style/FullscreenTheme" />
         <activity
             android:name=".CustomContainerActivity"
+            android:theme="@style/MaterialDrawerTheme.Light.DarkToolbar" />
+        <activity
+            android:name=".FragmentActivity"
             android:theme="@style/MaterialDrawerTheme.Light.DarkToolbar" />
     </application>
 

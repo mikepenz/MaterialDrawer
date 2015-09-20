@@ -50,7 +50,7 @@ You can try it out here [Google Play](https://play.google.com/store/apps/details
 ##1. Provide the gradle dependency
 
 ```gradle
-compile('com.mikepenz:materialdrawer:4.2.0@aar') {
+compile('com.mikepenz:materialdrawer:4.2.5@aar') {
 	transitive = true
 }
 ```

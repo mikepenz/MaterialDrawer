@@ -27,7 +27,7 @@ import com.mikepenz.materialdrawer.model.interfaces.IProfile;
 import com.mikepenz.materialdrawer.model.interfaces.Nameable;
 import com.mikepenz.materialize.util.UIUtils;
 
-public class SimpleCompactHeaderDrawerActivity extends AppCompatActivity {
+public class CompactHeaderDrawerActivity extends AppCompatActivity {
     private static final int PROFILE_SETTING = 1;
 
     //save our header or result
@@ -88,11 +88,11 @@ public class SimpleCompactHeaderDrawerActivity extends AppCompatActivity {
                     public boolean onItemClick(View view, int position, IDrawerItem drawerItem) {
                         if (drawerItem != null && drawerItem.getIdentifier() == 1) {
                             startSupportActionMode(new ActionBarCallBack());
-                            findViewById(R.id.action_mode_bar).setBackgroundColor(UIUtils.getThemeColorFromAttrOrRes(SimpleCompactHeaderDrawerActivity.this, R.attr.colorPrimary, R.color.material_drawer_primary));
+                            findViewById(R.id.action_mode_bar).setBackgroundColor(UIUtils.getThemeColorFromAttrOrRes(CompactHeaderDrawerActivity.this, R.attr.colorPrimary, R.color.material_drawer_primary));
                         }
 
                         if (drawerItem instanceof Nameable) {
-                            toolbar.setTitle(((Nameable) drawerItem).getName().getText(SimpleCompactHeaderDrawerActivity.this));
+                            toolbar.setTitle(((Nameable) drawerItem).getName().getText(CompactHeaderDrawerActivity.this));
                         }
 
                         return false;
@@ -151,7 +151,7 @@ public class SimpleCompactHeaderDrawerActivity extends AppCompatActivity {
         @Override
         public boolean onCreateActionMode(ActionMode mode, Menu menu) {
             if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
-                getWindow().setStatusBarColor(UIUtils.getThemeColorFromAttrOrRes(SimpleCompactHeaderDrawerActivity.this, R.attr.colorPrimaryDark, R.color.material_drawer_primary_dark));
+                getWindow().setStatusBarColor(UIUtils.getThemeColorFromAttrOrRes(CompactHeaderDrawerActivity.this, R.attr.colorPrimaryDark, R.color.material_drawer_primary_dark));
             }
 
             mode.getMenuInflater().inflate(R.menu.cab, menu);

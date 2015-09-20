@@ -25,7 +25,7 @@ import com.mikepenz.materialdrawer.model.SectionDrawerItem;
 import com.mikepenz.materialdrawer.model.interfaces.IDrawerItem;
 import com.mikepenz.materialdrawer.model.interfaces.IProfile;
 
-public class ComplexHeaderDrawerActivity extends AppCompatActivity {
+public class AdvancedActivity extends AppCompatActivity {
     private static final int PROFILE_SETTING = 1;
 
     //save our header or result
@@ -46,7 +46,7 @@ public class ComplexHeaderDrawerActivity extends AppCompatActivity {
         // Handle Toolbar
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
-        getSupportActionBar().setTitle(R.string.drawer_item_complex_header_drawer);
+        getSupportActionBar().setTitle(R.string.drawer_item_advanced_drawer);
 
         // Create a few sample profile
         profile = new ProfileDrawerItem().withName("Mike Penz").withEmail("mikepenz@gmail.com").withIcon(getResources().getDrawable(R.drawable.profile));
@@ -81,7 +81,7 @@ public class ComplexHeaderDrawerActivity extends AppCompatActivity {
                     public boolean onNavigationClickListener(View clickedView) {
                         //this method is only called if the Arrow icon is shown. The hamburger is automatically managed by the MaterialDrawer
                         //if the back arrow is shown. close the activity
-                        ComplexHeaderDrawerActivity.this.finish();
+                        AdvancedActivity.this.finish();
                         //return true if we have consumed the event
                         return true;
                     }
