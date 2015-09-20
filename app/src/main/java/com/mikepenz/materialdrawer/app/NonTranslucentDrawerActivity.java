@@ -16,7 +16,7 @@ import com.mikepenz.materialdrawer.model.SectionDrawerItem;
 import com.mikepenz.materialdrawer.model.interfaces.IDrawerItem;
 import com.mikepenz.materialdrawer.model.interfaces.Nameable;
 
-public class SimpleNonTranslucentDrawerActivity extends AppCompatActivity {
+public class NonTranslucentDrawerActivity extends AppCompatActivity {
 
     private Drawer result = null;
 
@@ -50,7 +50,7 @@ public class SimpleNonTranslucentDrawerActivity extends AppCompatActivity {
                     @Override
                     public boolean onItemClick(View view, int position, IDrawerItem drawerItem) {
                         if (drawerItem instanceof Nameable) {
-                            Toast.makeText(SimpleNonTranslucentDrawerActivity.this, ((Nameable) drawerItem).getName().getText(SimpleNonTranslucentDrawerActivity.this), Toast.LENGTH_SHORT).show();
+                            Toast.makeText(NonTranslucentDrawerActivity.this, ((Nameable) drawerItem).getName().getText(NonTranslucentDrawerActivity.this), Toast.LENGTH_SHORT).show();
                         }
                         return false;
                     }

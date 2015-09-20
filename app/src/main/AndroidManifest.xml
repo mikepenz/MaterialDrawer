@@ -10,7 +10,7 @@
         android:label="@string/app_name">
         <!-- android:supportsRtl="true" -->
         <activity
-            android:name=".SimpleHeaderDrawerActivity"
+            android:name=".DrawerActivity"
             android:label="@string/app_name"
             android:theme="@style/MaterialDrawerTheme.Light.DarkToolbar.TranslucentStatus">
             <intent-filter>
@@ -20,7 +20,7 @@
             </intent-filter>
         </activity>
         <activity
-            android:name=".SimpleCompactHeaderDrawerActivity"
+            android:name=".CompactHeaderDrawerActivity"
             android:label="@string/app_name"
             android:theme="@style/CustomTheme" />
         <activity
@@ -30,7 +30,7 @@
             android:name=".MenuDrawerActivity"
             android:theme="@style/MaterialDrawerTheme.Light.DarkToolbar.TranslucentStatus" />
         <activity
-            android:name=".SimpleNonTranslucentDrawerActivity"
+            android:name=".NonTranslucentDrawerActivity"
             android:theme="@style/MaterialDrawerTheme" />
         <activity
             android:name=".MultiDrawerActivity"

@@ -38,7 +38,7 @@ import com.mikepenz.materialdrawer.model.interfaces.Nameable;
 import com.mikepenz.materialdrawer.util.RecyclerViewCacheUtil;
 import com.mikepenz.octicons_typeface_library.Octicons;
 
-public class SimpleHeaderDrawerActivity extends AppCompatActivity {
+public class DrawerActivity extends AppCompatActivity {
     private static final int PROFILE_SETTING = 1;
 
     //save our header or result
@@ -146,35 +146,35 @@ public class SimpleHeaderDrawerActivity extends AppCompatActivity {
                         if (drawerItem != null) {
                             Intent intent = null;
                             if (drawerItem.getIdentifier() == 1) {
-                                intent = new Intent(SimpleHeaderDrawerActivity.this, SimpleCompactHeaderDrawerActivity.class);
+                                intent = new Intent(DrawerActivity.this, CompactHeaderDrawerActivity.class);
                             } else if (drawerItem.getIdentifier() == 2) {
-                                intent = new Intent(SimpleHeaderDrawerActivity.this, ActionBarActivity.class);
+                                intent = new Intent(DrawerActivity.this, ActionBarActivity.class);
                             } else if (drawerItem.getIdentifier() == 3) {
-                                intent = new Intent(SimpleHeaderDrawerActivity.this, MultiDrawerActivity.class);
+                                intent = new Intent(DrawerActivity.this, MultiDrawerActivity.class);
                             } else if (drawerItem.getIdentifier() == 4) {
-                                intent = new Intent(SimpleHeaderDrawerActivity.this, SimpleNonTranslucentDrawerActivity.class);
+                                intent = new Intent(DrawerActivity.this, NonTranslucentDrawerActivity.class);
                             } else if (drawerItem.getIdentifier() == 5) {
-                                intent = new Intent(SimpleHeaderDrawerActivity.this, AdvancedActivity.class);
+                                intent = new Intent(DrawerActivity.this, AdvancedActivity.class);
                             } else if (drawerItem.getIdentifier() == 6) {
-                                intent = new Intent(SimpleHeaderDrawerActivity.this, KeyboardUtilActivity.class);
+                                intent = new Intent(DrawerActivity.this, KeyboardUtilActivity.class);
                             } else if (drawerItem.getIdentifier() == 7) {
-                                intent = new Intent(SimpleHeaderDrawerActivity.this, EmbeddedDrawerActivity.class);
+                                intent = new Intent(DrawerActivity.this, EmbeddedDrawerActivity.class);
                             } else if (drawerItem.getIdentifier() == 8) {
-                                intent = new Intent(SimpleHeaderDrawerActivity.this, FullscreenDrawerActivity.class);
+                                intent = new Intent(DrawerActivity.this, FullscreenDrawerActivity.class);
                             } else if (drawerItem.getIdentifier() == 9) {
-                                intent = new Intent(SimpleHeaderDrawerActivity.this, CustomContainerActivity.class);
+                                intent = new Intent(DrawerActivity.this, CustomContainerActivity.class);
                             } else if (drawerItem.getIdentifier() == 10) {
-                                intent = new Intent(SimpleHeaderDrawerActivity.this, MenuDrawerActivity.class);
+                                intent = new Intent(DrawerActivity.this, MenuDrawerActivity.class);
                             } else if (drawerItem.getIdentifier() == 11) {
-                                intent = new Intent(SimpleHeaderDrawerActivity.this, MiniDrawerActivity.class);
+                                intent = new Intent(DrawerActivity.this, MiniDrawerActivity.class);
                             } else if (drawerItem.getIdentifier() == 20) {
                                 intent = new LibsBuilder()
                                         .withFields(R.string.class.getFields())
                                         .withActivityStyle(Libs.ActivityStyle.LIGHT_DARK_TOOLBAR)
-                                        .intent(SimpleHeaderDrawerActivity.this);
+                                        .intent(DrawerActivity.this);
                             }
                             if (intent != null) {
-                                SimpleHeaderDrawerActivity.this.startActivity(intent);
+                                DrawerActivity.this.startActivity(intent);
                             }
                         }
 
