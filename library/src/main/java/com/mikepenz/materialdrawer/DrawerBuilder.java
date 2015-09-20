@@ -31,6 +31,7 @@ import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.FrameLayout;
 import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 
@@ -1222,6 +1223,71 @@ public class DrawerBuilder {
         //build the view which will be set to the drawer
         Drawer result = buildView();
 
+        // add the slider to the drawer
+        mDrawerLayout.addView(mSliderLayout, 1);
+
+        return result;
+    }
+
+    /**
+     * Build and add the DrawerBuilder to your activity
+     *
+     * @return
+     */
+    public Drawer buildForFragment() {
+        if (mUsed) {
+            throw new RuntimeException("you must not reuse a DrawerBuilder builder");
+        }
+        if (mActivity == null) {
+            throw new RuntimeException("please pass an activity");
+        }
+        if (mRootView == null) {
+            throw new RuntimeException("please pass the view which should host the DrawerLayout");
+        }
+
+        //set that this builder was used. now you have to create a new one
+        mUsed = true;
+
+        // if the user has not set a drawerLayout use the default one :D
+        if (mDrawerLayout == null) {
+            withDrawerLayout(-1);
+        }
+
+        //set the drawer here...
+
+        View originalContentView = mRootView.getChildAt(0);
+
+        boolean alreadyInflated = originalContentView.getId() == R.id.materialize_root;
+
+        //only add the new layout if it wasn't done before
+        if (!alreadyInflated) {
+            // remove the contentView
+            mRootView.removeView(originalContentView);
+        } else {
+            //if it was already inflated we have to clean up again
+            mRootView.removeAllViews();
+        }
+
+        //create the layoutParams to use for the contentView
+        FrameLayout.LayoutParams layoutParamsContentView = new FrameLayout.LayoutParams(
+                ViewGroup.LayoutParams.MATCH_PARENT,
+                ViewGroup.LayoutParams.MATCH_PARENT
+        );
+
+        //add the drawer
+        mRootView.addView(mDrawerLayout, layoutParamsContentView);
+
+        //set the id so we can check if it was already inflated
+        mDrawerLayout.setId(R.id.materialize_root);
+
+        //handle the navigation stuff of the ActionBarDrawerToggle and the drawer in general
+        handleDrawerNavigation(mActivity, false);
+
+        //build the view which will be set to the drawer
+        Drawer result = buildView();
+
+        // add the slider to the drawer
+        mDrawerLayout.addView(originalContentView, 0);
         // add the slider to the drawer
         mDrawerLayout.addView(mSliderLayout, 1);
 
