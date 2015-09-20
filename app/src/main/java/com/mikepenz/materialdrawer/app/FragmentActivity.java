@@ -21,7 +21,7 @@ public class FragmentActivity extends AppCompatActivity {
         // Handle Toolbar
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
-        getSupportActionBar().setTitle(R.string.drawer_item_keyboard_util_drawer);
+        getSupportActionBar().setTitle(R.string.drawer_item_fragment_drawer);
 
         //ignore the DemoFragment and it's layout it's just to showcase the handle with an keyboard
         if (savedInstanceState == null) {
