@@ -43,6 +43,7 @@ import com.mikepenz.materialdrawer.model.SecondaryDrawerItem;
 import com.mikepenz.materialdrawer.model.interfaces.IDrawerItem;
 import com.mikepenz.materialdrawer.model.interfaces.Selectable;
 import com.mikepenz.materialdrawer.util.IdDistributor;
+import com.mikepenz.materialdrawer.util.RecyclerViewCacheUtil;
 import com.mikepenz.materialize.Materialize;
 import com.mikepenz.materialize.MaterializeBuilder;
 import com.mikepenz.materialize.util.UIUtils;
@@ -72,7 +73,10 @@ public class DrawerBuilder {
      * default constructor
      */
     public DrawerBuilder() {
-
+        //make sure there are no elements in the cache from the previous activity
+        //this should only happen and cause troubles if you switch themes over activities
+        //but to make sure it works ;)
+        RecyclerViewCacheUtil.getInstance().clear();
     }
 
     /**

@@ -186,9 +186,8 @@ public class SimpleHeaderDrawerActivity extends AppCompatActivity {
                 .build();
 
         //if you have many different types of DrawerItems you can magically pre-cache those items to get a better scroll performance
-        RecyclerViewCacheUtil.getInstance()
-                .withCacheSize(2)
-                .init(result);
+        //make sure to init the cache after the DrawerBuilder was created as this will first clear the cache to make sure no old elements are in
+        RecyclerViewCacheUtil.getInstance().withCacheSize(2).init(result);
 
         //only set the active selection or active profile if we do not recreate the activity
         if (savedInstanceState == null) {
