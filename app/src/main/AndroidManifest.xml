@@ -15,7 +15,6 @@
             android:theme="@style/MaterialDrawerTheme.Light.DarkToolbar.TranslucentStatus">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
-
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
@@ -53,6 +52,9 @@
             android:theme="@style/FullscreenTheme" />
         <activity
             android:name=".CustomContainerActivity"
+            android:theme="@style/MaterialDrawerTheme.Light.DarkToolbar" />
+        <activity
+            android:name=".FragmentActivity"
             android:theme="@style/MaterialDrawerTheme.Light.DarkToolbar" />
     </application>
 
