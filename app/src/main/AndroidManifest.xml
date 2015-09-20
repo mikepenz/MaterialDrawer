@@ -24,7 +24,7 @@
             android:label="@string/app_name"
             android:theme="@style/CustomTheme" />
         <activity
-            android:name=".ActionBarDrawerActivity"
+            android:name=".ActionBarActivity"
             android:theme="@style/MaterialDrawerTheme.ActionBar" />
         <activity
             android:name=".MenuDrawerActivity"
@@ -36,10 +36,10 @@
             android:name=".MultiDrawerActivity"
             android:theme="@style/MaterialDrawerTheme.TranslucentStatus" />
         <activity
-            android:name=".ComplexHeaderDrawerActivity"
+            android:name=".AdvancedActivity"
             android:theme="@style/MaterialDrawerTheme.TranslucentStatus" />
         <activity
-            android:name=".SimpleFragmentDrawerActivity"
+            android:name=".KeyboardUtilActivity"
             android:theme="@style/MaterialDrawerTheme.Light.DarkToolbar.TranslucentStatus"
             android:windowSoftInputMode="stateHidden" />
         <activity

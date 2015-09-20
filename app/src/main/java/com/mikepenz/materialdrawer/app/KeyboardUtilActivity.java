@@ -17,7 +17,7 @@ import com.mikepenz.materialdrawer.model.interfaces.IDrawerItem;
 import com.mikepenz.materialdrawer.model.interfaces.Nameable;
 import com.mikepenz.materialdrawer.util.KeyboardUtil;
 
-public class SimpleFragmentDrawerActivity extends AppCompatActivity {
+public class KeyboardUtilActivity extends AppCompatActivity {
 
     //save our header or result
     private Drawer result = null;
@@ -30,7 +30,7 @@ public class SimpleFragmentDrawerActivity extends AppCompatActivity {
         // Handle Toolbar
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
-        getSupportActionBar().setTitle(R.string.drawer_item_simple_fragment_drawer);
+        getSupportActionBar().setTitle(R.string.drawer_item_keyboard_util_drawer);
 
         //Create the drawer
         result = new DrawerBuilder()
@@ -50,7 +50,7 @@ public class SimpleFragmentDrawerActivity extends AppCompatActivity {
                     @Override
                     public boolean onItemClick(View view, int position, IDrawerItem drawerItem) {
                         if (drawerItem != null && drawerItem instanceof Nameable) {
-                            String name = ((Nameable) drawerItem).getName().getText(SimpleFragmentDrawerActivity.this);
+                            String name = ((Nameable) drawerItem).getName().getText(KeyboardUtilActivity.this);
                             getSupportActionBar().setTitle(name);
                             //ignore the DemoFragment and it's layout it's just to showcase the handle with an keyboard
                             Fragment f = DemoFragment.newInstance(name);
@@ -63,7 +63,7 @@ public class SimpleFragmentDrawerActivity extends AppCompatActivity {
                 .withOnDrawerListener(new Drawer.OnDrawerListener() {
                     @Override
                     public void onDrawerOpened(View drawerView) {
-                        KeyboardUtil.hideKeyboard(SimpleFragmentDrawerActivity.this);
+                        KeyboardUtil.hideKeyboard(KeyboardUtilActivity.this);
                     }
 
                     @Override
