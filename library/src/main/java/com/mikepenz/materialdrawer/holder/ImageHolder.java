@@ -73,6 +73,7 @@ public class ImageHolder {
         return mIIcon;
     }
 
+
     /**
      * sets an existing image to the imageView
      *
@@ -80,9 +81,20 @@ public class ImageHolder {
      * @return true if an image was set
      */
     public boolean applyTo(ImageView imageView) {
+        return applyTo(imageView, null);
+    }
+
+    /**
+     * sets an existing image to the imageView
+     *
+     * @param imageView
+     * @param tag       used to identify imageViews and define different placeholders
+     * @return true if an image was set
+     */
+    public boolean applyTo(ImageView imageView, String tag) {
         if (mUri != null) {
             if ("http".equals(mUri.getScheme()) || "https".equals(mUri.getScheme())) {
-                DrawerImageLoader.getInstance().setImage(imageView, mUri);
+                DrawerImageLoader.getInstance().setImage(imageView, mUri, tag);
             } else {
                 imageView.setImageURI(mUri);
             }
@@ -142,8 +154,20 @@ public class ImageHolder {
      * @return true if an image was set
      */
     public static boolean applyTo(ImageHolder imageHolder, ImageView imageView) {
+        return applyTo(imageHolder, imageView, null);
+    }
+
+    /**
+     * a small static helper to set the image from the imageHolder nullSave to the imageView
+     *
+     * @param imageHolder
+     * @param imageView
+     * @param tag         used to identify imageViews and define different placeholders
+     * @return true if an image was set
+     */
+    public static boolean applyTo(ImageHolder imageHolder, ImageView imageView, String tag) {
         if (imageHolder != null && imageView != null) {
-            return imageHolder.applyTo(imageView);
+            return imageHolder.applyTo(imageView, tag);
         }
         return false;
     }
@@ -155,7 +179,18 @@ public class ImageHolder {
      * @param imageView
      */
     public static void applyToOrSetInvisible(ImageHolder imageHolder, ImageView imageView) {
-        boolean imageSet = applyTo(imageHolder, imageView);
+        applyToOrSetInvisible(imageHolder, imageView, null);
+    }
+
+    /**
+     * a small static helper to set the image from the imageHolder nullSave to the imageView and hide the view if no image was set
+     *
+     * @param imageHolder
+     * @param imageView
+     * @param tag         used to identify imageViews and define different placeholders
+     */
+    public static void applyToOrSetInvisible(ImageHolder imageHolder, ImageView imageView, String tag) {
+        boolean imageSet = applyTo(imageHolder, imageView, tag);
         if (imageView != null) {
             if (imageSet) {
                 imageView.setVisibility(View.VISIBLE);
@@ -165,6 +200,7 @@ public class ImageHolder {
         }
     }
 
+
     /**
      * a small static helper to set the image from the imageHolder nullSave to the imageView and hide the view if no image was set
      *
@@ -172,7 +208,18 @@ public class ImageHolder {
      * @param imageView
      */
     public static void applyToOrSetGone(ImageHolder imageHolder, ImageView imageView) {
-        boolean imageSet = applyTo(imageHolder, imageView);
+        applyToOrSetGone(imageHolder, imageView, null);
+    }
+
+    /**
+     * a small static helper to set the image from the imageHolder nullSave to the imageView and hide the view if no image was set
+     *
+     * @param imageHolder
+     * @param imageView
+     * @param tag         used to identify imageViews and define different placeholders
+     */
+    public static void applyToOrSetGone(ImageHolder imageHolder, ImageView imageView, String tag) {
+        boolean imageSet = applyTo(imageHolder, imageView, tag);
         if (imageView != null) {
             if (imageSet) {
                 imageView.setVisibility(View.VISIBLE);

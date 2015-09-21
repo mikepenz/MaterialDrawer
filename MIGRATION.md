@@ -1,7 +1,13 @@
 ###Upgrade Notes
 
+#### v4.2.0 -> v4.3.0
+* new `placeholder(Context ctx, String tag)` to the `IDrawerImageLoader` interface
+* new `AbstractDrawerImageLoader` to simplify the `DrawerImageLoader` usage. See the new implementation in the `CustomApplication`
+* to keep the old behavior just change from `new DrawerImageLoader.IDrawerImageLoader() {` to `new AbstractDrawerImageLoader() {` for the `DrawerImageLoader.init`
+* add new `tag` to the placeholder, to be able to define different placeholders for different targets
+
 #### v4.2.0
-* it is now not necessary anymore to define an identifier for the items, they get one automatically. if you do not have logics which require you to do so, you are safe to forget about the identifier now.
+* no more need to define an identifier for the items, they get one automatically. if you do not have logics which require you to do so, you are safe to forget about the identifier now.
 
 #### v4.0.2 -> v4.0.7
 * renamed `setDivider()` to `withDivider`

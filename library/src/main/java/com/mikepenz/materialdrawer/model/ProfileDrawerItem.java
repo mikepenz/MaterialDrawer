@@ -213,7 +213,7 @@ public class ProfileDrawerItem extends AbstractDrawerItem<ProfileDrawerItem> imp
         //cancel previous started image loading processes
         DrawerImageLoader.getInstance().cancelImage(viewHolder.profileIcon);
         //set the icon
-        ImageHolder.applyToOrSetInvisible(getIcon(), viewHolder.profileIcon);
+        ImageHolder.applyToOrSetInvisible(getIcon(), viewHolder.profileIcon, DrawerImageLoader.Tags.PROFILE_DRAWER_ITEM.name());
 
         //for android API 17 --> Padding not applied via xml
         DrawerUIUtils.setDrawerVerticalPadding(viewHolder.view);
