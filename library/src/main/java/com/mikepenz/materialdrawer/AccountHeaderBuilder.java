@@ -718,7 +718,7 @@ public class AccountHeaderBuilder {
         // get the background view
         mAccountHeaderBackground = (ImageView) mAccountHeaderContainer.findViewById(R.id.material_drawer_account_header_background);
         // set the background
-        ImageHolder.applyTo(mHeaderBackground, mAccountHeaderBackground);
+        ImageHolder.applyTo(mHeaderBackground, mAccountHeaderBackground, DrawerImageLoader.Tags.ACCOUNT_HEADER.name());
 
         if (mHeaderBackgroundScaleType != null) {
             mAccountHeaderBackground.setScaleType(mHeaderBackgroundScaleType);
@@ -1090,7 +1090,7 @@ public class AccountHeaderBuilder {
         //set the placeholder
         iv.setImageDrawable(DrawerUIUtils.getPlaceHolder(iv.getContext()));
         //set the real image (probably also the uri)
-        ImageHolder.applyTo(imageHolder, iv);
+        ImageHolder.applyTo(imageHolder, iv, DrawerImageLoader.Tags.PROFILE.name());
     }
 
     /**
