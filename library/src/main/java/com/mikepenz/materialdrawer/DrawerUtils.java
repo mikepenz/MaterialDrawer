@@ -306,13 +306,13 @@ class DrawerUtils {
 
             //handle shadow on top of the sticky footer
             if (drawer.mStickyFooterShadow) {
-                View view = new View(ctx);
-                view.setBackgroundResource(R.drawable.material_drawer_shadow_top);
-                drawer.mSliderLayout.addView(view, RelativeLayout.LayoutParams.MATCH_PARENT, (int) UIUtils.convertDpToPixel(4, ctx));
+                drawer.mStickyFooterShadowView = new View(ctx);
+                drawer.mStickyFooterShadowView.setBackgroundResource(R.drawable.material_drawer_shadow_top);
+                drawer.mSliderLayout.addView(drawer.mStickyFooterShadowView, RelativeLayout.LayoutParams.MATCH_PARENT, (int) UIUtils.convertDpToPixel(4, ctx));
                 //now align the shadow below the stickyHeader ;)
-                RelativeLayout.LayoutParams lps = (RelativeLayout.LayoutParams) view.getLayoutParams();
+                RelativeLayout.LayoutParams lps = (RelativeLayout.LayoutParams) drawer.mStickyFooterShadowView.getLayoutParams();
                 lps.addRule(RelativeLayout.ABOVE, R.id.material_drawer_sticky_footer);
-                view.setLayoutParams(lps);
+                drawer.mStickyFooterShadowView.setLayoutParams(lps);
             }
 
             //remove the padding of the recyclerView again we have the footer below it

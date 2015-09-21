@@ -741,6 +741,8 @@ public class DrawerBuilder {
     protected ViewGroup mStickyFooterView;
     // divider shown on top of the sticky footer
     protected boolean mStickyFooterDivider = false;
+    // sticky view
+    protected View mStickyFooterShadowView;
     // shadow shown on the top of the sticky footer
     protected boolean mStickyFooterShadow = true;
 

@@ -326,6 +326,15 @@ public class Drawer {
     }
 
     /**
+     * get the StickyFooter Shadow View if set else NULL
+     *
+     * @return
+     */
+    private View getStickyFooterShadow() {
+        return mDrawerBuilder.mStickyFooterShadowView;
+    }
+
+    /**
      * get the ActionBarDrawerToggle
      *
      * @return
@@ -852,8 +861,12 @@ public class Drawer {
             setItems(drawerItems, true);
             setSelectionAtPosition(drawerSelection, false);
 
+            //hide stickyFooter and it's shadow
             if (getStickyFooter() != null) {
                 getStickyFooter().setVisibility(View.GONE);
+            }
+            if (getStickyFooterShadow() != null) {
+                getStickyFooterShadow().setVisibility(View.GONE);
             }
         }
     }
@@ -875,8 +888,12 @@ public class Drawer {
             //if we switch back scroll back to the top
             mDrawerBuilder.mRecyclerView.smoothScrollToPosition(0);
 
+            //show the stickyFooter and it's shadow again
             if (getStickyFooter() != null) {
                 getStickyFooter().setVisibility(View.VISIBLE);
+            }
+            if (getStickyFooterShadow() != null) {
+                getStickyFooterShadow().setVisibility(View.VISIBLE);
             }
 
             //if we currently show the accountHeader selection list make sure to reset this attr
