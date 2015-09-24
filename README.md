@@ -82,10 +82,10 @@ Drawer result = new DrawerBuilder()
 	    new SecondaryDrawerItem().withName(R.string.drawer_item_settings)
     )
     .withOnDrawerItemClickListener(new Drawer.OnDrawerItemClickListener() {
-    @Override
-    public boolean onItemClick(View view, int position, IDrawerItem drawerItem) {
-    	// do something with the clicked item :D
-    }
+        @Override
+        public boolean onItemClick(View view, int position, IDrawerItem drawerItem) {
+    	    // do something with the clicked item :D
+        }
     })
     .build();
 ```
@@ -98,6 +98,12 @@ result.setSelection(1);
 result.setSelection(item2);
 //set the selection and also fire the `onItemClick`-listener
 result.setSelection(1, true);
+```
+
+By default, when a drawer item is clicked, it becomes the new selected item. If this isn't the expected behavior,
+you can disable it for this item using `withSelectable(false)`:
+```java
+new SecondaryDrawerItem().withName(R.string.drawer_item_dialog).withSelectable(false)
 ```
 
 ##Modify items or the drawer
