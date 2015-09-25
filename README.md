@@ -46,6 +46,9 @@ You can try it out here [Google Play](https://play.google.com/store/apps/details
 ![Image](https://raw.githubusercontent.com/mikepenz/MaterialDrawer/develop/DEV/github/screenshots1.jpg)
 ![Image](https://raw.githubusercontent.com/mikepenz/MaterialDrawer/develop/DEV/github/screenshots2.jpg)
 
+#WIKI / FAQ
+You can find some frequently asked questions and other resources in the [WIKI / FAQ](FAQ.md) site.
+
 #Setup
 ##1. Provide the gradle dependency
 
