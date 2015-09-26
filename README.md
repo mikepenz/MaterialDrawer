@@ -388,6 +388,7 @@ drawerLayout.setDrawerLockMode(int lockMode); //or (int lockMode, int edgeGravit
 * [Fimpl](https://play.google.com/store/apps/details?id=com.danielZET.fimpl)
 * [+UEA](https://play.google.com/store/apps/details?id=br.edu.uea.app)
 * [PixCell8](https://play.google.com/store/apps/details?id=com.pixcell8.prod)
+* [TS3 Viewer for TeamSpeak 3](https://play.google.com/store/apps/details?id=com.game_state.ts3viewer)
 
 
 #Articles about the MaterialDrawer
