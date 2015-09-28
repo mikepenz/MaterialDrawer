@@ -179,17 +179,24 @@ public class MiniDrawer {
             int identifier = selectedDrawerItem.getIdentifier();
 
             //update everything
-            if (mDrawer != null) {
-                for (IDrawerItem drawerItem : mDrawerAdapter.getDrawerItems()) {
-                    drawerItem.withSetSelected(drawerItem.getIdentifier() == identifier);
-                }
-                mDrawerAdapter.notifyDataSetChanged();
-            }
+            setSelection(identifier);
 
             return false;
         } else {
             return true;
         }
+    }
+
+    /**
+     * set the selection of the MiniDrawer
+     *
+     * @param identifier the identifier of the item which should be selected (-1 for none)
+     */
+    public void setSelection(int identifier) {
+        for (IDrawerItem drawerItem : mDrawerAdapter.getDrawerItems()) {
+            drawerItem.withSetSelected(drawerItem.getIdentifier() == identifier);
+        }
+        mDrawerAdapter.notifyDataSetChanged();
     }
 
     /**
