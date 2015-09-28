@@ -98,12 +98,17 @@ There  is a Header with profiles (<strong>AccountHeader</strong>), a <strong>Min
 <img src="https://raw.githubusercontent.com/mikepenz/MaterialDrawer/develop/DEV/github/screenshots2.jpg" alt="Image"></p>
 
 <h1>
+<a id="wiki--faq" class="anchor" href="#wiki--faq" aria-hidden="true"><span class="octicon octicon-link"></span></a>WIKI / FAQ</h1>
+
+<p>You can find some frequently asked questions and other resources in the <a href="FAQ.md">WIKI / FAQ</a> site.</p>
+
+<h1>
 <a id="setup" class="anchor" href="#setup" aria-hidden="true"><span class="octicon octicon-link"></span></a>Setup</h1>
 
 <h2>
 <a id="1-provide-the-gradle-dependency" class="anchor" href="#1-provide-the-gradle-dependency" aria-hidden="true"><span class="octicon octicon-link"></span></a>1. Provide the gradle dependency</h2>
 
-<div class="highlight highlight-source-groovy-gradle"><pre>compile(<span class="pl-s"><span class="pl-pds">'</span>com.mikepenz:materialdrawer:4.3.0@aar<span class="pl-pds">'</span></span>) {
+<div class="highlight highlight-source-groovy-gradle"><pre>compile(<span class="pl-s"><span class="pl-pds">'</span>com.mikepenz:materialdrawer:4.3.1@aar<span class="pl-pds">'</span></span>) {
     transitive <span class="pl-k">=</span> <span class="pl-c1">true</span>
 }</pre></div>
 
@@ -135,10 +140,10 @@ There  is a Header with profiles (<strong>AccountHeader</strong>), a <strong>Min
         <span class="pl-k">new</span> <span class="pl-smi">SecondaryDrawerItem</span>()<span class="pl-k">.</span>withName(<span class="pl-smi">R</span><span class="pl-k">.</span>string<span class="pl-k">.</span>drawer_item_settings)
     )
     .withOnDrawerItemClickListener(<span class="pl-k">new</span> <span class="pl-smi">Drawer</span>.<span class="pl-smi">OnDrawerItemClickListener</span>() {
-    <span class="pl-k">@Override</span>
-    <span class="pl-k">public</span> <span class="pl-k">boolean</span> <span class="pl-en">onItemClick</span>(<span class="pl-smi">View</span> <span class="pl-v">view</span>, <span class="pl-k">int</span> <span class="pl-v">position</span>, <span class="pl-smi">IDrawerItem</span> <span class="pl-v">drawerItem</span>) {
-        <span class="pl-c">// do something with the clicked item :D</span>
-    }
+        <span class="pl-k">@Override</span>
+        <span class="pl-k">public</span> <span class="pl-k">boolean</span> <span class="pl-en">onItemClick</span>(<span class="pl-smi">View</span> <span class="pl-v">view</span>, <span class="pl-k">int</span> <span class="pl-v">position</span>, <span class="pl-smi">IDrawerItem</span> <span class="pl-v">drawerItem</span>) {
+            <span class="pl-c">// do something with the clicked item :D</span>
+        }
     })
     .build();</pre></div>
 
@@ -151,6 +156,11 @@ result<span class="pl-k">.</span>setSelection(<span class="pl-c1">1</span>);
 result<span class="pl-k">.</span>setSelection(item2);
 <span class="pl-c">//set the selection and also fire the `onItemClick`-listener</span>
 result<span class="pl-k">.</span>setSelection(<span class="pl-c1">1</span>, <span class="pl-c1">true</span>);</pre></div>
+
+<p>By default, when a drawer item is clicked, it becomes the new selected item. If this isn't the expected behavior,
+you can disable it for this item using <code>withSelectable(false)</code>:</p>
+
+<div class="highlight highlight-source-java"><pre><span class="pl-k">new</span> <span class="pl-smi">SecondaryDrawerItem</span>()<span class="pl-k">.</span>withName(<span class="pl-smi">R</span><span class="pl-k">.</span>string<span class="pl-k">.</span>drawer_item_dialog)<span class="pl-k">.</span>withSelectable(<span class="pl-c1">false</span>)</pre></div>
 
 <h2>
 <a id="modify-items-or-the-drawer" class="anchor" href="#modify-items-or-the-drawer" aria-hidden="true"><span class="octicon octicon-link"></span></a>Modify items or the drawer</h2>
@@ -464,6 +474,7 @@ drawerLayout<span class="pl-k">.</span>setDrawerLockMode(<span class="pl-k">int<
 <li><a href="https://play.google.com/store/apps/details?id=com.danielZET.fimpl">Fimpl</a></li>
 <li><a href="https://play.google.com/store/apps/details?id=br.edu.uea.app">+UEA</a></li>
 <li><a href="https://play.google.com/store/apps/details?id=com.pixcell8.prod">PixCell8</a></li>
+<li><a href="https://play.google.com/store/apps/details?id=com.game_state.ts3viewer">TS3 Viewer for TeamSpeak 3</a></li>
 </ul>
 
 <h1>
