@@ -49,6 +49,28 @@ public class MiniDrawerItem extends BaseDrawerItem<MiniDrawerItem> {
         this.disabledIconColor = primaryDrawerItem.disabledIconColor;
     }
 
+    public MiniDrawerItem(SecondaryDrawerItem secondaryDrawerItem) {
+        this.mIdentifier = secondaryDrawerItem.mIdentifier;
+        this.mTag = secondaryDrawerItem.mTag;
+
+        this.mBadge = secondaryDrawerItem.mBadge;
+        this.mBadgeStyle = secondaryDrawerItem.mBadgeStyle;
+
+        this.mEnabled = secondaryDrawerItem.mEnabled;
+        this.mSelectable = secondaryDrawerItem.mSelectable;
+        this.mSelected = secondaryDrawerItem.mSelected;
+
+        this.icon = secondaryDrawerItem.icon;
+        this.selectedIcon = secondaryDrawerItem.selectedIcon;
+
+        this.iconTinted = secondaryDrawerItem.iconTinted;
+        this.selectedColor = secondaryDrawerItem.selectedColor;
+
+        this.iconColor = secondaryDrawerItem.iconColor;
+        this.selectedIconColor = secondaryDrawerItem.selectedIconColor;
+        this.disabledIconColor = secondaryDrawerItem.disabledIconColor;
+    }
+
     @Override
     public String getType() {
         return "MINI_ITEM";

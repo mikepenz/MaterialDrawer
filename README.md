@@ -46,11 +46,14 @@ You can try it out here [Google Play](https://play.google.com/store/apps/details
 ![Image](https://raw.githubusercontent.com/mikepenz/MaterialDrawer/develop/DEV/github/screenshots1.jpg)
 ![Image](https://raw.githubusercontent.com/mikepenz/MaterialDrawer/develop/DEV/github/screenshots2.jpg)
 
+#WIKI / FAQ
+You can find some frequently asked questions and other resources in the [WIKI / FAQ](FAQ.md) site.
+
 #Setup
 ##1. Provide the gradle dependency
 
 ```gradle
-compile('com.mikepenz:materialdrawer:4.3.0@aar') {
+compile('com.mikepenz:materialdrawer:4.3.1@aar') {
 	transitive = true
 }
 ```
@@ -82,10 +85,10 @@ Drawer result = new DrawerBuilder()
 	    new SecondaryDrawerItem().withName(R.string.drawer_item_settings)
     )
     .withOnDrawerItemClickListener(new Drawer.OnDrawerItemClickListener() {
-    @Override
-    public boolean onItemClick(View view, int position, IDrawerItem drawerItem) {
-    	// do something with the clicked item :D
-    }
+        @Override
+        public boolean onItemClick(View view, int position, IDrawerItem drawerItem) {
+    	    // do something with the clicked item :D
+        }
     })
     .build();
 ```
@@ -98,6 +101,12 @@ result.setSelection(1);
 result.setSelection(item2);
 //set the selection and also fire the `onItemClick`-listener
 result.setSelection(1, true);
+```
+
+By default, when a drawer item is clicked, it becomes the new selected item. If this isn't the expected behavior,
+you can disable it for this item using `withSelectable(false)`:
+```java
+new SecondaryDrawerItem().withName(R.string.drawer_item_dialog).withSelectable(false)
 ```
 
 ##Modify items or the drawer
@@ -379,6 +388,7 @@ drawerLayout.setDrawerLockMode(int lockMode); //or (int lockMode, int edgeGravit
 * [Fimpl](https://play.google.com/store/apps/details?id=com.danielZET.fimpl)
 * [+UEA](https://play.google.com/store/apps/details?id=br.edu.uea.app)
 * [PixCell8](https://play.google.com/store/apps/details?id=com.pixcell8.prod)
+* [TS3 Viewer for TeamSpeak 3](https://play.google.com/store/apps/details?id=com.game_state.ts3viewer)
 
 
 #Articles about the MaterialDrawer
