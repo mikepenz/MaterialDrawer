@@ -17,9 +17,8 @@ import com.mikepenz.materialdrawer.model.utils.ViewHolderFactory;
  * Created by mikepenz on 03.02.15.
  */
 public class SecondaryDrawerItem extends BaseSecondaryDrawerItem<SecondaryDrawerItem> implements ColorfulBadgeable<SecondaryDrawerItem> {
-
-    private StringHolder mBadge;
-    private BadgeStyle mBadgeStyle = new BadgeStyle();
+    protected StringHolder mBadge;
+    protected BadgeStyle mBadgeStyle = new BadgeStyle();
 
     @Override
     public SecondaryDrawerItem withBadge(StringHolder badge) {

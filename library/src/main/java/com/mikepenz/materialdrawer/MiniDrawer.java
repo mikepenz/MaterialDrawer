@@ -16,6 +16,7 @@ import com.mikepenz.materialdrawer.model.MiniDrawerItem;
 import com.mikepenz.materialdrawer.model.MiniProfileDrawerItem;
 import com.mikepenz.materialdrawer.model.PrimaryDrawerItem;
 import com.mikepenz.materialdrawer.model.ProfileDrawerItem;
+import com.mikepenz.materialdrawer.model.SecondaryDrawerItem;
 import com.mikepenz.materialdrawer.model.interfaces.IDrawerItem;
 import com.mikepenz.materialdrawer.model.interfaces.IProfile;
 import com.mikepenz.materialize.util.UIUtils;
@@ -63,6 +64,13 @@ public class MiniDrawer {
 
     public MiniDrawer withInRTL(boolean inRTL) {
         this.mInRTL = inRTL;
+        return this;
+    }
+
+    private boolean mIncludeSecondaryDrawerItems = false;
+
+    public MiniDrawer withIncludeSecondaryDrawerItems(boolean includeSecondaryDrawerItems) {
+        this.mIncludeSecondaryDrawerItems = includeSecondaryDrawerItems;
         return this;
     }
 
@@ -199,6 +207,12 @@ public class MiniDrawer {
                         mDrawerAdapter.setDrawerItem(i, new MiniDrawerItem((PrimaryDrawerItem) drawerItem));
                     }
                 }
+            } else if (mIncludeSecondaryDrawerItems && drawerItem instanceof SecondaryDrawerItem) {
+                for (int i = 0; i < mDrawerAdapter.getDrawerItems().size(); i++) {
+                    if (mDrawerAdapter.getDrawerItems().get(i).getIdentifier() == drawerItem.getIdentifier()) {
+                        mDrawerAdapter.setDrawerItem(i, new MiniDrawerItem((SecondaryDrawerItem) drawerItem));
+                    }
+                }
             }
         }
     }
@@ -227,6 +241,8 @@ public class MiniDrawer {
                 for (IDrawerItem drawerItem : drawerItems) {
                     if (drawerItem instanceof PrimaryDrawerItem) {
                         mDrawerAdapter.addDrawerItem(new MiniDrawerItem((PrimaryDrawerItem) drawerItem));
+                    } else if (mIncludeSecondaryDrawerItems && drawerItem instanceof SecondaryDrawerItem) {
+                        mDrawerAdapter.addDrawerItem(new MiniDrawerItem((SecondaryDrawerItem) drawerItem));
                     }
                 }
             }
