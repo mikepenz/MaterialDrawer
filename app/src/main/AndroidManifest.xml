@@ -56,6 +56,9 @@
         <activity
             android:name=".FragmentActivity"
             android:theme="@style/MaterialDrawerTheme.Light.DarkToolbar" />
+        <activity
+            android:name=".CollapsingToolbarActivity"
+            android:theme="@style/MaterialDrawerTheme.Light.DarkToolbar.TranslucentStatus" />
     </application>
 
 </manifest>

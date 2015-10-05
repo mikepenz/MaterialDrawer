@@ -13,8 +13,8 @@ android {
         applicationId "com.mikepenz.materialdrawer.app"
         minSdkVersion 10
         targetSdkVersion 23
-        versionCode 431
-        versionName "4.3.1"
+        versionCode 432
+        versionName "4.3.2"
 
         applicationVariants.all { variant ->
             variant.outputs.each { output ->
@@ -51,13 +51,15 @@ android {
 dependencies {
     compile project(':library')
 
+    compile 'com.android.support:design:23.0.1'
+
     compile 'com.squareup.picasso:picasso:2.5.2'
     compile 'com.github.bumptech.glide:glide:3.6.1'
 
-    compile('com.mikepenz:aboutlibraries:5.2.3@aar') {
+    compile('com.mikepenz:aboutlibraries:5.2.4@aar') {
         transitive = true
     }
-    compile 'com.mikepenz:crossfader:1.0.5@aar'
+    compile 'com.mikepenz:crossfader:1.1.0@aar'
 
     compile 'com.mikepenz:google-material-typeface:1.2.0.1@aar'
     compile 'com.mikepenz:fontawesome-typeface:4.4.0.1@aar'
