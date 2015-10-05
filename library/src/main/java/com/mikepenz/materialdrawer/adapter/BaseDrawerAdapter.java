@@ -60,27 +60,27 @@ public abstract class BaseDrawerAdapter extends RecyclerView.Adapter<RecyclerVie
         int length = mDrawerItems.size();
         if (drawerItems != null) {
             Collections.addAll(mDrawerItems, drawerItems);
-            notifyItemRangeInserted(length, length + drawerItems.length);
+            mapPossibleTypes(mDrawerItems);
+            notifyItemRangeInserted(length, drawerItems.length);
         }
-        mapPossibleTypes(mDrawerItems);
     }
 
     public void setDrawerItem(int position, IDrawerItem drawerItem) {
         mDrawerItems.set(position - getHeaderItemCount(), drawerItem);
-        notifyItemChanged(position);
         mapPossibleType(drawerItem);
+        notifyItemChanged(position);
     }
 
     public void addDrawerItem(IDrawerItem drawerItem) {
         mDrawerItems.add(drawerItem);
-        notifyItemInserted(mDrawerItems.size());
         mapPossibleType(drawerItem);
+        notifyItemInserted(mDrawerItems.size());
     }
 
     public void addDrawerItem(int position, IDrawerItem drawerItem) {
         mDrawerItems.add(position - getHeaderItemCount(), drawerItem);
-        notifyItemInserted(position);
         mapPossibleType(drawerItem);
+        notifyItemInserted(position);
     }
 
     public void removeDrawerItem(int position) {
