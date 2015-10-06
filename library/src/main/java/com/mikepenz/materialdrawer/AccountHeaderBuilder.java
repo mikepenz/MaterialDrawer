@@ -972,6 +972,8 @@ public class AccountHeaderBuilder {
         mProfileSecondView.setOnClickListener(null);
         mProfileThirdView.setVisibility(View.GONE);
         mProfileThirdView.setOnClickListener(null);
+        mCurrentProfileName.setText("");
+        mCurrentProfileEmail.setText("");
 
         handleSelectionView(mCurrentProfile, true);
 
