@@ -24,6 +24,7 @@ import com.mikepenz.materialdrawer.AccountHeaderBuilder;
 import com.mikepenz.materialdrawer.Drawer;
 import com.mikepenz.materialdrawer.DrawerBuilder;
 import com.mikepenz.materialdrawer.MiniDrawer;
+import com.mikepenz.materialdrawer.app.customMiniDrawer.CustomMiniDrawer;
 import com.mikepenz.materialdrawer.app.utils.CrossfadeWrapper;
 import com.mikepenz.materialdrawer.app.utils.SystemUtils;
 import com.mikepenz.materialdrawer.holder.BadgeStyle;
@@ -144,7 +145,7 @@ public class MiniDrawerActivity extends AppCompatActivity {
 
         // Embed only if orientation is Landscape (regular drawer in Portrait)
         result = builder.buildView();
-        miniResult = new MiniDrawer().withDrawer(result).withInnerShadow(true).withAccountHeader(headerResult);
+        miniResult = new CustomMiniDrawer().withDrawer(result).withInnerShadow(true).withAccountHeader(headerResult);
 
         int first = (int) UIUtils.convertDpToPixel(300, this);
         int second = (int) UIUtils.convertDpToPixel(72, this);
