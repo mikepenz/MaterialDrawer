@@ -77,6 +77,12 @@ public class MiniDrawer {
         return this;
     }
 
+    private boolean mEnableSelectedMiniDrawerItemBackground = false;
+
+    public MiniDrawer withEnableSelectedMiniDrawerItemBackground(boolean enableSelectedMiniDrawerItemBackground) {
+        this.mEnableSelectedMiniDrawerItemBackground = enableSelectedMiniDrawerItemBackground;
+        return this;
+    }
 
     public RecyclerView getRecyclerView() {
         return mRecyclerView;
@@ -106,9 +112,9 @@ public class MiniDrawer {
      */
     public IDrawerItem generateMiniDrawerItem(IDrawerItem drawerItem) {
         if (drawerItem instanceof PrimaryDrawerItem) {
-            return new MiniDrawerItem((PrimaryDrawerItem) drawerItem);
+            return new MiniDrawerItem((PrimaryDrawerItem) drawerItem).withEnableSelectedBackground(mEnableSelectedMiniDrawerItemBackground);
         } else if (drawerItem instanceof SecondaryDrawerItem && mIncludeSecondaryDrawerItems) {
-            return new MiniDrawerItem((SecondaryDrawerItem) drawerItem);
+            return new MiniDrawerItem((SecondaryDrawerItem) drawerItem).withEnableSelectedBackground(mEnableSelectedMiniDrawerItemBackground);
         }
         return null;
     }
