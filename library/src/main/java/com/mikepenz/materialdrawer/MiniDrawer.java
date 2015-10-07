@@ -28,6 +28,9 @@ import java.util.ArrayList;
  * Don't count this for real yet. it's just a quick try on creating a Gmail like panel
  */
 public class MiniDrawer {
+    public static final int PROFILE = 1;
+    public static final int ITEM = 2;
+
     private LinearLayout mContainer;
     private RecyclerView mRecyclerView;
     private DrawerAdapter mDrawerAdapter;
@@ -93,6 +96,36 @@ public class MiniDrawer {
 
     public ICrossfader getCrossFader() {
         return mCrossFader;
+    }
+
+    /**
+     * generates a MiniDrawerItem from a IDrawerItem
+     *
+     * @param drawerItem
+     * @return
+     */
+    public IDrawerItem generateMiniDrawerItem(IDrawerItem drawerItem) {
+        if (drawerItem instanceof PrimaryDrawerItem) {
+            return new MiniDrawerItem((PrimaryDrawerItem) drawerItem);
+        } else if (drawerItem instanceof SecondaryDrawerItem && mIncludeSecondaryDrawerItems) {
+            return new MiniDrawerItem((SecondaryDrawerItem) drawerItem);
+        }
+        return null;
+    }
+
+    /**
+     * gets the type of a IDrawerItem
+     *
+     * @param drawerItem
+     * @return
+     */
+    public int getMiniDrawerType(IDrawerItem drawerItem) {
+        if (drawerItem instanceof MiniProfileDrawerItem) {
+            return PROFILE;
+        } else if (drawerItem instanceof MiniDrawerItem) {
+            return ITEM;
+        }
+        return -1;
     }
 
     /**
@@ -208,16 +241,11 @@ public class MiniDrawer {
         if (mDrawer != null && mDrawerAdapter != null && mDrawerAdapter.getDrawerItems() != null && identifier != -1) {
             IDrawerItem drawerItem = mDrawer.getDrawerItem(identifier);
 
-            if (drawerItem instanceof PrimaryDrawerItem) {
-                for (int i = 0; i < mDrawerAdapter.getDrawerItems().size(); i++) {
-                    if (mDrawerAdapter.getDrawerItems().get(i).getIdentifier() == drawerItem.getIdentifier()) {
-                        mDrawerAdapter.setDrawerItem(i, new MiniDrawerItem((PrimaryDrawerItem) drawerItem));
-                    }
-                }
-            } else if (mIncludeSecondaryDrawerItems && drawerItem instanceof SecondaryDrawerItem) {
-                for (int i = 0; i < mDrawerAdapter.getDrawerItems().size(); i++) {
-                    if (mDrawerAdapter.getDrawerItems().get(i).getIdentifier() == drawerItem.getIdentifier()) {
-                        mDrawerAdapter.setDrawerItem(i, new MiniDrawerItem((SecondaryDrawerItem) drawerItem));
+            for (int i = 0; i < mDrawerAdapter.getDrawerItems().size(); i++) {
+                if (mDrawerAdapter.getDrawerItems().get(i).getIdentifier() == drawerItem.getIdentifier()) {
+                    IDrawerItem miniDrawerItem = generateMiniDrawerItem(drawerItem);
+                    if (miniDrawerItem != null) {
+                        mDrawerAdapter.setDrawerItem(i, miniDrawerItem);
                     }
                 }
             }
@@ -246,10 +274,9 @@ public class MiniDrawer {
 
                 //migrate to miniDrawerItems
                 for (IDrawerItem drawerItem : drawerItems) {
-                    if (drawerItem instanceof PrimaryDrawerItem) {
-                        mDrawerAdapter.addDrawerItem(new MiniDrawerItem((PrimaryDrawerItem) drawerItem));
-                    } else if (mIncludeSecondaryDrawerItems && drawerItem instanceof SecondaryDrawerItem) {
-                        mDrawerAdapter.addDrawerItem(new MiniDrawerItem((SecondaryDrawerItem) drawerItem));
+                    IDrawerItem miniDrawerItem = generateMiniDrawerItem(drawerItem);
+                    if (miniDrawerItem != null) {
+                        mDrawerAdapter.addDrawerItem(miniDrawerItem);
                     }
                 }
             }
@@ -259,11 +286,13 @@ public class MiniDrawer {
         mDrawerAdapter.setOnClickListener(new BaseDrawerAdapter.OnClickListener() {
             @Override
             public void onClick(View v, int position, IDrawerItem item) {
-                if (item instanceof MiniDrawerItem) {
+                int type = getMiniDrawerType(item);
+
+                if (type == ITEM) {
                     if (mDrawerAdapter != null && item.isSelectable()) {
                         mDrawer.setSelection(item, true);
                     }
-                } else if (item instanceof MiniProfileDrawerItem) {
+                } else if (type == PROFILE) {
                     if (mAccountHeader != null) {
                         if (!mAccountHeader.isSelectionListShown()) {
                             mAccountHeader.toggleSelectionList(v.getContext());
