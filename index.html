@@ -108,7 +108,7 @@ There  is a Header with profiles (<strong>AccountHeader</strong>), a <strong>Min
 <h2>
 <a id="1-provide-the-gradle-dependency" class="anchor" href="#1-provide-the-gradle-dependency" aria-hidden="true"><span class="octicon octicon-link"></span></a>1. Provide the gradle dependency</h2>
 
-<div class="highlight highlight-source-groovy-gradle"><pre>compile(<span class="pl-s"><span class="pl-pds">'</span>com.mikepenz:materialdrawer:4.3.1@aar<span class="pl-pds">'</span></span>) {
+<div class="highlight highlight-source-groovy-gradle"><pre>compile(<span class="pl-s"><span class="pl-pds">'</span>com.mikepenz:materialdrawer:4.3.4@aar<span class="pl-pds">'</span></span>) {
     transitive <span class="pl-k">=</span> <span class="pl-c1">true</span>
 }</pre></div>
 
@@ -278,12 +278,19 @@ new SecondaryDrawerItem().withIcon(FontAwesome.Icon.faw_github)
 <p>The MaterialDrawer supports fetching images from URLs and setting them for the Profile icons. As the MaterialDrawer does not contain an ImageLoading library
 the dev can choose his own implementation (Picasso, Glide, ...). This has to be done, before the first image should be loaded via URL. (Should be done in the Application, but any other spot before loading the first image is working too)</p>
 
+<ul>
+<li>SAMPLE using <a href="https://github.com/square/picasso">PICASSO</a>
+</li>
+<li>
+<a href="https://github.com/mikepenz/MaterialDrawer/blob/develop/app/src/main/java/com/mikepenz/materialdrawer/app/CustomApplication.java">SAMPLE</a> using <a href="https://github.com/bumptech/glide">GLIDE</a>
+</li>
+</ul>
+
 <h3>
 <a id="code-2" class="anchor" href="#code-2" aria-hidden="true"><span class="octicon octicon-link"></span></a>Code:</h3>
 
-<div class="highlight highlight-source-java"><pre><span class="pl-c">//SAMPLE using [PICASSO](https://github.com/square/picasso)</span>
-<span class="pl-c">//initialize and create the image loader logic</span>
-<span class="pl-smi">DrawerImageLoader</span><span class="pl-k">.</span>init(<span class="pl-k">new</span> <span class="pl-smi">DrawerImageLoader</span>.<span class="pl-smi">IDrawerImageLoader</span>() {
+<div class="highlight highlight-source-java"><pre><span class="pl-c">//initialize and create the image loader logic</span>
+<span class="pl-smi">DrawerImageLoader</span><span class="pl-k">.</span>init(<span class="pl-k">new</span> <span class="pl-smi">AbstractDrawerImageLoader</span>() {
     <span class="pl-k">@Override</span>
     <span class="pl-k">public</span> <span class="pl-k">void</span> <span class="pl-en">set</span>(<span class="pl-smi">ImageView</span> <span class="pl-v">imageView</span>, <span class="pl-smi">Uri</span> <span class="pl-v">uri</span>, <span class="pl-smi">Drawable</span> <span class="pl-v">placeholder</span>) {
         <span class="pl-smi">Picasso</span><span class="pl-k">.</span>with(imageView<span class="pl-k">.</span>getContext())<span class="pl-k">.</span>load(uri)<span class="pl-k">.</span>placeholder(placeholder)<span class="pl-k">.</span>into(imageView);
@@ -294,10 +301,17 @@ the dev can choose his own implementation (Picasso, Glide, ...). This has to be 
         <span class="pl-smi">Picasso</span><span class="pl-k">.</span>with(imageView<span class="pl-k">.</span>getContext())<span class="pl-k">.</span>cancelRequest(imageView);
     }
 
-    <span class="pl-k">@Override</span>
-    <span class="pl-k">public</span> <span class="pl-smi">Drawable</span> <span class="pl-en">placeholder</span>(<span class="pl-smi">Context</span> <span class="pl-v">ctx</span>) {
-        <span class="pl-k">return</span> <span class="pl-c1">null</span>;
-    }
+    <span class="pl-c">/*</span>
+<span class="pl-c">    @Override</span>
+<span class="pl-c">    public Drawable placeholder(Context ctx) {</span>
+<span class="pl-c">        return super.placeholder(ctx);</span>
+<span class="pl-c">    }</span>
+<span class="pl-c"></span>
+<span class="pl-c">    @Override</span>
+<span class="pl-c">    public Drawable placeholder(Context ctx, String tag) {</span>
+<span class="pl-c">        return super.placeholder(ctx, tag);</span>
+<span class="pl-c">    }</span>
+<span class="pl-c">    */</span>
 });</pre></div>
 
 <p>An implementation with <a href="https://github.com/mikepenz/MaterialDrawer/blob/develop/app/src/main/java/com/mikepenz/materialdrawer/app/CustomApplication.java#L42">GLIDE</a> can be found in the sample application</p>
