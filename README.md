@@ -53,7 +53,7 @@ You can find some frequently asked questions and other resources in the [WIKI / 
 ##1. Provide the gradle dependency
 
 ```gradle
-compile('com.mikepenz:materialdrawer:4.3.3@aar') {
+compile('com.mikepenz:materialdrawer:4.3.4@aar') {
 	transitive = true
 }
 ```
@@ -216,11 +216,13 @@ new DrawerBuilder()
 ##Load images via url
 The MaterialDrawer supports fetching images from URLs and setting them for the Profile icons. As the MaterialDrawer does not contain an ImageLoading library
 the dev can choose his own implementation (Picasso, Glide, ...). This has to be done, before the first image should be loaded via URL. (Should be done in the Application, but any other spot before loading the first image is working too)
+* SAMPLE using [PICASSO](https://github.com/square/picasso)
+* [SAMPLE](https://github.com/mikepenz/MaterialDrawer/blob/develop/app/src/main/java/com/mikepenz/materialdrawer/app/CustomApplication.java) using [GLIDE](https://github.com/bumptech/glide)
+
 ###Code:
 ```java
-//SAMPLE using [PICASSO](https://github.com/square/picasso)
 //initialize and create the image loader logic
-DrawerImageLoader.init(new DrawerImageLoader.IDrawerImageLoader() {
+DrawerImageLoader.init(new AbstractDrawerImageLoader() {
     @Override
     public void set(ImageView imageView, Uri uri, Drawable placeholder) {
         Picasso.with(imageView.getContext()).load(uri).placeholder(placeholder).into(imageView);
@@ -231,10 +233,17 @@ DrawerImageLoader.init(new DrawerImageLoader.IDrawerImageLoader() {
         Picasso.with(imageView.getContext()).cancelRequest(imageView);
     }
 
+    /*
     @Override
     public Drawable placeholder(Context ctx) {
-        return null;
+        return super.placeholder(ctx);
     }
+
+    @Override
+    public Drawable placeholder(Context ctx, String tag) {
+        return super.placeholder(ctx, tag);
+    }
+    */
 });
 ```
 

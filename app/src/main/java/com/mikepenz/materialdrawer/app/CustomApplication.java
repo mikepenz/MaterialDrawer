@@ -23,7 +23,7 @@ public class CustomApplication extends Application {
 
         /*
         //initialize and create the image loader logic
-        DrawerImageLoader.init(new DrawerImageLoader.IDrawerImageLoader() {
+        DrawerImageLoader.init(new AbstractDrawerImageLoader() {
             @Override
             public void set(ImageView imageView, Uri uri, Drawable placeholder) {
                 Picasso.with(imageView.getContext()).load(uri).placeholder(placeholder).into(imageView);
@@ -32,11 +32,6 @@ public class CustomApplication extends Application {
             @Override
             public void cancel(ImageView imageView) {
                 Picasso.with(imageView.getContext()).cancelRequest(imageView);
-            }
-
-            @Override
-            public Drawable placeholder(Context ctx) {
-                return null;
             }
         });
         */

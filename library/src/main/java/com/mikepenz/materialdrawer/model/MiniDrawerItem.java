@@ -13,6 +13,8 @@ import com.mikepenz.materialdrawer.holder.BadgeStyle;
 import com.mikepenz.materialdrawer.holder.ImageHolder;
 import com.mikepenz.materialdrawer.holder.StringHolder;
 import com.mikepenz.materialdrawer.model.utils.ViewHolderFactory;
+import com.mikepenz.materialdrawer.util.DrawerUIUtils;
+import com.mikepenz.materialize.util.UIUtils;
 
 /**
  * Created by mikepenz on 03.02.15.
@@ -20,6 +22,8 @@ import com.mikepenz.materialdrawer.model.utils.ViewHolderFactory;
 public class MiniDrawerItem extends BaseDrawerItem<MiniDrawerItem> {
     private StringHolder mBadge;
     private BadgeStyle mBadgeStyle = new BadgeStyle();
+
+    private boolean mEnableSelectedBackground = false;
 
     public MiniDrawerItem() {
 
@@ -69,6 +73,11 @@ public class MiniDrawerItem extends BaseDrawerItem<MiniDrawerItem> {
         this.disabledIconColor = secondaryDrawerItem.disabledIconColor;
     }
 
+    public MiniDrawerItem withEnableSelectedBackground(boolean enableSelectedBackground) {
+        this.mEnableSelectedBackground = enableSelectedBackground;
+        return this;
+    }
+
     @Override
     public String getType() {
         return "MINI_ITEM";
@@ -96,14 +105,16 @@ public class MiniDrawerItem extends BaseDrawerItem<MiniDrawerItem> {
         //
         viewHolder.itemView.setTag(this);
 
-        //get the correct color for the background
-        int selectedColor = getSelectedColor(ctx);
         //get the correct color for the icon
         int iconColor = getIconColor(ctx);
         int selectedIconColor = getSelectedIconColor(ctx);
 
-        //set the background for the item
-        //UIUtils.setBackground(viewHolder.view, DrawerUIUtils.getSelectableBackground(ctx, selectedColor));
+        if (mEnableSelectedBackground) {
+            //get the correct color for the background
+            int selectedColor = getSelectedColor(ctx);
+            //set the background for the item
+            UIUtils.setBackground(viewHolder.view, DrawerUIUtils.getSelectableBackground(ctx, selectedColor));
+        }
 
         //set the text for the badge or hide
         boolean badgeVisible = StringHolder.applyToOrHide(mBadge, viewHolder.badge);
