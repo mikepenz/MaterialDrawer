@@ -293,16 +293,17 @@ public class MiniDrawer {
             @Override
             public void onClick(View v, int position, IDrawerItem item) {
                 int type = getMiniDrawerType(item);
-
                 if (type == ITEM) {
-                    if (mDrawerAdapter != null && item.isSelectable()) {
+                    //fire the onClickListener also if the specific drawerItem is not Selectable
+                    if (item.isSelectable()) {
                         mDrawer.setSelection(item, true);
+                    } else if (mDrawer.getOnDrawerItemClickListener() != null) {
+                        //get the original `DrawerItem` from the Drawer as this one will contain all information
+                        mDrawer.getOnDrawerItemClickListener().onItemClick(v, position, mDrawer.getDrawerItem(item.getIdentifier()));
                     }
                 } else if (type == PROFILE) {
-                    if (mAccountHeader != null) {
-                        if (!mAccountHeader.isSelectionListShown()) {
-                            mAccountHeader.toggleSelectionList(v.getContext());
-                        }
+                    if (mAccountHeader != null && !mAccountHeader.isSelectionListShown()) {
+                        mAccountHeader.toggleSelectionList(v.getContext());
                     }
                     if (mCrossFader != null) {
                         mCrossFader.crossfade();
