@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <dimen name="material_drawer_padding_half">4dp</dimen>
+    <dimen name="material_drawer_persistent_height">48dp</dimen>
+    <dimen name="material_drawer_persistent_height_icon">32dp</dimen>
+</resources>

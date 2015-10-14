@@ -5,6 +5,8 @@
     <string name="action_settings">Settings</string>
 
     <!-- Drawer Items -->
+    <string name="drawer_item_persistent_compact_header">PersistentHeader Drawer</string>
+    <string name="drawer_item_persistent_compact_header_desc">Smaller persistent account header</string>
     <string name="drawer_item_compact_header">CompactHeader Drawer</string>
     <string name="drawer_item_compact_header_desc">Smaller account header</string>
     <string name="drawer_item_action_bar_drawer">ActionBar Drawer</string>

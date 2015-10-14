@@ -124,6 +124,7 @@ public class DrawerActivity extends AppCompatActivity {
                         new PrimaryDrawerItem().withName(R.string.drawer_item_mini_drawer).withDescription(R.string.drawer_item_mini_drawer_desc).withIcon(GoogleMaterial.Icon.gmd_battery_charging_full).withIdentifier(11).withSelectable(false),
                         new PrimaryDrawerItem().withName(R.string.drawer_item_fragment_drawer).withDescription(R.string.drawer_item_fragment_drawer_desc).withIcon(GoogleMaterial.Icon.gmd_disc_full).withIdentifier(12).withSelectable(false),
                         new PrimaryDrawerItem().withName(R.string.drawer_item_collapsing_toolbar_drawer).withDescription(R.string.drawer_item_collapsing_toolbar_drawer_desc).withIcon(GoogleMaterial.Icon.gmd_healing).withIdentifier(13).withSelectable(false),
+                        new PrimaryDrawerItem().withName(R.string.drawer_item_persistent_compact_header).withDescription(R.string.drawer_item_persistent_compact_header_desc).withIcon(GoogleMaterial.Icon.gmd_brightness_5).withIdentifier(14).withSelectable(false),
                         new SectionDrawerItem().withName(R.string.drawer_item_section_header),
                         new SecondaryDrawerItem().withName(R.string.drawer_item_open_source).withIcon(FontAwesome.Icon.faw_github).withIdentifier(20).withSelectable(false),
                         new SecondaryDrawerItem().withName(R.string.drawer_item_contact).withIcon(GoogleMaterial.Icon.gmd_format_color_fill).withIdentifier(21).withTag("Bullhorn"),
@@ -173,6 +174,8 @@ public class DrawerActivity extends AppCompatActivity {
                                 intent = new Intent(DrawerActivity.this, FragmentActivity.class);
                             } else if (drawerItem.getIdentifier() == 13) {
                                 intent = new Intent(DrawerActivity.this, CollapsingToolbarActivity.class);
+                            } else if (drawerItem.getIdentifier() == 14) {
+                                intent = new Intent(DrawerActivity.this, PersistentDrawerActivity.class);
                             } else if (drawerItem.getIdentifier() == 20) {
                                 intent = new LibsBuilder()
                                         .withFields(R.string.class.getFields())

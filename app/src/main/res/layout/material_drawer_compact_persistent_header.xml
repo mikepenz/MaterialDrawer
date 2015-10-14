@@ -1,0 +1,95 @@
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content">
+
+    <ImageView
+        android:id="@+id/material_drawer_account_header_background"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:scaleType="fitXY" />
+
+    <RelativeLayout
+        android:id="@+id/material_drawer_account_header"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <TextView
+            android:id="@+id/material_drawer_account_header_email"
+            android:layout_width="1px"
+            android:layout_height="1px"
+            android:visibility="gone" />
+
+        <com.mikepenz.materialdrawer.view.BezelImageView
+            android:id="@+id/material_drawer_account_header_small_first"
+            android:layout_width="1px"
+            android:layout_height="1px"
+            android:visibility="gone" />
+
+        <com.mikepenz.materialdrawer.view.BezelImageView
+            android:id="@+id/material_drawer_account_header_small_second"
+            android:layout_width="1px"
+            android:layout_height="1px"
+            android:visibility="gone" />
+
+        <com.mikepenz.materialdrawer.view.BezelImageView
+            android:id="@+id/material_drawer_account_header_small_third"
+            android:layout_width="1px"
+            android:layout_height="1px"
+            android:visibility="gone" />
+
+        <LinearLayout
+            android:id="@+id/material_drawer_account_header_text_section"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_alignParentBottom="true"
+            android:layout_centerVertical="true"
+            android:gravity="center_vertical"
+            android:orientation="horizontal"
+            android:paddingEnd="@dimen/material_drawer_vertical_padding"
+            android:paddingLeft="@dimen/material_drawer_vertical_padding"
+            android:paddingRight="@dimen/material_drawer_vertical_padding"
+            android:paddingStart="@dimen/material_drawer_vertical_padding">
+
+            <com.mikepenz.materialdrawer.view.BezelImageView
+                android:id="@+id/material_drawer_account_header_current"
+                android:layout_width="@dimen/material_drawer_persistent_height_icon"
+                android:layout_height="@dimen/material_drawer_persistent_height_icon"
+                android:layout_marginEnd="@dimen/material_drawer_vertical_padding"
+                android:layout_marginLeft="0dp"
+                android:layout_marginRight="@dimen/material_drawer_vertical_padding"
+                android:layout_marginStart="0dp"
+                android:clickable="true"
+                android:elevation="2dp" />
+
+            <TextView
+                android:id="@+id/material_drawer_account_header_name"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:fontFamily="sans-serif-medium"
+                android:lines="1"
+                android:singleLine="true"
+                android:textSize="@dimen/material_drawer_account_header_text" />
+
+            <ImageView
+                android:id="@+id/material_drawer_account_header_text_switcher"
+                android:layout_width="@dimen/material_drawer_account_header_dropdown"
+                android:layout_height="@dimen/material_drawer_account_header_dropdown"
+                android:layout_marginEnd="@dimen/material_drawer_padding_half"
+                android:layout_marginLeft="@dimen/material_drawer_padding_half"
+                android:layout_marginRight="@dimen/material_drawer_padding_half"
+                android:layout_marginStart="@dimen/material_drawer_padding_half" />
+
+            <!-- Sorry but this is the fastest way to move it right inside this layout -->
+            <LinearLayout
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1" />
+
+            <ImageView
+                android:id="@+id/material_drawer_account_header_toggle"
+                android:layout_width="24dp"
+                android:layout_height="match_parent"
+                android:scaleType="centerInside" />
+        </LinearLayout>
+    </RelativeLayout>
+</FrameLayout>

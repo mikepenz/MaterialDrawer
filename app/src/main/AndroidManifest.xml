@@ -23,6 +23,10 @@
             android:label="@string/app_name"
             android:theme="@style/CustomTheme" />
         <activity
+            android:name=".PersistentDrawerActivity"
+            android:label="@string/app_name"
+            android:theme="@style/MaterialDrawerTheme.Light.TranslucentStatus" />
+        <activity
             android:name=".ActionBarActivity"
             android:theme="@style/MaterialDrawerTheme.ActionBar" />
         <activity
