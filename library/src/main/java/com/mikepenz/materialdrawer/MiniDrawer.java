@@ -167,9 +167,14 @@ public class MiniDrawer {
         mDrawerAdapter = new DrawerAdapter();
         mRecyclerView.setAdapter(mDrawerAdapter);
 
+        //if the activity with the drawer should be fullscreen add the padding for the statusbar
+        if (mDrawer != null && mDrawer.mDrawerBuilder != null && (mDrawer.mDrawerBuilder.mFullscreen || mDrawer.mDrawerBuilder.mTranslucentStatusBar)) {
+            mRecyclerView.setPadding(mRecyclerView.getPaddingLeft(), UIUtils.getStatusBarHeight(ctx), mRecyclerView.getPaddingRight(), mRecyclerView.getPaddingBottom());
+        }
+
         //if the activity with the drawer should be fullscreen add the padding for the navigationBar
         if (mDrawer != null && mDrawer.mDrawerBuilder != null && (mDrawer.mDrawerBuilder.mFullscreen || mDrawer.mDrawerBuilder.mTranslucentNavigationBar)) {
-            mRecyclerView.setPadding(0, 0, 0, UIUtils.getNavigationBarHeight(ctx));
+            mRecyclerView.setPadding(mRecyclerView.getPaddingLeft(), mRecyclerView.getPaddingTop(), mRecyclerView.getPaddingRight(), UIUtils.getNavigationBarHeight(ctx));
         }
 
         //set the adapter with the items
