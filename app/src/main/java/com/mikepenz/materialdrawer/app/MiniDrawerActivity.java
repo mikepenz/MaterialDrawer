@@ -113,7 +113,6 @@ public class MiniDrawerActivity extends AppCompatActivity {
         DrawerBuilder builder = new DrawerBuilder()
                 .withActivity(this)
                 .withToolbar(toolbar)
-                .withInnerShadow(true)
                 .withTranslucentStatusBar(false)
                 .withAccountHeader(headerResult) //set the AccountHeader we created earlier for the header
                 .addDrawerItems(
@@ -142,21 +141,28 @@ public class MiniDrawerActivity extends AppCompatActivity {
                 })
                 .withSavedInstance(savedInstanceState);
 
-        // Embed only if orientation is Landscape (regular drawer in Portrait)
+        // build only the view of the Drawer (don't inflate it automatically in our layout which is done with .build())
         result = builder.buildView();
-        miniResult = new MiniDrawer().withDrawer(result).withInnerShadow(true).withAccountHeader(headerResult);
+        // create the MiniDrawer and deinfe the drawer and header to be used (it will automatically use the items from them)
+        miniResult = new MiniDrawer().withDrawer(result).withAccountHeader(headerResult);
 
-        int first = (int) UIUtils.convertDpToPixel(300, this);
-        int second = (int) UIUtils.convertDpToPixel(72, this);
+        //get the widths in px for the first and second panel
+        int firstWidth = (int) UIUtils.convertDpToPixel(300, this);
+        int secondWidth = (int) UIUtils.convertDpToPixel(72, this);
 
+        //create and build our crossfader (see the MiniDrawer is also builded in here, as the build method returns the view to be used in the crossfader)
         crossFader = new Crossfader()
                 .withContent(findViewById(R.id.crossfade_content))
-                .withFirst(result.getSlider(), first)
-                .withSecond(miniResult.build(this), second)
+                .withFirst(result.getSlider(), firstWidth)
+                .withSecond(miniResult.build(this), secondWidth)
                 .withSavedInstance(savedInstanceState)
                 .build();
 
+        //define the crossfader to be used with the miniDrawer. This is required to be able to automatically toggle open / close
         miniResult.withCrossFader(new CrossfadeWrapper(crossFader));
+
+        //define a shadow (this is only for normal LTR layouts if you have a RTL app you need to define the other one
+        crossFader.getCrossFadeSlidingPaneLayout().setShadowResourceLeft(R.drawable.material_drawer_shadow_left);
     }
 
     private OnCheckedChangeListener onCheckedChangeListener = new OnCheckedChangeListener() {
