@@ -53,7 +53,7 @@ You can find some frequently asked questions and other resources in the [WIKI / 
 ##1. Provide the gradle dependency
 
 ```gradle
-compile('com.mikepenz:materialdrawer:4.3.5@aar') {
+compile('com.mikepenz:materialdrawer:4.3.6@aar') {
 	transitive = true
 }
 ```
