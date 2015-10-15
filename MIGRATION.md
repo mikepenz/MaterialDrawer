@@ -1,5 +1,8 @@
 ###Upgrade Notes
 
+#### v4.3.7
+* depends on the latest `v23.1.0` **support libraries**. Those also require you to have `compileSDKVersion 23`
+
 #### v4.2.0 -> v4.3.0
 * new `placeholder(Context ctx, String tag)` to the `IDrawerImageLoader` interface
 * new `AbstractDrawerImageLoader` to simplify the `DrawerImageLoader` usage. See the new implementation in the `CustomApplication`
