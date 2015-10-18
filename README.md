@@ -379,6 +379,18 @@ DrawerLayout drawerLayout = result.getDrawerLayout();
 drawerLayout.setDrawerLockMode(int lockMode); //or (int lockMode, int edgeGravity)
 ```
 
+###Can I use my own DrawerLayout implementation
+MaterialDrawer allows you to use a compatible implementation of MaterialDrawer.
+Please note that the provided layout must follow the same structure as the `MaterialDrawer` internal one.
+
+Start by copying the [`material_drawer.xml`](https://github.com/mikepenz/MaterialDrawer/blob/develop/library/src/main/res/layout/material_drawer.xml)
+file inside your project, and replace `android.support.v4.widget.DrawerLayout` with the fully qualified name of your class
+(`com.yourapp.com.ui.CustomDrawerLayout` for example). Please note that your class must extend the original DrawerLayout.
+
+You'll then be able to use this custom class:
+```java
+builder.withDrawerLayout(R.layout.material_drawer);
+```
 
 #Apps using the MaterialDrawer
 (feel free to send me new projects)
