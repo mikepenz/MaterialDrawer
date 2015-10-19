@@ -108,7 +108,7 @@ There  is a Header with profiles (<strong>AccountHeader</strong>), a <strong>Min
 <h2>
 <a id="1-provide-the-gradle-dependency" class="anchor" href="#1-provide-the-gradle-dependency" aria-hidden="true"><span class="octicon octicon-link"></span></a>1. Provide the gradle dependency</h2>
 
-<div class="highlight highlight-source-groovy-gradle"><pre>compile(<span class="pl-s"><span class="pl-pds">'</span>com.mikepenz:materialdrawer:4.3.7@aar<span class="pl-pds">'</span></span>) {
+<div class="highlight highlight-source-groovy-gradle"><pre>compile(<span class="pl-s"><span class="pl-pds">'</span>com.mikepenz:materialdrawer:4.3.8@aar<span class="pl-pds">'</span></span>) {
     transitive <span class="pl-k">=</span> <span class="pl-c1">true</span>
 }</pre></div>
 
@@ -467,6 +467,20 @@ DrawerLayout can do is also available in the MaterialDrawer. </p>
 <span class="pl-smi">DrawerLayout</span> drawerLayout <span class="pl-k">=</span> result<span class="pl-k">.</span>getDrawerLayout();
 <span class="pl-c">//do whatever you want with the Drawer. Like locking it. </span>
 drawerLayout<span class="pl-k">.</span>setDrawerLockMode(<span class="pl-k">int</span> lockMode); <span class="pl-c">//or (int lockMode, int edgeGravity)</span></pre></div>
+
+<h3>
+<a id="can-i-use-my-own-drawerlayout-implementation" class="anchor" href="#can-i-use-my-own-drawerlayout-implementation" aria-hidden="true"><span class="octicon octicon-link"></span></a>Can I use my own DrawerLayout implementation</h3>
+
+<p>MaterialDrawer allows you to use a compatible implementation of MaterialDrawer.
+Please note that the provided layout must follow the same structure as the <code>MaterialDrawer</code> internal one.</p>
+
+<p>Start by copying the <a href="https://github.com/mikepenz/MaterialDrawer/blob/develop/library/src/main/res/layout/material_drawer.xml"><code>material_drawer.xml</code></a>
+file inside your project, and replace <code>android.support.v4.widget.DrawerLayout</code> with the fully qualified name of your class
+(<code>com.yourapp.com.ui.CustomDrawerLayout</code> for example). Please note that your class must extend the original DrawerLayout.</p>
+
+<p>You'll then be able to use this custom class:</p>
+
+<div class="highlight highlight-source-java"><pre>builder<span class="pl-k">.</span>withDrawerLayout(<span class="pl-smi">R</span><span class="pl-k">.</span>layout<span class="pl-k">.</span>material_drawer);</pre></div>
 
 <h1>
 <a id="apps-using-the-materialdrawer" class="anchor" href="#apps-using-the-materialdrawer" aria-hidden="true"><span class="octicon octicon-link"></span></a>Apps using the MaterialDrawer</h1>
