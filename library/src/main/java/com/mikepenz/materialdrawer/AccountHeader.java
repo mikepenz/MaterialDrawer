@@ -138,6 +138,11 @@ public class AccountHeader {
      */
     public void setActiveProfile(IProfile profile, boolean fireOnProfileChanged) {
         final boolean isCurrentSelectedProfile = mAccountHeaderBuilder.switchProfiles(profile);
+        //if the selectionList is shown we should also update the current selected profile in the list
+        if (mAccountHeaderBuilder.mDrawer != null && isSelectionListShown()) {
+            mAccountHeaderBuilder.mDrawer.setSelection(profile.getIdentifier(), false);
+        }
+        //fire the event if enabled and a listener is set
         if (fireOnProfileChanged && mAccountHeaderBuilder.mOnAccountHeaderListener != null) {
             mAccountHeaderBuilder.mOnAccountHeaderListener.onProfileChanged(null, profile, isCurrentSelectedProfile);
         }

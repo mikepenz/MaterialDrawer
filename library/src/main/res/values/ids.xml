@@ -6,4 +6,5 @@
     <item name="material_drawer_sticky_header" type="id" />
     <item name="material_drawer_animation" type="id" />
     <item name="material_drawer_profile_header" type="id" />
+    <item name="material_drawer_slider_layout" type="id" />
 </resources>
