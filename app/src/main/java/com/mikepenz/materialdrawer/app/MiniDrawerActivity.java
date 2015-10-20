@@ -101,6 +101,8 @@ public class MiniDrawerActivity extends AppCompatActivity {
                                 headerResult.addProfiles(newProfile);
                             }
                         }
+
+                        //IMPORTANT! notify the MiniDrawer about the profile click
                         miniResult.onProfileClick();
 
                         //false if you have not consumed the event and it should close the drawer
@@ -136,6 +138,7 @@ public class MiniDrawerActivity extends AppCompatActivity {
                             Toast.makeText(MiniDrawerActivity.this, ((Nameable) drawerItem).getName().getText(MiniDrawerActivity.this), Toast.LENGTH_SHORT).show();
                         }
 
+                        //IMPORTANT notify the MiniDrawer about the onItemClick
                         return miniResult.onItemClick(drawerItem);
                     }
                 })
