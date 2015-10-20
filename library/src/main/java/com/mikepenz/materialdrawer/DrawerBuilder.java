@@ -1225,6 +1225,8 @@ public class DrawerBuilder {
         //build the view which will be set to the drawer
         Drawer result = buildView();
 
+        //define id for the sliderLayout
+        mSliderLayout.setId(R.id.material_drawer_slider_layout);
         // add the slider to the drawer
         mDrawerLayout.addView(mSliderLayout, 1);
 
@@ -1290,6 +1292,9 @@ public class DrawerBuilder {
 
         // add the slider to the drawer
         mDrawerLayout.addView(originalContentView, 0);
+
+        //define id for the sliderLayout
+        mSliderLayout.setId(R.id.material_drawer_slider_layout);
         // add the slider to the drawer
         mDrawerLayout.addView(mSliderLayout, 1);
 
@@ -1475,6 +1480,8 @@ public class DrawerBuilder {
         params = DrawerUtils.processDrawerLayoutParams(this, params);
         // set the new params
         mSliderLayout.setLayoutParams(params);
+        //define id for the sliderLayout
+        mSliderLayout.setId(R.id.material_drawer_slider_layout);
         // add the slider to the drawer
         mDrawerLayout.addView(mSliderLayout, 1);
 
