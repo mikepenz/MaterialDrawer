@@ -63,6 +63,9 @@
         <activity
             android:name=".CollapsingToolbarActivity"
             android:theme="@style/MaterialDrawerTheme.Light.DarkToolbar.TranslucentStatus" />
+        <activity
+            android:name=".CrossfadeDrawerLayoutActvitiy"
+            android:theme="@style/MaterialDrawerTheme" />
     </application>
 
 </manifest>

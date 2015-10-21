@@ -33,6 +33,8 @@
     <string name="drawer_item_fragment_drawer_desc">Use drawer within fragments</string>
     <string name="drawer_item_collapsing_toolbar_drawer">CollapsingToolbar Drawer</string>
     <string name="drawer_item_collapsing_toolbar_drawer_desc">Uses a CollapsingToolbarLayout</string>
+    <string name="drawer_item_crossfade_drawer_layout_drawer">CrossfadeDrawerLayout</string>
+    <string name="drawer_item_crossfade_drawer_layout_drawer_desc">PREVIEW of a CrossfadeDrawerLayout</string>
 
     <string name="drawer_item_home">Home</string>
     <string name="drawer_item_free_play">Free Play</string>
