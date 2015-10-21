@@ -453,7 +453,7 @@ public class Drawer {
      * @param fireOnClick
      */
     public void setStickyFooterSelection(int identifier, boolean fireOnClick) {
-        setStickyFooterSelectionAtPosition(getPosition(identifier), fireOnClick);
+        setStickyFooterSelectionAtPosition(getStickyFooterPosition(identifier), fireOnClick);
     }
 
     /**
