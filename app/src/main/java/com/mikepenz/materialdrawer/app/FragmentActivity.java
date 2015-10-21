@@ -8,8 +8,8 @@ import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
 
-import com.mikepenz.materialdrawer.app.Fragment.DrawerFragment;
-import com.mikepenz.materialdrawer.app.Fragment.SecondDrawerFragment;
+import com.mikepenz.materialdrawer.app.fragment.DrawerFragment;
+import com.mikepenz.materialdrawer.app.fragment.SecondDrawerFragment;
 
 public class FragmentActivity extends AppCompatActivity {
 

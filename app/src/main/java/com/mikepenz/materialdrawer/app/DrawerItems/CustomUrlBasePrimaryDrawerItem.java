@@ -1,4 +1,4 @@
-package com.mikepenz.materialdrawer.app.DrawerItems;
+package com.mikepenz.materialdrawer.app.drawerItems;
 
 import android.content.Context;
 import android.net.Uri;
