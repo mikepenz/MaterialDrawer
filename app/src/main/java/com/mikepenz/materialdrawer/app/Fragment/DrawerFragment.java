@@ -1,4 +1,4 @@
-package com.mikepenz.materialdrawer.app.Fragment;
+package com.mikepenz.materialdrawer.app.fragment;
 
 
 import android.os.Bundle;
