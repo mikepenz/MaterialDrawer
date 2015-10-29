@@ -23,11 +23,13 @@ public class MiniProfileDrawerItem extends AbstractDrawerItem<MiniProfileDrawerI
     protected ImageHolder icon;
 
     public MiniProfileDrawerItem() {
-
+        withSelectable(false);
     }
 
     public MiniProfileDrawerItem(ProfileDrawerItem profile) {
         this.icon = profile.icon;
+        this.mEnabled = profile.mEnabled;
+        withSelectable(false);
     }
 
     @Override
