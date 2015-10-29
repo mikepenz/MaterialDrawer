@@ -229,6 +229,12 @@ public abstract class BaseDrawerAdapter extends RecyclerView.Adapter<RecyclerVie
         });
     }
 
+    /**
+     * handles the selection on click and deselects previous selected items
+     *
+     * @param v
+     * @param pos
+     */
     public void handleSelection(View v, int pos) {
         //deselect the previous item
         if (previousSelection > -1) {
@@ -237,6 +243,15 @@ public abstract class BaseDrawerAdapter extends RecyclerView.Adapter<RecyclerVie
                 prev.withSetSelected(false);
             }
             notifyItemChanged(previousSelection);
+        } else {
+            //if there was no previous selection we have to iterate over all so we can deselect the previous item
+            for (int i = 0; i < getItemCount(); i++) {
+                if (getItem(i).isSelected()) {
+                    getItem(i).withSetSelected(false);
+                    notifyItemChanged(i);
+                    break;
+                }
+            }
         }
 
         //highlight the new item
