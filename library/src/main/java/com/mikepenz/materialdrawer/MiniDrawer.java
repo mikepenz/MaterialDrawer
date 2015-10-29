@@ -282,8 +282,8 @@ public class MiniDrawer {
 
         if (mAccountHeader != null) {
             IProfile profile = mAccountHeader.getActiveProfile();
-            if (profile instanceof ProfileDrawerItem) {
-                mDrawerAdapter.addDrawerItem(new MiniProfileDrawerItem((ProfileDrawerItem) profile));
+            if (profile instanceof IDrawerItem) {
+                mDrawerAdapter.addDrawerItem(generateMiniDrawerItem((IDrawerItem) profile));
             }
         }
 
