@@ -84,6 +84,13 @@ public class MiniDrawer {
         return this;
     }
 
+    private boolean mEnableProfileClick = true;
+
+    public MiniDrawer withEnableProfileClick(boolean enableProfileClick) {
+        this.mEnableProfileClick = enableProfileClick;
+        return this;
+    }
+
     public RecyclerView getRecyclerView() {
         return mRecyclerView;
     }
@@ -115,6 +122,10 @@ public class MiniDrawer {
             return new MiniDrawerItem((PrimaryDrawerItem) drawerItem).withEnableSelectedBackground(mEnableSelectedMiniDrawerItemBackground);
         } else if (drawerItem instanceof SecondaryDrawerItem && mIncludeSecondaryDrawerItems) {
             return new MiniDrawerItem((SecondaryDrawerItem) drawerItem).withEnableSelectedBackground(mEnableSelectedMiniDrawerItemBackground);
+        } else if (drawerItem instanceof ProfileDrawerItem) {
+            MiniProfileDrawerItem mpdi = new MiniProfileDrawerItem((ProfileDrawerItem) drawerItem);
+            mpdi.withEnabled(mEnableProfileClick);
+            return mpdi;
         }
         return null;
     }
@@ -197,8 +208,8 @@ public class MiniDrawer {
         //update the current profile
         if (mAccountHeader != null) {
             IProfile profile = mAccountHeader.getActiveProfile();
-            if (profile instanceof ProfileDrawerItem) {
-                mDrawerAdapter.setDrawerItem(0, new MiniProfileDrawerItem((ProfileDrawerItem) profile));
+            if (profile instanceof IDrawerItem) {
+                mDrawerAdapter.setDrawerItem(0, generateMiniDrawerItem((IDrawerItem) profile));
             }
         }
     }
