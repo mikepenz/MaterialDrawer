@@ -28,6 +28,7 @@ public class MiniProfileDrawerItem extends AbstractDrawerItem<MiniProfileDrawerI
 
     public MiniProfileDrawerItem(ProfileDrawerItem profile) {
         this.icon = profile.icon;
+        this.mEnabled = profile.mEnabled;
         withSelectable(false);
     }
 
