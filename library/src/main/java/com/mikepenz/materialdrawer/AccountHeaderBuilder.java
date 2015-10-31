@@ -299,7 +299,7 @@ public class AccountHeaderBuilder {
     }
 
     // set no divider below the header
-    protected boolean mDividerBelowHeader = false;
+    protected boolean mDividerBelowHeader = true;
 
     /**
      * Set this to false if you want no divider below the Header
