@@ -1,5 +1,8 @@
 ###Upgrade Notes
 
+#### v4.3.7 -> v4.4.3
+* added new method `withHeaderPadding` to the drawer and `withPaddingBelowHeader` to the header to control the padding separately from the `divider`which can be controlled via `withHeaderDivider`
+
 #### v4.3.7
 * depends on the latest `v23.1.0` **support libraries**. Those also require you to have `compileSDKVersion 23`
 
