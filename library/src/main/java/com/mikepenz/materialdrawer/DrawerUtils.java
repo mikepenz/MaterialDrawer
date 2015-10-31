@@ -194,6 +194,7 @@ class DrawerUtils {
             } else {
                 drawer.mHeaderView = drawer.mAccountHeader.getView();
                 drawer.mHeaderDivider = drawer.mAccountHeader.mAccountHeaderBuilder.mDividerBelowHeader;
+                drawer.mHeaderPadding = drawer.mAccountHeader.mAccountHeaderBuilder.mPaddingBelowHeader;
             }
         }
 
@@ -236,10 +237,10 @@ class DrawerUtils {
                 throw new RuntimeException("can't use a headerView without a recyclerView");
             }
 
-            if (drawer.mHeaderDivider) {
-                drawer.getAdapter().addHeaderDrawerItems(new ContainerDrawerItem().withView(drawer.mHeaderView).withViewPosition(ContainerDrawerItem.Position.TOP));
+            if (drawer.mHeaderPadding) {
+                drawer.getAdapter().addHeaderDrawerItems(new ContainerDrawerItem().withView(drawer.mHeaderView).withDivider(drawer.mHeaderDivider).withViewPosition(ContainerDrawerItem.Position.TOP));
             } else {
-                drawer.getAdapter().addHeaderDrawerItems(new ContainerDrawerItem().withView(drawer.mHeaderView).withViewPosition(ContainerDrawerItem.Position.NONE));
+                drawer.getAdapter().addHeaderDrawerItems(new ContainerDrawerItem().withView(drawer.mHeaderView).withDivider(drawer.mHeaderDivider).withViewPosition(ContainerDrawerItem.Position.NONE));
             }
             //set the padding on the top to 0
             drawer.mRecyclerView.setPadding(drawer.mRecyclerView.getPaddingLeft(), 0, drawer.mRecyclerView.getPaddingRight(), drawer.mRecyclerView.getPaddingBottom());

@@ -32,10 +32,17 @@ public class ContainerDrawerItem extends AbstractDrawerItem<ContainerDrawerItem>
         NONE;
     }
 
-    public Position mViewPosition = Position.TOP;
+    private Position mViewPosition = Position.TOP;
 
     public ContainerDrawerItem withViewPosition(Position position) {
         this.mViewPosition = position;
+        return this;
+    }
+
+    private boolean mDivider = true;
+
+    public ContainerDrawerItem withDivider(boolean divider) {
+        this.mDivider = divider;
         return this;
     }
 
@@ -75,11 +82,16 @@ public class ContainerDrawerItem extends AbstractDrawerItem<ContainerDrawerItem>
         //make sure the header view is empty
         ((ViewGroup) viewHolder.view).removeAllViews();
 
+        int dividerHeight = 0;
+        if (mDivider) {
+            dividerHeight = 1;
+        }
+
         View divider = new View(ctx);
-        divider.setMinimumHeight(1);
+        divider.setMinimumHeight(dividerHeight);
         divider.setBackgroundColor(UIUtils.getThemeColorFromAttrOrRes(ctx, R.attr.material_drawer_divider, R.color.material_drawer_divider));
 
-        LinearLayout.LayoutParams layoutParams = new LinearLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, (int) UIUtils.convertDpToPixel(1, ctx));
+        LinearLayout.LayoutParams layoutParams = new LinearLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, (int) UIUtils.convertDpToPixel(dividerHeight, ctx));
 
         //depending on the position we add the view
         if (mViewPosition == Position.TOP) {

@@ -284,6 +284,19 @@ public class AccountHeaderBuilder {
         return this;
     }
 
+    // set no divider below the header
+    protected boolean mPaddingBelowHeader = true;
+
+    /**
+     * Set this to false if you want no padding below the Header
+     *
+     * @param paddingBelowHeader
+     * @return
+     */
+    public AccountHeaderBuilder withPaddingBelowHeader(boolean paddingBelowHeader) {
+        this.mPaddingBelowHeader = paddingBelowHeader;
+        return this;
+    }
 
     // set no divider below the header
     protected boolean mDividerBelowHeader = true;
@@ -785,7 +798,7 @@ public class AccountHeaderBuilder {
 
         //everything created. now set the header
         if (mDrawer != null) {
-            mDrawer.setHeader(mAccountHeaderContainer, mDividerBelowHeader);
+            mDrawer.setHeader(mAccountHeaderContainer, mPaddingBelowHeader, mDividerBelowHeader);
         }
 
         //forget the reference to the activity
