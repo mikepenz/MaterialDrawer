@@ -103,6 +103,49 @@ public class AccountHeader {
         return mAccountHeaderBuilder.mSelectionListShown;
     }
 
+
+    /**
+     * set this to false if you want to hide the first line of the selection box in the header (first line would be the name)
+     *
+     * @param selectionFirstLineShown
+     */
+    public void setSelectionFirstLineShown(boolean selectionFirstLineShown) {
+        mAccountHeaderBuilder.mSelectionFirstLineShown = selectionFirstLineShown;
+        mAccountHeaderBuilder.updateHeaderAndList();
+    }
+
+    /**
+     * set this to false if you want to hide the second line of the selection box in the header (second line would be the e-mail)
+     *
+     * @param selectionSecondLineShown
+     */
+    public void setSelectionSecondLineShown(boolean selectionSecondLineShown) {
+        mAccountHeaderBuilder.mSelectionSecondLineShown = selectionSecondLineShown;
+        mAccountHeaderBuilder.updateHeaderAndList();
+    }
+
+    /**
+     * set this to define the first line in the selection area if there is no profile
+     * note this will block any values from profiles!
+     *
+     * @param selectionFirstLine
+     */
+    public void setSelectionFirstLine(String selectionFirstLine) {
+        mAccountHeaderBuilder.mSelectionFirstLine = selectionFirstLine;
+        mAccountHeaderBuilder.updateHeaderAndList();
+    }
+
+    /**
+     * set this to define the second line in the selection area if there is no profile
+     * note this will block any values from profiles!
+     *
+     * @param selectionSecondLine
+     */
+    public void setSelectionSecondLine(String selectionSecondLine) {
+        mAccountHeaderBuilder.mSelectionSecondLine = selectionSecondLine;
+        mAccountHeaderBuilder.updateHeaderAndList();
+    }
+
     /**
      * returns the current list of profiles set for this header
      *
