@@ -2,6 +2,7 @@ package com.mikepenz.materialdrawer.model;
 
 import android.content.Context;
 import android.support.annotation.LayoutRes;
+import android.support.v4.view.ViewCompat;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
 
@@ -38,6 +39,8 @@ public class DividerDrawerItem extends AbstractDrawerItem<DividerDrawerItem> {
         viewHolder.view.setClickable(false);
         viewHolder.view.setEnabled(false);
         viewHolder.view.setMinimumHeight(1);
+        ViewCompat.setImportantForAccessibility(viewHolder.view,
+                ViewCompat.IMPORTANT_FOR_ACCESSIBILITY_NO);
 
         //set the color for the divider
         viewHolder.divider.setBackgroundColor(UIUtils.getThemeColorFromAttrOrRes(ctx, R.attr.material_drawer_divider, R.color.material_drawer_divider));
