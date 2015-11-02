@@ -36,6 +36,9 @@
     <string name="drawer_item_crossfade_drawer_layout_drawer">CrossfadeDrawerLayout</string>
     <string name="drawer_item_crossfade_drawer_layout_drawer_desc">PREVIEW of a CrossfadeDrawerLayout</string>
 
+    <string name="drawer_item_menu_drawer_item">Menu Drawer Item</string>
+    <string name="drawer_item_menu_drawer_item_desc">Sample menu item with overflow button</string>
+
     <string name="drawer_item_home">Home</string>
     <string name="drawer_item_free_play">Free Play</string>
     <string name="drawer_item_custom">Custom</string>
