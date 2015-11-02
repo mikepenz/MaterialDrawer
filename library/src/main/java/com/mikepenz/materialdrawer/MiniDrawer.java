@@ -37,6 +37,12 @@ public class MiniDrawer {
 
     private Drawer mDrawer;
 
+    /**
+     * Provide the Drawer which will be used as dataSource for the drawerItems
+     *
+     * @param drawer
+     * @return
+     */
     public MiniDrawer withDrawer(@NonNull Drawer drawer) {
         this.mDrawer = drawer;
         return this;
@@ -44,6 +50,12 @@ public class MiniDrawer {
 
     private AccountHeader mAccountHeader;
 
+    /**
+     * Provide the AccountHeader which will be used as the dataSource for the profiles
+     *
+     * @param accountHeader
+     * @return
+     */
     public MiniDrawer withAccountHeader(@NonNull AccountHeader accountHeader) {
         this.mAccountHeader = accountHeader;
         return this;
@@ -51,6 +63,12 @@ public class MiniDrawer {
 
     private ICrossfader mCrossFader;
 
+    /**
+     * Provide the Crossfader implementation which is used with this MiniDrawer
+     *
+     * @param crossFader
+     * @return
+     */
     public MiniDrawer withCrossFader(@NonNull ICrossfader crossFader) {
         this.mCrossFader = crossFader;
         return this;
@@ -58,6 +76,12 @@ public class MiniDrawer {
 
     private boolean mInnerShadow = false;
 
+    /**
+     * set to true if you want to show the innerShadow on the MiniDrawer
+     *
+     * @param innerShadow
+     * @return
+     */
     public MiniDrawer withInnerShadow(boolean innerShadow) {
         this.mInnerShadow = innerShadow;
         return this;
@@ -65,6 +89,12 @@ public class MiniDrawer {
 
     private boolean mInRTL = false;
 
+    /**
+     * set to true if you want the MiniDrawer in RTL mode
+     *
+     * @param inRTL
+     * @return
+     */
     public MiniDrawer withInRTL(boolean inRTL) {
         this.mInRTL = inRTL;
         return this;
@@ -72,6 +102,12 @@ public class MiniDrawer {
 
     private boolean mIncludeSecondaryDrawerItems = false;
 
+    /**
+     * set to true if you also want to display secondaryDrawerItems
+     *
+     * @param includeSecondaryDrawerItems
+     * @return
+     */
     public MiniDrawer withIncludeSecondaryDrawerItems(boolean includeSecondaryDrawerItems) {
         this.mIncludeSecondaryDrawerItems = includeSecondaryDrawerItems;
         return this;
@@ -79,6 +115,12 @@ public class MiniDrawer {
 
     private boolean mEnableSelectedMiniDrawerItemBackground = false;
 
+    /**
+     * set to true if you want to display the background for the miniDrawerItem
+     *
+     * @param enableSelectedMiniDrawerItemBackground
+     * @return
+     */
     public MiniDrawer withEnableSelectedMiniDrawerItemBackground(boolean enableSelectedMiniDrawerItemBackground) {
         this.mEnableSelectedMiniDrawerItemBackground = enableSelectedMiniDrawerItemBackground;
         return this;
@@ -86,8 +128,41 @@ public class MiniDrawer {
 
     private boolean mEnableProfileClick = true;
 
+    /**
+     * set to false if you do not want the profile image to toggle to the normal drawers profile selection
+     *
+     * @param enableProfileClick
+     * @return
+     */
     public MiniDrawer withEnableProfileClick(boolean enableProfileClick) {
         this.mEnableProfileClick = enableProfileClick;
+        return this;
+    }
+
+    private BaseDrawerAdapter.OnClickListener mOnMiniDrawerItemClickListener;
+
+    /**
+     * Define an onClickListener for the MiniDrawer item adapter. WARNING: this will overwrite the default behavior
+     *
+     * @param onMiniDrawerItemClickListener
+     * @return
+     */
+    public MiniDrawer withOnMiniDrawerItemClickListener(BaseDrawerAdapter.OnClickListener onMiniDrawerItemClickListener) {
+        this.mOnMiniDrawerItemClickListener = onMiniDrawerItemClickListener;
+        return this;
+    }
+
+
+    private BaseDrawerAdapter.OnLongClickListener mOnMiniDrawerItemLongClickListener;
+
+    /**
+     * Define an onLongClickListener for the MiniDrawer item adapter
+     *
+     * @param onMiniDrawerItemLongClickListener
+     * @return
+     */
+    public MiniDrawer withOnMiniDrawerItemLongClickListener(BaseDrawerAdapter.OnLongClickListener onMiniDrawerItemLongClickListener) {
+        this.mOnMiniDrawerItemLongClickListener = onMiniDrawerItemLongClickListener;
         return this;
     }
 
@@ -109,6 +184,14 @@ public class MiniDrawer {
 
     public ICrossfader getCrossFader() {
         return mCrossFader;
+    }
+
+    public BaseDrawerAdapter.OnClickListener getOnMiniDrawerItemClickListener() {
+        return mOnMiniDrawerItemClickListener;
+    }
+
+    public BaseDrawerAdapter.OnLongClickListener getOnMiniDrawerItemLongClickListener() {
+        return mOnMiniDrawerItemLongClickListener;
     }
 
     /**
@@ -305,28 +388,34 @@ public class MiniDrawer {
         }
 
         //listener
-        mDrawerAdapter.setOnClickListener(new BaseDrawerAdapter.OnClickListener() {
-            @Override
-            public void onClick(View v, int position, IDrawerItem item) {
-                int type = getMiniDrawerType(item);
-                if (type == ITEM) {
-                    //fire the onClickListener also if the specific drawerItem is not Selectable
-                    if (item.isSelectable()) {
-                        mDrawer.setSelection(item, true);
-                    } else if (mDrawer.getOnDrawerItemClickListener() != null) {
-                        //get the original `DrawerItem` from the Drawer as this one will contain all information
-                        mDrawer.getOnDrawerItemClickListener().onItemClick(v, position, mDrawer.getDrawerItem(item.getIdentifier()));
-                    }
-                } else if (type == PROFILE) {
-                    if (mAccountHeader != null && !mAccountHeader.isSelectionListShown()) {
-                        mAccountHeader.toggleSelectionList(v.getContext());
-                    }
-                    if (mCrossFader != null) {
-                        mCrossFader.crossfade();
+        if (mOnMiniDrawerItemClickListener != null) {
+            mDrawerAdapter.setOnClickListener(mOnMiniDrawerItemClickListener);
+        } else {
+            mDrawerAdapter.setOnClickListener(new BaseDrawerAdapter.OnClickListener() {
+                @Override
+                public void onClick(View v, int position, IDrawerItem item) {
+                    int type = getMiniDrawerType(item);
+                    if (type == ITEM) {
+                        //fire the onClickListener also if the specific drawerItem is not Selectable
+                        if (item.isSelectable()) {
+                            mDrawer.setSelection(item, true);
+                        } else if (mDrawer.getOnDrawerItemClickListener() != null) {
+                            //get the original `DrawerItem` from the Drawer as this one will contain all information
+                            mDrawer.getOnDrawerItemClickListener().onItemClick(v, position, mDrawer.getDrawerItem(item.getIdentifier()));
+                        }
+                    } else if (type == PROFILE) {
+                        if (mAccountHeader != null && !mAccountHeader.isSelectionListShown()) {
+                            mAccountHeader.toggleSelectionList(v.getContext());
+                        }
+                        if (mCrossFader != null) {
+                            mCrossFader.crossfade();
+                        }
                     }
                 }
-            }
-        });
+            });
+        }
+        mDrawerAdapter.setOnLongClickListener(mOnMiniDrawerItemLongClickListener);
+
         mRecyclerView.scrollToPosition(0);
     }
 }
