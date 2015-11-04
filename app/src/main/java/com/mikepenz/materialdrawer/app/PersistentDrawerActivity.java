@@ -124,7 +124,7 @@ public class PersistentDrawerActivity extends AppCompatActivity {
         //define and create the arrow ;)
         ImageView toggle = (ImageView) headerResult.getView().findViewById(R.id.material_drawer_account_header_toggle);
         //for RTL you would have to define the other arrow
-        toggle.setImageDrawable(new IconicsDrawable(this, GoogleMaterial.Icon.gmd_keyboard_arrow_left).sizeDp(16).color(Color.BLACK));
+        toggle.setImageDrawable(new IconicsDrawable(this, GoogleMaterial.Icon.gmd_chevron_left).sizeDp(16).color(Color.BLACK));
         toggle.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
