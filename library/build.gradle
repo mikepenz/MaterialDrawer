@@ -30,7 +30,7 @@ dependencies {
     compile 'com.android.support:recyclerview-v7:23.1.1'
     compile 'com.android.support:support-annotations:23.1.1'
 
-    compile 'com.mikepenz:materialize:0.2.7@aar'
+    compile 'com.mikepenz:materialize:0.2.8@aar'
 
     compile 'com.mikepenz:iconics-core:2.1.0@aar'
 }
