@@ -7,8 +7,8 @@ android {
     defaultConfig {
         minSdkVersion 10
         targetSdkVersion 23
-        versionCode 448
-        versionName '4.4.8'
+        versionCode 449
+        versionName '4.4.9'
     }
     buildTypes {
         release {
@@ -30,7 +30,7 @@ dependencies {
     compile 'com.android.support:recyclerview-v7:23.1.1'
     compile 'com.android.support:support-annotations:23.1.1'
 
-    compile 'com.mikepenz:materialize:0.2.8@aar'
+    compile 'com.mikepenz:materialize:0.5.1@aar'
 
     compile 'com.mikepenz:iconics-core:2.2.0@aar'
 }
