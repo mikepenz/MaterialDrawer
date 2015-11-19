@@ -621,6 +621,9 @@ public class Drawer {
      */
     public void addItemAtPosition(@NonNull IDrawerItem drawerItem, int position) {
         mDrawerBuilder.getAdapter().addDrawerItem(position, IdDistributor.checkId(drawerItem));
+        if (position < mDrawerBuilder.mCurrentSelection) {
+            mDrawerBuilder.mCurrentSelection = mDrawerBuilder.mCurrentSelection + 1;
+        }
     }
 
     /**
@@ -641,6 +644,9 @@ public class Drawer {
     public void removeItemByPosition(int position) {
         if (mDrawerBuilder.checkDrawerItem(position, false)) {
             mDrawerBuilder.getAdapter().removeDrawerItem(position);
+            if (position < mDrawerBuilder.mCurrentSelection) {
+                mDrawerBuilder.mCurrentSelection = mDrawerBuilder.mCurrentSelection - 1;
+            }
         }
     }
 
@@ -653,6 +659,9 @@ public class Drawer {
         int position = getPosition(identifier);
         if (mDrawerBuilder.checkDrawerItem(position, false)) {
             mDrawerBuilder.getAdapter().removeDrawerItem(position);
+            if (position < mDrawerBuilder.mCurrentSelection) {
+                mDrawerBuilder.mCurrentSelection = mDrawerBuilder.mCurrentSelection - 1;
+            }
         }
     }
 
@@ -661,6 +670,7 @@ public class Drawer {
      */
     public void removeAllItems() {
         mDrawerBuilder.getAdapter().clearDrawerItems();
+        mDrawerBuilder.mCurrentSelection = -1;
     }
 
     /**
@@ -691,6 +701,7 @@ public class Drawer {
         //if we are currently at a switched list set the new reference
         if (originalDrawerItems != null && !switchedItems) {
             originalDrawerItems = drawerItems;
+            mDrawerBuilder.mCurrentSelection = -1;
         } else {
             mDrawerBuilder.getAdapter().setDrawerItems(drawerItems);
         }
