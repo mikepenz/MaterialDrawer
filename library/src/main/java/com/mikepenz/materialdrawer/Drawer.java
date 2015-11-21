@@ -666,6 +666,19 @@ public class Drawer {
     }
 
     /**
+     * remove a list of drawerItems by ther identifiers
+     *
+     * @param identifiers
+     */
+    public void removeItems(int... identifiers) {
+        if (identifiers != null) {
+            for (int identifier : identifiers) {
+                removeItem(identifier);
+            }
+        }
+    }
+
+    /**
      * Removes all items from drawer
      */
     public void removeAllItems() {
@@ -680,6 +693,16 @@ public class Drawer {
      */
     public void addItems(@NonNull IDrawerItem... drawerItems) {
         mDrawerBuilder.getAdapter().addDrawerItems(IdDistributor.checkIds(drawerItems));
+    }
+
+    /**
+     * add new items to the current DrawerItem list at a specific position
+     *
+     * @param position
+     * @param drawerItems
+     */
+    public void addItemsAtPosition(int position, @NonNull IDrawerItem... drawerItems) {
+        mDrawerBuilder.getAdapter().addDrawerItems(position, IdDistributor.checkIds(drawerItems));
     }
 
     /**
