@@ -159,6 +159,11 @@ public class DrawerUIUtils {
      */
     public static void setDrawerVerticalPadding(View v, int level) {
         int verticalPadding = v.getContext().getResources().getDimensionPixelSize(R.dimen.material_drawer_vertical_padding);
-        v.setPaddingRelative(verticalPadding * level, 0, verticalPadding, 0);
+
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.JELLY_BEAN_MR1) {
+            v.setPaddingRelative(verticalPadding * level, 0, verticalPadding, 0);
+        } else {
+            v.setPadding(verticalPadding * level, 0, verticalPadding, 0);
+        }
     }
 }
