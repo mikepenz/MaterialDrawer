@@ -10,6 +10,7 @@ import com.mikepenz.materialdrawer.model.interfaces.Selectable;
 import com.mikepenz.materialdrawer.util.RecyclerViewCacheUtil;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Collections;
 import java.util.LinkedHashMap;
 import java.util.LinkedList;
@@ -62,6 +63,14 @@ public abstract class BaseDrawerAdapter extends RecyclerView.Adapter<RecyclerVie
             Collections.addAll(mDrawerItems, drawerItems);
             mapPossibleTypes(mDrawerItems);
             notifyItemRangeInserted(length, drawerItems.length);
+        }
+    }
+
+    public void addDrawerItems(int position, IDrawerItem... drawerItems) {
+        if (drawerItems != null) {
+            mDrawerItems.addAll(position, Arrays.asList(drawerItems));
+            mapPossibleTypes(mDrawerItems);
+            notifyItemRangeInserted(position + 1, drawerItems.length);
         }
     }
 

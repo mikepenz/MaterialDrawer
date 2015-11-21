@@ -149,4 +149,21 @@ public class DrawerUIUtils {
         int verticalPadding = v.getContext().getResources().getDimensionPixelSize(R.dimen.material_drawer_vertical_padding);
         v.setPadding(verticalPadding, 0, verticalPadding, 0);
     }
+
+    /**
+     * helper to set the vertical padding including the extra padding for deeper item hirachy level to the DrawerItems
+     * this is required because on API Level 17 the padding is ignored which is set via the XML
+     *
+     * @param v
+     * @param level
+     */
+    public static void setDrawerVerticalPadding(View v, int level) {
+        int verticalPadding = v.getContext().getResources().getDimensionPixelSize(R.dimen.material_drawer_vertical_padding);
+
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.JELLY_BEAN_MR1) {
+            v.setPaddingRelative(verticalPadding * level, 0, verticalPadding, 0);
+        } else {
+            v.setPadding(verticalPadding * level, 0, verticalPadding, 0);
+        }
+    }
 }

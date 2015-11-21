@@ -102,7 +102,7 @@ public abstract class BasePrimaryDrawerItem<T> extends BaseDrawerItem<T> {
         ImageHolder.applyMultiIconTo(icon, iconColor, selectedIcon, selectedIconColor, isIconTinted(), viewHolder.icon);
 
         //for android API 17 --> Padding not applied via xml
-        DrawerUIUtils.setDrawerVerticalPadding(viewHolder.view);
+        DrawerUIUtils.setDrawerVerticalPadding(viewHolder.view, level);
     }
 
     protected static class BaseViewHolder extends RecyclerView.ViewHolder {
