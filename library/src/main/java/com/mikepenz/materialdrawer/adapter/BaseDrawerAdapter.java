@@ -108,7 +108,7 @@ public abstract class BaseDrawerAdapter extends RecyclerView.Adapter<RecyclerVie
 
         //fix wrong remembered position
         if (position < previousSelection) {
-            previousSelection = previousSelection + 1;
+            previousSelection = previousSelection - 1;
         }
     }
 
