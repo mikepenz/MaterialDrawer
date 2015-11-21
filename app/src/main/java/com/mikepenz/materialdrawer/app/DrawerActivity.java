@@ -44,6 +44,7 @@ public class DrawerActivity extends AppCompatActivity {
     //save our header or result
     private AccountHeader headerResult = null;
     private Drawer result = null;
+    private boolean opened = false;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -127,6 +128,7 @@ public class DrawerActivity extends AppCompatActivity {
                         new PrimaryDrawerItem().withName(R.string.drawer_item_persistent_compact_header).withDescription(R.string.drawer_item_persistent_compact_header_desc).withIcon(GoogleMaterial.Icon.gmd_brightness_5).withIdentifier(14).withSelectable(false),
                         new PrimaryDrawerItem().withName(R.string.drawer_item_crossfade_drawer_layout_drawer).withDescription(R.string.drawer_item_crossfade_drawer_layout_drawer_desc).withIcon(GoogleMaterial.Icon.gmd_format_bold).withIdentifier(15).withSelectable(false),
                         new SectionDrawerItem().withName(R.string.drawer_item_section_header),
+                        new SecondaryDrawerItem().withName("Collapsable").withIcon(GoogleMaterial.Icon.gmd_collection_case_play).withIdentifier(19).withSelectable(false),
                         new SecondaryDrawerItem().withName(R.string.drawer_item_open_source).withIcon(FontAwesome.Icon.faw_github).withIdentifier(20).withSelectable(false),
                         new SecondaryDrawerItem().withName(R.string.drawer_item_contact).withIcon(GoogleMaterial.Icon.gmd_format_color_fill).withIdentifier(21).withTag("Bullhorn"),
                         new DividerDrawerItem(),
@@ -179,6 +181,21 @@ public class DrawerActivity extends AppCompatActivity {
                                 intent = new Intent(DrawerActivity.this, PersistentDrawerActivity.class);
                             } else if (drawerItem.getIdentifier() == 15) {
                                 intent = new Intent(DrawerActivity.this, CrossfadeDrawerLayoutActvitiy.class);
+                            } else if (drawerItem.getIdentifier() == 19) {
+                                //showcase a simple collapsable functionality
+                                if (opened) {
+                                    //remove the items which are hidden
+                                    result.removeItems(2000, 2001);
+                                } else {
+                                    int curPos = result.getPosition(drawerItem);
+                                    result.addItemsAtPosition(
+                                            curPos,
+                                            new SecondaryDrawerItem().withName("CollapsableItem").withLevel(2).withIcon(GoogleMaterial.Icon.gmd_8tracks).withIdentifier(2000),
+                                            new SecondaryDrawerItem().withName("CollapsableItem 2").withLevel(2).withIcon(GoogleMaterial.Icon.gmd_8tracks).withIdentifier(2001)
+                                    );
+                                }
+                                opened = !opened;
+                                return true;
                             } else if (drawerItem.getIdentifier() == 20) {
                                 intent = new LibsBuilder()
                                         .withFields(R.string.class.getFields())
