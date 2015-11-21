@@ -45,6 +45,8 @@ public abstract class BaseDrawerItem<T> extends AbstractDrawerItem<T> implements
 
     protected Pair<Integer, ColorStateList> colorStateList;
 
+    protected int level = 1;
+
     public T withIcon(ImageHolder icon) {
         this.icon = icon;
         return (T) this;
@@ -202,6 +204,12 @@ public abstract class BaseDrawerItem<T> extends AbstractDrawerItem<T> implements
         return (T) this;
     }
 
+    public T withLevel(int level) {
+        this.level = level;
+        return (T) this;
+    }
+
+
     public ColorHolder getSelectedColor() {
         return selectedColor;
     }
@@ -248,6 +256,10 @@ public abstract class BaseDrawerItem<T> extends AbstractDrawerItem<T> implements
 
     public Typeface getTypeface() {
         return typeface;
+    }
+
+    public int getLevel() {
+        return level;
     }
 
     /**
