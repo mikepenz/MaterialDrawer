@@ -722,6 +722,10 @@ public class AccountHeaderBuilder {
         // get the header view within the container
         mAccountHeader = mAccountHeaderContainer.findViewById(R.id.material_drawer_account_header);
 
+        //the default min header height by default 148dp
+        int defaultHeaderMinHeight = mActivity.getResources().getDimensionPixelSize(R.dimen.material_drawer_account_header_height);
+        int statusBarHeight = UIUtils.getStatusBarHeight(mActivity, true);
+
         // handle the height for the header
         int height;
         if (mHeight != null) {
@@ -736,20 +740,25 @@ public class AccountHeaderBuilder {
                 //if we are lower than api 19 (>= 19 we have a translucentStatusBar) the height should be a bit lower
                 //probably even if we are non translucent on > 19 devices?
                 if (Build.VERSION.SDK_INT < 19) {
-                    int tempHeight = height - UIUtils.getStatusBarHeight(mActivity, true);
-                    if (UIUtils.convertPixelsToDp(tempHeight, mActivity) > 140) {
+                    int tempHeight = height - statusBarHeight;
+                    //if we are lower than api 19 we are not able to have a translucent statusBar so we remove the height of the statusBar from the padding
+                    //to prevent display issues we only reduce the height if we still fit the required minHeight of 148dp (R.dimen.material_drawer_account_header_height)
+                    if (tempHeight > defaultHeaderMinHeight) {
                         height = tempHeight;
                     }
                 }
             }
         }
 
-        // handle everything if we don't have a translucent status bar
-        if (mTranslucentStatusBar) {
-            mAccountHeader.setPadding(mAccountHeader.getPaddingLeft(), mAccountHeader.getPaddingTop() + UIUtils.getStatusBarHeight(mActivity), mAccountHeader.getPaddingRight(), mAccountHeader.getPaddingBottom());
+        // handle everything if we have a translucent status bar which only is possible on API >= 19
+        if (mTranslucentStatusBar && Build.VERSION.SDK_INT >= 19) {
+            mAccountHeader.setPadding(mAccountHeader.getPaddingLeft(), mAccountHeader.getPaddingTop() + statusBarHeight, mAccountHeader.getPaddingRight(), mAccountHeader.getPaddingBottom());
             //in fact it makes no difference if we have a translucent statusBar or not. we want 9/16 just if we are not compact
             if (mCompactStyle) {
-                height = height + UIUtils.getStatusBarHeight(mActivity);
+                height = height + statusBarHeight;
+            } else if ((height - statusBarHeight) <= defaultHeaderMinHeight) {
+                //if the height + statusBar of the header is lower than the required 148dp + statusBar we change the height to be able to display all the data
+                height = defaultHeaderMinHeight + statusBarHeight;
             }
         }
 
