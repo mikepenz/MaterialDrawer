@@ -353,7 +353,27 @@ public class AccountHeader {
          * @param profile
          * @return if the event was consumed
          */
-        public boolean onProfileChanged(View view, IProfile profile, boolean current);
+        boolean onProfileChanged(View view, IProfile profile, boolean current);
+    }
+
+    public interface OnAccountHeaderProfileImageListener {
+        /**
+         * the event when the profile image is clicked
+         *
+         * @param view
+         * @param profile
+         * @return if the event was consumed
+         */
+        boolean onProfileImageClick(View view, IProfile profile, boolean current);
+
+        /**
+         * the event when the profile image is long clicked
+         *
+         * @param view
+         * @param profile
+         * @return if the event was consumed
+         */
+        boolean onProfileImageLongClick(View view, IProfile profile, boolean current);
     }
 
     public interface OnAccountHeaderSelectionViewClickListener {
@@ -364,6 +384,6 @@ public class AccountHeader {
          * @param profile
          * @return if the event was consumed
          */
-        public boolean onClick(View view, IProfile profile);
+        boolean onClick(View view, IProfile profile);
     }
 }
