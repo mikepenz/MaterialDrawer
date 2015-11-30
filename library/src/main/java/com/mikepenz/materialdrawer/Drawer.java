@@ -865,6 +865,7 @@ public class Drawer {
 
     //variables to store and remember the original list of the drawer
     private Drawer.OnDrawerItemClickListener originalOnDrawerItemClickListener;
+    private Drawer.OnDrawerItemLongClickListener originalOnDrawerItemLongClickListener;
     private ArrayList<IDrawerItem> originalDrawerItems;
     private int originalDrawerSelection = -1;
 
@@ -893,16 +894,18 @@ public class Drawer {
      * @param drawerItems
      * @param drawerSelection
      */
-    public void switchDrawerContent(@NonNull OnDrawerItemClickListener onDrawerItemClickListener, @NonNull ArrayList<IDrawerItem> drawerItems, int drawerSelection) {
+    public void switchDrawerContent(@NonNull OnDrawerItemClickListener onDrawerItemClickListener, OnDrawerItemLongClickListener onDrawerItemLongClickListener, @NonNull ArrayList<IDrawerItem> drawerItems, int drawerSelection) {
         //just allow a single switched drawer
         if (!switchedDrawerContent()) {
             //save out previous values
             originalOnDrawerItemClickListener = getOnDrawerItemClickListener();
+            originalOnDrawerItemLongClickListener = getOnDrawerItemLongClickListener();
             originalDrawerItems = getDrawerItems();
             originalDrawerSelection = getCurrentSelectedPosition();
 
             //set the new items
             setOnDrawerItemClickListener(onDrawerItemClickListener);
+            setOnDrawerItemLongClickListener(onDrawerItemLongClickListener);
             setItems(drawerItems, true);
             setSelectionAtPosition(drawerSelection, false);
 
@@ -923,10 +926,12 @@ public class Drawer {
         if (switchedDrawerContent()) {
             //set the new items
             setOnDrawerItemClickListener(originalOnDrawerItemClickListener);
+            setOnDrawerItemLongClickListener(originalOnDrawerItemLongClickListener);
             setItems(originalDrawerItems, true);
             setSelectionAtPosition(originalDrawerSelection, false);
             //remove the references
             originalOnDrawerItemClickListener = null;
+            originalOnDrawerItemLongClickListener = null;
             originalDrawerItems = null;
             originalDrawerSelection = -1;
 

@@ -607,8 +607,22 @@ public class AccountHeaderBuilder {
      * @param onAccountHeaderListener
      * @return
      */
-    public AccountHeaderBuilder withOnAccountHeaderListener(@NonNull AccountHeader.OnAccountHeaderListener onAccountHeaderListener) {
+    public AccountHeaderBuilder withOnAccountHeaderListener(AccountHeader.OnAccountHeaderListener onAccountHeaderListener) {
         this.mOnAccountHeaderListener = onAccountHeaderListener;
+        return this;
+    }
+
+    //the on long click listener to be fired on profile longClick inside the list
+    protected AccountHeader.OnAccountHeaderItemLongClickListener mOnAccountHeaderItemLongClickListener;
+
+    /**
+     * the on long click listener to be fired on profile longClick inside the list
+     *
+     * @param onAccountHeaderItemLongClickListener
+     * @return
+     */
+    public AccountHeaderBuilder withOnAccountHeaderItemLongClickListener(AccountHeader.OnAccountHeaderItemLongClickListener onAccountHeaderItemLongClickListener) {
+        this.mOnAccountHeaderItemLongClickListener = onAccountHeaderItemLongClickListener;
         return this;
     }
 
@@ -1298,7 +1312,7 @@ public class AccountHeaderBuilder {
                 position = position + 1;
             }
         }
-        mDrawer.switchDrawerContent(onDrawerItemClickListener, profileDrawerItems, selectedPosition);
+        mDrawer.switchDrawerContent(onDrawerItemClickListener, onDrawerItemLongClickListener, profileDrawerItems, selectedPosition);
     }
 
     /**
@@ -1336,6 +1350,25 @@ public class AccountHeaderBuilder {
             } else {
                 return consumed;
             }
+        }
+    };
+
+    /**
+     * onDrawerItemLongClickListener to catch the longClick for a profile
+     */
+    private Drawer.OnDrawerItemLongClickListener onDrawerItemLongClickListener = new Drawer.OnDrawerItemLongClickListener() {
+        @Override
+        public boolean onItemLongClick(View view, int position, IDrawerItem drawerItem) {
+            //if a longClickListener was defined use it
+            if (mOnAccountHeaderItemLongClickListener != null) {
+                final boolean isCurrentSelectedProfile;
+                isCurrentSelectedProfile = drawerItem != null && drawerItem.isSelected();
+
+                if (drawerItem != null && drawerItem instanceof IProfile) {
+                    return mOnAccountHeaderItemLongClickListener.onProfileLongClick(view, (IProfile) drawerItem, isCurrentSelectedProfile);
+                }
+            }
+            return false;
         }
     };
 

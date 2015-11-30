@@ -356,6 +356,18 @@ public class AccountHeader {
         boolean onProfileChanged(View view, IProfile profile, boolean current);
     }
 
+    public interface OnAccountHeaderItemLongClickListener {
+        /**
+         * the event when the profile item is longClicked inside the list
+         *
+         * @param view
+         * @param profile
+         * @param current
+         * @return if the event was consumed
+         */
+        boolean onProfileLongClick(View view, IProfile profile, boolean current);
+    }
+
     public interface OnAccountHeaderProfileImageListener {
         /**
          * the event when the profile image is clicked
