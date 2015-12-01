@@ -743,7 +743,8 @@ public class AccountHeaderBuilder {
                     int tempHeight = height - statusBarHeight;
                     //if we are lower than api 19 we are not able to have a translucent statusBar so we remove the height of the statusBar from the padding
                     //to prevent display issues we only reduce the height if we still fit the required minHeight of 148dp (R.dimen.material_drawer_account_header_height)
-                    if (tempHeight > defaultHeaderMinHeight) {
+                    //we remove additional 8dp from the defaultMinHeaderHeight as there is some buffer in the header and to prevent to large spacings
+                    if (tempHeight > defaultHeaderMinHeight - UIUtils.convertDpToPixel(8, mActivity)) {
                         height = tempHeight;
                     }
                 }
