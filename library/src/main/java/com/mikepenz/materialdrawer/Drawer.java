@@ -902,20 +902,20 @@ public class Drawer {
             originalOnDrawerItemLongClickListener = getOnDrawerItemLongClickListener();
             originalDrawerItems = getDrawerItems();
             originalDrawerSelection = getCurrentSelectedPosition();
+        }
 
-            //set the new items
-            setOnDrawerItemClickListener(onDrawerItemClickListener);
-            setOnDrawerItemLongClickListener(onDrawerItemLongClickListener);
-            setItems(drawerItems, true);
-            setSelectionAtPosition(drawerSelection, false);
+        //set the new items
+        setOnDrawerItemClickListener(onDrawerItemClickListener);
+        setOnDrawerItemLongClickListener(onDrawerItemLongClickListener);
+        setItems(drawerItems, true);
+        setSelectionAtPosition(drawerSelection, false);
 
-            //hide stickyFooter and it's shadow
-            if (getStickyFooter() != null) {
-                getStickyFooter().setVisibility(View.GONE);
-            }
-            if (getStickyFooterShadow() != null) {
-                getStickyFooterShadow().setVisibility(View.GONE);
-            }
+        //hide stickyFooter and it's shadow
+        if (getStickyFooter() != null) {
+            getStickyFooter().setVisibility(View.GONE);
+        }
+        if (getStickyFooterShadow() != null) {
+            getStickyFooterShadow().setVisibility(View.GONE);
         }
     }
 
