@@ -1181,7 +1181,7 @@ public class AccountHeaderBuilder {
 
         boolean consumed = false;
         if (mOnAccountHeaderProfileImageListener != null) {
-            consumed = mOnAccountHeaderProfileImageListener.onProfileImageClick(v, profile, true);
+            consumed = mOnAccountHeaderProfileImageListener.onProfileImageClick(v, profile, current);
         }
 
         //if the event was already consumed by the click don't continue. note that this will also stop the profile change event
