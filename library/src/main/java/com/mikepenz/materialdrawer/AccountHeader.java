@@ -10,7 +10,6 @@ import android.widget.ImageView;
 
 import com.mikepenz.materialdrawer.holder.ImageHolder;
 import com.mikepenz.materialdrawer.model.interfaces.IProfile;
-import com.mikepenz.materialdrawer.model.interfaces.Identifyable;
 import com.mikepenz.materialdrawer.util.IdDistributor;
 
 import java.util.ArrayList;
@@ -208,7 +207,7 @@ public class AccountHeader {
     public void setActiveProfile(int identifier, boolean fireOnProfileChanged) {
         if (mAccountHeaderBuilder.mProfiles != null) {
             for (IProfile profile : mAccountHeaderBuilder.mProfiles) {
-                if (profile instanceof Identifyable) {
+                if (profile != null) {
                     if (profile.getIdentifier() == identifier) {
                         setActiveProfile(profile, fireOnProfileChanged);
                         return;
@@ -244,23 +243,13 @@ public class AccountHeader {
      */
     @Deprecated
     public void updateProfileByIdentifier(@NonNull IProfile newProfile) {
-        if (mAccountHeaderBuilder.mProfiles != null && newProfile.getIdentifier() >= 0) {
-            int found = -1;
-            for (int i = 0; i < mAccountHeaderBuilder.mProfiles.size(); i++) {
-                if (mAccountHeaderBuilder.mProfiles.get(i) instanceof Identifyable) {
-                    if (mAccountHeaderBuilder.mProfiles.get(i).getIdentifier() == newProfile.getIdentifier()) {
-                        found = i;
-                        break;
-                    }
-                }
-            }
-
-            if (found > -1) {
-                mAccountHeaderBuilder.mProfiles.set(found, newProfile);
-                mAccountHeaderBuilder.updateHeaderAndList();
-            }
+        int found = getPositionByIdentifier(newProfile.getIdentifier());
+        if (found > -1) {
+            mAccountHeaderBuilder.mProfiles.set(found, newProfile);
+            mAccountHeaderBuilder.updateHeaderAndList();
         }
     }
+
 
     /**
      * Add new profiles to the existing list of profiles
@@ -306,16 +295,26 @@ public class AccountHeader {
     }
 
     /**
+     * remove the profile with the given identifier
+     *
+     * @param identifier
+     */
+    public void removeProfileByIdentifier(int identifier) {
+        int found = getPositionByIdentifier(identifier);
+        if (found > -1) {
+            mAccountHeaderBuilder.mProfiles.remove(found);
+        }
+
+        mAccountHeaderBuilder.updateHeaderAndList();
+    }
+
+    /**
      * try to remove the given profile
      *
      * @param profile
      */
     public void removeProfile(@NonNull IProfile profile) {
-        if (mAccountHeaderBuilder.mProfiles != null) {
-            mAccountHeaderBuilder.mProfiles.remove(profile);
-        }
-
-        mAccountHeaderBuilder.updateHeaderAndList();
+        removeProfileByIdentifier(profile.getIdentifier());
     }
 
     /**
@@ -329,6 +328,27 @@ public class AccountHeader {
 
         //process and build the profiles
         mAccountHeaderBuilder.buildProfiles();
+    }
+
+    /**
+     * gets the position of a profile by it's identifier
+     *
+     * @param identifier
+     * @return
+     */
+    private int getPositionByIdentifier(int identifier) {
+        int found = -1;
+        if (mAccountHeaderBuilder.mProfiles != null && identifier >= 0) {
+            for (int i = 0; i < mAccountHeaderBuilder.mProfiles.size(); i++) {
+                if (mAccountHeaderBuilder.mProfiles.get(i) != null) {
+                    if (mAccountHeaderBuilder.mProfiles.get(i).getIdentifier() == identifier) {
+                        found = i;
+                        break;
+                    }
+                }
+            }
+        }
+        return found;
     }
 
     /**
