@@ -67,9 +67,8 @@ public class ImageHolder extends com.mikepenz.materialize.holder.ImageHolder {
     @Override
     public boolean applyTo(ImageView imageView, String tag) {
         if (getUri() != null) {
-            if ("http".equals(getUri().getScheme()) || "https".equals(getUri().getScheme())) {
-                DrawerImageLoader.getInstance().setImage(imageView, getUri(), tag);
-            } else {
+            boolean consumed = DrawerImageLoader.getInstance().setImage(imageView, getUri(), tag);
+            if (!consumed) {
                 imageView.setImageURI(getUri());
             }
         } else if (getIcon() != null) {

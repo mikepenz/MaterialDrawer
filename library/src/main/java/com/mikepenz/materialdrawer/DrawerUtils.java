@@ -19,6 +19,8 @@ import com.mikepenz.materialdrawer.model.interfaces.Selectable;
 import com.mikepenz.materialdrawer.util.DrawerUIUtils;
 import com.mikepenz.materialize.util.UIUtils;
 
+import java.util.List;
+
 /**
  * Created by mikepenz on 23.05.15.
  */
@@ -149,6 +151,24 @@ class DrawerUtils {
         }
 
         return -1;
+    }
+
+    /**
+     * gets the drawerItem with the specific identifier from a drawerItem list
+     *
+     * @param drawerItems
+     * @param identifier
+     * @return
+     */
+    public static IDrawerItem getDrawerItem(List<IDrawerItem> drawerItems, int identifier) {
+        if (identifier >= 0) {
+            for (IDrawerItem drawerItem : drawerItems) {
+                if (drawerItem.getIdentifier() == identifier) {
+                    return drawerItem;
+                }
+            }
+        }
+        return null;
     }
 
     /**

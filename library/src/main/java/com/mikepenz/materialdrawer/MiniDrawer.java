@@ -344,8 +344,7 @@ public class MiniDrawer {
      */
     public void updateItem(int identifier) {
         if (mDrawer != null && mDrawerAdapter != null && mDrawerAdapter.getDrawerItems() != null && identifier != -1) {
-            IDrawerItem drawerItem = mDrawer.getDrawerItem(identifier);
-
+            IDrawerItem drawerItem = DrawerUtils.getDrawerItem(getDrawerItems(), identifier);
             for (int i = 0; i < mDrawerAdapter.getDrawerItems().size(); i++) {
                 if (mDrawerAdapter.getDrawerItems().get(i).getIdentifier() == drawerItem.getIdentifier()) {
                     IDrawerItem miniDrawerItem = generateMiniDrawerItem(drawerItem);
@@ -371,14 +370,9 @@ public class MiniDrawer {
         }
 
         if (mDrawer != null) {
-            if (mDrawer.getDrawerItems() != null) {
-                ArrayList<IDrawerItem> drawerItems = mDrawer.getDrawerItems();
-                if (mDrawer.switchedDrawerContent()) {
-                    drawerItems = mDrawer.getOriginalDrawerItems();
-                }
-
+            if (getDrawerItems() != null) {
                 //migrate to miniDrawerItems
-                for (IDrawerItem drawerItem : drawerItems) {
+                for (IDrawerItem drawerItem : getDrawerItems()) {
                     IDrawerItem miniDrawerItem = generateMiniDrawerItem(drawerItem);
                     if (miniDrawerItem != null) {
                         mDrawerAdapter.addDrawerItem(miniDrawerItem);
@@ -415,7 +409,15 @@ public class MiniDrawer {
             });
         }
         mDrawerAdapter.setOnLongClickListener(mOnMiniDrawerItemLongClickListener);
-
         mRecyclerView.scrollToPosition(0);
+    }
+
+    /**
+     * returns always the original drawerItems and not the switched content
+     *
+     * @return
+     */
+    private ArrayList<IDrawerItem> getDrawerItems() {
+        return mDrawer.getOriginalDrawerItems() != null ? mDrawer.getOriginalDrawerItems() : mDrawer.getDrawerItems();
     }
 }
