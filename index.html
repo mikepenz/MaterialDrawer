@@ -108,7 +108,7 @@ There  is a Header with profiles (<strong>AccountHeader</strong>), a <strong>Min
 <h2>
 <a id="1-provide-the-gradle-dependency" class="anchor" href="#1-provide-the-gradle-dependency" aria-hidden="true"><span class="octicon octicon-link"></span></a>1. Provide the gradle dependency</h2>
 
-<div class="highlight highlight-source-groovy-gradle"><pre>compile(<span class="pl-s"><span class="pl-pds">'</span>com.mikepenz:materialdrawer:4.5.4@aar<span class="pl-pds">'</span></span>) {
+<div class="highlight highlight-source-groovy-gradle"><pre>compile(<span class="pl-s"><span class="pl-pds">'</span>com.mikepenz:materialdrawer:4.5.5@aar<span class="pl-pds">'</span></span>) {
     transitive <span class="pl-k">=</span> <span class="pl-c1">true</span>
 }</pre></div>
 
@@ -226,11 +226,10 @@ compile <span class="pl-s"><span class="pl-pds">'</span>com.mikepenz:fontawesome
 
 <p><strong>java</strong></p>
 
-<pre><code>//now you can simply use any icon of the Google Material Icons font
-new PrimaryDrawerItem().withIcon(GoogleMaterial.Icon.gmd_wb_sunny)
-//Or an icon from FontAwesome
-new SecondaryDrawerItem().withIcon(FontAwesome.Icon.faw_github)
-</code></pre>
+<div class="highlight highlight-source-java"><pre><span class="pl-c">//now you can simply use any icon of the Google Material Icons font</span>
+<span class="pl-k">new</span> <span class="pl-smi">PrimaryDrawerItem</span>()<span class="pl-k">.</span>withIcon(<span class="pl-smi">GoogleMaterial</span><span class="pl-k">.</span><span class="pl-smi">Icon</span><span class="pl-k">.</span>gmd_wb_sunny)
+<span class="pl-c">//Or an icon from FontAwesome</span>
+<span class="pl-k">new</span> <span class="pl-smi">SecondaryDrawerItem</span>()<span class="pl-k">.</span>withIcon(<span class="pl-smi">FontAwesome</span><span class="pl-k">.</span><span class="pl-smi">Icon</span><span class="pl-k">.</span>faw_github)</pre></div>
 
 <h1>
 <a id="advanced-setup" class="anchor" href="#advanced-setup" aria-hidden="true"><span class="octicon octicon-link"></span></a>Advanced Setup</h1>
