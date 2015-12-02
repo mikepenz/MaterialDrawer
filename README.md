@@ -172,7 +172,7 @@ compile 'com.mikepenz:fontawesome-typeface:x.y.z@aar'     //FontAwesome
 ```
 
 **java**
-```
+```java
 //now you can simply use any icon of the Google Material Icons font
 new PrimaryDrawerItem().withIcon(GoogleMaterial.Icon.gmd_wb_sunny)
 //Or an icon from FontAwesome
