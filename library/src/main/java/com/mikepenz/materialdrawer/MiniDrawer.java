@@ -392,6 +392,11 @@ public class MiniDrawer {
                     if (type == ITEM) {
                         //fire the onClickListener also if the specific drawerItem is not Selectable
                         if (item.isSelectable()) {
+                            //make sure we are on the original drawerItemList
+                            if (mAccountHeader != null && mAccountHeader.isSelectionListShown()) {
+                                mAccountHeader.toggleSelectionList(v.getContext());
+                            }
+                            //set the selection
                             mDrawer.setSelection(item, true);
                         } else if (mDrawer.getOnDrawerItemClickListener() != null) {
                             //get the original `DrawerItem` from the Drawer as this one will contain all information
