@@ -53,7 +53,7 @@ You can find some frequently asked questions and other resources in the [WIKI / 
 ##1. Provide the gradle dependency
 
 ```gradle
-compile('com.mikepenz:materialdrawer:4.5.6@aar') {
+compile('com.mikepenz:materialdrawer:4.5.7@aar') {
 	transitive = true
 }
 ```
@@ -425,7 +425,9 @@ builder.withDrawerLayout(R.layout.material_drawer);
 
 #Developed By
 
-* Mike Penz - http://mikepenz.com - <mikepenz@gmail.com>
+* Mike Penz 
+ * [mikepenz.com](http://mikepenz.com) - <mikepenz@gmail.com>
+ * [paypal.me/mikepenz](http://paypal.me/mikepenz)
 
 
 #License

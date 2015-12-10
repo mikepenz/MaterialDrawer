@@ -375,13 +375,23 @@ public class Drawer {
     }
 
     /**
-     * return sthe DrawerItem by the given identifier
+     * returns the DrawerItem by the given identifier
      *
      * @param identifier
      * @return
      */
     public IDrawerItem getDrawerItem(int identifier) {
         return getAdapter().getItem(getPosition(identifier));
+    }
+
+    /**
+     * returns the found drawerItem by the given tag
+     *
+     * @param tag
+     * @return
+     */
+    public IDrawerItem getDrawerItem(Object tag) {
+        return DrawerUtils.getDrawerItem(getDrawerItems(), tag);
     }
 
     /**

@@ -210,50 +210,55 @@ public abstract class BaseDrawerAdapter extends RecyclerView.Adapter<RecyclerVie
 
     @Override
     public void onBindViewHolder(final RecyclerView.ViewHolder holder, final int position) {
-        getItem(position).bindView(holder);
+        IDrawerItem drawerItem = getItem(position);
+        if (drawerItem != null) {
+            getItem(position).bindView(holder);
+        }
 
-        holder.itemView.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                int pos = holder.getAdapterPosition();
-                IDrawerItem drawerItem = getItem(pos);
+        if (holder != null) {
+            holder.itemView.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    int pos = holder.getAdapterPosition();
+                    IDrawerItem drawerItem = getItem(pos);
 
-                //make sure there is a DrawerItem for the specific position
-                if (drawerItem != null) {
-                    //if we are enabled allow the selection and call the onClick
-                    if (drawerItem.isEnabled()) {
-                        if (drawerItem instanceof Selectable) {
-                            if (drawerItem.isSelectable()) {
-                                handleSelection(v, pos);
+                    //make sure there is a DrawerItem for the specific position
+                    if (drawerItem != null) {
+                        //if we are enabled allow the selection and call the onClick
+                        if (drawerItem.isEnabled()) {
+                            if (drawerItem instanceof Selectable) {
+                                if (drawerItem.isSelectable()) {
+                                    handleSelection(v, pos);
+                                }
                             }
-                        }
 
-                        if (mOnClickListener != null) {
-                            mOnClickListener.onClick(v, pos, drawerItem);
-                        }
+                            if (mOnClickListener != null) {
+                                mOnClickListener.onClick(v, pos, drawerItem);
+                            }
 
-                        //if this is an abstractDrawerItem and it has an onDrawerItemClickListener call it
-                        if (drawerItem instanceof AbstractDrawerItem) {
-                            AbstractDrawerItem adi = (AbstractDrawerItem) drawerItem;
-                            if (adi.getOnDrawerItemClickListener() != null) {
-                                adi.getOnDrawerItemClickListener().onItemClick(v, pos, drawerItem);
+                            //if this is an abstractDrawerItem and it has an onDrawerItemClickListener call it
+                            if (drawerItem instanceof AbstractDrawerItem) {
+                                AbstractDrawerItem adi = (AbstractDrawerItem) drawerItem;
+                                if (adi.getOnDrawerItemClickListener() != null) {
+                                    adi.getOnDrawerItemClickListener().onItemClick(v, pos, drawerItem);
+                                }
                             }
                         }
                     }
                 }
-            }
-        });
+            });
 
-        holder.itemView.setOnLongClickListener(new View.OnLongClickListener() {
-            @Override
-            public boolean onLongClick(View v) {
-                if (mOnLongClickListener != null) {
-                    int pos = holder.getAdapterPosition();
-                    return mOnLongClickListener.onLongClick(v, pos, getItem(pos));
+            holder.itemView.setOnLongClickListener(new View.OnLongClickListener() {
+                @Override
+                public boolean onLongClick(View v) {
+                    if (mOnLongClickListener != null) {
+                        int pos = holder.getAdapterPosition();
+                        return mOnLongClickListener.onLongClick(v, pos, getItem(pos));
+                    }
+                    return false;
                 }
-                return false;
-            }
-        });
+            });
+        }
     }
 
     /**

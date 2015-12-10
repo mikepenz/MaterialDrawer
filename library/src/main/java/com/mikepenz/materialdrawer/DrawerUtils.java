@@ -172,6 +172,24 @@ class DrawerUtils {
     }
 
     /**
+     * gets the drawerItem by a defined tag from a drawerItem list
+     *
+     * @param drawerItems
+     * @param tag
+     * @return
+     */
+    public static IDrawerItem getDrawerItem(List<IDrawerItem> drawerItems, Object tag) {
+        if (tag != null) {
+            for (IDrawerItem drawerItem : drawerItems) {
+                if (tag.equals(drawerItem.getTag())) {
+                    return drawerItem;
+                }
+            }
+        }
+        return null;
+    }
+
+    /**
      * calculates the position of an drawerItem inside the footer. searching by it's identifier
      *
      * @param identifier
