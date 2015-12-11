@@ -53,7 +53,7 @@ You can find some frequently asked questions and other resources in the [WIKI / 
 ##1. Provide the gradle dependency
 
 ```gradle
-compile('com.mikepenz:materialdrawer:4.5.7@aar') {
+compile('com.mikepenz:materialdrawer:4.5.8@aar') {
 	transitive = true
 }
 ```
@@ -410,6 +410,7 @@ builder.withDrawerLayout(R.layout.material_drawer);
 * [+UEA](https://play.google.com/store/apps/details?id=br.edu.uea.app)
 * [PixCell8](https://play.google.com/store/apps/details?id=com.pixcell8.prod)
 * [TS3 Viewer for TeamSpeak 3](https://play.google.com/store/apps/details?id=com.game_state.ts3viewer)
+* [Teacher Gradebook](https://play.google.com/store/apps/details?id=com.apolosoft.cuadernoprofesor)
 
 
 #Articles about the MaterialDrawer
