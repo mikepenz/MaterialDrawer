@@ -23,8 +23,6 @@ import android.view.View;
 import android.view.ViewTreeObserver;
 import android.view.inputmethod.InputMethodManager;
 
-import com.mikepenz.materialize.util.UIUtils;
-
 /**
  * Created by mikepenz on 14.03.15.
  * This class implements a hack to change the layout padding on bottom if the keyboard is shown
@@ -34,7 +32,6 @@ import com.mikepenz.materialize.util.UIUtils;
 public class KeyboardUtil {
     private View decorView;
     private View contentView;
-    private float initialDpDiff = -1;
 
     public KeyboardUtil(Activity act, View contentView) {
         this.decorView = act.getWindow().getDecorView();
@@ -67,20 +64,16 @@ public class KeyboardUtil {
             //r will be populated with the coordinates of your view that area still visible.
             decorView.getWindowVisibleDisplayFrame(r);
 
-            //get the height diff as dp
-            float heightDiffDp = UIUtils.convertPixelsToDp(decorView.getRootView().getHeight() - (r.bottom - r.top), decorView.getContext());
-
-            //set the initialDpDiff at the beginning. (on my phone this was 73dp)
-            if (initialDpDiff == -1) {
-                initialDpDiff = heightDiffDp;
-            }
+            int height = decorView.getContext().getResources().getDisplayMetrics().heightPixels;
+            int bottom = r.bottom;
 
             //if it could be a keyboard add the padding to the view
-            if (heightDiffDp - initialDpDiff > 100) { // if more than 100 pixels, its probably a keyboard...
+            if (bottom - height != 0) {
+                // if the use-able screen height differs from the total screen height we assume that it shows a keyboard now
                 //check if the padding is 0 (if yes set the padding for the keyboard)
                 if (contentView.getPaddingBottom() == 0) {
                     //set the padding of the contentView for the keyboard
-                    contentView.setPadding(0, 0, 0, (int) UIUtils.convertDpToPixel((heightDiffDp - initialDpDiff), decorView.getContext()));
+                    contentView.setPadding(0, 0, 0, height - bottom);
                 }
             } else {
                 //check if the padding is != 0 (if yes reset the padding)
