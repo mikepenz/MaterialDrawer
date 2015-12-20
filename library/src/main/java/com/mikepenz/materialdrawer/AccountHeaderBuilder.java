@@ -474,6 +474,23 @@ public class AccountHeaderBuilder {
         return this;
     }
 
+    //the delay which is waited before the drawer is closed
+    protected int mOnProfileClickDrawerCloseDelay = 100;
+
+    /**
+     * Define the delay for the drawer close operation after a click.
+     * This is a small trick to improve the speed (and remove lag) if you open a new activity after a DrawerItem
+     * was selected.
+     * NOTE: Disable this by passing -1
+     *
+     * @param onProfileClickDrawerCloseDelay the delay in MS (-1 to disable)
+     * @return
+     */
+    public AccountHeaderBuilder withOnProfileClickDrawerCloseDelay(int onProfileClickDrawerCloseDelay) {
+        this.mOnProfileClickDrawerCloseDelay = onProfileClickDrawerCloseDelay;
+        return this;
+    }
+
     // the onAccountHeaderProfileImageListener to set
     protected AccountHeader.OnAccountHeaderProfileImageListener mOnAccountHeaderProfileImageListener;
 
@@ -1225,20 +1242,32 @@ public class AccountHeaderBuilder {
         //reset the drawer content
         resetDrawerContent(v.getContext());
 
+        //notify the MiniDrawer about the clicked profile (only if one exists and is hooked to the Drawer
+        if (mDrawer != null && mDrawer.getDrawerBuilder() != null && mDrawer.getDrawerBuilder().mMiniDrawer != null) {
+            mDrawer.getDrawerBuilder().mMiniDrawer.onProfileClick();
+        }
+
+        //notify about the changed profile
         boolean consumed = false;
         if (mOnAccountHeaderListener != null) {
             consumed = mOnAccountHeaderListener.onProfileChanged(v, profile, current);
         }
 
         if (!consumed) {
-            new Handler().postDelayed(new Runnable() {
-                @Override
-                public void run() {
-                    if (mDrawer != null) {
-                        mDrawer.closeDrawer();
+            if (mOnProfileClickDrawerCloseDelay > 0) {
+                new Handler().postDelayed(new Runnable() {
+                    @Override
+                    public void run() {
+                        if (mDrawer != null) {
+                            mDrawer.closeDrawer();
+                        }
                     }
+                }, mOnProfileClickDrawerCloseDelay);
+            } else {
+                if (mDrawer != null) {
+                    mDrawer.closeDrawer();
                 }
-            }, 200);
+            }
         }
     }
 
@@ -1345,6 +1374,11 @@ public class AccountHeaderBuilder {
             //wrap the onSelection call and the reset stuff within a handler to prevent lag
             if (mResetDrawerOnProfileListClick && mDrawer != null && view != null && view.getContext() != null) {
                 resetDrawerContent(view.getContext());
+            }
+
+            //notify the MiniDrawer about the clicked profile (only if one exists and is hooked to the Drawer
+            if (mDrawer != null && mDrawer.getDrawerBuilder() != null && mDrawer.getDrawerBuilder().mMiniDrawer != null) {
+                mDrawer.getDrawerBuilder().mMiniDrawer.onProfileClick();
             }
 
             boolean consumed = false;

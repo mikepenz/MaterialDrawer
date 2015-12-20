@@ -1081,7 +1081,7 @@ public class DrawerBuilder {
      * was selected.
      * NOTE: Disable this by passing -1
      *
-     * @param delayOnDrawerClose -1 to disable
+     * @param delayOnDrawerClose the delay in MS (-1 to disable)
      * @return this
      */
     public DrawerBuilder withDelayOnDrawerClose(int delayOnDrawerClose) {
@@ -1089,6 +1089,22 @@ public class DrawerBuilder {
         return this;
     }
 
+    // delay drawer click event to prevent lag (you should either choose DelayOnDrawerClose or this)
+    protected int mDelayDrawerClickEvent = 0;
+
+    /**
+     * Define the delay for the drawer click event after a click.
+     * This can be used to improve performance and prevent lag, especially when you switch fragments inside the listener.
+     * This will ignore the boolean value you can return in the listener, as the listener is called after the drawer was closed.
+     * NOTE: Disable this to pass -1
+     *
+     * @param delayDrawerClickEvent -1 to disable
+     * @return this
+     */
+    public DrawerBuilder withDelayDrawerClickEvent(int delayDrawerClickEvent) {
+        this.mDelayDrawerClickEvent = delayDrawerClickEvent;
+        return this;
+    }
 
     // onDrawerListener
     protected Drawer.OnDrawerListener mOnDrawerListener;
@@ -1159,6 +1175,22 @@ public class DrawerBuilder {
         this.mShowDrawerOnFirstLaunch = showDrawerOnFirstLaunch;
         return this;
     }
+
+    //also generate the MiniDrawer for this Drawer
+    protected boolean mGenerateMiniDrawer = false;
+    protected MiniDrawer mMiniDrawer = null;
+
+    /**
+     * define if the DrawerBuilder should also generate a MiniDrawer for th
+     *
+     * @param generateMiniDrawer
+     * @return
+     */
+    public DrawerBuilder withGenerateMiniDrawer(boolean generateMiniDrawer) {
+        this.mGenerateMiniDrawer = generateMiniDrawer;
+        return this;
+    }
+
 
     // savedInstance to restore state
     protected Bundle mSavedInstance;
@@ -1454,6 +1486,12 @@ public class DrawerBuilder {
         //handle if the drawer should be shown on first launch
         handleShowOnFirstLaunch();
 
+        //we only want to hook a Drawer to the MiniDraewr if it is the main drawer, not the appended one
+        if (!mAppended) {
+            // if we should create a MiniDrawer we have to do this now
+            mMiniDrawer = new MiniDrawer().withDrawer(result).withAccountHeader(mAccountHeader);
+        }
+
         //forget the reference to the activity
         mActivity = null;
 
@@ -1661,16 +1699,32 @@ public class DrawerBuilder {
         // add the onDrawerItemClickListener if set
         mAdapter.setOnClickListener(new BaseDrawerAdapter.OnClickListener() {
             @Override
-            public void onClick(View view, int position, IDrawerItem item) {
+            public void onClick(final View view, final int position, final IDrawerItem item) {
                 if (!(item != null && item instanceof Selectable && !((Selectable) item).isSelectable())) {
                     resetStickyFooterSelection();
                     mCurrentSelection = position;
                     mCurrentStickyFooterSelection = -1;
                 }
 
+                //call the listener
                 boolean consumed = false;
+
                 if (mOnDrawerItemClickListener != null) {
-                    consumed = mOnDrawerItemClickListener.onItemClick(view, position, item);
+                    if (mDelayDrawerClickEvent > 0) {
+                        new Handler().postDelayed(new Runnable() {
+                            @Override
+                            public void run() {
+                                mOnDrawerItemClickListener.onItemClick(view, position, item);
+                            }
+                        }, mDelayDrawerClickEvent);
+                    } else {
+                        consumed = mOnDrawerItemClickListener.onItemClick(view, position, item);
+                    }
+                }
+
+                //we have to notify the miniDrawer if existing, and if the event was not consumed yet
+                if (!consumed && mMiniDrawer != null) {
+                    consumed = mMiniDrawer.onItemClick(item);
                 }
 
                 if (!consumed) {

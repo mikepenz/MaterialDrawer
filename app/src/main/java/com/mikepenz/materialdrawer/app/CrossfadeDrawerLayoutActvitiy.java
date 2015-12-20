@@ -34,7 +34,6 @@ public class CrossfadeDrawerLayoutActvitiy extends AppCompatActivity {
     //save our header or result
     private AccountHeader headerResult = null;
     private Drawer result = null;
-    private MiniDrawer miniResult = null;
     private CrossfadeDrawerLayout crossfadeDrawerLayout = null;
 
     @Override
@@ -61,20 +60,11 @@ public class CrossfadeDrawerLayoutActvitiy extends AppCompatActivity {
                 .addProfiles(
                         profile, profile2
                 )
-                .withOnAccountHeaderListener(new AccountHeader.OnAccountHeaderListener() {
-                    @Override
-                    public boolean onProfileChanged(View view, IProfile profile, boolean current) {
-                        //IMPORTANT! notify the MiniDrawer about the profile click
-                        miniResult.onProfileClick();
-
-                        //false if you have not consumed the event and it should close the drawer
-                        return false;
-                    }
-                })
                 .withSavedInstance(savedInstanceState)
                 .build();
 
         //create the CrossfadeDrawerLayout which will be used as alternative DrawerLayout for the Drawer
+        //the CrossfadeDrawerLayout library can be found here: https://github.com/mikepenz/CrossfadeDrawerLayout
         crossfadeDrawerLayout = new CrossfadeDrawerLayout(this);
 
         //Create the drawer
@@ -84,6 +74,7 @@ public class CrossfadeDrawerLayoutActvitiy extends AppCompatActivity {
                 .withDrawerLayout(crossfadeDrawerLayout)
                 .withHasStableIds(true)
                 .withDrawerWidthDp(72)
+                .withGenerateMiniDrawer(true)
                 .withAccountHeader(headerResult) //set the AccountHeader we created earlier for the header
                 .addDrawerItems(
                         new PrimaryDrawerItem().withName(R.string.drawer_item_compact_header).withIcon(GoogleMaterial.Icon.gmd_sun).withIdentifier(1),
@@ -102,9 +93,8 @@ public class CrossfadeDrawerLayoutActvitiy extends AppCompatActivity {
                         if (drawerItem instanceof Nameable) {
                             Toast.makeText(CrossfadeDrawerLayoutActvitiy.this, ((Nameable) drawerItem).getName().getText(CrossfadeDrawerLayoutActvitiy.this), Toast.LENGTH_SHORT).show();
                         }
-
-                        //IMPORTANT notify the MiniDrawer about the onItemClick
-                        return miniResult.onItemClick(drawerItem);
+                        //we do not consume the event and want the Drawer to continue with the event chain
+                        return false;
                     }
                 })
                 .withSavedInstance(savedInstanceState)
@@ -114,7 +104,7 @@ public class CrossfadeDrawerLayoutActvitiy extends AppCompatActivity {
         //define maxDrawerWidth
         crossfadeDrawerLayout.setMaxWidthPx(DrawerUIUtils.getOptimalDrawerWidth(this));
         //add second view (which is the miniDrawer)
-        miniResult = new MiniDrawer().withDrawer(result).withAccountHeader(headerResult);
+        MiniDrawer miniResult = result.getMiniDrawer();
         //build the view for the MiniDrawer
         View view = miniResult.build(this);
         //set the background of the MiniDrawer as this would be transparent
