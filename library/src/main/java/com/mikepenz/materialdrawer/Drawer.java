@@ -63,6 +63,16 @@ public class Drawer {
     }
 
     /**
+     * the protected getter of the mDrawerBuilder
+     * only used internally to prevent the default behavior of some public methods
+     *
+     * @return
+     */
+    protected DrawerBuilder getDrawerBuilder() {
+        return this.mDrawerBuilder;
+    }
+
+    /**
      * Get the DrawerLayout of the current drawer
      *
      * @return
@@ -183,6 +193,19 @@ public class Drawer {
      */
     public Materialize getMaterialize() {
         return mDrawerBuilder.mMaterialize;
+    }
+
+
+    /**
+     * gets the already generated MiniDrawer or creates a new one
+     *
+     * @return
+     */
+    public MiniDrawer getMiniDrawer() {
+        if (mDrawerBuilder.mMiniDrawer == null) {
+            mDrawerBuilder.mMiniDrawer = new MiniDrawer().withDrawer(this).withAccountHeader(mDrawerBuilder.mAccountHeader);
+        }
+        return mDrawerBuilder.mMiniDrawer;
     }
 
     /**

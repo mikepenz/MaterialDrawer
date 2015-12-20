@@ -1176,6 +1176,22 @@ public class DrawerBuilder {
         return this;
     }
 
+    //also generate the MiniDrawer for this Drawer
+    protected boolean mGenerateMiniDrawer = false;
+    protected MiniDrawer mMiniDrawer = null;
+
+    /**
+     * define if the DrawerBuilder should also generate a MiniDrawer for th
+     *
+     * @param generateMiniDrawer
+     * @return
+     */
+    public DrawerBuilder withGenerateMiniDrawer(boolean generateMiniDrawer) {
+        this.mGenerateMiniDrawer = generateMiniDrawer;
+        return this;
+    }
+
+
     // savedInstance to restore state
     protected Bundle mSavedInstance;
 
@@ -1470,6 +1486,12 @@ public class DrawerBuilder {
         //handle if the drawer should be shown on first launch
         handleShowOnFirstLaunch();
 
+        //we only want to hook a Drawer to the MiniDraewr if it is the main drawer, not the appended one
+        if (!mAppended) {
+            // if we should create a MiniDrawer we have to do this now
+            mMiniDrawer = new MiniDrawer().withDrawer(result).withAccountHeader(mAccountHeader);
+        }
+
         //forget the reference to the activity
         mActivity = null;
 
@@ -1684,7 +1706,9 @@ public class DrawerBuilder {
                     mCurrentStickyFooterSelection = -1;
                 }
 
+                //call the listener
                 boolean consumed = false;
+
                 if (mOnDrawerItemClickListener != null) {
                     if (mDelayDrawerClickEvent > 0) {
                         new Handler().postDelayed(new Runnable() {
@@ -1696,6 +1720,11 @@ public class DrawerBuilder {
                     } else {
                         consumed = mOnDrawerItemClickListener.onItemClick(view, position, item);
                     }
+                }
+
+                //we have to notify the miniDrawer if existing, and if the event was not consumed yet
+                if (!consumed && mMiniDrawer != null) {
+                    consumed = mMiniDrawer.onItemClick(item);
                 }
 
                 if (!consumed) {

@@ -102,9 +102,6 @@ public class MiniDrawerActivity extends AppCompatActivity {
                             }
                         }
 
-                        //IMPORTANT! notify the MiniDrawer about the profile click
-                        miniResult.onProfileClick();
-
                         //false if you have not consumed the event and it should close the drawer
                         return false;
                     }
@@ -112,7 +109,7 @@ public class MiniDrawerActivity extends AppCompatActivity {
                 .withSavedInstance(savedInstanceState)
                 .build();
 
-        DrawerBuilder builder = new DrawerBuilder()
+        result = new DrawerBuilder()
                 .withActivity(this)
                 .withToolbar(toolbar)
                 .withTranslucentStatusBar(false)
@@ -137,17 +134,16 @@ public class MiniDrawerActivity extends AppCompatActivity {
                         if (drawerItem instanceof Nameable) {
                             Toast.makeText(MiniDrawerActivity.this, ((Nameable) drawerItem).getName().getText(MiniDrawerActivity.this), Toast.LENGTH_SHORT).show();
                         }
-
-                        //IMPORTANT notify the MiniDrawer about the onItemClick
-                        return miniResult.onItemClick(drawerItem);
+                        return false;
                     }
                 })
-                .withSavedInstance(savedInstanceState);
+                .withGenerateMiniDrawer(true)
+                .withSavedInstance(savedInstanceState)
+                // build only the view of the Drawer (don't inflate it automatically in our layout which is done with .build())
+                .buildView();
 
-        // build only the view of the Drawer (don't inflate it automatically in our layout which is done with .build())
-        result = builder.buildView();
-        // create the MiniDrawer and deinfe the drawer and header to be used (it will automatically use the items from them)
-        miniResult = new MiniDrawer().withDrawer(result).withAccountHeader(headerResult);
+        //the MiniDrawer is managed by the Drawer and we just get it to hook it into the Crossfader
+        miniResult = result.getMiniDrawer();
 
         //get the widths in px for the first and second panel
         int firstWidth = (int) UIUtils.convertDpToPixel(300, this);

@@ -1225,11 +1225,18 @@ public class AccountHeaderBuilder {
         //reset the drawer content
         resetDrawerContent(v.getContext());
 
+        //notify the MiniDrawer about the clicked profile (only if one exists and is hooked to the Drawer
+        if (mDrawer != null && mDrawer.getDrawerBuilder() != null && mDrawer.getDrawerBuilder().mMiniDrawer != null) {
+            mDrawer.getDrawerBuilder().mMiniDrawer.onProfileClick();
+        }
+
+        //notify about the changed profile
         boolean consumed = false;
         if (mOnAccountHeaderListener != null) {
             consumed = mOnAccountHeaderListener.onProfileChanged(v, profile, current);
         }
 
+        //TODO make this configureable
         if (!consumed) {
             new Handler().postDelayed(new Runnable() {
                 @Override
@@ -1238,7 +1245,7 @@ public class AccountHeaderBuilder {
                         mDrawer.closeDrawer();
                     }
                 }
-            }, 200);
+            }, 100);
         }
     }
 
@@ -1345,6 +1352,11 @@ public class AccountHeaderBuilder {
             //wrap the onSelection call and the reset stuff within a handler to prevent lag
             if (mResetDrawerOnProfileListClick && mDrawer != null && view != null && view.getContext() != null) {
                 resetDrawerContent(view.getContext());
+            }
+
+            //notify the MiniDrawer about the clicked profile (only if one exists and is hooked to the Drawer
+            if (mDrawer != null && mDrawer.getDrawerBuilder() != null && mDrawer.getDrawerBuilder().mMiniDrawer != null) {
+                mDrawer.getDrawerBuilder().mMiniDrawer.onProfileClick();
             }
 
             boolean consumed = false;
