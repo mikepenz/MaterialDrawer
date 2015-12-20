@@ -474,6 +474,23 @@ public class AccountHeaderBuilder {
         return this;
     }
 
+    //the delay which is waited before the drawer is closed
+    protected int mOnProfileClickDrawerCloseDelay = 100;
+
+    /**
+     * Define the delay for the drawer close operation after a click.
+     * This is a small trick to improve the speed (and remove lag) if you open a new activity after a DrawerItem
+     * was selected.
+     * NOTE: Disable this by passing -1
+     *
+     * @param onProfileClickDrawerCloseDelay the delay in MS (-1 to disable)
+     * @return
+     */
+    public AccountHeaderBuilder withOnProfileClickDrawerCloseDelay(int onProfileClickDrawerCloseDelay) {
+        this.mOnProfileClickDrawerCloseDelay = onProfileClickDrawerCloseDelay;
+        return this;
+    }
+
     // the onAccountHeaderProfileImageListener to set
     protected AccountHeader.OnAccountHeaderProfileImageListener mOnAccountHeaderProfileImageListener;
 
@@ -1236,16 +1253,21 @@ public class AccountHeaderBuilder {
             consumed = mOnAccountHeaderListener.onProfileChanged(v, profile, current);
         }
 
-        //TODO make this configureable
         if (!consumed) {
-            new Handler().postDelayed(new Runnable() {
-                @Override
-                public void run() {
-                    if (mDrawer != null) {
-                        mDrawer.closeDrawer();
+            if (mOnProfileClickDrawerCloseDelay > 0) {
+                new Handler().postDelayed(new Runnable() {
+                    @Override
+                    public void run() {
+                        if (mDrawer != null) {
+                            mDrawer.closeDrawer();
+                        }
                     }
+                }, mOnProfileClickDrawerCloseDelay);
+            } else {
+                if (mDrawer != null) {
+                    mDrawer.closeDrawer();
                 }
-            }, 100);
+            }
         }
     }
 
