@@ -1089,6 +1089,22 @@ public class DrawerBuilder {
         return this;
     }
 
+    // delay drawer click event to prevent lag (you should either choose DelayOnDrawerClose or this)
+    protected int mDelayDrawerClickEvent = 0;
+
+    /**
+     * Define the delay for the drawer click event after a click.
+     * This can be used to improve performance and prevent lag, especially when you switch fragments inside the listener.
+     * This will ignore the boolean value you can return in the listener, as the listener is called after the drawer was closed.
+     * NOTE: Disable this to pass -1
+     *
+     * @param delayDrawerClickEvent -1 to disable
+     * @return this
+     */
+    public DrawerBuilder withDelayDrawerClickEvent(int delayDrawerClickEvent) {
+        this.mDelayDrawerClickEvent = delayDrawerClickEvent;
+        return this;
+    }
 
     // onDrawerListener
     protected Drawer.OnDrawerListener mOnDrawerListener;
@@ -1661,7 +1677,7 @@ public class DrawerBuilder {
         // add the onDrawerItemClickListener if set
         mAdapter.setOnClickListener(new BaseDrawerAdapter.OnClickListener() {
             @Override
-            public void onClick(View view, int position, IDrawerItem item) {
+            public void onClick(final View view, final int position, final IDrawerItem item) {
                 if (!(item != null && item instanceof Selectable && !((Selectable) item).isSelectable())) {
                     resetStickyFooterSelection();
                     mCurrentSelection = position;
@@ -1670,7 +1686,16 @@ public class DrawerBuilder {
 
                 boolean consumed = false;
                 if (mOnDrawerItemClickListener != null) {
-                    consumed = mOnDrawerItemClickListener.onItemClick(view, position, item);
+                    if (mDelayDrawerClickEvent > 0) {
+                        new Handler().postDelayed(new Runnable() {
+                            @Override
+                            public void run() {
+                                mOnDrawerItemClickListener.onItemClick(view, position, item);
+                            }
+                        }, mDelayDrawerClickEvent);
+                    } else {
+                        consumed = mOnDrawerItemClickListener.onItemClick(view, position, item);
+                    }
                 }
 
                 if (!consumed) {
