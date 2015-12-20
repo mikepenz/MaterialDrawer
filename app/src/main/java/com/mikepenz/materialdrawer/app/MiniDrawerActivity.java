@@ -154,6 +154,7 @@ public class MiniDrawerActivity extends AppCompatActivity {
         int secondWidth = (int) UIUtils.convertDpToPixel(72, this);
 
         //create and build our crossfader (see the MiniDrawer is also builded in here, as the build method returns the view to be used in the crossfader)
+        //the crossfader library can be found here: https://github.com/mikepenz/Crossfader
         crossFader = new Crossfader()
                 .withContent(findViewById(R.id.crossfade_content))
                 .withFirst(result.getSlider(), firstWidth)

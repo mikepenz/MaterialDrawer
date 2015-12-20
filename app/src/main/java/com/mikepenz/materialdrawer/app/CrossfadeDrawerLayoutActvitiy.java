@@ -75,6 +75,7 @@ public class CrossfadeDrawerLayoutActvitiy extends AppCompatActivity {
                 .build();
 
         //create the CrossfadeDrawerLayout which will be used as alternative DrawerLayout for the Drawer
+        //the CrossfadeDrawerLayout library can be found here: https://github.com/mikepenz/CrossfadeDrawerLayout
         crossfadeDrawerLayout = new CrossfadeDrawerLayout(this);
 
         //Create the drawer
