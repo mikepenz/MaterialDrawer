@@ -1,5 +1,8 @@
 ###Upgrade Notes
 
+#### v4.5.9 -> v4.6.0
+* it is now possible to let the `Drawer` manage the `MiniDrawer`. Enable this via `withGenerateMiniDrawer(true)`. Afterwards remove the `MiniDrawer` calls inside the listeners, those are now done within the `Drawer`. You can get the `MiniDrawer` result object via `Drawer.getMiniDrawer();`
+
 #### v4.3.7 -> v4.4.3
 * added new method `withHeaderPadding` to the drawer and `withPaddingBelowHeader` to the header to control the padding separately from the `divider`which can be controlled via `withHeaderDivider`
 
