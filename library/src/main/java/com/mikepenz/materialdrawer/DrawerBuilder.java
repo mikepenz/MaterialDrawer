@@ -1081,7 +1081,7 @@ public class DrawerBuilder {
      * was selected.
      * NOTE: Disable this by passing -1
      *
-     * @param delayOnDrawerClose -1 to disable
+     * @param delayOnDrawerClose the delay in MS (-1 to disable)
      * @return this
      */
     public DrawerBuilder withDelayOnDrawerClose(int delayOnDrawerClose) {
