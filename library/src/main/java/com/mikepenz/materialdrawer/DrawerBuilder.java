@@ -1486,7 +1486,7 @@ public class DrawerBuilder {
         //handle if the drawer should be shown on first launch
         handleShowOnFirstLaunch();
 
-        //we only want to hook a Drawer to the MiniDraewr if it is the main drawer, not the appended one
+        //we only want to hook a Drawer to the MiniDrawer if it is the main drawer, not the appended one
         if (!mAppended && mGenerateMiniDrawer) {
             // if we should create a MiniDrawer we have to do this now
             mMiniDrawer = new MiniDrawer().withDrawer(result).withAccountHeader(mAccountHeader);
