@@ -404,6 +404,20 @@ public class AccountHeaderBuilder {
         return this;
     }
 
+    //show small profile images but hide MainProfileImage
+    protected boolean mOnlySmallProfileImagesVisible = false;
+
+    /**
+     * define if only the small profile images should be visible
+     *
+     * @param onlySmallProfileImagesVisible
+     * @return
+     */
+    public AccountHeaderBuilder withOnlySmallProfileImagesVisible(boolean onlySmallProfileImagesVisible) {
+        this.mOnlySmallProfileImagesVisible = onlySmallProfileImagesVisible;
+        return this;
+    }
+
     //close the drawer after a profile was clicked in the list
     protected Boolean mCloseDrawerOnProfileListClick = null;
 
@@ -1022,6 +1036,14 @@ public class AccountHeaderBuilder {
             }
         }
 
+        //if we only show the small profile images we have to make sure the first (would be the current selected) profile is also shown
+        if (mOnlySmallProfileImagesVisible) {
+            mProfileThird = mProfileSecond;
+            mProfileSecond = mProfileFirst;
+            mProfileFirst = mCurrentProfile;
+            mCurrentProfile = mProfileThird;
+        }
+
         buildProfiles();
 
         return false;
@@ -1046,7 +1068,7 @@ public class AccountHeaderBuilder {
         handleSelectionView(mCurrentProfile, true);
 
         if (mCurrentProfile != null) {
-            if (mProfileImagesVisible || mOnlyMainProfileImageVisible) {
+            if ((mProfileImagesVisible || mOnlyMainProfileImageVisible) && !mOnlySmallProfileImagesVisible) {
                 setImageOrPlaceholder(mCurrentProfileView, mCurrentProfile.getIcon());
                 if (mProfileImagesClickable) {
                     mCurrentProfileView.setOnClickListener(onCurrentProfileClickListener);
