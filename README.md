@@ -1,6 +1,4 @@
-#MaterialDrawer  [![Maven Central](https://maven-badges.herokuapp.com/maven-central/com.mikepenz/materialdrawer/badge.svg?style=flat)](https://maven-badges.herokuapp.com/maven-central/com.mikepenz/materialdrawer) [![Android Arsenal](https://img.shields.io/badge/Android%20Arsenal-MaterialDrawer-brightgreen.svg?style=flat)](https://android-arsenal.com/details/1/1526)
-
-[![Join the chat at https://gitter.im/mikepenz/MaterialDrawer](https://badges.gitter.im/Join%20Chat.svg)](https://gitter.im/mikepenz/MaterialDrawer?utm_source=badge&utm_medium=badge&utm_campaign=pr-badge&utm_content=badge)
+#MaterialDrawer  [![Maven Central](https://maven-badges.herokuapp.com/maven-central/com.mikepenz/materialdrawer/badge.svg?style=flat)](https://maven-badges.herokuapp.com/maven-central/com.mikepenz/materialdrawer) [![Android Arsenal](https://img.shields.io/badge/Android%20Arsenal-MaterialDrawer-brightgreen.svg?style=flat)](https://android-arsenal.com/details/1/1526) [![Join the chat at https://gitter.im/mikepenz/MaterialDrawer](https://badges.gitter.im/Join%20Chat.svg)](https://gitter.im/mikepenz/MaterialDrawer?utm_source=badge&utm_medium=badge&utm_campaign=pr-badge&utm_content=badge)
 
 ![Image](https://raw.githubusercontent.com/mikepenz/MaterialDrawer/develop/DEV/github/banner.png)
 
@@ -53,7 +51,7 @@ You can find some frequently asked questions and other resources in the [WIKI / 
 ##1. Provide the gradle dependency
 
 ```gradle
-compile('com.mikepenz:materialdrawer:4.6.1@aar') {
+compile('com.mikepenz:materialdrawer:4.6.2@aar') {
 	transitive = true
 }
 ```
