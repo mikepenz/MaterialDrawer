@@ -20,6 +20,8 @@ import com.mikepenz.materialdrawer.DrawerBuilder;
 import com.mikepenz.materialdrawer.MiniDrawer;
 import com.mikepenz.materialdrawer.holder.BadgeStyle;
 import com.mikepenz.materialdrawer.interfaces.ICrossfader;
+import com.mikepenz.materialdrawer.model.MiniDrawerItem;
+import com.mikepenz.materialdrawer.model.MiniProfileDrawerItem;
 import com.mikepenz.materialdrawer.model.PrimaryDrawerItem;
 import com.mikepenz.materialdrawer.model.ProfileDrawerItem;
 import com.mikepenz.materialdrawer.model.SecondaryDrawerItem;
@@ -104,7 +106,7 @@ public class CrossfadeDrawerLayoutActvitiy extends AppCompatActivity {
         //define maxDrawerWidth
         crossfadeDrawerLayout.setMaxWidthPx(DrawerUIUtils.getOptimalDrawerWidth(this));
         //add second view (which is the miniDrawer)
-        MiniDrawer miniResult = result.getMiniDrawer();
+        final MiniDrawer miniResult = result.getMiniDrawer();
         //build the view for the MiniDrawer
         View view = miniResult.build(this);
         //set the background of the MiniDrawer as this would be transparent
@@ -130,6 +132,37 @@ public class CrossfadeDrawerLayoutActvitiy extends AppCompatActivity {
                 return crossfadeDrawerLayout.isCrossfaded();
             }
         });
+
+
+        /**
+         * NOTE THIS IS A HIGHLY CUSTOM ANIMATION. USE CAREFULLY.
+         * this animate the height of the profile to the height of the AccountHeader and
+         * animates the height of the drawerItems to the normal drawerItems so the difference between Mini and normal Drawer is eliminated
+         **/
+        final double headerHeight = DrawerUIUtils.getOptimalDrawerWidth(this) * 9d / 16d;
+        final double originalProfileHeight = UIUtils.convertDpToPixel(72, this);
+        final double headerDifference = headerHeight - originalProfileHeight;
+        final double originalItemHeight = UIUtils.convertDpToPixel(64, this);
+        final double normalItemHeight = UIUtils.convertDpToPixel(48, this);
+        final double itemDifference = originalItemHeight - normalItemHeight;
+        crossfadeDrawerLayout.withCrossfadeListener(new CrossfadeDrawerLayout.CrossfadeListener() {
+            @Override
+            public void onCrossfade(View containerView, float currentSlidePercentage, int slideOffset) {
+                for (int i = 0; i < miniResult.getDrawerAdapter().getItemCount(); i++) {
+                    IDrawerItem drawerItem = miniResult.getDrawerAdapter().getItem(i);
+                    if (drawerItem instanceof MiniProfileDrawerItem) {
+                        MiniProfileDrawerItem mpdi = (MiniProfileDrawerItem) drawerItem;
+                        mpdi.withCustomHeightPx((int) (originalProfileHeight + (headerDifference * currentSlidePercentage / 100)));
+                    } else if (drawerItem instanceof MiniDrawerItem) {
+                        MiniDrawerItem mdi = (MiniDrawerItem) drawerItem;
+                        mdi.withCustomHeightPx((int) (originalItemHeight - (itemDifference * currentSlidePercentage / 100)));
+                    }
+                }
+
+                miniResult.getDrawerAdapter().notifyDataSetChanged();
+            }
+        });
+
     }
 
     @Override
