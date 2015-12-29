@@ -2,6 +2,7 @@ package com.mikepenz.materialdrawer.model;
 
 import android.content.Context;
 import android.graphics.drawable.Drawable;
+import android.support.annotation.DimenRes;
 import android.support.annotation.LayoutRes;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
@@ -10,6 +11,7 @@ import android.widget.TextView;
 
 import com.mikepenz.materialdrawer.R;
 import com.mikepenz.materialdrawer.holder.BadgeStyle;
+import com.mikepenz.materialdrawer.holder.DimenHolder;
 import com.mikepenz.materialdrawer.holder.ImageHolder;
 import com.mikepenz.materialdrawer.holder.StringHolder;
 import com.mikepenz.materialdrawer.model.utils.ViewHolderFactory;
@@ -24,6 +26,7 @@ public class MiniDrawerItem extends BaseDrawerItem<MiniDrawerItem> {
     private BadgeStyle mBadgeStyle = new BadgeStyle();
 
     private boolean mEnableSelectedBackground = false;
+    protected DimenHolder mCustomHeight;
 
     public MiniDrawerItem() {
 
@@ -73,6 +76,27 @@ public class MiniDrawerItem extends BaseDrawerItem<MiniDrawerItem> {
         this.disabledIconColor = secondaryDrawerItem.disabledIconColor;
     }
 
+
+    public MiniDrawerItem withCustomHeightRes(@DimenRes int customHeightRes) {
+        this.mCustomHeight = DimenHolder.fromResource(customHeightRes);
+        return this;
+    }
+
+    public MiniDrawerItem withCustomHeightDp(int customHeightDp) {
+        this.mCustomHeight = DimenHolder.fromDp(customHeightDp);
+        return this;
+    }
+
+    public MiniDrawerItem withCustomHeightPx(int customHeightPx) {
+        this.mCustomHeight = DimenHolder.fromPixel(customHeightPx);
+        return this;
+    }
+
+    public MiniDrawerItem withCustomHeight(DimenHolder customHeight) {
+        this.mCustomHeight = customHeight;
+        return this;
+    }
+
     public MiniDrawerItem withEnableSelectedBackground(boolean enableSelectedBackground) {
         this.mEnableSelectedBackground = enableSelectedBackground;
         return this;
@@ -95,6 +119,13 @@ public class MiniDrawerItem extends BaseDrawerItem<MiniDrawerItem> {
 
         //get our viewHolder
         ViewHolder viewHolder = (ViewHolder) holder;
+
+        //set a different height for this item
+        if (mCustomHeight != null) {
+            RecyclerView.LayoutParams lp = (RecyclerView.LayoutParams) viewHolder.itemView.getLayoutParams();
+            lp.height = mCustomHeight.asPixel(ctx);
+            viewHolder.itemView.setLayoutParams(lp);
+        }
 
         //set the identifier from the drawerItem here. It can be used to run tests
         viewHolder.itemView.setId(getIdentifier());
