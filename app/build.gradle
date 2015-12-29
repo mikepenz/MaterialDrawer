@@ -13,8 +13,8 @@ android {
         applicationId "com.mikepenz.materialdrawer.app"
         minSdkVersion 10
         targetSdkVersion 23
-        versionCode 462
-        versionName "4.6.2"
+        versionCode 463
+        versionName "4.6.3"
 
         applicationVariants.all { variant ->
             variant.outputs.each { output ->
