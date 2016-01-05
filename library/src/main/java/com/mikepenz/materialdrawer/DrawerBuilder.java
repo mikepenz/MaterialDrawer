@@ -881,6 +881,9 @@ public class DrawerBuilder {
      */
     public DrawerBuilder withHasStableIds(boolean hasStableIds) {
         this.mHasStableIds = hasStableIds;
+        if (mAdapter != null) {
+            mAdapter.setHasStableIds(hasStableIds);
+        }
         return this;
     }
 
