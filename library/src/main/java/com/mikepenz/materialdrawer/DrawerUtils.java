@@ -43,7 +43,7 @@ class DrawerUtils {
             v.setSelected(true);
 
             //remove the selection in the list
-            drawer.getAdapter().deleteAllSelectedItems();
+            drawer.getAdapter().deselect();
 
             //set currentSelection to -1 because we selected a stickyFooter element
             //drawer.mCurrentSelection = -1;

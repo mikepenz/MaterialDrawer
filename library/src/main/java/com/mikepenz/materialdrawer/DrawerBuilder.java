@@ -1709,7 +1709,7 @@ public class DrawerBuilder {
         if (mHeaderView != null && mSelectedItemPosition == 0) {
             mSelectedItemPosition = 1;
         }
-        mAdapter.deleteAllSelectedItems();
+        mAdapter.deselect();
         mAdapter.select(mSelectedItemPosition);
         //DrawerUtils.setRecyclerViewSelection(this, mSelectedItemPosition, false);
 
