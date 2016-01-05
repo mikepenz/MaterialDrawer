@@ -7,11 +7,11 @@ import android.support.v7.widget.RecyclerView;
 import android.view.View;
 import android.widget.TextView;
 
-import com.mikepenz.materialdrawer.R;
+import com.mikepenz.fastadapter.utils.ViewHolderFactory;
+import com.mikepenz.materialdrawer.app.R;
 import com.mikepenz.materialdrawer.holder.BadgeStyle;
 import com.mikepenz.materialdrawer.holder.StringHolder;
 import com.mikepenz.materialdrawer.model.interfaces.ColorfulBadgeable;
-import com.mikepenz.materialdrawer.model.utils.ViewHolderFactory;
 
 /**
  * Created by mikepenz on 03.02.15.
@@ -53,8 +53,8 @@ public class CustomUrlPrimaryDrawerItem extends CustomUrlBasePrimaryDrawerItem<C
     }
 
     @Override
-    public String getType() {
-        return "URL_PRIMARY_ITEM";
+    public int getType() {
+        return R.id.material_drawer_item_custom_url_item;
     }
 
     @Override
@@ -98,7 +98,7 @@ public class CustomUrlPrimaryDrawerItem extends CustomUrlBasePrimaryDrawerItem<C
     }
 
     public static class ItemFactory implements ViewHolderFactory<ViewHolder> {
-        public ViewHolder factory(View v) {
+        public ViewHolder create(View v) {
             return new ViewHolder(v);
         }
     }

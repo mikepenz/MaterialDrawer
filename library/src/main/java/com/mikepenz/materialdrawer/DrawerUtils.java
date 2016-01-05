@@ -9,7 +9,6 @@ import android.view.ViewGroup;
 import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 
-import com.mikepenz.materialdrawer.adapter.BaseDrawerAdapter;
 import com.mikepenz.materialdrawer.holder.ColorHolder;
 import com.mikepenz.materialdrawer.model.ContainerDrawerItem;
 import com.mikepenz.materialdrawer.model.PrimaryDrawerItem;
@@ -44,10 +43,10 @@ class DrawerUtils {
             v.setSelected(true);
 
             //remove the selection in the list
-            drawer.getAdapter().handleSelection(null, -1);
+            drawer.getAdapter().deleteAllSelectedItems();
 
             //set currentSelection to -1 because we selected a stickyFooter element
-            drawer.mCurrentSelection = -1;
+            //drawer.mCurrentSelection = -1;
 
             //find the position of the clicked footer item
             if (drawer.mStickyFooterView != null && drawer.mStickyFooterView instanceof LinearLayout) {
@@ -83,9 +82,12 @@ class DrawerUtils {
      * @param fireOnClick
      * @return
      */
+    /*
     public static boolean setRecyclerViewSelection(DrawerBuilder drawer, int position, boolean fireOnClick) {
         return setRecyclerViewSelection(drawer, position, fireOnClick, null);
     }
+    */
+
 
     /**
      * helper method to set the selection in the list
@@ -96,12 +98,14 @@ class DrawerUtils {
      * @param drawerItem
      * @return
      */
+    /*
     public static boolean setRecyclerViewSelection(DrawerBuilder drawer, int position, boolean fireOnClick, IDrawerItem drawerItem) {
         if (position >= -1) {
             //predefine selection (should be the first element
             if (drawer.mAdapter != null) {
                 drawer.resetStickyFooterSelection();
-                drawer.mAdapter.handleSelection(null, position);
+                drawer.mAdapter.deleteAllSelectedItems();
+                drawer.mAdapter.select(position);
                 drawer.mCurrentSelection = position;
                 drawer.mCurrentStickyFooterSelection = -1;
             }
@@ -113,6 +117,7 @@ class DrawerUtils {
 
         return false;
     }
+    */
 
     /**
      * helper method to set the selection of the footer
@@ -142,9 +147,8 @@ class DrawerUtils {
      */
     public static int getPositionByIdentifier(DrawerBuilder drawer, int identifier) {
         if (identifier >= 0) {
-            BaseDrawerAdapter adapter = drawer.getAdapter();
-            for (int i = 0; i < adapter.getItemCount(); i++) {
-                if (adapter.getItem(i).getIdentifier() == identifier) {
+            for (int i = 0; i < drawer.getAdapter().getItemCount(); i++) {
+                if (drawer.getAdapter().getItem(i).getIdentifier() == identifier) {
                     return i;
                 }
             }
@@ -276,9 +280,9 @@ class DrawerUtils {
             }
 
             if (drawer.mHeaderPadding) {
-                drawer.getAdapter().addHeaderDrawerItems(new ContainerDrawerItem().withView(drawer.mHeaderView).withDivider(drawer.mHeaderDivider).withViewPosition(ContainerDrawerItem.Position.TOP));
+                drawer.getHeaderAdapter().add(new ContainerDrawerItem().withView(drawer.mHeaderView).withDivider(drawer.mHeaderDivider).withViewPosition(ContainerDrawerItem.Position.TOP));
             } else {
-                drawer.getAdapter().addHeaderDrawerItems(new ContainerDrawerItem().withView(drawer.mHeaderView).withDivider(drawer.mHeaderDivider).withViewPosition(ContainerDrawerItem.Position.NONE));
+                drawer.getHeaderAdapter().add(new ContainerDrawerItem().withView(drawer.mHeaderView).withDivider(drawer.mHeaderDivider).withViewPosition(ContainerDrawerItem.Position.NONE));
             }
             //set the padding on the top to 0
             drawer.mRecyclerView.setPadding(drawer.mRecyclerView.getPaddingLeft(), 0, drawer.mRecyclerView.getPaddingRight(), drawer.mRecyclerView.getPaddingBottom());
@@ -377,9 +381,9 @@ class DrawerUtils {
             }
 
             if (drawer.mFooterDivider) {
-                drawer.getAdapter().addFooterDrawerItems(new ContainerDrawerItem().withView(drawer.mFooterView).withViewPosition(ContainerDrawerItem.Position.BOTTOM));
+                drawer.getFooterAdapter().add(new ContainerDrawerItem().withView(drawer.mFooterView).withViewPosition(ContainerDrawerItem.Position.BOTTOM));
             } else {
-                drawer.getAdapter().addFooterDrawerItems(new ContainerDrawerItem().withView(drawer.mFooterView).withViewPosition(ContainerDrawerItem.Position.NONE));
+                drawer.getFooterAdapter().add(new ContainerDrawerItem().withView(drawer.mFooterView).withViewPosition(ContainerDrawerItem.Position.NONE));
             }
         }
     }

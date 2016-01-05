@@ -8,12 +8,12 @@ import android.support.v7.widget.RecyclerView;
 import android.view.View;
 import android.widget.TextView;
 
+import com.mikepenz.fastadapter.utils.ViewHolderFactory;
 import com.mikepenz.materialdrawer.R;
 import com.mikepenz.materialdrawer.holder.ColorHolder;
 import com.mikepenz.materialdrawer.holder.StringHolder;
 import com.mikepenz.materialdrawer.model.interfaces.Nameable;
 import com.mikepenz.materialdrawer.model.interfaces.Typefaceable;
-import com.mikepenz.materialdrawer.model.utils.ViewHolderFactory;
 import com.mikepenz.materialize.util.UIUtils;
 
 /**
@@ -86,8 +86,8 @@ public class SectionDrawerItem extends AbstractDrawerItem<SectionDrawerItem> imp
     }
 
     @Override
-    public String getType() {
-        return "SECTION_ITEM";
+    public int getType() {
+        return R.id.material_drawer_item_section;
     }
 
     @Override
@@ -141,7 +141,7 @@ public class SectionDrawerItem extends AbstractDrawerItem<SectionDrawerItem> imp
     }
 
     public static class ItemFactory implements ViewHolderFactory<ViewHolder> {
-        public ViewHolder factory(View v) {
+        public ViewHolder create(View v) {
             return new ViewHolder(v);
         }
     }

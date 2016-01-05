@@ -6,11 +6,11 @@ import android.view.View;
 import android.widget.CompoundButton;
 import android.widget.ToggleButton;
 
+import com.mikepenz.fastadapter.utils.ViewHolderFactory;
 import com.mikepenz.materialdrawer.Drawer;
 import com.mikepenz.materialdrawer.R;
 import com.mikepenz.materialdrawer.interfaces.OnCheckedChangeListener;
 import com.mikepenz.materialdrawer.model.interfaces.IDrawerItem;
-import com.mikepenz.materialdrawer.model.utils.ViewHolderFactory;
 
 /**
  * Created by mikepenz on 03.02.15.
@@ -61,8 +61,8 @@ public class SecondaryToggleDrawerItem extends BaseSecondaryDrawerItem<Secondary
     }
 
     @Override
-    public String getType() {
-        return "SECONDARY_TOGGLE_ITEM";
+    public int getType() {
+        return R.id.material_drawer_item_secondary_toggle;
     }
 
     @Override
@@ -108,7 +108,7 @@ public class SecondaryToggleDrawerItem extends BaseSecondaryDrawerItem<Secondary
     }
 
     public static class ItemFactory implements ViewHolderFactory<ViewHolder> {
-        public ViewHolder factory(View v) {
+        public ViewHolder create(View v) {
             return new ViewHolder(v);
         }
     }

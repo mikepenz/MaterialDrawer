@@ -5,10 +5,12 @@ import android.support.v7.widget.RecyclerView;
 import android.view.View;
 import android.view.ViewGroup;
 
+import com.mikepenz.fastadapter.IItem;
+
 /**
  * Created by mikepenz on 03.02.15.
  */
-public interface IDrawerItem<T> extends Identifyable<T> {
+public interface IDrawerItem<T> extends IItem<T> {
 
     Object getTag();
 
@@ -22,7 +24,7 @@ public interface IDrawerItem<T> extends Identifyable<T> {
 
     T withSelectable(boolean selectable);
 
-    String getType();
+    int getType();
 
     int getLayoutRes();
 

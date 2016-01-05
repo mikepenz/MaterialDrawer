@@ -8,11 +8,11 @@ import android.view.MenuInflater;
 import android.view.View;
 import android.widget.ImageButton;
 
+import com.mikepenz.fastadapter.utils.ViewHolderFactory;
 import com.mikepenz.google_material_typeface_library.GoogleMaterial;
 import com.mikepenz.iconics.IconicsDrawable;
 import com.mikepenz.materialdrawer.app.R;
 import com.mikepenz.materialdrawer.model.BasePrimaryDrawerItem;
-import com.mikepenz.materialdrawer.model.utils.ViewHolderFactory;
 
 /**
  * Created by mikepenz on 03.02.15.
@@ -53,8 +53,8 @@ public class OverflowMenuDrawerItem extends BasePrimaryDrawerItem<OverflowMenuDr
     }
 
     @Override
-    public String getType() {
-        return "PRIMARY_OVERFLOW_MENU_ITEM";
+    public int getType() {
+        return R.id.material_drawer_item_overflow_menu;
     }
 
     @Override
@@ -101,7 +101,7 @@ public class OverflowMenuDrawerItem extends BasePrimaryDrawerItem<OverflowMenuDr
     }
 
     public static class ItemFactory implements ViewHolderFactory<ViewHolder> {
-        public ViewHolder factory(View v) {
+        public ViewHolder create(View v) {
             return new ViewHolder(v);
         }
     }

@@ -30,7 +30,6 @@ import com.mikepenz.materialdrawer.model.interfaces.IDrawerItem;
 import com.mikepenz.materialdrawer.model.interfaces.IProfile;
 import com.mikepenz.materialdrawer.util.DrawerImageLoader;
 import com.mikepenz.materialdrawer.util.DrawerUIUtils;
-import com.mikepenz.materialdrawer.util.IdDistributor;
 import com.mikepenz.materialdrawer.view.BezelImageView;
 import com.mikepenz.materialize.util.UIUtils;
 
@@ -609,7 +608,7 @@ public class AccountHeaderBuilder {
      * @return
      */
     public AccountHeaderBuilder withProfiles(@NonNull ArrayList<IProfile> profiles) {
-        this.mProfiles = IdDistributor.checkIds(profiles);
+        this.mProfiles = profiles;
         return this;
     }
 
@@ -624,7 +623,7 @@ public class AccountHeaderBuilder {
             this.mProfiles = new ArrayList<>();
         }
 
-        Collections.addAll(this.mProfiles, IdDistributor.checkIds(profiles));
+        Collections.addAll(this.mProfiles, profiles);
 
         return this;
     }
@@ -1363,7 +1362,8 @@ public class AccountHeaderBuilder {
                     if (mCurrentHiddenInList) {
                         continue;
                     } else {
-                        selectedPosition = position + mDrawer.getAdapter().getHeaderOffset();
+                        //TODO THIS
+                        //selectedPosition = position + mDrawer.getAdapter().getHeaderOffset();
                     }
                 }
                 if (profile instanceof IDrawerItem) {

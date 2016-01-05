@@ -6,8 +6,8 @@ import android.support.v4.view.ViewCompat;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
 
+import com.mikepenz.fastadapter.utils.ViewHolderFactory;
 import com.mikepenz.materialdrawer.R;
-import com.mikepenz.materialdrawer.model.utils.ViewHolderFactory;
 import com.mikepenz.materialize.util.UIUtils;
 
 /**
@@ -15,8 +15,8 @@ import com.mikepenz.materialize.util.UIUtils;
  */
 public class DividerDrawerItem extends AbstractDrawerItem<DividerDrawerItem> {
     @Override
-    public String getType() {
-        return "DIVIDER_ITEM";
+    public int getType() {
+        return R.id.material_drawer_item_divider;
     }
 
     @Override
@@ -55,7 +55,7 @@ public class DividerDrawerItem extends AbstractDrawerItem<DividerDrawerItem> {
     }
 
     public static class ItemFactory implements ViewHolderFactory<ViewHolder> {
-        public ViewHolder factory(View v) {
+        public ViewHolder create(View v) {
             return new ViewHolder(v);
         }
     }

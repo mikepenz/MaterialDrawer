@@ -10,7 +10,6 @@ import android.widget.ImageView;
 
 import com.mikepenz.materialdrawer.holder.ImageHolder;
 import com.mikepenz.materialdrawer.model.interfaces.IProfile;
-import com.mikepenz.materialdrawer.util.IdDistributor;
 
 import java.util.ArrayList;
 import java.util.Collections;
@@ -160,7 +159,7 @@ public class AccountHeader {
      * @param profiles
      */
     public void setProfiles(ArrayList<IProfile> profiles) {
-        mAccountHeaderBuilder.mProfiles = IdDistributor.checkIds(profiles);
+        mAccountHeaderBuilder.mProfiles = profiles;
         mAccountHeaderBuilder.updateHeaderAndList();
     }
 
@@ -261,7 +260,7 @@ public class AccountHeader {
             mAccountHeaderBuilder.mProfiles = new ArrayList<>();
         }
 
-        Collections.addAll(mAccountHeaderBuilder.mProfiles, IdDistributor.checkIds(profiles));
+        Collections.addAll(mAccountHeaderBuilder.mProfiles, profiles);
 
         mAccountHeaderBuilder.updateHeaderAndList();
     }
@@ -276,7 +275,7 @@ public class AccountHeader {
         if (mAccountHeaderBuilder.mProfiles == null) {
             mAccountHeaderBuilder.mProfiles = new ArrayList<>();
         }
-        mAccountHeaderBuilder.mProfiles.add(position, IdDistributor.checkId(profile));
+        mAccountHeaderBuilder.mProfiles.add(position, profile);
 
         mAccountHeaderBuilder.updateHeaderAndList();
     }

@@ -14,6 +14,7 @@ import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.mikepenz.fastadapter.utils.ViewHolderFactory;
 import com.mikepenz.iconics.typeface.IIcon;
 import com.mikepenz.materialdrawer.R;
 import com.mikepenz.materialdrawer.holder.ColorHolder;
@@ -22,7 +23,6 @@ import com.mikepenz.materialdrawer.holder.StringHolder;
 import com.mikepenz.materialdrawer.model.interfaces.IProfile;
 import com.mikepenz.materialdrawer.model.interfaces.Tagable;
 import com.mikepenz.materialdrawer.model.interfaces.Typefaceable;
-import com.mikepenz.materialdrawer.model.utils.ViewHolderFactory;
 import com.mikepenz.materialdrawer.util.DrawerImageLoader;
 import com.mikepenz.materialdrawer.util.DrawerUIUtils;
 import com.mikepenz.materialize.util.UIUtils;
@@ -154,8 +154,8 @@ public class ProfileDrawerItem extends AbstractDrawerItem<ProfileDrawerItem> imp
     }
 
     @Override
-    public String getType() {
-        return "PROFILE_ITEM";
+    public int getType() {
+        return R.id.material_drawer_item_profile;
     }
 
     @Override
@@ -228,7 +228,7 @@ public class ProfileDrawerItem extends AbstractDrawerItem<ProfileDrawerItem> imp
     }
 
     public static class ItemFactory implements ViewHolderFactory<ViewHolder> {
-        public ViewHolder factory(View v) {
+        public ViewHolder create(View v) {
             return new ViewHolder(v);
         }
     }

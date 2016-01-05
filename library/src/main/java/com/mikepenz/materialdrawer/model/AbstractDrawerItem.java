@@ -6,12 +6,12 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import com.mikepenz.fastadapter.utils.ViewHolderFactory;
 import com.mikepenz.materialdrawer.Drawer;
 import com.mikepenz.materialdrawer.model.interfaces.IDrawerItem;
 import com.mikepenz.materialdrawer.model.interfaces.OnPostBindViewListener;
 import com.mikepenz.materialdrawer.model.interfaces.Selectable;
 import com.mikepenz.materialdrawer.model.interfaces.Tagable;
-import com.mikepenz.materialdrawer.model.utils.ViewHolderFactory;
 
 /**
  * Created by mikepenz on 14.07.15.
@@ -131,21 +131,21 @@ public abstract class AbstractDrawerItem<T> implements IDrawerItem<T>, Selectabl
 
     @Override
     public View generateView(Context ctx) {
-        RecyclerView.ViewHolder viewHolder = getFactory().factory(LayoutInflater.from(ctx).inflate(getLayoutRes(), null, false));
+        RecyclerView.ViewHolder viewHolder = getFactory().create(LayoutInflater.from(ctx).inflate(getLayoutRes(), null, false));
         bindView(viewHolder);
         return viewHolder.itemView;
     }
 
     @Override
     public View generateView(Context ctx, ViewGroup parent) {
-        RecyclerView.ViewHolder viewHolder = getFactory().factory(LayoutInflater.from(ctx).inflate(getLayoutRes(), parent, false));
+        RecyclerView.ViewHolder viewHolder = getFactory().create(LayoutInflater.from(ctx).inflate(getLayoutRes(), parent, false));
         bindView(viewHolder);
         return viewHolder.itemView;
     }
 
     @Override
     public RecyclerView.ViewHolder getViewHolder(ViewGroup parent) {
-        return getFactory().factory(LayoutInflater.from(parent.getContext()).inflate(getLayoutRes(), parent, false));
+        return getFactory().create(LayoutInflater.from(parent.getContext()).inflate(getLayoutRes(), parent, false));
     }
 
     public boolean equals(Integer id) {

@@ -6,11 +6,11 @@ import android.support.v7.widget.SwitchCompat;
 import android.view.View;
 import android.widget.CompoundButton;
 
+import com.mikepenz.fastadapter.utils.ViewHolderFactory;
 import com.mikepenz.materialdrawer.Drawer;
 import com.mikepenz.materialdrawer.R;
 import com.mikepenz.materialdrawer.interfaces.OnCheckedChangeListener;
 import com.mikepenz.materialdrawer.model.interfaces.IDrawerItem;
-import com.mikepenz.materialdrawer.model.utils.ViewHolderFactory;
 
 /**
  * Created by mikepenz on 03.02.15.
@@ -54,8 +54,8 @@ public class SecondarySwitchDrawerItem extends BaseSecondaryDrawerItem<Secondary
     }
 
     @Override
-    public String getType() {
-        return "SECONDARY_SWITCH_ITEM";
+    public int getType() {
+        return R.id.material_drawer_item_secondary_switch;
     }
 
     @Override
@@ -101,7 +101,7 @@ public class SecondarySwitchDrawerItem extends BaseSecondaryDrawerItem<Secondary
     }
 
     public static class ItemFactory implements ViewHolderFactory<ViewHolder> {
-        public ViewHolder factory(View v) {
+        public ViewHolder create(View v) {
             return new ViewHolder(v);
         }
     }

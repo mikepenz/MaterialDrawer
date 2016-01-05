@@ -7,8 +7,8 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.LinearLayout;
 
+import com.mikepenz.fastadapter.utils.ViewHolderFactory;
 import com.mikepenz.materialdrawer.R;
-import com.mikepenz.materialdrawer.model.utils.ViewHolderFactory;
 import com.mikepenz.materialize.util.UIUtils;
 
 /**
@@ -51,8 +51,8 @@ public class ContainerDrawerItem extends AbstractDrawerItem<ContainerDrawerItem>
     }
 
     @Override
-    public String getType() {
-        return "CONTAINER_ITEM";
+    public int getType() {
+        return R.id.material_drawer_item_container;
     }
 
     @Override
@@ -116,7 +116,7 @@ public class ContainerDrawerItem extends AbstractDrawerItem<ContainerDrawerItem>
     }
 
     public static class ItemFactory implements ViewHolderFactory<ViewHolder> {
-        public ViewHolder factory(View v) {
+        public ViewHolder create(View v) {
             return new ViewHolder(v);
         }
     }

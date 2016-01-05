@@ -31,6 +31,7 @@ dependencies {
     compile "com.android.support:appcompat-v7:${rootProject.ext.supportLibVersion}"
     compile "com.android.support:recyclerview-v7:${rootProject.ext.supportLibVersion}"
     compile "com.android.support:support-annotations:${rootProject.ext.supportLibVersion}"
+    compile "com.android.support:design:${rootProject.ext.supportLibVersion}"
 
     // used to base on some backwards compatible themes
     // contains util classes to support various android versions, and clean up code
@@ -42,4 +43,9 @@ dependencies {
     // and provides scalable icons. the core is very very light
     // https://github.com/mikepenz/Android-Iconics
     compile 'com.mikepenz:iconics-core:2.5.3@aar'
+
+    // used to fill the RecyclerView with the DrawerItems
+    // and provides single and multi selection, collapsable items
+    // https://github.com/mikepenz/FastAdapter
+    compile 'com.mikepenz:fastadapter:0.3.3-SNAPSHOT@aar'
 }

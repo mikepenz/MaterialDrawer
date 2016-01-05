@@ -13,7 +13,7 @@ import android.widget.AdapterView;
 import android.widget.FrameLayout;
 import android.widget.RelativeLayout;
 
-import com.mikepenz.materialdrawer.adapter.BaseDrawerAdapter;
+import com.mikepenz.fastadapter.FastAdapter;
 import com.mikepenz.materialdrawer.holder.ImageHolder;
 import com.mikepenz.materialdrawer.holder.StringHolder;
 import com.mikepenz.materialdrawer.model.ContainerDrawerItem;
@@ -21,12 +21,12 @@ import com.mikepenz.materialdrawer.model.interfaces.Badgeable;
 import com.mikepenz.materialdrawer.model.interfaces.IDrawerItem;
 import com.mikepenz.materialdrawer.model.interfaces.Iconable;
 import com.mikepenz.materialdrawer.model.interfaces.Nameable;
-import com.mikepenz.materialdrawer.util.IdDistributor;
 import com.mikepenz.materialdrawer.util.KeyboardUtil;
 import com.mikepenz.materialize.Materialize;
 import com.mikepenz.materialize.view.IScrimInsetsLayout;
 
 import java.util.ArrayList;
+import java.util.List;
 
 /**
  * Created by mikepenz on 03.02.15.
@@ -35,8 +35,8 @@ public class Drawer {
     /**
      * BUNDLE param to store the selection
      */
-    protected static final String BUNDLE_SELECTION = "bundle_selection";
-    protected static final String BUNDLE_SELECTION_APPENDED = "bundle_selection_appended";
+    protected static final String BUNDLE_SELECTION = "_selection";
+    protected static final String BUNDLE_SELECTION_APPENDED = "_selection_appended";
     protected static final String BUNDLE_STICKY_FOOTER_SELECTION = "bundle_sticky_footer_selection";
     protected static final String BUNDLE_STICKY_FOOTER_SELECTION_APPENDED = "bundle_sticky_footer_selection_appended";
     protected static final String BUNDLE_DRAWER_CONTENT_SWITCHED = "bundle_drawer_content_switched";
@@ -268,7 +268,7 @@ public class Drawer {
      *
      * @return
      */
-    public BaseDrawerAdapter getAdapter() {
+    public FastAdapter getAdapter() {
         return mDrawerBuilder.mAdapter;
     }
 
@@ -277,8 +277,9 @@ public class Drawer {
      *
      * @return
      */
-    public ArrayList<IDrawerItem> getDrawerItems() {
-        return mDrawerBuilder.getAdapter().getDrawerItems();
+    public List<IDrawerItem> getDrawerItems() {
+        //TODO REDO THIS
+        return mDrawerBuilder.getItemAdapter().getAdapterItems();
     }
 
     /**
@@ -326,11 +327,11 @@ public class Drawer {
      * @param divider
      */
     public void setHeader(@NonNull View view, boolean padding, boolean divider) {
-        getAdapter().clearHeaderItems();
+        mDrawerBuilder.getHeaderAdapter().clear();
         if (padding) {
-            getAdapter().addHeaderDrawerItems(new ContainerDrawerItem().withView(view).withDivider(divider).withViewPosition(ContainerDrawerItem.Position.TOP));
+            mDrawerBuilder.getHeaderAdapter().add(new ContainerDrawerItem().withView(view).withDivider(divider).withViewPosition(ContainerDrawerItem.Position.TOP));
         } else {
-            getAdapter().addHeaderDrawerItems(new ContainerDrawerItem().withView(view).withDivider(divider).withViewPosition(ContainerDrawerItem.Position.NONE));
+            mDrawerBuilder.getHeaderAdapter().add(new ContainerDrawerItem().withView(view).withDivider(divider).withViewPosition(ContainerDrawerItem.Position.NONE));
         }
     }
 
@@ -338,7 +339,7 @@ public class Drawer {
      * method to remove the header of the list
      */
     public void removeHeader() {
-        getAdapter().clearHeaderItems();
+        mDrawerBuilder.getHeaderAdapter().clear();
     }
 
     /**
@@ -404,7 +405,7 @@ public class Drawer {
      * @return
      */
     public IDrawerItem getDrawerItem(int identifier) {
-        return getAdapter().getItem(getPosition(identifier));
+        return (IDrawerItem) getAdapter().getItem(getPosition(identifier));
     }
 
     /**
@@ -443,7 +444,7 @@ public class Drawer {
      * @return
      */
     public int getCurrentSelectedPosition() {
-        return mDrawerBuilder.mCurrentSelection;
+        return mDrawerBuilder.mAdapter.getSelections().size() == 0 ? -1 : mDrawerBuilder.mAdapter.getSelections().iterator().next();
     }
 
     /**
@@ -452,7 +453,7 @@ public class Drawer {
      * @return
      */
     public int getCurrentSelection() {
-        IDrawerItem drawerItem = mDrawerBuilder.getDrawerItem(mDrawerBuilder.mCurrentSelection);
+        IDrawerItem drawerItem = mDrawerBuilder.getDrawerItem(getCurrentSelectedPosition());
         if (drawerItem != null) {
             return drawerItem.getIdentifier();
         }
@@ -541,7 +542,8 @@ public class Drawer {
      */
     public boolean setSelectionAtPosition(int position, boolean fireOnClick) {
         if (mDrawerBuilder.mRecyclerView != null) {
-            return DrawerUtils.setRecyclerViewSelection(mDrawerBuilder, position, fireOnClick, mDrawerBuilder.getDrawerItem(position));
+            mDrawerBuilder.mAdapter.select(position);
+            //return DrawerUtils.setRecyclerViewSelection(mDrawerBuilder, position, fireOnClick, mDrawerBuilder.getDrawerItem(position));
         }
         return false;
     }
@@ -633,7 +635,7 @@ public class Drawer {
      */
     public void updateItemAtPosition(@NonNull IDrawerItem drawerItem, int position) {
         if (mDrawerBuilder.checkDrawerItem(position, false)) {
-            mDrawerBuilder.getAdapter().setDrawerItem(position, drawerItem);
+            mDrawerBuilder.getItemAdapter().set(position, drawerItem);
         }
     }
 
@@ -643,7 +645,7 @@ public class Drawer {
      * @param drawerItem
      */
     public void addItem(@NonNull IDrawerItem drawerItem) {
-        mDrawerBuilder.getAdapter().addDrawerItem(IdDistributor.checkId(drawerItem));
+        mDrawerBuilder.getItemAdapter().add(drawerItem);
     }
 
     /**
@@ -653,10 +655,7 @@ public class Drawer {
      * @param position
      */
     public void addItemAtPosition(@NonNull IDrawerItem drawerItem, int position) {
-        mDrawerBuilder.getAdapter().addDrawerItem(position, IdDistributor.checkId(drawerItem));
-        if (position < mDrawerBuilder.mCurrentSelection) {
-            mDrawerBuilder.mCurrentSelection = mDrawerBuilder.mCurrentSelection + 1;
-        }
+        mDrawerBuilder.getItemAdapter().add(position, drawerItem);
     }
 
     /**
@@ -666,7 +665,7 @@ public class Drawer {
      * @param position
      */
     public void setItemAtPosition(@NonNull IDrawerItem drawerItem, int position) {
-        mDrawerBuilder.getAdapter().addDrawerItem(position, IdDistributor.checkId(drawerItem));
+        mDrawerBuilder.getItemAdapter().add(position, drawerItem);
     }
 
     /**
@@ -676,10 +675,7 @@ public class Drawer {
      */
     public void removeItemByPosition(int position) {
         if (mDrawerBuilder.checkDrawerItem(position, false)) {
-            mDrawerBuilder.getAdapter().removeDrawerItem(position);
-            if (position < mDrawerBuilder.mCurrentSelection) {
-                mDrawerBuilder.mCurrentSelection = mDrawerBuilder.mCurrentSelection - 1;
-            }
+            mDrawerBuilder.getItemAdapter().remove(position);
         }
     }
 
@@ -691,10 +687,7 @@ public class Drawer {
     public void removeItem(int identifier) {
         int position = getPosition(identifier);
         if (mDrawerBuilder.checkDrawerItem(position, false)) {
-            mDrawerBuilder.getAdapter().removeDrawerItem(position);
-            if (position < mDrawerBuilder.mCurrentSelection) {
-                mDrawerBuilder.mCurrentSelection = mDrawerBuilder.mCurrentSelection - 1;
-            }
+            mDrawerBuilder.getItemAdapter().remove(position);
         }
     }
 
@@ -715,8 +708,7 @@ public class Drawer {
      * Removes all items from drawer
      */
     public void removeAllItems() {
-        mDrawerBuilder.getAdapter().clearDrawerItems();
-        mDrawerBuilder.mCurrentSelection = -1;
+        mDrawerBuilder.getItemAdapter().clear();
     }
 
     /**
@@ -725,7 +717,7 @@ public class Drawer {
      * @param drawerItems
      */
     public void addItems(@NonNull IDrawerItem... drawerItems) {
-        mDrawerBuilder.getAdapter().addDrawerItems(IdDistributor.checkIds(drawerItems));
+        mDrawerBuilder.getItemAdapter().add(drawerItems);
     }
 
     /**
@@ -735,7 +727,7 @@ public class Drawer {
      * @param drawerItems
      */
     public void addItemsAtPosition(int position, @NonNull IDrawerItem... drawerItems) {
-        mDrawerBuilder.getAdapter().addDrawerItems(position, IdDistributor.checkIds(drawerItems));
+        mDrawerBuilder.getItemAdapter().add(position, drawerItems);
     }
 
     /**
@@ -744,7 +736,7 @@ public class Drawer {
      * @param drawerItems
      */
     public void setItems(@NonNull ArrayList<IDrawerItem> drawerItems) {
-        setItems(IdDistributor.checkIds(drawerItems), false);
+        setItems(drawerItems, false);
     }
 
     /**
@@ -753,13 +745,12 @@ public class Drawer {
      * @param drawerItems
      * @param switchedItems
      */
-    private void setItems(@NonNull ArrayList<IDrawerItem> drawerItems, boolean switchedItems) {
+    private void setItems(@NonNull List<IDrawerItem> drawerItems, boolean switchedItems) {
         //if we are currently at a switched list set the new reference
         if (originalDrawerItems != null && !switchedItems) {
             originalDrawerItems = drawerItems;
-            mDrawerBuilder.mCurrentSelection = -1;
         } else {
-            mDrawerBuilder.getAdapter().setDrawerItems(drawerItems);
+            mDrawerBuilder.getItemAdapter().set(drawerItems);
         }
 
         mDrawerBuilder.mAdapter.notifyDataSetChanged();
@@ -799,7 +790,7 @@ public class Drawer {
         if (mDrawerBuilder.mStickyDrawerItems == null) {
             mDrawerBuilder.mStickyDrawerItems = new ArrayList<>();
         }
-        mDrawerBuilder.mStickyDrawerItems.add(IdDistributor.checkId(drawerItem));
+        mDrawerBuilder.mStickyDrawerItems.add(drawerItem);
 
         DrawerUtils.rebuildStickyFooterView(mDrawerBuilder);
     }
@@ -814,7 +805,7 @@ public class Drawer {
         if (mDrawerBuilder.mStickyDrawerItems == null) {
             mDrawerBuilder.mStickyDrawerItems = new ArrayList<>();
         }
-        mDrawerBuilder.mStickyDrawerItems.add(position, IdDistributor.checkId(drawerItem));
+        mDrawerBuilder.mStickyDrawerItems.add(position, drawerItem);
 
         DrawerUtils.rebuildStickyFooterView(mDrawerBuilder);
     }
@@ -827,7 +818,7 @@ public class Drawer {
      */
     public void setStickyFooterItemAtPosition(@NonNull IDrawerItem drawerItem, int position) {
         if (mDrawerBuilder.mStickyDrawerItems != null && mDrawerBuilder.mStickyDrawerItems.size() > position) {
-            mDrawerBuilder.mStickyDrawerItems.set(position, IdDistributor.checkId(drawerItem));
+            mDrawerBuilder.mStickyDrawerItems.set(position, drawerItem);
         }
 
         DrawerUtils.rebuildStickyFooterView(mDrawerBuilder);
@@ -899,7 +890,7 @@ public class Drawer {
     //variables to store and remember the original list of the drawer
     private Drawer.OnDrawerItemClickListener originalOnDrawerItemClickListener;
     private Drawer.OnDrawerItemLongClickListener originalOnDrawerItemLongClickListener;
-    private ArrayList<IDrawerItem> originalDrawerItems;
+    private List<IDrawerItem> originalDrawerItems;
     private int originalDrawerSelection = -1;
 
     /**
@@ -916,7 +907,7 @@ public class Drawer {
      *
      * @return
      */
-    public ArrayList<IDrawerItem> getOriginalDrawerItems() {
+    public List<IDrawerItem> getOriginalDrawerItems() {
         return originalDrawerItems;
     }
 
@@ -995,11 +986,11 @@ public class Drawer {
     public Bundle saveInstanceState(Bundle savedInstanceState) {
         if (savedInstanceState != null) {
             if (!mDrawerBuilder.mAppended) {
-                savedInstanceState.putInt(BUNDLE_SELECTION, switchedDrawerContent() ? originalDrawerSelection : mDrawerBuilder.mCurrentSelection);
+                savedInstanceState = mDrawerBuilder.mAdapter.saveInstanceState(savedInstanceState, BUNDLE_SELECTION);
                 savedInstanceState.putInt(BUNDLE_STICKY_FOOTER_SELECTION, mDrawerBuilder.mCurrentStickyFooterSelection);
                 savedInstanceState.putBoolean(BUNDLE_DRAWER_CONTENT_SWITCHED, switchedDrawerContent());
             } else {
-                savedInstanceState.putInt(BUNDLE_SELECTION_APPENDED, switchedDrawerContent() ? originalDrawerSelection : mDrawerBuilder.mCurrentSelection);
+                savedInstanceState = mDrawerBuilder.mAdapter.saveInstanceState(savedInstanceState, BUNDLE_SELECTION_APPENDED);
                 savedInstanceState.putInt(BUNDLE_STICKY_FOOTER_SELECTION_APPENDED, mDrawerBuilder.mCurrentStickyFooterSelection);
                 savedInstanceState.putBoolean(BUNDLE_DRAWER_CONTENT_SWITCHED_APPENDED, switchedDrawerContent());
             }
