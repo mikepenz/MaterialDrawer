@@ -2,6 +2,7 @@ package com.mikepenz.materialdrawer;
 
 import android.app.Activity;
 import android.content.SharedPreferences;
+import android.content.res.Configuration;
 import android.graphics.drawable.Drawable;
 import android.os.Build;
 import android.os.Bundle;
@@ -1599,7 +1600,7 @@ public class DrawerBuilder {
                 paddingTop = UIUtils.getStatusBarHeight(mActivity);
             }
             int paddingBottom = 0;
-            if (((mTranslucentNavigationBar || mFullscreen) && Build.VERSION.SDK_INT >= 19) && !mSystemUIHidden) {
+            if (((mTranslucentNavigationBar || mFullscreen) && Build.VERSION.SDK_INT >= 19) && !mSystemUIHidden && mActivity.getResources().getConfiguration().orientation == Configuration.ORIENTATION_PORTRAIT) {
                 paddingBottom = UIUtils.getNavigationBarHeight(mActivity);
             }
 
