@@ -188,7 +188,7 @@ public class DrawerActivity extends AppCompatActivity {
                                 } else {
                                     int curPos = result.getPosition(drawerItem);
                                     result.addItemsAtPosition(
-                                            curPos,
+                                            curPos + 1,
                                             new SecondaryDrawerItem().withName("CollapsableItem").withLevel(2).withIcon(GoogleMaterial.Icon.gmd_8tracks).withIdentifier(2000),
                                             new SecondaryDrawerItem().withName("CollapsableItem 2").withLevel(2).withIcon(GoogleMaterial.Icon.gmd_8tracks).withIdentifier(2001)
                                     );

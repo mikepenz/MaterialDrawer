@@ -11,6 +11,7 @@ import android.view.ViewGroup;
 import android.widget.LinearLayout;
 
 import com.mikepenz.fastadapter.FastAdapter;
+import com.mikepenz.fastadapter.IAdapter;
 import com.mikepenz.fastadapter.IItem;
 import com.mikepenz.fastadapter.adapters.ItemAdapter;
 import com.mikepenz.materialdrawer.interfaces.ICrossfader;
@@ -391,7 +392,7 @@ public class MiniDrawer {
         } else {
             mAdapter.withOnClickListener(new FastAdapter.OnClickListener() {
                 @Override
-                public boolean onClick(View v, int position, IItem item, FastAdapter.RelativeInfo relativeInfo) {
+                public boolean onClick(View v, IAdapter adapter, final IItem item, final int position) {
                     int type = getMiniDrawerType((IDrawerItem) item);
                     if (type == ITEM) {
                         //fire the onClickListener also if the specific drawerItem is not Selectable

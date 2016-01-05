@@ -37,6 +37,7 @@ import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 
 import com.mikepenz.fastadapter.FastAdapter;
+import com.mikepenz.fastadapter.IAdapter;
 import com.mikepenz.fastadapter.IItem;
 import com.mikepenz.fastadapter.IItemAdapter;
 import com.mikepenz.fastadapter.adapters.FooterAdapter;
@@ -1716,7 +1717,7 @@ public class DrawerBuilder {
         // add the onDrawerItemClickListener if set
         mAdapter.withOnClickListener(new FastAdapter.OnClickListener() {
             @Override
-            public boolean onClick(final View view, final int position, final IItem item, FastAdapter.RelativeInfo relativeInfo) {
+            public boolean onClick(final View view, IAdapter adapter, final IItem item, final int position) {
                 //TODO CHECK HEADER / FOOTER BEHAVIOR
 
                 if (!(item != null && item instanceof Selectable && !item.isSelectable())) {
@@ -1756,7 +1757,7 @@ public class DrawerBuilder {
         // add the onDrawerItemLongClickListener if set
         mAdapter.withOnLongClickListener(new FastAdapter.OnLongClickListener() {
             @Override
-            public boolean onLongClick(View view, int position, IItem item, FastAdapter.RelativeInfo relativeInfo) {
+            public boolean onLongClick(View view, IAdapter adapter, final IItem item, final int position) {
                 if (mOnDrawerItemLongClickListener != null) {
                     return mOnDrawerItemLongClickListener.onItemLongClick(view, position, getDrawerItem(position));
                 }
