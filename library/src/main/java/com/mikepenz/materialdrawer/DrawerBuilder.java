@@ -77,8 +77,7 @@ public class DrawerBuilder {
      * default constructor
      */
     public DrawerBuilder() {
-        //we wrap our main Adapter with the item hosting adapter
-        mHeaderAdapter.wrap(mItemAdapter.wrap(mFooterAdapter.wrap(mAdapter)));
+        getAdapter();
     }
 
     /**
@@ -90,6 +89,7 @@ public class DrawerBuilder {
         this.mRootView = (ViewGroup) activity.findViewById(android.R.id.content);
         this.mActivity = activity;
         this.mLayoutManager = new LinearLayoutManager(mActivity);
+        getAdapter();
     }
 
     /**
@@ -888,10 +888,10 @@ public class DrawerBuilder {
     }
 
     // an adapter to use for the list
-    protected FastAdapter<IDrawerItem> mAdapter = new FastAdapter<IDrawerItem>();
-    protected HeaderAdapter<IDrawerItem> mHeaderAdapter = new HeaderAdapter<IDrawerItem>();
-    protected ItemAdapter<IDrawerItem> mItemAdapter = new ItemAdapter<IDrawerItem>();
-    protected FooterAdapter<IDrawerItem> mFooterAdapter = new FooterAdapter<IDrawerItem>();
+    protected FastAdapter<IDrawerItem> mAdapter;
+    protected HeaderAdapter<IDrawerItem> mHeaderAdapter = new HeaderAdapter<>();
+    protected ItemAdapter<IDrawerItem> mItemAdapter = new ItemAdapter<>();
+    protected FooterAdapter<IDrawerItem> mFooterAdapter = new FooterAdapter<>();
 
     /**
      * Define a custom Adapter which will be used in the drawer
@@ -917,8 +917,11 @@ public class DrawerBuilder {
      */
     protected FastAdapter<IDrawerItem> getAdapter() {
         if (mAdapter == null) {
-            mAdapter = new FastAdapter();
+            mAdapter = new FastAdapter<>();
             mAdapter.setHasStableIds(mHasStableIds);
+
+            //we wrap our main Adapter with the item hosting adapter
+            mHeaderAdapter.wrap(mItemAdapter.wrap(mFooterAdapter.wrap(mAdapter)));
         }
         return mAdapter;
     }
