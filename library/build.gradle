@@ -8,8 +8,8 @@ android {
     defaultConfig {
         minSdkVersion 10
         targetSdkVersion 23
-        versionCode 463
-        versionName '4.6.3'
+        versionCode 500
+        versionName '5.0.0.fastAdapter-SNAPSHOT'
     }
     buildTypes {
         release {
