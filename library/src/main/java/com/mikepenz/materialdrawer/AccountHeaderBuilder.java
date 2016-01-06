@@ -1411,10 +1411,17 @@ public class AccountHeaderBuilder {
 
             //if a custom behavior was chosen via the CloseDrawerOnProfileListClick then use this. else react on the result of the onProfileChanged listener
             if (mCloseDrawerOnProfileListClick != null) {
-                return !mCloseDrawerOnProfileListClick;
-            } else {
-                return consumed;
+                consumed = consumed && !mCloseDrawerOnProfileListClick;
             }
+
+            //totally custom handling of the drawer behavior as otherwise the selection of the profile list is set to the Drawer
+            if (mDrawer != null && !consumed) {
+                //close the drawer after click
+                mDrawer.mDrawerBuilder.closeDrawerDelayed();
+            }
+
+            //consume the event to prevent setting the clicked item as selected in the already switched item list
+            return true;
         }
     };
 
