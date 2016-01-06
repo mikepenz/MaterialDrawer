@@ -12,6 +12,7 @@ import android.widget.CompoundButton;
 
 import com.mikepenz.aboutlibraries.Libs;
 import com.mikepenz.aboutlibraries.LibsBuilder;
+import com.mikepenz.fastadapter.utils.RecyclerViewCacheUtil;
 import com.mikepenz.fontawesome_typeface_library.FontAwesome;
 import com.mikepenz.google_material_typeface_library.GoogleMaterial;
 import com.mikepenz.iconics.IconicsDrawable;
@@ -216,6 +217,7 @@ public class DrawerActivity extends AppCompatActivity {
         //if you have many different types of DrawerItems you can magically pre-cache those items to get a better scroll performance
         //make sure to init the cache after the DrawerBuilder was created as this will first clear the cache to make sure no old elements are in
         //RecyclerViewCacheUtil.getInstance().withCacheSize(2).init(result);
+        new RecyclerViewCacheUtil<IDrawerItem>().withCacheSize(2).apply(result.getRecyclerView(), result.getDrawerItems());
 
         //only set the active selection or active profile if we do not recreate the activity
         if (savedInstanceState == null) {
