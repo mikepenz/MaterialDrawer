@@ -58,13 +58,9 @@ public class FullscreenDrawerActivity extends AppCompatActivity {
                 .withSavedInstance(savedInstanceState)
                 .build();
 
-        // set the selection to the item with the identifier 5
-        result.setSelection(5, false);
-
         //set the back arrow in the toolbar
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         getSupportActionBar().setHomeButtonEnabled(false);
-
 
         /*
         //USE THIS CODE TO GET A FULL TRANSPARENT STATUS BAR
