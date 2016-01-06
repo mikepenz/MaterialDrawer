@@ -124,8 +124,7 @@ public class EmbeddedDrawerActivity extends AppCompatActivity {
                         if (drawerItem instanceof Nameable) {
                             Toast.makeText(EmbeddedDrawerActivity.this, ((Nameable) drawerItem).getName().getText(EmbeddedDrawerActivity.this), Toast.LENGTH_SHORT).show();
                         }
-
-                        return true;
+                        return false;
                     }
                 })
                 .withSavedInstance(savedInstanceState)
