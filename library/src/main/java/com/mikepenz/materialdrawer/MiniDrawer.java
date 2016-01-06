@@ -262,7 +262,7 @@ public class MiniDrawer {
         //additional stuff
         mRecyclerView.setLayoutManager(new LinearLayoutManager(ctx));
         //adapter
-        mAdapter = new FastAdapter<IDrawerItem>();
+        mAdapter = new FastAdapter<>();
         mItemAdapter.wrap(mAdapter);
         mRecyclerView.setAdapter(mAdapter);
 
@@ -336,10 +336,12 @@ public class MiniDrawer {
      * @param identifier the identifier of the item which should be selected (-1 for none)
      */
     public void setSelection(int identifier) {
-        for (IItem drawerItem : mItemAdapter.getAdapterItems()) {
-            drawerItem.withSetSelected(drawerItem.getIdentifier() == identifier);
+        mAdapter.deselect();
+        for (int i = 0; i < mAdapter.getItemCount(); i++) {
+            if (mAdapter.getItem(i).getIdentifier() == identifier) {
+                mAdapter.select(i);
+            }
         }
-        mItemAdapter.notifyDataSetChanged();
     }
 
     /**
@@ -374,14 +376,24 @@ public class MiniDrawer {
             }
         }
 
+        int select = -1;
         if (mDrawer != null) {
             if (getDrawerItems() != null) {
                 //migrate to miniDrawerItems
-                for (IDrawerItem drawerItem : getDrawerItems()) {
-                    IDrawerItem miniDrawerItem = generateMiniDrawerItem(drawerItem);
+                int length = getDrawerItems().size();
+                for (int i = 0; i < length; i++) {
+                    IDrawerItem miniDrawerItem = generateMiniDrawerItem(getDrawerItems().get(i));
                     if (miniDrawerItem != null) {
+                        if (miniDrawerItem.isSelected()) {
+                            select = i;
+                        }
                         mItemAdapter.add(miniDrawerItem);
                     }
+                }
+
+                if (select >= 0) {
+                    //+1 because of the profile
+                    mAdapter.select(select + 1);
                 }
             }
         }
