@@ -174,7 +174,7 @@ public class MiniDrawer {
         return mRecyclerView;
     }
 
-    public FastAdapter getDrawerAdapter() {
+    public FastAdapter<IDrawerItem> getDrawerAdapter() {
         return mAdapter;
     }
 

@@ -915,7 +915,7 @@ public class DrawerBuilder {
      *
      * @return
      */
-    protected FastAdapter getAdapter() {
+    protected FastAdapter<IDrawerItem> getAdapter() {
         if (mAdapter == null) {
             mAdapter = new FastAdapter();
             mAdapter.setHasStableIds(mHasStableIds);
@@ -923,15 +923,15 @@ public class DrawerBuilder {
         return mAdapter;
     }
 
-    protected IItemAdapter getItemAdapter() {
+    protected IItemAdapter<IDrawerItem> getItemAdapter() {
         return mItemAdapter;
     }
 
-    protected IItemAdapter getHeaderAdapter() {
+    protected IItemAdapter<IDrawerItem> getHeaderAdapter() {
         return mHeaderAdapter;
     }
 
-    protected IItemAdapter getFooterAdapter() {
+    protected IItemAdapter<IDrawerItem> getFooterAdapter() {
         return mFooterAdapter;
     }
 
