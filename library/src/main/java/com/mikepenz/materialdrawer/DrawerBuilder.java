@@ -1721,8 +1721,6 @@ public class DrawerBuilder {
         mAdapter.withOnClickListener(new FastAdapter.OnClickListener() {
             @Override
             public boolean onClick(final View view, IAdapter adapter, final IItem item, final int position) {
-                //TODO CHECK HEADER / FOOTER BEHAVIOR
-
                 if (!(item != null && item instanceof Selectable && !item.isSelectable())) {
                     resetStickyFooterSelection();
                     mCurrentStickyFooterSelection = -1;
@@ -1754,7 +1752,7 @@ public class DrawerBuilder {
                     closeDrawerDelayed();
                 }
 
-                return false;
+                return consumed;
             }
         });
         // add the onDrawerItemLongClickListener if set
