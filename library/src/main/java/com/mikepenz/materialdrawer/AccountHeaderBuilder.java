@@ -1362,8 +1362,7 @@ public class AccountHeaderBuilder {
                     if (mCurrentHiddenInList) {
                         continue;
                     } else {
-                        //TODO THIS
-                        //selectedPosition = position + mDrawer.getAdapter().getHeaderOffset();
+                        selectedPosition = mDrawer.mDrawerBuilder.getItemAdapter().getGlobalPosition(position);
                     }
                 }
                 if (profile instanceof IDrawerItem) {
