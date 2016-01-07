@@ -14,6 +14,9 @@ import android.widget.FrameLayout;
 import android.widget.RelativeLayout;
 
 import com.mikepenz.fastadapter.FastAdapter;
+import com.mikepenz.fastadapter.adapters.FooterAdapter;
+import com.mikepenz.fastadapter.adapters.HeaderAdapter;
+import com.mikepenz.fastadapter.adapters.ItemAdapter;
 import com.mikepenz.materialdrawer.holder.ImageHolder;
 import com.mikepenz.materialdrawer.holder.StringHolder;
 import com.mikepenz.materialdrawer.model.ContainerDrawerItem;
@@ -264,12 +267,39 @@ public class Drawer {
     }
 
     /**
-     * get the BaseDrawerAdapter of the current drawer
+     * get the FastAdapter of the current drawer
      *
      * @return
      */
-    public FastAdapter getAdapter() {
+    public FastAdapter<IDrawerItem> getAdapter() {
         return mDrawerBuilder.mAdapter;
+    }
+
+    /**
+     * get the HeaderAdapter of the current drawer
+     *
+     * @return
+     */
+    public HeaderAdapter<IDrawerItem> getHeaderAdapter() {
+        return mDrawerBuilder.mHeaderAdapter;
+    }
+
+    /**
+     * get the ItemAdapter of the current drawer
+     *
+     * @return
+     */
+    public ItemAdapter<IDrawerItem> getItemAdapter() {
+        return mDrawerBuilder.mItemAdapter;
+    }
+
+    /**
+     * get the FooterAdapter of the current drawer
+     *
+     * @return
+     */
+    public FooterAdapter<IDrawerItem> getFooterAdapter() {
+        return mDrawerBuilder.mFooterAdapter;
     }
 
     /**

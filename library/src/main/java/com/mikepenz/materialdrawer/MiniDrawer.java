@@ -37,7 +37,7 @@ public class MiniDrawer {
     private LinearLayout mContainer;
     private RecyclerView mRecyclerView;
     protected FastAdapter<IDrawerItem> mAdapter;
-    protected ItemAdapter<IDrawerItem> mItemAdapter = new ItemAdapter<IDrawerItem>();
+    protected ItemAdapter<IDrawerItem> mItemAdapter = new ItemAdapter<>();
 
     private Drawer mDrawer;
 
@@ -170,22 +170,56 @@ public class MiniDrawer {
         return this;
     }
 
+    /**
+     * get the RecyclerView of this MiniDrawer
+     *
+     * @return
+     */
     public RecyclerView getRecyclerView() {
         return mRecyclerView;
     }
 
-    public FastAdapter<IDrawerItem> getDrawerAdapter() {
+    /**
+     * get the FastAdapter of this MiniDrawer
+     *
+     * @return
+     */
+    public FastAdapter<IDrawerItem> getAdapter() {
         return mAdapter;
     }
 
+    /**
+     * get the ItemAdapter of this MiniDrawer
+     *
+     * @return
+     */
+    public ItemAdapter<IDrawerItem> getItemAdapter() {
+        return mItemAdapter;
+    }
+
+    /**
+     * get the Drawer used to fill this MiniDrawer
+     *
+     * @return
+     */
     public Drawer getDrawer() {
         return mDrawer;
     }
 
+    /**
+     * get the AccountHeader used to fill the this MiniDrawer
+     *
+     * @return
+     */
     public AccountHeader getAccountHeader() {
         return mAccountHeader;
     }
 
+    /**
+     * get the Crossfader used for this MiniDrawer
+     *
+     * @return
+     */
     public ICrossfader getCrossFader() {
         return mCrossFader;
     }
