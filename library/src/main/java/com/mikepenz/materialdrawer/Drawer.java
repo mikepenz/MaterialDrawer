@@ -573,7 +573,7 @@ public class Drawer {
     public boolean setSelectionAtPosition(int position, boolean fireOnClick) {
         if (mDrawerBuilder.mRecyclerView != null) {
             mDrawerBuilder.mAdapter.deselect();
-            mDrawerBuilder.mAdapter.select(position);
+            mDrawerBuilder.mAdapter.select(position, fireOnClick);
             //return DrawerUtils.setRecyclerViewSelection(mDrawerBuilder, position, fireOnClick, mDrawerBuilder.getDrawerItem(position));
         }
         return false;
