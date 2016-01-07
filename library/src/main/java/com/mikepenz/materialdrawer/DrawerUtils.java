@@ -45,9 +45,6 @@ class DrawerUtils {
             //remove the selection in the list
             drawer.getAdapter().deselect();
 
-            //set currentSelection to -1 because we selected a stickyFooter element
-            //drawer.mCurrentSelection = -1;
-
             //find the position of the clicked footer item
             if (drawer.mStickyFooterView != null && drawer.mStickyFooterView instanceof LinearLayout) {
                 LinearLayout footer = (LinearLayout) drawer.mStickyFooterView;
@@ -73,51 +70,6 @@ class DrawerUtils {
             }
         }
     }
-
-    /**
-     * helper method to set the selection in the lsit
-     *
-     * @param drawer
-     * @param position
-     * @param fireOnClick
-     * @return
-     */
-    /*
-    public static boolean setRecyclerViewSelection(DrawerBuilder drawer, int position, boolean fireOnClick) {
-        return setRecyclerViewSelection(drawer, position, fireOnClick, null);
-    }
-    */
-
-
-    /**
-     * helper method to set the selection in the list
-     *
-     * @param drawer
-     * @param position
-     * @param fireOnClick
-     * @param drawerItem
-     * @return
-     */
-    /*
-    public static boolean setRecyclerViewSelection(DrawerBuilder drawer, int position, boolean fireOnClick, IDrawerItem drawerItem) {
-        if (position >= -1) {
-            //predefine selection (should be the first element
-            if (drawer.mAdapter != null) {
-                drawer.resetStickyFooterSelection();
-                drawer.mAdapter.deleteAllSelectedItems();
-                drawer.mAdapter.select(position);
-                drawer.mCurrentSelection = position;
-                drawer.mCurrentStickyFooterSelection = -1;
-            }
-
-            if (fireOnClick && drawer.mOnDrawerItemClickListener != null) {
-                return drawer.mOnDrawerItemClickListener.onItemClick(null, position, drawerItem);
-            }
-        }
-
-        return false;
-    }
-    */
 
     /**
      * helper method to set the selection of the footer
