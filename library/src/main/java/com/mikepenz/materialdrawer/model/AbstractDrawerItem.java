@@ -7,6 +7,7 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import com.mikepenz.fastadapter.ICollapsible;
+import com.mikepenz.fastadapter.utils.IdDistributor;
 import com.mikepenz.fastadapter.utils.ViewHolderFactory;
 import com.mikepenz.materialdrawer.Drawer;
 import com.mikepenz.materialdrawer.model.interfaces.IDrawerItem;
@@ -195,7 +196,7 @@ public abstract class AbstractDrawerItem<T> implements IDrawerItem<T>, Selectabl
      * @return
      */
     public T withSubItems(List<IDrawerItem> subItems) {
-        this.mSubItems = subItems;
+        this.mSubItems = IdDistributor.checkIds(subItems);
         return (T) this;
     }
 
@@ -209,7 +210,7 @@ public abstract class AbstractDrawerItem<T> implements IDrawerItem<T>, Selectabl
         if (mSubItems == null) {
             mSubItems = new ArrayList<>();
         }
-        Collections.addAll(mSubItems, subItems);
+        Collections.addAll(mSubItems, IdDistributor.checkIds(subItems));
         return (T) this;
     }
 
