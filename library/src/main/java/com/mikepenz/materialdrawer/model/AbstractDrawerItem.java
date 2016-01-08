@@ -6,6 +6,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import com.mikepenz.fastadapter.ICollapsible;
 import com.mikepenz.fastadapter.utils.ViewHolderFactory;
 import com.mikepenz.materialdrawer.Drawer;
 import com.mikepenz.materialdrawer.model.interfaces.IDrawerItem;
@@ -13,67 +14,124 @@ import com.mikepenz.materialdrawer.model.interfaces.OnPostBindViewListener;
 import com.mikepenz.materialdrawer.model.interfaces.Selectable;
 import com.mikepenz.materialdrawer.model.interfaces.Tagable;
 
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.List;
+
 /**
  * Created by mikepenz on 14.07.15.
  */
-public abstract class AbstractDrawerItem<T> implements IDrawerItem<T>, Selectable<T>, Tagable<T> {
+public abstract class AbstractDrawerItem<T> implements IDrawerItem<T>, Selectable<T>, Tagable<T>, ICollapsible<T, IDrawerItem> {
+    // the identifier for this item
     protected int mIdentifier = -1;
 
+    /**
+     * set the identifier of this item
+     *
+     * @param identifier
+     * @return
+     */
     public T withIdentifier(int identifier) {
         this.mIdentifier = identifier;
         return (T) this;
     }
 
+    /**
+     * returns the identifier of this item
+     * -1 is the default not set state
+     *
+     * @return
+     */
     @Override
     public int getIdentifier() {
         return mIdentifier;
     }
 
+    // the tag for this item
     protected Object mTag;
 
+    /**
+     * set the tag of this item
+     *
+     * @param object
+     * @return
+     */
     public T withTag(Object object) {
         this.mTag = object;
         return (T) this;
     }
 
+    /**
+     * @return the tag of this item
+     */
     @Override
     public Object getTag() {
         return mTag;
     }
 
+    // defines if this item is enabled
     protected boolean mEnabled = true;
 
+    /**
+     * set if this item is enabled
+     *
+     * @param enabled true if this item is enabled
+     * @return
+     */
     public T withEnabled(boolean enabled) {
         this.mEnabled = enabled;
         return (T) this;
     }
 
+    /**
+     * @return if this item is enabled
+     */
     @Override
     public boolean isEnabled() {
         return mEnabled;
     }
 
+    // defines if the item is selected
     protected boolean mSelected = false;
 
+    /**
+     * set if this item is selected
+     *
+     * @param selected true if this item is selected
+     * @return
+     */
     @Override
     public T withSetSelected(boolean selected) {
         this.mSelected = selected;
         return (T) this;
     }
 
+    /**
+     * @return if this item is selected
+     */
     @Override
     public boolean isSelected() {
         return mSelected;
     }
 
+    // defines if this item is selectable
     protected boolean mSelectable = true;
 
+    /**
+     * set if this item is selectable
+     *
+     * @param selectable true if this item is selectable
+     * @return
+     */
     @Override
     public T withSelectable(boolean selectable) {
         this.mSelectable = selectable;
         return (T) this;
     }
 
+    /**
+     * @return if this item is selectable
+     */
     @Override
     public boolean isSelectable() {
         return mSelectable;
@@ -127,8 +185,77 @@ public abstract class AbstractDrawerItem<T> implements IDrawerItem<T>, Selectabl
         }
     }
 
+    // the subItems to expand for this item
+    protected List<IDrawerItem> mSubItems;
+
+    /**
+     * a list of subItems
+     *
+     * @param subItems
+     * @return
+     */
+    public T withSubItems(List<IDrawerItem> subItems) {
+        this.mSubItems = subItems;
+        return (T) this;
+    }
+
+    /**
+     * an array of subItems
+     *
+     * @param subItems
+     * @return
+     */
+    public T withSubItems(IDrawerItem... subItems) {
+        if (mSubItems == null) {
+            mSubItems = new ArrayList<>();
+        }
+        Collections.addAll(mSubItems, subItems);
+        return (T) this;
+    }
+
+    /**
+     * @return the subItems for this item
+     */
+    @Override
+    public List<IDrawerItem> getSubItems() {
+        return mSubItems;
+    }
+
+    //if the this item is currently collapsed
+    private boolean mCollapsed = true;
+
+    /**
+     * @param collapsed defines if this item is now collapsed or not
+     * @return this
+     */
+    @Override
+    public T withCollapsed(boolean collapsed) {
+        mCollapsed = collapsed;
+        return (T) this;
+    }
+
+    /**
+     * @return if this item is currently collapsed
+     */
+    @Override
+    public boolean isCollapsed() {
+        return mCollapsed;
+    }
+
+    /**
+     * the abstract method to retrieve the ViewHolder factory
+     * The ViewHolder factory implementation should look like (see the commented code above)
+     *
+     * @return
+     */
     public abstract ViewHolderFactory getFactory();
 
+    /**
+     * generates a view by the defined LayoutRes
+     *
+     * @param ctx
+     * @return
+     */
     @Override
     public View generateView(Context ctx) {
         RecyclerView.ViewHolder viewHolder = getFactory().create(LayoutInflater.from(ctx).inflate(getLayoutRes(), null, false));
@@ -136,6 +263,13 @@ public abstract class AbstractDrawerItem<T> implements IDrawerItem<T>, Selectabl
         return viewHolder.itemView;
     }
 
+    /**
+     * generates a view by the defined LayoutRes and pass the LayoutParams from the parent
+     *
+     * @param ctx
+     * @param parent
+     * @return
+     */
     @Override
     public View generateView(Context ctx, ViewGroup parent) {
         RecyclerView.ViewHolder viewHolder = getFactory().create(LayoutInflater.from(ctx).inflate(getLayoutRes(), parent, false));
@@ -143,15 +277,34 @@ public abstract class AbstractDrawerItem<T> implements IDrawerItem<T>, Selectabl
         return viewHolder.itemView;
     }
 
+    /**
+     * This method returns the ViewHolder for our item, using the provided View.
+     * By default it will try to get the ViewHolder from the ViewHolderFactory. If this one is not implemented it will go over the generic way, wasting ~5ms
+     *
+     * @param parent
+     * @return the ViewHolder for this Item
+     */
     @Override
     public RecyclerView.ViewHolder getViewHolder(ViewGroup parent) {
         return getFactory().create(LayoutInflater.from(parent.getContext()).inflate(getLayoutRes(), parent, false));
     }
 
+    /**
+     * If this item equals to the given identifier
+     *
+     * @param id
+     * @return
+     */
     public boolean equals(Integer id) {
         return id != null && id == mIdentifier;
     }
 
+    /**
+     * If this item equals to the given object
+     *
+     * @param o
+     * @return
+     */
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
@@ -160,6 +313,11 @@ public abstract class AbstractDrawerItem<T> implements IDrawerItem<T>, Selectabl
         return mIdentifier == that.mIdentifier;
     }
 
+    /**
+     * the hashCode implementation
+     *
+     * @return
+     */
     @Override
     public int hashCode() {
         return mIdentifier;
