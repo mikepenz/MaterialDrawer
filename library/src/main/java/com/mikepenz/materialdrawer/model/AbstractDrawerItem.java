@@ -6,7 +6,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
-import com.mikepenz.fastadapter.ICollapsible;
+import com.mikepenz.fastadapter.IExpandable;
 import com.mikepenz.fastadapter.utils.IdDistributor;
 import com.mikepenz.fastadapter.utils.ViewHolderFactory;
 import com.mikepenz.materialdrawer.Drawer;
@@ -22,7 +22,7 @@ import java.util.List;
 /**
  * Created by mikepenz on 14.07.15.
  */
-public abstract class AbstractDrawerItem<T> implements IDrawerItem<T>, Selectable<T>, Tagable<T>, ICollapsible<T, IDrawerItem> {
+public abstract class AbstractDrawerItem<T> implements IDrawerItem<T>, Selectable<T>, Tagable<T>, IExpandable<T, IDrawerItem> {
     // the identifier for this item
     protected int mIdentifier = -1;
 
@@ -222,25 +222,25 @@ public abstract class AbstractDrawerItem<T> implements IDrawerItem<T>, Selectabl
         return mSubItems;
     }
 
-    //if the this item is currently collapsed
-    private boolean mCollapsed = true;
+    //if the this item is currently expanded
+    private boolean mExpanded = false;
 
     /**
-     * @param collapsed defines if this item is now collapsed or not
+     * @param expanded defines if this item is now expanded or not
      * @return this
      */
     @Override
-    public T withCollapsed(boolean collapsed) {
-        mCollapsed = collapsed;
+    public T withIsExpanded(boolean expanded) {
+        mExpanded = expanded;
         return (T) this;
     }
 
     /**
-     * @return if this item is currently collapsed
+     * @return if this item is currently expaneded
      */
     @Override
-    public boolean isCollapsed() {
-        return mCollapsed;
+    public boolean isExpanded() {
+        return mExpanded;
     }
 
     /**
