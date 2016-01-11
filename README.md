@@ -51,7 +51,7 @@ You can find some frequently asked questions and other resources in the [WIKI / 
 ##1. Provide the gradle dependency
 
 ```gradle
-compile('com.mikepenz:materialdrawer:4.6.3@aar') {
+compile('com.mikepenz:materialdrawer:4.6.4@aar') {
 	transitive = true
 }
 ```
@@ -409,7 +409,7 @@ builder.withDrawerLayout(R.layout.material_drawer);
 * [PixCell8](https://play.google.com/store/apps/details?id=com.pixcell8.prod)
 * [TS3 Viewer for TeamSpeak 3](https://play.google.com/store/apps/details?id=com.game_state.ts3viewer)
 * [Teacher Gradebook](https://play.google.com/store/apps/details?id=com.apolosoft.cuadernoprofesor)
-
+* [Tabe3 News Reader](https://play.google.com/store/apps/details?id=com.tabe3.news)
 
 #Articles about the MaterialDrawer
 * [java-help.ru](http://java-help.ru/material-navigationdrawer/)
@@ -431,7 +431,7 @@ builder.withDrawerLayout(R.layout.material_drawer);
 
 #License
 
-    Copyright 2015 Mike Penz
+    Copyright 2016 Mike Penz
 
     Licensed under the Apache License, Version 2.0 (the "License");
     you may not use this file except in compliance with the License.

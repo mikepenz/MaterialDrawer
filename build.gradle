@@ -1,11 +1,20 @@
 // Top-level build file where you can add configuration options common to all sub-projects/modules.
-
 buildscript {
     repositories {
+        jcenter()
         mavenCentral()
     }
     dependencies {
         classpath 'com.android.tools.build:gradle:1.5.0'
+        classpath 'com.novoda:bintray-release:0.3.4'
+    }
+}
+
+allprojects {
+    repositories {
+        jcenter()
+        mavenCentral()
+        maven { url "https://oss.sonatype.org/content/repositories/snapshots/" }
     }
 }
 
@@ -14,15 +23,9 @@ buildscript {
 ext {
     compileSdkVersion = 23
     buildToolsVersion = "23.0.2"
-}
-
-allprojects {
-    repositories {
-        mavenCentral()
-        maven { url "https://oss.sonatype.org/content/repositories/snapshots/" }
-    }
+    supportLibVersion = "23.1.1"
 }
 
 task wrapper(type: Wrapper) {
-    gradleVersion = '2.9'
+    gradleVersion = '2.10'
 }

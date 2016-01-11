@@ -1,4 +1,5 @@
 apply plugin: 'com.android.library'
+apply plugin: 'com.novoda.bintray-release'
 
 android {
     compileSdkVersion rootProject.ext.compileSdkVersion
@@ -7,8 +8,8 @@ android {
     defaultConfig {
         minSdkVersion 10
         targetSdkVersion 23
-        versionCode 463
-        versionName '4.6.3'
+        versionCode 464
+        versionName '4.6.4'
     }
     buildTypes {
         release {
@@ -24,13 +25,21 @@ android {
 }
 
 apply from: 'gradle-mvn-push.gradle'
+apply from: 'gradle-jcenter-push.gradle'
 
 dependencies {
-    compile 'com.android.support:appcompat-v7:23.1.1'
-    compile 'com.android.support:recyclerview-v7:23.1.1'
-    compile 'com.android.support:support-annotations:23.1.1'
+    compile "com.android.support:appcompat-v7:${rootProject.ext.supportLibVersion}"
+    compile "com.android.support:recyclerview-v7:${rootProject.ext.supportLibVersion}"
+    compile "com.android.support:support-annotations:${rootProject.ext.supportLibVersion}"
 
+    // used to base on some backwards compatible themes
+    // contains util classes to support various android versions, and clean up code
+    // comes with the awesome "Holder"-Pattern
+    // https://github.com/mikepenz/Materialize
     compile 'com.mikepenz:materialize:0.5.1@aar'
 
-    compile 'com.mikepenz:iconics-core:2.5.3@aar'
+    // used to provide out of the box icon font support. simplifies development,
+    // and provides scalable icons. the core is very very light
+    // https://github.com/mikepenz/Android-Iconics
+    compile 'com.mikepenz:iconics-core:2.5.4@aar'
 }
