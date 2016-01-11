@@ -41,5 +41,5 @@ dependencies {
     // used to provide out of the box icon font support. simplifies development,
     // and provides scalable icons. the core is very very light
     // https://github.com/mikepenz/Android-Iconics
-    compile 'com.mikepenz:iconics-core:2.5.3@aar'
+    compile 'com.mikepenz:iconics-core:2.5.4@aar'
 }
