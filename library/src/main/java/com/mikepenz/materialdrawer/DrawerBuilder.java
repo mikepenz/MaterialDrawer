@@ -1721,9 +1721,9 @@ public class DrawerBuilder {
         //DrawerUtils.setRecyclerViewSelection(this, mSelectedItemPosition, false);
 
         // add the onDrawerItemClickListener if set
-        mAdapter.withOnClickListener(new FastAdapter.OnClickListener() {
+        mAdapter.withOnClickListener(new FastAdapter.OnClickListener<IDrawerItem>() {
             @Override
-            public boolean onClick(final View view, IAdapter adapter, final IItem item, final int position) {
+            public boolean onClick(final View view, IAdapter<IDrawerItem> adapter, final IDrawerItem item, final int position) {
                 if (!(item != null && item instanceof Selectable && !item.isSelectable())) {
                     resetStickyFooterSelection();
                     mCurrentStickyFooterSelection = -1;
@@ -1759,9 +1759,9 @@ public class DrawerBuilder {
             }
         });
         // add the onDrawerItemLongClickListener if set
-        mAdapter.withOnLongClickListener(new FastAdapter.OnLongClickListener() {
+        mAdapter.withOnLongClickListener(new FastAdapter.OnLongClickListener<IDrawerItem>() {
             @Override
-            public boolean onLongClick(View view, IAdapter adapter, final IItem item, final int position) {
+            public boolean onLongClick(View view, IAdapter<IDrawerItem> adapter, final IDrawerItem item, final int position) {
                 if (mOnDrawerItemLongClickListener != null) {
                     return mOnDrawerItemLongClickListener.onItemLongClick(view, position, getDrawerItem(position));
                 }
