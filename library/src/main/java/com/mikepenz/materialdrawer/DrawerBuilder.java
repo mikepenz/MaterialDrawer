@@ -38,7 +38,6 @@ import android.widget.RelativeLayout;
 
 import com.mikepenz.fastadapter.FastAdapter;
 import com.mikepenz.fastadapter.IAdapter;
-import com.mikepenz.fastadapter.IItem;
 import com.mikepenz.fastadapter.IItemAdapter;
 import com.mikepenz.fastadapter.adapters.FooterAdapter;
 import com.mikepenz.fastadapter.adapters.HeaderAdapter;
@@ -918,6 +917,7 @@ public class DrawerBuilder {
     protected FastAdapter<IDrawerItem> getAdapter() {
         if (mAdapter == null) {
             mAdapter = new FastAdapter<>();
+            mAdapter.withAllowDeselection(false);
             mAdapter.setHasStableIds(mHasStableIds);
 
             //we wrap our main Adapter with the item hosting adapter
