@@ -500,10 +500,26 @@ public class Drawer {
     }
 
     /**
+     * deselects all selected items
+     */
+    public void deselect() {
+        getAdapter().deselect();
+    }
+
+    /**
+     * deselects the item with the given identifier
+     *
+     * @param identifier the identifier to search for
+     */
+    public void deselect(int identifier) {
+        getAdapter().deselect(getPosition(identifier));
+    }
+
+    /**
      * set the current selection in the drawer
      * NOTE: This will trigger onDrawerItemSelected without a view!
      *
-     * @param identifier
+     * @param identifier the identifier to search for
      */
     public boolean setSelection(int identifier) {
         return setSelectionAtPosition(getPosition(identifier), true);
@@ -513,8 +529,8 @@ public class Drawer {
      * set the current selection in the drawer
      * NOTE: This will trigger onDrawerItemSelected without a view if you pass fireOnClick = true;
      *
-     * @param identifier
-     * @param fireOnClick
+     * @param identifier  the identifier to search for
+     * @param fireOnClick true if the click listener should be called
      */
     public boolean setSelection(int identifier, boolean fireOnClick) {
         return setSelectionAtPosition(getPosition(identifier), fireOnClick);
@@ -524,8 +540,8 @@ public class Drawer {
      * set the current selection in the footer of the drawer
      * NOTE: This will trigger onDrawerItemSelected without a view if you pass fireOnClick = true;
      *
-     * @param identifier
-     * @param fireOnClick
+     * @param identifier  the identifier to search for
+     * @param fireOnClick true if the click listener should be called
      */
     public void setStickyFooterSelection(int identifier, boolean fireOnClick) {
         setStickyFooterSelectionAtPosition(getStickyFooterPosition(identifier), fireOnClick);
@@ -535,7 +551,7 @@ public class Drawer {
      * set the current selection in the drawer
      * NOTE: This will trigger onDrawerItemSelected without a view!
      *
-     * @param drawerItem
+     * @param drawerItem the drawerItem to select (this requires a set identifier)
      */
     public boolean setSelection(@NonNull IDrawerItem drawerItem) {
         return setSelectionAtPosition(getPosition(drawerItem), true);
@@ -545,8 +561,8 @@ public class Drawer {
      * set the current selection in the drawer
      * NOTE: This will trigger onDrawerItemSelected without a view if you pass fireOnClick = true;
      *
-     * @param drawerItem
-     * @param fireOnClick
+     * @param drawerItem  the drawerItem to select (this requires a set identifier)
+     * @param fireOnClick true if the click listener should be called
      */
     public boolean setSelection(@NonNull IDrawerItem drawerItem, boolean fireOnClick) {
         return setSelectionAtPosition(getPosition(drawerItem), fireOnClick);
@@ -572,9 +588,7 @@ public class Drawer {
      */
     public boolean setSelectionAtPosition(int position, boolean fireOnClick) {
         if (mDrawerBuilder.mRecyclerView != null) {
-            mDrawerBuilder.mAdapter.deselect();
             mDrawerBuilder.mAdapter.select(position, fireOnClick);
-            //return DrawerUtils.setRecyclerViewSelection(mDrawerBuilder, position, fireOnClick, mDrawerBuilder.getDrawerItem(position));
         }
         return false;
     }

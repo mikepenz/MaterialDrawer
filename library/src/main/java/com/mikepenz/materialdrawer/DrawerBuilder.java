@@ -824,6 +824,23 @@ public class DrawerBuilder {
         return this;
     }
 
+    // if multiSelection is possible
+    protected boolean mMultiSelect = false;
+
+    /**
+     * set this to true if you want to enable multiSelect mode inside the drawer. Note
+     * you will have to programmatically deselect if you want to remove all selections!
+     * You can disable this at a later time via .getAdapter().withMultiSelect(false)
+     * You can also modify all other settings of the FastAdapter via this method
+     *
+     * @param multiSelect true if multiSelect is enabled (default: false)
+     * @return this
+     */
+    public DrawerBuilder withMultiSelect(boolean multiSelect) {
+        this.mMultiSelect = multiSelect;
+        return this;
+    }
+
     // item to select
     protected int mSelectedItemPosition = 0;
 
@@ -1702,6 +1719,13 @@ public class DrawerBuilder {
             }
         });
 
+        //if MultiSelect is possible
+        mAdapter.withMultiSelect(mMultiSelect);
+        if (mMultiSelect) {
+            mAdapter.withMultiSelectOnLongClick(false);
+            mAdapter.withAllowDeselection(true);
+        }
+
         //set the adapter on the listView
         if (mAdapterWrapper == null) {
             mRecyclerView.setAdapter(mAdapter);
@@ -1737,17 +1761,17 @@ public class DrawerBuilder {
                         new Handler().postDelayed(new Runnable() {
                             @Override
                             public void run() {
-                                mOnDrawerItemClickListener.onItemClick(view, position, (IDrawerItem) item);
+                                mOnDrawerItemClickListener.onItemClick(view, position, item);
                             }
                         }, mDelayDrawerClickEvent);
                     } else {
-                        consumed = mOnDrawerItemClickListener.onItemClick(view, position, (IDrawerItem) item);
+                        consumed = mOnDrawerItemClickListener.onItemClick(view, position, item);
                     }
                 }
 
                 //we have to notify the miniDrawer if existing, and if the event was not consumed yet
                 if (!consumed && mMiniDrawer != null) {
-                    consumed = mMiniDrawer.onItemClick((IDrawerItem) item);
+                    consumed = mMiniDrawer.onItemClick(item);
                 }
 
                 if (!consumed) {
