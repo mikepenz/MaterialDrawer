@@ -580,6 +580,7 @@ public class Drawer {
 
     /*
      * set the current selection in the drawer
+     * NOTE: this also deselects all other selections. if you do not want this. use the direct api of the adater .getAdapter().select(position, fireOnClick)
      * NOTE: This will trigger onDrawerItemSelected without a view if you pass fireOnClick = true;
      *
      * @param position
