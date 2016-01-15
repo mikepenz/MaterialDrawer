@@ -815,7 +815,7 @@ public class AccountHeaderBuilder {
             mAccountHeaderTextSection = mAccountHeaderContainer.findViewById(R.id.material_drawer_account_header_text_section);
         }
 
-        mAccountHeaderTextSectionBackgroundResource = DrawerUIUtils.getSelectableBackground(mActivity);
+        mAccountHeaderTextSectionBackgroundResource = UIUtils.getSelectableBackground(mActivity);
         handleSelectionView(mCurrentProfile, true);
 
         // set the arrow :D

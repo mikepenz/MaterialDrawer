@@ -217,7 +217,7 @@ public class ProfileSettingDrawerItem extends AbstractDrawerItem<ProfileSettingD
         int color = ColorHolder.color(getTextColor(), ctx, R.attr.material_drawer_primary_text, R.color.material_drawer_primary_text);
         int iconColor = ColorHolder.color(getIconColor(), ctx, R.attr.material_drawer_primary_icon, R.color.material_drawer_primary_icon);
 
-        UIUtils.setBackground(viewHolder.view, DrawerUIUtils.getSelectableBackground(ctx, selectedColor));
+        UIUtils.setBackground(viewHolder.view, UIUtils.getSelectableBackground(ctx, selectedColor, true));
 
         StringHolder.applyTo(this.getName(), viewHolder.name);
         viewHolder.name.setTextColor(color);

@@ -79,7 +79,7 @@ public abstract class BasePrimaryDrawerItem<T> extends BaseDrawerItem<T> {
         int selectedIconColor = getSelectedIconColor(ctx);
 
         //set the background for the item
-        UIUtils.setBackground(viewHolder.view, DrawerUIUtils.getSelectableBackground(ctx, selectedColor));
+        UIUtils.setBackground(viewHolder.view, UIUtils.getSelectableBackground(ctx, selectedColor, true));
         //set the text for the name
         StringHolder.applyTo(this.getName(), viewHolder.name);
         //set the text for the description or hide

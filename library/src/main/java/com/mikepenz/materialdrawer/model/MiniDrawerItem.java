@@ -15,7 +15,6 @@ import com.mikepenz.materialdrawer.holder.BadgeStyle;
 import com.mikepenz.materialdrawer.holder.DimenHolder;
 import com.mikepenz.materialdrawer.holder.ImageHolder;
 import com.mikepenz.materialdrawer.holder.StringHolder;
-import com.mikepenz.materialdrawer.util.DrawerUIUtils;
 import com.mikepenz.materialize.util.UIUtils;
 
 /**
@@ -144,7 +143,7 @@ public class MiniDrawerItem extends BaseDrawerItem<MiniDrawerItem> {
             //get the correct color for the background
             int selectedColor = getSelectedColor(ctx);
             //set the background for the item
-            UIUtils.setBackground(viewHolder.view, DrawerUIUtils.getSelectableBackground(ctx, selectedColor));
+            UIUtils.setBackground(viewHolder.view, UIUtils.getSelectableBackground(ctx, selectedColor, true));
         }
 
         //set the text for the badge or hide

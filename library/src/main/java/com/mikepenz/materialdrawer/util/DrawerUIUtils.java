@@ -8,7 +8,6 @@ import android.graphics.drawable.Drawable;
 import android.graphics.drawable.StateListDrawable;
 import android.os.Build;
 import android.util.DisplayMetrics;
-import android.util.TypedValue;
 import android.view.View;
 
 import com.mikepenz.iconics.IconicsDrawable;
@@ -69,41 +68,6 @@ public class DrawerUIUtils {
         states.addState(new int[]{android.R.attr.state_selected}, clrActive);
         return states;
     }
-
-
-    /**
-     * helper to get the system default selectable background inclusive an active state
-     *
-     * @param ctx
-     * @param selected_color
-     * @return
-     */
-    public static StateListDrawable getSelectableBackground(Context ctx, int selected_color) {
-        StateListDrawable states = getDrawerItemBackground(selected_color);
-        states.addState(new int[]{}, UIUtils.getCompatDrawable(ctx, getSelectableBackground(ctx)));
-        return states;
-    }
-
-    /**
-     * helper to get the system default selectable background
-     *
-     * @param ctx
-     * @return
-     */
-    public static int getSelectableBackground(Context ctx) {
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.HONEYCOMB) {
-            // If we're running on Honeycomb or newer, then we can use the Theme's
-            // selectableItemBackground to ensure that the View has a pressed state
-            TypedValue outValue = new TypedValue();
-            ctx.getTheme().resolveAttribute(R.attr.selectableItemBackground, outValue, true);
-            return outValue.resourceId;
-        } else {
-            TypedValue outValue = new TypedValue();
-            ctx.getTheme().resolveAttribute(android.R.attr.itemBackground, outValue, true);
-            return outValue.resourceId;
-        }
-    }
-
 
     /**
      * Returns the screen width in pixels

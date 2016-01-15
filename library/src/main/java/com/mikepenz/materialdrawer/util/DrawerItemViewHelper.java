@@ -71,7 +71,7 @@ public class DrawerItemViewHelper {
             view.setTag(drawerItem);
 
             if (drawerItem.isEnabled()) {
-                view.setBackgroundResource(DrawerUIUtils.getSelectableBackground(mContext));
+                view.setBackgroundResource(UIUtils.getSelectableBackground(mContext));
                 view.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {

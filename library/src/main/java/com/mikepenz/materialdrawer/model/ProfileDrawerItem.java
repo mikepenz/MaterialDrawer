@@ -211,7 +211,7 @@ public class ProfileDrawerItem extends AbstractDrawerItem<ProfileDrawerItem> imp
         int color = getColor(ctx);
         int selectedTextColor = getSelectedTextColor(ctx);
 
-        UIUtils.setBackground(viewHolder.view, DrawerUIUtils.getSelectableBackground(ctx, selectedColor));
+        UIUtils.setBackground(viewHolder.view, UIUtils.getSelectableBackground(ctx, selectedColor, true));
 
         if (nameShown) {
             viewHolder.name.setVisibility(View.VISIBLE);

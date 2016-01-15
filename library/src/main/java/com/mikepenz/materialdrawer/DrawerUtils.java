@@ -403,7 +403,7 @@ class DrawerUtils {
             view.setTag(drawerItem);
 
             if (drawerItem.isEnabled()) {
-                UIUtils.setBackground(view, DrawerUIUtils.getSelectableBackground(container.getContext(), selected_color));
+                UIUtils.setBackground(view, UIUtils.getSelectableBackground(container.getContext(), selected_color, true));
                 view.setOnClickListener(onClickListener);
             }
 
