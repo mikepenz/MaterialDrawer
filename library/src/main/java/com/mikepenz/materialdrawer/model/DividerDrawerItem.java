@@ -33,7 +33,7 @@ public class DividerDrawerItem extends AbstractDrawerItem<DividerDrawerItem> {
         ViewHolder viewHolder = (ViewHolder) holder;
 
         //set the identifier from the drawerItem here. It can be used to run tests
-        holder.itemView.setId(getIdentifier());
+        holder.itemView.setId(hashCode());
 
         //define how the divider should look like
         viewHolder.view.setClickable(false);

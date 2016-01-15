@@ -194,7 +194,7 @@ public class AccountHeader {
      *
      * @param identifier
      */
-    public void setActiveProfile(int identifier) {
+    public void setActiveProfile(long identifier) {
         setActiveProfile(identifier, false);
     }
 
@@ -203,7 +203,7 @@ public class AccountHeader {
      *
      * @param identifier
      */
-    public void setActiveProfile(int identifier, boolean fireOnProfileChanged) {
+    public void setActiveProfile(long identifier, boolean fireOnProfileChanged) {
         if (mAccountHeaderBuilder.mProfiles != null) {
             for (IProfile profile : mAccountHeaderBuilder.mProfiles) {
                 if (profile != null) {
@@ -298,7 +298,7 @@ public class AccountHeader {
      *
      * @param identifier
      */
-    public void removeProfileByIdentifier(int identifier) {
+    public void removeProfileByIdentifier(long identifier) {
         int found = getPositionByIdentifier(identifier);
         if (found > -1) {
             mAccountHeaderBuilder.mProfiles.remove(found);
@@ -335,7 +335,7 @@ public class AccountHeader {
      * @param identifier
      * @return
      */
-    private int getPositionByIdentifier(int identifier) {
+    private int getPositionByIdentifier(long identifier) {
         int found = -1;
         if (mAccountHeaderBuilder.mProfiles != null && identifier >= 0) {
             for (int i = 0; i < mAccountHeaderBuilder.mProfiles.size(); i++) {

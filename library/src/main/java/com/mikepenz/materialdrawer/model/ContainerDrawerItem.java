@@ -69,7 +69,7 @@ public class ContainerDrawerItem extends AbstractDrawerItem<ContainerDrawerItem>
         ViewHolder viewHolder = (ViewHolder) holder;
 
         //set the identifier from the drawerItem here. It can be used to run tests
-        holder.itemView.setId(getIdentifier());
+        holder.itemView.setId(hashCode());
 
         //define how the divider should look like
         viewHolder.view.setEnabled(false);

@@ -140,7 +140,7 @@ public class MiniProfileDrawerItem extends AbstractDrawerItem<MiniProfileDrawerI
         }
 
         //set the identifier from the drawerItem here. It can be used to run tests
-        viewHolder.itemView.setId(getIdentifier());
+        viewHolder.itemView.setId(hashCode());
 
         //set the icon
         ImageHolder.applyToOrSetInvisible(getIcon(), viewHolder.icon);

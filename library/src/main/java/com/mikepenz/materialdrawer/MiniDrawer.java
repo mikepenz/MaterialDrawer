@@ -353,7 +353,7 @@ public class MiniDrawer {
             }
 
             //get the identifier
-            int identifier = selectedDrawerItem.getIdentifier();
+            long identifier = selectedDrawerItem.getIdentifier();
 
             //update everything
             setSelection(identifier);
@@ -369,7 +369,7 @@ public class MiniDrawer {
      *
      * @param identifier the identifier of the item which should be selected (-1 for none)
      */
-    public void setSelection(int identifier) {
+    public void setSelection(long identifier) {
         mAdapter.deselect();
         for (int i = 0; i < mAdapter.getItemCount(); i++) {
             if (mAdapter.getItem(i).getIdentifier() == identifier) {
@@ -383,7 +383,7 @@ public class MiniDrawer {
      *
      * @param identifier the identifier of the item which was updated
      */
-    public void updateItem(int identifier) {
+    public void updateItem(long identifier) {
         if (mDrawer != null && mItemAdapter != null && mItemAdapter.getAdapterItems() != null && identifier != -1) {
             IDrawerItem drawerItem = DrawerUtils.getDrawerItem(getDrawerItems(), identifier);
             for (int i = 0; i < mItemAdapter.getAdapterItems().size(); i++) {

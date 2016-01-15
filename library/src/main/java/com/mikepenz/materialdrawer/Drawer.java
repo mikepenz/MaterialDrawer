@@ -424,7 +424,7 @@ public class Drawer {
      * @param identifier
      * @return
      */
-    public int getPosition(int identifier) {
+    public int getPosition(long identifier) {
         return DrawerUtils.getPositionByIdentifier(mDrawerBuilder, identifier);
     }
 
@@ -434,7 +434,7 @@ public class Drawer {
      * @param identifier
      * @return
      */
-    public IDrawerItem getDrawerItem(int identifier) {
+    public IDrawerItem getDrawerItem(long identifier) {
         return (IDrawerItem) getAdapter().getItem(getPosition(identifier));
     }
 
@@ -464,7 +464,7 @@ public class Drawer {
      * @param identifier
      * @return
      */
-    public int getStickyFooterPosition(int identifier) {
+    public int getStickyFooterPosition(long identifier) {
         return DrawerUtils.getStickyFooterPositionByIdentifier(mDrawerBuilder, identifier);
     }
 
@@ -482,7 +482,7 @@ public class Drawer {
      *
      * @return
      */
-    public int getCurrentSelection() {
+    public long getCurrentSelection() {
         IDrawerItem drawerItem = mDrawerBuilder.getDrawerItem(getCurrentSelectedPosition());
         if (drawerItem != null) {
             return drawerItem.getIdentifier();
@@ -511,7 +511,7 @@ public class Drawer {
      *
      * @param identifier the identifier to search for
      */
-    public void deselect(int identifier) {
+    public void deselect(long identifier) {
         getAdapter().deselect(getPosition(identifier));
     }
 
@@ -521,7 +521,7 @@ public class Drawer {
      *
      * @param identifier the identifier to search for
      */
-    public boolean setSelection(int identifier) {
+    public boolean setSelection(long identifier) {
         return setSelectionAtPosition(getPosition(identifier), true);
     }
 
@@ -532,7 +532,7 @@ public class Drawer {
      * @param identifier  the identifier to search for
      * @param fireOnClick true if the click listener should be called
      */
-    public boolean setSelection(int identifier, boolean fireOnClick) {
+    public boolean setSelection(long identifier, boolean fireOnClick) {
         return setSelectionAtPosition(getPosition(identifier), fireOnClick);
     }
 
@@ -543,7 +543,7 @@ public class Drawer {
      * @param identifier  the identifier to search for
      * @param fireOnClick true if the click listener should be called
      */
-    public void setStickyFooterSelection(int identifier, boolean fireOnClick) {
+    public void setStickyFooterSelection(long identifier, boolean fireOnClick) {
         setStickyFooterSelectionAtPosition(getStickyFooterPosition(identifier), fireOnClick);
     }
 
@@ -633,7 +633,7 @@ public class Drawer {
      * @param identifier
      * @param badge
      */
-    public void updateBadge(int identifier, StringHolder badge) {
+    public void updateBadge(long identifier, StringHolder badge) {
         IDrawerItem drawerItem = getDrawerItem(identifier);
         if (drawerItem instanceof Badgeable) {
             Badgeable badgeable = (Badgeable) drawerItem;
@@ -649,7 +649,7 @@ public class Drawer {
      * @param identifier
      * @param name
      */
-    public void updateName(int identifier, StringHolder name) {
+    public void updateName(long identifier, StringHolder name) {
         IDrawerItem drawerItem = getDrawerItem(identifier);
         if (drawerItem instanceof Nameable) {
             Nameable pdi = (Nameable) drawerItem;
@@ -665,7 +665,7 @@ public class Drawer {
      * @param identifier
      * @param image
      */
-    public void updateIcon(int identifier, ImageHolder image) {
+    public void updateIcon(long identifier, ImageHolder image) {
         IDrawerItem drawerItem = getDrawerItem(identifier);
         if (drawerItem instanceof Iconable) {
             Iconable pdi = (Iconable) drawerItem;
@@ -731,7 +731,7 @@ public class Drawer {
      *
      * @param identifier
      */
-    public void removeItem(int identifier) {
+    public void removeItem(long identifier) {
         int position = getPosition(identifier);
         if (mDrawerBuilder.checkDrawerItem(position, false)) {
             mDrawerBuilder.getItemAdapter().remove(position);
@@ -743,9 +743,9 @@ public class Drawer {
      *
      * @param identifiers
      */
-    public void removeItems(int... identifiers) {
+    public void removeItems(long... identifiers) {
         if (identifiers != null) {
-            for (int identifier : identifiers) {
+            for (long identifier : identifiers) {
                 removeItem(identifier);
             }
         }

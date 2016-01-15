@@ -24,7 +24,7 @@ import java.util.List;
  */
 public abstract class AbstractDrawerItem<T> implements IDrawerItem<T>, Selectable<T>, Tagable<T>, IExpandable<T, IDrawerItem> {
     // the identifier for this item
-    protected int mIdentifier = -1;
+    protected long mIdentifier = -1;
 
     /**
      * set the identifier of this item
@@ -32,7 +32,7 @@ public abstract class AbstractDrawerItem<T> implements IDrawerItem<T>, Selectabl
      * @param identifier
      * @return
      */
-    public T withIdentifier(int identifier) {
+    public T withIdentifier(long identifier) {
         this.mIdentifier = identifier;
         return (T) this;
     }
@@ -44,7 +44,7 @@ public abstract class AbstractDrawerItem<T> implements IDrawerItem<T>, Selectabl
      * @return
      */
     @Override
-    public int getIdentifier() {
+    public long getIdentifier() {
         return mIdentifier;
     }
 
@@ -296,6 +296,11 @@ public abstract class AbstractDrawerItem<T> implements IDrawerItem<T>, Selectabl
      * @param id
      * @return
      */
+    @Override
+    public boolean equals(Long id) {
+        return id != null && id == mIdentifier;
+    }
+
     public boolean equals(Integer id) {
         return id != null && id == mIdentifier;
     }
@@ -321,6 +326,6 @@ public abstract class AbstractDrawerItem<T> implements IDrawerItem<T>, Selectabl
      */
     @Override
     public int hashCode() {
-        return mIdentifier;
+        return Long.valueOf(mIdentifier).hashCode();
     }
 }

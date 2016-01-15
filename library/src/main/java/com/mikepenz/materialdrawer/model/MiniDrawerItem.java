@@ -128,7 +128,7 @@ public class MiniDrawerItem extends BaseDrawerItem<MiniDrawerItem> {
         }
 
         //set the identifier from the drawerItem here. It can be used to run tests
-        viewHolder.itemView.setId(getIdentifier());
+        viewHolder.itemView.setId(hashCode());
 
         //set the item selected if it is
         viewHolder.itemView.setSelected(isSelected());

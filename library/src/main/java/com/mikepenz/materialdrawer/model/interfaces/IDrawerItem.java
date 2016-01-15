@@ -36,7 +36,7 @@ public interface IDrawerItem<T> extends IItem<T> {
 
     void bindView(RecyclerView.ViewHolder holder);
 
-    boolean equals(Integer id);
+    boolean equals(Long id);
 
     boolean equals(Object o);
 }

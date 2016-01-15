@@ -109,7 +109,7 @@ public class SectionDrawerItem extends AbstractDrawerItem<SectionDrawerItem> imp
         ViewHolder viewHolder = (ViewHolder) holder;
 
         //set the identifier from the drawerItem here. It can be used to run tests
-        holder.itemView.setId(getIdentifier());
+        holder.itemView.setId(hashCode());
 
         //define this item to be not clickable nor enabled
         viewHolder.view.setClickable(false);
