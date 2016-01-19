@@ -1,7 +1,6 @@
 package com.mikepenz.materialdrawer.model;
 
 import android.support.annotation.LayoutRes;
-import android.support.v7.widget.RecyclerView;
 import android.view.View;
 import android.widget.CompoundButton;
 import android.widget.ToggleButton;
@@ -15,7 +14,7 @@ import com.mikepenz.materialdrawer.model.interfaces.IDrawerItem;
 /**
  * Created by mikepenz on 03.02.15.
  */
-public class SecondaryToggleDrawerItem extends BaseSecondaryDrawerItem<SecondaryToggleDrawerItem> {
+public class SecondaryToggleDrawerItem extends BaseSecondaryDrawerItem<SecondaryToggleDrawerItem, SecondaryToggleDrawerItem.ViewHolder> {
     private boolean toggleEnabled = true;
 
     private boolean checked = false;
@@ -72,12 +71,9 @@ public class SecondaryToggleDrawerItem extends BaseSecondaryDrawerItem<Secondary
     }
 
     @Override
-    public void bindView(RecyclerView.ViewHolder holder) {
-        //get our viewHolder
-        final ViewHolder viewHolder = (ViewHolder) holder;
-
+    public void bindView(final ViewHolder viewHolder) {
         //bind the basic view parts
-        bindViewHelper((BaseViewHolder) holder);
+        bindViewHelper(viewHolder);
 
         //handle the toggle
         viewHolder.toggle.setOnCheckedChangeListener(null);
@@ -99,7 +95,7 @@ public class SecondaryToggleDrawerItem extends BaseSecondaryDrawerItem<Secondary
         });
 
         //call the onPostBindView method to trigger post bind view actions (like the listener to modify the item if required)
-        onPostBindView(this, holder.itemView);
+        onPostBindView(this, viewHolder.itemView);
     }
 
     @Override
@@ -113,7 +109,7 @@ public class SecondaryToggleDrawerItem extends BaseSecondaryDrawerItem<Secondary
         }
     }
 
-    private static class ViewHolder extends BaseViewHolder {
+    static class ViewHolder extends BaseViewHolder {
         private ToggleButton toggle;
 
         private ViewHolder(View view) {

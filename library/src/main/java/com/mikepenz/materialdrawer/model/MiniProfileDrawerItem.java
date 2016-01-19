@@ -21,7 +21,7 @@ import com.mikepenz.materialdrawer.model.interfaces.IProfile;
 /**
  * Created by mikepenz on 03.02.15.
  */
-public class MiniProfileDrawerItem extends AbstractDrawerItem<MiniProfileDrawerItem> implements IProfile<MiniProfileDrawerItem> {
+public class MiniProfileDrawerItem extends AbstractDrawerItem<MiniProfileDrawerItem, MiniProfileDrawerItem.ViewHolder> implements IProfile<MiniProfileDrawerItem> {
     protected ImageHolder icon;
 
     protected DimenHolder customHeight;
@@ -129,10 +129,7 @@ public class MiniProfileDrawerItem extends AbstractDrawerItem<MiniProfileDrawerI
     }
 
     @Override
-    public void bindView(RecyclerView.ViewHolder holder) {
-        //get our viewHolder
-        ViewHolder viewHolder = (ViewHolder) holder;
-
+    public void bindView(ViewHolder viewHolder) {
         if (customHeight != null) {
             RecyclerView.LayoutParams lp = (RecyclerView.LayoutParams) viewHolder.itemView.getLayoutParams();
             lp.height = customHeight.asPixel(viewHolder.itemView.getContext());
@@ -146,7 +143,7 @@ public class MiniProfileDrawerItem extends AbstractDrawerItem<MiniProfileDrawerI
         ImageHolder.applyToOrSetInvisible(getIcon(), viewHolder.icon);
 
         //call the onPostBindView method to trigger post bind view actions (like the listener to modify the item if required)
-        onPostBindView(this, holder.itemView);
+        onPostBindView(this, viewHolder.itemView);
     }
 
     @Override
@@ -161,7 +158,7 @@ public class MiniProfileDrawerItem extends AbstractDrawerItem<MiniProfileDrawerI
         }
     }
 
-    private static class ViewHolder extends RecyclerView.ViewHolder {
+    static class ViewHolder extends RecyclerView.ViewHolder {
         private ImageView icon;
 
         public ViewHolder(View view) {

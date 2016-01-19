@@ -20,7 +20,7 @@ import com.mikepenz.materialize.util.UIUtils;
 /**
  * Created by mikepenz on 03.02.15.
  */
-public abstract class BaseSecondaryDrawerItem<T> extends BaseDrawerItem<T> {
+public abstract class BaseSecondaryDrawerItem<T, VH extends BaseViewHolder> extends BaseDrawerItem<T, VH> {
     private StringHolder description;
     private ColorHolder descriptionTextColor;
 
@@ -120,21 +120,5 @@ public abstract class BaseSecondaryDrawerItem<T> extends BaseDrawerItem<T> {
 
         //for android API 17 --> Padding not applied via xml
         DrawerUIUtils.setDrawerVerticalPadding(viewHolder.view, level);
-    }
-
-    protected static class BaseViewHolder extends RecyclerView.ViewHolder {
-        protected View view;
-        protected ImageView icon;
-        protected TextView name;
-        private TextView description;
-
-        public BaseViewHolder(View view) {
-            super(view);
-
-            this.view = view;
-            this.icon = (ImageView) view.findViewById(R.id.material_drawer_icon);
-            this.name = (TextView) view.findViewById(R.id.material_drawer_name);
-            this.description = (TextView) view.findViewById(R.id.material_drawer_description);
-        }
     }
 }

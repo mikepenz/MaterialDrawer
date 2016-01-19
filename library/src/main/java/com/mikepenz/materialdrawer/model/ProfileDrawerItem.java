@@ -32,7 +32,7 @@ import com.mikepenz.materialize.util.UIUtils;
 /**
  * Created by mikepenz on 03.02.15.
  */
-public class ProfileDrawerItem extends AbstractDrawerItem<ProfileDrawerItem> implements IProfile<ProfileDrawerItem>, Tagable<ProfileDrawerItem>, Typefaceable<ProfileDrawerItem> {
+public class ProfileDrawerItem extends AbstractDrawerItem<ProfileDrawerItem, ProfileDrawerItem.ViewHolder> implements IProfile<ProfileDrawerItem>, Tagable<ProfileDrawerItem>, Typefaceable<ProfileDrawerItem> {
     protected boolean nameShown = false;
 
     protected ImageHolder icon;
@@ -193,11 +193,8 @@ public class ProfileDrawerItem extends AbstractDrawerItem<ProfileDrawerItem> imp
     }
 
     @Override
-    public void bindView(RecyclerView.ViewHolder holder) {
-        Context ctx = holder.itemView.getContext();
-
-        //get our viewHolder
-        ViewHolder viewHolder = (ViewHolder) holder;
+    public void bindView(ViewHolder viewHolder) {
+        Context ctx = viewHolder.itemView.getContext();
 
         //set the identifier from the drawerItem here. It can be used to run tests
         viewHolder.itemView.setId(hashCode());
@@ -248,7 +245,7 @@ public class ProfileDrawerItem extends AbstractDrawerItem<ProfileDrawerItem> imp
         DrawerUIUtils.setDrawerVerticalPadding(viewHolder.view);
 
         //call the onPostBindView method to trigger post bind view actions (like the listener to modify the item if required)
-        onPostBindView(this, holder.itemView);
+        onPostBindView(this, viewHolder.itemView);
     }
 
     @Override
@@ -262,7 +259,7 @@ public class ProfileDrawerItem extends AbstractDrawerItem<ProfileDrawerItem> imp
         }
     }
 
-    private static class ViewHolder extends RecyclerView.ViewHolder {
+    static class ViewHolder extends RecyclerView.ViewHolder {
         private View view;
         private ImageView profileIcon;
         private TextView name;

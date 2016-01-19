@@ -3,7 +3,6 @@ package com.mikepenz.materialdrawer.model;
 import android.content.Context;
 import android.support.annotation.LayoutRes;
 import android.support.annotation.StringRes;
-import android.support.v7.widget.RecyclerView;
 import android.view.View;
 import android.widget.TextView;
 
@@ -16,7 +15,7 @@ import com.mikepenz.materialdrawer.model.interfaces.ColorfulBadgeable;
 /**
  * Created by mikepenz on 03.02.15.
  */
-public class SecondaryDrawerItem extends BaseSecondaryDrawerItem<SecondaryDrawerItem> implements ColorfulBadgeable<SecondaryDrawerItem> {
+public class SecondaryDrawerItem extends BaseSecondaryDrawerItem<SecondaryDrawerItem, SecondaryDrawerItem.ViewHolder> implements ColorfulBadgeable<SecondaryDrawerItem> {
     protected StringHolder mBadge;
     protected BadgeStyle mBadgeStyle = new BadgeStyle();
 
@@ -64,14 +63,11 @@ public class SecondaryDrawerItem extends BaseSecondaryDrawerItem<SecondaryDrawer
     }
 
     @Override
-    public void bindView(RecyclerView.ViewHolder holder) {
-        Context ctx = holder.itemView.getContext();
-
-        //get our viewHolder
-        ViewHolder viewHolder = (ViewHolder) holder;
+    public void bindView(ViewHolder viewHolder) {
+        Context ctx = viewHolder.itemView.getContext();
 
         //bind the basic view parts
-        bindViewHelper((BaseViewHolder) holder);
+        bindViewHelper(viewHolder);
 
         //set the text for the badge or hide
         boolean badgeVisible = StringHolder.applyToOrHide(mBadge, viewHolder.badge);
@@ -89,7 +85,7 @@ public class SecondaryDrawerItem extends BaseSecondaryDrawerItem<SecondaryDrawer
         }
 
         //call the onPostBindView method to trigger post bind view actions (like the listener to modify the item if required)
-        onPostBindView(this, holder.itemView);
+        onPostBindView(this, viewHolder.itemView);
     }
 
     @Override
@@ -103,7 +99,7 @@ public class SecondaryDrawerItem extends BaseSecondaryDrawerItem<SecondaryDrawer
         }
     }
 
-    private static class ViewHolder extends BaseViewHolder {
+    static class ViewHolder extends BaseViewHolder {
         private View badgeContainer;
         private TextView badge;
 

@@ -19,7 +19,7 @@ import com.mikepenz.materialize.util.UIUtils;
 /**
  * Created by mikepenz on 03.02.15.
  */
-public class SectionDrawerItem extends AbstractDrawerItem<SectionDrawerItem> implements Nameable<SectionDrawerItem>, Typefaceable<SectionDrawerItem> {
+public class SectionDrawerItem extends AbstractDrawerItem<SectionDrawerItem, SectionDrawerItem.ViewHolder> implements Nameable<SectionDrawerItem>, Typefaceable<SectionDrawerItem> {
 
     private StringHolder name;
     private boolean divider = true;
@@ -102,14 +102,11 @@ public class SectionDrawerItem extends AbstractDrawerItem<SectionDrawerItem> imp
     }
 
     @Override
-    public void bindView(RecyclerView.ViewHolder holder) {
-        Context ctx = holder.itemView.getContext();
-
-        //get our viewHolder
-        ViewHolder viewHolder = (ViewHolder) holder;
+    public void bindView(ViewHolder viewHolder) {
+        Context ctx = viewHolder.itemView.getContext();
 
         //set the identifier from the drawerItem here. It can be used to run tests
-        holder.itemView.setId(hashCode());
+        viewHolder.itemView.setId(hashCode());
 
         //define this item to be not clickable nor enabled
         viewHolder.view.setClickable(false);
@@ -132,7 +129,7 @@ public class SectionDrawerItem extends AbstractDrawerItem<SectionDrawerItem> imp
         viewHolder.divider.setBackgroundColor(UIUtils.getThemeColorFromAttrOrRes(ctx, R.attr.material_drawer_divider, R.color.material_drawer_divider));
 
         //call the onPostBindView method to trigger post bind view actions (like the listener to modify the item if required)
-        onPostBindView(this, holder.itemView);
+        onPostBindView(this, viewHolder.itemView);
     }
 
     @Override
@@ -146,7 +143,7 @@ public class SectionDrawerItem extends AbstractDrawerItem<SectionDrawerItem> imp
         }
     }
 
-    private static class ViewHolder extends RecyclerView.ViewHolder {
+    static class ViewHolder extends RecyclerView.ViewHolder {
         private View view;
         private View divider;
         private TextView name;

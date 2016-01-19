@@ -14,7 +14,7 @@ import com.mikepenz.materialize.util.UIUtils;
 /**
  * Created by mikepenz on 03.02.15.
  */
-public class ContainerDrawerItem extends AbstractDrawerItem<ContainerDrawerItem> {
+public class ContainerDrawerItem extends AbstractDrawerItem<ContainerDrawerItem, ContainerDrawerItem.ViewHolder> {
     private View mView;
 
     public ContainerDrawerItem withView(View view) {
@@ -62,14 +62,11 @@ public class ContainerDrawerItem extends AbstractDrawerItem<ContainerDrawerItem>
     }
 
     @Override
-    public void bindView(RecyclerView.ViewHolder holder) {
-        Context ctx = holder.itemView.getContext();
-
-        //get our viewHolder
-        ViewHolder viewHolder = (ViewHolder) holder;
+    public void bindView(ViewHolder viewHolder) {
+        Context ctx = viewHolder.itemView.getContext();
 
         //set the identifier from the drawerItem here. It can be used to run tests
-        holder.itemView.setId(hashCode());
+        viewHolder.itemView.setId(hashCode());
 
         //define how the divider should look like
         viewHolder.view.setEnabled(false);
@@ -107,7 +104,7 @@ public class ContainerDrawerItem extends AbstractDrawerItem<ContainerDrawerItem>
         }
 
         //call the onPostBindView method to trigger post bind view actions (like the listener to modify the item if required)
-        onPostBindView(this, holder.itemView);
+        onPostBindView(this, viewHolder.itemView);
     }
 
     @Override
@@ -121,7 +118,7 @@ public class ContainerDrawerItem extends AbstractDrawerItem<ContainerDrawerItem>
         }
     }
 
-    private static class ViewHolder extends RecyclerView.ViewHolder {
+    static class ViewHolder extends RecyclerView.ViewHolder {
         private View view;
 
         private ViewHolder(View view) {

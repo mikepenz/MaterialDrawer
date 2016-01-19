@@ -3,7 +3,6 @@ package com.mikepenz.materialdrawer.app.drawerItems;
 import android.content.Context;
 import android.support.annotation.LayoutRes;
 import android.support.v7.widget.PopupMenu;
-import android.support.v7.widget.RecyclerView;
 import android.view.MenuInflater;
 import android.view.View;
 import android.widget.ImageButton;
@@ -13,11 +12,12 @@ import com.mikepenz.google_material_typeface_library.GoogleMaterial;
 import com.mikepenz.iconics.IconicsDrawable;
 import com.mikepenz.materialdrawer.app.R;
 import com.mikepenz.materialdrawer.model.BasePrimaryDrawerItem;
+import com.mikepenz.materialdrawer.model.BaseViewHolder;
 
 /**
  * Created by mikepenz on 03.02.15.
  */
-public class OverflowMenuDrawerItem extends BasePrimaryDrawerItem<OverflowMenuDrawerItem> {
+public class OverflowMenuDrawerItem extends BasePrimaryDrawerItem<OverflowMenuDrawerItem, OverflowMenuDrawerItem.ViewHolder> {
     private int mMenu;
 
     public OverflowMenuDrawerItem withMenu(int menu) {
@@ -64,14 +64,11 @@ public class OverflowMenuDrawerItem extends BasePrimaryDrawerItem<OverflowMenuDr
     }
 
     @Override
-    public void bindView(RecyclerView.ViewHolder holder) {
-        Context ctx = holder.itemView.getContext();
-
-        //get our viewHolder
-        ViewHolder viewHolder = (ViewHolder) holder;
+    public void bindView(ViewHolder viewHolder) {
+        Context ctx = viewHolder.itemView.getContext();
 
         //bind the basic view parts
-        bindViewHelper((BaseViewHolder) holder);
+        bindViewHelper(viewHolder);
 
         //handle menu click
         viewHolder.menu.setOnClickListener(new View.OnClickListener() {
@@ -92,7 +89,7 @@ public class OverflowMenuDrawerItem extends BasePrimaryDrawerItem<OverflowMenuDr
         viewHolder.menu.setImageDrawable(new IconicsDrawable(ctx, GoogleMaterial.Icon.gmd_more_vert).sizeDp(12).color(getIconColor(ctx)));
 
         //call the onPostBindView method to trigger post bind view actions (like the listener to modify the item if required)
-        onPostBindView(this, holder.itemView);
+        onPostBindView(this, viewHolder.itemView);
     }
 
     @Override
@@ -106,7 +103,7 @@ public class OverflowMenuDrawerItem extends BasePrimaryDrawerItem<OverflowMenuDr
         }
     }
 
-    private static class ViewHolder extends BaseViewHolder {
+    static class ViewHolder extends BaseViewHolder {
         //protected ImageButton ibOverflow;
         private ImageButton menu;
 

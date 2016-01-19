@@ -10,7 +10,7 @@ import com.mikepenz.fastadapter.IItem;
 /**
  * Created by mikepenz on 03.02.15.
  */
-public interface IDrawerItem<T> extends IItem<T> {
+public interface IDrawerItem<T, VH extends RecyclerView.ViewHolder> extends IItem<T, VH> {
 
     Object getTag();
 
@@ -34,7 +34,7 @@ public interface IDrawerItem<T> extends IItem<T> {
 
     RecyclerView.ViewHolder getViewHolder(ViewGroup parent);
 
-    void bindView(RecyclerView.ViewHolder holder);
+    void bindView(VH holder);
 
     boolean equals(Long id);
 

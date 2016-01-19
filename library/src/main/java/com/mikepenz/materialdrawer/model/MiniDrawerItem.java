@@ -20,7 +20,7 @@ import com.mikepenz.materialize.util.UIUtils;
 /**
  * Created by mikepenz on 03.02.15.
  */
-public class MiniDrawerItem extends BaseDrawerItem<MiniDrawerItem> {
+public class MiniDrawerItem extends BaseDrawerItem<MiniDrawerItem, MiniDrawerItem.ViewHolder> {
     private StringHolder mBadge;
     private BadgeStyle mBadgeStyle = new BadgeStyle();
 
@@ -113,11 +113,8 @@ public class MiniDrawerItem extends BaseDrawerItem<MiniDrawerItem> {
     }
 
     @Override
-    public void bindView(RecyclerView.ViewHolder holder) {
-        Context ctx = holder.itemView.getContext();
-
-        //get our viewHolder
-        ViewHolder viewHolder = (ViewHolder) holder;
+    public void bindView(ViewHolder viewHolder) {
+        Context ctx = viewHolder.itemView.getContext();
 
         //set a different height for this item
         if (mCustomHeight != null) {
@@ -164,7 +161,7 @@ public class MiniDrawerItem extends BaseDrawerItem<MiniDrawerItem> {
         viewHolder.itemView.setPadding(verticalPadding, topBottomPadding, verticalPadding, topBottomPadding);
 
         //call the onPostBindView method to trigger post bind view actions (like the listener to modify the item if required)
-        onPostBindView(this, holder.itemView);
+        onPostBindView(this, viewHolder.itemView);
     }
 
     @Override
@@ -179,7 +176,7 @@ public class MiniDrawerItem extends BaseDrawerItem<MiniDrawerItem> {
         }
     }
 
-    private static class ViewHolder extends RecyclerView.ViewHolder {
+    static class ViewHolder extends RecyclerView.ViewHolder {
         private View view;
         private ImageView icon;
         private TextView badge;

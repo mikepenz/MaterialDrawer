@@ -22,7 +22,7 @@ import java.util.List;
 /**
  * Created by mikepenz on 14.07.15.
  */
-public abstract class AbstractDrawerItem<T> implements IDrawerItem<T>, Selectable<T>, Tagable<T>, IExpandable<T, IDrawerItem> {
+public abstract class AbstractDrawerItem<T, VH extends RecyclerView.ViewHolder> implements IDrawerItem<T, VH>, Selectable<T>, Tagable<T>, IExpandable<T, IDrawerItem> {
     // the identifier for this item
     protected long mIdentifier = -1;
 
@@ -260,7 +260,7 @@ public abstract class AbstractDrawerItem<T> implements IDrawerItem<T>, Selectabl
     @Override
     public View generateView(Context ctx) {
         RecyclerView.ViewHolder viewHolder = getFactory().create(LayoutInflater.from(ctx).inflate(getLayoutRes(), null, false));
-        bindView(viewHolder);
+        bindView((VH) viewHolder);
         return viewHolder.itemView;
     }
 
@@ -274,7 +274,7 @@ public abstract class AbstractDrawerItem<T> implements IDrawerItem<T>, Selectabl
     @Override
     public View generateView(Context ctx, ViewGroup parent) {
         RecyclerView.ViewHolder viewHolder = getFactory().create(LayoutInflater.from(ctx).inflate(getLayoutRes(), parent, false));
-        bindView(viewHolder);
+        bindView((VH) viewHolder);
         return viewHolder.itemView;
     }
 
@@ -315,7 +315,7 @@ public abstract class AbstractDrawerItem<T> implements IDrawerItem<T>, Selectabl
     public boolean equals(Object o) {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
-        AbstractDrawerItem<?> that = (AbstractDrawerItem<?>) o;
+        AbstractDrawerItem<?, ?> that = (AbstractDrawerItem<?, ?>) o;
         return mIdentifier == that.mIdentifier;
     }
 
