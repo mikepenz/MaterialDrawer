@@ -245,7 +245,7 @@ public class ProfileSettingDrawerItem extends AbstractDrawerItem<ProfileSettingD
         }
     }
 
-    static class ViewHolder extends RecyclerView.ViewHolder {
+    protected static class ViewHolder extends RecyclerView.ViewHolder {
         private View view;
         private ImageView icon;
         private TextView name;

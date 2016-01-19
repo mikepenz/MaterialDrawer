@@ -118,7 +118,7 @@ public class ContainerDrawerItem extends AbstractDrawerItem<ContainerDrawerItem,
         }
     }
 
-    static class ViewHolder extends RecyclerView.ViewHolder {
+    protected static class ViewHolder extends RecyclerView.ViewHolder {
         private View view;
 
         private ViewHolder(View view) {

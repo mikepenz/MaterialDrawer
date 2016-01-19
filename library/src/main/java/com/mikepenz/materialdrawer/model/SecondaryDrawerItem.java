@@ -99,7 +99,7 @@ public class SecondaryDrawerItem extends BaseSecondaryDrawerItem<SecondaryDrawer
         }
     }
 
-    static class ViewHolder extends BaseViewHolder {
+    protected static class ViewHolder extends BaseViewHolder {
         private View badgeContainer;
         private TextView badge;
 

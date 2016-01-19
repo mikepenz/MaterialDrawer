@@ -5,10 +5,6 @@ import android.graphics.drawable.Drawable;
 import android.support.annotation.ColorInt;
 import android.support.annotation.ColorRes;
 import android.support.annotation.StringRes;
-import android.support.v7.widget.RecyclerView;
-import android.view.View;
-import android.widget.ImageView;
-import android.widget.TextView;
 
 import com.mikepenz.materialdrawer.R;
 import com.mikepenz.materialdrawer.holder.ColorHolder;
@@ -83,6 +79,9 @@ public abstract class BaseSecondaryDrawerItem<T, VH extends BaseViewHolder> exte
 
         //set the item selected if it is
         viewHolder.itemView.setSelected(isSelected());
+
+        //
+        viewHolder.itemView.setTag(this);
 
         //get the correct color for the background
         int selectedColor = getSelectedColor(ctx);

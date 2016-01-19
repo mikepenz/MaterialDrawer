@@ -102,7 +102,7 @@ public class SwitchDrawerItem extends BasePrimaryDrawerItem<SwitchDrawerItem, Sw
         }
     }
 
-    static class ViewHolder extends BaseViewHolder {
+    protected static class ViewHolder extends BaseViewHolder {
         private SwitchCompat switchView;
 
         private ViewHolder(View view) {

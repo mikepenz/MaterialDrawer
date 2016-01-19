@@ -109,7 +109,7 @@ public class ToggleDrawerItem extends BasePrimaryDrawerItem<ToggleDrawerItem, To
         }
     }
 
-    static class ViewHolder extends BaseViewHolder {
+    protected static class ViewHolder extends BaseViewHolder {
         private ToggleButton toggle;
 
         private ViewHolder(View view) {

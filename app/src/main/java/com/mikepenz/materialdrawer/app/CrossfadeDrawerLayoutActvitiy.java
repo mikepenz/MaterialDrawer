@@ -149,7 +149,7 @@ public class CrossfadeDrawerLayoutActvitiy extends AppCompatActivity {
             @Override
             public void onCrossfade(View containerView, float currentSlidePercentage, int slideOffset) {
                 for (int i = 0; i < miniResult.getAdapter().getItemCount(); i++) {
-                    IDrawerItem drawerItem = (IDrawerItem) miniResult.getAdapter().getItem(i);
+                    IDrawerItem drawerItem = miniResult.getAdapter().getItem(i);
                     if (drawerItem instanceof MiniProfileDrawerItem) {
                         MiniProfileDrawerItem mpdi = (MiniProfileDrawerItem) drawerItem;
                         mpdi.withCustomHeightPx((int) (originalProfileHeight + (headerDifference * currentSlidePercentage / 100)));

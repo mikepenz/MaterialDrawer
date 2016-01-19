@@ -158,7 +158,7 @@ public class MiniProfileDrawerItem extends AbstractDrawerItem<MiniProfileDrawerI
         }
     }
 
-    static class ViewHolder extends RecyclerView.ViewHolder {
+    protected static class ViewHolder extends RecyclerView.ViewHolder {
         private ImageView icon;
 
         public ViewHolder(View view) {

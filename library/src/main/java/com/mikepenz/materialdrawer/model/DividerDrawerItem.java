@@ -57,7 +57,7 @@ public class DividerDrawerItem extends AbstractDrawerItem<DividerDrawerItem, Div
         }
     }
 
-    public static class ViewHolder extends RecyclerView.ViewHolder {
+    protected static class ViewHolder extends RecyclerView.ViewHolder {
         private View view;
         private View divider;
 
