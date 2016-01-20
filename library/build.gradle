@@ -45,7 +45,7 @@ dependencies {
     compile 'com.mikepenz:iconics-core:2.5.5@aar'
 
     // used to fill the RecyclerView with the DrawerItems
-    // and provides single and multi selection, collapsable items
+    // and provides single and multi selection, expandable items
     // https://github.com/mikepenz/FastAdapter
-    compile 'com.mikepenz:fastadapter:0.9.1@aar'
+    compile 'com.mikepenz:fastadapter:0.9.2@aar'
 }
