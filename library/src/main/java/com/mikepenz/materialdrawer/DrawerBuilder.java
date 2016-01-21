@@ -1722,7 +1722,7 @@ public class DrawerBuilder {
         //if MultiSelect is possible
         mAdapter.withMultiSelect(mMultiSelect);
         if (mMultiSelect) {
-            mAdapter.withMultiSelectOnLongClick(false);
+            mAdapter.withSelectOnLongClick(false);
             mAdapter.withAllowDeselection(true);
         }
 
