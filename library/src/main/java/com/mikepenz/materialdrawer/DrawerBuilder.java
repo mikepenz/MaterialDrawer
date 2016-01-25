@@ -36,16 +36,18 @@ import android.widget.FrameLayout;
 import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 
+import com.mikepenz.fastadapter.FastAdapter;
+import com.mikepenz.fastadapter.IAdapter;
+import com.mikepenz.fastadapter.IItemAdapter;
+import com.mikepenz.fastadapter.adapters.FooterAdapter;
+import com.mikepenz.fastadapter.adapters.HeaderAdapter;
+import com.mikepenz.fastadapter.adapters.ItemAdapter;
 import com.mikepenz.iconics.utils.Utils;
-import com.mikepenz.materialdrawer.adapter.BaseDrawerAdapter;
-import com.mikepenz.materialdrawer.adapter.DrawerAdapter;
 import com.mikepenz.materialdrawer.model.DividerDrawerItem;
 import com.mikepenz.materialdrawer.model.PrimaryDrawerItem;
 import com.mikepenz.materialdrawer.model.SecondaryDrawerItem;
 import com.mikepenz.materialdrawer.model.interfaces.IDrawerItem;
 import com.mikepenz.materialdrawer.model.interfaces.Selectable;
-import com.mikepenz.materialdrawer.util.IdDistributor;
-import com.mikepenz.materialdrawer.util.RecyclerViewCacheUtil;
 import com.mikepenz.materialize.Materialize;
 import com.mikepenz.materialize.MaterializeBuilder;
 import com.mikepenz.materialize.util.UIUtils;
@@ -61,7 +63,6 @@ public class DrawerBuilder {
     // some internal vars
     // variable to check if a builder is only used once
     protected boolean mUsed = false;
-    protected int mCurrentSelection = -1;
     protected int mCurrentStickyFooterSelection = -1;
     protected boolean mAppended = false;
 
@@ -75,10 +76,7 @@ public class DrawerBuilder {
      * default constructor
      */
     public DrawerBuilder() {
-        //make sure there are no elements in the cache from the previous activity
-        //this should only happen and cause troubles if you switch themes over activities
-        //but to make sure it works ;)
-        RecyclerViewCacheUtil.getInstance().clear();
+        getAdapter();
     }
 
     /**
@@ -90,6 +88,7 @@ public class DrawerBuilder {
         this.mRootView = (ViewGroup) activity.findViewById(android.R.id.content);
         this.mActivity = activity;
         this.mLayoutManager = new LinearLayoutManager(mActivity);
+        getAdapter();
     }
 
     /**
@@ -825,6 +824,23 @@ public class DrawerBuilder {
         return this;
     }
 
+    // if multiSelection is possible
+    protected boolean mMultiSelect = false;
+
+    /**
+     * set this to true if you want to enable multiSelect mode inside the drawer. Note
+     * you will have to programmatically deselect if you want to remove all selections!
+     * You can disable this at a later time via .getAdapter().withMultiSelect(false)
+     * You can also modify all other settings of the FastAdapter via this method
+     *
+     * @param multiSelect true if multiSelect is enabled (default: false)
+     * @return this
+     */
+    public DrawerBuilder withMultiSelect(boolean multiSelect) {
+        this.mMultiSelect = multiSelect;
+        return this;
+    }
+
     // item to select
     protected int mSelectedItemPosition = 0;
 
@@ -881,11 +897,17 @@ public class DrawerBuilder {
      */
     public DrawerBuilder withHasStableIds(boolean hasStableIds) {
         this.mHasStableIds = hasStableIds;
+        if (mAdapter != null) {
+            mAdapter.setHasStableIds(hasStableIds);
+        }
         return this;
     }
 
     // an adapter to use for the list
-    protected BaseDrawerAdapter mAdapter;
+    protected FastAdapter<IDrawerItem> mAdapter;
+    protected HeaderAdapter<IDrawerItem> mHeaderAdapter = new HeaderAdapter<>();
+    protected ItemAdapter<IDrawerItem> mItemAdapter = new ItemAdapter<>();
+    protected FooterAdapter<IDrawerItem> mFooterAdapter = new FooterAdapter<>();
 
     /**
      * Define a custom Adapter which will be used in the drawer
@@ -894,11 +916,13 @@ public class DrawerBuilder {
      * @param adapter
      * @return
      */
-    public DrawerBuilder withAdapter(@NonNull BaseDrawerAdapter adapter) {
+    public DrawerBuilder withAdapter(@NonNull FastAdapter adapter) {
         if (mAdapter != null) {
             throw new RuntimeException("the adapter was already set or items were added to it. A header is also a RecyclerItem");
         }
         this.mAdapter = adapter;
+        //we have to rewrap as a different FastAdapter was provided
+        mHeaderAdapter.wrap(mItemAdapter.wrap(mFooterAdapter.wrap(mAdapter)));
         return this;
     }
 
@@ -907,12 +931,28 @@ public class DrawerBuilder {
      *
      * @return
      */
-    protected BaseDrawerAdapter getAdapter() {
+    protected FastAdapter<IDrawerItem> getAdapter() {
         if (mAdapter == null) {
-            mAdapter = new DrawerAdapter();
+            mAdapter = new FastAdapter<>();
+            mAdapter.withAllowDeselection(false);
             mAdapter.setHasStableIds(mHasStableIds);
+
+            //we wrap our main Adapter with the item hosting adapter
+            mHeaderAdapter.wrap(mItemAdapter.wrap(mFooterAdapter.wrap(mAdapter)));
         }
         return mAdapter;
+    }
+
+    protected IItemAdapter<IDrawerItem> getItemAdapter() {
+        return mItemAdapter;
+    }
+
+    protected IItemAdapter<IDrawerItem> getHeaderAdapter() {
+        return mHeaderAdapter;
+    }
+
+    protected IItemAdapter<IDrawerItem> getFooterAdapter() {
+        return mFooterAdapter;
     }
 
     // Defines a Adapter which wraps the main Adapter used in the RecyclerView to allow extended navigation and other stuff
@@ -954,7 +994,7 @@ public class DrawerBuilder {
      * @return
      */
     public DrawerBuilder withDrawerItems(@NonNull ArrayList<IDrawerItem> drawerItems) {
-        this.getAdapter().setDrawerItems(IdDistributor.checkIds(drawerItems));
+        this.getItemAdapter().set(drawerItems);
         return this;
     }
 
@@ -965,7 +1005,7 @@ public class DrawerBuilder {
      * @return
      */
     public DrawerBuilder addDrawerItems(@NonNull IDrawerItem... drawerItems) {
-        this.getAdapter().addDrawerItems(IdDistributor.checkIds(drawerItems));
+        this.getItemAdapter().add(drawerItems);
         return this;
     }
 
@@ -979,7 +1019,7 @@ public class DrawerBuilder {
      * @return
      */
     public DrawerBuilder withStickyDrawerItems(@NonNull ArrayList<IDrawerItem> stickyDrawerItems) {
-        this.mStickyDrawerItems = IdDistributor.checkIds(stickyDrawerItems);
+        this.mStickyDrawerItems = stickyDrawerItems;
         return this;
     }
 
@@ -994,7 +1034,7 @@ public class DrawerBuilder {
             this.mStickyDrawerItems = new ArrayList<>();
         }
 
-        Collections.addAll(this.mStickyDrawerItems, IdDistributor.checkIds(stickyDrawerItems));
+        Collections.addAll(this.mStickyDrawerItems, stickyDrawerItems);
 
         return this;
     }
@@ -1030,7 +1070,7 @@ public class DrawerBuilder {
             if (!subMenu && mMenuItem.getGroupId() != groupId && mMenuItem.getGroupId() != 0) {
                 groupId = mMenuItem.getGroupId();
                 iDrawerItem = new DividerDrawerItem();
-                getAdapter().addDrawerItems(iDrawerItem);
+                getItemAdapter().add(iDrawerItem);
             }
             if (mMenuItem.hasSubMenu()) {
                 iDrawerItem = new PrimaryDrawerItem()
@@ -1039,7 +1079,7 @@ public class DrawerBuilder {
                         .withIdentifier(mMenuItem.getItemId())
                         .withEnabled(mMenuItem.isEnabled())
                         .withSelectable(false);
-                getAdapter().addDrawerItems(iDrawerItem);
+                getItemAdapter().add(iDrawerItem);
                 addMenuItems(mMenuItem.getSubMenu(), true);
             } else if (mMenuItem.getGroupId() != 0 || subMenu) {
                 iDrawerItem = new SecondaryDrawerItem()
@@ -1047,14 +1087,14 @@ public class DrawerBuilder {
                         .withIcon(mMenuItem.getIcon())
                         .withIdentifier(mMenuItem.getItemId())
                         .withEnabled(mMenuItem.isEnabled());
-                getAdapter().addDrawerItems(iDrawerItem);
+                getItemAdapter().add(iDrawerItem);
             } else {
                 iDrawerItem = new PrimaryDrawerItem()
                         .withName(mMenuItem.getTitle().toString())
                         .withIcon(mMenuItem.getIcon())
                         .withIdentifier(mMenuItem.getItemId())
                         .withEnabled(mMenuItem.isEnabled());
-                getAdapter().addDrawerItems(iDrawerItem);
+                getItemAdapter().add(iDrawerItem);
             }
         }
     }
@@ -1679,11 +1719,16 @@ public class DrawerBuilder {
             }
         });
 
-        //after adding the header do the setAdapter and set the selection
+        //if MultiSelect is possible
+        mAdapter.withMultiSelect(mMultiSelect);
+        if (mMultiSelect) {
+            mAdapter.withSelectOnLongClick(false);
+            mAdapter.withAllowDeselection(true);
+        }
 
         //set the adapter on the listView
         if (mAdapterWrapper == null) {
-            mRecyclerView.setAdapter(getAdapter());
+            mRecyclerView.setAdapter(mAdapter);
         } else {
             mRecyclerView.setAdapter(mAdapterWrapper);
         }
@@ -1695,15 +1740,16 @@ public class DrawerBuilder {
         if (mHeaderView != null && mSelectedItemPosition == 0) {
             mSelectedItemPosition = 1;
         }
-        DrawerUtils.setRecyclerViewSelection(this, mSelectedItemPosition, false);
+        mAdapter.deselect();
+        mAdapter.select(mSelectedItemPosition);
+        //DrawerUtils.setRecyclerViewSelection(this, mSelectedItemPosition, false);
 
         // add the onDrawerItemClickListener if set
-        mAdapter.setOnClickListener(new BaseDrawerAdapter.OnClickListener() {
+        mAdapter.withOnClickListener(new FastAdapter.OnClickListener<IDrawerItem>() {
             @Override
-            public void onClick(final View view, final int position, final IDrawerItem item) {
-                if (!(item != null && item instanceof Selectable && !((Selectable) item).isSelectable())) {
+            public boolean onClick(final View view, IAdapter<IDrawerItem> adapter, final IDrawerItem item, final int position) {
+                if (!(item != null && item instanceof Selectable && !item.isSelectable())) {
                     resetStickyFooterSelection();
-                    mCurrentSelection = position;
                     mCurrentStickyFooterSelection = -1;
                 }
 
@@ -1732,13 +1778,14 @@ public class DrawerBuilder {
                     //close the drawer after click
                     closeDrawerDelayed();
                 }
+
+                return consumed;
             }
         });
-
         // add the onDrawerItemLongClickListener if set
-        mAdapter.setOnLongClickListener(new BaseDrawerAdapter.OnLongClickListener() {
+        mAdapter.withOnLongClickListener(new FastAdapter.OnLongClickListener<IDrawerItem>() {
             @Override
-            public boolean onLongClick(View view, int position, IDrawerItem item) {
+            public boolean onLongClick(View view, IAdapter<IDrawerItem> adapter, final IDrawerItem item, final int position) {
                 if (mOnDrawerItemLongClickListener != null) {
                     return mOnDrawerItemLongClickListener.onItemLongClick(view, position, getDrawerItem(position));
                 }
@@ -1753,17 +1800,18 @@ public class DrawerBuilder {
         // try to restore all saved values again
         if (mSavedInstance != null) {
             if (!mAppended) {
-                DrawerUtils.setRecyclerViewSelection(this, mSavedInstance.getInt(Drawer.BUNDLE_SELECTION, -1), false);
+                mAdapter.withSavedInstanceState(mSavedInstance, Drawer.BUNDLE_SELECTION);
                 DrawerUtils.setStickyFooterSelection(this, mSavedInstance.getInt(Drawer.BUNDLE_STICKY_FOOTER_SELECTION, -1), null);
             } else {
-                DrawerUtils.setRecyclerViewSelection(this, mSavedInstance.getInt(Drawer.BUNDLE_SELECTION_APPENDED, -1), false);
+                mAdapter.withSavedInstanceState(mSavedInstance, Drawer.BUNDLE_SELECTION_APPENDED);
                 DrawerUtils.setStickyFooterSelection(this, mSavedInstance.getInt(Drawer.BUNDLE_STICKY_FOOTER_SELECTION_APPENDED, -1), null);
             }
         }
 
         // call initial onClick event to allow the dev to init the first view
         if (mFireInitialOnClick && mOnDrawerItemClickListener != null) {
-            mOnDrawerItemClickListener.onItemClick(null, mCurrentSelection, getDrawerItem(mCurrentSelection));
+            int selection = mAdapter.getSelections().size() == 0 ? -1 : mAdapter.getSelections().iterator().next();
+            mOnDrawerItemClickListener.onItemClick(null, selection, getDrawerItem(selection));
         }
     }
 
@@ -1796,7 +1844,7 @@ public class DrawerBuilder {
      * @return
      */
     protected IDrawerItem getDrawerItem(int position) {
-        return getAdapter().getItem(position);
+        return (IDrawerItem) getAdapter().getItem(position);
     }
 
     /**

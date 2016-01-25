@@ -9,6 +9,7 @@ import android.support.annotation.ColorInt;
 import android.support.annotation.ColorRes;
 import android.support.annotation.DrawableRes;
 import android.support.annotation.StringRes;
+import android.support.v7.widget.RecyclerView;
 import android.util.Pair;
 
 import com.mikepenz.iconics.typeface.IIcon;
@@ -25,7 +26,7 @@ import com.mikepenz.materialdrawer.util.DrawerUIUtils;
 /**
  * Created by mikepenz on 03.02.15.
  */
-public abstract class BaseDrawerItem<T> extends AbstractDrawerItem<T> implements Nameable<T>, Iconable<T>, Tagable<T>, Typefaceable<T> {
+public abstract class BaseDrawerItem<T, VH extends RecyclerView.ViewHolder> extends AbstractDrawerItem<T, VH> implements Nameable<T>, Iconable<T>, Tagable<T>, Typefaceable<T> {
     protected ImageHolder icon;
     protected ImageHolder selectedIcon;
     protected StringHolder name;

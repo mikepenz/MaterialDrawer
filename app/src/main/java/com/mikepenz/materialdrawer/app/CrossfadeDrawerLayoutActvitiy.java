@@ -148,8 +148,8 @@ public class CrossfadeDrawerLayoutActvitiy extends AppCompatActivity {
         crossfadeDrawerLayout.withCrossfadeListener(new CrossfadeDrawerLayout.CrossfadeListener() {
             @Override
             public void onCrossfade(View containerView, float currentSlidePercentage, int slideOffset) {
-                for (int i = 0; i < miniResult.getDrawerAdapter().getItemCount(); i++) {
-                    IDrawerItem drawerItem = miniResult.getDrawerAdapter().getItem(i);
+                for (int i = 0; i < miniResult.getAdapter().getItemCount(); i++) {
+                    IDrawerItem drawerItem = miniResult.getAdapter().getItem(i);
                     if (drawerItem instanceof MiniProfileDrawerItem) {
                         MiniProfileDrawerItem mpdi = (MiniProfileDrawerItem) drawerItem;
                         mpdi.withCustomHeightPx((int) (originalProfileHeight + (headerDifference * currentSlidePercentage / 100)));
@@ -159,7 +159,7 @@ public class CrossfadeDrawerLayoutActvitiy extends AppCompatActivity {
                     }
                 }
 
-                miniResult.getDrawerAdapter().notifyDataSetChanged();
+                miniResult.getAdapter().notifyDataSetChanged();
             }
         });
 

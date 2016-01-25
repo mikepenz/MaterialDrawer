@@ -79,7 +79,7 @@ public class PersistentDrawerActivity extends AppCompatActivity {
                 .build();
 
         //Create the drawer
-        DrawerBuilder builder = new DrawerBuilder()
+        result = new DrawerBuilder()
                 .withActivity(this)
                 .withAccountHeader(headerResult) //set the AccountHeader we created earlier for the header
                 .addDrawerItems(
@@ -92,19 +92,16 @@ public class PersistentDrawerActivity extends AppCompatActivity {
                         new SecondaryDrawerItem().withName(R.string.drawer_item_open_source).withIcon(FontAwesome.Icon.faw_github),
                         new SecondaryDrawerItem().withName(R.string.drawer_item_contact).withIcon(FontAwesome.Icon.faw_bullhorn)
                 )
-                .withSavedInstance(savedInstanceState);
+                .withGenerateMiniDrawer(true)
+                .withSavedInstance(savedInstanceState)
+                .buildView();
+
+        // create the MiniDrawer and define the drawer and header to be used (it will automatically use the items from them)
+        miniResult = result.getMiniDrawer().withIncludeSecondaryDrawerItems(true);
 
         //set the back arrow in the toolbar
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         getSupportActionBar().setHomeButtonEnabled(false);
-
-        // build only the view of the Drawer (don't inflate it automatically in our layout which is done with .build())
-        result = builder.buildView();
-        // create the MiniDrawer and define the drawer and header to be used (it will automatically use the items from them)
-        miniResult = new MiniDrawer()
-                .withDrawer(result)
-                .withIncludeSecondaryDrawerItems(true)
-                .withAccountHeader(headerResult);
 
         //get the widths in px for the first and second panel
         int firstWidth = (int) com.mikepenz.crossfader.util.UIUtils.convertDpToPixel(300, this);

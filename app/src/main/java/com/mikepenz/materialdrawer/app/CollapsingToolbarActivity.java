@@ -65,6 +65,7 @@ public class CollapsingToolbarActivity extends AppCompatActivity {
                         new SecondaryDrawerItem().withName(R.string.drawer_item_open_source).withIcon(FontAwesome.Icon.faw_github),
                         new SecondaryDrawerItem().withName(R.string.drawer_item_contact).withIcon(FontAwesome.Icon.faw_bullhorn)
                 )
+                .withSavedInstance(savedInstanceState)
                 .build();
 
         fillFab();
@@ -79,5 +80,14 @@ public class CollapsingToolbarActivity extends AppCompatActivity {
     private void fillFab() {
         final FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.floating_action_button);
         fab.setImageDrawable(new IconicsDrawable(this, GoogleMaterial.Icon.gmd_favorite).actionBar().color(Color.WHITE));
+    }
+
+    @Override
+    protected void onSaveInstanceState(Bundle outState) {
+        //add the values which need to be saved from the drawer to the bundle
+        outState = result.saveInstanceState(outState);
+        //add the values which need to be saved from the accountHeader to the bundle
+        outState = headerResult.saveInstanceState(outState);
+        super.onSaveInstanceState(outState);
     }
 }

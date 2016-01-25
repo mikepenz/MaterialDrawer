@@ -30,7 +30,6 @@ import com.mikepenz.materialdrawer.model.interfaces.IDrawerItem;
 import com.mikepenz.materialdrawer.model.interfaces.IProfile;
 import com.mikepenz.materialdrawer.util.DrawerImageLoader;
 import com.mikepenz.materialdrawer.util.DrawerUIUtils;
-import com.mikepenz.materialdrawer.util.IdDistributor;
 import com.mikepenz.materialdrawer.view.BezelImageView;
 import com.mikepenz.materialize.util.UIUtils;
 
@@ -609,7 +608,7 @@ public class AccountHeaderBuilder {
      * @return
      */
     public AccountHeaderBuilder withProfiles(@NonNull ArrayList<IProfile> profiles) {
-        this.mProfiles = IdDistributor.checkIds(profiles);
+        this.mProfiles = profiles;
         return this;
     }
 
@@ -624,7 +623,7 @@ public class AccountHeaderBuilder {
             this.mProfiles = new ArrayList<>();
         }
 
-        Collections.addAll(this.mProfiles, IdDistributor.checkIds(profiles));
+        Collections.addAll(this.mProfiles, profiles);
 
         return this;
     }
@@ -816,7 +815,7 @@ public class AccountHeaderBuilder {
             mAccountHeaderTextSection = mAccountHeaderContainer.findViewById(R.id.material_drawer_account_header_text_section);
         }
 
-        mAccountHeaderTextSectionBackgroundResource = DrawerUIUtils.getSelectableBackground(mActivity);
+        mAccountHeaderTextSectionBackgroundResource = UIUtils.getSelectableBackground(mActivity);
         handleSelectionView(mCurrentProfile, true);
 
         // set the arrow :D
@@ -1363,7 +1362,7 @@ public class AccountHeaderBuilder {
                     if (mCurrentHiddenInList) {
                         continue;
                     } else {
-                        selectedPosition = position + mDrawer.getAdapter().getHeaderOffset();
+                        selectedPosition = mDrawer.mDrawerBuilder.getItemAdapter().getGlobalPosition(position);
                     }
                 }
                 if (profile instanceof IDrawerItem) {
@@ -1412,10 +1411,17 @@ public class AccountHeaderBuilder {
 
             //if a custom behavior was chosen via the CloseDrawerOnProfileListClick then use this. else react on the result of the onProfileChanged listener
             if (mCloseDrawerOnProfileListClick != null) {
-                return !mCloseDrawerOnProfileListClick;
-            } else {
-                return consumed;
+                consumed = consumed && !mCloseDrawerOnProfileListClick;
             }
+
+            //totally custom handling of the drawer behavior as otherwise the selection of the profile list is set to the Drawer
+            if (mDrawer != null && !consumed) {
+                //close the drawer after click
+                mDrawer.mDrawerBuilder.closeDrawerDelayed();
+            }
+
+            //consume the event to prevent setting the clicked item as selected in the already switched item list
+            return true;
         }
     };
 

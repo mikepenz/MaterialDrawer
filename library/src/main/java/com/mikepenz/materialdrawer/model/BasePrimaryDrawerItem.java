@@ -20,7 +20,7 @@ import com.mikepenz.materialize.util.UIUtils;
 /**
  * Created by mikepenz on 03.02.15.
  */
-public abstract class BasePrimaryDrawerItem<T> extends BaseDrawerItem<T> {
+public abstract class BasePrimaryDrawerItem<T, VH extends BaseViewHolder> extends BaseDrawerItem<T, VH> {
     private StringHolder description;
     private ColorHolder descriptionTextColor;
 
@@ -61,7 +61,7 @@ public abstract class BasePrimaryDrawerItem<T> extends BaseDrawerItem<T> {
         Context ctx = viewHolder.itemView.getContext();
 
         //set the identifier from the drawerItem here. It can be used to run tests
-        viewHolder.itemView.setId(getIdentifier());
+        viewHolder.itemView.setId(hashCode());
 
         //set the item selected if it is
         viewHolder.itemView.setSelected(isSelected());
@@ -79,7 +79,7 @@ public abstract class BasePrimaryDrawerItem<T> extends BaseDrawerItem<T> {
         int selectedIconColor = getSelectedIconColor(ctx);
 
         //set the background for the item
-        UIUtils.setBackground(viewHolder.view, DrawerUIUtils.getSelectableBackground(ctx, selectedColor));
+        UIUtils.setBackground(viewHolder.view, UIUtils.getSelectableBackground(ctx, selectedColor, true));
         //set the text for the name
         StringHolder.applyTo(this.getName(), viewHolder.name);
         //set the text for the description or hide
@@ -103,21 +103,5 @@ public abstract class BasePrimaryDrawerItem<T> extends BaseDrawerItem<T> {
 
         //for android API 17 --> Padding not applied via xml
         DrawerUIUtils.setDrawerVerticalPadding(viewHolder.view, level);
-    }
-
-    protected static class BaseViewHolder extends RecyclerView.ViewHolder {
-        protected View view;
-        protected ImageView icon;
-        protected TextView name;
-        protected TextView description;
-
-        public BaseViewHolder(View view) {
-            super(view);
-
-            this.view = view;
-            this.icon = (ImageView) view.findViewById(R.id.material_drawer_icon);
-            this.name = (TextView) view.findViewById(R.id.material_drawer_name);
-            this.description = (TextView) view.findViewById(R.id.material_drawer_description);
-        }
     }
 }
