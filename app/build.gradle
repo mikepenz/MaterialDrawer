@@ -58,12 +58,12 @@ dependencies {
 
     // used to generate the Open Source section
     // https://github.com/mikepenz/AboutLibraries
-    compile('com.mikepenz:aboutlibraries:5.3.6@aar') {
+    compile('com.mikepenz:aboutlibraries:5.3.7@aar') {
         transitive = true
     }
     //used to provide different itemAnimators for the RecyclerView
     //https://github.com/mikepenz/ItemAnimators
-    compile 'com.mikepenz:itemanimators:0.2.0-SNAPSHOT@aar'
+    compile 'com.mikepenz:itemanimators:0.2.1@aar'
     // used to provide the MiniDrawer to normal Drawer crossfade effect via a SlidingPane layout
     // --> https://github.com/mikepenz/MaterialDrawer/blob/develop/app/src/main/java/com/mikepenz/materialdrawer/app/MiniDrawerActivity.java
     // https://github.com/mikepenz/Crossfader
