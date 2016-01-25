@@ -1,7 +1,8 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:gravity="center"
+    android:id="@+id/container"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    android:gravity="center">
 
     <FrameLayout
         android:id="@+id/frame_container"
@@ -10,9 +11,9 @@
 
         <TextView
             android:id="@+id/txtLabel"
-            android:layout_gravity="center"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_gravity="center"
             android:text="test"
             android:textSize="16sp" />
     </FrameLayout>

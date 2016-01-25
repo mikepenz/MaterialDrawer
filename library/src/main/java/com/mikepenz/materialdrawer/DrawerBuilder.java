@@ -34,7 +34,6 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.FrameLayout;
 import android.widget.LinearLayout;
-import android.widget.RelativeLayout;
 
 import com.mikepenz.fastadapter.FastAdapter;
 import com.mikepenz.fastadapter.IAdapter;
@@ -51,6 +50,7 @@ import com.mikepenz.materialdrawer.model.interfaces.Selectable;
 import com.mikepenz.materialize.Materialize;
 import com.mikepenz.materialize.MaterializeBuilder;
 import com.mikepenz.materialize.util.UIUtils;
+import com.mikepenz.materialize.view.ScrimInsetsRelativeLayout;
 
 import java.util.ArrayList;
 import java.util.Collections;
@@ -135,7 +135,7 @@ public class DrawerBuilder {
     }
 
     // set non translucent statusBar mode
-    protected boolean mTranslucentStatusBar = true;
+    protected boolean mTranslucentStatusBar = false;
 
     /**
      * Sets that the view which hosts the DrawerLayout should have a translucent statusBar
@@ -168,7 +168,7 @@ public class DrawerBuilder {
 
 
     // set to disable the translucent statusBar Programmatically
-    protected boolean mTranslucentStatusBarProgrammatically = true;
+    protected boolean mTranslucentStatusBarProgrammatically = false;
 
     /**
      * Sets if the drawer should handle and make the statusBar translucent
@@ -182,19 +182,6 @@ public class DrawerBuilder {
         if (translucentStatusBarProgrammatically) {
             this.mTranslucentStatusBar = true;
         }
-        return this;
-    }
-
-    // defines if we want the statusBarShadow to be used in the Drawer
-    protected Boolean mTranslucentStatusBarShadow = null;
-
-    /**
-     * Sets if the MaterialDrawer should add the translucent shadow overlay under the statusBar to get the same effect as the toolbar with a colored statusBar
-     *
-     * @param translucentStatusBarShadow sets wheter the drawer should handle a shadow under the translucent statusBar or not
-     */
-    public DrawerBuilder withTranslucentStatusBarShadow(Boolean translucentStatusBarShadow) {
-        this.mTranslucentStatusBarShadow = translucentStatusBarShadow;
         return this;
     }
 
@@ -325,7 +312,7 @@ public class DrawerBuilder {
 
     // the drawerLayout to use
     protected DrawerLayout mDrawerLayout;
-    protected RelativeLayout mSliderLayout;
+    protected ScrimInsetsRelativeLayout mSliderLayout;
 
     /**
      * Pass a custom DrawerLayout which will be used.
@@ -354,7 +341,11 @@ public class DrawerBuilder {
         if (resLayout != -1) {
             this.mDrawerLayout = (DrawerLayout) mActivity.getLayoutInflater().inflate(resLayout, mRootView, false);
         } else {
-            this.mDrawerLayout = (DrawerLayout) mActivity.getLayoutInflater().inflate(R.layout.material_drawer, mRootView, false);
+            if (Build.VERSION.SDK_INT >= 19 && Build.VERSION.SDK_INT < 21) {
+                this.mDrawerLayout = (DrawerLayout) mActivity.getLayoutInflater().inflate(R.layout.material_drawer_fits_not, mRootView, false);
+            } else {
+                this.mDrawerLayout = (DrawerLayout) mActivity.getLayoutInflater().inflate(R.layout.material_drawer, mRootView, false);
+            }
         }
 
         return this;
@@ -1295,6 +1286,7 @@ public class DrawerBuilder {
                 .withRootView(mRootView)
                 .withFullscreen(mFullscreen)
                 .withSystemUIHidden(mSystemUIHidden)
+                .withUseScrimInsetsLayout(Build.VERSION.SDK_INT >= 19 && Build.VERSION.SDK_INT < 21)
                 .withTranslucentStatusBar(mTranslucentStatusBar)
                 .withTranslucentStatusBarProgrammatically(mTranslucentStatusBarProgrammatically)
                 .withTranslucentNavigationBar(mTranslucentNavigationBar)
@@ -1496,7 +1488,7 @@ public class DrawerBuilder {
      */
     public Drawer buildView() {
         // get the slider view
-        mSliderLayout = (RelativeLayout) mActivity.getLayoutInflater().inflate(R.layout.material_drawer_slider, mDrawerLayout, false);
+        mSliderLayout = (ScrimInsetsRelativeLayout) mActivity.getLayoutInflater().inflate(R.layout.material_drawer_slider, mDrawerLayout, false);
         mSliderLayout.setBackgroundColor(UIUtils.getThemeColorFromAttrOrRes(mActivity, R.attr.material_drawer_background, R.color.material_drawer_background));
         // get the layout params
         DrawerLayout.LayoutParams params = (DrawerLayout.LayoutParams) mSliderLayout.getLayoutParams();
@@ -1561,7 +1553,7 @@ public class DrawerBuilder {
         mDrawerLayout = result.getDrawerLayout();
 
         // get the slider view
-        mSliderLayout = (RelativeLayout) mActivity.getLayoutInflater().inflate(R.layout.material_drawer_slider, mDrawerLayout, false);
+        mSliderLayout = (ScrimInsetsRelativeLayout) mActivity.getLayoutInflater().inflate(R.layout.material_drawer_slider, mDrawerLayout, false);
         mSliderLayout.setBackgroundColor(UIUtils.getThemeColorFromAttrOrRes(mActivity, R.attr.material_drawer_background, R.color.material_drawer_background));
         // get the layout params
         DrawerLayout.LayoutParams params = (DrawerLayout.LayoutParams) mSliderLayout.getLayoutParams();
@@ -1636,7 +1628,7 @@ public class DrawerBuilder {
             mRecyclerView.setLayoutManager(mLayoutManager);
 
             int paddingTop = 0;
-            if ((mTranslucentStatusBar || mFullscreen) && (mDisplayBelowStatusBar == null || !mDisplayBelowStatusBar) && !mSystemUIHidden) {
+            if (/*(mTranslucentStatusBar || mFullscreen) &&*/ (mDisplayBelowStatusBar == null || mDisplayBelowStatusBar) && !mSystemUIHidden) {
                 paddingTop = UIUtils.getStatusBarHeight(mActivity);
             }
             int paddingBottom = 0;
@@ -1653,12 +1645,6 @@ public class DrawerBuilder {
         );
         params.weight = 1f;
         mSliderLayout.addView(mRecyclerView, params);
-
-        //find the shadow view
-        View statusBarShadow = mSliderLayout.findViewById(R.id.material_drawer_shadow_top);
-        RelativeLayout.LayoutParams shadowLayoutParams = (RelativeLayout.LayoutParams) statusBarShadow.getLayoutParams();
-        shadowLayoutParams.height = UIUtils.getStatusBarHeight(mActivity, true);
-        statusBarShadow.setLayoutParams(shadowLayoutParams);
 
         if (mInnerShadow) {
             View innerShadow = mSliderLayout.findViewById(R.id.material_drawer_inner_shadow);
@@ -1680,31 +1666,6 @@ public class DrawerBuilder {
             UIUtils.setBackground(mSliderLayout, mSliderBackgroundDrawable);
         } else if (mSliderBackgroundDrawableRes != -1) {
             UIUtils.setBackground(mSliderLayout, mSliderBackgroundColorRes);
-        }
-
-        //some extra stuff to beautify the whole thing ;)
-        if ((mTranslucentStatusBar || (mTranslucentStatusBarShadow != null && mTranslucentStatusBarShadow))) {
-            if (mTranslucentStatusBarShadow == null) {
-                //if we use the default behavior show it only if we are >= API Level 21
-                if (Build.VERSION.SDK_INT >= 21) {
-                    //bring shadow bar to front again
-                    statusBarShadow.bringToFront();
-                } else {
-                    //disable the shadow if  we are on a lower sdk
-                    statusBarShadow.setVisibility(View.GONE);
-                }
-            } else {
-                //bring shadow bar to front again
-                statusBarShadow.bringToFront();
-            }
-        } else {
-            //disable the shadow if we don't use a translucent activity
-            statusBarShadow.setVisibility(View.GONE);
-        }
-
-        if (mDisplayBelowStatusBar != null && mDisplayBelowStatusBar) {
-            //disable the shadow if we are below the statusBar
-            statusBarShadow.setVisibility(View.GONE);
         }
 
         //handle the header
@@ -1742,7 +1703,6 @@ public class DrawerBuilder {
         }
         mAdapter.deselect();
         mAdapter.select(mSelectedItemPosition);
-        //DrawerUtils.setRecyclerViewSelection(this, mSelectedItemPosition, false);
 
         // add the onDrawerItemClickListener if set
         mAdapter.withOnClickListener(new FastAdapter.OnClickListener<IDrawerItem>() {

@@ -50,6 +50,7 @@ public class DrawerFragment extends Fragment {
         result = new DrawerBuilder()
                 .withActivity(getActivity())
                 .withRootView((ViewGroup) view.findViewById(R.id.rootView))
+                .withDisplayBelowStatusBar(false)
                 .withSavedInstance(savedInstanceState)
                 .addDrawerItems(
                         new PrimaryDrawerItem().withName(R.string.drawer_item_home).withIcon(FontAwesome.Icon.faw_home).withIdentifier(1),
@@ -65,6 +66,9 @@ public class DrawerFragment extends Fragment {
 
         TextView textView = (TextView) view.findViewById(R.id.title);
         textView.setText(getArguments().getString(KEY_TITLE));
+
+        result.getDrawerLayout().setFitsSystemWindows(false);
+        result.getSlider().setFitsSystemWindows(false);
 
         return view;
     }

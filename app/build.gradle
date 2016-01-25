@@ -71,7 +71,7 @@ dependencies {
     // used to provide the two step crossfade DrawerLayout. Which allows to have a mini layout which transforms to a normal layout within the drawer
     // --> https://github.com/mikepenz/MaterialDrawer/blob/develop/app/src/main/java/com/mikepenz/materialdrawer/app/CrossfadeDrawerLayoutActvitiy.java
     // https://github.com/mikepenz/CrossfadeDrawerLayout
-    compile('com.mikepenz:crossfadedrawerlayout:0.2.0@aar')
+    compile('com.mikepenz:crossfadedrawerlayout:0.2.5@aar')
 
     // icon fonts used inside the sample
     // https://github.com/mikepenz/Android-Iconics

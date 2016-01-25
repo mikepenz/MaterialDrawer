@@ -44,7 +44,7 @@
         <activity
             android:name=".KeyboardUtilActivity"
             android:theme="@style/MaterialDrawerTheme.Light.DarkToolbar.TranslucentStatus"
-            android:windowSoftInputMode="stateHidden" />
+            android:windowSoftInputMode="adjustResize|stateHidden" />
         <activity
             android:name=".EmbeddedDrawerActivity"
             android:theme="@style/MaterialDrawerTheme" />
@@ -65,7 +65,7 @@
             android:theme="@style/MaterialDrawerTheme.Light.DarkToolbar.TranslucentStatus" />
         <activity
             android:name=".CrossfadeDrawerLayoutActvitiy"
-            android:theme="@style/MaterialDrawerTheme" />
+            android:theme="@style/MaterialDrawerTheme.TranslucentStatus" />
     </application>
 
 </manifest>

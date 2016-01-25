@@ -76,6 +76,8 @@ public class FullscreenDrawerActivity extends AppCompatActivity {
             getWindow().setStatusBarColor(Color.TRANSPARENT);
         }
         */
+
+        result.getDrawerLayout().setFitsSystemWindows(false);
     }
 
     /*

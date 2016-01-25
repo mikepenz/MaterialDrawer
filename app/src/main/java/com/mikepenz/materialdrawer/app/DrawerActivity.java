@@ -71,6 +71,7 @@ public class DrawerActivity extends AppCompatActivity {
         // Create the AccountHeader
         headerResult = new AccountHeaderBuilder()
                 .withActivity(this)
+                .withTranslucentStatusBar(true)
                 .withHeaderBackground(R.drawable.header)
                 .addProfiles(
                         profile,
@@ -110,7 +111,9 @@ public class DrawerActivity extends AppCompatActivity {
         result = new DrawerBuilder()
                 .withActivity(this)
                 .withToolbar(toolbar)
+                .withDisplayBelowStatusBar(true)
                 .withHasStableIds(true)
+                .withTranslucentStatusBar(true)
                 .withItemAnimator(new AlphaCrossFadeAnimator())
                 .withAccountHeader(headerResult) //set the AccountHeader we created earlier for the header
                 .addDrawerItems(
@@ -227,6 +230,8 @@ public class DrawerActivity extends AppCompatActivity {
         }
 
         result.updateBadge(4, new StringHolder(10 + ""));
+
+        result.getSlider().setFitsSystemWindows(true);
     }
 
     private OnCheckedChangeListener onCheckedChangeListener = new OnCheckedChangeListener() {

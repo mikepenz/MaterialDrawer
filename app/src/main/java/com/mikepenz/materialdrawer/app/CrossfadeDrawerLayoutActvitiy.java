@@ -2,6 +2,7 @@ package com.mikepenz.materialdrawer.app;
 
 import android.graphics.Color;
 import android.net.Uri;
+import android.os.Build;
 import android.os.Bundle;
 import android.support.v4.view.GravityCompat;
 import android.support.v7.app.AppCompatActivity;
@@ -20,8 +21,6 @@ import com.mikepenz.materialdrawer.DrawerBuilder;
 import com.mikepenz.materialdrawer.MiniDrawer;
 import com.mikepenz.materialdrawer.holder.BadgeStyle;
 import com.mikepenz.materialdrawer.interfaces.ICrossfader;
-import com.mikepenz.materialdrawer.model.MiniDrawerItem;
-import com.mikepenz.materialdrawer.model.MiniProfileDrawerItem;
 import com.mikepenz.materialdrawer.model.PrimaryDrawerItem;
 import com.mikepenz.materialdrawer.model.ProfileDrawerItem;
 import com.mikepenz.materialdrawer.model.SecondaryDrawerItem;
@@ -65,16 +64,12 @@ public class CrossfadeDrawerLayoutActvitiy extends AppCompatActivity {
                 .withSavedInstance(savedInstanceState)
                 .build();
 
-        //create the CrossfadeDrawerLayout which will be used as alternative DrawerLayout for the Drawer
-        //the CrossfadeDrawerLayout library can be found here: https://github.com/mikepenz/CrossfadeDrawerLayout
-        crossfadeDrawerLayout = new CrossfadeDrawerLayout(this);
-
         //Create the drawer
         result = new DrawerBuilder()
                 .withActivity(this)
                 .withToolbar(toolbar)
-                .withDrawerLayout(crossfadeDrawerLayout)
                 .withHasStableIds(true)
+                .withDrawerLayout(R.layout.crossfade_drawer)
                 .withDrawerWidthDp(72)
                 .withGenerateMiniDrawer(true)
                 .withAccountHeader(headerResult) //set the AccountHeader we created earlier for the header
@@ -102,6 +97,11 @@ public class CrossfadeDrawerLayoutActvitiy extends AppCompatActivity {
                 .withSavedInstance(savedInstanceState)
                 .withShowDrawerOnFirstLaunch(true)
                 .build();
+
+
+        //get the CrossfadeDrawerLayout which will be used as alternative DrawerLayout for the Drawer
+        //the CrossfadeDrawerLayout library can be found here: https://github.com/mikepenz/CrossfadeDrawerLayout
+        crossfadeDrawerLayout = (CrossfadeDrawerLayout) result.getDrawerLayout();
 
         //define maxDrawerWidth
         crossfadeDrawerLayout.setMaxWidthPx(DrawerUIUtils.getOptimalDrawerWidth(this));
@@ -139,6 +139,7 @@ public class CrossfadeDrawerLayoutActvitiy extends AppCompatActivity {
          * this animate the height of the profile to the height of the AccountHeader and
          * animates the height of the drawerItems to the normal drawerItems so the difference between Mini and normal Drawer is eliminated
          **/
+        /*
         final double headerHeight = DrawerUIUtils.getOptimalDrawerWidth(this) * 9d / 16d;
         final double originalProfileHeight = UIUtils.convertDpToPixel(72, this);
         final double headerDifference = headerHeight - originalProfileHeight;
@@ -162,7 +163,12 @@ public class CrossfadeDrawerLayoutActvitiy extends AppCompatActivity {
                 miniResult.getAdapter().notifyDataSetChanged();
             }
         });
+        */
 
+        //as we want our crossfadeDrawerLayout behind the StatusBar
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.ICE_CREAM_SANDWICH) {
+            crossfadeDrawerLayout.getContainer().setFitsSystemWindows(true);
+        }
     }
 
     @Override

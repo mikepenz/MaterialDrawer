@@ -373,8 +373,6 @@ class DrawerUtils {
     private static void addStickyFooterDivider(Context ctx, ViewGroup footerView) {
         LinearLayout divider = new LinearLayout(ctx);
         LinearLayout.LayoutParams dividerParams = new LinearLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT);
-        //remove bottomMargin --> See inbox it also has no margin here
-        //dividerParams.bottomMargin = mActivity.getResources().getDimensionPixelSize(R.dimen.material_drawer_padding);
         divider.setMinimumHeight((int) UIUtils.convertDpToPixel(1, ctx));
         divider.setOrientation(LinearLayout.VERTICAL);
         divider.setBackgroundColor(UIUtils.getThemeColorFromAttrOrRes(ctx, R.attr.material_drawer_divider, R.color.material_drawer_divider));
@@ -435,10 +433,6 @@ class DrawerUtils {
                 if (Build.VERSION.SDK_INT >= 17) {
                     params.setMarginEnd(drawer.mActivity.getResources().getDimensionPixelSize(R.dimen.material_drawer_margin));
                 }
-            }
-
-            if (drawer.mDisplayBelowStatusBar != null && drawer.mDisplayBelowStatusBar && Build.VERSION.SDK_INT >= 19) {
-                params.topMargin = UIUtils.getStatusBarHeight(drawer.mActivity, true);
             }
 
             if (drawer.mDrawerWidth > -1) {

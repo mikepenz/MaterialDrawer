@@ -11,7 +11,6 @@ import android.support.v7.widget.Toolbar;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.FrameLayout;
-import android.widget.RelativeLayout;
 
 import com.mikepenz.fastadapter.FastAdapter;
 import com.mikepenz.fastadapter.adapters.FooterAdapter;
@@ -27,6 +26,7 @@ import com.mikepenz.materialdrawer.model.interfaces.Nameable;
 import com.mikepenz.materialdrawer.util.KeyboardUtil;
 import com.mikepenz.materialize.Materialize;
 import com.mikepenz.materialize.view.IScrimInsetsLayout;
+import com.mikepenz.materialize.view.ScrimInsetsRelativeLayout;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -241,7 +241,7 @@ public class Drawer {
      *
      * @return
      */
-    public RelativeLayout getSlider() {
+    public ScrimInsetsRelativeLayout getSlider() {
         return mDrawerBuilder.mSliderLayout;
     }
 

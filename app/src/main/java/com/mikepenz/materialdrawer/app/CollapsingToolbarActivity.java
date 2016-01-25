@@ -19,7 +19,6 @@ import com.mikepenz.materialdrawer.DrawerBuilder;
 import com.mikepenz.materialdrawer.model.PrimaryDrawerItem;
 import com.mikepenz.materialdrawer.model.SecondaryDrawerItem;
 import com.mikepenz.materialdrawer.model.SectionDrawerItem;
-import com.mikepenz.materialize.util.UIUtils;
 
 public class CollapsingToolbarActivity extends AppCompatActivity {
 
@@ -33,12 +32,6 @@ public class CollapsingToolbarActivity extends AppCompatActivity {
 
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
-
-        //our toolbar's height has to include the padding of the statusBar so the ColapsingToolbarLayout and the Toolbar can position
-        //the arrow/title/... correct
-        CollapsingToolbarLayout.LayoutParams lp = (CollapsingToolbarLayout.LayoutParams) toolbar.getLayoutParams();
-        lp.height = lp.height + UIUtils.getStatusBarHeight(this);
-        toolbar.setLayoutParams(lp);
 
         CollapsingToolbarLayout collapsingToolbarLayout = (CollapsingToolbarLayout) findViewById(R.id.collapsing_toolbar);
         collapsingToolbarLayout.setTitle(getString(R.string.drawer_item_collapsing_toolbar_drawer));

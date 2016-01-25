@@ -15,7 +15,6 @@ import com.mikepenz.materialdrawer.model.SecondaryDrawerItem;
 import com.mikepenz.materialdrawer.model.SectionDrawerItem;
 import com.mikepenz.materialdrawer.model.interfaces.IDrawerItem;
 import com.mikepenz.materialdrawer.model.interfaces.Nameable;
-import com.mikepenz.materialdrawer.util.KeyboardUtil;
 
 public class KeyboardUtilActivity extends AppCompatActivity {
 
@@ -60,28 +59,9 @@ public class KeyboardUtilActivity extends AppCompatActivity {
                         return false;
                     }
                 })
-                .withOnDrawerListener(new Drawer.OnDrawerListener() {
-                    @Override
-                    public void onDrawerOpened(View drawerView) {
-                        KeyboardUtil.hideKeyboard(KeyboardUtilActivity.this);
-                    }
-
-                    @Override
-                    public void onDrawerClosed(View drawerView) {
-
-                    }
-
-                    @Override
-                    public void onDrawerSlide(View drawerView, float slideOffset) {
-
-                    }
-                })
                 .withFireOnInitialOnClick(true)
                 .withSavedInstance(savedInstanceState)
                 .build();
-
-        //react on the keyboard
-        result.keyboardSupportEnabled(this, true);
     }
 
     @Override
