@@ -32,11 +32,9 @@ public interface IDrawerItem<T, VH extends RecyclerView.ViewHolder> extends IIte
 
     View generateView(Context ctx, ViewGroup parent);
 
-    RecyclerView.ViewHolder getViewHolder(ViewGroup parent);
+    VH getViewHolder(ViewGroup parent);
 
     void bindView(VH holder);
 
-    boolean equals(Long id);
-
-    boolean equals(Object o);
+    boolean equals(long id);
 }

@@ -249,7 +249,7 @@ public abstract class AbstractDrawerItem<T, VH extends RecyclerView.ViewHolder> 
      *
      * @return
      */
-    public abstract ViewHolderFactory getFactory();
+    public abstract ViewHolderFactory<VH> getFactory();
 
     /**
      * generates a view by the defined LayoutRes
@@ -259,8 +259,8 @@ public abstract class AbstractDrawerItem<T, VH extends RecyclerView.ViewHolder> 
      */
     @Override
     public View generateView(Context ctx) {
-        RecyclerView.ViewHolder viewHolder = getFactory().create(LayoutInflater.from(ctx).inflate(getLayoutRes(), null, false));
-        bindView((VH) viewHolder);
+        VH viewHolder = getFactory().create(LayoutInflater.from(ctx).inflate(getLayoutRes(), null, false));
+        bindView(viewHolder);
         return viewHolder.itemView;
     }
 
@@ -273,8 +273,8 @@ public abstract class AbstractDrawerItem<T, VH extends RecyclerView.ViewHolder> 
      */
     @Override
     public View generateView(Context ctx, ViewGroup parent) {
-        RecyclerView.ViewHolder viewHolder = getFactory().create(LayoutInflater.from(ctx).inflate(getLayoutRes(), parent, false));
-        bindView((VH) viewHolder);
+        VH viewHolder = getFactory().create(LayoutInflater.from(ctx).inflate(getLayoutRes(), parent, false));
+        bindView(viewHolder);
         return viewHolder.itemView;
     }
 
@@ -286,7 +286,7 @@ public abstract class AbstractDrawerItem<T, VH extends RecyclerView.ViewHolder> 
      * @return the ViewHolder for this Item
      */
     @Override
-    public RecyclerView.ViewHolder getViewHolder(ViewGroup parent) {
+    public VH getViewHolder(ViewGroup parent) {
         return getFactory().create(LayoutInflater.from(parent.getContext()).inflate(getLayoutRes(), parent, false));
     }
 
@@ -297,12 +297,12 @@ public abstract class AbstractDrawerItem<T, VH extends RecyclerView.ViewHolder> 
      * @return
      */
     @Override
-    public boolean equals(Long id) {
-        return id != null && id == mIdentifier;
+    public boolean equals(long id) {
+        return id == mIdentifier;
     }
 
-    public boolean equals(Integer id) {
-        return id != null && id == mIdentifier;
+    public boolean equals(int id) {
+        return id == mIdentifier;
     }
 
     /**
