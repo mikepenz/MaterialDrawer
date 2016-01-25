@@ -12,7 +12,6 @@ import android.widget.LinearLayout;
 
 import com.mikepenz.fastadapter.FastAdapter;
 import com.mikepenz.fastadapter.IAdapter;
-import com.mikepenz.fastadapter.IItem;
 import com.mikepenz.fastadapter.adapters.ItemAdapter;
 import com.mikepenz.materialdrawer.interfaces.ICrossfader;
 import com.mikepenz.materialdrawer.model.MiniDrawerItem;
@@ -143,7 +142,7 @@ public class MiniDrawer {
         return this;
     }
 
-    private FastAdapter.OnClickListener mOnMiniDrawerItemClickListener;
+    private FastAdapter.OnClickListener<IDrawerItem> mOnMiniDrawerItemClickListener;
 
     /**
      * Define an onClickListener for the MiniDrawer item adapter. WARNING: this will overwrite the default behavior
@@ -151,13 +150,13 @@ public class MiniDrawer {
      * @param onMiniDrawerItemClickListener
      * @return
      */
-    public MiniDrawer withOnMiniDrawerItemClickListener(FastAdapter.OnClickListener onMiniDrawerItemClickListener) {
+    public MiniDrawer withOnMiniDrawerItemClickListener(FastAdapter.OnClickListener<IDrawerItem> onMiniDrawerItemClickListener) {
         this.mOnMiniDrawerItemClickListener = onMiniDrawerItemClickListener;
         return this;
     }
 
 
-    private FastAdapter.OnLongClickListener mOnMiniDrawerItemLongClickListener;
+    private FastAdapter.OnLongClickListener<IDrawerItem> mOnMiniDrawerItemLongClickListener;
 
     /**
      * Define an onLongClickListener for the MiniDrawer item adapter
@@ -165,7 +164,7 @@ public class MiniDrawer {
      * @param onMiniDrawerItemLongClickListener
      * @return
      */
-    public MiniDrawer withOnMiniDrawerItemLongClickListener(FastAdapter.OnLongClickListener onMiniDrawerItemLongClickListener) {
+    public MiniDrawer withOnMiniDrawerItemLongClickListener(FastAdapter.OnLongClickListener<IDrawerItem> onMiniDrawerItemLongClickListener) {
         this.mOnMiniDrawerItemLongClickListener = onMiniDrawerItemLongClickListener;
         return this;
     }
@@ -436,10 +435,10 @@ public class MiniDrawer {
         if (mOnMiniDrawerItemClickListener != null) {
             mAdapter.withOnClickListener(mOnMiniDrawerItemClickListener);
         } else {
-            mAdapter.withOnClickListener(new FastAdapter.OnClickListener() {
+            mAdapter.withOnClickListener(new FastAdapter.OnClickListener<IDrawerItem>() {
                 @Override
-                public boolean onClick(View v, IAdapter adapter, final IItem item, final int position) {
-                    int type = getMiniDrawerType((IDrawerItem) item);
+                public boolean onClick(View v, IAdapter<IDrawerItem> adapter, final IDrawerItem item, final int position) {
+                    int type = getMiniDrawerType(item);
                     if (type == ITEM) {
                         //fire the onClickListener also if the specific drawerItem is not Selectable
                         if (item.isSelectable()) {
@@ -448,7 +447,7 @@ public class MiniDrawer {
                                 mAccountHeader.toggleSelectionList(v.getContext());
                             }
                             //set the selection
-                            mDrawer.setSelection((IDrawerItem) item, true);
+                            mDrawer.setSelection(item, true);
                         } else if (mDrawer.getOnDrawerItemClickListener() != null) {
                             //get the original `DrawerItem` from the Drawer as this one will contain all information
                             mDrawer.getOnDrawerItemClickListener().onItemClick(v, position, DrawerUtils.getDrawerItem(getDrawerItems(), item.getIdentifier()));
