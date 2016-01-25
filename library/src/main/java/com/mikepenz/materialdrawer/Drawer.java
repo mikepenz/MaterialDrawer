@@ -796,11 +796,8 @@ public class Drawer {
         //if we are currently at a switched list set the new reference
         if (originalDrawerItems != null && !switchedItems) {
             originalDrawerItems = drawerItems;
-        } else {
-            mDrawerBuilder.getItemAdapter().set(drawerItems);
         }
-
-        mDrawerBuilder.mAdapter.notifyDataSetChanged();
+        mDrawerBuilder.getItemAdapter().setNewList(drawerItems);
     }
 
     /**
@@ -935,6 +932,7 @@ public class Drawer {
 
     /**
      * Sets the {@link OnDrawerNavigationListener}.
+     *
      * @param onDrawerNavigationListener the OnDrawerNavigationListener
      */
     public void setOnDrawerNavigationListener(OnDrawerNavigationListener onDrawerNavigationListener) {
@@ -943,6 +941,7 @@ public class Drawer {
 
     /**
      * Gets the {@link OnDrawerNavigationListener}.
+     *
      * @return the OnDrawerNavigationListener
      */
     public OnDrawerNavigationListener getOnDrawerNavigationListener() {
