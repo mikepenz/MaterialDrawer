@@ -51,7 +51,7 @@ You can find some frequently asked questions and other resources in the [WIKI / 
 ##1. Provide the gradle dependency
 
 ```gradle
-compile('com.mikepenz:materialdrawer:5.0.0.fastAdapter.b12-SNAPSHOT@aar') {
+compile('com.mikepenz:materialdrawer:5.0.0.fastAdapter.b15-SNAPSHOT@aar') {
 	transitive = true
 }
 ```
