@@ -782,7 +782,7 @@ public class AccountHeaderBuilder {
         }
 
         // handle everything if we have a translucent status bar which only is possible on API >= 19
-        if (mTranslucentStatusBar && Build.VERSION.SDK_INT >= 19) {
+        if (mTranslucentStatusBar && Build.VERSION.SDK_INT >= 21) {
             mAccountHeader.setPadding(mAccountHeader.getPaddingLeft(), mAccountHeader.getPaddingTop() + statusBarHeight, mAccountHeader.getPaddingRight(), mAccountHeader.getPaddingBottom());
             //in fact it makes no difference if we have a translucent statusBar or not. we want 9/16 just if we are not compact
             if (mCompactStyle) {
@@ -815,7 +815,7 @@ public class AccountHeaderBuilder {
             mAccountHeaderTextSection = mAccountHeaderContainer.findViewById(R.id.material_drawer_account_header_text_section);
         }
 
-        mAccountHeaderTextSectionBackgroundResource = UIUtils.getSelectableBackground(mActivity);
+        mAccountHeaderTextSectionBackgroundResource = UIUtils.getSelectableBackgroundRes(mActivity);
         handleSelectionView(mCurrentProfile, true);
 
         // set the arrow :D
