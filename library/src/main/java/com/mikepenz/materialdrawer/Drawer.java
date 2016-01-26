@@ -2,7 +2,6 @@ package com.mikepenz.materialdrawer;
 
 import android.app.Activity;
 import android.os.Bundle;
-import android.support.annotation.ColorInt;
 import android.support.annotation.NonNull;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
@@ -25,7 +24,6 @@ import com.mikepenz.materialdrawer.model.interfaces.Iconable;
 import com.mikepenz.materialdrawer.model.interfaces.Nameable;
 import com.mikepenz.materialdrawer.util.KeyboardUtil;
 import com.mikepenz.materialize.Materialize;
-import com.mikepenz.materialize.view.IScrimInsetsLayout;
 import com.mikepenz.materialize.view.ScrimInsetsRelativeLayout;
 
 import java.util.ArrayList;
@@ -163,30 +161,6 @@ public class Drawer {
         if (mDrawerBuilder.mMaterialize != null) {
             mDrawerBuilder.mMaterialize.setFullscreen(fullscreen);
         }
-    }
-
-    /**
-     * Set the color for the statusBar
-     *
-     * @param statusBarColor
-     */
-    public void setStatusBarColor(@ColorInt int statusBarColor) {
-        if (mDrawerBuilder.mMaterialize != null) {
-            mDrawerBuilder.mMaterialize.setStatusBarColor(statusBarColor);
-            mDrawerBuilder.mMaterialize.getScrimInsetsFrameLayout().getView().invalidate();
-        }
-    }
-
-    /**
-     * get the drawerContentRoot Layout (ScrimInsetsFrameLayout)
-     *
-     * @return
-     */
-    public IScrimInsetsLayout getScrimInsetsFrameLayout() {
-        if (mDrawerBuilder.mMaterialize != null) {
-            return mDrawerBuilder.mMaterialize.getScrimInsetsFrameLayout();
-        }
-        return null;
     }
 
     /**

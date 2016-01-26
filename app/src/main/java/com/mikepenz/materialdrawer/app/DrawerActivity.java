@@ -111,9 +111,7 @@ public class DrawerActivity extends AppCompatActivity {
         result = new DrawerBuilder()
                 .withActivity(this)
                 .withToolbar(toolbar)
-                .withDisplayBelowStatusBar(true)
                 .withHasStableIds(true)
-                .withTranslucentStatusBar(true)
                 .withItemAnimator(new AlphaCrossFadeAnimator())
                 .withAccountHeader(headerResult) //set the AccountHeader we created earlier for the header
                 .addDrawerItems(
