@@ -1286,7 +1286,7 @@ public class DrawerBuilder {
                 .withRootView(mRootView)
                 .withFullscreen(mFullscreen)
                 .withSystemUIHidden(mSystemUIHidden)
-                .withUseScrimInsetsLayout(Build.VERSION.SDK_INT >= 19 && Build.VERSION.SDK_INT < 21)
+                .withUseScrimInsetsLayout(false)
                 .withTranslucentStatusBar(mTranslucentStatusBar)
                 .withTranslucentStatusBarProgrammatically(mTranslucentStatusBarProgrammatically)
                 .withTranslucentNavigationBar(mTranslucentNavigationBar)
@@ -1632,7 +1632,7 @@ public class DrawerBuilder {
                 paddingTop = UIUtils.getStatusBarHeight(mActivity);
             }
             int paddingBottom = 0;
-            if (((mTranslucentNavigationBar || mFullscreen) && Build.VERSION.SDK_INT >= 19) && !mSystemUIHidden && mActivity.getResources().getConfiguration().orientation == Configuration.ORIENTATION_PORTRAIT) {
+            if (((mTranslucentNavigationBar || mFullscreen) && Build.VERSION.SDK_INT >= 21) && !mSystemUIHidden && mActivity.getResources().getConfiguration().orientation == Configuration.ORIENTATION_PORTRAIT) {
                 paddingBottom = UIUtils.getNavigationBarHeight(mActivity);
             }
 
