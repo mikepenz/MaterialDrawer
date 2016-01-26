@@ -1,6 +1,7 @@
 package com.mikepenz.materialdrawer.app;
 
 import android.graphics.Color;
+import android.os.Build;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
@@ -77,7 +78,9 @@ public class FullscreenDrawerActivity extends AppCompatActivity {
         }
         */
 
-        result.getDrawerLayout().setFitsSystemWindows(false);
+        if (Build.VERSION.SDK_INT >= 19) {
+            result.getDrawerLayout().setFitsSystemWindows(false);
+        }
     }
 
     /*

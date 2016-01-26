@@ -230,8 +230,6 @@ public class DrawerActivity extends AppCompatActivity {
         }
 
         result.updateBadge(4, new StringHolder(10 + ""));
-
-        result.getSlider().setFitsSystemWindows(true);
     }
 
     private OnCheckedChangeListener onCheckedChangeListener = new OnCheckedChangeListener() {

@@ -46,8 +46,6 @@ public class ActionBarActivity extends AppCompatActivity {
                     }
                 }).build();
 
-        result.getSlider().setFitsSystemWindows(false);
-
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         getSupportActionBar().setHomeButtonEnabled(false);
     }

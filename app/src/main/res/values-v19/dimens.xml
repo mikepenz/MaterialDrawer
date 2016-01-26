@@ -1,0 +1,4 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <dimen name="fullscreen_status_bar_height">25dp</dimen>
+</resources>

@@ -45,9 +45,6 @@ public class CustomContainerActivity extends AppCompatActivity {
                 )
                 .withSavedInstance(savedInstanceState)
                 .build();
-
-        result.getDrawerLayout().setFitsSystemWindows(false);
-        result.getSlider().setFitsSystemWindows(false);
     }
 
     @Override

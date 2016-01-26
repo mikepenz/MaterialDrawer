@@ -2,7 +2,6 @@ package com.mikepenz.materialdrawer.app;
 
 import android.graphics.Color;
 import android.net.Uri;
-import android.os.Build;
 import android.os.Bundle;
 import android.support.v4.view.GravityCompat;
 import android.support.v7.app.AppCompatActivity;
@@ -164,11 +163,6 @@ public class CrossfadeDrawerLayoutActvitiy extends AppCompatActivity {
             }
         });
         */
-
-        //as we want our crossfadeDrawerLayout behind the StatusBar
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.ICE_CREAM_SANDWICH) {
-            crossfadeDrawerLayout.getContainer().setFitsSystemWindows(true);
-        }
     }
 
     @Override
