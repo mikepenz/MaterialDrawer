@@ -14,6 +14,7 @@ import com.mikepenz.materialdrawer.util.IdDistributor;
 
 import java.util.ArrayList;
 import java.util.Collections;
+import java.util.List;
 
 /**
  * Created by mikepenz on 27.02.15.
@@ -150,7 +151,7 @@ public class AccountHeader {
      *
      * @return
      */
-    public ArrayList<IProfile> getProfiles() {
+    public List<IProfile> getProfiles() {
         return mAccountHeaderBuilder.mProfiles;
     }
 
@@ -159,7 +160,7 @@ public class AccountHeader {
      *
      * @param profiles
      */
-    public void setProfiles(ArrayList<IProfile> profiles) {
+    public void setProfiles(List<IProfile> profiles) {
         mAccountHeaderBuilder.mProfiles = IdDistributor.checkIds(profiles);
         mAccountHeaderBuilder.updateHeaderAndList();
     }

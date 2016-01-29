@@ -27,6 +27,7 @@ import com.mikepenz.materialize.Materialize;
 import com.mikepenz.materialize.view.IScrimInsetsLayout;
 
 import java.util.ArrayList;
+import java.util.List;
 
 /**
  * Created by mikepenz on 03.02.15.
@@ -277,7 +278,7 @@ public class Drawer {
      *
      * @return
      */
-    public ArrayList<IDrawerItem> getDrawerItems() {
+    public List<IDrawerItem> getDrawerItems() {
         return mDrawerBuilder.getAdapter().getDrawerItems();
     }
 
@@ -743,7 +744,7 @@ public class Drawer {
      *
      * @param drawerItems
      */
-    public void setItems(@NonNull ArrayList<IDrawerItem> drawerItems) {
+    public void setItems(@NonNull List<IDrawerItem> drawerItems) {
         setItems(IdDistributor.checkIds(drawerItems), false);
     }
 
@@ -753,7 +754,7 @@ public class Drawer {
      * @param drawerItems
      * @param switchedItems
      */
-    private void setItems(@NonNull ArrayList<IDrawerItem> drawerItems, boolean switchedItems) {
+    private void setItems(@NonNull List<IDrawerItem> drawerItems, boolean switchedItems) {
         //if we are currently at a switched list set the new reference
         if (originalDrawerItems != null && !switchedItems) {
             originalDrawerItems = drawerItems;
@@ -914,7 +915,7 @@ public class Drawer {
     //variables to store and remember the original list of the drawer
     private Drawer.OnDrawerItemClickListener originalOnDrawerItemClickListener;
     private Drawer.OnDrawerItemLongClickListener originalOnDrawerItemLongClickListener;
-    private ArrayList<IDrawerItem> originalDrawerItems;
+    private List<IDrawerItem> originalDrawerItems;
     private int originalDrawerSelection = -1;
 
     /**
@@ -931,7 +932,7 @@ public class Drawer {
      *
      * @return
      */
-    public ArrayList<IDrawerItem> getOriginalDrawerItems() {
+    public List<IDrawerItem> getOriginalDrawerItems() {
         return originalDrawerItems;
     }
 
@@ -942,7 +943,7 @@ public class Drawer {
      * @param drawerItems
      * @param drawerSelection
      */
-    public void switchDrawerContent(@NonNull OnDrawerItemClickListener onDrawerItemClickListener, OnDrawerItemLongClickListener onDrawerItemLongClickListener, @NonNull ArrayList<IDrawerItem> drawerItems, int drawerSelection) {
+    public void switchDrawerContent(@NonNull OnDrawerItemClickListener onDrawerItemClickListener, OnDrawerItemLongClickListener onDrawerItemLongClickListener, @NonNull List<IDrawerItem> drawerItems, int drawerSelection) {
         //just allow a single switched drawer
         if (!switchedDrawerContent()) {
             //save out previous values

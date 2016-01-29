@@ -5,6 +5,7 @@ import android.support.annotation.NonNull;
 import com.mikepenz.materialdrawer.model.interfaces.Identifyable;
 
 import java.util.ArrayList;
+import java.util.List;
 import java.util.concurrent.atomic.AtomicInteger;
 
 /**
@@ -19,7 +20,7 @@ public class IdDistributor {
      * @param items
      * @return
      */
-    public static <T extends Identifyable> ArrayList<T> checkIds(@NonNull ArrayList<T> items) {
+    public static <T extends Identifyable> List<T> checkIds(@NonNull List<T> items) {
         for (T item : items) {
             checkId(item);
         }
