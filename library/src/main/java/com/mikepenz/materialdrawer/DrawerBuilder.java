@@ -965,7 +965,7 @@ public class DrawerBuilder {
 
 
     //defines the itemAnimator to be used in conjunction with the RecyclerView
-    protected RecyclerView.ItemAnimator mItemAnimator = null;
+    protected RecyclerView.ItemAnimator mItemAnimator = new DefaultItemAnimator();
 
     /**
      * defines the itemAnimator to be used in conjunction with the RecyclerView
@@ -973,7 +973,7 @@ public class DrawerBuilder {
      * @param itemAnimator
      * @return
      */
-    public DrawerBuilder withItemAnimator(@NonNull RecyclerView.ItemAnimator itemAnimator) {
+    public DrawerBuilder withItemAnimator(RecyclerView.ItemAnimator itemAnimator) {
         mItemAnimator = itemAnimator;
         return this;
     }
@@ -1613,11 +1613,7 @@ public class DrawerBuilder {
         if (mRecyclerView == null) {
             mRecyclerView = (RecyclerView) LayoutInflater.from(mActivity).inflate(R.layout.material_drawer_recycler_view, mSliderLayout, false);
             //set the itemAnimator
-            if (mItemAnimator == null) {
-                mRecyclerView.setItemAnimator(new DefaultItemAnimator());
-            } else {
-                mRecyclerView.setItemAnimator(mItemAnimator);
-            }
+            mRecyclerView.setItemAnimator(mItemAnimator);
             //some style improvements on older devices
             mRecyclerView.setFadingEdgeLength(0);
 
