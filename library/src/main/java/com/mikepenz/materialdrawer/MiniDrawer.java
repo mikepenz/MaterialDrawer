@@ -23,6 +23,7 @@ import com.mikepenz.materialdrawer.model.interfaces.IProfile;
 import com.mikepenz.materialize.util.UIUtils;
 
 import java.util.ArrayList;
+import java.util.List;
 
 /**
  * Created by mikepenz on 15.07.15.
@@ -423,7 +424,7 @@ public class MiniDrawer {
      *
      * @return
      */
-    private ArrayList<IDrawerItem> getDrawerItems() {
+    private List<IDrawerItem> getDrawerItems() {
         return mDrawer.getOriginalDrawerItems() != null ? mDrawer.getOriginalDrawerItems() : mDrawer.getDrawerItems();
     }
 }

@@ -37,6 +37,7 @@ import com.mikepenz.materialize.util.UIUtils;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collections;
+import java.util.List;
 import java.util.Stack;
 
 /**
@@ -600,7 +601,7 @@ public class AccountHeaderBuilder {
     }
 
     // the profiles to display
-    protected ArrayList<IProfile> mProfiles;
+    protected List<IProfile> mProfiles;
 
     /**
      * set the arrayList of DrawerItems for the drawer
@@ -608,7 +609,7 @@ public class AccountHeaderBuilder {
      * @param profiles
      * @return
      */
-    public AccountHeaderBuilder withProfiles(@NonNull ArrayList<IProfile> profiles) {
+    public AccountHeaderBuilder withProfiles(@NonNull List<IProfile> profiles) {
         this.mProfiles = IdDistributor.checkIds(profiles);
         return this;
     }

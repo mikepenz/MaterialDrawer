@@ -20,9 +20,9 @@ import java.util.List;
  * Created by mikepenz on 14.07.15.
  */
 public abstract class BaseDrawerAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
-    private ArrayList<IDrawerItem> mHeaderDrawerItems = new ArrayList<>();
-    private ArrayList<IDrawerItem> mDrawerItems = new ArrayList<>();
-    private ArrayList<IDrawerItem> mFooterDrawerItems = new ArrayList<>();
+    private List<IDrawerItem> mHeaderDrawerItems = new ArrayList<>();
+    private List<IDrawerItem> mDrawerItems = new ArrayList<>();
+    private List<IDrawerItem> mFooterDrawerItems = new ArrayList<>();
 
     private LinkedList<String> mTypeIds = new LinkedList<>();
     private LinkedHashMap<String, IDrawerItem> mTypeInstances = new LinkedHashMap<>();
@@ -35,7 +35,7 @@ public abstract class BaseDrawerAdapter extends RecyclerView.Adapter<RecyclerVie
     public BaseDrawerAdapter() {
     }
 
-    public BaseDrawerAdapter(ArrayList<IDrawerItem> drawerItems) {
+    public BaseDrawerAdapter(List<IDrawerItem> drawerItems) {
         setDrawerItems(drawerItems);
     }
 
@@ -47,11 +47,11 @@ public abstract class BaseDrawerAdapter extends RecyclerView.Adapter<RecyclerVie
         this.mOnLongClickListener = mOnLongClickListener;
     }
 
-    public ArrayList<IDrawerItem> getDrawerItems() {
+    public List<IDrawerItem> getDrawerItems() {
         return mDrawerItems;
     }
 
-    public void setDrawerItems(ArrayList<IDrawerItem> drawerItems) {
+    public void setDrawerItems(List<IDrawerItem> drawerItems) {
         mDrawerItems = drawerItems;
         mapPossibleTypes(drawerItems);
         notifyItemRangeChanged(getHeaderItemCount(), getDrawerItemCount());
@@ -135,11 +135,11 @@ public abstract class BaseDrawerAdapter extends RecyclerView.Adapter<RecyclerVie
         notifyItemRangeRemoved(getHeaderItemCount() + getDrawerItemCount(), count);
     }
 
-    public ArrayList<IDrawerItem> getHeaderDrawerItems() {
+    public List<IDrawerItem> getHeaderDrawerItems() {
         return mHeaderDrawerItems;
     }
 
-    public void setHeaderDrawerItems(ArrayList<IDrawerItem> mHeaderDrawerItems) {
+    public void setHeaderDrawerItems(List<IDrawerItem> mHeaderDrawerItems) {
         this.mHeaderDrawerItems = mHeaderDrawerItems;
         notifyItemRangeInserted(0, mHeaderDrawerItems.size());
         mapPossibleTypes(mHeaderDrawerItems);
@@ -153,11 +153,11 @@ public abstract class BaseDrawerAdapter extends RecyclerView.Adapter<RecyclerVie
         mapPossibleTypes(mHeaderDrawerItems);
     }
 
-    public ArrayList<IDrawerItem> getFooterDrawerItems() {
+    public List<IDrawerItem> getFooterDrawerItems() {
         return mFooterDrawerItems;
     }
 
-    public void setFooterDrawerItems(ArrayList<IDrawerItem> mFooterDrawerItems) {
+    public void setFooterDrawerItems(List<IDrawerItem> mFooterDrawerItems) {
         this.mFooterDrawerItems = mFooterDrawerItems;
         notifyItemRangeInserted(0, mFooterDrawerItems.size());
         mapPossibleTypes(mFooterDrawerItems);
