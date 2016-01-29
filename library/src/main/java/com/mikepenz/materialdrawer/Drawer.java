@@ -869,10 +869,6 @@ public class Drawer {
         mDrawerBuilder.mOnDrawerItemClickListener = onDrawerItemClickListener;
     }
 
-    public void setOnDrawerNavigationListener(OnDrawerNavigationListener onDrawerNavigationListener) { //WBE
-        mDrawerBuilder.mOnDrawerNavigationListener = onDrawerNavigationListener;
-    }
-
     /**
      * method to get the OnDrawerItemClickListener
      *
@@ -880,15 +876,6 @@ public class Drawer {
      */
     public OnDrawerItemClickListener getOnDrawerItemClickListener() {
         return mDrawerBuilder.mOnDrawerItemClickListener;
-    }
-
-    /**
-     * method to get the OnDrawerNavigationListener
-     *
-     * @return
-     */
-    public OnDrawerNavigationListener getOnDrawerNavigationListener() {  //WBE
-        return mDrawerBuilder.mOnDrawerNavigationListener;
     }
 
     /**
@@ -909,6 +896,21 @@ public class Drawer {
         return mDrawerBuilder.mOnDrawerItemLongClickListener;
     }
 
+    /**
+     * Sets the {@link OnDrawerNavigationListener}.
+     * @param onDrawerNavigationListener the OnDrawerNavigationListener
+     */
+    public void setOnDrawerNavigationListener(OnDrawerNavigationListener onDrawerNavigationListener) {
+        mDrawerBuilder.mOnDrawerNavigationListener = onDrawerNavigationListener;
+    }
+
+    /**
+     * Gets the {@link OnDrawerNavigationListener}.
+     * @return the OnDrawerNavigationListener
+     */
+    public OnDrawerNavigationListener getOnDrawerNavigationListener() {
+        return mDrawerBuilder.mOnDrawerNavigationListener;
+    }
 
     //variables to store and remember the original list of the drawer
     private Drawer.OnDrawerItemClickListener originalOnDrawerItemClickListener;
