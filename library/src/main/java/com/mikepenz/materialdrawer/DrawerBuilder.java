@@ -54,6 +54,7 @@ import com.mikepenz.materialize.view.ScrimInsetsRelativeLayout;
 
 import java.util.ArrayList;
 import java.util.Collections;
+import java.util.List;
 
 /**
  * Created by mikepenz on 23.05.15.
@@ -984,7 +985,7 @@ public class DrawerBuilder {
      * @param drawerItems
      * @return
      */
-    public DrawerBuilder withDrawerItems(@NonNull ArrayList<IDrawerItem> drawerItems) {
+    public DrawerBuilder withDrawerItems(@NonNull List<IDrawerItem> drawerItems) {
         this.getItemAdapter().set(drawerItems);
         return this;
     }
@@ -1001,7 +1002,7 @@ public class DrawerBuilder {
     }
 
     // always visible list in drawer
-    protected ArrayList<IDrawerItem> mStickyDrawerItems = new ArrayList<>();
+    protected List<IDrawerItem> mStickyDrawerItems = new ArrayList<>();
 
     /**
      * Set the initial List of IDrawerItems for the StickyDrawerFooter
@@ -1009,7 +1010,7 @@ public class DrawerBuilder {
      * @param stickyDrawerItems
      * @return
      */
-    public DrawerBuilder withStickyDrawerItems(@NonNull ArrayList<IDrawerItem> stickyDrawerItems) {
+    public DrawerBuilder withStickyDrawerItems(@NonNull List<IDrawerItem> stickyDrawerItems) {
         this.mStickyDrawerItems = stickyDrawerItems;
         return this;
     }

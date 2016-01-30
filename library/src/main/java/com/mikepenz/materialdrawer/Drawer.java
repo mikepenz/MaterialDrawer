@@ -756,7 +756,7 @@ public class Drawer {
      *
      * @param drawerItems
      */
-    public void setItems(@NonNull ArrayList<IDrawerItem> drawerItems) {
+    public void setItems(@NonNull List<IDrawerItem> drawerItems) {
         setItems(drawerItems, false);
     }
 
@@ -877,6 +877,10 @@ public class Drawer {
         mDrawerBuilder.mOnDrawerItemClickListener = onDrawerItemClickListener;
     }
 
+    public void setOnDrawerNavigationListener(OnDrawerNavigationListener onDrawerNavigationListener) { //WBE
+        mDrawerBuilder.mOnDrawerNavigationListener = onDrawerNavigationListener;
+    }
+
     /**
      * method to get the OnDrawerItemClickListener
      *
@@ -884,6 +888,15 @@ public class Drawer {
      */
     public OnDrawerItemClickListener getOnDrawerItemClickListener() {
         return mDrawerBuilder.mOnDrawerItemClickListener;
+    }
+
+    /**
+     * method to get the OnDrawerNavigationListener
+     *
+     * @return
+     */
+    public OnDrawerNavigationListener getOnDrawerNavigationListener() {  //WBE
+        return mDrawerBuilder.mOnDrawerNavigationListener;
     }
 
     /**
@@ -902,24 +915,6 @@ public class Drawer {
      */
     public OnDrawerItemLongClickListener getOnDrawerItemLongClickListener() {
         return mDrawerBuilder.mOnDrawerItemLongClickListener;
-    }
-
-    /**
-     * Sets the {@link OnDrawerNavigationListener}.
-     *
-     * @param onDrawerNavigationListener the OnDrawerNavigationListener
-     */
-    public void setOnDrawerNavigationListener(OnDrawerNavigationListener onDrawerNavigationListener) {
-        mDrawerBuilder.mOnDrawerNavigationListener = onDrawerNavigationListener;
-    }
-
-    /**
-     * Gets the {@link OnDrawerNavigationListener}.
-     *
-     * @return the OnDrawerNavigationListener
-     */
-    public OnDrawerNavigationListener getOnDrawerNavigationListener() {
-        return mDrawerBuilder.mOnDrawerNavigationListener;
     }
 
     //variables to store and remember the original list of the drawer
@@ -953,7 +948,7 @@ public class Drawer {
      * @param drawerItems
      * @param drawerSelection
      */
-    public void switchDrawerContent(@NonNull OnDrawerItemClickListener onDrawerItemClickListener, OnDrawerItemLongClickListener onDrawerItemLongClickListener, @NonNull ArrayList<IDrawerItem> drawerItems, int drawerSelection) {
+    public void switchDrawerContent(@NonNull OnDrawerItemClickListener onDrawerItemClickListener, OnDrawerItemLongClickListener onDrawerItemLongClickListener, @NonNull List<IDrawerItem> drawerItems, int drawerSelection) {
         //just allow a single switched drawer
         if (!switchedDrawerContent()) {
             //save out previous values
