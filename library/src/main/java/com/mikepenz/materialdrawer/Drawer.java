@@ -22,7 +22,6 @@ import com.mikepenz.materialdrawer.model.interfaces.Badgeable;
 import com.mikepenz.materialdrawer.model.interfaces.IDrawerItem;
 import com.mikepenz.materialdrawer.model.interfaces.Iconable;
 import com.mikepenz.materialdrawer.model.interfaces.Nameable;
-import com.mikepenz.materialdrawer.util.KeyboardUtil;
 import com.mikepenz.materialize.Materialize;
 import com.mikepenz.materialize.view.ScrimInsetsRelativeLayout;
 
@@ -52,7 +51,6 @@ public class Drawer {
 
     protected final DrawerBuilder mDrawerBuilder;
     private FrameLayout mContentView;
-    private KeyboardUtil mKeyboardUtil = null;
 
     /**
      * the protected Constructor for the result
@@ -184,30 +182,6 @@ public class Drawer {
         }
         return mDrawerBuilder.mMiniDrawer;
     }
-
-    /**
-     * a helper method to enable the keyboardUtil for a specific activity
-     * or disable it. note this will cause some frame drops because of the
-     * listener.
-     *
-     * @param activity
-     * @param enable
-     */
-    public void keyboardSupportEnabled(@NonNull Activity activity, boolean enable) {
-        if (getContent() != null && getContent().getChildCount() > 0) {
-            if (mKeyboardUtil == null) {
-                mKeyboardUtil = new KeyboardUtil(activity, getContent().getChildAt(0));
-                mKeyboardUtil.disable();
-            }
-
-            if (enable) {
-                mKeyboardUtil.enable();
-            } else {
-                mKeyboardUtil.disable();
-            }
-        }
-    }
-
 
     /**
      * get the slider layout of the current drawer.
