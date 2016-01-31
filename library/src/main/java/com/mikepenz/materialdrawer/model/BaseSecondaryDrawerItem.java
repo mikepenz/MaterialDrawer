@@ -1,6 +1,7 @@
 package com.mikepenz.materialdrawer.model;
 
 import android.content.Context;
+import android.content.res.ColorStateList;
 import android.graphics.drawable.Drawable;
 import android.support.annotation.ColorInt;
 import android.support.annotation.ColorRes;
@@ -87,7 +88,7 @@ public abstract class BaseSecondaryDrawerItem<T, VH extends BaseViewHolder> exte
         int selectedColor = getSelectedColor(ctx);
         //get the correct color for the text
         int color = getColor(ctx);
-        int selectedTextColor = getSelectedTextColor(ctx);
+        ColorStateList selectedTextColor = getTextColorStateList(color, getSelectedTextColor(ctx));
         //get the correct color for the icon
         int iconColor = getIconColor(ctx);
         int selectedIconColor = getSelectedIconColor(ctx);
@@ -101,10 +102,10 @@ public abstract class BaseSecondaryDrawerItem<T, VH extends BaseViewHolder> exte
         StringHolder.applyToOrHide(this.getDescription(), viewHolder.description);
 
         //set the colors for textViews
-        viewHolder.name.setTextColor(getTextColorStateList(color, selectedTextColor));
+        viewHolder.name.setTextColor(selectedTextColor);
 
         //set the description text color
-        ColorHolder.applyToOr(getDescriptionTextColor(), viewHolder.description, getTextColorStateList(getColor(ctx), getSelectedColor(ctx)));
+        ColorHolder.applyToOr(getDescriptionTextColor(), viewHolder.description, selectedTextColor);
 
         //define the typeface for our textViews
         if (getTypeface() != null) {

@@ -1,16 +1,12 @@
 package com.mikepenz.materialdrawer.model;
 
 import android.content.Context;
+import android.content.res.ColorStateList;
 import android.graphics.drawable.Drawable;
 import android.support.annotation.ColorInt;
 import android.support.annotation.ColorRes;
 import android.support.annotation.StringRes;
-import android.support.v7.widget.RecyclerView;
-import android.view.View;
-import android.widget.ImageView;
-import android.widget.TextView;
 
-import com.mikepenz.materialdrawer.R;
 import com.mikepenz.materialdrawer.holder.ColorHolder;
 import com.mikepenz.materialdrawer.holder.ImageHolder;
 import com.mikepenz.materialdrawer.holder.StringHolder;
@@ -73,7 +69,7 @@ public abstract class BasePrimaryDrawerItem<T, VH extends BaseViewHolder> extend
         int selectedColor = getSelectedColor(ctx);
         //get the correct color for the text
         int color = getColor(ctx);
-        int selectedTextColor = getSelectedTextColor(ctx);
+        ColorStateList selectedTextColor = getTextColorStateList(color, getSelectedTextColor(ctx));
         //get the correct color for the icon
         int iconColor = getIconColor(ctx);
         int selectedIconColor = getSelectedIconColor(ctx);
@@ -86,9 +82,9 @@ public abstract class BasePrimaryDrawerItem<T, VH extends BaseViewHolder> extend
         StringHolder.applyToOrHide(this.getDescription(), viewHolder.description);
 
         //set the colors for textViews
-        viewHolder.name.setTextColor(getTextColorStateList(color, selectedTextColor));
+        viewHolder.name.setTextColor(selectedTextColor);
         //set the description text color
-        ColorHolder.applyToOr(getDescriptionTextColor(), viewHolder.description, getTextColorStateList(color, selectedTextColor));
+        ColorHolder.applyToOr(getDescriptionTextColor(), viewHolder.description, selectedTextColor);
 
         //define the typeface for our textViews
         if (getTypeface() != null) {
