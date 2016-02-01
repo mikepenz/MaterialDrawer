@@ -30,6 +30,7 @@ public class ActionBarActivity extends AppCompatActivity {
                 .withActivity(this)
                 .withSavedInstance(savedInstanceState)
                 .withDisplayBelowStatusBar(false)
+                .withTranslucentStatusBar(false)
                 .withDrawerLayout(R.layout.material_drawer_fits_not)
                 .addDrawerItems(
                         new PrimaryDrawerItem().withName(R.string.drawer_item_home).withIcon(FontAwesome.Icon.faw_home),
