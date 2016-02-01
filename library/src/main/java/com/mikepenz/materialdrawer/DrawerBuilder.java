@@ -136,7 +136,7 @@ public class DrawerBuilder {
     }
 
     // set non translucent statusBar mode
-    protected boolean mTranslucentStatusBar = false;
+    protected boolean mTranslucentStatusBar = true;
 
     /**
      * Sets that the view which hosts the DrawerLayout should have a translucent statusBar
@@ -146,11 +146,6 @@ public class DrawerBuilder {
      */
     public DrawerBuilder withTranslucentStatusBar(boolean translucentStatusBar) {
         this.mTranslucentStatusBar = translucentStatusBar;
-
-        //if we disable the translucentStatusBar it should be disabled at all
-        if (!translucentStatusBar) {
-            this.mTranslucentStatusBarProgrammatically = false;
-        }
         return this;
     }
 
@@ -164,25 +159,6 @@ public class DrawerBuilder {
      */
     public DrawerBuilder withDisplayBelowStatusBar(boolean displayBelowStatusBar) {
         this.mDisplayBelowStatusBar = displayBelowStatusBar;
-        return this;
-    }
-
-
-    // set to disable the translucent statusBar Programmatically
-    protected boolean mTranslucentStatusBarProgrammatically = false;
-
-    /**
-     * Sets if the drawer should handle and make the statusBar translucent
-     * This is true by default, so it's possible to display the drawer under the statusBar
-     *
-     * @param translucentStatusBarProgrammatically sets whether the statusBar should be transparent (and the drawer is displayed under it) or not
-     */
-    public DrawerBuilder withTranslucentStatusBarProgrammatically(boolean translucentStatusBarProgrammatically) {
-        this.mTranslucentStatusBarProgrammatically = translucentStatusBarProgrammatically;
-        //if we enable the programmatically translucent statusBar we want also the normal statusBar behavior
-        if (translucentStatusBarProgrammatically) {
-            this.mTranslucentStatusBar = true;
-        }
         return this;
     }
 
@@ -268,7 +244,7 @@ public class DrawerBuilder {
         this.mFullscreen = fullscreen;
 
         if (fullscreen) {
-            withTranslucentStatusBar(false);
+            withTranslucentStatusBar(true);
             withTranslucentNavigationBar(false);
         }
 
@@ -349,32 +325,6 @@ public class DrawerBuilder {
             }
         }
 
-        return this;
-    }
-
-    //the statusBar color
-    protected int mStatusBarColor = 0;
-    protected int mStatusBarColorRes = -1;
-
-    /**
-     * Set the statusBarColor color for this activity
-     *
-     * @param statusBarColor
-     * @return
-     */
-    public DrawerBuilder withStatusBarColor(@ColorInt int statusBarColor) {
-        this.mStatusBarColor = statusBarColor;
-        return this;
-    }
-
-    /**
-     * Set the statusBarColor color for this activity from a resource
-     *
-     * @param statusBarColorRes
-     * @return
-     */
-    public DrawerBuilder withStatusBarColorRes(@ColorRes int statusBarColorRes) {
-        this.mStatusBarColorRes = statusBarColorRes;
         return this;
     }
 
@@ -1288,13 +1238,9 @@ public class DrawerBuilder {
                 .withFullscreen(mFullscreen)
                 .withSystemUIHidden(mSystemUIHidden)
                 .withUseScrimInsetsLayout(false)
-                .withTranslucentStatusBar(mTranslucentStatusBar)
-                .withTranslucentStatusBarProgrammatically(mTranslucentStatusBarProgrammatically)
-                .withTranslucentNavigationBar(mTranslucentNavigationBar)
+                .withTransparentStatusBar(mTranslucentStatusBar)
                 .withTranslucentNavigationBarProgrammatically(mTranslucentNavigationBarProgrammatically)
                 .withContainer(mDrawerLayout)
-                .withStatusBarColor(mStatusBarColor)
-                .withStatusBarColorRes(mStatusBarColorRes)
                 .build();
 
         //handle the navigation stuff of the ActionBarDrawerToggle and the drawer in general
@@ -1625,7 +1571,7 @@ public class DrawerBuilder {
             mRecyclerView.setLayoutManager(mLayoutManager);
 
             int paddingTop = 0;
-            if (/*(mTranslucentStatusBar || mFullscreen) &&*/ (mDisplayBelowStatusBar == null || mDisplayBelowStatusBar) && !mSystemUIHidden) {
+            if ((mDisplayBelowStatusBar == null || mDisplayBelowStatusBar) && !mSystemUIHidden) {
                 paddingTop = UIUtils.getStatusBarHeight(mActivity);
             }
             int paddingBottom = 0;
