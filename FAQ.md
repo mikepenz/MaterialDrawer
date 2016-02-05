@@ -7,6 +7,7 @@ Each question and it's answer is hosted in a separate file within the FAQ folder
 
 * [How do I make the drawer appear underneath the Toolbar?](FAQ/howto_show_drawer_under_toolbar.md)
 * [How do I create a Multi-pane layout with MaterialDrawer for tablets?](FAQ/howto_show_drawer_in_tablet_multipane.md)
+* [Why is there whitespace where the status bar should be while my theme is set as fullscreen ?](FAQ/status_bar_whitespace.md)
 
 ##AccountHeader
 
