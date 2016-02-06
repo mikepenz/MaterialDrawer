@@ -58,8 +58,9 @@ dependencies {
 
     // used to generate the Open Source section
     // https://github.com/mikepenz/AboutLibraries
-    compile('com.mikepenz:aboutlibraries:5.3.7@aar') {
+    compile('com.mikepenz:aboutlibraries:5.5.0@aar') {
         transitive = true
+        exclude module: "fastadapter"
     }
     //used to provide different itemAnimators for the RecyclerView
     //https://github.com/mikepenz/ItemAnimators
@@ -71,7 +72,7 @@ dependencies {
     // used to provide the two step crossfade DrawerLayout. Which allows to have a mini layout which transforms to a normal layout within the drawer
     // --> https://github.com/mikepenz/MaterialDrawer/blob/develop/app/src/main/java/com/mikepenz/materialdrawer/app/CrossfadeDrawerLayoutActvitiy.java
     // https://github.com/mikepenz/CrossfadeDrawerLayout
-    compile('com.mikepenz:crossfadedrawerlayout:0.2.5@aar')
+    compile('com.mikepenz:crossfadedrawerlayout:0.3.0@aar')
 
     // icon fonts used inside the sample
     // https://github.com/mikepenz/Android-Iconics
