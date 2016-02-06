@@ -10,11 +10,10 @@ android {
     buildToolsVersion rootProject.ext.buildToolsVersion
 
     defaultConfig {
-        applicationId "com.mikepenz.materialdrawer.app"
         minSdkVersion 10
         targetSdkVersion 23
-        versionCode 464
-        versionName "4.6.4"
+        versionCode 500
+        versionName "5.0.0.fastAdapter-SNAPSHOT"
 
         applicationVariants.all { variant ->
             variant.outputs.each { output ->
@@ -59,9 +58,12 @@ dependencies {
 
     // used to generate the Open Source section
     // https://github.com/mikepenz/AboutLibraries
-    compile('com.mikepenz:aboutlibraries:5.3.6@aar') {
+    compile('com.mikepenz:aboutlibraries:5.3.7@aar') {
         transitive = true
     }
+    //used to provide different itemAnimators for the RecyclerView
+    //https://github.com/mikepenz/ItemAnimators
+    compile 'com.mikepenz:itemanimators:0.2.1@aar'
     // used to provide the MiniDrawer to normal Drawer crossfade effect via a SlidingPane layout
     // --> https://github.com/mikepenz/MaterialDrawer/blob/develop/app/src/main/java/com/mikepenz/materialdrawer/app/MiniDrawerActivity.java
     // https://github.com/mikepenz/Crossfader
@@ -69,7 +71,7 @@ dependencies {
     // used to provide the two step crossfade DrawerLayout. Which allows to have a mini layout which transforms to a normal layout within the drawer
     // --> https://github.com/mikepenz/MaterialDrawer/blob/develop/app/src/main/java/com/mikepenz/materialdrawer/app/CrossfadeDrawerLayoutActvitiy.java
     // https://github.com/mikepenz/CrossfadeDrawerLayout
-    compile('com.mikepenz:crossfadedrawerlayout:0.2.0@aar')
+    compile('com.mikepenz:crossfadedrawerlayout:0.2.5@aar')
 
     // icon fonts used inside the sample
     // https://github.com/mikepenz/Android-Iconics

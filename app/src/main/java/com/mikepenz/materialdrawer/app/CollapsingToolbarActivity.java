@@ -19,7 +19,6 @@ import com.mikepenz.materialdrawer.DrawerBuilder;
 import com.mikepenz.materialdrawer.model.PrimaryDrawerItem;
 import com.mikepenz.materialdrawer.model.SecondaryDrawerItem;
 import com.mikepenz.materialdrawer.model.SectionDrawerItem;
-import com.mikepenz.materialize.util.UIUtils;
 
 public class CollapsingToolbarActivity extends AppCompatActivity {
 
@@ -33,12 +32,6 @@ public class CollapsingToolbarActivity extends AppCompatActivity {
 
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
-
-        //our toolbar's height has to include the padding of the statusBar so the ColapsingToolbarLayout and the Toolbar can position
-        //the arrow/title/... correct
-        CollapsingToolbarLayout.LayoutParams lp = (CollapsingToolbarLayout.LayoutParams) toolbar.getLayoutParams();
-        lp.height = lp.height + UIUtils.getStatusBarHeight(this);
-        toolbar.setLayoutParams(lp);
 
         CollapsingToolbarLayout collapsingToolbarLayout = (CollapsingToolbarLayout) findViewById(R.id.collapsing_toolbar);
         collapsingToolbarLayout.setTitle(getString(R.string.drawer_item_collapsing_toolbar_drawer));
@@ -65,6 +58,7 @@ public class CollapsingToolbarActivity extends AppCompatActivity {
                         new SecondaryDrawerItem().withName(R.string.drawer_item_open_source).withIcon(FontAwesome.Icon.faw_github),
                         new SecondaryDrawerItem().withName(R.string.drawer_item_contact).withIcon(FontAwesome.Icon.faw_bullhorn)
                 )
+                .withSavedInstance(savedInstanceState)
                 .build();
 
         fillFab();
@@ -79,5 +73,14 @@ public class CollapsingToolbarActivity extends AppCompatActivity {
     private void fillFab() {
         final FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.floating_action_button);
         fab.setImageDrawable(new IconicsDrawable(this, GoogleMaterial.Icon.gmd_favorite).actionBar().color(Color.WHITE));
+    }
+
+    @Override
+    protected void onSaveInstanceState(Bundle outState) {
+        //add the values which need to be saved from the drawer to the bundle
+        outState = result.saveInstanceState(outState);
+        //add the values which need to be saved from the accountHeader to the bundle
+        outState = headerResult.saveInstanceState(outState);
+        super.onSaveInstanceState(outState);
     }
 }

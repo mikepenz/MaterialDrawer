@@ -12,9 +12,12 @@ import android.widget.CompoundButton;
 
 import com.mikepenz.aboutlibraries.Libs;
 import com.mikepenz.aboutlibraries.LibsBuilder;
+import com.mikepenz.fastadapter.IExpandable;
+import com.mikepenz.fastadapter.utils.RecyclerViewCacheUtil;
 import com.mikepenz.fontawesome_typeface_library.FontAwesome;
 import com.mikepenz.google_material_typeface_library.GoogleMaterial;
 import com.mikepenz.iconics.IconicsDrawable;
+import com.mikepenz.itemanimators.AlphaCrossFadeAnimator;
 import com.mikepenz.materialdrawer.AccountHeader;
 import com.mikepenz.materialdrawer.AccountHeaderBuilder;
 import com.mikepenz.materialdrawer.Drawer;
@@ -35,16 +38,14 @@ import com.mikepenz.materialdrawer.model.ToggleDrawerItem;
 import com.mikepenz.materialdrawer.model.interfaces.IDrawerItem;
 import com.mikepenz.materialdrawer.model.interfaces.IProfile;
 import com.mikepenz.materialdrawer.model.interfaces.Nameable;
-import com.mikepenz.materialdrawer.util.RecyclerViewCacheUtil;
 import com.mikepenz.octicons_typeface_library.Octicons;
 
 public class DrawerActivity extends AppCompatActivity {
-    private static final int PROFILE_SETTING = 1;
+    private static final int PROFILE_SETTING = 100000;
 
     //save our header or result
     private AccountHeader headerResult = null;
     private Drawer result = null;
-    private boolean opened = false;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -70,6 +71,7 @@ public class DrawerActivity extends AppCompatActivity {
         // Create the AccountHeader
         headerResult = new AccountHeaderBuilder()
                 .withActivity(this)
+                .withTranslucentStatusBar(true)
                 .withHeaderBackground(R.drawable.header)
                 .addProfiles(
                         profile,
@@ -80,7 +82,7 @@ public class DrawerActivity extends AppCompatActivity {
                         profile6,
                         //don't ask but google uses 14dp for the add account icon in gmail but 20dp for the normal icons (like manage account)
                         new ProfileSettingDrawerItem().withName("Add Account").withDescription("Add new GitHub Account").withIcon(new IconicsDrawable(this, GoogleMaterial.Icon.gmd_plus).actionBar().paddingDp(5).colorRes(R.color.material_drawer_primary_text)).withIdentifier(PROFILE_SETTING),
-                        new ProfileSettingDrawerItem().withName("Manage Account").withIcon(GoogleMaterial.Icon.gmd_settings)
+                        new ProfileSettingDrawerItem().withName("Manage Account").withIcon(GoogleMaterial.Icon.gmd_settings).withIdentifier(100001)
                 )
                 .withOnAccountHeaderListener(new AccountHeader.OnAccountHeaderListener() {
                     @Override
@@ -110,6 +112,7 @@ public class DrawerActivity extends AppCompatActivity {
                 .withActivity(this)
                 .withToolbar(toolbar)
                 .withHasStableIds(true)
+                .withItemAnimator(new AlphaCrossFadeAnimator())
                 .withAccountHeader(headerResult) //set the AccountHeader we created earlier for the header
                 .addDrawerItems(
                         new PrimaryDrawerItem().withName(R.string.drawer_item_compact_header).withDescription(R.string.drawer_item_compact_header_desc).withIcon(GoogleMaterial.Icon.gmd_sun).withIdentifier(1).withSelectable(false),
@@ -128,7 +131,10 @@ public class DrawerActivity extends AppCompatActivity {
                         new PrimaryDrawerItem().withName(R.string.drawer_item_persistent_compact_header).withDescription(R.string.drawer_item_persistent_compact_header_desc).withIcon(GoogleMaterial.Icon.gmd_brightness_5).withIdentifier(14).withSelectable(false),
                         new PrimaryDrawerItem().withName(R.string.drawer_item_crossfade_drawer_layout_drawer).withDescription(R.string.drawer_item_crossfade_drawer_layout_drawer_desc).withIcon(GoogleMaterial.Icon.gmd_format_bold).withIdentifier(15).withSelectable(false),
                         new SectionDrawerItem().withName(R.string.drawer_item_section_header),
-                        new SecondaryDrawerItem().withName("Collapsable").withIcon(GoogleMaterial.Icon.gmd_collection_case_play).withIdentifier(19).withSelectable(false),
+                        new SecondaryDrawerItem().withName("Collapsable").withIcon(GoogleMaterial.Icon.gmd_collection_case_play).withIdentifier(19).withSelectable(false).withSubItems(
+                                new SecondaryDrawerItem().withName("CollapsableItem").withLevel(2).withIcon(GoogleMaterial.Icon.gmd_8tracks).withIdentifier(2000),
+                                new SecondaryDrawerItem().withName("CollapsableItem 2").withLevel(2).withIcon(GoogleMaterial.Icon.gmd_8tracks).withIdentifier(2001)
+                        ),
                         new SecondaryDrawerItem().withName(R.string.drawer_item_open_source).withIcon(FontAwesome.Icon.faw_github).withIdentifier(20).withSelectable(false),
                         new SecondaryDrawerItem().withName(R.string.drawer_item_contact).withIcon(GoogleMaterial.Icon.gmd_format_color_fill).withIdentifier(21).withTag("Bullhorn"),
                         new DividerDrawerItem(),
@@ -151,6 +157,14 @@ public class DrawerActivity extends AppCompatActivity {
 
                         if (drawerItem != null) {
                             Intent intent = null;
+
+                            //if our drawer has collapsible items we check if the clicked items has subItem. if yes we open it
+                            if (((IExpandable) drawerItem).getSubItems() != null) {
+                                result.getAdapter().toggleExpandable(position);
+                                //we consume the event and want no further handling
+                                return true;
+                            }
+
                             if (drawerItem.getIdentifier() == 1) {
                                 intent = new Intent(DrawerActivity.this, CompactHeaderDrawerActivity.class);
                             } else if (drawerItem.getIdentifier() == 2) {
@@ -181,21 +195,6 @@ public class DrawerActivity extends AppCompatActivity {
                                 intent = new Intent(DrawerActivity.this, PersistentDrawerActivity.class);
                             } else if (drawerItem.getIdentifier() == 15) {
                                 intent = new Intent(DrawerActivity.this, CrossfadeDrawerLayoutActvitiy.class);
-                            } else if (drawerItem.getIdentifier() == 19) {
-                                //showcase a simple collapsable functionality
-                                if (opened) {
-                                    //remove the items which are hidden
-                                    result.removeItems(2000, 2001);
-                                } else {
-                                    int curPos = result.getPosition(drawerItem);
-                                    result.addItemsAtPosition(
-                                            curPos,
-                                            new SecondaryDrawerItem().withName("CollapsableItem").withLevel(2).withIcon(GoogleMaterial.Icon.gmd_8tracks).withIdentifier(2000),
-                                            new SecondaryDrawerItem().withName("CollapsableItem 2").withLevel(2).withIcon(GoogleMaterial.Icon.gmd_8tracks).withIdentifier(2001)
-                                    );
-                                }
-                                opened = !opened;
-                                return true;
                             } else if (drawerItem.getIdentifier() == 20) {
                                 intent = new LibsBuilder()
                                         .withFields(R.string.class.getFields())
@@ -216,7 +215,8 @@ public class DrawerActivity extends AppCompatActivity {
 
         //if you have many different types of DrawerItems you can magically pre-cache those items to get a better scroll performance
         //make sure to init the cache after the DrawerBuilder was created as this will first clear the cache to make sure no old elements are in
-        RecyclerViewCacheUtil.getInstance().withCacheSize(2).init(result);
+        //RecyclerViewCacheUtil.getInstance().withCacheSize(2).init(result);
+        new RecyclerViewCacheUtil<IDrawerItem>().withCacheSize(2).apply(result.getRecyclerView(), result.getDrawerItems());
 
         //only set the active selection or active profile if we do not recreate the activity
         if (savedInstanceState == null) {

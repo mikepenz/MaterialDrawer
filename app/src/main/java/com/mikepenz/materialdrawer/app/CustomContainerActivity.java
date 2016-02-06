@@ -31,6 +31,7 @@ public class CustomContainerActivity extends AppCompatActivity {
                 //this layout have to contain child layouts
                 .withRootView(R.id.drawer_container)
                 .withToolbar(toolbar)
+                .withDisplayBelowStatusBar(false)
                 .withActionBarDrawerToggleAnimated(true)
                 .addDrawerItems(
                         new PrimaryDrawerItem().withName(R.string.drawer_item_home).withIcon(FontAwesome.Icon.faw_home),

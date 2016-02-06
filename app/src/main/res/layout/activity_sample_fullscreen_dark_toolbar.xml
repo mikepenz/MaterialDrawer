@@ -1,20 +1,20 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:gravity="center"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    android:gravity="center">
 
     <FrameLayout
         android:id="@+id/frame_container"
-        android:background="#ff4444"
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_height="match_parent"
+        android:background="#ff4444">
 
         <TextView
             android:id="@+id/txtLabel"
-            android:layout_gravity="center"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_gravity="center"
             android:text="Test"
             android:textSize="16sp" />
     </FrameLayout>
@@ -23,9 +23,9 @@
         android:id="@+id/toolbar"
         android:layout_width="match_parent"
         android:layout_height="?attr/actionBarSize"
+        android:layout_marginTop="@dimen/fullscreen_status_bar_height"
         android:background="?attr/colorPrimary"
+        android:elevation="4dp"
         android:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar"
-        app:popupTheme="@style/ThemeOverlay.AppCompat.Light"
-        android:layout_marginTop="@dimen/tool_bar_top_padding"
-        android:elevation="4dp" />
+        app:popupTheme="@style/ThemeOverlay.AppCompat.Light" />
 </RelativeLayout>
