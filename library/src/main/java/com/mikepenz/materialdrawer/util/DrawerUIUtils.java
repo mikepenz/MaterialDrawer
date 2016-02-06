@@ -7,7 +7,6 @@ import android.graphics.drawable.ColorDrawable;
 import android.graphics.drawable.Drawable;
 import android.graphics.drawable.StateListDrawable;
 import android.os.Build;
-import android.util.DisplayMetrics;
 import android.view.View;
 
 import com.mikepenz.iconics.IconicsDrawable;
@@ -70,24 +69,13 @@ public class DrawerUIUtils {
     }
 
     /**
-     * Returns the screen width in pixels
-     *
-     * @param context is the context to get the resources
-     * @return the screen width in pixels
-     */
-    public static int getScreenWidth(Context context) {
-        DisplayMetrics metrics = context.getResources().getDisplayMetrics();
-        return metrics.widthPixels;
-    }
-
-    /**
      * helper to calculate the optimal drawer width
      *
      * @param context
      * @return
      */
     public static int getOptimalDrawerWidth(Context context) {
-        int possibleMinDrawerWidth = DrawerUIUtils.getScreenWidth(context) - UIUtils.getActionBarHeight(context);
+        int possibleMinDrawerWidth = UIUtils.getScreenWidth(context) - UIUtils.getActionBarHeight(context);
         int maxDrawerWidth = context.getResources().getDimensionPixelSize(R.dimen.material_drawer_width);
         return Math.min(possibleMinDrawerWidth, maxDrawerWidth);
     }
