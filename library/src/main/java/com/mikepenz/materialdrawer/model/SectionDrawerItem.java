@@ -118,6 +118,11 @@ public class SectionDrawerItem extends AbstractDrawerItem<SectionDrawerItem, Sec
         //set the text for the name
         StringHolder.applyTo(this.getName(), viewHolder.name);
 
+        //define the typeface for our textViews
+        if (getTypeface() != null) {
+            viewHolder.name.setTypeface(getTypeface());
+        }
+
         //hide the divider if we do not need one
         if (this.hasDivider()) {
             viewHolder.divider.setVisibility(View.VISIBLE);
