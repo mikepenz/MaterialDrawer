@@ -156,7 +156,7 @@ public class IconDrawerItem extends AbstractDrawerItem<IconDrawerItem, IconDrawe
 
     @Override
     public int getType() {
-        return R.id.material_drawer_icon_only_item;
+        return R.id.material_drawer_item_icon_only;
     }
 
     @Override
