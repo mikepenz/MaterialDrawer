@@ -2,5 +2,6 @@
 
 <resources>
     <item name="material_drawer_item_custom_url_item" type="id" />
+    <item name="material_drawer_icon_only_item" type="id" />
     <item name="material_drawer_item_overflow_menu" type="id" />
 </resources>

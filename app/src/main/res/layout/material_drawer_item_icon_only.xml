@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="@dimen/material_drawer_item_primary"
+    android:gravity="center"
+    android:orientation="horizontal">
+
+    <ImageView
+        android:id="@+id/material_drawer_icon"
+        android:layout_width="@dimen/material_drawer_item_primary"
+        android:layout_height="@dimen/material_drawer_item_primary"
+        android:layout_gravity="center"
+        android:paddingBottom="@dimen/material_drawer_item_primary_icon_padding"
+        android:paddingEnd="@dimen/material_drawer_item_primary_icon_padding"
+        android:paddingLeft="@dimen/material_drawer_item_primary_icon_padding"
+        android:paddingRight="@dimen/material_drawer_item_primary_icon_padding"
+        android:paddingStart="@dimen/material_drawer_item_primary_icon_padding"
+        android:paddingTop="@dimen/material_drawer_item_primary_icon_padding" />
+</LinearLayout>
