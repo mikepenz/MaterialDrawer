@@ -51,6 +51,7 @@ dependencies {
     compile project(':library')
 
     compile "com.android.support:design:${rootProject.ext.supportLibVersion}"
+    compile "com.android.support:cardview-v7:${rootProject.ext.supportLibVersion}"
 
     // used to showcase how to load images
     compile 'com.squareup.picasso:picasso:2.5.2'
