@@ -10,12 +10,12 @@
         <b>MaterialDrawer</b> the flexible, easy to use, all in one drawer library for your Android project.
         ]]>
     </string>
-    <string name="library_materialdrawer_libraryVersion">5.0.0.fastAdapter-SNAPSHOT</string>
+    <string name="library_materialdrawer_libraryVersion">5.0.0</string>
     <string name="library_materialdrawer_libraryWebsite">https://github.com/mikepenz/MaterialDrawer</string>
     <string name="library_materialdrawer_licenseId">apache_2_0</string>
     <string name="library_materialdrawer_isOpenSource">true</string>
     <string name="library_materialdrawer_repositoryLink">https://github.com/mikepenz/MaterialDrawer</string>
     <!-- Custom variables section -->
     <string name="library_materialdrawer_owner">Mike Penz</string>
-    <string name="library_materialdrawer_year">2015</string>
+    <string name="library_materialdrawer_year">2016</string>
 </resources>

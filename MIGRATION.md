@@ -1,5 +1,17 @@
 ###Upgrade Notes
 
+#### v4.6.0 -> v5.0.0
+* the identifier was changed from `int` to `long` as the internal adapter (FastAdapter) uses `long` to identify items (as the `Adapter` does)
+* v5.0.0 no longer sets the `FULL_SCREEN` flag to get the drawer below the `StatusBar` it now uses the `fitsSystemWindows` everywhere. This should improve compatiblity with a lot of things like the `CoordinatorLayout` and should also improve compatiblity with future Android updates
+* removed the following methods:
+ * DrawerUIUtils.getScreenWidth -> moved to UIUtils from the `Materialize` library
+ * DrawerBuilder.withTranslucentStatusBarProgrammatically -> no longer necessary as we now depend on the `fitsSystemWindows` flag
+ * `StatusBarColor` can now be set via the `Drawer.getDrawerLayout().setStatusBarBackgroundColor(color)`
+ * DrawerBuilder.keyboardSupportEnabled -> `KeyboardUtil` should no  longer be necessary
+* `StatusBar` on **API < 21** is no longer colored, because of the changed way how we display the `Drawer` under the `StatusBar`
+* `DrawerItems` changed. Please take a look at the `CustomDrawerItems` from the sample or the default ones, to add the changes to your `CustomDrawerItems`
+* ...
+
 #### v4.5.9 -> v4.6.0
 * it is now possible to let the `Drawer` manage the `MiniDrawer`. Enable this via `withGenerateMiniDrawer(true)`. Afterwards remove the `MiniDrawer` calls inside the listeners, those are now done within the `Drawer`. You can get the `MiniDrawer` result object via `Drawer.getMiniDrawer();`
 

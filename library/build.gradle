@@ -9,7 +9,7 @@ android {
         minSdkVersion 10
         targetSdkVersion 23
         versionCode 500
-        versionName '5.0.0.fastAdapter-SNAPSHOT'
+        versionName '5.0.0'
     }
     buildTypes {
         release {
