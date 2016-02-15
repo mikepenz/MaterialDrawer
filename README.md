@@ -28,6 +28,7 @@ There  is a Header with profiles (**AccountHeader**), a **MiniDrawer** for Table
 - based on a **RecyclerView**
 - **RTL** support
 - Gmail like **MiniDrawer**
+- expandable items
 - **badge** support
 - define custom drawer items
 - tested and **stable**
