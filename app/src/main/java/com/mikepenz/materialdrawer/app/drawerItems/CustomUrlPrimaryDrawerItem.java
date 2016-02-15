@@ -3,20 +3,19 @@ package com.mikepenz.materialdrawer.app.drawerItems;
 import android.content.Context;
 import android.support.annotation.LayoutRes;
 import android.support.annotation.StringRes;
-import android.support.v7.widget.RecyclerView;
 import android.view.View;
 import android.widget.TextView;
 
-import com.mikepenz.materialdrawer.R;
+import com.mikepenz.fastadapter.utils.ViewHolderFactory;
+import com.mikepenz.materialdrawer.app.R;
 import com.mikepenz.materialdrawer.holder.BadgeStyle;
 import com.mikepenz.materialdrawer.holder.StringHolder;
 import com.mikepenz.materialdrawer.model.interfaces.ColorfulBadgeable;
-import com.mikepenz.materialdrawer.model.utils.ViewHolderFactory;
 
 /**
  * Created by mikepenz on 03.02.15.
  */
-public class CustomUrlPrimaryDrawerItem extends CustomUrlBasePrimaryDrawerItem<CustomUrlPrimaryDrawerItem> implements ColorfulBadgeable<CustomUrlPrimaryDrawerItem> {
+public class CustomUrlPrimaryDrawerItem extends CustomUrlBasePrimaryDrawerItem<CustomUrlPrimaryDrawerItem, CustomUrlPrimaryDrawerItem.ViewHolder> implements ColorfulBadgeable<CustomUrlPrimaryDrawerItem> {
     protected StringHolder mBadge;
     protected BadgeStyle mBadgeStyle = new BadgeStyle();
 
@@ -53,8 +52,8 @@ public class CustomUrlPrimaryDrawerItem extends CustomUrlBasePrimaryDrawerItem<C
     }
 
     @Override
-    public String getType() {
-        return "URL_PRIMARY_ITEM";
+    public int getType() {
+        return R.id.material_drawer_item_custom_url_item;
     }
 
     @Override
@@ -64,14 +63,11 @@ public class CustomUrlPrimaryDrawerItem extends CustomUrlBasePrimaryDrawerItem<C
     }
 
     @Override
-    public void bindView(RecyclerView.ViewHolder holder) {
-        Context ctx = holder.itemView.getContext();
-
-        //get our viewHolder
-        ViewHolder viewHolder = (ViewHolder) holder;
+    public void bindView(ViewHolder viewHolder) {
+        Context ctx = viewHolder.itemView.getContext();
 
         //bind the basic view parts
-        bindViewHelper((BaseViewHolder) holder);
+        bindViewHelper(viewHolder);
 
         //set the text for the badge or hide
         boolean badgeVisible = StringHolder.applyToOrHide(mBadge, viewHolder.badge);
@@ -89,7 +85,7 @@ public class CustomUrlPrimaryDrawerItem extends CustomUrlBasePrimaryDrawerItem<C
         }
 
         //call the onPostBindView method to trigger post bind view actions (like the listener to modify the item if required)
-        onPostBindView(this, holder.itemView);
+        onPostBindView(this, viewHolder.itemView);
     }
 
     @Override
@@ -98,12 +94,12 @@ public class CustomUrlPrimaryDrawerItem extends CustomUrlBasePrimaryDrawerItem<C
     }
 
     public static class ItemFactory implements ViewHolderFactory<ViewHolder> {
-        public ViewHolder factory(View v) {
+        public ViewHolder create(View v) {
             return new ViewHolder(v);
         }
     }
 
-    private static class ViewHolder extends BaseViewHolder {
+    static class ViewHolder extends CustomBaseViewHolder {
         private View badgeContainer;
         private TextView badge;
 

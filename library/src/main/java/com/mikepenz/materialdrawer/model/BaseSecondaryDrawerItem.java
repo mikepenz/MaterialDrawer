@@ -1,14 +1,11 @@
 package com.mikepenz.materialdrawer.model;
 
 import android.content.Context;
+import android.content.res.ColorStateList;
 import android.graphics.drawable.Drawable;
 import android.support.annotation.ColorInt;
 import android.support.annotation.ColorRes;
 import android.support.annotation.StringRes;
-import android.support.v7.widget.RecyclerView;
-import android.view.View;
-import android.widget.ImageView;
-import android.widget.TextView;
 
 import com.mikepenz.materialdrawer.R;
 import com.mikepenz.materialdrawer.holder.ColorHolder;
@@ -20,7 +17,7 @@ import com.mikepenz.materialize.util.UIUtils;
 /**
  * Created by mikepenz on 03.02.15.
  */
-public abstract class BaseSecondaryDrawerItem<T> extends BaseDrawerItem<T> {
+public abstract class BaseSecondaryDrawerItem<T, VH extends BaseViewHolder> extends BaseDrawerItem<T, VH> {
     private StringHolder description;
     private ColorHolder descriptionTextColor;
 
@@ -79,22 +76,25 @@ public abstract class BaseSecondaryDrawerItem<T> extends BaseDrawerItem<T> {
         Context ctx = viewHolder.itemView.getContext();
 
         //set the identifier from the drawerItem here. It can be used to run tests
-        viewHolder.itemView.setId(getIdentifier());
+        viewHolder.itemView.setId(hashCode());
 
         //set the item selected if it is
         viewHolder.itemView.setSelected(isSelected());
+
+        //
+        viewHolder.itemView.setTag(this);
 
         //get the correct color for the background
         int selectedColor = getSelectedColor(ctx);
         //get the correct color for the text
         int color = getColor(ctx);
-        int selectedTextColor = getSelectedTextColor(ctx);
+        ColorStateList selectedTextColor = getTextColorStateList(color, getSelectedTextColor(ctx));
         //get the correct color for the icon
         int iconColor = getIconColor(ctx);
         int selectedIconColor = getSelectedIconColor(ctx);
 
         //set the background for the item
-        UIUtils.setBackground(viewHolder.view, DrawerUIUtils.getSelectableBackground(ctx, selectedColor));
+        UIUtils.setBackground(viewHolder.view, UIUtils.getSelectableBackground(ctx, selectedColor, true));
         //set the text for the name
         StringHolder.applyTo(this.getName(), viewHolder.name);
 
@@ -102,10 +102,10 @@ public abstract class BaseSecondaryDrawerItem<T> extends BaseDrawerItem<T> {
         StringHolder.applyToOrHide(this.getDescription(), viewHolder.description);
 
         //set the colors for textViews
-        viewHolder.name.setTextColor(getTextColorStateList(color, selectedTextColor));
+        viewHolder.name.setTextColor(selectedTextColor);
 
         //set the description text color
-        ColorHolder.applyToOr(getDescriptionTextColor(), viewHolder.description, getTextColorStateList(getColor(ctx), getSelectedColor(ctx)));
+        ColorHolder.applyToOr(getDescriptionTextColor(), viewHolder.description, selectedTextColor);
 
         //define the typeface for our textViews
         if (getTypeface() != null) {
@@ -120,21 +120,5 @@ public abstract class BaseSecondaryDrawerItem<T> extends BaseDrawerItem<T> {
 
         //for android API 17 --> Padding not applied via xml
         DrawerUIUtils.setDrawerVerticalPadding(viewHolder.view, level);
-    }
-
-    protected static class BaseViewHolder extends RecyclerView.ViewHolder {
-        protected View view;
-        protected ImageView icon;
-        protected TextView name;
-        private TextView description;
-
-        public BaseViewHolder(View view) {
-            super(view);
-
-            this.view = view;
-            this.icon = (ImageView) view.findViewById(R.id.material_drawer_icon);
-            this.name = (TextView) view.findViewById(R.id.material_drawer_name);
-            this.description = (TextView) view.findViewById(R.id.material_drawer_description);
-        }
     }
 }

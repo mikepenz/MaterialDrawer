@@ -3,6 +3,7 @@ package com.mikepenz.materialdrawer.app;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
+import android.util.Log;
 import android.view.Gravity;
 import android.view.MenuItem;
 import android.view.View;
@@ -107,6 +108,30 @@ public class MultiDrawerActivity extends AppCompatActivity {
                         return false;
                     }
                 })
+                .withOnDrawerListener(new Drawer.OnDrawerListener() {
+                    @Override
+                    public void onDrawerOpened(View drawerView) {
+                        if (drawerView == result.getSlider()) {
+                            Log.e("sample", "left opened");
+                        } else if (drawerView == resultAppended.getSlider()) {
+                            Log.e("sample", "right opened");
+                        }
+                    }
+
+                    @Override
+                    public void onDrawerClosed(View drawerView) {
+                        if (drawerView == result.getSlider()) {
+                            Log.e("sample", "left closed");
+                        } else if (drawerView == resultAppended.getSlider()) {
+                            Log.e("sample", "right closed");
+                        }
+                    }
+
+                    @Override
+                    public void onDrawerSlide(View drawerView, float slideOffset) {
+
+                    }
+                })
                 .build();
 
         //now we add the second drawer on the other site.
@@ -128,6 +153,15 @@ public class MultiDrawerActivity extends AppCompatActivity {
                         new SectionDrawerItem().withName(R.string.drawer_item_section_header),
                         new SecondaryDrawerItem().withName(R.string.drawer_item_contact).withIcon(FontAwesome.Icon.faw_bullhorn)
                 )
+                .withOnDrawerItemClickListener(new Drawer.OnDrawerItemClickListener() {
+                    @Override
+                    public boolean onItemClick(View view, int position, IDrawerItem drawerItem) {
+                        if (drawerItem instanceof Nameable) {
+                            Toast.makeText(MultiDrawerActivity.this, ((Nameable) drawerItem).getName().getText(MultiDrawerActivity.this), Toast.LENGTH_SHORT).show();
+                        }
+                        return false;
+                    }
+                })
                 .withDrawerGravity(Gravity.END)
                 .append(result);
 

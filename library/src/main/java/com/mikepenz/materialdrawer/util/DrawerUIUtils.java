@@ -7,8 +7,6 @@ import android.graphics.drawable.ColorDrawable;
 import android.graphics.drawable.Drawable;
 import android.graphics.drawable.StateListDrawable;
 import android.os.Build;
-import android.util.DisplayMetrics;
-import android.util.TypedValue;
 import android.view.View;
 
 import com.mikepenz.iconics.IconicsDrawable;
@@ -70,52 +68,6 @@ public class DrawerUIUtils {
         return states;
     }
 
-
-    /**
-     * helper to get the system default selectable background inclusive an active state
-     *
-     * @param ctx
-     * @param selected_color
-     * @return
-     */
-    public static StateListDrawable getSelectableBackground(Context ctx, int selected_color) {
-        StateListDrawable states = getDrawerItemBackground(selected_color);
-        states.addState(new int[]{}, UIUtils.getCompatDrawable(ctx, getSelectableBackground(ctx)));
-        return states;
-    }
-
-    /**
-     * helper to get the system default selectable background
-     *
-     * @param ctx
-     * @return
-     */
-    public static int getSelectableBackground(Context ctx) {
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.HONEYCOMB) {
-            // If we're running on Honeycomb or newer, then we can use the Theme's
-            // selectableItemBackground to ensure that the View has a pressed state
-            TypedValue outValue = new TypedValue();
-            ctx.getTheme().resolveAttribute(R.attr.selectableItemBackground, outValue, true);
-            return outValue.resourceId;
-        } else {
-            TypedValue outValue = new TypedValue();
-            ctx.getTheme().resolveAttribute(android.R.attr.itemBackground, outValue, true);
-            return outValue.resourceId;
-        }
-    }
-
-
-    /**
-     * Returns the screen width in pixels
-     *
-     * @param context is the context to get the resources
-     * @return the screen width in pixels
-     */
-    public static int getScreenWidth(Context context) {
-        DisplayMetrics metrics = context.getResources().getDisplayMetrics();
-        return metrics.widthPixels;
-    }
-
     /**
      * helper to calculate the optimal drawer width
      *
@@ -123,7 +75,7 @@ public class DrawerUIUtils {
      * @return
      */
     public static int getOptimalDrawerWidth(Context context) {
-        int possibleMinDrawerWidth = DrawerUIUtils.getScreenWidth(context) - UIUtils.getActionBarHeight(context);
+        int possibleMinDrawerWidth = UIUtils.getScreenWidth(context) - UIUtils.getActionBarHeight(context);
         int maxDrawerWidth = context.getResources().getDimensionPixelSize(R.dimen.material_drawer_width);
         return Math.min(possibleMinDrawerWidth, maxDrawerWidth);
     }

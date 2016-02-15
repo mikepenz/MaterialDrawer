@@ -10,10 +10,10 @@ import android.widget.ImageView;
 
 import com.mikepenz.materialdrawer.holder.ImageHolder;
 import com.mikepenz.materialdrawer.model.interfaces.IProfile;
-import com.mikepenz.materialdrawer.util.IdDistributor;
 
 import java.util.ArrayList;
 import java.util.Collections;
+import java.util.List;
 
 /**
  * Created by mikepenz on 27.02.15.
@@ -150,7 +150,7 @@ public class AccountHeader {
      *
      * @return
      */
-    public ArrayList<IProfile> getProfiles() {
+    public List<IProfile> getProfiles() {
         return mAccountHeaderBuilder.mProfiles;
     }
 
@@ -159,8 +159,8 @@ public class AccountHeader {
      *
      * @param profiles
      */
-    public void setProfiles(ArrayList<IProfile> profiles) {
-        mAccountHeaderBuilder.mProfiles = IdDistributor.checkIds(profiles);
+    public void setProfiles(List<IProfile> profiles) {
+        mAccountHeaderBuilder.mProfiles = profiles;
         mAccountHeaderBuilder.updateHeaderAndList();
     }
 
@@ -195,7 +195,7 @@ public class AccountHeader {
      *
      * @param identifier
      */
-    public void setActiveProfile(int identifier) {
+    public void setActiveProfile(long identifier) {
         setActiveProfile(identifier, false);
     }
 
@@ -204,7 +204,7 @@ public class AccountHeader {
      *
      * @param identifier
      */
-    public void setActiveProfile(int identifier, boolean fireOnProfileChanged) {
+    public void setActiveProfile(long identifier, boolean fireOnProfileChanged) {
         if (mAccountHeaderBuilder.mProfiles != null) {
             for (IProfile profile : mAccountHeaderBuilder.mProfiles) {
                 if (profile != null) {
@@ -261,7 +261,7 @@ public class AccountHeader {
             mAccountHeaderBuilder.mProfiles = new ArrayList<>();
         }
 
-        Collections.addAll(mAccountHeaderBuilder.mProfiles, IdDistributor.checkIds(profiles));
+        Collections.addAll(mAccountHeaderBuilder.mProfiles, profiles);
 
         mAccountHeaderBuilder.updateHeaderAndList();
     }
@@ -276,7 +276,7 @@ public class AccountHeader {
         if (mAccountHeaderBuilder.mProfiles == null) {
             mAccountHeaderBuilder.mProfiles = new ArrayList<>();
         }
-        mAccountHeaderBuilder.mProfiles.add(position, IdDistributor.checkId(profile));
+        mAccountHeaderBuilder.mProfiles.add(position, profile);
 
         mAccountHeaderBuilder.updateHeaderAndList();
     }
@@ -299,7 +299,7 @@ public class AccountHeader {
      *
      * @param identifier
      */
-    public void removeProfileByIdentifier(int identifier) {
+    public void removeProfileByIdentifier(long identifier) {
         int found = getPositionByIdentifier(identifier);
         if (found > -1) {
             mAccountHeaderBuilder.mProfiles.remove(found);
@@ -336,7 +336,7 @@ public class AccountHeader {
      * @param identifier
      * @return
      */
-    private int getPositionByIdentifier(int identifier) {
+    private int getPositionByIdentifier(long identifier) {
         int found = -1;
         if (mAccountHeaderBuilder.mProfiles != null && identifier >= 0) {
             for (int i = 0; i < mAccountHeaderBuilder.mProfiles.size(); i++) {

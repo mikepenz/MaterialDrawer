@@ -8,18 +8,18 @@ import android.support.v7.widget.RecyclerView;
 import android.view.View;
 import android.widget.TextView;
 
+import com.mikepenz.fastadapter.utils.ViewHolderFactory;
 import com.mikepenz.materialdrawer.R;
 import com.mikepenz.materialdrawer.holder.ColorHolder;
 import com.mikepenz.materialdrawer.holder.StringHolder;
 import com.mikepenz.materialdrawer.model.interfaces.Nameable;
 import com.mikepenz.materialdrawer.model.interfaces.Typefaceable;
-import com.mikepenz.materialdrawer.model.utils.ViewHolderFactory;
 import com.mikepenz.materialize.util.UIUtils;
 
 /**
  * Created by mikepenz on 03.02.15.
  */
-public class SectionDrawerItem extends AbstractDrawerItem<SectionDrawerItem> implements Nameable<SectionDrawerItem>, Typefaceable<SectionDrawerItem> {
+public class SectionDrawerItem extends AbstractDrawerItem<SectionDrawerItem, SectionDrawerItem.ViewHolder> implements Nameable<SectionDrawerItem>, Typefaceable<SectionDrawerItem> {
 
     private StringHolder name;
     private boolean divider = true;
@@ -86,8 +86,8 @@ public class SectionDrawerItem extends AbstractDrawerItem<SectionDrawerItem> imp
     }
 
     @Override
-    public String getType() {
-        return "SECTION_ITEM";
+    public int getType() {
+        return R.id.material_drawer_item_section;
     }
 
     @Override
@@ -102,14 +102,11 @@ public class SectionDrawerItem extends AbstractDrawerItem<SectionDrawerItem> imp
     }
 
     @Override
-    public void bindView(RecyclerView.ViewHolder holder) {
-        Context ctx = holder.itemView.getContext();
-
-        //get our viewHolder
-        ViewHolder viewHolder = (ViewHolder) holder;
+    public void bindView(ViewHolder viewHolder) {
+        Context ctx = viewHolder.itemView.getContext();
 
         //set the identifier from the drawerItem here. It can be used to run tests
-        holder.itemView.setId(getIdentifier());
+        viewHolder.itemView.setId(hashCode());
 
         //define this item to be not clickable nor enabled
         viewHolder.view.setClickable(false);
@@ -120,6 +117,11 @@ public class SectionDrawerItem extends AbstractDrawerItem<SectionDrawerItem> imp
 
         //set the text for the name
         StringHolder.applyTo(this.getName(), viewHolder.name);
+
+        //define the typeface for our textViews
+        if (getTypeface() != null) {
+            viewHolder.name.setTypeface(getTypeface());
+        }
 
         //hide the divider if we do not need one
         if (this.hasDivider()) {
@@ -132,7 +134,7 @@ public class SectionDrawerItem extends AbstractDrawerItem<SectionDrawerItem> imp
         viewHolder.divider.setBackgroundColor(UIUtils.getThemeColorFromAttrOrRes(ctx, R.attr.material_drawer_divider, R.color.material_drawer_divider));
 
         //call the onPostBindView method to trigger post bind view actions (like the listener to modify the item if required)
-        onPostBindView(this, holder.itemView);
+        onPostBindView(this, viewHolder.itemView);
     }
 
     @Override
@@ -141,12 +143,12 @@ public class SectionDrawerItem extends AbstractDrawerItem<SectionDrawerItem> imp
     }
 
     public static class ItemFactory implements ViewHolderFactory<ViewHolder> {
-        public ViewHolder factory(View v) {
+        public ViewHolder create(View v) {
             return new ViewHolder(v);
         }
     }
 
-    private static class ViewHolder extends RecyclerView.ViewHolder {
+    protected static class ViewHolder extends RecyclerView.ViewHolder {
         private View view;
         private View divider;
         private TextView name;
