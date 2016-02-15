@@ -54,11 +54,11 @@ dependencies {
 
     // used to showcase how to load images
     compile 'com.squareup.picasso:picasso:2.5.2'
-    compile 'com.github.bumptech.glide:glide:3.6.1'
+    compile 'com.github.bumptech.glide:glide:3.7.0'
 
     // used to generate the Open Source section
     // https://github.com/mikepenz/AboutLibraries
-    compile('com.mikepenz:aboutlibraries:5.5.1@aar') {
+    compile('com.mikepenz:aboutlibraries:5.5.2@aar') {
         transitive = true
         exclude module: "fastadapter"
     }
