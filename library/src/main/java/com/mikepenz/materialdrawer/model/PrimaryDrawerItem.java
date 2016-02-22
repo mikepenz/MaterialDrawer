@@ -88,7 +88,7 @@ public class PrimaryDrawerItem extends BasePrimaryDrawerItem<PrimaryDrawerItem, 
     }
 
     @Override
-    public ViewHolderFactory getFactory() {
+    public ViewHolderFactory<ViewHolder> getFactory() {
         return new ItemFactory();
     }
 

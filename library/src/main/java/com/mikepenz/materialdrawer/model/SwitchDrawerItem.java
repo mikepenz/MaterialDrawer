@@ -92,7 +92,7 @@ public class SwitchDrawerItem extends BasePrimaryDrawerItem<SwitchDrawerItem, Sw
     }
 
     @Override
-    public ViewHolderFactory getFactory() {
+    public ViewHolderFactory<ViewHolder> getFactory() {
         return new ItemFactory();
     }
 

@@ -99,7 +99,7 @@ public class ToggleDrawerItem extends BasePrimaryDrawerItem<ToggleDrawerItem, To
     }
 
     @Override
-    public ViewHolderFactory getFactory() {
+    public ViewHolderFactory<ViewHolder> getFactory() {
         return new ItemFactory();
     }
 

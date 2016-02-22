@@ -28,6 +28,7 @@ There  is a Header with profiles (**AccountHeader**), a **MiniDrawer** for Table
 - based on a **RecyclerView**
 - **RTL** support
 - Gmail like **MiniDrawer**
+- expandable items
 - **badge** support
 - define custom drawer items
 - tested and **stable**
@@ -51,7 +52,7 @@ You can find some frequently asked questions and other resources in the [WIKI / 
 ##1. Provide the gradle dependency
 
 ```gradle
-compile('com.mikepenz:materialdrawer:5.0.0@aar') {
+compile('com.mikepenz:materialdrawer:5.0.1@aar') {
 	transitive = true
 }
 ```

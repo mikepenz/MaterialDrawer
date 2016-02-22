@@ -42,6 +42,7 @@ import com.mikepenz.fastadapter.adapters.FooterAdapter;
 import com.mikepenz.fastadapter.adapters.HeaderAdapter;
 import com.mikepenz.fastadapter.adapters.ItemAdapter;
 import com.mikepenz.iconics.utils.Utils;
+import com.mikepenz.materialdrawer.model.AbstractDrawerItem;
 import com.mikepenz.materialdrawer.model.DividerDrawerItem;
 import com.mikepenz.materialdrawer.model.PrimaryDrawerItem;
 import com.mikepenz.materialdrawer.model.SecondaryDrawerItem;
@@ -536,7 +537,6 @@ public class DrawerBuilder {
     protected View mHeaderView;
     protected boolean mHeaderDivider = true;
     protected boolean mHeaderPadding = true;
-    protected boolean mHeaderClickable = false;
 
     /**
      * Add a header to the DrawerBuilder ListView. This can be any view
@@ -565,17 +565,6 @@ public class DrawerBuilder {
             this.mHeaderView = mActivity.getLayoutInflater().inflate(headerViewRes, null, false);
         }
 
-        return this;
-    }
-
-    /**
-     * Set this to true if you want the header to be clickable
-     *
-     * @param headerClickable
-     * @return
-     */
-    public DrawerBuilder withHeaderClickable(boolean headerClickable) {
-        this.mHeaderClickable = headerClickable;
         return this;
     }
 
@@ -1659,6 +1648,12 @@ public class DrawerBuilder {
                 //call the listener
                 boolean consumed = false;
 
+                //call the item specific listener
+                if (item instanceof AbstractDrawerItem && ((AbstractDrawerItem) item).getOnDrawerItemClickListener() != null) {
+                    consumed = ((AbstractDrawerItem) item).getOnDrawerItemClickListener().onItemClick(view, position, item);
+                }
+
+                //call the drawer listener
                 if (mOnDrawerItemClickListener != null) {
                     if (mDelayDrawerClickEvent > 0) {
                         new Handler().postDelayed(new Runnable() {
