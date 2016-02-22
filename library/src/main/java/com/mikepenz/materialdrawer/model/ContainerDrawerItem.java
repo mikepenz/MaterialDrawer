@@ -108,7 +108,7 @@ public class ContainerDrawerItem extends AbstractDrawerItem<ContainerDrawerItem,
     }
 
     @Override
-    public ViewHolderFactory getFactory() {
+    public ViewHolderFactory<ViewHolder> getFactory() {
         return new ItemFactory();
     }
 

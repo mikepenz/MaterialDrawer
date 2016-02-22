@@ -47,7 +47,7 @@ public class DividerDrawerItem extends AbstractDrawerItem<DividerDrawerItem, Div
     }
 
     @Override
-    public ViewHolderFactory getFactory() {
+    public ViewHolderFactory<ViewHolder> getFactory() {
         return new ItemFactory();
     }
 

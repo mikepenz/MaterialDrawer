@@ -165,7 +165,7 @@ public class MiniDrawerItem extends BaseDrawerItem<MiniDrawerItem, MiniDrawerIte
     }
 
     @Override
-    public ViewHolderFactory getFactory() {
+    public ViewHolderFactory<ViewHolder> getFactory() {
         return new ItemFactory();
     }
 

@@ -147,7 +147,7 @@ public class MiniProfileDrawerItem extends AbstractDrawerItem<MiniProfileDrawerI
     }
 
     @Override
-    public ViewHolderFactory getFactory() {
+    public ViewHolderFactory<ViewHolder> getFactory() {
         return new ItemFactory();
     }
 

@@ -138,7 +138,7 @@ public class SectionDrawerItem extends AbstractDrawerItem<SectionDrawerItem, Sec
     }
 
     @Override
-    public ViewHolderFactory getFactory() {
+    public ViewHolderFactory<ViewHolder> getFactory() {
         return new ItemFactory();
     }
 

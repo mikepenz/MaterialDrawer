@@ -235,7 +235,7 @@ public class ProfileSettingDrawerItem extends AbstractDrawerItem<ProfileSettingD
     }
 
     @Override
-    public ViewHolderFactory getFactory() {
+    public ViewHolderFactory<ViewHolder> getFactory() {
         return new ItemFactory();
     }
 
