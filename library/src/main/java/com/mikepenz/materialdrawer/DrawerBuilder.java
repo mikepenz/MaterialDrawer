@@ -42,6 +42,7 @@ import com.mikepenz.fastadapter.adapters.FooterAdapter;
 import com.mikepenz.fastadapter.adapters.HeaderAdapter;
 import com.mikepenz.fastadapter.adapters.ItemAdapter;
 import com.mikepenz.iconics.utils.Utils;
+import com.mikepenz.materialdrawer.model.AbstractDrawerItem;
 import com.mikepenz.materialdrawer.model.DividerDrawerItem;
 import com.mikepenz.materialdrawer.model.PrimaryDrawerItem;
 import com.mikepenz.materialdrawer.model.SecondaryDrawerItem;
@@ -1647,6 +1648,12 @@ public class DrawerBuilder {
                 //call the listener
                 boolean consumed = false;
 
+                //call the item specific listener
+                if (item instanceof AbstractDrawerItem && ((AbstractDrawerItem) item).getOnDrawerItemClickListener() != null) {
+                    consumed = ((AbstractDrawerItem) item).getOnDrawerItemClickListener().onItemClick(view, position, item);
+                }
+
+                //call the drawer listener
                 if (mOnDrawerItemClickListener != null) {
                     if (mDelayDrawerClickEvent > 0) {
                         new Handler().postDelayed(new Runnable() {
