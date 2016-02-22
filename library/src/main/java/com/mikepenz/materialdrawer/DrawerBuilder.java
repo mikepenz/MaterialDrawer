@@ -536,7 +536,6 @@ public class DrawerBuilder {
     protected View mHeaderView;
     protected boolean mHeaderDivider = true;
     protected boolean mHeaderPadding = true;
-    protected boolean mHeaderClickable = false;
 
     /**
      * Add a header to the DrawerBuilder ListView. This can be any view
@@ -565,17 +564,6 @@ public class DrawerBuilder {
             this.mHeaderView = mActivity.getLayoutInflater().inflate(headerViewRes, null, false);
         }
 
-        return this;
-    }
-
-    /**
-     * Set this to true if you want the header to be clickable
-     *
-     * @param headerClickable
-     * @return
-     */
-    public DrawerBuilder withHeaderClickable(boolean headerClickable) {
-        this.mHeaderClickable = headerClickable;
         return this;
     }
 
