@@ -14,7 +14,7 @@ import java.util.LinkedList;
  * Created by mikepenz on 01.11.14.
  */
 public class MaterialDrawerFont implements ITypeface {
-    private static final String TTF_FILE = "materialdrawerfont.ttf";
+    private static final String TTF_FILE = "materialdrawerfont-font-v5.0.0.ttf";
 
     private static Typeface typeface = null;
 
@@ -50,7 +50,7 @@ public class MaterialDrawerFont implements ITypeface {
 
     @Override
     public String getVersion() {
-        return "4.0.0";
+        return "5.0.0";
     }
 
     @Override
@@ -108,9 +108,11 @@ public class MaterialDrawerFont implements ITypeface {
     }
 
     public enum Icon implements IIcon {
-        mdf_person('\ue800'),
-        mdf_arrow_drop_up('\ue801'),
-        mdf_arrow_drop_down('\ue802');
+        mdf_arrow_drop_down('\ue5c5'),
+        mdf_arrow_drop_up('\ue5c7'),
+        mdf_expand_less('\ue5ce'),
+        mdf_expand_more('\ue5cf'),
+        mdf_person('\ue7fd');
 
         char character;
 
