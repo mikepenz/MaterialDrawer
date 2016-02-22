@@ -256,7 +256,6 @@ public class Drawer {
      * @return
      */
     public List<IDrawerItem> getDrawerItems() {
-        //TODO REDO THIS
         return mDrawerBuilder.getItemAdapter().getAdapterItems();
     }
 
@@ -895,7 +894,7 @@ public class Drawer {
     private Drawer.OnDrawerItemClickListener originalOnDrawerItemClickListener;
     private Drawer.OnDrawerItemLongClickListener originalOnDrawerItemLongClickListener;
     private List<IDrawerItem> originalDrawerItems;
-    private int originalDrawerSelection = -1;
+    private Bundle originalDrawerState;
 
     /**
      * information if the current drawer content is switched by alternative content (profileItems)
@@ -903,7 +902,7 @@ public class Drawer {
      * @return
      */
     public boolean switchedDrawerContent() {
-        return !(originalOnDrawerItemClickListener == null && originalDrawerItems == null && originalDrawerSelection == -1);
+        return !(originalOnDrawerItemClickListener == null && originalDrawerItems == null && originalDrawerState == null);
     }
 
     /**
@@ -928,8 +927,9 @@ public class Drawer {
             //save out previous values
             originalOnDrawerItemClickListener = getOnDrawerItemClickListener();
             originalOnDrawerItemLongClickListener = getOnDrawerItemLongClickListener();
+            originalDrawerState = getAdapter().saveInstanceState(new Bundle());
+            getAdapter().collapse();
             originalDrawerItems = getDrawerItems();
-            originalDrawerSelection = getCurrentSelectedPosition();
         }
 
         //set the new items
@@ -956,12 +956,12 @@ public class Drawer {
             setOnDrawerItemClickListener(originalOnDrawerItemClickListener);
             setOnDrawerItemLongClickListener(originalOnDrawerItemLongClickListener);
             setItems(originalDrawerItems, true);
-            setSelectionAtPosition(originalDrawerSelection, false);
+            getAdapter().withSavedInstanceState(originalDrawerState);
             //remove the references
             originalOnDrawerItemClickListener = null;
             originalOnDrawerItemLongClickListener = null;
             originalDrawerItems = null;
-            originalDrawerSelection = -1;
+            originalDrawerState = null;
 
             //if we switch back scroll back to the top
             mDrawerBuilder.mRecyclerView.smoothScrollToPosition(0);

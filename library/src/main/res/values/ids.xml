@@ -21,4 +21,5 @@
     <item name="material_drawer_item_profile" type="id" />
     <item name="material_drawer_item_profile_setting" type="id" />
     <item name="material_drawer_item_section" type="id" />
+    <item name="material_drawer_item_expandable" type="id" />
 </resources>
