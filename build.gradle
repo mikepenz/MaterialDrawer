@@ -4,7 +4,7 @@ buildscript {
         mavenCentral()
     }
     dependencies {
-        classpath 'com.android.tools.build:gradle:2.0.0-beta4'
+        classpath 'com.android.tools.build:gradle:2.0.0-beta5'
         classpath 'com.novoda:bintray-release:0.3.4'
     }
 }
