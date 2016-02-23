@@ -9,10 +9,7 @@ import android.view.ViewGroup;
 import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 
-import com.mikepenz.materialdrawer.holder.ColorHolder;
 import com.mikepenz.materialdrawer.model.ContainerDrawerItem;
-import com.mikepenz.materialdrawer.model.PrimaryDrawerItem;
-import com.mikepenz.materialdrawer.model.SecondaryDrawerItem;
 import com.mikepenz.materialdrawer.model.interfaces.IDrawerItem;
 import com.mikepenz.materialdrawer.model.interfaces.Selectable;
 import com.mikepenz.materialdrawer.util.DrawerUIUtils;
@@ -389,19 +386,11 @@ class DrawerUtils {
     public static void fillStickyDrawerItemFooter(DrawerBuilder drawer, ViewGroup container, View.OnClickListener onClickListener) {
         //add all drawer items
         for (IDrawerItem drawerItem : drawer.mStickyDrawerItems) {
-            //get the selected_color
-            int selected_color = UIUtils.getThemeColorFromAttrOrRes(container.getContext(), R.attr.material_drawer_selected, R.color.material_drawer_selected);
-            if (drawerItem instanceof PrimaryDrawerItem) {
-                selected_color = ColorHolder.color(((PrimaryDrawerItem) drawerItem).getSelectedColor(), container.getContext(), R.attr.material_drawer_selected, R.color.material_drawer_selected);
-            } else if (drawerItem instanceof SecondaryDrawerItem) {
-                selected_color = ColorHolder.color(((SecondaryDrawerItem) drawerItem).getSelectedColor(), container.getContext(), R.attr.material_drawer_selected, R.color.material_drawer_selected);
-            }
-
             View view = drawerItem.generateView(container.getContext(), container);
             view.setTag(drawerItem);
 
             if (drawerItem.isEnabled()) {
-                UIUtils.setBackground(view, UIUtils.getSelectableBackground(container.getContext(), selected_color, true));
+                //UIUtils.setBackground(view, UIUtils.getSelectableBackground(container.getContext(), selected_color, true));
                 view.setOnClickListener(onClickListener);
             }
 
