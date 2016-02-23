@@ -52,7 +52,7 @@ public class ExpandableDrawerItem extends BasePrimaryDrawerItem<ExpandableDrawer
         public boolean onItemClick(View view, int position, IDrawerItem drawerItem) {
             if (drawerItem instanceof AbstractDrawerItem && drawerItem.isEnabled()) {
                 if (((AbstractDrawerItem) drawerItem).getSubItems() != null) {
-                    if (((AbstractDrawerItem) drawerItem).isExpanded()) {
+                    if (!((AbstractDrawerItem) drawerItem).isExpanded()) {
                         ViewCompat.animate(view.findViewById(R.id.material_drawer_arrow)).rotation(180).start();
                     } else {
                         ViewCompat.animate(view.findViewById(R.id.material_drawer_arrow)).rotation(0).start();
@@ -73,7 +73,7 @@ public class ExpandableDrawerItem extends BasePrimaryDrawerItem<ExpandableDrawer
         //make sure all animations are stopped
         viewHolder.arrow.setColor(getIconColor(ctx));
         viewHolder.arrow.clearAnimation();
-        if (isExpanded()) {
+        if (!isExpanded()) {
             ViewCompat.setRotation(viewHolder.arrow, 0);
         } else {
             ViewCompat.setRotation(viewHolder.arrow, 180);
