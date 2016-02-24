@@ -12,7 +12,6 @@ import android.widget.CompoundButton;
 
 import com.mikepenz.aboutlibraries.Libs;
 import com.mikepenz.aboutlibraries.LibsBuilder;
-import com.mikepenz.fastadapter.IExpandable;
 import com.mikepenz.fastadapter.utils.RecyclerViewCacheUtil;
 import com.mikepenz.fontawesome_typeface_library.FontAwesome;
 import com.mikepenz.google_material_typeface_library.GoogleMaterial;
@@ -158,14 +157,6 @@ public class DrawerActivity extends AppCompatActivity {
 
                         if (drawerItem != null) {
                             Intent intent = null;
-
-                            //if our drawer has collapsible items we check if the clicked items has subItem. if yes we open it
-                            if (((IExpandable) drawerItem).getSubItems() != null) {
-                                result.getAdapter().toggleExpandable(position);
-                                //we consume the event and want no further handling
-                                return true;
-                            }
-
                             if (drawerItem.getIdentifier() == 1) {
                                 intent = new Intent(DrawerActivity.this, CompactHeaderDrawerActivity.class);
                             } else if (drawerItem.getIdentifier() == 2) {

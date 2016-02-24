@@ -37,6 +37,7 @@ import android.widget.LinearLayout;
 
 import com.mikepenz.fastadapter.FastAdapter;
 import com.mikepenz.fastadapter.IAdapter;
+import com.mikepenz.fastadapter.IExpandable;
 import com.mikepenz.fastadapter.IItemAdapter;
 import com.mikepenz.fastadapter.adapters.FooterAdapter;
 import com.mikepenz.fastadapter.adapters.HeaderAdapter;
@@ -1671,6 +1672,13 @@ public class DrawerBuilder {
                 if (!consumed && mMiniDrawer != null) {
                     consumed = mMiniDrawer.onItemClick(item);
                 }
+
+                //if we were a expandable item we consume the event closing makes no sense
+                if (item instanceof IExpandable && ((IExpandable) item).getSubItems() != null) {
+                    //we consume the event and want no further handling
+                    return true;
+                }
+
 
                 if (!consumed) {
                     //close the drawer after click
