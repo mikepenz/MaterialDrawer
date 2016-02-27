@@ -12,6 +12,7 @@ import android.widget.LinearLayout;
 
 import com.mikepenz.fastadapter.FastAdapter;
 import com.mikepenz.fastadapter.IAdapter;
+import com.mikepenz.fastadapter.adapters.FastItemAdapter;
 import com.mikepenz.fastadapter.adapters.ItemAdapter;
 import com.mikepenz.materialdrawer.interfaces.ICrossfader;
 import com.mikepenz.materialdrawer.model.MiniDrawerItem;
@@ -35,8 +36,7 @@ public class MiniDrawer {
 
     private LinearLayout mContainer;
     private RecyclerView mRecyclerView;
-    protected FastAdapter<IDrawerItem> mAdapter;
-    protected ItemAdapter<IDrawerItem> mItemAdapter = new ItemAdapter<>();
+    protected FastItemAdapter<IDrawerItem> mAdapter;
 
     private Drawer mDrawer;
 
@@ -193,7 +193,7 @@ public class MiniDrawer {
      * @return
      */
     public ItemAdapter<IDrawerItem> getItemAdapter() {
-        return mItemAdapter;
+        return mAdapter.getItemAdapter();
     }
 
     /**
@@ -295,8 +295,8 @@ public class MiniDrawer {
         //additional stuff
         mRecyclerView.setLayoutManager(new LinearLayoutManager(ctx));
         //adapter
-        mAdapter = new FastAdapter<>();
-        mItemAdapter.wrap(mAdapter);
+        mAdapter = new FastItemAdapter<>();
+        mAdapter.withAllowDeselection(false);
         mRecyclerView.setAdapter(mAdapter);
 
         //if the activity with the drawer should be fullscreen add the padding for the statusbar
@@ -330,7 +330,7 @@ public class MiniDrawer {
         if (mAccountHeader != null) {
             IProfile profile = mAccountHeader.getActiveProfile();
             if (profile instanceof IDrawerItem) {
-                mItemAdapter.set(0, generateMiniDrawerItem((IDrawerItem) profile));
+                mAdapter.set(0, generateMiniDrawerItem((IDrawerItem) profile));
             }
         }
     }
@@ -350,12 +350,8 @@ public class MiniDrawer {
                     mCrossFader.crossfade();
                 }
             }
-
-            //get the identifier
-            long identifier = selectedDrawerItem.getIdentifier();
-
             //update everything
-            setSelection(identifier);
+            setSelection(selectedDrawerItem.getIdentifier());
 
             return false;
         } else {
@@ -369,9 +365,11 @@ public class MiniDrawer {
      * @param identifier the identifier of the item which should be selected (-1 for none)
      */
     public void setSelection(long identifier) {
-        mAdapter.deselect();
-        for (int i = 0; i < mAdapter.getItemCount(); i++) {
-            if (mAdapter.getItem(i).getIdentifier() == identifier) {
+        int count = mAdapter.getItemCount();
+        for (int i = 0; i < count; i++) {
+            IDrawerItem item = mAdapter.getItem(i);
+            if (item.getIdentifier() == identifier && !item.isSelected()) {
+                mAdapter.deselect();
                 mAdapter.select(i);
             }
         }
@@ -383,13 +381,13 @@ public class MiniDrawer {
      * @param identifier the identifier of the item which was updated
      */
     public void updateItem(long identifier) {
-        if (mDrawer != null && mItemAdapter != null && mItemAdapter.getAdapterItems() != null && identifier != -1) {
+        if (mDrawer != null && mAdapter != null && mAdapter.getAdapterItems() != null && identifier != -1) {
             IDrawerItem drawerItem = DrawerUtils.getDrawerItem(getDrawerItems(), identifier);
-            for (int i = 0; i < mItemAdapter.getAdapterItems().size(); i++) {
-                if (mItemAdapter.getAdapterItems().get(i).getIdentifier() == drawerItem.getIdentifier()) {
+            for (int i = 0; i < mAdapter.getAdapterItems().size(); i++) {
+                if (mAdapter.getAdapterItems().get(i).getIdentifier() == drawerItem.getIdentifier()) {
                     IDrawerItem miniDrawerItem = generateMiniDrawerItem(drawerItem);
                     if (miniDrawerItem != null) {
-                        mItemAdapter.set(i, miniDrawerItem);
+                        mAdapter.set(i, miniDrawerItem);
                     }
                 }
             }
@@ -400,12 +398,12 @@ public class MiniDrawer {
      * creates the items for the MiniDrawer
      */
     public void createItems() {
-        mItemAdapter.clear();
+        mAdapter.clear();
 
         if (mAccountHeader != null) {
             IProfile profile = mAccountHeader.getActiveProfile();
             if (profile instanceof IDrawerItem) {
-                mItemAdapter.add(generateMiniDrawerItem((IDrawerItem) profile));
+                mAdapter.add(generateMiniDrawerItem((IDrawerItem) profile));
             }
         }
 
@@ -420,7 +418,7 @@ public class MiniDrawer {
                         if (miniDrawerItem.isSelected()) {
                             select = i;
                         }
-                        mItemAdapter.add(miniDrawerItem);
+                        mAdapter.add(miniDrawerItem);
                     }
                 }
 
