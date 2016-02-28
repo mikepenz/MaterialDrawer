@@ -89,7 +89,7 @@ public class DrawerActivity extends AppCompatActivity {
                     public boolean onProfileChanged(View view, IProfile profile, boolean current) {
                         //sample usage of the onProfileChanged listener
                         //if the clicked item has the identifier 1 add a new profile ;)
-                        if (profile instanceof IDrawerItem && ((IDrawerItem) profile).getIdentifier() == PROFILE_SETTING) {
+                        if (profile instanceof IDrawerItem && profile.getIdentifier() == PROFILE_SETTING) {
                             int count = 100 + headerResult.getProfiles().size() + 1;
                             IProfile newProfile = new ProfileDrawerItem().withNameShown(true).withName("Batman" + count).withEmail("batman" + count + "@gmail.com").withIcon(R.drawable.profile5).withIdentifier(count);
                             if (headerResult.getProfiles() != null) {
