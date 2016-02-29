@@ -400,10 +400,12 @@ public class MiniDrawer {
     public void createItems() {
         mAdapter.clear();
 
+        int profileOffset = 0;
         if (mAccountHeader != null) {
             IProfile profile = mAccountHeader.getActiveProfile();
             if (profile instanceof IDrawerItem) {
                 mAdapter.add(generateMiniDrawerItem((IDrawerItem) profile));
+                profileOffset = 1;
             }
         }
 
@@ -424,7 +426,7 @@ public class MiniDrawer {
 
                 if (select >= 0) {
                     //+1 because of the profile
-                    mAdapter.select(select + 1);
+                    mAdapter.select(select + profileOffset);
                 }
             }
         }
