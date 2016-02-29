@@ -444,8 +444,10 @@ public class MiniDrawer {
                             if (mAccountHeader != null && mAccountHeader.isSelectionListShown()) {
                                 mAccountHeader.toggleSelectionList(v.getContext());
                             }
-                            //set the selection
-                            mDrawer.setSelection(item, true);
+                            if (!mDrawer.getDrawerItem(item.getIdentifier()).isSelected()) {
+                                //set the selection
+                                mDrawer.setSelection(item, true);
+                            }
                         } else if (mDrawer.getOnDrawerItemClickListener() != null) {
                             //get the original `DrawerItem` from the Drawer as this one will contain all information
                             mDrawer.getOnDrawerItemClickListener().onItemClick(v, position, DrawerUtils.getDrawerItem(getDrawerItems(), item.getIdentifier()));
