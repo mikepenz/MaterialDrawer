@@ -400,10 +400,12 @@ public class MiniDrawer {
     public void createItems() {
         mAdapter.clear();
 
+        int profileOffset = 0;
         if (mAccountHeader != null) {
             IProfile profile = mAccountHeader.getActiveProfile();
             if (profile instanceof IDrawerItem) {
                 mAdapter.add(generateMiniDrawerItem((IDrawerItem) profile));
+                profileOffset = 1;
             }
         }
 
@@ -424,7 +426,7 @@ public class MiniDrawer {
 
                 if (select >= 0) {
                     //+1 because of the profile
-                    mAdapter.select(select + 1);
+                    mAdapter.select(select + profileOffset);
                 }
             }
         }
@@ -444,8 +446,10 @@ public class MiniDrawer {
                             if (mAccountHeader != null && mAccountHeader.isSelectionListShown()) {
                                 mAccountHeader.toggleSelectionList(v.getContext());
                             }
-                            //set the selection
-                            mDrawer.setSelection(item, true);
+                            if (!mDrawer.getDrawerItem(item.getIdentifier()).isSelected()) {
+                                //set the selection
+                                mDrawer.setSelection(item, true);
+                            }
                         } else if (mDrawer.getOnDrawerItemClickListener() != null) {
                             //get the original `DrawerItem` from the Drawer as this one will contain all information
                             mDrawer.getOnDrawerItemClickListener().onItemClick(v, position, DrawerUtils.getDrawerItem(getDrawerItems(), item.getIdentifier()));
