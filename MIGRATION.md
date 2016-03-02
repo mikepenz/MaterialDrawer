@@ -1,5 +1,8 @@
 ###Upgrade Notes
 
+#### v5.0.0 -> 5.0.5
+* the `expanding` functionality is now handled by the `FastAdapter` so the toggling code is no longer needed. See the following diff for the change (just the `DrawerActivity`) https://github.com/mikepenz/MaterialDrawer/commit/88e9bdf8cccaac5aaf567ac6ffe682aeccba4f29
+
 #### v4.6.0 -> v5.0.0
 * the identifier was changed from `int` to `long` as the internal adapter (FastAdapter) uses `long` to identify items (as the `Adapter` does)
 * v5.0.0 no longer sets the `FULL_SCREEN` flag to get the drawer below the `StatusBar` it now uses the `fitsSystemWindows` everywhere. This should improve compatiblity with a lot of things like the `CoordinatorLayout` and should also improve compatiblity with future Android updates
