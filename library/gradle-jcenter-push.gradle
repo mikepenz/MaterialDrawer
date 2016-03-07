@@ -1,4 +1,8 @@
+apply plugin: 'com.github.dcendents.android-maven'
+apply plugin: 'com.jfrog.bintray'
+/*
 publish {
+ *
     dryRun = false
     bintrayUser = project.hasProperty('bintray.user') ? project.property('bintray.user') : System.getenv('BINTRAY_USER')
     bintrayKey = project.hasProperty('bintray.apikey') ? project.property('bintray.apikey') : System.getenv('BINTRAY_API_KEY')
@@ -8,4 +12,81 @@ publish {
     publishVersion = project.property("VERSION_NAME")
     desc = project.property("POM_DESCRIPTION")
     website = project.property("POM_URL")
+}
+*/
+
+group = project.property("GROUP")                                 // Maven Group ID for the artifact
+version = project.property("VERSION_NAME")
+
+install {
+    repositories.mavenInstaller {
+        // This generates POM.xml with proper parameters
+        pom {
+            project {
+                packaging 'aar'
+
+                // Add your description here
+                name project.property("POM_NAME")
+                url project.property("POM_URL")
+
+                // Set your license
+                licenses {
+                    license {
+                        name project.property("POM_LICENCE_NAME")
+                        url project.property("POM_LICENCE_URL")
+                    }
+                }
+                developers {
+                    developer {
+                        id project.property("POM_DEVELOPER_ID")
+                        name project.property("POM_DEVELOPER_NAME")
+                        email project.property("POM_DEVELOPER_EMAIL")
+                    }
+                }
+                scm {
+                    connection project.property("POM_SCM_URL")
+                    developerConnection project.property("POM_SCM_URL")
+                    url project.property("POM_URL")
+
+                }
+            }
+        }
+    }
+}
+
+dependencies {
+}
+
+task sourcesJar(type: Jar) {
+    from android.sourceSets.main.java.srcDirs
+    classifier = 'sources'
+}
+
+task javadoc(type: Javadoc) {
+    source = android.sourceSets.main.java.srcDirs
+    classpath += project.files(android.getBootClasspath().join(File.pathSeparator))
+}
+
+task javadocJar(type: Jar, dependsOn: javadoc) {
+    classifier = 'javadoc'
+    from javadoc.destinationDir
+}
+artifacts {
+    archives javadocJar
+    archives sourcesJar
+}
+
+bintray {
+    user = project.hasProperty('bintray.user') ? project.property('bintray.user') : System.getenv('BINTRAY_USER')
+    key = project.hasProperty('bintray.apikey') ? project.property('bintray.apikey') : System.getenv('BINTRAY_API_KEY')
+
+    configurations = ['archives']
+    pkg {
+        repo = "maven"
+        name = project.property("POM_ARTIFACT_ID")
+        websiteUrl = project.property("POM_URL")
+        vcsUrl = project.property("POM_SCM_URL")
+        licenses = ["Apache-2.0"]
+        publish = true
+    }
 }
