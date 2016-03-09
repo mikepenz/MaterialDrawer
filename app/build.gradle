@@ -22,6 +22,10 @@ android {
                 output.outputFile = new File(file.parentFile, fileName)
             }
         }
+
+        jackOptions {
+            enabled true
+        }
     }
     buildTypes {
         debug {
@@ -44,6 +48,10 @@ android {
     }
     lintOptions {
         abortOnError false
+    }
+    compileOptions {
+        sourceCompatibility JavaVersion.VERSION_1_8
+        targetCompatibility JavaVersion.VERSION_1_8
     }
 }
 

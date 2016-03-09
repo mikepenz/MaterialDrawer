@@ -7,8 +7,6 @@ import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
-import android.view.View;
-import android.widget.CompoundButton;
 
 import com.mikepenz.aboutlibraries.Libs;
 import com.mikepenz.aboutlibraries.LibsBuilder;
@@ -61,7 +59,7 @@ public class DrawerActivity extends AppCompatActivity {
 
         // Create a few sample profile
         // NOTE you have to define the loader logic too. See the CustomApplication for more details
-        final IProfile profile = new ProfileDrawerItem().withName("Mike Penz").withEmail("mikepenz@gmail.com").withIcon("https://avatars3.githubusercontent.com/u/1476232?v=3&s=460").withIdentifier(100);
+        final IProfile profile1 = new ProfileDrawerItem().withName("Mike Penz").withEmail("mikepenz@gmail.com").withIcon("https://avatars3.githubusercontent.com/u/1476232?v=3&s=460").withIdentifier(100);
         final IProfile profile2 = new ProfileDrawerItem().withName("Bernat Borras").withEmail("alorma@github.com").withIcon(Uri.parse("https://avatars3.githubusercontent.com/u/887462?v=3&s=460")).withIdentifier(101);
         final IProfile profile3 = new ProfileDrawerItem().withName("Max Muster").withEmail("max.mustermann@gmail.com").withIcon(R.drawable.profile2).withIdentifier(102);
         final IProfile profile4 = new ProfileDrawerItem().withName("Felix House").withEmail("felix.house@gmail.com").withIcon(R.drawable.profile3).withIdentifier(103);
@@ -74,7 +72,7 @@ public class DrawerActivity extends AppCompatActivity {
                 .withTranslucentStatusBar(true)
                 .withHeaderBackground(R.drawable.header)
                 .addProfiles(
-                        profile,
+                        profile1,
                         profile2,
                         profile3,
                         profile4,
@@ -84,25 +82,22 @@ public class DrawerActivity extends AppCompatActivity {
                         new ProfileSettingDrawerItem().withName("Add Account").withDescription("Add new GitHub Account").withIcon(new IconicsDrawable(this, GoogleMaterial.Icon.gmd_plus).actionBar().paddingDp(5).colorRes(R.color.material_drawer_primary_text)).withIdentifier(PROFILE_SETTING),
                         new ProfileSettingDrawerItem().withName("Manage Account").withIcon(GoogleMaterial.Icon.gmd_settings).withIdentifier(100001)
                 )
-                .withOnAccountHeaderListener(new AccountHeader.OnAccountHeaderListener() {
-                    @Override
-                    public boolean onProfileChanged(View view, IProfile profile, boolean current) {
-                        //sample usage of the onProfileChanged listener
-                        //if the clicked item has the identifier 1 add a new profile ;)
-                        if (profile instanceof IDrawerItem && profile.getIdentifier() == PROFILE_SETTING) {
-                            int count = 100 + headerResult.getProfiles().size() + 1;
-                            IProfile newProfile = new ProfileDrawerItem().withNameShown(true).withName("Batman" + count).withEmail("batman" + count + "@gmail.com").withIcon(R.drawable.profile5).withIdentifier(count);
-                            if (headerResult.getProfiles() != null) {
-                                //we know that there are 2 setting elements. set the new profile above them ;)
-                                headerResult.addProfile(newProfile, headerResult.getProfiles().size() - 2);
-                            } else {
-                                headerResult.addProfiles(newProfile);
-                            }
+                .withOnAccountHeaderListener((view, profile, current) -> {
+                    //sample usage of the onProfileChanged listener
+                    //if the clicked item has the identifier 1 add a new profile ;)
+                    if (profile instanceof IDrawerItem && profile.getIdentifier() == PROFILE_SETTING) {
+                        int count = 100 + headerResult.getProfiles().size() + 1;
+                        IProfile newProfile = new ProfileDrawerItem().withNameShown(true).withName("Batman" + count).withEmail("batman" + count + "@gmail.com").withIcon(R.drawable.profile5).withIdentifier(count);
+                        if (headerResult.getProfiles() != null) {
+                            //we know that there are 2 setting elements. set the new profile above them ;)
+                            headerResult.addProfile(newProfile, headerResult.getProfiles().size() - 2);
+                        } else {
+                            headerResult.addProfiles(newProfile);
                         }
-
-                        //false if you have not consumed the event and it should close the drawer
-                        return false;
                     }
+
+                    //false if you have not consumed the event and it should close the drawer
+                    return false;
                 })
                 .withSavedInstance(savedInstanceState)
                 .build();
@@ -146,60 +141,57 @@ public class DrawerActivity extends AppCompatActivity {
                         new SecondarySwitchDrawerItem().withName("Secondary Switch2").withIcon(Octicons.Icon.oct_tools).withChecked(true).withOnCheckedChangeListener(onCheckedChangeListener).withSelectable(false),
                         new SecondaryToggleDrawerItem().withName("Secondary toggle").withIcon(Octicons.Icon.oct_tools).withChecked(true).withOnCheckedChangeListener(onCheckedChangeListener)
                 ) // add the items we want to use with our Drawer
-                .withOnDrawerItemClickListener(new Drawer.OnDrawerItemClickListener() {
-                    @Override
-                    public boolean onItemClick(View view, int position, IDrawerItem drawerItem) {
-                        //check if the drawerItem is set.
-                        //there are different reasons for the drawerItem to be null
-                        //--> click on the header
-                        //--> click on the footer
-                        //those items don't contain a drawerItem
+                .withOnDrawerItemClickListener((view, position, drawerItem) -> {
+                    //check if the drawerItem is set.
+                    //there are different reasons for the drawerItem to be null
+                    //--> click on the header
+                    //--> click on the footer
+                    //those items don't contain a drawerItem
 
-                        if (drawerItem != null) {
-                            Intent intent = null;
-                            if (drawerItem.getIdentifier() == 1) {
-                                intent = new Intent(DrawerActivity.this, CompactHeaderDrawerActivity.class);
-                            } else if (drawerItem.getIdentifier() == 2) {
-                                intent = new Intent(DrawerActivity.this, ActionBarActivity.class);
-                            } else if (drawerItem.getIdentifier() == 3) {
-                                intent = new Intent(DrawerActivity.this, MultiDrawerActivity.class);
-                            } else if (drawerItem.getIdentifier() == 4) {
-                                intent = new Intent(DrawerActivity.this, NonTranslucentDrawerActivity.class);
-                            } else if (drawerItem.getIdentifier() == 5) {
-                                intent = new Intent(DrawerActivity.this, AdvancedActivity.class);
-                            } else if (drawerItem.getIdentifier() == 6) {
-                                intent = new Intent(DrawerActivity.this, KeyboardUtilActivity.class);
-                            } else if (drawerItem.getIdentifier() == 7) {
-                                intent = new Intent(DrawerActivity.this, EmbeddedDrawerActivity.class);
-                            } else if (drawerItem.getIdentifier() == 8) {
-                                intent = new Intent(DrawerActivity.this, FullscreenDrawerActivity.class);
-                            } else if (drawerItem.getIdentifier() == 9) {
-                                intent = new Intent(DrawerActivity.this, CustomContainerActivity.class);
-                            } else if (drawerItem.getIdentifier() == 10) {
-                                intent = new Intent(DrawerActivity.this, MenuDrawerActivity.class);
-                            } else if (drawerItem.getIdentifier() == 11) {
-                                intent = new Intent(DrawerActivity.this, MiniDrawerActivity.class);
-                            } else if (drawerItem.getIdentifier() == 12) {
-                                intent = new Intent(DrawerActivity.this, FragmentActivity.class);
-                            } else if (drawerItem.getIdentifier() == 13) {
-                                intent = new Intent(DrawerActivity.this, CollapsingToolbarActivity.class);
-                            } else if (drawerItem.getIdentifier() == 14) {
-                                intent = new Intent(DrawerActivity.this, PersistentDrawerActivity.class);
-                            } else if (drawerItem.getIdentifier() == 15) {
-                                intent = new Intent(DrawerActivity.this, CrossfadeDrawerLayoutActvitiy.class);
-                            } else if (drawerItem.getIdentifier() == 20) {
-                                intent = new LibsBuilder()
-                                        .withFields(R.string.class.getFields())
-                                        .withActivityStyle(Libs.ActivityStyle.LIGHT_DARK_TOOLBAR)
-                                        .intent(DrawerActivity.this);
-                            }
-                            if (intent != null) {
-                                DrawerActivity.this.startActivity(intent);
-                            }
+                    if (drawerItem != null) {
+                        Intent intent = null;
+                        if (drawerItem.getIdentifier() == 1) {
+                            intent = new Intent(DrawerActivity.this, CompactHeaderDrawerActivity.class);
+                        } else if (drawerItem.getIdentifier() == 2) {
+                            intent = new Intent(DrawerActivity.this, ActionBarActivity.class);
+                        } else if (drawerItem.getIdentifier() == 3) {
+                            intent = new Intent(DrawerActivity.this, MultiDrawerActivity.class);
+                        } else if (drawerItem.getIdentifier() == 4) {
+                            intent = new Intent(DrawerActivity.this, NonTranslucentDrawerActivity.class);
+                        } else if (drawerItem.getIdentifier() == 5) {
+                            intent = new Intent(DrawerActivity.this, AdvancedActivity.class);
+                        } else if (drawerItem.getIdentifier() == 6) {
+                            intent = new Intent(DrawerActivity.this, KeyboardUtilActivity.class);
+                        } else if (drawerItem.getIdentifier() == 7) {
+                            intent = new Intent(DrawerActivity.this, EmbeddedDrawerActivity.class);
+                        } else if (drawerItem.getIdentifier() == 8) {
+                            intent = new Intent(DrawerActivity.this, FullscreenDrawerActivity.class);
+                        } else if (drawerItem.getIdentifier() == 9) {
+                            intent = new Intent(DrawerActivity.this, CustomContainerActivity.class);
+                        } else if (drawerItem.getIdentifier() == 10) {
+                            intent = new Intent(DrawerActivity.this, MenuDrawerActivity.class);
+                        } else if (drawerItem.getIdentifier() == 11) {
+                            intent = new Intent(DrawerActivity.this, MiniDrawerActivity.class);
+                        } else if (drawerItem.getIdentifier() == 12) {
+                            intent = new Intent(DrawerActivity.this, FragmentActivity.class);
+                        } else if (drawerItem.getIdentifier() == 13) {
+                            intent = new Intent(DrawerActivity.this, CollapsingToolbarActivity.class);
+                        } else if (drawerItem.getIdentifier() == 14) {
+                            intent = new Intent(DrawerActivity.this, PersistentDrawerActivity.class);
+                        } else if (drawerItem.getIdentifier() == 15) {
+                            intent = new Intent(DrawerActivity.this, CrossfadeDrawerLayoutActvitiy.class);
+                        } else if (drawerItem.getIdentifier() == 20) {
+                            intent = new LibsBuilder()
+                                    .withFields(R.string.class.getFields())
+                                    .withActivityStyle(Libs.ActivityStyle.LIGHT_DARK_TOOLBAR)
+                                    .intent(DrawerActivity.this);
                         }
-
-                        return false;
+                        if (intent != null) {
+                            DrawerActivity.this.startActivity(intent);
+                        }
                     }
+
+                    return false;
                 })
                 .withSavedInstance(savedInstanceState)
                 .withShowDrawerOnFirstLaunch(true)
@@ -222,14 +214,11 @@ public class DrawerActivity extends AppCompatActivity {
         result.updateBadge(4, new StringHolder(10 + ""));
     }
 
-    private OnCheckedChangeListener onCheckedChangeListener = new OnCheckedChangeListener() {
-        @Override
-        public void onCheckedChanged(IDrawerItem drawerItem, CompoundButton buttonView, boolean isChecked) {
-            if (drawerItem instanceof Nameable) {
-                Log.i("material-drawer", "DrawerItem: " + ((Nameable) drawerItem).getName() + " - toggleChecked: " + isChecked);
-            } else {
-                Log.i("material-drawer", "toggleChecked: " + isChecked);
-            }
+    private OnCheckedChangeListener onCheckedChangeListener = (drawerItem, buttonView, isChecked) -> {
+        if (drawerItem instanceof Nameable) {
+            Log.i("material-drawer", "DrawerItem: " + ((Nameable) drawerItem).getName() + " - toggleChecked: " + isChecked);
+        } else {
+            Log.i("material-drawer", "toggleChecked: " + isChecked);
         }
     };
 
