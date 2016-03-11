@@ -10,7 +10,7 @@
         <b>MaterialDrawer</b> the flexible, easy to use, all in one drawer library for your Android project.
         ]]>
     </string>
-    <string name="library_materialdrawer_libraryVersion">5.1.2</string>
+    <string name="library_materialdrawer_libraryVersion">5.1.3</string>
     <string name="library_materialdrawer_libraryWebsite">https://github.com/mikepenz/MaterialDrawer</string>
     <string name="library_materialdrawer_licenseId">apache_2_0</string>
     <string name="library_materialdrawer_isOpenSource">true</string>
