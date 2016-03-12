@@ -843,15 +843,13 @@ public class DrawerBuilder {
 
     /**
      * Define a custom Adapter which will be used in the drawer
-     * NOTE: this is not recommended
+     * NOTE: this is not recommender
+     * WARNING: if you do this after adding items you will loose those!
      *
-     * @param adapter
-     * @return
+     * @param adapter the FastAdapter to use with this drawer
+     * @return this
      */
-    public DrawerBuilder withAdapter(@NonNull FastAdapter adapter) {
-        if (mAdapter != null) {
-            throw new RuntimeException("the adapter was already set or items were added to it. A header is also a RecyclerItem");
-        }
+    public DrawerBuilder withAdapter(@NonNull FastAdapter<IDrawerItem> adapter) {
         this.mAdapter = adapter;
         //we have to rewrap as a different FastAdapter was provided
         mHeaderAdapter.wrap(mItemAdapter.wrap(mFooterAdapter.wrap(mAdapter)));
@@ -861,7 +859,7 @@ public class DrawerBuilder {
     /**
      * get the adapter (null safe)
      *
-     * @return
+     * @return the FastAdapter used with this drawer
      */
     protected FastAdapter<IDrawerItem> getAdapter() {
         if (mAdapter == null) {
