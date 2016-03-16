@@ -1066,6 +1066,7 @@ public class AccountHeaderBuilder {
         mProfileThirdView.setOnClickListener(null);
         mCurrentProfileName.setText("");
         mCurrentProfileEmail.setText("");
+        mAccountHeaderTextSection.setPadding(0, 0, (int) UIUtils.convertDpToPixel(56, mAccountHeaderTextSection.getContext()), 0);
 
         handleSelectionView(mCurrentProfile, true);
 
@@ -1161,13 +1162,10 @@ public class AccountHeaderBuilder {
         }
 
         //if we disabled the list
-        if (!mSelectionListEnabled) {
+        if (!mSelectionListEnabled || !mSelectionListEnabledForSingleProfile && mProfileFirst == null && (mProfiles == null || mProfiles.size() == 1)) {
             mAccountSwitcherArrow.setVisibility(View.INVISIBLE);
             handleSelectionView(null, false);
-        }
-        if (!mSelectionListEnabledForSingleProfile && mProfileFirst == null && (mProfiles == null || mProfiles.size() == 1)) {
-            mAccountSwitcherArrow.setVisibility(View.INVISIBLE);
-            handleSelectionView(null, false);
+            mAccountHeaderTextSection.setPadding(0, 0, (int) UIUtils.convertDpToPixel(16, mAccountHeaderTextSection.getContext()), 0);
         }
 
         //if we disabled the list but still have set a custom listener
