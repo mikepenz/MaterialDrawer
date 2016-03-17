@@ -1057,7 +1057,7 @@ public class AccountHeaderBuilder {
     protected void buildProfiles() {
         mCurrentProfileView.setVisibility(View.INVISIBLE);
         mAccountHeaderTextSection.setVisibility(View.INVISIBLE);
-        mAccountSwitcherArrow.setVisibility(View.INVISIBLE);
+        mAccountSwitcherArrow.setVisibility(View.GONE);
         mProfileFirstView.setVisibility(View.GONE);
         mProfileFirstView.setOnClickListener(null);
         mProfileSecondView.setVisibility(View.GONE);
@@ -1066,7 +1066,11 @@ public class AccountHeaderBuilder {
         mProfileThirdView.setOnClickListener(null);
         mCurrentProfileName.setText("");
         mCurrentProfileEmail.setText("");
-        mAccountHeaderTextSection.setPadding(0, 0, (int) UIUtils.convertDpToPixel(56, mAccountHeaderTextSection.getContext()), 0);
+
+        //we only handle the padding if we are not in compact mode
+        if (!mCompactStyle) {
+            mAccountHeaderTextSection.setPadding(0, 0, (int) UIUtils.convertDpToPixel(56, mAccountHeaderTextSection.getContext()), 0);
+        }
 
         handleSelectionView(mCurrentProfile, true);
 
@@ -1163,9 +1167,13 @@ public class AccountHeaderBuilder {
 
         //if we disabled the list
         if (!mSelectionListEnabled || !mSelectionListEnabledForSingleProfile && mProfileFirst == null && (mProfiles == null || mProfiles.size() == 1)) {
-            mAccountSwitcherArrow.setVisibility(View.INVISIBLE);
+            mAccountSwitcherArrow.setVisibility(View.GONE);
             handleSelectionView(null, false);
-            mAccountHeaderTextSection.setPadding(0, 0, (int) UIUtils.convertDpToPixel(16, mAccountHeaderTextSection.getContext()), 0);
+
+            //if we are not in compact mode minimize the padding to make use of the space
+            if (!mCompactStyle) {
+                mAccountHeaderTextSection.setPadding(0, 0, (int) UIUtils.convertDpToPixel(16, mAccountHeaderTextSection.getContext()), 0);
+            }
         }
 
         //if we disabled the list but still have set a custom listener
