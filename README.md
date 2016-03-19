@@ -265,7 +265,7 @@ result.getActionBarDrawerToggle().setDrawerIndicatorEnabled(true);
 
 
 ##AndroidManifest.xml
-Use one of the provided themes. They all use the AppCompat theme as parent and define the color values for the drawer.
+The **MaterialDrawer** requires an `AppCompat` theme or a derivative theme like the `MatterialDrawerTheme`s as base. It is highly recommended to use one of the provided themes. They all use the `AppCompat` theme as parent and define the color values for the drawer.
 
 **NOTE:** The theme states ActionBar and not NoActionBar like the Appcompat style
 
