@@ -107,7 +107,7 @@ There  is a Header with profiles (<strong>AccountHeader</strong>), a <strong>Min
 <h2>
 <a id="1-provide-the-gradle-dependency" class="anchor" href="#1-provide-the-gradle-dependency" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>1. Provide the gradle dependency</h2>
 
-<div class="highlight highlight-source-groovy-gradle"><pre>compile(<span class="pl-s"><span class="pl-pds">'</span>com.mikepenz:materialdrawer:5.1.5@aar<span class="pl-pds">'</span></span>) {
+<div class="highlight highlight-source-groovy-gradle"><pre>compile(<span class="pl-s"><span class="pl-pds">'</span>com.mikepenz:materialdrawer:5.1.6@aar<span class="pl-pds">'</span></span>) {
     transitive <span class="pl-k">=</span> <span class="pl-c1">true</span>
 }</pre></div>
 
@@ -335,7 +335,7 @@ result<span class="pl-k">.</span>getActionBarDrawerToggle()<span class="pl-k">.<
 <h2>
 <a id="androidmanifestxml" class="anchor" href="#androidmanifestxml" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>AndroidManifest.xml</h2>
 
-<p>Use one of the provided themes. They all use the AppCompat theme as parent and define the color values for the drawer.</p>
+<p>The <strong>MaterialDrawer</strong> requires an <code>AppCompat</code> theme or a derivative theme like the <code>MaterialDrawerTheme</code>s as base. It is highly recommended to use one of the provided themes. They all use the <code>AppCompat</code> theme as parent and define the color values for the drawer.</p>
 
 <p><strong>NOTE:</strong> The theme states ActionBar and not NoActionBar like the Appcompat style</p>
 
