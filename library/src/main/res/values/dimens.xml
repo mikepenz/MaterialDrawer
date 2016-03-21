@@ -11,6 +11,9 @@
     <!-- General vertical padding values / 24dp for tablets -->
     <dimen name="material_drawer_vertical_padding">16dp</dimen>
 
+    <!-- Sticky footer elevation -->
+    <dimen name="material_drawer_sticky_footer_elevation">4dp</dimen>
+
     <!-- General margins for the drawer account header -->
     <dimen name="material_drawer_account_header_height">148dp</dimen>
     <dimen name="material_drawer_account_header_height_compact">72dp</dimen>

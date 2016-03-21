@@ -312,7 +312,7 @@ class DrawerUtils {
             if (drawer.mStickyFooterShadow) {
                 drawer.mStickyFooterShadowView = new View(ctx);
                 drawer.mStickyFooterShadowView.setBackgroundResource(R.drawable.material_drawer_shadow_top);
-                drawer.mSliderLayout.addView(drawer.mStickyFooterShadowView, RelativeLayout.LayoutParams.MATCH_PARENT, (int) UIUtils.convertDpToPixel(4, ctx));
+                drawer.mSliderLayout.addView(drawer.mStickyFooterShadowView, RelativeLayout.LayoutParams.MATCH_PARENT, ctx.getResources().getDimensionPixelSize(R.dimen.material_drawer_sticky_footer_elevation));
                 //now align the shadow below the stickyHeader ;)
                 RelativeLayout.LayoutParams lps = (RelativeLayout.LayoutParams) drawer.mStickyFooterShadowView.getLayoutParams();
                 lps.addRule(RelativeLayout.ABOVE, R.id.material_drawer_sticky_footer);

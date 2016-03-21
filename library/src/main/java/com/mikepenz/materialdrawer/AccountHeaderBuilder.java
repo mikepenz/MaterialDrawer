@@ -668,6 +668,9 @@ public class AccountHeaderBuilder {
      */
     public AccountHeaderBuilder withDrawer(@NonNull Drawer drawer) {
         this.mDrawer = drawer;
+
+        //set the top padding to 0 as this would happen when the AccountHeader is created during Drawer build time
+        drawer.getRecyclerView().setPadding(drawer.getRecyclerView().getPaddingLeft(), 0, drawer.getRecyclerView().getPaddingRight(), drawer.getRecyclerView().getPaddingBottom());
         return this;
     }
 
