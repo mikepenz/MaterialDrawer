@@ -2,6 +2,7 @@ package com.mikepenz.materialdrawer.model;
 
 import android.content.Context;
 import android.graphics.Color;
+import android.support.annotation.ColorInt;
 import android.support.annotation.LayoutRes;
 import android.support.v4.view.ViewCompat;
 import android.view.View;
@@ -21,6 +22,14 @@ import com.mikepenz.materialdrawer.model.interfaces.IDrawerItem;
 public class ExpandableDrawerItem extends BasePrimaryDrawerItem<ExpandableDrawerItem, ExpandableDrawerItem.ViewHolder> {
 
     private Drawer.OnDrawerItemClickListener mOnDrawerItemClickListener;
+
+    @ColorInt
+    private Integer mArrowColor;
+
+    public ExpandableDrawerItem withArrowColor(@ColorInt int color) {
+        mArrowColor = color;
+        return this;
+    }
 
     @Override
     public int getType() {
@@ -72,7 +81,7 @@ public class ExpandableDrawerItem extends BasePrimaryDrawerItem<ExpandableDrawer
         bindViewHelper(viewHolder);
 
         //make sure all animations are stopped
-        viewHolder.arrow.setColor(getIconColor(ctx));
+        viewHolder.arrow.setColor(mArrowColor != null ? mArrowColor : getIconColor(ctx));
         viewHolder.arrow.clearAnimation();
         if (!isExpanded()) {
             ViewCompat.setRotation(viewHolder.arrow, 0);
