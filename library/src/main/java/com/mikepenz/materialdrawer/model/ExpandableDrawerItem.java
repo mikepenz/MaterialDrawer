@@ -3,6 +3,7 @@ package com.mikepenz.materialdrawer.model;
 import android.content.Context;
 import android.graphics.Color;
 import android.support.annotation.ColorInt;
+import android.support.annotation.ColorRes;
 import android.support.annotation.LayoutRes;
 import android.support.v4.view.ViewCompat;
 import android.view.View;
@@ -12,6 +13,7 @@ import com.mikepenz.iconics.IconicsDrawable;
 import com.mikepenz.iconics.view.IconicsImageView;
 import com.mikepenz.materialdrawer.Drawer;
 import com.mikepenz.materialdrawer.R;
+import com.mikepenz.materialdrawer.holder.ColorHolder;
 import com.mikepenz.materialdrawer.icons.MaterialDrawerFont;
 import com.mikepenz.materialdrawer.model.interfaces.IDrawerItem;
 
@@ -23,11 +25,15 @@ public class ExpandableDrawerItem extends BasePrimaryDrawerItem<ExpandableDrawer
 
     private Drawer.OnDrawerItemClickListener mOnDrawerItemClickListener;
 
-    @ColorInt
-    private Integer mArrowColor;
+    protected ColorHolder arrowColor;
 
-    public ExpandableDrawerItem withArrowColor(@ColorInt int color) {
-        mArrowColor = color;
+    public ExpandableDrawerItem withArrowColor(@ColorInt int arrowColor) {
+        this.arrowColor = ColorHolder.fromColor(arrowColor);
+        return this;
+    }
+
+    public ExpandableDrawerItem withArrowColorRes(@ColorRes int arrowColorRes) {
+        this.arrowColor = ColorHolder.fromColorRes(arrowColorRes);
         return this;
     }
 
@@ -81,7 +87,7 @@ public class ExpandableDrawerItem extends BasePrimaryDrawerItem<ExpandableDrawer
         bindViewHelper(viewHolder);
 
         //make sure all animations are stopped
-        viewHolder.arrow.setColor(mArrowColor != null ? mArrowColor : getIconColor(ctx));
+        viewHolder.arrow.setColor(this.arrowColor != null ? this.arrowColor.getColorInt() : getIconColor(ctx));
         viewHolder.arrow.clearAnimation();
         if (!isExpanded()) {
             ViewCompat.setRotation(viewHolder.arrow, 0);
