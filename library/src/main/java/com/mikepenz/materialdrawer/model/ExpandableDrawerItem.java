@@ -87,7 +87,7 @@ public class ExpandableDrawerItem extends BasePrimaryDrawerItem<ExpandableDrawer
         bindViewHelper(viewHolder);
 
         //make sure all animations are stopped
-        viewHolder.arrow.setColor(this.arrowColor != null ? this.arrowColor.getColorInt() : getIconColor(ctx));
+        viewHolder.arrow.setColor(this.arrowColor != null ? this.arrowColor.color(ctx) : getIconColor(ctx));
         viewHolder.arrow.clearAnimation();
         if (!isExpanded()) {
             ViewCompat.setRotation(viewHolder.arrow, 0);
