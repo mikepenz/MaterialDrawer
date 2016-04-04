@@ -1,5 +1,8 @@
 ###Upgrade Notes
 
+#### v5.1.6 -> 5.1.8
+* if you use the `FastAdapter` please check out the release notes of v1.4.0 (https://github.com/mikepenz/FastAdapter/releases/tag/v1.4.0)
+
 #### v5.0.0 -> 5.0.5
 * the `expanding` functionality is now handled by the `FastAdapter` so the toggling code is no longer needed. See the following diff for the change (just the `DrawerActivity`) https://github.com/mikepenz/MaterialDrawer/commit/88e9bdf8cccaac5aaf567ac6ffe682aeccba4f29
 

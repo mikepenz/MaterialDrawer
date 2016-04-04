@@ -864,6 +864,7 @@ public class DrawerBuilder {
     protected FastAdapter<IDrawerItem> getAdapter() {
         if (mAdapter == null) {
             mAdapter = new FastAdapter<>();
+            mAdapter.withSelectable(true);
             mAdapter.withAllowDeselection(false);
             mAdapter.setHasStableIds(mHasStableIds);
 
