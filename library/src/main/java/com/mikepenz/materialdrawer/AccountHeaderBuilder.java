@@ -1046,7 +1046,7 @@ public class AccountHeaderBuilder {
             mProfileThird = mProfileSecond;
             mProfileSecond = mProfileFirst;
             mProfileFirst = mCurrentProfile;
-            mCurrentProfile = mProfileThird;
+            //mCurrentProfile = mProfileThird;
         }
 
         buildProfiles();

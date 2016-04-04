@@ -931,7 +931,7 @@ public class Drawer {
             originalOnDrawerItemClickListener = getOnDrawerItemClickListener();
             originalOnDrawerItemLongClickListener = getOnDrawerItemLongClickListener();
             originalDrawerState = getAdapter().saveInstanceState(new Bundle());
-            getAdapter().collapse();
+            getAdapter().collapse(false);
             originalDrawerItems = getDrawerItems();
         }
 
