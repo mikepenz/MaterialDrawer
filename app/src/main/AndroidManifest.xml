@@ -42,10 +42,6 @@
             android:name=".AdvancedActivity"
             android:theme="@style/MaterialDrawerTheme.TranslucentStatus" />
         <activity
-            android:name=".KeyboardUtilActivity"
-            android:theme="@style/MaterialDrawerTheme.Light.DarkToolbar.TranslucentStatus"
-            android:windowSoftInputMode="adjustResize|stateHidden" />
-        <activity
             android:name=".EmbeddedDrawerActivity"
             android:theme="@style/MaterialDrawerTheme" />
         <activity
