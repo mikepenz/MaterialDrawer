@@ -120,7 +120,6 @@ public class DrawerActivity extends AppCompatActivity {
                         new PrimaryDrawerItem().withName(R.string.drawer_item_multi_drawer).withDescription(R.string.drawer_item_multi_drawer_desc).withIcon(FontAwesome.Icon.faw_gamepad).withIdentifier(3).withSelectable(false),
                         new PrimaryDrawerItem().withName(R.string.drawer_item_non_translucent_status_drawer).withDescription(R.string.drawer_item_non_translucent_status_drawer_desc).withIcon(FontAwesome.Icon.faw_eye).withIdentifier(4).withSelectable(false).withBadgeStyle(new BadgeStyle().withTextColor(Color.WHITE).withColorRes(R.color.md_red_700)),
                         new PrimaryDrawerItem().withName(R.string.drawer_item_advanced_drawer).withDescription(R.string.drawer_item_advanced_drawer_desc).withIcon(GoogleMaterial.Icon.gmd_adb).withIdentifier(5).withSelectable(false),
-                        new PrimaryDrawerItem().withName(R.string.drawer_item_keyboard_util_drawer).withDescription(R.string.drawer_item_keyboard_util_drawer_desc).withIcon(GoogleMaterial.Icon.gmd_labels).withIdentifier(6).withSelectable(false),
                         new PrimaryDrawerItem().withName(R.string.drawer_item_embedded_drawer).withDescription(R.string.drawer_item_embedded_drawer_desc).withIcon(GoogleMaterial.Icon.gmd_battery).withIdentifier(7).withSelectable(false),
                         new PrimaryDrawerItem().withName(R.string.drawer_item_fullscreen_drawer).withDescription(R.string.drawer_item_fullscreen_drawer_desc).withIcon(GoogleMaterial.Icon.gmd_labels).withIdentifier(8).withSelectable(false),
                         new PrimaryDrawerItem().withName(R.string.drawer_item_custom_container_drawer).withDescription(R.string.drawer_item_custom_container_drawer_desc).withIcon(GoogleMaterial.Icon.gmd_my_location).withIdentifier(9).withSelectable(false),
@@ -167,8 +166,6 @@ public class DrawerActivity extends AppCompatActivity {
                                 intent = new Intent(DrawerActivity.this, NonTranslucentDrawerActivity.class);
                             } else if (drawerItem.getIdentifier() == 5) {
                                 intent = new Intent(DrawerActivity.this, AdvancedActivity.class);
-                            } else if (drawerItem.getIdentifier() == 6) {
-                                intent = new Intent(DrawerActivity.this, KeyboardUtilActivity.class);
                             } else if (drawerItem.getIdentifier() == 7) {
                                 intent = new Intent(DrawerActivity.this, EmbeddedDrawerActivity.class);
                             } else if (drawerItem.getIdentifier() == 8) {
