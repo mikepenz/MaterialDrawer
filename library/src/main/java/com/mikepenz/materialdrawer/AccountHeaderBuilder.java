@@ -668,6 +668,9 @@ public class AccountHeaderBuilder {
      */
     public AccountHeaderBuilder withDrawer(@NonNull Drawer drawer) {
         this.mDrawer = drawer;
+
+        //set the top padding to 0 as this would happen when the AccountHeader is created during Drawer build time
+        drawer.getRecyclerView().setPadding(drawer.getRecyclerView().getPaddingLeft(), 0, drawer.getRecyclerView().getPaddingRight(), drawer.getRecyclerView().getPaddingBottom());
         return this;
     }
 
@@ -1043,7 +1046,7 @@ public class AccountHeaderBuilder {
             mProfileThird = mProfileSecond;
             mProfileSecond = mProfileFirst;
             mProfileFirst = mCurrentProfile;
-            mCurrentProfile = mProfileThird;
+            //mCurrentProfile = mProfileThird;
         }
 
         buildProfiles();
@@ -1057,7 +1060,7 @@ public class AccountHeaderBuilder {
     protected void buildProfiles() {
         mCurrentProfileView.setVisibility(View.INVISIBLE);
         mAccountHeaderTextSection.setVisibility(View.INVISIBLE);
-        mAccountSwitcherArrow.setVisibility(View.INVISIBLE);
+        mAccountSwitcherArrow.setVisibility(View.GONE);
         mProfileFirstView.setVisibility(View.GONE);
         mProfileFirstView.setOnClickListener(null);
         mProfileSecondView.setVisibility(View.GONE);
@@ -1066,6 +1069,11 @@ public class AccountHeaderBuilder {
         mProfileThirdView.setOnClickListener(null);
         mCurrentProfileName.setText("");
         mCurrentProfileEmail.setText("");
+
+        //we only handle the padding if we are not in compact mode
+        if (!mCompactStyle) {
+            mAccountHeaderTextSection.setPadding(0, 0, (int) UIUtils.convertDpToPixel(56, mAccountHeaderTextSection.getContext()), 0);
+        }
 
         handleSelectionView(mCurrentProfile, true);
 
@@ -1161,13 +1169,14 @@ public class AccountHeaderBuilder {
         }
 
         //if we disabled the list
-        if (!mSelectionListEnabled) {
-            mAccountSwitcherArrow.setVisibility(View.INVISIBLE);
+        if (!mSelectionListEnabled || !mSelectionListEnabledForSingleProfile && mProfileFirst == null && (mProfiles == null || mProfiles.size() == 1)) {
+            mAccountSwitcherArrow.setVisibility(View.GONE);
             handleSelectionView(null, false);
-        }
-        if (!mSelectionListEnabledForSingleProfile && mProfileFirst == null && (mProfiles == null || mProfiles.size() == 1)) {
-            mAccountSwitcherArrow.setVisibility(View.INVISIBLE);
-            handleSelectionView(null, false);
+
+            //if we are not in compact mode minimize the padding to make use of the space
+            if (!mCompactStyle) {
+                mAccountHeaderTextSection.setPadding(0, 0, (int) UIUtils.convertDpToPixel(16, mAccountHeaderTextSection.getContext()), 0);
+            }
         }
 
         //if we disabled the list but still have set a custom listener

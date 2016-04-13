@@ -17,8 +17,6 @@
     <string name="drawer_item_non_translucent_status_drawer_desc">Drawer below statusBar</string>
     <string name="drawer_item_advanced_drawer">Advanced Drawer</string>
     <string name="drawer_item_advanced_drawer_desc">More advanced drawer features</string>
-    <string name="drawer_item_keyboard_util_drawer">KeyboardUtil Drawer</string>
-    <string name="drawer_item_keyboard_util_drawer_desc">KeyboardUtil to (fix) adjustResize</string>
     <string name="drawer_item_embedded_drawer">Embedded Drawer</string>
     <string name="drawer_item_embedded_drawer_desc">Embed the drawer anywhere</string>
     <string name="drawer_item_mini_drawer">MiniDrawer</string>

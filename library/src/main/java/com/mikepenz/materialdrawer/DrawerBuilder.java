@@ -843,15 +843,13 @@ public class DrawerBuilder {
 
     /**
      * Define a custom Adapter which will be used in the drawer
-     * NOTE: this is not recommended
+     * NOTE: this is not recommender
+     * WARNING: if you do this after adding items you will loose those!
      *
-     * @param adapter
-     * @return
+     * @param adapter the FastAdapter to use with this drawer
+     * @return this
      */
-    public DrawerBuilder withAdapter(@NonNull FastAdapter adapter) {
-        if (mAdapter != null) {
-            throw new RuntimeException("the adapter was already set or items were added to it. A header is also a RecyclerItem");
-        }
+    public DrawerBuilder withAdapter(@NonNull FastAdapter<IDrawerItem> adapter) {
         this.mAdapter = adapter;
         //we have to rewrap as a different FastAdapter was provided
         mHeaderAdapter.wrap(mItemAdapter.wrap(mFooterAdapter.wrap(mAdapter)));
@@ -861,11 +859,12 @@ public class DrawerBuilder {
     /**
      * get the adapter (null safe)
      *
-     * @return
+     * @return the FastAdapter used with this drawer
      */
     protected FastAdapter<IDrawerItem> getAdapter() {
         if (mAdapter == null) {
             mAdapter = new FastAdapter<>();
+            mAdapter.withSelectable(true);
             mAdapter.withAllowDeselection(false);
             mAdapter.setHasStableIds(mHasStableIds);
 
@@ -1547,8 +1546,10 @@ public class DrawerBuilder {
         }
 
         // if we have an adapter (either by defining a custom one or the included one add a list :D
+        View contentView;
         if (mRecyclerView == null) {
-            mRecyclerView = (RecyclerView) LayoutInflater.from(mActivity).inflate(R.layout.material_drawer_recycler_view, mSliderLayout, false);
+            contentView = LayoutInflater.from(mActivity).inflate(R.layout.material_drawer_recycler_view, mSliderLayout, false);
+            mRecyclerView = (RecyclerView) contentView.findViewById(R.id.material_drawer_recycler_view);
             //set the itemAnimator
             mRecyclerView.setItemAnimator(mItemAnimator);
             //some style improvements on older devices
@@ -1570,6 +1571,8 @@ public class DrawerBuilder {
             }
 
             mRecyclerView.setPadding(0, paddingTop, 0, paddingBottom);
+        } else {
+            contentView = mRecyclerView;
         }
 
         LinearLayout.LayoutParams params = new LinearLayout.LayoutParams(
@@ -1577,7 +1580,7 @@ public class DrawerBuilder {
                 ViewGroup.LayoutParams.MATCH_PARENT
         );
         params.weight = 1f;
-        mSliderLayout.addView(mRecyclerView, params);
+        mSliderLayout.addView(contentView, params);
 
         if (mInnerShadow) {
             View innerShadow = mSliderLayout.findViewById(R.id.material_drawer_inner_shadow);

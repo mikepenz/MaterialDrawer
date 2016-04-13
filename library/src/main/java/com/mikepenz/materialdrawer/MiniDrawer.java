@@ -296,6 +296,7 @@ public class MiniDrawer {
         mRecyclerView.setLayoutManager(new LinearLayoutManager(ctx));
         //adapter
         mAdapter = new FastItemAdapter<>();
+        mAdapter.withSelectable(true);
         mAdapter.withAllowDeselection(false);
         mRecyclerView.setAdapter(mAdapter);
 
