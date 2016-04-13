@@ -159,8 +159,6 @@ public class DrawerActivity extends AppCompatActivity {
                             intent = new Intent(DrawerActivity.this, NonTranslucentDrawerActivity.class);
                         } else if (drawerItem.getIdentifier() == 5) {
                             intent = new Intent(DrawerActivity.this, AdvancedActivity.class);
-                        } else if (drawerItem.getIdentifier() == 6) {
-                            intent = new Intent(DrawerActivity.this, KeyboardUtilActivity.class);
                         } else if (drawerItem.getIdentifier() == 7) {
                             intent = new Intent(DrawerActivity.this, EmbeddedDrawerActivity.class);
                         } else if (drawerItem.getIdentifier() == 8) {
@@ -195,6 +193,12 @@ public class DrawerActivity extends AppCompatActivity {
                 .withSavedInstance(savedInstanceState)
                 .withShowDrawerOnFirstLaunch(true)
                 .build();
+
+
+        result.getDrawerItems()
+                .stream()
+                .filter(d -> d.getIdentifier() > 2)
+                .forEach(d -> d.withSetSelected(true));
 
         //if you have many different types of DrawerItems you can magically pre-cache those items to get a better scroll performance
         //make sure to init the cache after the DrawerBuilder was created as this will first clear the cache to make sure no old elements are in
