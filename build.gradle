@@ -4,7 +4,7 @@ buildscript {
         mavenCentral()
     }
     dependencies {
-        classpath 'com.android.tools.build:gradle:2.1.0-alpha1'
+        classpath 'com.android.tools.build:gradle:2.1.0-beta1'
         classpath 'com.novoda:bintray-release:0.3.4'
     }
 }
@@ -19,8 +19,8 @@ allprojects {
 
 ext {
     compileSdkVersion = "android-N"
-    buildToolsVersion = "24.0.0 rc1"
-    supportLibVersion = "23.2.0"
+    buildToolsVersion = "24.0.0 rc2"
+    supportLibVersion = "23.3.0"
 }
 
 task wrapper(type: Wrapper) {
