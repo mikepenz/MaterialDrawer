@@ -541,6 +541,9 @@ public class Drawer {
             if (mDrawerBuilder.mOnDrawerItemClickListener != null && fireOnClick && position >= 0) {
                 mDrawerBuilder.mOnDrawerItemClickListener.onItemClick(null, position, mDrawerBuilder.mAdapter.getItem(position));
             }
+
+            //we set the selection on a normal item in the drawer so we have to deselect the items in the StickyDrawer
+            mDrawerBuilder.resetStickyFooterSelection();
         }
         return false;
     }
