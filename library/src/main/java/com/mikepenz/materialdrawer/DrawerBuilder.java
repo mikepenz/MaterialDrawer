@@ -1601,7 +1601,7 @@ public class DrawerBuilder {
         } else if (mSliderBackgroundDrawable != null) {
             UIUtils.setBackground(mSliderLayout, mSliderBackgroundDrawable);
         } else if (mSliderBackgroundDrawableRes != -1) {
-            UIUtils.setBackground(mSliderLayout, mSliderBackgroundColorRes);
+            UIUtils.setBackground(mSliderLayout, mSliderBackgroundDrawableRes);
         }
 
         //handle the header
