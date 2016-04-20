@@ -103,7 +103,7 @@ public class OverflowMenuDrawerItem extends BasePrimaryDrawerItem<OverflowMenuDr
         }
     }
 
-    static class ViewHolder extends BaseViewHolder {
+    public static class ViewHolder extends BaseViewHolder {
         //protected ImageButton ibOverflow;
         private ImageButton menu;
 

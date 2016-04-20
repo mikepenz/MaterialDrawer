@@ -99,7 +99,7 @@ public class CustomUrlPrimaryDrawerItem extends CustomUrlBasePrimaryDrawerItem<C
         }
     }
 
-    static class ViewHolder extends CustomBaseViewHolder {
+    public static class ViewHolder extends CustomBaseViewHolder {
         private View badgeContainer;
         private TextView badge;
 

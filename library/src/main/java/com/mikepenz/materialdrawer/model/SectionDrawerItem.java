@@ -148,7 +148,7 @@ public class SectionDrawerItem extends AbstractDrawerItem<SectionDrawerItem, Sec
         }
     }
 
-    protected static class ViewHolder extends RecyclerView.ViewHolder {
+    public static class ViewHolder extends RecyclerView.ViewHolder {
         private View view;
         private View divider;
         private TextView name;

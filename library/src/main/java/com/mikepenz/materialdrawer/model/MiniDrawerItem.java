@@ -176,7 +176,7 @@ public class MiniDrawerItem extends BaseDrawerItem<MiniDrawerItem, MiniDrawerIte
         }
     }
 
-    protected static class ViewHolder extends RecyclerView.ViewHolder {
+    public static class ViewHolder extends RecyclerView.ViewHolder {
         private View view;
         private ImageView icon;
         private TextView badge;
