@@ -15,13 +15,7 @@ android {
         versionCode 520
         versionName "5.2.0"
 
-        applicationVariants.all { variant ->
-            variant.outputs.each { output ->
-                def file = output.outputFile
-                def fileName = file.name.replace(".apk", "-v" + versionName + "-c" + versionCode + ".apk")
-                output.outputFile = new File(file.parentFile, fileName)
-            }
-        }
+        setProperty("archivesBaseName", "-v$versionName-c$versionCode")
     }
     buildTypes {
         debug {
