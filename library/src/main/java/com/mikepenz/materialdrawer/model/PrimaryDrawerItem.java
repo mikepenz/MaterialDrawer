@@ -98,7 +98,7 @@ public class PrimaryDrawerItem extends BasePrimaryDrawerItem<PrimaryDrawerItem, 
         }
     }
 
-    protected static class ViewHolder extends BaseViewHolder {
+    public static class ViewHolder extends BaseViewHolder {
         private View badgeContainer;
         private TextView badge;
 

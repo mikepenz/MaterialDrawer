@@ -110,7 +110,7 @@ public class ExpandableDrawerItem extends BasePrimaryDrawerItem<ExpandableDrawer
         }
     }
 
-    protected static class ViewHolder extends BaseViewHolder {
+    public static class ViewHolder extends BaseViewHolder {
         public IconicsImageView arrow;
 
         public ViewHolder(View view) {

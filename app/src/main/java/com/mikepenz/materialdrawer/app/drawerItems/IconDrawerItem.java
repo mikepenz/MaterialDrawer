@@ -201,7 +201,7 @@ public class IconDrawerItem extends AbstractDrawerItem<IconDrawerItem, IconDrawe
         }
     }
 
-    protected static class ViewHolder extends RecyclerView.ViewHolder {
+    public static class ViewHolder extends RecyclerView.ViewHolder {
         private View view;
         protected ImageView icon;
 
