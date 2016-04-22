@@ -2,14 +2,14 @@ apply plugin: 'com.android.library'
 apply plugin: 'com.novoda.bintray-release'
 
 android {
-    compileSdkVersion rootProject.ext.compileSdkVersion
-    buildToolsVersion rootProject.ext.buildToolsVersion
+    compileSdkVersion setup.compileSdk
+    buildToolsVersion setup.buildTools
 
     defaultConfig {
-        minSdkVersion 10
-        targetSdkVersion 23
-        versionCode 520
-        versionName '5.2.0'
+        minSdkVersion setup.minSdk
+        targetSdkVersion setup.targetSdk
+        versionCode 521
+        versionName '5.2.1'
     }
     buildTypes {
         release {
@@ -28,10 +28,10 @@ apply from: 'gradle-mvn-push.gradle'
 apply from: 'gradle-jcenter-push.gradle'
 
 dependencies {
-    compile "com.android.support:appcompat-v7:${rootProject.ext.supportLibVersion}"
-    compile "com.android.support:recyclerview-v7:${rootProject.ext.supportLibVersion}"
-    compile "com.android.support:support-annotations:${rootProject.ext.supportLibVersion}"
-    compile "com.android.support:design:${rootProject.ext.supportLibVersion}"
+    compile "com.android.support:appcompat-v7:${versions.supportLib}"
+    compile "com.android.support:recyclerview-v7:${versions.supportLib}"
+    compile "com.android.support:support-annotations:${versions.supportLib}"
+    compile "com.android.support:design:${versions.supportLib}"
 
     // used to base on some backwards compatible themes
     // contains util classes to support various android versions, and clean up code
@@ -47,5 +47,5 @@ dependencies {
     // used to fill the RecyclerView with the DrawerItems
     // and provides single and multi selection, expandable items
     // https://github.com/mikepenz/FastAdapter
-    compile 'com.mikepenz:fastadapter:1.4.1@aar'
+    compile 'com.mikepenz:fastadapter:1.4.4@aar'
 }

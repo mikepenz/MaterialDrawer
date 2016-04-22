@@ -6,22 +6,16 @@ try {
 }
 
 android {
-    compileSdkVersion rootProject.ext.compileSdkVersion
-    buildToolsVersion rootProject.ext.buildToolsVersion
+    compileSdkVersion setup.compileSdk
+    buildToolsVersion setup.buildTools
 
     defaultConfig {
-        minSdkVersion 10
-        targetSdkVersion 23
-        versionCode 520
-        versionName "5.2.0"
+        minSdkVersion setup.minSdk
+        targetSdkVersion setup.targetSdk
+        versionCode 521
+        versionName "5.2.1"
 
-        applicationVariants.all { variant ->
-            variant.outputs.each { output ->
-                def file = output.outputFile
-                def fileName = file.name.replace(".apk", "-v" + versionName + "-c" + versionCode + ".apk")
-                output.outputFile = new File(file.parentFile, fileName)
-            }
-        }
+        setProperty("archivesBaseName", "-v$versionName-c$versionCode")
     }
     buildTypes {
         debug {
@@ -50,8 +44,8 @@ android {
 dependencies {
     compile project(':library')
 
-    compile "com.android.support:design:${rootProject.ext.supportLibVersion}"
-    compile "com.android.support:cardview-v7:${rootProject.ext.supportLibVersion}"
+    compile "com.android.support:design:${versions.supportLib}"
+    compile "com.android.support:cardview-v7:${versions.supportLib}"
 
     // used to showcase how to load images
     compile 'com.squareup.picasso:picasso:2.5.2'

@@ -1,4 +1,13 @@
 buildscript {
+    ext {
+        setup = [compileSdk: 23,
+                 buildTools: "23.0.3",
+                 minSdk    : 10,
+                 targetSdk : 23]
+
+        versions = [supportLib: "23.3.0"]
+    }
+
     repositories {
         jcenter()
         mavenCentral()
@@ -15,12 +24,6 @@ allprojects {
         mavenCentral()
         maven { url "https://oss.sonatype.org/content/repositories/snapshots/" }
     }
-}
-
-ext {
-    compileSdkVersion = 23
-    buildToolsVersion = "23.0.3"
-    supportLibVersion = "23.3.0"
 }
 
 task wrapper(type: Wrapper) {
