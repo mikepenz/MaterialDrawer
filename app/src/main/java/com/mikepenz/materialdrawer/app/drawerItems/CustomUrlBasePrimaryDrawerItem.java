@@ -11,6 +11,7 @@ import com.mikepenz.materialdrawer.holder.ColorHolder;
 import com.mikepenz.materialdrawer.holder.ImageHolder;
 import com.mikepenz.materialdrawer.holder.StringHolder;
 import com.mikepenz.materialdrawer.model.BaseDrawerItem;
+import com.mikepenz.materialdrawer.util.DrawerImageLoader;
 import com.mikepenz.materialdrawer.util.DrawerUIUtils;
 import com.mikepenz.materialize.util.UIUtils;
 
@@ -103,6 +104,9 @@ public abstract class CustomUrlBasePrimaryDrawerItem<T, VH extends RecyclerView.
             viewHolder.description.setTypeface(getTypeface());
         }
 
+        //we make sure we reset the image first before setting the new one in case there is an empty one
+        DrawerImageLoader.getInstance().cancelImage(viewHolder.icon);
+        viewHolder.icon.setImageBitmap(null);
         //get the drawables for our icon and set it
         ImageHolder.applyTo(icon, viewHolder.icon, "customUrlItem");
 
