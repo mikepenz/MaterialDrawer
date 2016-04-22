@@ -402,7 +402,7 @@ public class MiniDrawer {
         mAdapter.clear();
 
         int profileOffset = 0;
-        if (mAccountHeader != null) {
+        if (mAccountHeader != null && mAccountHeader.getAccountHeaderBuilder().mProfileImagesVisible) {
             IProfile profile = mAccountHeader.getActiveProfile();
             if (profile instanceof IDrawerItem) {
                 mAdapter.add(generateMiniDrawerItem((IDrawerItem) profile));
