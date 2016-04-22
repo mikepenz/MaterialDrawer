@@ -47,5 +47,5 @@ dependencies {
     // used to fill the RecyclerView with the DrawerItems
     // and provides single and multi selection, expandable items
     // https://github.com/mikepenz/FastAdapter
-    compile 'com.mikepenz:fastadapter:1.4.2@aar'
+    compile 'com.mikepenz:fastadapter:1.4.4@aar'
 }
