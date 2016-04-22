@@ -15,6 +15,7 @@ import com.mikepenz.fastadapter.FastAdapter;
 import com.mikepenz.fastadapter.adapters.FooterAdapter;
 import com.mikepenz.fastadapter.adapters.HeaderAdapter;
 import com.mikepenz.fastadapter.adapters.ItemAdapter;
+import com.mikepenz.materialdrawer.holder.DimenHolder;
 import com.mikepenz.materialdrawer.holder.ImageHolder;
 import com.mikepenz.materialdrawer.holder.StringHolder;
 import com.mikepenz.materialdrawer.model.ContainerDrawerItem;
@@ -304,12 +305,26 @@ public class Drawer {
      * @param divider
      */
     public void setHeader(@NonNull View view, boolean padding, boolean divider) {
+        setHeader(view, padding, divider, null);
+    }
+
+    /**
+     * method to replace a previous set header
+     *
+     * @param view
+     * @param padding
+     * @param divider
+     * @param height
+     */
+    public void setHeader(@NonNull View view, boolean padding, boolean divider, DimenHolder height) {
         mDrawerBuilder.getHeaderAdapter().clear();
         if (padding) {
-            mDrawerBuilder.getHeaderAdapter().add(new ContainerDrawerItem().withView(view).withDivider(divider).withViewPosition(ContainerDrawerItem.Position.TOP));
+            mDrawerBuilder.getHeaderAdapter().add(new ContainerDrawerItem().withView(view).withDivider(divider).withHeight(height).withViewPosition(ContainerDrawerItem.Position.TOP));
         } else {
-            mDrawerBuilder.getHeaderAdapter().add(new ContainerDrawerItem().withView(view).withDivider(divider).withViewPosition(ContainerDrawerItem.Position.NONE));
+            mDrawerBuilder.getHeaderAdapter().add(new ContainerDrawerItem().withView(view).withDivider(divider).withHeight(height).withViewPosition(ContainerDrawerItem.Position.NONE));
         }
+        //we need to set the padding so the header starts on top
+        mDrawerBuilder.mRecyclerView.setPadding(mDrawerBuilder.mRecyclerView.getPaddingLeft(), 0, mDrawerBuilder.mRecyclerView.getPaddingRight(), mDrawerBuilder.mRecyclerView.getPaddingBottom());
     }
 
     /**
@@ -317,6 +332,7 @@ public class Drawer {
      */
     public void removeHeader() {
         mDrawerBuilder.getHeaderAdapter().clear();
+        //possibly there should be also a reset of the padding so the first item starts below the toolbar
     }
 
     /**

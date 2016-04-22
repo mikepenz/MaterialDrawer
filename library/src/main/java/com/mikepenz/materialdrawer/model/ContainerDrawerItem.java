@@ -9,12 +9,25 @@ import android.widget.LinearLayout;
 
 import com.mikepenz.fastadapter.utils.ViewHolderFactory;
 import com.mikepenz.materialdrawer.R;
+import com.mikepenz.materialdrawer.holder.DimenHolder;
 import com.mikepenz.materialize.util.UIUtils;
 
 /**
  * Created by mikepenz on 03.02.15.
  */
 public class ContainerDrawerItem extends AbstractDrawerItem<ContainerDrawerItem, ContainerDrawerItem.ViewHolder> {
+
+    private DimenHolder mHeight;
+
+    public ContainerDrawerItem withHeight(DimenHolder height) {
+        mHeight = height;
+        return this;
+    }
+
+    public DimenHolder getHeight() {
+        return mHeight;
+    }
+
     private View mView;
 
     public ContainerDrawerItem withView(View view) {
@@ -74,6 +87,13 @@ public class ContainerDrawerItem extends AbstractDrawerItem<ContainerDrawerItem,
         //make sure our view is not used in another parent
         if (mView.getParent() != null) {
             ((ViewGroup) mView.getParent()).removeView(mView);
+        }
+
+        //set the height
+        if (mHeight != null) {
+            RecyclerView.LayoutParams lp = (RecyclerView.LayoutParams) viewHolder.view.getLayoutParams();
+            lp.height = mHeight.asPixel(ctx);
+            viewHolder.view.setLayoutParams(lp);
         }
 
         //make sure the header view is empty
