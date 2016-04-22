@@ -31,6 +31,15 @@ public class AccountHeader {
     }
 
     /**
+     * the protected getter for the AccountHeaderBuilder
+     *
+     * @return the AccountHeaderBuilder
+     */
+    protected AccountHeaderBuilder getAccountHeaderBuilder() {
+        return mAccountHeaderBuilder;
+    }
+
+    /**
      * Get the Root view for the Header
      *
      * @return
