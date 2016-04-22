@@ -1,31 +1,31 @@
 buildscript {
-  ext {
-    setup = [compileSdk: 23,
-             buildTools: "23.0.3",
-             minSdk    : 10,
-             targetSdk : 23]
+    ext {
+        setup = [compileSdk: 23,
+                 buildTools: "23.0.3",
+                 minSdk    : 10,
+                 targetSdk : 23]
 
-    versions = [supportLib: "23.3.0"]
-  }
+        versions = [supportLib: "23.3.0"]
+    }
 
-  repositories {
-    jcenter()
-    mavenCentral()
-  }
-  dependencies {
-    classpath 'com.android.tools.build:gradle:2.0.0'
-    classpath 'com.novoda:bintray-release:0.3.4'
-  }
+    repositories {
+        jcenter()
+        mavenCentral()
+    }
+    dependencies {
+        classpath 'com.android.tools.build:gradle:2.0.0'
+        classpath 'com.novoda:bintray-release:0.3.4'
+    }
 }
 
 allprojects {
-  repositories {
-    jcenter()
-    mavenCentral()
-    maven { url "https://oss.sonatype.org/content/repositories/snapshots/" }
-  }
+    repositories {
+        jcenter()
+        mavenCentral()
+        maven { url "https://oss.sonatype.org/content/repositories/snapshots/" }
+    }
 }
 
 task wrapper(type: Wrapper) {
-  gradleVersion = '2.12'
+    gradleVersion = '2.12'
 }
