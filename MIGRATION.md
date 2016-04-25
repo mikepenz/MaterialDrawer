@@ -1,5 +1,8 @@
 ###Upgrade Notes
 
+#### v5.2.0 -> v5.2.1
+* the `SecondaryDrawerItem` is now a subclass of the `PrimaryDrawerItem` (extends `PrimaryDrawerItem`). If you have an `if` which checks for the type with `instanceOf` make sure you check for the `SecondaryDrawerItem` first. (`secondaryDrawerItem instanceOf PrimaryDrawerItem == true`)
+
 #### v5.1.6 -> 5.1.8
 * if you use the `FastAdapter` please check out the release notes of v1.4.0 (https://github.com/mikepenz/FastAdapter/releases/tag/v1.4.0)
 
