@@ -62,6 +62,9 @@ public abstract class BasePrimaryDrawerItem<T, VH extends BaseViewHolder> extend
         //set the item selected if it is
         viewHolder.itemView.setSelected(isSelected());
 
+        //set the item enabled if it is
+        viewHolder.itemView.setEnabled(isEnabled());
+
         //
         viewHolder.itemView.setTag(this);
 
