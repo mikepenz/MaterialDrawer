@@ -38,19 +38,19 @@ public class KeyboardUtil {
         this.contentView = contentView;
 
         //only required on newer android versions. it was working on API level 19
-        if (Build.VERSION.SDK_INT >= 19) {
+        if (Build.VERSION.SDK_INT > 19) {
             decorView.getViewTreeObserver().addOnGlobalLayoutListener(onGlobalLayoutListener);
         }
     }
 
     public void enable() {
-        if (Build.VERSION.SDK_INT >= 19) {
+        if (Build.VERSION.SDK_INT > 19) {
             decorView.getViewTreeObserver().addOnGlobalLayoutListener(onGlobalLayoutListener);
         }
     }
 
     public void disable() {
-        if (Build.VERSION.SDK_INT >= 19) {
+        if (Build.VERSION.SDK_INT > 19) {
             decorView.getViewTreeObserver().removeOnGlobalLayoutListener(onGlobalLayoutListener);
         }
     }
