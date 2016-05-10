@@ -205,17 +205,19 @@ class DrawerUtils {
             //set a background color or the elevation will not work
             drawer.mStickyHeaderView.setBackgroundColor(UIUtils.getThemeColorFromAttrOrRes(drawer.mActivity, R.attr.material_drawer_background, R.color.material_drawer_background));
 
-            //add a shadow
-            if (Build.VERSION.SDK_INT >= 21) {
-                drawer.mStickyHeaderView.setElevation(UIUtils.convertDpToPixel(4, drawer.mActivity));
-            } else {
-                View view = new View(drawer.mActivity);
-                view.setBackgroundResource(R.drawable.material_drawer_shadow_bottom);
-                drawer.mSliderLayout.addView(view, RelativeLayout.LayoutParams.MATCH_PARENT, (int) UIUtils.convertDpToPixel(4, drawer.mActivity));
-                //now align the shadow below the stickyHeader ;)
-                RelativeLayout.LayoutParams lps = (RelativeLayout.LayoutParams) view.getLayoutParams();
-                lps.addRule(RelativeLayout.BELOW, R.id.material_drawer_sticky_header);
-                view.setLayoutParams(lps);
+            if (drawer.mStickyHeaderShadow) {
+                //add a shadow
+                if (Build.VERSION.SDK_INT >= 21) {
+                    drawer.mStickyHeaderView.setElevation(UIUtils.convertDpToPixel(4, drawer.mActivity));
+                } else {
+                    View view = new View(drawer.mActivity);
+                    view.setBackgroundResource(R.drawable.material_drawer_shadow_bottom);
+                    drawer.mSliderLayout.addView(view, RelativeLayout.LayoutParams.MATCH_PARENT, (int) UIUtils.convertDpToPixel(4, drawer.mActivity));
+                    //now align the shadow below the stickyHeader ;)
+                    RelativeLayout.LayoutParams lps = (RelativeLayout.LayoutParams) view.getLayoutParams();
+                    lps.addRule(RelativeLayout.BELOW, R.id.material_drawer_sticky_header);
+                    view.setLayoutParams(lps);
+                }
             }
 
             //remove the padding of the recyclerView again we have the header on top of it
@@ -229,9 +231,9 @@ class DrawerUtils {
             }
 
             if (drawer.mHeaderPadding) {
-                drawer.getHeaderAdapter().add(new ContainerDrawerItem().withView(drawer.mHeaderView).withDivider(drawer.mHeaderDivider).withViewPosition(ContainerDrawerItem.Position.TOP));
+                drawer.getHeaderAdapter().add(new ContainerDrawerItem().withView(drawer.mHeaderView).withHeight(drawer.mHeiderHeight).withDivider(drawer.mHeaderDivider).withViewPosition(ContainerDrawerItem.Position.TOP));
             } else {
-                drawer.getHeaderAdapter().add(new ContainerDrawerItem().withView(drawer.mHeaderView).withDivider(drawer.mHeaderDivider).withViewPosition(ContainerDrawerItem.Position.NONE));
+                drawer.getHeaderAdapter().add(new ContainerDrawerItem().withView(drawer.mHeaderView).withHeight(drawer.mHeiderHeight).withDivider(drawer.mHeaderDivider).withViewPosition(ContainerDrawerItem.Position.NONE));
             }
             //set the padding on the top to 0
             drawer.mRecyclerView.setPadding(drawer.mRecyclerView.getPaddingLeft(), 0, drawer.mRecyclerView.getPaddingRight(), drawer.mRecyclerView.getPaddingBottom());
