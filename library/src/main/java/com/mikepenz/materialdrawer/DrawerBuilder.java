@@ -593,6 +593,8 @@ public class DrawerBuilder {
 
     // sticky view
     protected View mStickyHeaderView;
+    // shadow shown on the top of the sticky header
+    protected boolean mStickyHeaderShadow = true;
 
     /**
      * Add a sticky header below the DrawerBuilder ListView. This can be any view
@@ -621,6 +623,17 @@ public class DrawerBuilder {
             this.mStickyHeaderView = mActivity.getLayoutInflater().inflate(stickyHeaderRes, null, false);
         }
 
+        return this;
+    }
+
+    /**
+     * Set this to false if you don't want the shadow below the sticky header
+     *
+     * @param stickyHeaderShadow
+     * @return
+     */
+    public DrawerBuilder withStickyHeaderShadow(boolean stickyHeaderShadow) {
+        this.mStickyHeaderShadow = stickyHeaderShadow;
         return this;
     }
 
