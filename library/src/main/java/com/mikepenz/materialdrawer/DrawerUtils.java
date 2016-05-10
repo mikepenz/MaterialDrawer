@@ -231,9 +231,9 @@ class DrawerUtils {
             }
 
             if (drawer.mHeaderPadding) {
-                drawer.getHeaderAdapter().add(new ContainerDrawerItem().withView(drawer.mHeaderView).withDivider(drawer.mHeaderDivider).withViewPosition(ContainerDrawerItem.Position.TOP));
+                drawer.getHeaderAdapter().add(new ContainerDrawerItem().withView(drawer.mHeaderView).withHeight(drawer.mHeiderHeight).withDivider(drawer.mHeaderDivider).withViewPosition(ContainerDrawerItem.Position.TOP));
             } else {
-                drawer.getHeaderAdapter().add(new ContainerDrawerItem().withView(drawer.mHeaderView).withDivider(drawer.mHeaderDivider).withViewPosition(ContainerDrawerItem.Position.NONE));
+                drawer.getHeaderAdapter().add(new ContainerDrawerItem().withView(drawer.mHeaderView).withHeight(drawer.mHeiderHeight).withDivider(drawer.mHeaderDivider).withViewPosition(ContainerDrawerItem.Position.NONE));
             }
             //set the padding on the top to 0
             drawer.mRecyclerView.setPadding(drawer.mRecyclerView.getPaddingLeft(), 0, drawer.mRecyclerView.getPaddingRight(), drawer.mRecyclerView.getPaddingBottom());

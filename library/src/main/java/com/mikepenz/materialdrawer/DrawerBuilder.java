@@ -43,6 +43,7 @@ import com.mikepenz.fastadapter.adapters.FooterAdapter;
 import com.mikepenz.fastadapter.adapters.HeaderAdapter;
 import com.mikepenz.fastadapter.adapters.ItemAdapter;
 import com.mikepenz.iconics.utils.Utils;
+import com.mikepenz.materialdrawer.holder.DimenHolder;
 import com.mikepenz.materialdrawer.model.AbstractDrawerItem;
 import com.mikepenz.materialdrawer.model.DividerDrawerItem;
 import com.mikepenz.materialdrawer.model.PrimaryDrawerItem;
@@ -538,6 +539,7 @@ public class DrawerBuilder {
     protected View mHeaderView;
     protected boolean mHeaderDivider = true;
     protected boolean mHeaderPadding = true;
+    protected DimenHolder mHeiderHeight = null;
 
     /**
      * Add a header to the DrawerBuilder ListView. This can be any view
@@ -588,6 +590,17 @@ public class DrawerBuilder {
      */
     public DrawerBuilder withHeaderPadding(boolean headerPadding) {
         this.mHeaderPadding = headerPadding;
+        return this;
+    }
+
+    /**
+     * Sets the header height for the header provided via `withHeader()`
+     *
+     * @param headerHeight the DimenHolder with the height we want to set for the header
+     * @return
+     */
+    public DrawerBuilder withHeaderHeight(DimenHolder headerHeight) {
+        this.mHeiderHeight = headerHeight;
         return this;
     }
 
