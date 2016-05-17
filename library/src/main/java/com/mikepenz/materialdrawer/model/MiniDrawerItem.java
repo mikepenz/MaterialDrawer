@@ -2,28 +2,30 @@ package com.mikepenz.materialdrawer.model;
 
 import android.content.Context;
 import android.graphics.drawable.Drawable;
+import android.support.annotation.DimenRes;
 import android.support.annotation.LayoutRes;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.mikepenz.fastadapter.utils.ViewHolderFactory;
 import com.mikepenz.materialdrawer.R;
 import com.mikepenz.materialdrawer.holder.BadgeStyle;
+import com.mikepenz.materialdrawer.holder.DimenHolder;
 import com.mikepenz.materialdrawer.holder.ImageHolder;
 import com.mikepenz.materialdrawer.holder.StringHolder;
-import com.mikepenz.materialdrawer.model.utils.ViewHolderFactory;
-import com.mikepenz.materialdrawer.util.DrawerUIUtils;
 import com.mikepenz.materialize.util.UIUtils;
 
 /**
  * Created by mikepenz on 03.02.15.
  */
-public class MiniDrawerItem extends BaseDrawerItem<MiniDrawerItem> {
+public class MiniDrawerItem extends BaseDrawerItem<MiniDrawerItem, MiniDrawerItem.ViewHolder> {
     private StringHolder mBadge;
     private BadgeStyle mBadgeStyle = new BadgeStyle();
 
     private boolean mEnableSelectedBackground = false;
+    protected DimenHolder mCustomHeight;
 
     public MiniDrawerItem() {
 
@@ -73,14 +75,35 @@ public class MiniDrawerItem extends BaseDrawerItem<MiniDrawerItem> {
         this.disabledIconColor = secondaryDrawerItem.disabledIconColor;
     }
 
+
+    public MiniDrawerItem withCustomHeightRes(@DimenRes int customHeightRes) {
+        this.mCustomHeight = DimenHolder.fromResource(customHeightRes);
+        return this;
+    }
+
+    public MiniDrawerItem withCustomHeightDp(int customHeightDp) {
+        this.mCustomHeight = DimenHolder.fromDp(customHeightDp);
+        return this;
+    }
+
+    public MiniDrawerItem withCustomHeightPx(int customHeightPx) {
+        this.mCustomHeight = DimenHolder.fromPixel(customHeightPx);
+        return this;
+    }
+
+    public MiniDrawerItem withCustomHeight(DimenHolder customHeight) {
+        this.mCustomHeight = customHeight;
+        return this;
+    }
+
     public MiniDrawerItem withEnableSelectedBackground(boolean enableSelectedBackground) {
         this.mEnableSelectedBackground = enableSelectedBackground;
         return this;
     }
 
     @Override
-    public String getType() {
-        return "MINI_ITEM";
+    public int getType() {
+        return R.id.material_drawer_item_mini;
     }
 
     @Override
@@ -90,14 +113,21 @@ public class MiniDrawerItem extends BaseDrawerItem<MiniDrawerItem> {
     }
 
     @Override
-    public void bindView(RecyclerView.ViewHolder holder) {
-        Context ctx = holder.itemView.getContext();
+    public void bindView(ViewHolder viewHolder) {
+        Context ctx = viewHolder.itemView.getContext();
 
-        //get our viewHolder
-        ViewHolder viewHolder = (ViewHolder) holder;
+        //set a different height for this item
+        if (mCustomHeight != null) {
+            RecyclerView.LayoutParams lp = (RecyclerView.LayoutParams) viewHolder.itemView.getLayoutParams();
+            lp.height = mCustomHeight.asPixel(ctx);
+            viewHolder.itemView.setLayoutParams(lp);
+        }
 
         //set the identifier from the drawerItem here. It can be used to run tests
-        viewHolder.itemView.setId(getIdentifier());
+        viewHolder.itemView.setId(hashCode());
+
+        //set the item enabled if it is
+        viewHolder.itemView.setEnabled(isEnabled());
 
         //set the item selected if it is
         viewHolder.itemView.setSelected(isSelected());
@@ -113,7 +143,7 @@ public class MiniDrawerItem extends BaseDrawerItem<MiniDrawerItem> {
             //get the correct color for the background
             int selectedColor = getSelectedColor(ctx);
             //set the background for the item
-            UIUtils.setBackground(viewHolder.view, DrawerUIUtils.getSelectableBackground(ctx, selectedColor));
+            UIUtils.setBackground(viewHolder.view, UIUtils.getSelectableBackground(ctx, selectedColor, true));
         }
 
         //set the text for the badge or hide
@@ -134,22 +164,22 @@ public class MiniDrawerItem extends BaseDrawerItem<MiniDrawerItem> {
         viewHolder.itemView.setPadding(verticalPadding, topBottomPadding, verticalPadding, topBottomPadding);
 
         //call the onPostBindView method to trigger post bind view actions (like the listener to modify the item if required)
-        onPostBindView(this, holder.itemView);
+        onPostBindView(this, viewHolder.itemView);
     }
 
     @Override
-    public ViewHolderFactory getFactory() {
+    public ViewHolderFactory<ViewHolder> getFactory() {
         return new ItemFactory();
     }
 
 
     public static class ItemFactory implements ViewHolderFactory<ViewHolder> {
-        public ViewHolder factory(View v) {
+        public ViewHolder create(View v) {
             return new ViewHolder(v);
         }
     }
 
-    private static class ViewHolder extends RecyclerView.ViewHolder {
+    public static class ViewHolder extends RecyclerView.ViewHolder {
         private View view;
         private ImageView icon;
         private TextView badge;

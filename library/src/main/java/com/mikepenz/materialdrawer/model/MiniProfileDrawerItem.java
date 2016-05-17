@@ -3,24 +3,28 @@ package com.mikepenz.materialdrawer.model;
 import android.graphics.Bitmap;
 import android.graphics.drawable.Drawable;
 import android.net.Uri;
+import android.support.annotation.DimenRes;
 import android.support.annotation.DrawableRes;
 import android.support.annotation.LayoutRes;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
 import android.widget.ImageView;
 
+import com.mikepenz.fastadapter.utils.ViewHolderFactory;
 import com.mikepenz.iconics.typeface.IIcon;
 import com.mikepenz.materialdrawer.R;
+import com.mikepenz.materialdrawer.holder.DimenHolder;
 import com.mikepenz.materialdrawer.holder.ImageHolder;
 import com.mikepenz.materialdrawer.holder.StringHolder;
 import com.mikepenz.materialdrawer.model.interfaces.IProfile;
-import com.mikepenz.materialdrawer.model.utils.ViewHolderFactory;
 
 /**
  * Created by mikepenz on 03.02.15.
  */
-public class MiniProfileDrawerItem extends AbstractDrawerItem<MiniProfileDrawerItem> implements IProfile<MiniProfileDrawerItem> {
+public class MiniProfileDrawerItem extends AbstractDrawerItem<MiniProfileDrawerItem, MiniProfileDrawerItem.ViewHolder> implements IProfile<MiniProfileDrawerItem> {
     protected ImageHolder icon;
+
+    protected DimenHolder customHeight;
 
     public MiniProfileDrawerItem() {
         withSelectable(false);
@@ -88,14 +92,34 @@ public class MiniProfileDrawerItem extends AbstractDrawerItem<MiniProfileDrawerI
         return this;
     }
 
+    public MiniProfileDrawerItem withCustomHeightRes(@DimenRes int customHeightRes) {
+        this.customHeight = DimenHolder.fromResource(customHeightRes);
+        return this;
+    }
+
+    public MiniProfileDrawerItem withCustomHeightDp(int customHeightDp) {
+        this.customHeight = DimenHolder.fromDp(customHeightDp);
+        return this;
+    }
+
+    public MiniProfileDrawerItem withCustomHeightPx(int customHeightPx) {
+        this.customHeight = DimenHolder.fromPixel(customHeightPx);
+        return this;
+    }
+
+    public MiniProfileDrawerItem withCustomHeight(DimenHolder customHeight) {
+        this.customHeight = customHeight;
+        return this;
+    }
+
     @Override
     public ImageHolder getIcon() {
         return icon;
     }
 
     @Override
-    public String getType() {
-        return "MINI_PROFILE_ITEM";
+    public int getType() {
+        return R.id.material_drawer_item_mini_profile;
     }
 
     @Override
@@ -105,38 +129,43 @@ public class MiniProfileDrawerItem extends AbstractDrawerItem<MiniProfileDrawerI
     }
 
     @Override
-    public void bindView(RecyclerView.ViewHolder holder) {
-        //get our viewHolder
-        ViewHolder viewHolder = (ViewHolder) holder;
+    public void bindView(ViewHolder viewHolder) {
+        if (customHeight != null) {
+            RecyclerView.LayoutParams lp = (RecyclerView.LayoutParams) viewHolder.itemView.getLayoutParams();
+            lp.height = customHeight.asPixel(viewHolder.itemView.getContext());
+            viewHolder.itemView.setLayoutParams(lp);
+        }
 
         //set the identifier from the drawerItem here. It can be used to run tests
-        viewHolder.itemView.setId(getIdentifier());
+        viewHolder.itemView.setId(hashCode());
+
+        //set the item enabled if it is
+        viewHolder.itemView.setEnabled(isEnabled());
 
         //set the icon
         ImageHolder.applyToOrSetInvisible(getIcon(), viewHolder.icon);
 
         //call the onPostBindView method to trigger post bind view actions (like the listener to modify the item if required)
-        onPostBindView(this, holder.itemView);
+        onPostBindView(this, viewHolder.itemView);
     }
 
     @Override
-    public ViewHolderFactory getFactory() {
+    public ViewHolderFactory<ViewHolder> getFactory() {
         return new ItemFactory();
     }
 
 
     public static class ItemFactory implements ViewHolderFactory<ViewHolder> {
-        public ViewHolder factory(View v) {
+        public ViewHolder create(View v) {
             return new ViewHolder(v);
         }
     }
 
-    private static class ViewHolder extends RecyclerView.ViewHolder {
+    public static class ViewHolder extends RecyclerView.ViewHolder {
         private ImageView icon;
 
         public ViewHolder(View view) {
             super(view);
-
             this.icon = (ImageView) view.findViewById(R.id.material_drawer_icon);
         }
     }

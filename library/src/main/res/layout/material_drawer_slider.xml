@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<com.mikepenz.materialize.view.ScrimInsetsRelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:id="@+id/material_drawer_slider_layout"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
@@ -7,14 +7,8 @@
     android:layout_marginEnd="@dimen/material_drawer_margin"
     android:layout_marginRight="@dimen/material_drawer_margin"
     android:elevation="8dp"
+    android:fitsSystemWindows="true"
     android:orientation="vertical">
-
-    <View
-        android:id="@+id/material_drawer_shadow_top"
-        android:layout_width="match_parent"
-        android:layout_height="@dimen/tool_bar_top_padding"
-        android:layout_alignParentTop="true"
-        android:background="#59000000" />
 
     <View
         android:id="@+id/material_drawer_inner_shadow"
@@ -26,4 +20,4 @@
         android:layout_alignParentStart="false"
         android:background="@drawable/material_drawer_shadow_left"
         android:visibility="gone" />
-</RelativeLayout>
+</com.mikepenz.materialize.view.ScrimInsetsRelativeLayout>

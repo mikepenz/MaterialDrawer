@@ -6,22 +6,19 @@ import android.support.annotation.ColorInt;
 import android.support.annotation.ColorRes;
 import android.support.annotation.StringRes;
 import android.support.v7.widget.RecyclerView;
-import android.view.View;
-import android.widget.ImageView;
-import android.widget.TextView;
 
-import com.mikepenz.materialdrawer.R;
 import com.mikepenz.materialdrawer.holder.ColorHolder;
 import com.mikepenz.materialdrawer.holder.ImageHolder;
 import com.mikepenz.materialdrawer.holder.StringHolder;
 import com.mikepenz.materialdrawer.model.BaseDrawerItem;
+import com.mikepenz.materialdrawer.util.DrawerImageLoader;
 import com.mikepenz.materialdrawer.util.DrawerUIUtils;
 import com.mikepenz.materialize.util.UIUtils;
 
 /**
  * Created by mikepenz on 03.02.15.
  */
-public abstract class CustomUrlBasePrimaryDrawerItem<T> extends BaseDrawerItem<T> {
+public abstract class CustomUrlBasePrimaryDrawerItem<T, VH extends RecyclerView.ViewHolder> extends BaseDrawerItem<T, VH> {
     public T withIcon(String url) {
         this.icon = new ImageHolder(url);
         return (T) this;
@@ -68,11 +65,11 @@ public abstract class CustomUrlBasePrimaryDrawerItem<T> extends BaseDrawerItem<T
      *
      * @param viewHolder
      */
-    protected void bindViewHelper(BaseViewHolder viewHolder) {
+    protected void bindViewHelper(CustomBaseViewHolder viewHolder) {
         Context ctx = viewHolder.itemView.getContext();
 
         //set the identifier from the drawerItem here. It can be used to run tests
-        viewHolder.itemView.setId(getIdentifier());
+        viewHolder.itemView.setId(hashCode());
 
         //set the item selected if it is
         viewHolder.itemView.setSelected(isSelected());
@@ -90,7 +87,7 @@ public abstract class CustomUrlBasePrimaryDrawerItem<T> extends BaseDrawerItem<T
         int selectedIconColor = getSelectedIconColor(ctx);
 
         //set the background for the item
-        UIUtils.setBackground(viewHolder.view, DrawerUIUtils.getSelectableBackground(ctx, selectedColor));
+        UIUtils.setBackground(viewHolder.view, UIUtils.getSelectableBackground(ctx, selectedColor, true));
         //set the text for the name
         StringHolder.applyTo(this.getName(), viewHolder.name);
         //set the text for the description or hide
@@ -107,26 +104,13 @@ public abstract class CustomUrlBasePrimaryDrawerItem<T> extends BaseDrawerItem<T
             viewHolder.description.setTypeface(getTypeface());
         }
 
+        //we make sure we reset the image first before setting the new one in case there is an empty one
+        DrawerImageLoader.getInstance().cancelImage(viewHolder.icon);
+        viewHolder.icon.setImageBitmap(null);
         //get the drawables for our icon and set it
         ImageHolder.applyTo(icon, viewHolder.icon, "customUrlItem");
 
         //for android API 17 --> Padding not applied via xml
         DrawerUIUtils.setDrawerVerticalPadding(viewHolder.view);
-    }
-
-    protected static class BaseViewHolder extends RecyclerView.ViewHolder {
-        protected View view;
-        protected ImageView icon;
-        protected TextView name;
-        protected TextView description;
-
-        public BaseViewHolder(View view) {
-            super(view);
-
-            this.view = view;
-            this.icon = (ImageView) view.findViewById(R.id.material_drawer_icon);
-            this.name = (TextView) view.findViewById(R.id.material_drawer_name);
-            this.description = (TextView) view.findViewById(R.id.material_drawer_description);
-        }
     }
 }

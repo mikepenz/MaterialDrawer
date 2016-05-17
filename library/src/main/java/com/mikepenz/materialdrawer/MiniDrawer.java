@@ -1,6 +1,7 @@
 package com.mikepenz.materialdrawer;
 
 import android.content.Context;
+import android.content.res.Configuration;
 import android.support.annotation.NonNull;
 import android.support.v7.widget.DefaultItemAnimator;
 import android.support.v7.widget.LinearLayoutManager;
@@ -9,8 +10,10 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.LinearLayout;
 
-import com.mikepenz.materialdrawer.adapter.BaseDrawerAdapter;
-import com.mikepenz.materialdrawer.adapter.DrawerAdapter;
+import com.mikepenz.fastadapter.FastAdapter;
+import com.mikepenz.fastadapter.IAdapter;
+import com.mikepenz.fastadapter.adapters.FastItemAdapter;
+import com.mikepenz.fastadapter.adapters.ItemAdapter;
 import com.mikepenz.materialdrawer.interfaces.ICrossfader;
 import com.mikepenz.materialdrawer.model.MiniDrawerItem;
 import com.mikepenz.materialdrawer.model.MiniProfileDrawerItem;
@@ -21,7 +24,7 @@ import com.mikepenz.materialdrawer.model.interfaces.IDrawerItem;
 import com.mikepenz.materialdrawer.model.interfaces.IProfile;
 import com.mikepenz.materialize.util.UIUtils;
 
-import java.util.ArrayList;
+import java.util.List;
 
 /**
  * Created by mikepenz on 15.07.15.
@@ -33,7 +36,7 @@ public class MiniDrawer {
 
     private LinearLayout mContainer;
     private RecyclerView mRecyclerView;
-    private DrawerAdapter mDrawerAdapter;
+    protected FastItemAdapter<IDrawerItem> mAdapter;
 
     private Drawer mDrawer;
 
@@ -139,7 +142,7 @@ public class MiniDrawer {
         return this;
     }
 
-    private BaseDrawerAdapter.OnClickListener mOnMiniDrawerItemClickListener;
+    private FastAdapter.OnClickListener<IDrawerItem> mOnMiniDrawerItemClickListener;
 
     /**
      * Define an onClickListener for the MiniDrawer item adapter. WARNING: this will overwrite the default behavior
@@ -147,13 +150,13 @@ public class MiniDrawer {
      * @param onMiniDrawerItemClickListener
      * @return
      */
-    public MiniDrawer withOnMiniDrawerItemClickListener(BaseDrawerAdapter.OnClickListener onMiniDrawerItemClickListener) {
+    public MiniDrawer withOnMiniDrawerItemClickListener(FastAdapter.OnClickListener<IDrawerItem> onMiniDrawerItemClickListener) {
         this.mOnMiniDrawerItemClickListener = onMiniDrawerItemClickListener;
         return this;
     }
 
 
-    private BaseDrawerAdapter.OnLongClickListener mOnMiniDrawerItemLongClickListener;
+    private FastAdapter.OnLongClickListener<IDrawerItem> mOnMiniDrawerItemLongClickListener;
 
     /**
      * Define an onLongClickListener for the MiniDrawer item adapter
@@ -161,36 +164,70 @@ public class MiniDrawer {
      * @param onMiniDrawerItemLongClickListener
      * @return
      */
-    public MiniDrawer withOnMiniDrawerItemLongClickListener(BaseDrawerAdapter.OnLongClickListener onMiniDrawerItemLongClickListener) {
+    public MiniDrawer withOnMiniDrawerItemLongClickListener(FastAdapter.OnLongClickListener<IDrawerItem> onMiniDrawerItemLongClickListener) {
         this.mOnMiniDrawerItemLongClickListener = onMiniDrawerItemLongClickListener;
         return this;
     }
 
+    /**
+     * get the RecyclerView of this MiniDrawer
+     *
+     * @return
+     */
     public RecyclerView getRecyclerView() {
         return mRecyclerView;
     }
 
-    public DrawerAdapter getDrawerAdapter() {
-        return mDrawerAdapter;
+    /**
+     * get the FastAdapter of this MiniDrawer
+     *
+     * @return
+     */
+    public FastAdapter<IDrawerItem> getAdapter() {
+        return mAdapter;
     }
 
+    /**
+     * get the ItemAdapter of this MiniDrawer
+     *
+     * @return
+     */
+    public ItemAdapter<IDrawerItem> getItemAdapter() {
+        return mAdapter.getItemAdapter();
+    }
+
+    /**
+     * get the Drawer used to fill this MiniDrawer
+     *
+     * @return
+     */
     public Drawer getDrawer() {
         return mDrawer;
     }
 
+    /**
+     * get the AccountHeader used to fill the this MiniDrawer
+     *
+     * @return
+     */
     public AccountHeader getAccountHeader() {
         return mAccountHeader;
     }
 
+    /**
+     * get the Crossfader used for this MiniDrawer
+     *
+     * @return
+     */
     public ICrossfader getCrossFader() {
         return mCrossFader;
     }
 
-    public BaseDrawerAdapter.OnClickListener getOnMiniDrawerItemClickListener() {
+    public FastAdapter.OnClickListener getOnMiniDrawerItemClickListener() {
         return mOnMiniDrawerItemClickListener;
     }
 
-    public BaseDrawerAdapter.OnLongClickListener getOnMiniDrawerItemLongClickListener() {
+    public FastAdapter.OnLongClickListener getOnMiniDrawerItemLongClickListener() {
         return mOnMiniDrawerItemLongClickListener;
     }
 
@@ -201,10 +238,10 @@ public class MiniDrawer {
      * @return
      */
     public IDrawerItem generateMiniDrawerItem(IDrawerItem drawerItem) {
-        if (drawerItem instanceof PrimaryDrawerItem) {
+        if (drawerItem instanceof SecondaryDrawerItem) {
+            return mIncludeSecondaryDrawerItems ? new MiniDrawerItem((SecondaryDrawerItem) drawerItem).withEnableSelectedBackground(mEnableSelectedMiniDrawerItemBackground) : null;
+        } else if (drawerItem instanceof PrimaryDrawerItem) {
             return new MiniDrawerItem((PrimaryDrawerItem) drawerItem).withEnableSelectedBackground(mEnableSelectedMiniDrawerItemBackground);
-        } else if (drawerItem instanceof SecondaryDrawerItem && mIncludeSecondaryDrawerItems) {
-            return new MiniDrawerItem((SecondaryDrawerItem) drawerItem).withEnableSelectedBackground(mEnableSelectedMiniDrawerItemBackground);
         } else if (drawerItem instanceof ProfileDrawerItem) {
             MiniProfileDrawerItem mpdi = new MiniProfileDrawerItem((ProfileDrawerItem) drawerItem);
             mpdi.withEnabled(mEnableProfileClick);
@@ -258,8 +295,10 @@ public class MiniDrawer {
         //additional stuff
         mRecyclerView.setLayoutManager(new LinearLayoutManager(ctx));
         //adapter
-        mDrawerAdapter = new DrawerAdapter();
-        mRecyclerView.setAdapter(mDrawerAdapter);
+        mAdapter = new FastItemAdapter<>();
+        mAdapter.withSelectable(true);
+        mAdapter.withAllowDeselection(false);
+        mRecyclerView.setAdapter(mAdapter);
 
         //if the activity with the drawer should be fullscreen add the padding for the statusbar
         if (mDrawer != null && mDrawer.mDrawerBuilder != null && (mDrawer.mDrawerBuilder.mFullscreen || mDrawer.mDrawerBuilder.mTranslucentStatusBar)) {
@@ -267,7 +306,7 @@ public class MiniDrawer {
         }
 
         //if the activity with the drawer should be fullscreen add the padding for the navigationBar
-        if (mDrawer != null && mDrawer.mDrawerBuilder != null && (mDrawer.mDrawerBuilder.mFullscreen || mDrawer.mDrawerBuilder.mTranslucentNavigationBar)) {
+        if (mDrawer != null && mDrawer.mDrawerBuilder != null && (mDrawer.mDrawerBuilder.mFullscreen || mDrawer.mDrawerBuilder.mTranslucentNavigationBar) && ctx.getResources().getConfiguration().orientation == Configuration.ORIENTATION_PORTRAIT) {
             mRecyclerView.setPadding(mRecyclerView.getPaddingLeft(), mRecyclerView.getPaddingTop(), mRecyclerView.getPaddingRight(), UIUtils.getNavigationBarHeight(ctx));
         }
 
@@ -292,7 +331,7 @@ public class MiniDrawer {
         if (mAccountHeader != null) {
             IProfile profile = mAccountHeader.getActiveProfile();
             if (profile instanceof IDrawerItem) {
-                mDrawerAdapter.setDrawerItem(0, generateMiniDrawerItem((IDrawerItem) profile));
+                mAdapter.set(0, generateMiniDrawerItem((IDrawerItem) profile));
             }
         }
     }
@@ -312,12 +351,8 @@ public class MiniDrawer {
                     mCrossFader.crossfade();
                 }
             }
-
-            //get the identifier
-            int identifier = selectedDrawerItem.getIdentifier();
-
             //update everything
-            setSelection(identifier);
+            setSelection(selectedDrawerItem.getIdentifier());
 
             return false;
         } else {
@@ -330,11 +365,15 @@ public class MiniDrawer {
      *
      * @param identifier the identifier of the item which should be selected (-1 for none)
      */
-    public void setSelection(int identifier) {
-        for (IDrawerItem drawerItem : mDrawerAdapter.getDrawerItems()) {
-            drawerItem.withSetSelected(drawerItem.getIdentifier() == identifier);
+    public void setSelection(long identifier) {
+        int count = mAdapter.getItemCount();
+        for (int i = 0; i < count; i++) {
+            IDrawerItem item = mAdapter.getItem(i);
+            if (item.getIdentifier() == identifier && !item.isSelected()) {
+                mAdapter.deselect();
+                mAdapter.select(i);
+            }
         }
-        mDrawerAdapter.notifyDataSetChanged();
     }
 
     /**
@@ -342,15 +381,14 @@ public class MiniDrawer {
      *
      * @param identifier the identifier of the item which was updated
      */
-    public void updateItem(int identifier) {
-        if (mDrawer != null && mDrawerAdapter != null && mDrawerAdapter.getDrawerItems() != null && identifier != -1) {
-            IDrawerItem drawerItem = mDrawer.getDrawerItem(identifier);
-
-            for (int i = 0; i < mDrawerAdapter.getDrawerItems().size(); i++) {
-                if (mDrawerAdapter.getDrawerItems().get(i).getIdentifier() == drawerItem.getIdentifier()) {
+    public void updateItem(long identifier) {
+        if (mDrawer != null && mAdapter != null && mAdapter.getAdapterItems() != null && identifier != -1) {
+            IDrawerItem drawerItem = DrawerUtils.getDrawerItem(getDrawerItems(), identifier);
+            for (int i = 0; i < mAdapter.getAdapterItems().size(); i++) {
+                if (mAdapter.getAdapterItems().get(i).getIdentifier() == drawerItem.getIdentifier()) {
                     IDrawerItem miniDrawerItem = generateMiniDrawerItem(drawerItem);
                     if (miniDrawerItem != null) {
-                        mDrawerAdapter.setDrawerItem(i, miniDrawerItem);
+                        mAdapter.set(i, miniDrawerItem);
                     }
                 }
             }
@@ -361,47 +399,61 @@ public class MiniDrawer {
      * creates the items for the MiniDrawer
      */
     public void createItems() {
-        mDrawerAdapter.clearDrawerItems();
+        mAdapter.clear();
 
-        if (mAccountHeader != null) {
+        int profileOffset = 0;
+        if (mAccountHeader != null && mAccountHeader.getAccountHeaderBuilder().mProfileImagesVisible) {
             IProfile profile = mAccountHeader.getActiveProfile();
             if (profile instanceof IDrawerItem) {
-                mDrawerAdapter.addDrawerItem(generateMiniDrawerItem((IDrawerItem) profile));
+                mAdapter.add(generateMiniDrawerItem((IDrawerItem) profile));
+                profileOffset = 1;
             }
         }
 
+        int select = -1;
         if (mDrawer != null) {
-            if (mDrawer.getDrawerItems() != null) {
-                ArrayList<IDrawerItem> drawerItems = mDrawer.getDrawerItems();
-                if (mDrawer.switchedDrawerContent()) {
-                    drawerItems = mDrawer.getOriginalDrawerItems();
+            if (getDrawerItems() != null) {
+                //migrate to miniDrawerItems
+                int length = getDrawerItems().size();
+                for (int i = 0; i < length; i++) {
+                    IDrawerItem miniDrawerItem = generateMiniDrawerItem(getDrawerItems().get(i));
+                    if (miniDrawerItem != null) {
+                        if (miniDrawerItem.isSelected()) {
+                            select = i;
+                        }
+                        mAdapter.add(miniDrawerItem);
+                    }
                 }
 
-                //migrate to miniDrawerItems
-                for (IDrawerItem drawerItem : drawerItems) {
-                    IDrawerItem miniDrawerItem = generateMiniDrawerItem(drawerItem);
-                    if (miniDrawerItem != null) {
-                        mDrawerAdapter.addDrawerItem(miniDrawerItem);
-                    }
+                if (select >= 0) {
+                    //+1 because of the profile
+                    mAdapter.select(select + profileOffset);
                 }
             }
         }
 
         //listener
         if (mOnMiniDrawerItemClickListener != null) {
-            mDrawerAdapter.setOnClickListener(mOnMiniDrawerItemClickListener);
+            mAdapter.withOnClickListener(mOnMiniDrawerItemClickListener);
         } else {
-            mDrawerAdapter.setOnClickListener(new BaseDrawerAdapter.OnClickListener() {
+            mAdapter.withOnClickListener(new FastAdapter.OnClickListener<IDrawerItem>() {
                 @Override
-                public void onClick(View v, int position, IDrawerItem item) {
+                public boolean onClick(View v, IAdapter<IDrawerItem> adapter, final IDrawerItem item, final int position) {
                     int type = getMiniDrawerType(item);
                     if (type == ITEM) {
                         //fire the onClickListener also if the specific drawerItem is not Selectable
                         if (item.isSelectable()) {
-                            mDrawer.setSelection(item, true);
+                            //make sure we are on the original drawerItemList
+                            if (mAccountHeader != null && mAccountHeader.isSelectionListShown()) {
+                                mAccountHeader.toggleSelectionList(v.getContext());
+                            }
+                            if (!mDrawer.getDrawerItem(item.getIdentifier()).isSelected()) {
+                                //set the selection
+                                mDrawer.setSelection(item, true);
+                            }
                         } else if (mDrawer.getOnDrawerItemClickListener() != null) {
                             //get the original `DrawerItem` from the Drawer as this one will contain all information
-                            mDrawer.getOnDrawerItemClickListener().onItemClick(v, position, mDrawer.getDrawerItem(item.getIdentifier()));
+                            mDrawer.getOnDrawerItemClickListener().onItemClick(v, position, DrawerUtils.getDrawerItem(getDrawerItems(), item.getIdentifier()));
                         }
                     } else if (type == PROFILE) {
                         if (mAccountHeader != null && !mAccountHeader.isSelectionListShown()) {
@@ -411,11 +463,20 @@ public class MiniDrawer {
                             mCrossFader.crossfade();
                         }
                     }
+                    return false;
                 }
             });
         }
-        mDrawerAdapter.setOnLongClickListener(mOnMiniDrawerItemLongClickListener);
-
+        mAdapter.withOnLongClickListener(mOnMiniDrawerItemLongClickListener);
         mRecyclerView.scrollToPosition(0);
+    }
+
+    /**
+     * returns always the original drawerItems and not the switched content
+     *
+     * @return
+     */
+    private List<IDrawerItem> getDrawerItems() {
+        return mDrawer.getOriginalDrawerItems() != null ? mDrawer.getOriginalDrawerItems() : mDrawer.getDrawerItems();
     }
 }

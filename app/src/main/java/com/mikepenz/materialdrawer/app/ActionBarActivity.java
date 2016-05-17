@@ -21,7 +21,6 @@ public class ActionBarActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         //supportRequestWindowFeature(Window.FEATURE_INDETERMINATE_PROGRESS);
-
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_sample_actionbar);
         setTitle(R.string.drawer_item_action_bar_drawer);
@@ -29,9 +28,10 @@ public class ActionBarActivity extends AppCompatActivity {
         // Handle Toolbar
         result = new DrawerBuilder()
                 .withActivity(this)
-                .withTranslucentStatusBar(false)
-                .withActionBarDrawerToggle(false)
                 .withSavedInstance(savedInstanceState)
+                .withDisplayBelowStatusBar(false)
+                .withTranslucentStatusBar(false)
+                .withDrawerLayout(R.layout.material_drawer_fits_not)
                 .addDrawerItems(
                         new PrimaryDrawerItem().withName(R.string.drawer_item_home).withIcon(FontAwesome.Icon.faw_home),
                         new SecondaryDrawerItem().withName(R.string.drawer_item_settings).withIcon(FontAwesome.Icon.faw_cog)

@@ -110,7 +110,6 @@ public class EmbeddedDrawerActivity extends AppCompatActivity {
                         new PrimaryDrawerItem().withName(R.string.drawer_item_multi_drawer).withIcon(FontAwesome.Icon.faw_gamepad).withIdentifier(3),
                         new PrimaryDrawerItem().withName(R.string.drawer_item_non_translucent_status_drawer).withIcon(FontAwesome.Icon.faw_eye).withIdentifier(4),
                         new PrimaryDrawerItem().withDescription("A more complex sample").withName(R.string.drawer_item_advanced_drawer).withIcon(GoogleMaterial.Icon.gmd_adb).withIdentifier(5),
-                        new PrimaryDrawerItem().withName(R.string.drawer_item_keyboard_util_drawer).withIcon(GoogleMaterial.Icon.gmd_labels).withIdentifier(6),
                         new SectionDrawerItem().withName(R.string.drawer_item_section_header),
                         new SecondaryDrawerItem().withName(R.string.drawer_item_open_source).withIcon(FontAwesome.Icon.faw_github),
                         new SecondaryDrawerItem().withName(R.string.drawer_item_contact).withIcon(GoogleMaterial.Icon.gmd_format_color_fill).withTag("Bullhorn"),
@@ -124,8 +123,7 @@ public class EmbeddedDrawerActivity extends AppCompatActivity {
                         if (drawerItem instanceof Nameable) {
                             Toast.makeText(EmbeddedDrawerActivity.this, ((Nameable) drawerItem).getName().getText(EmbeddedDrawerActivity.this), Toast.LENGTH_SHORT).show();
                         }
-
-                        return true;
+                        return false;
                     }
                 })
                 .withSavedInstance(savedInstanceState)

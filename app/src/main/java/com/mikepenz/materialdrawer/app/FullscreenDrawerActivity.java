@@ -1,6 +1,7 @@
 package com.mikepenz.materialdrawer.app;
 
 import android.graphics.Color;
+import android.os.Build;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
@@ -58,13 +59,9 @@ public class FullscreenDrawerActivity extends AppCompatActivity {
                 .withSavedInstance(savedInstanceState)
                 .build();
 
-        // set the selection to the item with the identifier 5
-        result.setSelection(5, false);
-
         //set the back arrow in the toolbar
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         getSupportActionBar().setHomeButtonEnabled(false);
-
 
         /*
         //USE THIS CODE TO GET A FULL TRANSPARENT STATUS BAR
@@ -80,6 +77,10 @@ public class FullscreenDrawerActivity extends AppCompatActivity {
             getWindow().setStatusBarColor(Color.TRANSPARENT);
         }
         */
+
+        if (Build.VERSION.SDK_INT >= 19) {
+            result.getDrawerLayout().setFitsSystemWindows(false);
+        }
     }
 
     /*

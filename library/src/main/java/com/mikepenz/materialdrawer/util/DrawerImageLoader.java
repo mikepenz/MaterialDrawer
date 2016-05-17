@@ -18,6 +18,7 @@ public class DrawerImageLoader {
     private static DrawerImageLoader SINGLETON = null;
 
     private IDrawerImageLoader imageLoader;
+    private boolean mHandleAllUris = false;
 
     private DrawerImageLoader(IDrawerImageLoader loaderImpl) {
         imageLoader = loaderImpl;
@@ -36,11 +37,27 @@ public class DrawerImageLoader {
         return SINGLETON;
     }
 
-    public void setImage(ImageView imageView, Uri uri, String tag) {
-        if (imageLoader != null) {
-            Drawable placeHolder = imageLoader.placeholder(imageView.getContext(), tag);
-            imageLoader.set(imageView, uri, placeHolder);
+    public DrawerImageLoader withHandleAllUris(boolean handleAllUris) {
+        this.mHandleAllUris = handleAllUris;
+        return this;
+    }
+
+    /**
+     * @param imageView
+     * @param uri
+     * @param tag
+     * @return false if not consumed
+     */
+    public boolean setImage(ImageView imageView, Uri uri, String tag) {
+        //if we do not handle all uris and are not http or https we keep the original behavior
+        if (mHandleAllUris || "http".equals(uri.getScheme()) || "https".equals(uri.getScheme())) {
+            if (imageLoader != null) {
+                Drawable placeHolder = imageLoader.placeholder(imageView.getContext(), tag);
+                imageLoader.set(imageView, uri, placeHolder);
+            }
+            return true;
         }
+        return false;
     }
 
     public void cancelImage(ImageView imageView) {

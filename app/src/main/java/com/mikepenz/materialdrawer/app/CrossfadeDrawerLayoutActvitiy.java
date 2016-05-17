@@ -34,7 +34,6 @@ public class CrossfadeDrawerLayoutActvitiy extends AppCompatActivity {
     //save our header or result
     private AccountHeader headerResult = null;
     private Drawer result = null;
-    private MiniDrawer miniResult = null;
     private CrossfadeDrawerLayout crossfadeDrawerLayout = null;
 
     @Override
@@ -61,29 +60,17 @@ public class CrossfadeDrawerLayoutActvitiy extends AppCompatActivity {
                 .addProfiles(
                         profile, profile2
                 )
-                .withOnAccountHeaderListener(new AccountHeader.OnAccountHeaderListener() {
-                    @Override
-                    public boolean onProfileChanged(View view, IProfile profile, boolean current) {
-                        //IMPORTANT! notify the MiniDrawer about the profile click
-                        miniResult.onProfileClick();
-
-                        //false if you have not consumed the event and it should close the drawer
-                        return false;
-                    }
-                })
                 .withSavedInstance(savedInstanceState)
                 .build();
-
-        //create the CrossfadeDrawerLayout which will be used as alternative DrawerLayout for the Drawer
-        crossfadeDrawerLayout = new CrossfadeDrawerLayout(this);
 
         //Create the drawer
         result = new DrawerBuilder()
                 .withActivity(this)
                 .withToolbar(toolbar)
-                .withDrawerLayout(crossfadeDrawerLayout)
                 .withHasStableIds(true)
+                .withDrawerLayout(R.layout.crossfade_drawer)
                 .withDrawerWidthDp(72)
+                .withGenerateMiniDrawer(true)
                 .withAccountHeader(headerResult) //set the AccountHeader we created earlier for the header
                 .addDrawerItems(
                         new PrimaryDrawerItem().withName(R.string.drawer_item_compact_header).withIcon(GoogleMaterial.Icon.gmd_sun).withIdentifier(1),
@@ -91,7 +78,6 @@ public class CrossfadeDrawerLayoutActvitiy extends AppCompatActivity {
                         new PrimaryDrawerItem().withName(R.string.drawer_item_multi_drawer).withIcon(FontAwesome.Icon.faw_gamepad).withIdentifier(3),
                         new PrimaryDrawerItem().withName(R.string.drawer_item_non_translucent_status_drawer).withIcon(FontAwesome.Icon.faw_eye).withIdentifier(4),
                         new PrimaryDrawerItem().withDescription("A more complex sample").withName(R.string.drawer_item_advanced_drawer).withIcon(GoogleMaterial.Icon.gmd_adb).withIdentifier(5),
-                        new PrimaryDrawerItem().withName(R.string.drawer_item_keyboard_util_drawer).withIcon(GoogleMaterial.Icon.gmd_labels).withIdentifier(6),
                         new SectionDrawerItem().withName(R.string.drawer_item_section_header),
                         new SecondaryDrawerItem().withName(R.string.drawer_item_open_source).withIcon(FontAwesome.Icon.faw_github),
                         new SecondaryDrawerItem().withName(R.string.drawer_item_contact).withIcon(GoogleMaterial.Icon.gmd_format_color_fill).withTag("Bullhorn")
@@ -102,19 +88,23 @@ public class CrossfadeDrawerLayoutActvitiy extends AppCompatActivity {
                         if (drawerItem instanceof Nameable) {
                             Toast.makeText(CrossfadeDrawerLayoutActvitiy.this, ((Nameable) drawerItem).getName().getText(CrossfadeDrawerLayoutActvitiy.this), Toast.LENGTH_SHORT).show();
                         }
-
-                        //IMPORTANT notify the MiniDrawer about the onItemClick
-                        return miniResult.onItemClick(drawerItem);
+                        //we do not consume the event and want the Drawer to continue with the event chain
+                        return false;
                     }
                 })
                 .withSavedInstance(savedInstanceState)
                 .withShowDrawerOnFirstLaunch(true)
                 .build();
 
+
+        //get the CrossfadeDrawerLayout which will be used as alternative DrawerLayout for the Drawer
+        //the CrossfadeDrawerLayout library can be found here: https://github.com/mikepenz/CrossfadeDrawerLayout
+        crossfadeDrawerLayout = (CrossfadeDrawerLayout) result.getDrawerLayout();
+
         //define maxDrawerWidth
         crossfadeDrawerLayout.setMaxWidthPx(DrawerUIUtils.getOptimalDrawerWidth(this));
         //add second view (which is the miniDrawer)
-        miniResult = new MiniDrawer().withDrawer(result).withAccountHeader(headerResult);
+        final MiniDrawer miniResult = result.getMiniDrawer();
         //build the view for the MiniDrawer
         View view = miniResult.build(this);
         //set the background of the MiniDrawer as this would be transparent
@@ -140,6 +130,38 @@ public class CrossfadeDrawerLayoutActvitiy extends AppCompatActivity {
                 return crossfadeDrawerLayout.isCrossfaded();
             }
         });
+
+
+        /**
+         * NOTE THIS IS A HIGHLY CUSTOM ANIMATION. USE CAREFULLY.
+         * this animate the height of the profile to the height of the AccountHeader and
+         * animates the height of the drawerItems to the normal drawerItems so the difference between Mini and normal Drawer is eliminated
+         **/
+        /*
+        final double headerHeight = DrawerUIUtils.getOptimalDrawerWidth(this) * 9d / 16d;
+        final double originalProfileHeight = UIUtils.convertDpToPixel(72, this);
+        final double headerDifference = headerHeight - originalProfileHeight;
+        final double originalItemHeight = UIUtils.convertDpToPixel(64, this);
+        final double normalItemHeight = UIUtils.convertDpToPixel(48, this);
+        final double itemDifference = originalItemHeight - normalItemHeight;
+        crossfadeDrawerLayout.withCrossfadeListener(new CrossfadeDrawerLayout.CrossfadeListener() {
+            @Override
+            public void onCrossfade(View containerView, float currentSlidePercentage, int slideOffset) {
+                for (int i = 0; i < miniResult.getAdapter().getItemCount(); i++) {
+                    IDrawerItem drawerItem = miniResult.getAdapter().getItem(i);
+                    if (drawerItem instanceof MiniProfileDrawerItem) {
+                        MiniProfileDrawerItem mpdi = (MiniProfileDrawerItem) drawerItem;
+                        mpdi.withCustomHeightPx((int) (originalProfileHeight + (headerDifference * currentSlidePercentage / 100)));
+                    } else if (drawerItem instanceof MiniDrawerItem) {
+                        MiniDrawerItem mdi = (MiniDrawerItem) drawerItem;
+                        mdi.withCustomHeightPx((int) (originalItemHeight - (itemDifference * currentSlidePercentage / 100)));
+                    }
+                }
+
+                miniResult.getAdapter().notifyDataSetChanged();
+            }
+        });
+        */
     }
 
     @Override

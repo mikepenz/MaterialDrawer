@@ -3,20 +3,19 @@ package com.mikepenz.materialdrawer.model;
 import android.content.Context;
 import android.support.annotation.LayoutRes;
 import android.support.annotation.StringRes;
-import android.support.v7.widget.RecyclerView;
 import android.view.View;
 import android.widget.TextView;
 
+import com.mikepenz.fastadapter.utils.ViewHolderFactory;
 import com.mikepenz.materialdrawer.R;
 import com.mikepenz.materialdrawer.holder.BadgeStyle;
 import com.mikepenz.materialdrawer.holder.StringHolder;
 import com.mikepenz.materialdrawer.model.interfaces.ColorfulBadgeable;
-import com.mikepenz.materialdrawer.model.utils.ViewHolderFactory;
 
 /**
  * Created by mikepenz on 03.02.15.
  */
-public class PrimaryDrawerItem extends BasePrimaryDrawerItem<PrimaryDrawerItem> implements ColorfulBadgeable<PrimaryDrawerItem> {
+public class PrimaryDrawerItem extends BasePrimaryDrawerItem<PrimaryDrawerItem, PrimaryDrawerItem.ViewHolder> implements ColorfulBadgeable<PrimaryDrawerItem> {
     protected StringHolder mBadge;
     protected BadgeStyle mBadgeStyle = new BadgeStyle();
 
@@ -53,8 +52,8 @@ public class PrimaryDrawerItem extends BasePrimaryDrawerItem<PrimaryDrawerItem> 
     }
 
     @Override
-    public String getType() {
-        return "PRIMARY_ITEM";
+    public int getType() {
+        return R.id.material_drawer_item_primary;/*"PRIMARY_ITEM"*/
     }
 
     @Override
@@ -64,14 +63,10 @@ public class PrimaryDrawerItem extends BasePrimaryDrawerItem<PrimaryDrawerItem> 
     }
 
     @Override
-    public void bindView(RecyclerView.ViewHolder holder) {
-        Context ctx = holder.itemView.getContext();
-
-        //get our viewHolder
-        ViewHolder viewHolder = (ViewHolder) holder;
-
+    public void bindView(ViewHolder viewHolder) {
+        Context ctx = viewHolder.itemView.getContext();
         //bind the basic view parts
-        bindViewHelper((BaseViewHolder) holder);
+        bindViewHelper(viewHolder);
 
         //set the text for the badge or hide
         boolean badgeVisible = StringHolder.applyToOrHide(mBadge, viewHolder.badge);
@@ -89,21 +84,21 @@ public class PrimaryDrawerItem extends BasePrimaryDrawerItem<PrimaryDrawerItem> 
         }
 
         //call the onPostBindView method to trigger post bind view actions (like the listener to modify the item if required)
-        onPostBindView(this, holder.itemView);
+        onPostBindView(this, viewHolder.itemView);
     }
 
     @Override
-    public ViewHolderFactory getFactory() {
+    public ViewHolderFactory<ViewHolder> getFactory() {
         return new ItemFactory();
     }
 
     public static class ItemFactory implements ViewHolderFactory<ViewHolder> {
-        public ViewHolder factory(View v) {
+        public ViewHolder create(View v) {
             return new ViewHolder(v);
         }
     }
 
-    private static class ViewHolder extends BaseViewHolder {
+    public static class ViewHolder extends BaseViewHolder {
         private View badgeContainer;
         private TextView badge;
 

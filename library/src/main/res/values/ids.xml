@@ -7,4 +7,19 @@
     <item name="material_drawer_animation" type="id" />
     <item name="material_drawer_profile_header" type="id" />
     <item name="material_drawer_slider_layout" type="id" />
+
+    <item name="material_drawer_item_primary" type="id" />
+    <item name="material_drawer_item_primary_switch" type="id" />
+    <item name="material_drawer_item_primary_toggle" type="id" />
+    <item name="material_drawer_item_secondary" type="id" />
+    <item name="material_drawer_item_secondary_switch" type="id" />
+    <item name="material_drawer_item_secondary_toggle" type="id" />
+    <item name="material_drawer_item_container" type="id" />
+    <item name="material_drawer_item_divider" type="id" />
+    <item name="material_drawer_item_mini" type="id" />
+    <item name="material_drawer_item_mini_profile" type="id" />
+    <item name="material_drawer_item_profile" type="id" />
+    <item name="material_drawer_item_profile_setting" type="id" />
+    <item name="material_drawer_item_section" type="id" />
+    <item name="material_drawer_item_expandable" type="id" />
 </resources>

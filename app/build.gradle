@@ -6,23 +6,16 @@ try {
 }
 
 android {
-    compileSdkVersion rootProject.ext.compileSdkVersion
-    buildToolsVersion rootProject.ext.buildToolsVersion
+    compileSdkVersion setup.compileSdk
+    buildToolsVersion setup.buildTools
 
     defaultConfig {
-        applicationId "com.mikepenz.materialdrawer.app"
-        minSdkVersion 10
-        targetSdkVersion 23
-        versionCode 451
-        versionName "4.5.1"
+        minSdkVersion setup.minSdk
+        targetSdkVersion setup.targetSdk
+        versionCode 526
+        versionName "5.2.6"
 
-        applicationVariants.all { variant ->
-            variant.outputs.each { output ->
-                def file = output.outputFile
-                def fileName = file.name.replace(".apk", "-v" + versionName + "-c" + versionCode + ".apk")
-                output.outputFile = new File(file.parentFile, fileName)
-            }
-        }
+        setProperty("archivesBaseName", "-v$versionName-c$versionCode")
     }
     buildTypes {
         debug {
@@ -51,18 +44,39 @@ android {
 dependencies {
     compile project(':library')
 
-    compile 'com.android.support:design:23.1.1'
+    compile "com.android.support:design:${versions.supportLib}"
+    compile "com.android.support:cardview-v7:${versions.supportLib}"
 
+    // used to showcase how to load images
     compile 'com.squareup.picasso:picasso:2.5.2'
-    compile 'com.github.bumptech.glide:glide:3.6.1'
+    compile 'com.github.bumptech.glide:glide:3.7.0'
 
-    compile('com.mikepenz:aboutlibraries:5.3.3@aar') {
+    // used to generate the Open Source section
+    // https://github.com/mikepenz/AboutLibraries
+    compile('com.mikepenz:aboutlibraries:5.6.6@aar') {
         transitive = true
+        exclude module: "fastadapter"
     }
-    compile 'com.mikepenz:crossfader:1.3.2@aar'
-    compile('com.mikepenz:crossfadedrawerlayout:0.0.2@aar')
+    //used to provide different itemAnimators for the RecyclerView
+    //https://github.com/mikepenz/ItemAnimators
+    compile 'com.mikepenz:itemanimators:0.2.4@aar'
+    // used to provide the MiniDrawer to normal Drawer crossfade effect via a SlidingPane layout
+    // --> https://github.com/mikepenz/MaterialDrawer/blob/develop/app/src/main/java/com/mikepenz/materialdrawer/app/MiniDrawerActivity.java
+    // https://github.com/mikepenz/Crossfader
+    compile 'com.mikepenz:crossfader:1.3.7@aar'
+    // used to provide the two step crossfade DrawerLayout. Which allows to have a mini layout which transforms to a normal layout within the drawer
+    // --> https://github.com/mikepenz/MaterialDrawer/blob/develop/app/src/main/java/com/mikepenz/materialdrawer/app/CrossfadeDrawerLayoutActvitiy.java
+    // https://github.com/mikepenz/CrossfadeDrawerLayout
+    compile('com.mikepenz:crossfadedrawerlayout:0.3.4@aar')
 
+    // icon fonts used inside the sample
+    // https://github.com/mikepenz/Android-Iconics
     compile 'com.mikepenz:google-material-typeface:2.2.0.1@aar'
     compile 'com.mikepenz:fontawesome-typeface:4.4.0.1@aar'
     compile 'com.mikepenz:octicons-typeface:3.0.0.1@aar'
+
+
+    debugCompile 'com.squareup.leakcanary:leakcanary-android:1.4-beta2'
+    releaseCompile 'com.squareup.leakcanary:leakcanary-android-no-op:1.4-beta2'
+    testCompile 'com.squareup.leakcanary:leakcanary-android-no-op:1.4-beta2'
 }

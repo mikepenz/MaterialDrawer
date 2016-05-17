@@ -3,4 +3,6 @@
     <dimen name="material_drawer_padding_half">4dp</dimen>
     <dimen name="material_drawer_persistent_height">48dp</dimen>
     <dimen name="material_drawer_persistent_height_icon">32dp</dimen>
+
+    <dimen name="fullscreen_status_bar_height">0dp</dimen>
 </resources>

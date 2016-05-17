@@ -102,9 +102,6 @@ public class MiniDrawerActivity extends AppCompatActivity {
                             }
                         }
 
-                        //IMPORTANT! notify the MiniDrawer about the profile click
-                        miniResult.onProfileClick();
-
                         //false if you have not consumed the event and it should close the drawer
                         return false;
                     }
@@ -112,7 +109,7 @@ public class MiniDrawerActivity extends AppCompatActivity {
                 .withSavedInstance(savedInstanceState)
                 .build();
 
-        DrawerBuilder builder = new DrawerBuilder()
+        result = new DrawerBuilder()
                 .withActivity(this)
                 .withToolbar(toolbar)
                 .withTranslucentStatusBar(false)
@@ -123,7 +120,6 @@ public class MiniDrawerActivity extends AppCompatActivity {
                         new PrimaryDrawerItem().withName(R.string.drawer_item_multi_drawer).withIcon(FontAwesome.Icon.faw_gamepad).withIdentifier(3),
                         new PrimaryDrawerItem().withName(R.string.drawer_item_non_translucent_status_drawer).withIcon(FontAwesome.Icon.faw_eye).withIdentifier(4),
                         new PrimaryDrawerItem().withDescription("A more complex sample").withName(R.string.drawer_item_advanced_drawer).withIcon(GoogleMaterial.Icon.gmd_adb).withIdentifier(5),
-                        new PrimaryDrawerItem().withName(R.string.drawer_item_keyboard_util_drawer).withIcon(GoogleMaterial.Icon.gmd_labels).withIdentifier(6),
                         new SectionDrawerItem().withName(R.string.drawer_item_section_header),
                         new SecondaryDrawerItem().withName(R.string.drawer_item_open_source).withIcon(FontAwesome.Icon.faw_github),
                         new SecondaryDrawerItem().withName(R.string.drawer_item_contact).withIcon(GoogleMaterial.Icon.gmd_format_color_fill).withTag("Bullhorn"),
@@ -137,23 +133,23 @@ public class MiniDrawerActivity extends AppCompatActivity {
                         if (drawerItem instanceof Nameable) {
                             Toast.makeText(MiniDrawerActivity.this, ((Nameable) drawerItem).getName().getText(MiniDrawerActivity.this), Toast.LENGTH_SHORT).show();
                         }
-
-                        //IMPORTANT notify the MiniDrawer about the onItemClick
-                        return miniResult.onItemClick(drawerItem);
+                        return false;
                     }
                 })
-                .withSavedInstance(savedInstanceState);
+                .withGenerateMiniDrawer(true)
+                .withSavedInstance(savedInstanceState)
+                // build only the view of the Drawer (don't inflate it automatically in our layout which is done with .build())
+                .buildView();
 
-        // build only the view of the Drawer (don't inflate it automatically in our layout which is done with .build())
-        result = builder.buildView();
-        // create the MiniDrawer and deinfe the drawer and header to be used (it will automatically use the items from them)
-        miniResult = new MiniDrawer().withDrawer(result).withAccountHeader(headerResult);
+        //the MiniDrawer is managed by the Drawer and we just get it to hook it into the Crossfader
+        miniResult = result.getMiniDrawer();
 
         //get the widths in px for the first and second panel
         int firstWidth = (int) UIUtils.convertDpToPixel(300, this);
         int secondWidth = (int) UIUtils.convertDpToPixel(72, this);
 
         //create and build our crossfader (see the MiniDrawer is also builded in here, as the build method returns the view to be used in the crossfader)
+        //the crossfader library can be found here: https://github.com/mikepenz/Crossfader
         crossFader = new Crossfader()
                 .withContent(findViewById(R.id.crossfade_content))
                 .withFirst(result.getSlider(), firstWidth)

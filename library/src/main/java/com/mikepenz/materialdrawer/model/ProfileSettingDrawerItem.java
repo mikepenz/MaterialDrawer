@@ -14,6 +14,7 @@ import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.mikepenz.fastadapter.utils.ViewHolderFactory;
 import com.mikepenz.iconics.typeface.IIcon;
 import com.mikepenz.materialdrawer.R;
 import com.mikepenz.materialdrawer.holder.ColorHolder;
@@ -22,14 +23,13 @@ import com.mikepenz.materialdrawer.holder.StringHolder;
 import com.mikepenz.materialdrawer.model.interfaces.IProfile;
 import com.mikepenz.materialdrawer.model.interfaces.Tagable;
 import com.mikepenz.materialdrawer.model.interfaces.Typefaceable;
-import com.mikepenz.materialdrawer.model.utils.ViewHolderFactory;
 import com.mikepenz.materialdrawer.util.DrawerUIUtils;
 import com.mikepenz.materialize.util.UIUtils;
 
 /**
  * Created by mikepenz on 03.02.15.
  */
-public class ProfileSettingDrawerItem extends AbstractDrawerItem<ProfileSettingDrawerItem> implements IProfile<ProfileSettingDrawerItem>, Tagable<ProfileSettingDrawerItem>, Typefaceable<ProfileSettingDrawerItem> {
+public class ProfileSettingDrawerItem extends AbstractDrawerItem<ProfileSettingDrawerItem, ProfileSettingDrawerItem.ViewHolder> implements IProfile<ProfileSettingDrawerItem>, Tagable<ProfileSettingDrawerItem>, Typefaceable<ProfileSettingDrawerItem> {
     private ImageHolder icon;
 
     private StringHolder name;
@@ -188,8 +188,8 @@ public class ProfileSettingDrawerItem extends AbstractDrawerItem<ProfileSettingD
     }
 
     @Override
-    public String getType() {
-        return "PROFILE_SETTING_ITEM";
+    public int getType() {
+        return R.id.material_drawer_item_profile_setting;
     }
 
     @Override
@@ -199,14 +199,15 @@ public class ProfileSettingDrawerItem extends AbstractDrawerItem<ProfileSettingD
     }
 
     @Override
-    public void bindView(RecyclerView.ViewHolder holder) {
-        Context ctx = holder.itemView.getContext();
-
-        //get our viewHolder
-        ViewHolder viewHolder = (ViewHolder) holder;
+    public void bindView(ViewHolder viewHolder) {
+        //get the context
+        Context ctx = viewHolder.itemView.getContext();
 
         //set the identifier from the drawerItem here. It can be used to run tests
-        viewHolder.itemView.setId(getIdentifier());
+        viewHolder.itemView.setId(hashCode());
+
+        //set the item enabled if it is
+        viewHolder.itemView.setEnabled(isEnabled());
 
         //set the item selected if it is
         viewHolder.itemView.setSelected(isSelected());
@@ -217,7 +218,7 @@ public class ProfileSettingDrawerItem extends AbstractDrawerItem<ProfileSettingD
         int color = ColorHolder.color(getTextColor(), ctx, R.attr.material_drawer_primary_text, R.color.material_drawer_primary_text);
         int iconColor = ColorHolder.color(getIconColor(), ctx, R.attr.material_drawer_primary_icon, R.color.material_drawer_primary_icon);
 
-        UIUtils.setBackground(viewHolder.view, DrawerUIUtils.getSelectableBackground(ctx, selectedColor));
+        UIUtils.setBackground(viewHolder.view, UIUtils.getSelectableBackground(ctx, selectedColor, true));
 
         StringHolder.applyTo(this.getName(), viewHolder.name);
         viewHolder.name.setTextColor(color);
@@ -233,21 +234,21 @@ public class ProfileSettingDrawerItem extends AbstractDrawerItem<ProfileSettingD
         DrawerUIUtils.setDrawerVerticalPadding(viewHolder.view);
 
         //call the onPostBindView method to trigger post bind view actions (like the listener to modify the item if required)
-        onPostBindView(this, holder.itemView);
+        onPostBindView(this, viewHolder.itemView);
     }
 
     @Override
-    public ViewHolderFactory getFactory() {
+    public ViewHolderFactory<ViewHolder> getFactory() {
         return new ItemFactory();
     }
 
     public static class ItemFactory implements ViewHolderFactory<ViewHolder> {
-        public ViewHolder factory(View v) {
+        public ViewHolder create(View v) {
             return new ViewHolder(v);
         }
     }
 
-    private static class ViewHolder extends RecyclerView.ViewHolder {
+    public static class ViewHolder extends RecyclerView.ViewHolder {
         private View view;
         private ImageView icon;
         private TextView name;

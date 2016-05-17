@@ -1,8 +1,6 @@
-#MaterialDrawer  [![Maven Central](https://maven-badges.herokuapp.com/maven-central/com.mikepenz/materialdrawer/badge.svg?style=flat)](https://maven-badges.herokuapp.com/maven-central/com.mikepenz/materialdrawer) [![Android Arsenal](https://img.shields.io/badge/Android%20Arsenal-MaterialDrawer-brightgreen.svg?style=flat)](https://android-arsenal.com/details/1/1526)
+#MaterialDrawer  [![Maven Central](https://maven-badges.herokuapp.com/maven-central/com.mikepenz/materialdrawer/badge.svg?style=flat)](https://maven-badges.herokuapp.com/maven-central/com.mikepenz/materialdrawer) [![Android Arsenal](https://img.shields.io/badge/Android%20Arsenal-MaterialDrawer-brightgreen.svg?style=flat)](https://android-arsenal.com/details/1/1526) [![Join the chat at https://gitter.im/mikepenz/MaterialDrawer](https://badges.gitter.im/Join%20Chat.svg)](https://gitter.im/mikepenz/MaterialDrawer?utm_source=badge&utm_medium=badge&utm_campaign=pr-badge&utm_content=badge)
 
-[![Join the chat at https://gitter.im/mikepenz/MaterialDrawer](https://badges.gitter.im/Join%20Chat.svg)](https://gitter.im/mikepenz/MaterialDrawer?utm_source=badge&utm_medium=badge&utm_campaign=pr-badge&utm_content=badge)
-
-![Image](https://raw.githubusercontent.com/mikepenz/MaterialDrawer/develop/DEV/github/banner.png)
+![MaterialDrawer the flexible, easy to use, all in one drawer library for your android project.](https://raw.githubusercontent.com/mikepenz/MaterialDrawer/develop/DEV/github/banner.png)
 
 > Does your application **contain a Drawer**? Do you want to have it **up and running in less than 5 minutes**? Do you want your drawer to follow the **Android Design Guidelines**?
 Do you have **profiles**? Do you need **flexibility**? Is Google's navigation Drawer of the **design support** not enough for you? Do you want a **simple and easy** to understand api?
@@ -16,7 +14,7 @@ There  is a Header with profiles (**AccountHeader**), a **MiniDrawer** for Table
 
 ###A quick overview what's in
 - **the easiest possible integration**
-- integrate in less then **5 minutes**
+- integrate in less than **5 minutes**
 - compatible down to **API Level 10**
 - includes an **AccountSwitcher**
 - quick and simple api
@@ -30,13 +28,14 @@ There  is a Header with profiles (**AccountHeader**), a **MiniDrawer** for Table
 - based on a **RecyclerView**
 - **RTL** support
 - Gmail like **MiniDrawer**
+- expandable items
 - **badge** support
 - define custom drawer items
 - tested and **stable**
 - sticky footer or headers
 - **absolutely NO limits**
 
-> If you upgrade from < 4.0.0 follow the [MIGRATION GUIDE](https://github.com/mikepenz/MaterialDrawer/blob/develop/MIGRATION.md)
+> If you upgrade from < 5.0.0 follow the [MIGRATION GUIDE](https://github.com/mikepenz/MaterialDrawer/blob/develop/MIGRATION.md)
 
 #Preview
 ##Demo
@@ -53,7 +52,7 @@ You can find some frequently asked questions and other resources in the [WIKI / 
 ##1. Provide the gradle dependency
 
 ```gradle
-compile('com.mikepenz:materialdrawer:4.5.1@aar') {
+compile('com.mikepenz:materialdrawer:5.2.6@aar') {
 	transitive = true
 }
 ```
@@ -172,7 +171,7 @@ compile 'com.mikepenz:fontawesome-typeface:x.y.z@aar'     //FontAwesome
 ```
 
 **java**
-```
+```java
 //now you can simply use any icon of the Google Material Icons font
 new PrimaryDrawerItem().withIcon(GoogleMaterial.Icon.gmd_wb_sunny)
 //Or an icon from FontAwesome
@@ -266,7 +265,7 @@ result.getActionBarDrawerToggle().setDrawerIndicatorEnabled(true);
 
 
 ##AndroidManifest.xml
-Use one of the provided themes. They all use the AppCompat theme as parent and define the color values for the drawer.
+The **MaterialDrawer** requires an `AppCompat` theme or a derivative theme like the `MaterialDrawerTheme`s as base. It is highly recommended to use one of the provided themes. They all use the `AppCompat` theme as parent and define the color values for the drawer.
 
 **NOTE:** The theme states ActionBar and not NoActionBar like the Appcompat style
 
@@ -410,7 +409,9 @@ builder.withDrawerLayout(R.layout.material_drawer);
 * [+UEA](https://play.google.com/store/apps/details?id=br.edu.uea.app)
 * [PixCell8](https://play.google.com/store/apps/details?id=com.pixcell8.prod)
 * [TS3 Viewer for TeamSpeak 3](https://play.google.com/store/apps/details?id=com.game_state.ts3viewer)
-
+* [Teacher Gradebook](https://play.google.com/store/apps/details?id=com.apolosoft.cuadernoprofesor)
+* [Tabe3 News Reader](https://play.google.com/store/apps/details?id=com.tabe3.news)
+* [Facepunch Droid](https://play.google.com/store/apps/details?id=com.apps.anker.facepunchdroid)
 
 #Articles about the MaterialDrawer
 * [java-help.ru](http://java-help.ru/material-navigationdrawer/)
@@ -425,12 +426,14 @@ builder.withDrawerLayout(R.layout.material_drawer);
 
 #Developed By
 
-* Mike Penz - http://mikepenz.com - <mikepenz@gmail.com>
+* Mike Penz 
+ * [mikepenz.com](http://mikepenz.com) - <mikepenz@gmail.com>
+ * [paypal.me/mikepenz](http://paypal.me/mikepenz)
 
 
 #License
 
-    Copyright 2015 Mike Penz
+    Copyright 2016 Mike Penz
 
     Licensed under the Apache License, Version 2.0 (the "License");
     you may not use this file except in compliance with the License.

@@ -1,21 +1,20 @@
 package com.mikepenz.materialdrawer.model;
 
 import android.support.annotation.LayoutRes;
-import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.SwitchCompat;
 import android.view.View;
 import android.widget.CompoundButton;
 
+import com.mikepenz.fastadapter.utils.ViewHolderFactory;
 import com.mikepenz.materialdrawer.Drawer;
 import com.mikepenz.materialdrawer.R;
 import com.mikepenz.materialdrawer.interfaces.OnCheckedChangeListener;
 import com.mikepenz.materialdrawer.model.interfaces.IDrawerItem;
-import com.mikepenz.materialdrawer.model.utils.ViewHolderFactory;
 
 /**
  * Created by mikepenz on 03.02.15.
  */
-public class SwitchDrawerItem extends BasePrimaryDrawerItem<SwitchDrawerItem> {
+public class SwitchDrawerItem extends BasePrimaryDrawerItem<SwitchDrawerItem, SwitchDrawerItem.ViewHolder> {
 
     private boolean switchEnabled = true;
 
@@ -54,8 +53,8 @@ public class SwitchDrawerItem extends BasePrimaryDrawerItem<SwitchDrawerItem> {
     }
 
     @Override
-    public String getType() {
-        return "SWITCH_ITEM";
+    public int getType() {
+        return R.id.material_drawer_item_primary_switch;
     }
 
     @Override
@@ -65,12 +64,9 @@ public class SwitchDrawerItem extends BasePrimaryDrawerItem<SwitchDrawerItem> {
     }
 
     @Override
-    public void bindView(RecyclerView.ViewHolder holder) {
-        //get our viewHolder
-        final ViewHolder viewHolder = (ViewHolder) holder;
-
+    public void bindView(final ViewHolder viewHolder) {
         //bind the basic view parts
-        bindViewHelper((BaseViewHolder) holder);
+        bindViewHelper(viewHolder);
 
         //handle the switch
         viewHolder.switchView.setOnCheckedChangeListener(null);
@@ -92,21 +88,21 @@ public class SwitchDrawerItem extends BasePrimaryDrawerItem<SwitchDrawerItem> {
         });
 
         //call the onPostBindView method to trigger post bind view actions (like the listener to modify the item if required)
-        onPostBindView(this, holder.itemView);
+        onPostBindView(this, viewHolder.itemView);
     }
 
     @Override
-    public ViewHolderFactory getFactory() {
+    public ViewHolderFactory<ViewHolder> getFactory() {
         return new ItemFactory();
     }
 
     public static class ItemFactory implements ViewHolderFactory<ViewHolder> {
-        public ViewHolder factory(View v) {
+        public ViewHolder create(View v) {
             return new ViewHolder(v);
         }
     }
 
-    private static class ViewHolder extends BaseViewHolder {
+    public static class ViewHolder extends BaseViewHolder {
         private SwitchCompat switchView;
 
         private ViewHolder(View view) {

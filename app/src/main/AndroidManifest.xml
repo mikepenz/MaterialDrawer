@@ -12,7 +12,7 @@
         <activity
             android:name=".DrawerActivity"
             android:label="@string/app_name"
-            android:theme="@style/MaterialDrawerTheme.Light.DarkToolbar.TranslucentStatus">
+            android:theme="@style/MaterialDrawerTheme.Light.DarkToolbar">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
                 <category android:name="android.intent.category.LAUNCHER" />
@@ -31,7 +31,7 @@
             android:theme="@style/MaterialDrawerTheme.ActionBar" />
         <activity
             android:name=".MenuDrawerActivity"
-            android:theme="@style/MaterialDrawerTheme.Light.DarkToolbar.TranslucentStatus" />
+            android:theme="@style/MaterialDrawerTheme.Light.DarkToolbar" />
         <activity
             android:name=".NonTranslucentDrawerActivity"
             android:theme="@style/MaterialDrawerTheme" />
@@ -41,10 +41,6 @@
         <activity
             android:name=".AdvancedActivity"
             android:theme="@style/MaterialDrawerTheme.TranslucentStatus" />
-        <activity
-            android:name=".KeyboardUtilActivity"
-            android:theme="@style/MaterialDrawerTheme.Light.DarkToolbar.TranslucentStatus"
-            android:windowSoftInputMode="stateHidden" />
         <activity
             android:name=".EmbeddedDrawerActivity"
             android:theme="@style/MaterialDrawerTheme" />
@@ -65,7 +61,7 @@
             android:theme="@style/MaterialDrawerTheme.Light.DarkToolbar.TranslucentStatus" />
         <activity
             android:name=".CrossfadeDrawerLayoutActvitiy"
-            android:theme="@style/MaterialDrawerTheme" />
+            android:theme="@style/MaterialDrawerTheme.TranslucentStatus" />
     </application>
 
 </manifest>
