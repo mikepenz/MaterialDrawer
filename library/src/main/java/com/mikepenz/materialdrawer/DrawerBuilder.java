@@ -814,7 +814,7 @@ public class DrawerBuilder {
     }
 
     // item to select
-    protected int mSelectedItemIdentifier = 0;
+    protected long mSelectedItemIdentifier = 0;
 
     /**
      * Set this to the identifier of the item, you would love to select upon start
@@ -822,7 +822,7 @@ public class DrawerBuilder {
      * @param selectedItemIdentifier
      * @return
      */
-    public DrawerBuilder withSelectedItem(int selectedItemIdentifier) {
+    public DrawerBuilder withSelectedItem(long selectedItemIdentifier) {
         this.mSelectedItemIdentifier = selectedItemIdentifier;
         return this;
     }
@@ -1657,7 +1657,7 @@ public class DrawerBuilder {
         }
 
         //predefine selection (should be the first element
-        if (mSelectedItemPosition == 0 && mSelectedItemIdentifier != 0) {
+        if (mSelectedItemPosition == 0 && mSelectedItemIdentifier != 0L) {
             mSelectedItemPosition = DrawerUtils.getPositionByIdentifier(this, mSelectedItemIdentifier);
         }
         if (mHeaderView != null && mSelectedItemPosition == 0) {
