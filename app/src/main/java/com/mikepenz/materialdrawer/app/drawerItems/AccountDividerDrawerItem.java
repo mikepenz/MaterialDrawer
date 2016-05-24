@@ -12,6 +12,7 @@ import android.view.View;
 
 import com.mikepenz.fastadapter.utils.ViewHolderFactory;
 import com.mikepenz.iconics.typeface.IIcon;
+import com.mikepenz.materialdrawer.app.R;
 import com.mikepenz.materialdrawer.holder.ImageHolder;
 import com.mikepenz.materialdrawer.holder.StringHolder;
 import com.mikepenz.materialdrawer.model.AbstractDrawerItem;
@@ -21,7 +22,7 @@ import com.mikepenz.materialize.util.UIUtils;
 public class AccountDividerDrawerItem extends AbstractDrawerItem<AccountDividerDrawerItem, AccountDividerDrawerItem.ViewHolder> implements IProfile<AccountDividerDrawerItem> {
     @Override
     public int getType() {
-        return com.mikepenz.materialdrawer.R.id.material_drawer_profile_item_divider;
+        return R.id.material_drawer_profile_item_divider;
     }
 
     @Override
