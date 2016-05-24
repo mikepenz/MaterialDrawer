@@ -5,4 +5,5 @@
     <item name="material_drawer_item_icon_only" type="id" />
     <item name="material_drawer_item_centered_primary" type="id" />
     <item name="material_drawer_item_overflow_menu" type="id" />
+    <item name="material_drawer_profile_item_divider" type="id" />
 </resources>
