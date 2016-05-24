@@ -71,7 +71,10 @@
             android:layout_toLeftOf="@+id/material_drawer_account_header_text_switcher"
             android:gravity="center_vertical"
             android:orientation="vertical"
-            android:paddingRight="56dp">
+            android:paddingEnd="56dp"
+            android:paddingLeft="0dp"
+            android:paddingRight="56dp"
+            android:paddingStart="0dp">
 
             <TextView
                 android:id="@+id/material_drawer_account_header_name"
