@@ -43,6 +43,8 @@ public class ProfileSettingDrawerItem extends AbstractDrawerItem<ProfileSettingD
 
     private Typeface typeface = null;
 
+    private boolean selectable = false;
+
     @Override
     public ProfileSettingDrawerItem withIcon(Drawable icon) {
         this.icon = new ImageHolder(icon);
@@ -184,7 +186,12 @@ public class ProfileSettingDrawerItem extends AbstractDrawerItem<ProfileSettingD
 
     @Override
     public boolean isSelectable() {
-        return false;
+        return selectable;
+    }
+
+    public ProfileSettingDrawerItem withSelectable(boolean selectable) {
+        this.selectable = selectable;
+        return this;
     }
 
     @Override
