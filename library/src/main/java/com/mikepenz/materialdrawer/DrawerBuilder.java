@@ -18,6 +18,7 @@ import android.support.annotation.MenuRes;
 import android.support.annotation.NonNull;
 import android.support.v4.content.ContextCompat;
 import android.support.v4.view.GravityCompat;
+import android.support.v4.view.ViewCompat;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.view.SupportMenuInflater;
@@ -1564,7 +1565,7 @@ public class DrawerBuilder {
 
         //set the shadow for the drawer
         if (Build.VERSION.SDK_INT < 21 && mDrawerLayout != null) {
-            if (mDrawerGravity == GravityCompat.START) {
+            if (ViewCompat.getLayoutDirection(mRootView) == ViewCompat.LAYOUT_DIRECTION_LTR) {
                 mDrawerLayout.setDrawerShadow(R.drawable.material_drawer_shadow_right, mDrawerGravity);
             } else {
                 mDrawerLayout.setDrawerShadow(R.drawable.material_drawer_shadow_left, mDrawerGravity);
