@@ -179,7 +179,7 @@ public class ProfileSettingDrawerItem extends AbstractDrawerItem<ProfileSettingD
     }
 
     public void setDescription(String description) {
-        this.email = email;
+        this.email = new StringHolder(description);
     }
 
     @Override
