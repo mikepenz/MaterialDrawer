@@ -52,7 +52,7 @@
             android:theme="@style/FullscreenTheme" />
         <activity
             android:name=".CustomContainerActivity"
-            android:theme="@style/MaterialDrawerTheme.Light.DarkToolbar" />
+            android:theme="@style/FullscreenTheme" />
         <activity
             android:name=".FragmentActivity"
             android:theme="@style/MaterialDrawerTheme.Light.DarkToolbar" />

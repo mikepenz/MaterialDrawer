@@ -29,6 +29,7 @@ public class CustomContainerActivity extends AppCompatActivity {
         //Create the drawer
         result = new DrawerBuilder(this)
                 //this layout have to contain child layouts
+                .withDrawerLayout(com.mikepenz.materialdrawer.R.layout.material_drawer_fits_not)
                 .withRootView(R.id.drawer_container)
                 .withToolbar(toolbar)
                 .withDisplayBelowStatusBar(false)
