@@ -378,6 +378,7 @@ drawerLayout.setDrawerLockMode(int lockMode); //or (int lockMode, int edgeGravit
 * [Hold'Em Poker Manager](https://play.google.com/store/apps/details?id=pt.massena.holdemtracker.free)
 * [Fimpl](https://play.google.com/store/apps/details?id=com.danielZET.fimpl)
 * [+UEA](https://play.google.com/store/apps/details?id=br.edu.uea.app)
+* [HipCar](https://play.google.com/store/apps/details?id=com.hipcar.android)
 
 
 
