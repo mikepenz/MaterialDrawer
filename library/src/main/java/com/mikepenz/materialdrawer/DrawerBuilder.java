@@ -863,10 +863,23 @@ public class DrawerBuilder {
     }
 
     // an adapter to use for the list
+    protected boolean mPositionBasedStateManagement = true;
     protected FastAdapter<IDrawerItem> mAdapter;
     protected HeaderAdapter<IDrawerItem> mHeaderAdapter = new HeaderAdapter<>();
     protected ItemAdapter<IDrawerItem> mItemAdapter = new ItemAdapter<>();
     protected FooterAdapter<IDrawerItem> mFooterAdapter = new FooterAdapter<>();
+
+    /**
+     * This allows to disable the default position based statemanagment of the FastAdapter and switch to the
+     * new identifier based state managment
+     *
+     * @param positionBasedStateManagement enable / disable the positionBasedStateManagement
+     * @return this
+     */
+    public DrawerBuilder withPositionBasedStateManagement(boolean positionBasedStateManagement) {
+        this.mPositionBasedStateManagement = positionBasedStateManagement;
+        return this;
+    }
 
     /**
      * Define a custom Adapter which will be used in the drawer
@@ -894,6 +907,7 @@ public class DrawerBuilder {
             mAdapter.withSelectable(true);
             mAdapter.withAllowDeselection(false);
             mAdapter.setHasStableIds(mHasStableIds);
+            mAdapter.withPositionBasedStateManagement(mPositionBasedStateManagement);
 
             //we wrap our main Adapter with the item hosting adapter
             mHeaderAdapter.wrap(mItemAdapter.wrap(mFooterAdapter.wrap(mAdapter)));
@@ -1485,7 +1499,7 @@ public class DrawerBuilder {
         //we only want to hook a Drawer to the MiniDrawer if it is the main drawer, not the appended one
         if (!mAppended && mGenerateMiniDrawer) {
             // if we should create a MiniDrawer we have to do this now
-            mMiniDrawer = new MiniDrawer().withDrawer(result).withAccountHeader(mAccountHeader);
+            mMiniDrawer = new MiniDrawer().withDrawer(result).withAccountHeader(mAccountHeader).withPositionBasedStateManagement(mPositionBasedStateManagement);
         }
 
         //forget the reference to the activity
