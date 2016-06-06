@@ -431,13 +431,16 @@ public class MiniDrawer {
             if (getDrawerItems() != null) {
                 //migrate to miniDrawerItems
                 int length = getDrawerItems().size();
+
+                int position = 0;
                 for (int i = 0; i < length; i++) {
                     IDrawerItem miniDrawerItem = generateMiniDrawerItem(getDrawerItems().get(i));
                     if (miniDrawerItem != null) {
                         if (miniDrawerItem.isSelected()) {
-                            select = i;
+                            select = position;
                         }
                         mAdapter.add(miniDrawerItem);
+                        position = position + 1;
                     }
                 }
 
