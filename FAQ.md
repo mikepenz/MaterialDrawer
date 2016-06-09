@@ -11,11 +11,8 @@ Each question and it's answer is hosted in a separate file within the FAQ folder
 
 ##AccountHeader
 
-* [How can i use the AccountHeader with just one profile and disable the dropdown?](FAQ/accountheader_single_profile_without_dropdown.md)
+* [How can I use the AccountHeader with just one profile and disable the dropdown?](FAQ/accountheader_single_profile_without_dropdown.md)
 
-##Addons
+##Testing
 
-##Resources
-
-##Links
-
+* [How can I open the drawer from an instrumental test written with Espresso?](FAQ/opening-drawer-from-espresso.md)
