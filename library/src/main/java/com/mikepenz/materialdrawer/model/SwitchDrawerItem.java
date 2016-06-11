@@ -17,6 +17,7 @@ import com.mikepenz.materialdrawer.model.interfaces.IDrawerItem;
 public class SwitchDrawerItem extends BasePrimaryDrawerItem<SwitchDrawerItem, SwitchDrawerItem.ViewHolder> {
 
     private boolean switchEnabled = true;
+    private SwitchCompat switchView;
 
     private boolean checked = false;
     private OnCheckedChangeListener onCheckedChangeListener = null;
@@ -38,6 +39,10 @@ public class SwitchDrawerItem extends BasePrimaryDrawerItem<SwitchDrawerItem, Sw
 
     public SwitchDrawerItem withCheckable(boolean checkable) {
         return withSelectable(checkable);
+    }
+    
+    public SwitchCompat getSwitch() {
+        return this.switchView;
     }
 
     public boolean isChecked() {
@@ -73,6 +78,8 @@ public class SwitchDrawerItem extends BasePrimaryDrawerItem<SwitchDrawerItem, Sw
         viewHolder.switchView.setChecked(checked);
         viewHolder.switchView.setOnCheckedChangeListener(checkedChangeListener);
         viewHolder.switchView.setEnabled(switchEnabled);
+        
+        this.switchView = viewHolder.switchView;
 
         //add a onDrawerItemClickListener here to be able to check / uncheck if the drawerItem can't be selected
         withOnDrawerItemClickListener(new Drawer.OnDrawerItemClickListener() {
