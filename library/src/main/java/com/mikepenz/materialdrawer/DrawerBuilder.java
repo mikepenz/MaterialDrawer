@@ -1580,9 +1580,9 @@ public class DrawerBuilder {
         //set the shadow for the drawer
         if (Build.VERSION.SDK_INT < 21 && mDrawerLayout != null) {
             if (ViewCompat.getLayoutDirection(mRootView) == ViewCompat.LAYOUT_DIRECTION_LTR) {
-                mDrawerLayout.setDrawerShadow(R.drawable.material_drawer_shadow_right, mDrawerGravity);
+                mDrawerLayout.setDrawerShadow(mDrawerGravity == GravityCompat.START ? R.drawable.material_drawer_shadow_right : R.drawable.material_drawer_shadow_left, mDrawerGravity);
             } else {
-                mDrawerLayout.setDrawerShadow(R.drawable.material_drawer_shadow_left, mDrawerGravity);
+                mDrawerLayout.setDrawerShadow(mDrawerGravity == GravityCompat.START ? R.drawable.material_drawer_shadow_left : R.drawable.material_drawer_shadow_right, mDrawerGravity);
             }
         }
 
