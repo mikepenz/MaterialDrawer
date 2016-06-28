@@ -1,5 +1,10 @@
 ###Upgrade Notes
 
+#### v5.3.1 -> v5.3.2
+* the `withOnMiniDrawerItemClickListener` was renamed to `withOnMiniDrawerItemOnClickListener`
+* added new separate `OnMiniDrawerItemClickListener` which allows to hook into the default behavior, and prevent it if necessary
+ * NOTE: this one now uses the `withOnMiniDrawerItemClickListener` method.
+
 #### v5.2.0 -> v5.2.1
 * the `SecondaryDrawerItem` is now a subclass of the `PrimaryDrawerItem` (extends `PrimaryDrawerItem`). If you have an `if` which checks for the type with `instanceOf` make sure you check for the `SecondaryDrawerItem` first. (`secondaryDrawerItem instanceOf PrimaryDrawerItem == true`)
 
