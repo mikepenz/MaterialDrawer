@@ -107,7 +107,7 @@ There  is a Header with profiles (<strong>AccountHeader</strong>), a <strong>Min
 <h2>
 <a id="1-provide-the-gradle-dependency" class="anchor" href="#1-provide-the-gradle-dependency" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>1. Provide the gradle dependency</h2>
 
-<div class="highlight highlight-source-groovy-gradle"><pre>compile(<span class="pl-s"><span class="pl-pds">'</span>com.mikepenz:materialdrawer:5.3.1@aar<span class="pl-pds">'</span></span>) {
+<div class="highlight highlight-source-groovy-gradle"><pre>compile(<span class="pl-s"><span class="pl-pds">'</span>com.mikepenz:materialdrawer:5.3.2@aar<span class="pl-pds">'</span></span>) {
     transitive <span class="pl-k">=</span> <span class="pl-c1">true</span>
 }</pre></div>
 
@@ -125,8 +125,8 @@ There  is a Header with profiles (<strong>AccountHeader</strong>), a <strong>Min
 <a id="add-items-and-adding-some-functionality" class="anchor" href="#add-items-and-adding-some-functionality" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Add items and adding some functionality</h2>
 
 <div class="highlight highlight-source-java"><pre><span class="pl-c">//if you want to update the items at a later time it is recommended to keep it in a variable</span>
-<span class="pl-smi">PrimaryDrawerItem</span> item1 <span class="pl-k">=</span> <span class="pl-k">new</span> <span class="pl-smi">PrimaryDrawerItem</span>()<span class="pl-k">.</span>withName(<span class="pl-smi">R</span><span class="pl-k">.</span>string<span class="pl-k">.</span>drawer_item_home);
-<span class="pl-smi">SecondaryDrawerItem</span> item2 <span class="pl-k">=</span> <span class="pl-k">new</span> <span class="pl-smi">SecondaryDrawerItem</span>()<span class="pl-k">.</span>withName(<span class="pl-smi">R</span><span class="pl-k">.</span>string<span class="pl-k">.</span>drawer_item_settings);
+<span class="pl-smi">PrimaryDrawerItem</span> item1 <span class="pl-k">=</span> <span class="pl-k">new</span> <span class="pl-smi">PrimaryDrawerItem</span>()<span class="pl-k">.</span>withIdentifier(<span class="pl-c1">1</span>)<span class="pl-k">.</span>withName(<span class="pl-smi">R</span><span class="pl-k">.</span>string<span class="pl-k">.</span>drawer_item_home);
+<span class="pl-smi">SecondaryDrawerItem</span> item2 <span class="pl-k">=</span> <span class="pl-k">new</span> <span class="pl-smi">SecondaryDrawerItem</span>()<span class="pl-k">.</span>withIdentifier(<span class="pl-c1">2</span>)<span class="pl-k">.</span>withName(<span class="pl-smi">R</span><span class="pl-k">.</span>string<span class="pl-k">.</span>drawer_item_settings);
 
 <span class="pl-c">//create the drawer and remember the `Drawer` result object</span>
 <span class="pl-smi">Drawer</span> result <span class="pl-k">=</span> <span class="pl-k">new</span> <span class="pl-smi">DrawerBuilder</span>()
