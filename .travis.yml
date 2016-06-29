@@ -1,4 +1,5 @@
 language: android
+
 android:
   components:
     # Uncomment the lines below if you want to
@@ -15,3 +16,19 @@ android:
     # Additional components
     - extra-google-m2repository
     - extra-android-m2repository
+
+jdk:
+  - oraclejdk8
+
+branches:
+  except:
+    - gh-pages
+
+notifications:
+  email: false
+
+sudo: false
+
+cache:
+  directories:
+    - $HOME/.m2
