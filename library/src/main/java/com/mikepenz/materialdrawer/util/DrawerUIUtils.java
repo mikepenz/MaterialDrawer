@@ -3,11 +3,14 @@ package com.mikepenz.materialdrawer.util;
 import android.annotation.SuppressLint;
 import android.content.Context;
 import android.content.res.ColorStateList;
+import android.content.res.Configuration;
 import android.graphics.drawable.ColorDrawable;
 import android.graphics.drawable.Drawable;
 import android.graphics.drawable.StateListDrawable;
 import android.os.Build;
+import android.util.DisplayMetrics;
 import android.view.View;
+import android.view.WindowManager;
 
 import com.mikepenz.iconics.IconicsDrawable;
 import com.mikepenz.materialdrawer.R;
@@ -117,5 +120,22 @@ public class DrawerUIUtils {
         } else {
             v.setPadding(verticalPadding * level, 0, verticalPadding, 0);
         }
+    }
+
+    /**
+     * helper to check if the system bar is on the bottom of the screen
+     *
+     * @param ctx
+     * @return
+     */
+    public static boolean isSystemBarOnBottom(Context ctx) {
+        WindowManager wm = (WindowManager) ctx.getSystemService(Context.WINDOW_SERVICE);
+        DisplayMetrics metrics = new DisplayMetrics();
+        wm.getDefaultDisplay().getMetrics(metrics);
+        Configuration cfg = ctx.getResources().getConfiguration();
+        boolean canMove = (metrics.widthPixels != metrics.heightPixels &&
+                cfg.smallestScreenWidthDp < 600);
+
+        return (!canMove || metrics.widthPixels < metrics.heightPixels);
     }
 }

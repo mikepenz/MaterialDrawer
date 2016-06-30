@@ -51,6 +51,7 @@ import com.mikepenz.materialdrawer.model.PrimaryDrawerItem;
 import com.mikepenz.materialdrawer.model.SecondaryDrawerItem;
 import com.mikepenz.materialdrawer.model.interfaces.IDrawerItem;
 import com.mikepenz.materialdrawer.model.interfaces.Selectable;
+import com.mikepenz.materialdrawer.util.DrawerUIUtils;
 import com.mikepenz.materialize.Materialize;
 import com.mikepenz.materialize.MaterializeBuilder;
 import com.mikepenz.materialize.util.UIUtils;
@@ -1607,7 +1608,11 @@ public class DrawerBuilder {
                 paddingTop = UIUtils.getStatusBarHeight(mActivity);
             }
             int paddingBottom = 0;
-            if (((mTranslucentNavigationBar || mFullscreen) && Build.VERSION.SDK_INT >= 21) && !mSystemUIHidden && mActivity.getResources().getConfiguration().orientation == Configuration.ORIENTATION_PORTRAIT) {
+            int orientation = mActivity.getResources().getConfiguration().orientation;
+            if (((mTranslucentNavigationBar || mFullscreen) && Build.VERSION.SDK_INT >= 21) && !mSystemUIHidden
+                    && (orientation == Configuration.ORIENTATION_PORTRAIT
+                    || (orientation == Configuration.ORIENTATION_LANDSCAPE
+                    && DrawerUIUtils.isSystemBarOnBottom(mActivity)))) {
                 paddingBottom = UIUtils.getNavigationBarHeight(mActivity);
             }
 
