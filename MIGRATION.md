@@ -1,5 +1,8 @@
 ###Upgrade Notes
 
+#### v5.3.3 -> 5.3.4
+* If you use the `FastAdapter` please read the upgrade notes for v1.6.0 (https://github.com/mikepenz/FastAdapter/releases/tag/v1.6.0)
+
 #### v5.3.1 -> v5.3.2
 * the `withOnMiniDrawerItemClickListener` was renamed to `withOnMiniDrawerItemOnClickListener`
 * added new separate `OnMiniDrawerItemClickListener` which allows to hook into the default behavior, and prevent it if necessary
