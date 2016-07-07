@@ -243,6 +243,17 @@ public abstract class AbstractDrawerItem<T, VH extends RecyclerView.ViewHolder> 
         return mExpanded;
     }
 
+
+    /**
+     * overwrite this method and return true if the item should auto expand on click, false if you want to disable this
+     *
+     * @return true if this item should auto expand in the adapter
+     */
+    @Override
+    public boolean isAutoExpanding() {
+        return true;
+    }
+
     /**
      * the abstract method to retrieve the ViewHolder factory
      * The ViewHolder factory implementation should look like (see the commented code above)
