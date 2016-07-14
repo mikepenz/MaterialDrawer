@@ -26,7 +26,7 @@ import com.mikepenz.materialdrawer.util.DrawerUIUtils;
 /**
  * Created by mikepenz on 03.02.15.
  */
-public abstract class BaseDrawerItem<T, VH extends RecyclerView.ViewHolder> extends AbstractDrawerItem<T, VH> implements Nameable<T>, Iconable<T>, Tagable<T>, Typefaceable<T> {
+public abstract class BaseDrawerItem<T extends BaseDrawerItem, VH extends RecyclerView.ViewHolder> extends AbstractDrawerItem<T, VH> implements Nameable<T>, Iconable<T>, Tagable<T>, Typefaceable<T> {
     protected ImageHolder icon;
     protected ImageHolder selectedIcon;
     protected StringHolder name;

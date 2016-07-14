@@ -14,25 +14,25 @@ import com.mikepenz.materialdrawer.model.interfaces.IDrawerItem;
 /**
  * Created by mikepenz on 03.02.15.
  */
-public class ToggleDrawerItem extends BasePrimaryDrawerItem<ToggleDrawerItem, ToggleDrawerItem.ViewHolder> {
+public class ToggleDrawerItem<T extends ToggleDrawerItem> extends BasePrimaryDrawerItem<ToggleDrawerItem, ToggleDrawerItem.ViewHolder> {
     private boolean toggleEnabled = true;
 
     private boolean checked = false;
     private OnCheckedChangeListener onCheckedChangeListener = null;
 
-    public ToggleDrawerItem withChecked(boolean checked) {
+    public T withChecked(boolean checked) {
         this.checked = checked;
-        return this;
+        return (T) this;
     }
 
-    public ToggleDrawerItem withToggleEnabled(boolean toggleEnabled) {
+    public T withToggleEnabled(boolean toggleEnabled) {
         this.toggleEnabled = toggleEnabled;
-        return this;
+        return (T) this;
     }
 
-    public ToggleDrawerItem withOnCheckedChangeListener(OnCheckedChangeListener onCheckedChangeListener) {
+    public T withOnCheckedChangeListener(OnCheckedChangeListener onCheckedChangeListener) {
         this.onCheckedChangeListener = onCheckedChangeListener;
-        return this;
+        return (T) this;
     }
 
     public boolean isChecked() {

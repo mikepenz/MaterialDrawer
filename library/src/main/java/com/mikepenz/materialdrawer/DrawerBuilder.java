@@ -1045,6 +1045,7 @@ public class DrawerBuilder {
                 iDrawerItem = new DividerDrawerItem();
                 getItemAdapter().add(iDrawerItem);
             }
+
             if (mMenuItem.hasSubMenu()) {
                 iDrawerItem = new PrimaryDrawerItem()
                         .withName(mMenuItem.getTitle().toString())

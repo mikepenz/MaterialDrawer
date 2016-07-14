@@ -22,7 +22,7 @@ import java.util.List;
 /**
  * Created by mikepenz on 14.07.15.
  */
-public abstract class AbstractDrawerItem<T, VH extends RecyclerView.ViewHolder> implements IDrawerItem<T, VH>, Selectable<T>, Tagable<T>, IExpandable<T, IDrawerItem> {
+public abstract class AbstractDrawerItem<T extends AbstractDrawerItem, VH extends RecyclerView.ViewHolder> implements IDrawerItem<T, VH>, Selectable<T>, Tagable<T>, IExpandable<T, IDrawerItem> {
     // the identifier for this item
     protected long mIdentifier = -1;
 

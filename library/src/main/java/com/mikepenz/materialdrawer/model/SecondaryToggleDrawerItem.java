@@ -9,7 +9,7 @@ import com.mikepenz.materialdrawer.holder.ColorHolder;
 /**
  * Created by mikepenz on 03.02.15.
  */
-public class SecondaryToggleDrawerItem extends ToggleDrawerItem {
+public class SecondaryToggleDrawerItem extends ToggleDrawerItem<SecondaryToggleDrawerItem> {
 
     @Override
     public int getType() {

@@ -14,30 +14,30 @@ import com.mikepenz.materialdrawer.model.interfaces.IDrawerItem;
 /**
  * Created by mikepenz on 03.02.15.
  */
-public class SwitchDrawerItem extends BasePrimaryDrawerItem<SwitchDrawerItem, SwitchDrawerItem.ViewHolder> {
+public class SwitchDrawerItem<T extends SwitchDrawerItem> extends BasePrimaryDrawerItem<SwitchDrawerItem, SwitchDrawerItem.ViewHolder> {
 
     private boolean switchEnabled = true;
 
     private boolean checked = false;
     private OnCheckedChangeListener onCheckedChangeListener = null;
 
-    public SwitchDrawerItem withChecked(boolean checked) {
+    public T withChecked(boolean checked) {
         this.checked = checked;
-        return this;
+        return (T) this;
     }
 
-    public SwitchDrawerItem withSwitchEnabled(boolean switchEnabled) {
+    public T withSwitchEnabled(boolean switchEnabled) {
         this.switchEnabled = switchEnabled;
-        return this;
+        return (T) this;
     }
 
-    public SwitchDrawerItem withOnCheckedChangeListener(OnCheckedChangeListener onCheckedChangeListener) {
+    public T withOnCheckedChangeListener(OnCheckedChangeListener onCheckedChangeListener) {
         this.onCheckedChangeListener = onCheckedChangeListener;
-        return this;
+        return (T) this;
     }
 
-    public SwitchDrawerItem withCheckable(boolean checkable) {
-        return withSelectable(checkable);
+    public T withCheckable(boolean checkable) {
+        return (T) withSelectable(checkable);
     }
 
     public boolean isChecked() {

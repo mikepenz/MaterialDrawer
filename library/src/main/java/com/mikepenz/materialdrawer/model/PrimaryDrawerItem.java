@@ -15,32 +15,32 @@ import com.mikepenz.materialdrawer.model.interfaces.ColorfulBadgeable;
 /**
  * Created by mikepenz on 03.02.15.
  */
-public class PrimaryDrawerItem extends BasePrimaryDrawerItem<PrimaryDrawerItem, PrimaryDrawerItem.ViewHolder> implements ColorfulBadgeable<PrimaryDrawerItem> {
+public class PrimaryDrawerItem<T extends PrimaryDrawerItem> extends BasePrimaryDrawerItem<PrimaryDrawerItem, PrimaryDrawerItem.ViewHolder> implements ColorfulBadgeable<PrimaryDrawerItem> {
     protected StringHolder mBadge;
     protected BadgeStyle mBadgeStyle = new BadgeStyle();
 
     @Override
-    public PrimaryDrawerItem withBadge(StringHolder badge) {
+    public T withBadge(StringHolder badge) {
         this.mBadge = badge;
-        return this;
+        return (T) this;
     }
 
     @Override
-    public PrimaryDrawerItem withBadge(String badge) {
+    public T withBadge(String badge) {
         this.mBadge = new StringHolder(badge);
-        return this;
+        return (T) this;
     }
 
     @Override
-    public PrimaryDrawerItem withBadge(@StringRes int badgeRes) {
+    public T withBadge(@StringRes int badgeRes) {
         this.mBadge = new StringHolder(badgeRes);
-        return this;
+        return (T) this;
     }
 
     @Override
-    public PrimaryDrawerItem withBadgeStyle(BadgeStyle badgeStyle) {
+    public T withBadgeStyle(BadgeStyle badgeStyle) {
         this.mBadgeStyle = badgeStyle;
-        return this;
+        return (T) this;
     }
 
     public StringHolder getBadge() {
