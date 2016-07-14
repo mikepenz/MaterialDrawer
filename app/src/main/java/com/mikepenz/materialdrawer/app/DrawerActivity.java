@@ -9,10 +9,10 @@ import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.view.View;
 import android.widget.CompoundButton;
+import android.widget.LinearLayout;
 
 import com.mikepenz.aboutlibraries.Libs;
 import com.mikepenz.aboutlibraries.LibsBuilder;
-import com.mikepenz.fastadapter.utils.RecyclerViewCacheUtil;
 import com.mikepenz.fontawesome_typeface_library.FontAwesome;
 import com.mikepenz.google_material_typeface_library.GoogleMaterial;
 import com.mikepenz.iconics.IconicsDrawable;
@@ -21,6 +21,7 @@ import com.mikepenz.materialdrawer.AccountHeader;
 import com.mikepenz.materialdrawer.AccountHeaderBuilder;
 import com.mikepenz.materialdrawer.Drawer;
 import com.mikepenz.materialdrawer.DrawerBuilder;
+import com.mikepenz.materialdrawer.MiniDrawer;
 import com.mikepenz.materialdrawer.holder.BadgeStyle;
 import com.mikepenz.materialdrawer.holder.StringHolder;
 import com.mikepenz.materialdrawer.interfaces.OnCheckedChangeListener;
@@ -38,6 +39,7 @@ import com.mikepenz.materialdrawer.model.ToggleDrawerItem;
 import com.mikepenz.materialdrawer.model.interfaces.IDrawerItem;
 import com.mikepenz.materialdrawer.model.interfaces.IProfile;
 import com.mikepenz.materialdrawer.model.interfaces.Nameable;
+import com.mikepenz.materialize.util.UIUtils;
 import com.mikepenz.octicons_typeface_library.Octicons;
 
 public class DrawerActivity extends AppCompatActivity {
@@ -200,12 +202,17 @@ public class DrawerActivity extends AppCompatActivity {
                 })
                 .withSavedInstance(savedInstanceState)
                 .withShowDrawerOnFirstLaunch(true)
-                .build();
+                .withGenerateMiniDrawer(true)
+                .buildView();
 
-        //if you have many different types of DrawerItems you can magically pre-cache those items to get a better scroll performance
-        //make sure to init the cache after the DrawerBuilder was created as this will first clear the cache to make sure no old elements are in
-        //RecyclerViewCacheUtil.getInstance().withCacheSize(2).init(result);
-        new RecyclerViewCacheUtil<IDrawerItem>().withCacheSize(2).apply(result.getRecyclerView(), result.getDrawerItems());
+        MiniDrawer miniDrawer = result.getMiniDrawer();
+
+        View miniDrawerView = miniDrawer.build(this);
+
+        miniDrawerView.setMinimumWidth((int) UIUtils.convertDpToPixel(144, this));
+        miniDrawerView.setBackgroundColor(Color.RED);
+
+        ((LinearLayout) findViewById(R.id.frame_container)).addView(miniDrawerView, 0);
 
         //only set the active selection or active profile if we do not recreate the activity
         if (savedInstanceState == null) {

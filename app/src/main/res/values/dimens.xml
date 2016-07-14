@@ -5,4 +5,14 @@
     <dimen name="material_drawer_persistent_height_icon">32dp</dimen>
 
     <dimen name="fullscreen_status_bar_height">0dp</dimen>
+
+    <!-- Definition for the MiniDrawer item -->
+    <dimen name="material_mini_drawer_item">144dp</dimen>
+    <dimen name="material_mini_drawer_item_padding">4dp</dimen>
+    <dimen name="material_mini_drawer_item_padding_sides">8dp</dimen>
+    <dimen name="material_mini_drawer_item_icon">128dp</dimen>
+    <dimen name="material_mini_drawer_item_icon_padding">16dp</dimen>
+    <dimen name="material_mini_drawer_item_badge_text">12sp</dimen>
+    <dimen name="material_mini_drawer_item_profile_icon">112dp</dimen>
+    <dimen name="material_mini_drawer_item_profile_icon_padding">16dp</dimen>
 </resources>
