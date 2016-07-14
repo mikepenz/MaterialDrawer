@@ -97,8 +97,12 @@ public abstract class BasePrimaryDrawerItem<T, VH extends BaseViewHolder> extend
 
         //get the drawables for our icon and set it
         Drawable icon = ImageHolder.decideIcon(getIcon(), ctx, iconColor, isIconTinted(), 1);
-        Drawable selectedIcon = ImageHolder.decideIcon(getSelectedIcon(), ctx, selectedIconColor, isIconTinted(), 1);
-        ImageHolder.applyMultiIconTo(icon, iconColor, selectedIcon, selectedIconColor, isIconTinted(), viewHolder.icon);
+        if (icon != null) {
+            Drawable selectedIcon = ImageHolder.decideIcon(getSelectedIcon(), ctx, selectedIconColor, isIconTinted(), 1);
+            ImageHolder.applyMultiIconTo(icon, iconColor, selectedIcon, selectedIconColor, isIconTinted(), viewHolder.icon);
+        } else {
+            ImageHolder.applyDecidedIconOrSetGone(getIcon(), viewHolder.icon, iconColor, isIconTinted(), 1);
+        }
 
         //for android API 17 --> Padding not applied via xml
         DrawerUIUtils.setDrawerVerticalPadding(viewHolder.view, level);
