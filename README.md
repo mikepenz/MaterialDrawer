@@ -414,6 +414,7 @@ builder.withDrawerLayout(R.layout.material_drawer);
 * [Facepunch Droid](https://play.google.com/store/apps/details?id=com.apps.anker.facepunchdroid)
 * [World Tourist Attractions](https://play.google.com/store/apps/details?id=indian.fig.whatsaround)
 * [HipCar](https://play.google.com/store/apps/details?id=com.hipcar.android)
+* [AS Sales Management](https://play.google.com/store/apps/details?id=com.armsoft.mtrade)
 
 #Articles about the MaterialDrawer
 * [java-help.ru](http://java-help.ru/material-navigationdrawer/)
