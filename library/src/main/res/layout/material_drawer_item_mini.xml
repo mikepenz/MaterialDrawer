@@ -16,7 +16,7 @@
         android:layout_height="@dimen/material_mini_drawer_item_icon"
         android:layout_gravity="center"
         android:padding="@dimen/material_mini_drawer_item_icon_padding"
-        android:scaleType="centerInside" />
+        android:scaleType="fitXY" />
 
     <TextView
         android:id="@+id/material_drawer_badge"
