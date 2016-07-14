@@ -199,8 +199,8 @@ public class MiniDrawerActivity extends AppCompatActivity {
     @Override
     public void onBackPressed() {
         //handle the back press :D close the drawer first and if the drawer is closed close the activity
-        if (result != null && result.isDrawerOpen()) {
-            result.closeDrawer();
+        if (crossFader != null && crossFader.isCrossFaded()) {
+            crossFader.crossFade();
         } else {
             super.onBackPressed();
         }
