@@ -16,3 +16,8 @@ Each question and it's answer is hosted in a separate file within the FAQ folder
 ##Testing
 
 * [How can I open the drawer from an instrumental test written with Espresso?](FAQ/opening-drawer-from-espresso.md)
+
+
+##CustomDrawerItem's
+
+* [A custom SecondaryDrawerItem that takes different name when its on disabled state](https://gist.github.com/AngleV/400377184386193c985d905bd97f2d40)
