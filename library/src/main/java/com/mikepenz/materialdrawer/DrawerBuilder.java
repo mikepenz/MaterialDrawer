@@ -1771,13 +1771,6 @@ public class DrawerBuilder {
     }
 
     /**
-     * resets the DrawerBuilder's internal `mUsed` variable to false so the `DrawerBuilder` can be reused
-     */
-    public void reset() {
-        this.mUsed = false;
-    }
-
-    /**
      * helper method to close the drawer delayed
      */
     protected void closeDrawerDelayed() {
