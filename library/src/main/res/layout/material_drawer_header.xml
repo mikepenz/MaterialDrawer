@@ -69,6 +69,7 @@
             android:layout_alignParentRight="true"
             android:layout_marginBottom="@dimen/material_drawer_padding"
             android:layout_toLeftOf="@+id/material_drawer_account_header_text_switcher"
+            android:layout_toStartOf="@+id/material_drawer_account_header_text_switcher"
             android:gravity="center_vertical"
             android:orientation="vertical"
             android:paddingEnd="56dp"
