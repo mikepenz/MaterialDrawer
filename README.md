@@ -418,6 +418,7 @@ builder.withDrawerLayout(R.layout.material_drawer);
 * [Sporza Voetbal](http://play.google.com/store/apps/details?id=be.vrt.mobile.android.sporza.voetbal)
 * [Atmosphere](https://play.google.com/store/apps/details?id=com.peakpocketstudios.atmosphere)
 * [Slidechat](https://play.google.com/store/apps/details?id=com.taddu.adfree.slidechat)
+
 #Articles about the MaterialDrawer
 * [java-help.ru](http://java-help.ru/material-navigationdrawer/)
 
