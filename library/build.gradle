@@ -8,8 +8,8 @@ android {
     defaultConfig {
         minSdkVersion setup.minSdk
         targetSdkVersion setup.targetSdk
-        versionCode 536
-        versionName '5.3.6'
+        versionCode 540
+        versionName '5.4.0'
     }
     buildTypes {
         release {
