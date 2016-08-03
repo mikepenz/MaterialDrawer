@@ -12,8 +12,8 @@ android {
     defaultConfig {
         minSdkVersion setup.minSdk
         targetSdkVersion setup.targetSdk
-        versionCode 536
-        versionName "5.3.6"
+        versionCode 540
+        versionName "5.4.0"
 
         setProperty("archivesBaseName", "-v$versionName-c$versionCode")
     }
@@ -53,7 +53,7 @@ dependencies {
 
     // used to generate the Open Source section
     // https://github.com/mikepenz/AboutLibraries
-    compile('com.mikepenz:aboutlibraries:5.7.0@aar') {
+    compile('com.mikepenz:aboutlibraries:5.7.1@aar') {
         transitive = true
         exclude module: "fastadapter"
     }
@@ -72,7 +72,7 @@ dependencies {
     // icon fonts used inside the sample
     // https://github.com/mikepenz/Android-Iconics
     compile 'com.mikepenz:google-material-typeface:2.2.0.1@aar'
-    compile 'com.mikepenz:fontawesome-typeface:4.4.0.1@aar'
+    compile 'com.mikepenz:fontawesome-typeface:4.6.0.3@aar'
     compile 'com.mikepenz:octicons-typeface:3.0.0.1@aar'
 
 

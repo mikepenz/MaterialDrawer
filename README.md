@@ -52,7 +52,7 @@ You can find some frequently asked questions and other resources in the [WIKI / 
 ##1. Provide the gradle dependency
 
 ```gradle
-compile('com.mikepenz:materialdrawer:5.3.6@aar') {
+compile('com.mikepenz:materialdrawer:5.4.0@aar') {
 	transitive = true
 }
 ```
@@ -415,6 +415,9 @@ builder.withDrawerLayout(R.layout.material_drawer);
 * [World Tourist Attractions](https://play.google.com/store/apps/details?id=indian.fig.whatsaround)
 * [HipCar](https://play.google.com/store/apps/details?id=com.hipcar.android)
 * [AS Sales Management](https://play.google.com/store/apps/details?id=com.armsoft.mtrade)
+* [Sporza Voetbal](http://play.google.com/store/apps/details?id=be.vrt.mobile.android.sporza.voetbal)
+* [Atmosphere](https://play.google.com/store/apps/details?id=com.peakpocketstudios.atmosphere)
+* [Slidechat](https://play.google.com/store/apps/details?id=com.taddu.adfree.slidechat)
 
 #Articles about the MaterialDrawer
 * [java-help.ru](http://java-help.ru/material-navigationdrawer/)
