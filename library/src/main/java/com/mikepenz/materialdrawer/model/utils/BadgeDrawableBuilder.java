@@ -3,11 +3,11 @@ package com.mikepenz.materialdrawer.model.utils;
 import android.content.Context;
 import android.graphics.drawable.GradientDrawable;
 import android.graphics.drawable.StateListDrawable;
+import android.support.v4.content.ContextCompat;
 import android.util.StateSet;
 
 import com.mikepenz.materialdrawer.holder.BadgeStyle;
 import com.mikepenz.materialdrawer.holder.ColorHolder;
-import com.mikepenz.materialize.util.UIUtils;
 
 /**
  * Created by mikepenz on 02.07.15.
@@ -21,8 +21,7 @@ public class BadgeDrawableBuilder {
 
     public StateListDrawable build(Context ctx) {
         StateListDrawable stateListDrawable = new StateListDrawable();
-
-        GradientDrawable normal = (GradientDrawable) UIUtils.getCompatDrawable(ctx, mStyle.getGradientDrawable());
+        GradientDrawable normal = (GradientDrawable) ContextCompat.getDrawable(ctx, mStyle.getGradientDrawable());
         GradientDrawable selected = (GradientDrawable) normal.getConstantState().newDrawable().mutate();
 
         ColorHolder.applyToOrTransparent(mStyle.getColor(), ctx, normal);

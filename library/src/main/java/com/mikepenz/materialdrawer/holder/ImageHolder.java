@@ -6,13 +6,13 @@ import android.graphics.PorterDuff;
 import android.graphics.drawable.Drawable;
 import android.net.Uri;
 import android.support.annotation.DrawableRes;
+import android.support.v4.content.ContextCompat;
 import android.view.View;
 import android.widget.ImageView;
 
 import com.mikepenz.iconics.IconicsDrawable;
 import com.mikepenz.iconics.typeface.IIcon;
 import com.mikepenz.materialdrawer.util.DrawerImageLoader;
-import com.mikepenz.materialize.util.UIUtils;
 
 import java.io.FileNotFoundException;
 import java.io.InputStream;
@@ -100,7 +100,7 @@ public class ImageHolder extends com.mikepenz.materialize.holder.ImageHolder {
         if (mIIcon != null) {
             icon = new IconicsDrawable(ctx, mIIcon).color(iconColor).sizeDp(24).paddingDp(paddingDp);
         } else if (getIconRes() != -1) {
-            icon = UIUtils.getCompatDrawable(ctx, getIconRes());
+            icon = ContextCompat.getDrawable(ctx, getIconRes());
         } else if (getUri() != null) {
             try {
                 InputStream inputStream = ctx.getContentResolver().openInputStream(getUri());
