@@ -34,9 +34,7 @@ class DrawerUtils {
         if (checkable) {
             drawer.resetStickyFooterSelection();
 
-            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.HONEYCOMB) {
-                v.setActivated(true);
-            }
+            v.setActivated(true);
             v.setSelected(true);
 
             //remove the selection in the list

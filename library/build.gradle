@@ -8,8 +8,8 @@ android {
     defaultConfig {
         minSdkVersion setup.minSdk
         targetSdkVersion setup.targetSdk
-        versionCode 540
-        versionName '5.4.0'
+        versionCode 550
+        versionName '5.5.0'
     }
     buildTypes {
         release {
@@ -37,15 +37,15 @@ dependencies {
     // contains util classes to support various android versions, and clean up code
     // comes with the awesome "Holder"-Pattern
     // https://github.com/mikepenz/Materialize
-    compile 'com.mikepenz:materialize:0.9.0@aar'
+    compile 'com.mikepenz:materialize:1.0.0@aar'
 
     // used to provide out of the box icon font support. simplifies development,
     // and provides scalable icons. the core is very very light
     // https://github.com/mikepenz/Android-Iconics
-    compile 'com.mikepenz:iconics-core:2.7.2@aar'
+    compile 'com.mikepenz:iconics-core:2.8.0@aar'
 
     // used to fill the RecyclerView with the DrawerItems
     // and provides single and multi selection, expandable items
     // https://github.com/mikepenz/FastAdapter
-    compile 'com.mikepenz:fastadapter:1.6.1@aar'
+    compile 'com.mikepenz:fastadapter:1.7.0@aar'
 }

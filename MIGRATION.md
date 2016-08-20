@@ -1,5 +1,8 @@
 ###Upgrade Notes
 
+#### v5.5.0
+* **Dropping support for API < 14. New MinSdkVersion is 14**
+
 #### v5.3.3 -> 5.3.4
 * If you use the `FastAdapter` please read the upgrade notes for v1.6.0 (https://github.com/mikepenz/FastAdapter/releases/tag/v1.6.0)
 

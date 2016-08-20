@@ -13,6 +13,7 @@ import android.support.annotation.DimenRes;
 import android.support.annotation.DrawableRes;
 import android.support.annotation.LayoutRes;
 import android.support.annotation.NonNull;
+import android.support.v4.content.ContextCompat;
 import android.support.v4.view.ViewCompat;
 import android.text.TextUtils;
 import android.view.View;
@@ -725,7 +726,7 @@ public class AccountHeaderBuilder {
     private void handleSelectionView(IProfile profile, boolean on) {
         if (on) {
             if (Build.VERSION.SDK_INT >= 21) {
-                ((FrameLayout) mAccountHeaderContainer).setForeground(UIUtils.getCompatDrawable(mAccountHeaderContainer.getContext(), mAccountHeaderTextSectionBackgroundResource));
+                ((FrameLayout) mAccountHeaderContainer).setForeground(ContextCompat.getDrawable(mAccountHeaderContainer.getContext(), mAccountHeaderTextSectionBackgroundResource));
                 mAccountHeaderContainer.setOnClickListener(onSelectionClickListener);
                 mAccountHeaderContainer.setTag(R.id.material_drawer_profile_header, profile);
             } else {
