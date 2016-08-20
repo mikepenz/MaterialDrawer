@@ -1427,9 +1427,9 @@ public class DrawerBuilder {
         //handle the ActionBarDrawerToggle
         if (mActionBarDrawerToggle != null) {
             mActionBarDrawerToggle.setToolbarNavigationClickListener(toolbarNavigationListener);
-            mDrawerLayout.setDrawerListener(mActionBarDrawerToggle);
+            mDrawerLayout.addDrawerListener(mActionBarDrawerToggle);
         } else {
-            mDrawerLayout.setDrawerListener(new DrawerLayout.DrawerListener() {
+            mDrawerLayout.addDrawerListener(new DrawerLayout.DrawerListener() {
                 @Override
                 public void onDrawerSlide(View drawerView, float slideOffset) {
                     if (mOnDrawerListener != null) {
@@ -1819,9 +1819,7 @@ public class DrawerBuilder {
     protected void resetStickyFooterSelection() {
         if (mStickyFooterView instanceof LinearLayout) {
             for (int i = 0; i < (mStickyFooterView).getChildCount(); i++) {
-                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.HONEYCOMB) {
-                    (mStickyFooterView).getChildAt(i).setActivated(false);
-                }
+                (mStickyFooterView).getChildAt(i).setActivated(false);
                 (mStickyFooterView).getChildAt(i).setSelected(false);
             }
         }
