@@ -9,6 +9,7 @@ import android.view.ViewGroup;
 import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 
+import com.mikepenz.materialdrawer.model.AbstractDrawerItem;
 import com.mikepenz.materialdrawer.model.ContainerDrawerItem;
 import com.mikepenz.materialdrawer.model.interfaces.IDrawerItem;
 import com.mikepenz.materialdrawer.model.interfaces.Selectable;
@@ -30,7 +31,7 @@ class DrawerUtils {
      * @param fireOnClick true if we should call the listener, false if not, null to not call the listener and not close the drawer
      */
     public static void onFooterDrawerItemClick(DrawerBuilder drawer, IDrawerItem drawerItem, View v, Boolean fireOnClick) {
-        boolean checkable = !(drawerItem != null && drawerItem instanceof Selectable && !((Selectable) drawerItem).isSelectable());
+        boolean checkable = !(drawerItem != null && drawerItem instanceof Selectable && !drawerItem.isSelectable());
         if (checkable) {
             drawer.resetStickyFooterSelection();
 
@@ -55,8 +56,15 @@ class DrawerUtils {
 
         if (fireOnClick != null) {
             boolean consumed = false;
-            if (fireOnClick && drawer.mOnDrawerItemClickListener != null) {
-                consumed = drawer.mOnDrawerItemClickListener.onItemClick(v, -1, drawerItem);
+
+            if (fireOnClick) {
+                if (drawerItem instanceof AbstractDrawerItem && ((AbstractDrawerItem) drawerItem).getOnDrawerItemClickListener() != null) {
+                    consumed = ((AbstractDrawerItem) drawerItem).getOnDrawerItemClickListener().onItemClick(null, -1, drawerItem);
+                }
+
+                if (drawer.mOnDrawerItemClickListener != null) {
+                    consumed = drawer.mOnDrawerItemClickListener.onItemClick(v, -1, drawerItem);
+                }
             }
 
             if (!consumed) {

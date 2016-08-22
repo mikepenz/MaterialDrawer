@@ -18,6 +18,7 @@ import com.mikepenz.fastadapter.adapters.ItemAdapter;
 import com.mikepenz.materialdrawer.holder.DimenHolder;
 import com.mikepenz.materialdrawer.holder.ImageHolder;
 import com.mikepenz.materialdrawer.holder.StringHolder;
+import com.mikepenz.materialdrawer.model.AbstractDrawerItem;
 import com.mikepenz.materialdrawer.model.ContainerDrawerItem;
 import com.mikepenz.materialdrawer.model.interfaces.Badgeable;
 import com.mikepenz.materialdrawer.model.interfaces.IDrawerItem;
@@ -554,8 +555,16 @@ public class Drawer {
         if (mDrawerBuilder.mRecyclerView != null) {
             mDrawerBuilder.mAdapter.deselect();
             mDrawerBuilder.mAdapter.select(position, false);
-            if (mDrawerBuilder.mOnDrawerItemClickListener != null && fireOnClick && position >= 0) {
-                mDrawerBuilder.mOnDrawerItemClickListener.onItemClick(null, position, mDrawerBuilder.mAdapter.getItem(position));
+            if (fireOnClick && position >= 0) {
+                IDrawerItem item = mDrawerBuilder.mAdapter.getItem(position);
+
+                if (item instanceof AbstractDrawerItem && ((AbstractDrawerItem) item).getOnDrawerItemClickListener() != null) {
+                    ((AbstractDrawerItem) item).getOnDrawerItemClickListener().onItemClick(null, position, item);
+                }
+
+                if (mDrawerBuilder.mOnDrawerItemClickListener != null) {
+                    mDrawerBuilder.mOnDrawerItemClickListener.onItemClick(null, position, item);
+                }
             }
 
             //we set the selection on a normal item in the drawer so we have to deselect the items in the StickyDrawer
