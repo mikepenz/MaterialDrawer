@@ -1,5 +1,8 @@
 ###Upgrade Notes
 
+#### v5.5.1
+* add `void set(ImageView imageView, Uri uri, Drawable placeholder, String tag);` to `IDrawerImageLoader` interface, similar to the `tag` provided in the placeholder method
+
 #### v5.5.0
 * **Dropping support for API < 14. New MinSdkVersion is 14**
 
