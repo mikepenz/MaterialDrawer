@@ -373,6 +373,18 @@ public class Drawer {
     }
 
     /**
+     * sets the gravity for this drawer.
+     *
+     * @param gravity the gravity which is defined for the drawer
+     */
+    public void setGravity(int gravity) {
+        DrawerLayout.LayoutParams params = (DrawerLayout.LayoutParams) getSlider().getLayoutParams();
+        params.gravity = gravity;
+        getSlider().setLayoutParams(params);
+        mDrawerBuilder.mDrawerGravity = gravity;
+    }
+
+    /**
      * calculates the position of an drawerItem. searching by it's identifier
      *
      * @param drawerItem
