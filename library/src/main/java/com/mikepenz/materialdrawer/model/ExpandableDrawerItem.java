@@ -21,7 +21,7 @@ import com.mikepenz.materialdrawer.model.interfaces.IDrawerItem;
  * Created by mikepenz on 03.02.15.
  * NOTE: The arrow will just animate (and rotate) on APIs higher than 11 as the ViewCompat will skip this on API 10
  */
-public class ExpandableDrawerItem extends BasePrimaryDrawerItem<ExpandableDrawerItem, ExpandableDrawerItem.ViewHolder> {
+public class ExpandableDrawerItem extends BaseDescribeableDrawerItem<ExpandableDrawerItem, ExpandableDrawerItem.ViewHolder> {
 
     private Drawer.OnDrawerItemClickListener mOnDrawerItemClickListener;
 

@@ -9,7 +9,7 @@ import com.mikepenz.materialdrawer.holder.ColorHolder;
 /**
  * Created by mikepenz on 03.02.15.
  */
-public class SecondarySwitchDrawerItem extends SwitchDrawerItem {
+public class SecondarySwitchDrawerItem extends AbstractSwitchableDrawerItem<SecondarySwitchDrawerItem> {
 
     @Override
     public int getType() {
