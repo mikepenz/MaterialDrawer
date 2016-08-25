@@ -53,7 +53,7 @@ dependencies {
 
     // used to generate the Open Source section
     // https://github.com/mikepenz/AboutLibraries
-    compile('com.mikepenz:aboutlibraries:5.8.0@aar') {
+    compile('com.mikepenz:aboutlibraries:5.8.1@aar') {
         transitive = true
         exclude module: "fastadapter"
     }
