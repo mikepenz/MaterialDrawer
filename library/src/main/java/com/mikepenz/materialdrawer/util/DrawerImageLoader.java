@@ -53,7 +53,7 @@ public class DrawerImageLoader {
         if (mHandleAllUris || "http".equals(uri.getScheme()) || "https".equals(uri.getScheme())) {
             if (imageLoader != null) {
                 Drawable placeHolder = imageLoader.placeholder(imageView.getContext(), tag);
-                imageLoader.set(imageView, uri, placeHolder);
+                imageLoader.set(imageView, uri, placeHolder, tag);
             }
             return true;
         }
@@ -76,6 +76,8 @@ public class DrawerImageLoader {
 
     public interface IDrawerImageLoader {
         void set(ImageView imageView, Uri uri, Drawable placeholder);
+
+        void set(ImageView imageView, Uri uri, Drawable placeholder, String tag);
 
         void cancel(ImageView imageView);
 

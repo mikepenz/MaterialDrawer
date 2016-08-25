@@ -19,6 +19,8 @@ import com.mikepenz.materialdrawer.model.AbstractDrawerItem;
 import com.mikepenz.materialdrawer.model.interfaces.IProfile;
 import com.mikepenz.materialize.util.UIUtils;
 
+import java.util.List;
+
 public class AccountDividerDrawerItem extends AbstractDrawerItem<AccountDividerDrawerItem, AccountDividerDrawerItem.ViewHolder> implements IProfile<AccountDividerDrawerItem> {
     @Override
     public int getType() {
@@ -32,7 +34,7 @@ public class AccountDividerDrawerItem extends AbstractDrawerItem<AccountDividerD
     }
 
     @Override
-    public void bindView(ViewHolder viewHolder) {
+    public void bindView(ViewHolder viewHolder, List payloads) {
         Context ctx = viewHolder.itemView.getContext();
 
         //set the identifier from the drawerItem here. It can be used to run tests

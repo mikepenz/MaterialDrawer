@@ -1,9 +1,11 @@
 package com.mikepenz.materialdrawer.app.drawerItems;
 
 import com.mikepenz.materialdrawer.holder.ColorHolder;
-import com.mikepenz.materialdrawer.model.PrimaryDrawerItem;
+import com.mikepenz.materialdrawer.model.AbstractBadgeableDrawerItem;
 
-public class CustomPrimaryDrawerItem extends PrimaryDrawerItem {
+import java.util.List;
+
+public class CustomPrimaryDrawerItem extends AbstractBadgeableDrawerItem<CustomPrimaryDrawerItem> {
 
     private ColorHolder background;
 
@@ -18,8 +20,8 @@ public class CustomPrimaryDrawerItem extends PrimaryDrawerItem {
     }
 
     @Override
-    public void bindView(ViewHolder holder) {
-        super.bindView(holder);
+    public void bindView(ViewHolder holder, List payloads) {
+        super.bindView(holder, payloads);
 
         if (background != null) {
             background.applyToBackground(holder.itemView);

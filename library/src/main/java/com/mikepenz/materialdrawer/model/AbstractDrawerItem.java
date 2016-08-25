@@ -271,7 +271,7 @@ public abstract class AbstractDrawerItem<T, VH extends RecyclerView.ViewHolder> 
     @Override
     public View generateView(Context ctx) {
         VH viewHolder = getFactory().create(LayoutInflater.from(ctx).inflate(getLayoutRes(), null, false));
-        bindView(viewHolder);
+        bindView(viewHolder, Collections.emptyList());
         return viewHolder.itemView;
     }
 
@@ -285,7 +285,7 @@ public abstract class AbstractDrawerItem<T, VH extends RecyclerView.ViewHolder> 
     @Override
     public View generateView(Context ctx, ViewGroup parent) {
         VH viewHolder = getFactory().create(LayoutInflater.from(ctx).inflate(getLayoutRes(), parent, false));
-        bindView(viewHolder);
+        bindView(viewHolder, Collections.emptyList());
         return viewHolder.itemView;
     }
 

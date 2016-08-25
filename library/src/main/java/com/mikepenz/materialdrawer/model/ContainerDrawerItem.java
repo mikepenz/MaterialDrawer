@@ -12,6 +12,8 @@ import com.mikepenz.materialdrawer.R;
 import com.mikepenz.materialdrawer.holder.DimenHolder;
 import com.mikepenz.materialize.util.UIUtils;
 
+import java.util.List;
+
 /**
  * Created by mikepenz on 03.02.15.
  */
@@ -75,7 +77,7 @@ public class ContainerDrawerItem extends AbstractDrawerItem<ContainerDrawerItem,
     }
 
     @Override
-    public void bindView(ViewHolder viewHolder) {
+    public void bindView(ViewHolder viewHolder, List payloads) {
         Context ctx = viewHolder.itemView.getContext();
 
         //set the identifier from the drawerItem here. It can be used to run tests

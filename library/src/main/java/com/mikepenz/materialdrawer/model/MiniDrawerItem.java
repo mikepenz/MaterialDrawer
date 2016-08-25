@@ -17,6 +17,8 @@ import com.mikepenz.materialdrawer.holder.ImageHolder;
 import com.mikepenz.materialdrawer.holder.StringHolder;
 import com.mikepenz.materialize.util.UIUtils;
 
+import java.util.List;
+
 /**
  * Created by mikepenz on 03.02.15.
  */
@@ -113,7 +115,7 @@ public class MiniDrawerItem extends BaseDrawerItem<MiniDrawerItem, MiniDrawerIte
     }
 
     @Override
-    public void bindView(ViewHolder viewHolder) {
+    public void bindView(ViewHolder viewHolder, List payloads) {
         Context ctx = viewHolder.itemView.getContext();
 
         //set a different height for this item

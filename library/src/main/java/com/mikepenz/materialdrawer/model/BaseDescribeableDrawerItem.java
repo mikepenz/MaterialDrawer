@@ -16,7 +16,7 @@ import com.mikepenz.materialize.util.UIUtils;
 /**
  * Created by mikepenz on 03.02.15.
  */
-public abstract class BasePrimaryDrawerItem<T, VH extends BaseViewHolder> extends BaseDrawerItem<T, VH> {
+public abstract class BaseDescribeableDrawerItem<T, VH extends BaseViewHolder> extends BaseDrawerItem<T, VH> {
     private StringHolder description;
     private ColorHolder descriptionTextColor;
 

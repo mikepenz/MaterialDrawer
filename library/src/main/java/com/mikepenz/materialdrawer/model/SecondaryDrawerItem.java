@@ -9,7 +9,7 @@ import com.mikepenz.materialdrawer.holder.ColorHolder;
 /**
  * Created by mikepenz on 03.02.15.
  */
-public class SecondaryDrawerItem extends PrimaryDrawerItem {
+public class SecondaryDrawerItem extends AbstractBadgeableDrawerItem<SecondaryDrawerItem> {
 
     @Override
     public int getType() {

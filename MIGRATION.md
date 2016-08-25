@@ -1,5 +1,13 @@
 ###Upgrade Notes
 
+#### v5.6.0
+**IMPORTANT IF YOU IMPLEMENT CUSTOM-DRAWER-ITEMS OR USE THE FASTADAPTER**
+* This release brings a breaking interface change. Your items now have to implement `bindView(ViewHolder holder, List payloads)` instead of `bindView(VH holder)`. 
+ * The additional payload can be used to implement a more performant view updating when only parts of the item have changed. Please also refer to the `DiffUtils` which may provide the payload.
+
+#### v5.5.1
+* add `void set(ImageView imageView, Uri uri, Drawable placeholder, String tag);` to `IDrawerImageLoader` interface, similar to the `tag` provided in the placeholder method
+
 #### v5.5.0
 * **Dropping support for API < 14. New MinSdkVersion is 14**
 

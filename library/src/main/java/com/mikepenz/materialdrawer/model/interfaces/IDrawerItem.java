@@ -7,6 +7,8 @@ import android.view.ViewGroup;
 
 import com.mikepenz.fastadapter.IItem;
 
+import java.util.List;
+
 /**
  * Created by mikepenz on 03.02.15.
  */
@@ -34,7 +36,7 @@ public interface IDrawerItem<T, VH extends RecyclerView.ViewHolder> extends IIte
 
     VH getViewHolder(ViewGroup parent);
 
-    void bindView(VH holder);
+    void bindView(VH holder, List payloads);
 
     boolean equals(long id);
 }

@@ -1,4 +1,4 @@
-package com.mikepenz.materialdrawer.app.drawerItems;
+package com.mikepenz.materialdrawer.model;
 
 import android.content.Context;
 import android.support.annotation.LayoutRes;
@@ -7,7 +7,7 @@ import android.view.View;
 import android.widget.TextView;
 
 import com.mikepenz.fastadapter.utils.ViewHolderFactory;
-import com.mikepenz.materialdrawer.app.R;
+import com.mikepenz.materialdrawer.R;
 import com.mikepenz.materialdrawer.holder.BadgeStyle;
 import com.mikepenz.materialdrawer.holder.StringHolder;
 import com.mikepenz.materialdrawer.model.interfaces.ColorfulBadgeable;
@@ -17,32 +17,32 @@ import java.util.List;
 /**
  * Created by mikepenz on 03.02.15.
  */
-public class CustomUrlPrimaryDrawerItem extends CustomUrlBasePrimaryDrawerItem<CustomUrlPrimaryDrawerItem, CustomUrlPrimaryDrawerItem.ViewHolder> implements ColorfulBadgeable<CustomUrlPrimaryDrawerItem> {
+public abstract class AbstractBadgeableDrawerItem<Item extends AbstractBadgeableDrawerItem> extends BaseDescribeableDrawerItem<Item, AbstractBadgeableDrawerItem.ViewHolder> implements ColorfulBadgeable<Item> {
     protected StringHolder mBadge;
     protected BadgeStyle mBadgeStyle = new BadgeStyle();
 
     @Override
-    public CustomUrlPrimaryDrawerItem withBadge(StringHolder badge) {
+    public Item withBadge(StringHolder badge) {
         this.mBadge = badge;
-        return this;
+        return (Item) this;
     }
 
     @Override
-    public CustomUrlPrimaryDrawerItem withBadge(String badge) {
+    public Item withBadge(String badge) {
         this.mBadge = new StringHolder(badge);
-        return this;
+        return (Item) this;
     }
 
     @Override
-    public CustomUrlPrimaryDrawerItem withBadge(@StringRes int badgeRes) {
+    public Item withBadge(@StringRes int badgeRes) {
         this.mBadge = new StringHolder(badgeRes);
-        return this;
+        return (Item) this;
     }
 
     @Override
-    public CustomUrlPrimaryDrawerItem withBadgeStyle(BadgeStyle badgeStyle) {
+    public Item withBadgeStyle(BadgeStyle badgeStyle) {
         this.mBadgeStyle = badgeStyle;
-        return this;
+        return (Item) this;
     }
 
     public StringHolder getBadge() {
@@ -55,7 +55,7 @@ public class CustomUrlPrimaryDrawerItem extends CustomUrlBasePrimaryDrawerItem<C
 
     @Override
     public int getType() {
-        return R.id.material_drawer_item_custom_url_item;
+        return R.id.material_drawer_item_primary;/*"PRIMARY_ITEM"*/
     }
 
     @Override
@@ -67,7 +67,6 @@ public class CustomUrlPrimaryDrawerItem extends CustomUrlBasePrimaryDrawerItem<C
     @Override
     public void bindView(ViewHolder viewHolder, List payloads) {
         Context ctx = viewHolder.itemView.getContext();
-
         //bind the basic view parts
         bindViewHelper(viewHolder);
 
@@ -91,7 +90,7 @@ public class CustomUrlPrimaryDrawerItem extends CustomUrlBasePrimaryDrawerItem<C
     }
 
     @Override
-    public ViewHolderFactory getFactory() {
+    public ViewHolderFactory<ViewHolder> getFactory() {
         return new ItemFactory();
     }
 
@@ -101,7 +100,7 @@ public class CustomUrlPrimaryDrawerItem extends CustomUrlBasePrimaryDrawerItem<C
         }
     }
 
-    public static class ViewHolder extends CustomBaseViewHolder {
+    public static class ViewHolder extends BaseViewHolder {
         private View badgeContainer;
         private TextView badge;
 
