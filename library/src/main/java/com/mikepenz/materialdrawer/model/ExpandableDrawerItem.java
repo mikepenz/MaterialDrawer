@@ -17,6 +17,8 @@ import com.mikepenz.materialdrawer.holder.ColorHolder;
 import com.mikepenz.materialdrawer.icons.MaterialDrawerFont;
 import com.mikepenz.materialdrawer.model.interfaces.IDrawerItem;
 
+import java.util.List;
+
 /**
  * Created by mikepenz on 03.02.15.
  * NOTE: The arrow will just animate (and rotate) on APIs higher than 11 as the ViewCompat will skip this on API 10
@@ -81,7 +83,7 @@ public class ExpandableDrawerItem extends BaseDescribeableDrawerItem<ExpandableD
     };
 
     @Override
-    public void bindView(ViewHolder viewHolder) {
+    public void bindView(ViewHolder viewHolder, List payloads) {
         Context ctx = viewHolder.itemView.getContext();
         //bind the basic view parts
         bindViewHelper(viewHolder);

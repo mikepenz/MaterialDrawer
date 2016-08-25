@@ -14,6 +14,8 @@ import com.mikepenz.materialdrawer.app.R;
 import com.mikepenz.materialdrawer.model.BaseDescribeableDrawerItem;
 import com.mikepenz.materialdrawer.model.BaseViewHolder;
 
+import java.util.List;
+
 /**
  * Created by mikepenz on 03.02.15.
  */
@@ -64,7 +66,7 @@ public class OverflowMenuDrawerItem extends BaseDescribeableDrawerItem<OverflowM
     }
 
     @Override
-    public void bindView(ViewHolder viewHolder) {
+    public void bindView(ViewHolder viewHolder, List payloads) {
         Context ctx = viewHolder.itemView.getContext();
 
         //bind the basic view parts

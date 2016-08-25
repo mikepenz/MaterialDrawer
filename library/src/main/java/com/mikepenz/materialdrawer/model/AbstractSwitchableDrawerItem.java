@@ -11,6 +11,8 @@ import com.mikepenz.materialdrawer.R;
 import com.mikepenz.materialdrawer.interfaces.OnCheckedChangeListener;
 import com.mikepenz.materialdrawer.model.interfaces.IDrawerItem;
 
+import java.util.List;
+
 /**
  * Created by mikepenz on 03.02.15.
  */
@@ -64,7 +66,7 @@ public abstract class AbstractSwitchableDrawerItem<Item extends AbstractSwitchab
     }
 
     @Override
-    public void bindView(final ViewHolder viewHolder) {
+    public void bindView(final ViewHolder viewHolder, List payloads) {
         //bind the basic view parts
         bindViewHelper(viewHolder);
 

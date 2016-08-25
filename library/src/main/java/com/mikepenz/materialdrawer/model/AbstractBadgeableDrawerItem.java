@@ -12,6 +12,8 @@ import com.mikepenz.materialdrawer.holder.BadgeStyle;
 import com.mikepenz.materialdrawer.holder.StringHolder;
 import com.mikepenz.materialdrawer.model.interfaces.ColorfulBadgeable;
 
+import java.util.List;
+
 /**
  * Created by mikepenz on 03.02.15.
  */
@@ -63,7 +65,7 @@ public abstract class AbstractBadgeableDrawerItem<Item extends AbstractBadgeable
     }
 
     @Override
-    public void bindView(ViewHolder viewHolder) {
+    public void bindView(ViewHolder viewHolder, List payloads) {
         Context ctx = viewHolder.itemView.getContext();
         //bind the basic view parts
         bindViewHelper(viewHolder);
