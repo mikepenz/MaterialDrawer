@@ -29,6 +29,8 @@ public class ExpandableDrawerItem extends BaseDescribeableDrawerItem<ExpandableD
 
     protected ColorHolder arrowColor;
 
+    protected int rotationAngle = 180;
+
     public ExpandableDrawerItem withArrowColor(@ColorInt int arrowColor) {
         this.arrowColor = ColorHolder.fromColor(arrowColor);
         return this;
@@ -36,6 +38,11 @@ public class ExpandableDrawerItem extends BaseDescribeableDrawerItem<ExpandableD
 
     public ExpandableDrawerItem withArrowColorRes(@ColorRes int arrowColorRes) {
         this.arrowColor = ColorHolder.fromColorRes(arrowColorRes);
+        return this;
+    }
+
+    public ExpandableDrawerItem withRotationAngle(int rotationAngle) {
+        this.rotationAngle = rotationAngle;
         return this;
     }
 
@@ -71,7 +78,7 @@ public class ExpandableDrawerItem extends BaseDescribeableDrawerItem<ExpandableD
             if (drawerItem instanceof AbstractDrawerItem && drawerItem.isEnabled()) {
                 if (((AbstractDrawerItem) drawerItem).getSubItems() != null) {
                     if (((AbstractDrawerItem) drawerItem).isExpanded()) {
-                        ViewCompat.animate(view.findViewById(R.id.material_drawer_arrow)).rotation(180).start();
+                        ViewCompat.animate(view.findViewById(R.id.material_drawer_arrow)).rotation(ExpandableDrawerItem.this.rotationAngle).start();
                     } else {
                         ViewCompat.animate(view.findViewById(R.id.material_drawer_arrow)).rotation(0).start();
                     }
@@ -94,7 +101,7 @@ public class ExpandableDrawerItem extends BaseDescribeableDrawerItem<ExpandableD
         if (!isExpanded()) {
             ViewCompat.setRotation(viewHolder.arrow, 0);
         } else {
-            ViewCompat.setRotation(viewHolder.arrow, 180);
+            ViewCompat.setRotation(viewHolder.arrow, -1 * this.rotationAngle);
         }
 
         //call the onPostBindView method to trigger post bind view actions (like the listener to modify the item if required)
