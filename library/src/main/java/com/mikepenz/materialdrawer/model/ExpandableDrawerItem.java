@@ -108,7 +108,7 @@ public class ExpandableDrawerItem extends BaseDescribeableDrawerItem<ExpandableD
         if (!isExpanded()) {
             ViewCompat.setRotation(viewHolder.arrow, this.arrowRotationAngleStart);
         } else {
-            ViewCompat.setRotation(viewHolder.arrow, -1 * this.arrowRotationAngleEnd);
+            ViewCompat.setRotation(viewHolder.arrow, this.arrowRotationAngleEnd);
         }
 
         //call the onPostBindView method to trigger post bind view actions (like the listener to modify the item if required)
