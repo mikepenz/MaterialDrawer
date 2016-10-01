@@ -15,7 +15,7 @@ There  is a Header with profiles (**AccountHeader**), a **MiniDrawer** for Table
 ###A quick overview what's in
 - **the easiest possible integration**
 - integrate in less than **5 minutes**
-- compatible down to **API Level 10**
+- compatible down to **API Level 14**
 - includes an **AccountSwitcher**
 - quick and simple api
 - follows the **Google Material Design Guidelines**
