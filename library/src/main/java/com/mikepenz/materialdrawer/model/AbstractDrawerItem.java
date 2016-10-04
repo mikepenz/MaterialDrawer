@@ -6,7 +6,6 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
-import com.mikepenz.fastadapter.IExpandable;
 import com.mikepenz.fastadapter.utils.IdDistributor;
 import com.mikepenz.fastadapter.utils.ViewHolderFactory;
 import com.mikepenz.materialdrawer.Drawer;
@@ -22,7 +21,7 @@ import java.util.List;
 /**
  * Created by mikepenz on 14.07.15.
  */
-public abstract class AbstractDrawerItem<T, VH extends RecyclerView.ViewHolder> implements IDrawerItem<T, VH>, Selectable<T>, Tagable<T>, IExpandable<T, IDrawerItem> {
+public abstract class AbstractDrawerItem<T, VH extends RecyclerView.ViewHolder> implements IDrawerItem<T, VH>, Selectable<T>, Tagable<T> {
     // the identifier for this item
     protected long mIdentifier = -1;
 
@@ -186,6 +185,29 @@ public abstract class AbstractDrawerItem<T, VH extends RecyclerView.ViewHolder> 
         }
     }
 
+    // the parent of this item
+    private IDrawerItem mParent;
+
+    /**
+     * @return the parent of this item
+     */
+    @Override
+    public IDrawerItem getParent() {
+        return mParent;
+    }
+
+    /**
+     * the parent for this item
+     *
+     * @param parent it's parent
+     * @return this
+     */
+    @Override
+    public IDrawerItem withParent(IDrawerItem parent) {
+        this.mParent = parent;
+        return this;
+    }
+
     // the subItems to expand for this item
     protected List<IDrawerItem> mSubItems;
 
@@ -262,6 +284,7 @@ public abstract class AbstractDrawerItem<T, VH extends RecyclerView.ViewHolder> 
      */
     public abstract ViewHolderFactory<VH> getFactory();
 
+
     /**
      * generates a view by the defined LayoutRes
      *
@@ -287,6 +310,16 @@ public abstract class AbstractDrawerItem<T, VH extends RecyclerView.ViewHolder> 
         VH viewHolder = getFactory().create(LayoutInflater.from(ctx).inflate(getLayoutRes(), parent, false));
         bindView(viewHolder, Collections.emptyList());
         return viewHolder.itemView;
+    }
+
+    /**
+     * called when the view is unbound
+     *
+     * @param holder
+     */
+    @Override
+    public void unbindView(VH holder) {
+
     }
 
     /**

@@ -5,14 +5,18 @@ import android.support.v7.widget.RecyclerView;
 import android.view.View;
 import android.view.ViewGroup;
 
+import com.mikepenz.fastadapter.IDraggable;
+import com.mikepenz.fastadapter.IExpandable;
 import com.mikepenz.fastadapter.IItem;
+import com.mikepenz.fastadapter.ISubItem;
+import com.mikepenz.materialdrawer.util.DrawerImageLoader;
 
 import java.util.List;
 
 /**
  * Created by mikepenz on 03.02.15.
  */
-public interface IDrawerItem<T, VH extends RecyclerView.ViewHolder> extends IItem<T, VH> {
+public interface IDrawerItem<T, VH extends RecyclerView.ViewHolder> extends IItem<T, VH>, IExpandable<T, IDrawerItem>, ISubItem<IDrawerItem, IDrawerItem> {
 
     Object getTag();
 
@@ -35,6 +39,8 @@ public interface IDrawerItem<T, VH extends RecyclerView.ViewHolder> extends IIte
     View generateView(Context ctx, ViewGroup parent);
 
     VH getViewHolder(ViewGroup parent);
+
+    void unbindView(VH holder);
 
     void bindView(VH holder, List payloads);
 

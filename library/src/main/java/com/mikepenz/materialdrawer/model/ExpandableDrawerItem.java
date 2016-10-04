@@ -64,7 +64,6 @@ public class ExpandableDrawerItem extends BaseDescribeableDrawerItem<ExpandableD
         return R.layout.material_drawer_item_expandable;
     }
 
-
     @Override
     public ExpandableDrawerItem withOnDrawerItemClickListener(Drawer.OnDrawerItemClickListener onDrawerItemClickListener) {
         mOnDrawerItemClickListener = onDrawerItemClickListener;
