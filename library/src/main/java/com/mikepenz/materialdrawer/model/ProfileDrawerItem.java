@@ -95,6 +95,12 @@ public class ProfileDrawerItem extends AbstractDrawerItem<ProfileDrawerItem, Pro
         return this;
     }
 
+  /**
+   * Whether to show the profile name in the account switcher.
+   *
+   * @param nameShown show name in switcher
+   * @return the {@link ProfileDrawerItem}
+   */
     public ProfileDrawerItem withNameShown(boolean nameShown) {
         this.nameShown = nameShown;
         return this;
