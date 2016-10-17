@@ -7,4 +7,4 @@ First, you need a add `espresso-contrib` to your project. It has the needed `Dra
 
 Then, you need to open the drawer with his `openDrawer()` method and the drawer layout ID. The generated one is `R.id.material_drawer_layout`
 
-`DrawerActions.open(R.id.material_drawer_layout);`
+`onView(withId(R.id.material_drawer_layout)).perform(DrawerActions.open(Gravity.START));`
