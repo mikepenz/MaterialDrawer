@@ -15,7 +15,7 @@ There  is a Header with profiles (**AccountHeader**), a **MiniDrawer** for Table
 ###A quick overview what's in
 - **the easiest possible integration**
 - integrate in less than **5 minutes**
-- compatible down to **API Level 10**
+- compatible down to **API Level 14**
 - includes an **AccountSwitcher**
 - quick and simple api
 - follows the **Google Material Design Guidelines**
@@ -52,7 +52,7 @@ You can find some frequently asked questions and other resources in the [WIKI / 
 ##1. Provide the gradle dependency
 
 ```gradle
-compile('com.mikepenz:materialdrawer:5.6.0@aar') {
+compile('com.mikepenz:materialdrawer:5.7.0@aar') {
 	transitive = true
 }
 ```
@@ -419,6 +419,10 @@ builder.withDrawerLayout(R.layout.material_drawer);
 * [Atmosphere](https://play.google.com/store/apps/details?id=com.peakpocketstudios.atmosphere)
 * [Slidechat](https://play.google.com/store/apps/details?id=com.taddu.adfree.slidechat)
 * [Fitness Challenge](https://play.google.com/store/apps/details?id=com.isidroid.fitchallenge)
+* [European Capital of Culture - Pafos2017 official app](https://play.google.com/store/apps/details?id=com.trackandtalk.pafos17)
+* [I'm Reading Quran - Kur'an Okuyorum](https://play.google.com/store/apps/details?id=com.homemade.kuranokuma)
+* [Makota Money Manager](https://play.google.com/store/apps/details?id=be.jatra.makota)
+* [Companion for Band](https://github.com/adithya321/Companion-for-Band)
 
 #Articles about the MaterialDrawer
 * [java-help.ru](http://java-help.ru/material-navigationdrawer/)

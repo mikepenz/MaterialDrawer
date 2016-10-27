@@ -29,6 +29,10 @@ public class ExpandableDrawerItem extends BaseDescribeableDrawerItem<ExpandableD
 
     protected ColorHolder arrowColor;
 
+    protected int arrowRotationAngleStart = 0;
+
+    protected int arrowRotationAngleEnd = 180;
+
     public ExpandableDrawerItem withArrowColor(@ColorInt int arrowColor) {
         this.arrowColor = ColorHolder.fromColor(arrowColor);
         return this;
@@ -36,6 +40,16 @@ public class ExpandableDrawerItem extends BaseDescribeableDrawerItem<ExpandableD
 
     public ExpandableDrawerItem withArrowColorRes(@ColorRes int arrowColorRes) {
         this.arrowColor = ColorHolder.fromColorRes(arrowColorRes);
+        return this;
+    }
+
+    public ExpandableDrawerItem withArrowRotationAngleStart(int angle) {
+        this.arrowRotationAngleStart = angle;
+        return this;
+    }
+
+    public ExpandableDrawerItem withArrowRotationAngleEnd(int angle) {
+        this.arrowRotationAngleEnd = angle;
         return this;
     }
 
@@ -49,7 +63,6 @@ public class ExpandableDrawerItem extends BaseDescribeableDrawerItem<ExpandableD
     public int getLayoutRes() {
         return R.layout.material_drawer_item_expandable;
     }
-
 
     @Override
     public ExpandableDrawerItem withOnDrawerItemClickListener(Drawer.OnDrawerItemClickListener onDrawerItemClickListener) {
@@ -71,9 +84,9 @@ public class ExpandableDrawerItem extends BaseDescribeableDrawerItem<ExpandableD
             if (drawerItem instanceof AbstractDrawerItem && drawerItem.isEnabled()) {
                 if (((AbstractDrawerItem) drawerItem).getSubItems() != null) {
                     if (((AbstractDrawerItem) drawerItem).isExpanded()) {
-                        ViewCompat.animate(view.findViewById(R.id.material_drawer_arrow)).rotation(180).start();
+                        ViewCompat.animate(view.findViewById(R.id.material_drawer_arrow)).rotation(ExpandableDrawerItem.this.arrowRotationAngleEnd).start();
                     } else {
-                        ViewCompat.animate(view.findViewById(R.id.material_drawer_arrow)).rotation(0).start();
+                        ViewCompat.animate(view.findViewById(R.id.material_drawer_arrow)).rotation(ExpandableDrawerItem.this.arrowRotationAngleStart).start();
                     }
                 }
             }
@@ -92,9 +105,9 @@ public class ExpandableDrawerItem extends BaseDescribeableDrawerItem<ExpandableD
         viewHolder.arrow.setColor(this.arrowColor != null ? this.arrowColor.color(ctx) : getIconColor(ctx));
         viewHolder.arrow.clearAnimation();
         if (!isExpanded()) {
-            ViewCompat.setRotation(viewHolder.arrow, 0);
+            ViewCompat.setRotation(viewHolder.arrow, this.arrowRotationAngleStart);
         } else {
-            ViewCompat.setRotation(viewHolder.arrow, 180);
+            ViewCompat.setRotation(viewHolder.arrow, this.arrowRotationAngleEnd);
         }
 
         //call the onPostBindView method to trigger post bind view actions (like the listener to modify the item if required)

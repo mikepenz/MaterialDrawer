@@ -1,5 +1,11 @@
 ###Upgrade Notes
 
+#### v5.7.0
+**IMPORTANT IF YOU IMPLEMENT CUSTOM-DRAWER-ITEMS OR USE THE FASTADAPTER**
+* You have to update your `FastAdapter` dependency to v2.0.0 with this release
+* If you have `CustomDrawerItem`'s not based on the `AbstractDrawerITems` make sure you implement the `unbindView` method, and the new required methods
+* See the MIGRATION information of the **FastAdapter** https://github.com/mikepenz/FastAdapter/blob/develop/MIGRATION.md
+
 #### v5.6.0
 **IMPORTANT IF YOU IMPLEMENT CUSTOM-DRAWER-ITEMS OR USE THE FASTADAPTER**
 * This release brings a breaking interface change. Your items now have to implement `bindView(ViewHolder holder, List payloads)` instead of `bindView(VH holder)`. 
