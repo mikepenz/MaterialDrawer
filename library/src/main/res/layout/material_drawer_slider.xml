@@ -6,6 +6,7 @@
     android:layout_gravity="start"
     android:layout_marginEnd="@dimen/material_drawer_margin"
     android:layout_marginRight="@dimen/material_drawer_margin"
+    android:clickable="true"
     android:elevation="8dp"
     android:fitsSystemWindows="true"
     android:orientation="vertical">
