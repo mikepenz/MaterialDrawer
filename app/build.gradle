@@ -12,8 +12,8 @@ android {
     defaultConfig {
         minSdkVersion setup.minSdk
         targetSdkVersion setup.targetSdk
-        versionCode 560
-        versionName "5.6.0"
+        versionCode 570
+        versionName "5.7.0"
 
         setProperty("archivesBaseName", "-v$versionName-c$versionCode")
     }
@@ -53,7 +53,7 @@ dependencies {
 
     // used to generate the Open Source section
     // https://github.com/mikepenz/AboutLibraries
-    compile('com.mikepenz:aboutlibraries:5.8.1@aar') {
+    compile('com.mikepenz:aboutlibraries:5.8.5@aar') {
         transitive = true
         exclude module: "fastadapter"
     }
