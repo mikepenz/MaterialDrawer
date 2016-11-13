@@ -55,6 +55,9 @@ You can find some frequently asked questions and other resources in the [WIKI / 
 compile('com.mikepenz:materialdrawer:5.7.0@aar') {
 	transitive = true
 }
+
+//FASTADAPTER 2.1.0-SNAPSHOT support
+com.mikepenz:materialdrawer:5.8.0-SNAPSHOT@aar
 ```
 
 ##2. Add your drawer
