@@ -5,11 +5,9 @@ import android.support.v7.widget.RecyclerView;
 import android.view.View;
 import android.view.ViewGroup;
 
-import com.mikepenz.fastadapter.IDraggable;
 import com.mikepenz.fastadapter.IExpandable;
 import com.mikepenz.fastadapter.IItem;
 import com.mikepenz.fastadapter.ISubItem;
-import com.mikepenz.materialdrawer.util.DrawerImageLoader;
 
 import java.util.List;
 
@@ -42,7 +40,7 @@ public interface IDrawerItem<T, VH extends RecyclerView.ViewHolder> extends IIte
 
     void unbindView(VH holder);
 
-    void bindView(VH holder, List payloads);
+    void bindView(VH holder, List<Object> payloads);
 
     boolean equals(long id);
 }
