@@ -51,6 +51,9 @@ dependencies {
     compile 'com.squareup.picasso:picasso:2.5.2'
     compile 'com.github.bumptech.glide:glide:3.7.0'
 
+    // the sample uses more advanced functions of the fastadapter
+    // https://github.com/mikepenz/FastAdapter/
+    compile 'com.mikepenz:fastadapter-commons:2.1.0.b2-SNAPSHOT@aar'
     // used to generate the Open Source section
     // https://github.com/mikepenz/AboutLibraries
     compile('com.mikepenz:aboutlibraries:5.8.5@aar') {
