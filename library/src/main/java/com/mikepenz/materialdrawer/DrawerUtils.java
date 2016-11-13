@@ -59,7 +59,7 @@ class DrawerUtils {
 
             if (fireOnClick) {
                 if (drawerItem instanceof AbstractDrawerItem && ((AbstractDrawerItem) drawerItem).getOnDrawerItemClickListener() != null) {
-                    consumed = ((AbstractDrawerItem) drawerItem).getOnDrawerItemClickListener().onItemClick(null, -1, drawerItem);
+                    consumed = ((AbstractDrawerItem) drawerItem).getOnDrawerItemClickListener().onItemClick(v, -1, drawerItem);
                 }
 
                 if (drawer.mOnDrawerItemClickListener != null) {
