@@ -64,6 +64,7 @@
                 android:id="@+id/material_drawer_account_header_name"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:ellipsize="end"
                 android:fontFamily="sans-serif-medium"
                 android:lines="1"
                 android:maxLines="1"
@@ -74,6 +75,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:fontFamily="sans-serif"
+                android:ellipsize="end"
                 android:lines="1"
                 android:maxLines="1"
                 android:textSize="@dimen/material_drawer_account_header_text" />
