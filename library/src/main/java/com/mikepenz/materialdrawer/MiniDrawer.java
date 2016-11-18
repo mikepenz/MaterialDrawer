@@ -12,7 +12,6 @@ import android.widget.LinearLayout;
 
 import com.mikepenz.fastadapter.FastAdapter;
 import com.mikepenz.fastadapter.IAdapter;
-import com.mikepenz.fastadapter.adapters.FastItemAdapter;
 import com.mikepenz.fastadapter.adapters.ItemAdapter;
 import com.mikepenz.materialdrawer.interfaces.ICrossfader;
 import com.mikepenz.materialdrawer.model.MiniDrawerItem;
@@ -36,7 +35,8 @@ public class MiniDrawer {
 
     private LinearLayout mContainer;
     private RecyclerView mRecyclerView;
-    protected FastItemAdapter<IDrawerItem> mAdapter;
+    protected FastAdapter<IDrawerItem> mAdapter;
+    protected ItemAdapter<IDrawerItem> mItemAdapter;
 
     private Drawer mDrawer;
 
@@ -223,7 +223,7 @@ public class MiniDrawer {
      * @return
      */
     public ItemAdapter<IDrawerItem> getItemAdapter() {
-        return mAdapter.getItemAdapter();
+        return mItemAdapter;
     }
 
     /**
@@ -335,11 +335,12 @@ public class MiniDrawer {
         //additional stuff
         mRecyclerView.setLayoutManager(new LinearLayoutManager(ctx));
         //adapter
-        mAdapter = new FastItemAdapter<>();
+        mAdapter = new FastAdapter<>();
+        mItemAdapter = new ItemAdapter<>();
         mAdapter.withSelectable(true);
         mAdapter.withAllowDeselection(false);
         mAdapter.withPositionBasedStateManagement(mPositionBasedStateManagement);
-        mRecyclerView.setAdapter(mAdapter);
+        mRecyclerView.setAdapter(mItemAdapter.wrap(mAdapter));
 
         //if the activity with the drawer should be fullscreen add the padding for the statusbar
         if (mDrawer != null && mDrawer.mDrawerBuilder != null && (mDrawer.mDrawerBuilder.mFullscreen || mDrawer.mDrawerBuilder.mTranslucentStatusBar)) {
@@ -372,7 +373,7 @@ public class MiniDrawer {
         if (mAccountHeader != null) {
             IProfile profile = mAccountHeader.getActiveProfile();
             if (profile instanceof IDrawerItem) {
-                mAdapter.set(0, generateMiniDrawerItem((IDrawerItem) profile));
+                mItemAdapter.set(0, generateMiniDrawerItem((IDrawerItem) profile));
             }
         }
     }
@@ -423,13 +424,13 @@ public class MiniDrawer {
      * @param identifier the identifier of the item which was updated
      */
     public void updateItem(long identifier) {
-        if (mDrawer != null && mAdapter != null && mAdapter.getAdapterItems() != null && identifier != -1) {
+        if (mDrawer != null && mAdapter != null && mItemAdapter.getAdapterItems() != null && identifier != -1) {
             IDrawerItem drawerItem = DrawerUtils.getDrawerItem(getDrawerItems(), identifier);
-            for (int i = 0; i < mAdapter.getAdapterItems().size(); i++) {
-                if (mAdapter.getAdapterItems().get(i).getIdentifier() == drawerItem.getIdentifier()) {
+            for (int i = 0; i < mItemAdapter.getAdapterItems().size(); i++) {
+                if (mItemAdapter.getAdapterItems().get(i).getIdentifier() == drawerItem.getIdentifier()) {
                     IDrawerItem miniDrawerItem = generateMiniDrawerItem(drawerItem);
                     if (miniDrawerItem != null) {
-                        mAdapter.set(i, miniDrawerItem);
+                        mItemAdapter.set(i, miniDrawerItem);
                     }
                 }
             }
@@ -440,13 +441,13 @@ public class MiniDrawer {
      * creates the items for the MiniDrawer
      */
     public void createItems() {
-        mAdapter.clear();
+        mItemAdapter.clear();
 
         int profileOffset = 0;
         if (mAccountHeader != null && mAccountHeader.getAccountHeaderBuilder().mProfileImagesVisible) {
             IProfile profile = mAccountHeader.getActiveProfile();
             if (profile instanceof IDrawerItem) {
-                mAdapter.add(generateMiniDrawerItem((IDrawerItem) profile));
+                mItemAdapter.add(generateMiniDrawerItem((IDrawerItem) profile));
                 profileOffset = 1;
             }
         }
@@ -464,7 +465,7 @@ public class MiniDrawer {
                         if (miniDrawerItem.isSelected()) {
                             select = position;
                         }
-                        mAdapter.add(miniDrawerItem);
+                        mItemAdapter.add(miniDrawerItem);
                         position = position + 1;
                     }
                 }

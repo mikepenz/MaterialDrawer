@@ -5,7 +5,7 @@ buildscript {
                  minSdk    : 14,
                  targetSdk : 25]
 
-        versions = [supportLib: "25.0.0"]
+        versions = [supportLib: "25.0.1"]
     }
 
     repositories {
