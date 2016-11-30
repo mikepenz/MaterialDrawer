@@ -423,6 +423,7 @@ builder.withDrawerLayout(R.layout.material_drawer);
 * [I'm Reading Quran - Kur'an Okuyorum](https://play.google.com/store/apps/details?id=com.homemade.kuranokuma)
 * [Makota Money Manager](https://play.google.com/store/apps/details?id=be.jatra.makota)
 * [Companion for Band](https://github.com/adithya321/Companion-for-Band)
+* [Chisme for Sensu](https://play.google.com/store/apps/details?id=com.antonionicolaspina.sensu)
 
 #Articles about the MaterialDrawer
 * [java-help.ru](http://java-help.ru/material-navigationdrawer/)
