@@ -116,6 +116,8 @@ public class MiniDrawerItem extends BaseDrawerItem<MiniDrawerItem, MiniDrawerIte
 
     @Override
     public void bindView(ViewHolder viewHolder, List payloads) {
+        super.bindView(viewHolder, payloads);
+
         Context ctx = viewHolder.itemView.getContext();
 
         //set a different height for this item

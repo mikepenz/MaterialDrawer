@@ -74,6 +74,8 @@ public class AbstractToggleableDrawerItem<Item extends AbstractToggleableDrawerI
 
     @Override
     public void bindView(final ViewHolder viewHolder, List payloads) {
+        super.bindView(viewHolder, payloads);
+
         //bind the basic view parts
         bindViewHelper(viewHolder);
 

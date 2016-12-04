@@ -66,6 +66,8 @@ public class CustomUrlPrimaryDrawerItem extends CustomUrlBasePrimaryDrawerItem<C
 
     @Override
     public void bindView(ViewHolder viewHolder, List payloads) {
+        super.bindView(viewHolder, payloads);
+
         Context ctx = viewHolder.itemView.getContext();
 
         //bind the basic view parts

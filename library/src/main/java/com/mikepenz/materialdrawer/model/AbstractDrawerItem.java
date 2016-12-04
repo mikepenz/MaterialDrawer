@@ -1,6 +1,7 @@
 package com.mikepenz.materialdrawer.model;
 
 import android.content.Context;
+import android.support.annotation.CallSuper;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -310,6 +311,12 @@ public abstract class AbstractDrawerItem<T, VH extends RecyclerView.ViewHolder> 
         VH viewHolder = getFactory().create(LayoutInflater.from(ctx).inflate(getLayoutRes(), parent, false));
         bindView(viewHolder, Collections.emptyList());
         return viewHolder.itemView;
+    }
+
+    @CallSuper
+    @Override
+    public void bindView(VH holder, List<Object> payloads) {
+        holder.itemView.setTag(this);
     }
 
     /**
