@@ -12,8 +12,8 @@ android {
     defaultConfig {
         minSdkVersion setup.minSdk
         targetSdkVersion setup.targetSdk
-        versionCode 580
-        versionName "5.8.0"
+        versionCode 581
+        versionName "5.8.1"
 
         setProperty("archivesBaseName", "-v$versionName-c$versionCode")
     }

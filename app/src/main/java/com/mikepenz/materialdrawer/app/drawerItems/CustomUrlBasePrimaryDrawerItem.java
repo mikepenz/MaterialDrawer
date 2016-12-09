@@ -74,9 +74,6 @@ public abstract class CustomUrlBasePrimaryDrawerItem<T, VH extends RecyclerView.
         //set the item selected if it is
         viewHolder.itemView.setSelected(isSelected());
 
-        //
-        viewHolder.itemView.setTag(this);
-
         //get the correct color for the background
         int selectedColor = getSelectedColor(ctx);
         //get the correct color for the text

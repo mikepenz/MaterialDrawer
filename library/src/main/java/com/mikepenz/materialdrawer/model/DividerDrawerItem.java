@@ -29,6 +29,8 @@ public class DividerDrawerItem extends AbstractDrawerItem<DividerDrawerItem, Div
 
     @Override
     public void bindView(ViewHolder viewHolder, List payloads) {
+        super.bindView(viewHolder, payloads);
+
         Context ctx = viewHolder.itemView.getContext();
 
         //set the identifier from the drawerItem here. It can be used to run tests
