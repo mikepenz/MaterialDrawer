@@ -209,6 +209,8 @@ public class ProfileSettingDrawerItem extends AbstractDrawerItem<ProfileSettingD
 
     @Override
     public void bindView(ViewHolder viewHolder, List payloads) {
+        super.bindView(viewHolder, payloads);
+
         //get the context
         Context ctx = viewHolder.itemView.getContext();
 

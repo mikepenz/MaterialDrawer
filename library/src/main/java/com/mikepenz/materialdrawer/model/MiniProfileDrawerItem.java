@@ -132,6 +132,8 @@ public class MiniProfileDrawerItem extends AbstractDrawerItem<MiniProfileDrawerI
 
     @Override
     public void bindView(ViewHolder viewHolder, List payloads) {
+        super.bindView(viewHolder, payloads);
+
         if (customHeight != null) {
             RecyclerView.LayoutParams lp = (RecyclerView.LayoutParams) viewHolder.itemView.getLayoutParams();
             lp.height = customHeight.asPixel(viewHolder.itemView.getContext());

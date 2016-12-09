@@ -97,6 +97,8 @@ public class ExpandableDrawerItem extends BaseDescribeableDrawerItem<ExpandableD
 
     @Override
     public void bindView(ViewHolder viewHolder, List payloads) {
+        super.bindView(viewHolder, payloads);
+
         Context ctx = viewHolder.itemView.getContext();
         //bind the basic view parts
         bindViewHelper(viewHolder);

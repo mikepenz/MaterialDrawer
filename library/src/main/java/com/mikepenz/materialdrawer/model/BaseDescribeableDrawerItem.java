@@ -65,9 +65,6 @@ public abstract class BaseDescribeableDrawerItem<T, VH extends BaseViewHolder> e
         //set the item enabled if it is
         viewHolder.itemView.setEnabled(isEnabled());
 
-        //
-        viewHolder.itemView.setTag(this);
-
         //get the correct color for the background
         int selectedColor = getSelectedColor(ctx);
         //get the correct color for the text

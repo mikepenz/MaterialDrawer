@@ -47,6 +47,8 @@ public class ExpandableBadgeDrawerItem extends BaseDescribeableDrawerItem<Expand
   }
 
   @Override public void bindView(ExpandableBadgeDrawerItem.ViewHolder viewHolder, List payloads) {
+    super.bindView(viewHolder, payloads);
+
     Context ctx = viewHolder.itemView.getContext();
     //bind the basic view parts
     bindViewHelper(viewHolder);
