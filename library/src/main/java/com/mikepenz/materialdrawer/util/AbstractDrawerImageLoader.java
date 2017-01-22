@@ -17,8 +17,8 @@ public abstract class AbstractDrawerImageLoader implements DrawerImageLoader.IDr
         set(imageView, uri, placeholder);
         //this won't do anything
         Log.i("MaterialDrawer", "you have not specified a ImageLoader implementation through the DrawerImageLoader.init(IDrawerImageLoader) method");
+        Log.i("MaterialDrawer", "Maybe you are overriding set(ImageView imageView, Uri uri, Drawable drawable) instead of set(ImageView imageView, Uri uri, Drawable drawable, String tag)?");
     }
-
     @Override
     public void cancel(ImageView imageView) {
     }
