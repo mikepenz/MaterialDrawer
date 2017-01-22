@@ -75,6 +75,7 @@ public class DrawerImageLoader {
     }
 
     public interface IDrawerImageLoader {
+        @Deprecated
         void set(ImageView imageView, Uri uri, Drawable placeholder);
 
         void set(ImageView imageView, Uri uri, Drawable placeholder, String tag);
