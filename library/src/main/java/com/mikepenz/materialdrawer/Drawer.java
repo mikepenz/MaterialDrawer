@@ -50,6 +50,11 @@ public class Drawer {
      */
     protected static final String PREF_USER_LEARNED_DRAWER = "navigation_drawer_learned";
 
+    /**
+     * Per the design guidelines, you should show the drawer on launch until the user manually
+     * expands it. This shared preference tracks this.
+     */
+    protected static final String PREF_USER_OPENED_DRAWER_BY_DRAGGING = "navigation_drawer_dragged_open";
 
     protected final DrawerBuilder mDrawerBuilder;
     private FrameLayout mContentView;
