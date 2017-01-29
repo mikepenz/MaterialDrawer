@@ -398,7 +398,7 @@ class DrawerUtils {
             view.setTag(drawerItem);
 
             if (drawerItem.isEnabled()) {
-                //UIUtils.setBackground(view, UIUtils.getSelectableBackground(container.getContext(), selected_color, true));
+                //UIUtils.setBackground(view, UIUtils.getSelectableBackground(container.getContext(), selected_color, drawerItem.isSelectedBackgroundAnimated()));
                 view.setOnClickListener(onClickListener);
             }
 

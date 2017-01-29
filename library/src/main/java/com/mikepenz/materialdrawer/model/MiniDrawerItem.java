@@ -147,7 +147,7 @@ public class MiniDrawerItem extends BaseDrawerItem<MiniDrawerItem, MiniDrawerIte
             //get the correct color for the background
             int selectedColor = getSelectedColor(ctx);
             //set the background for the item
-            UIUtils.setBackground(viewHolder.view, UIUtils.getSelectableBackground(ctx, selectedColor, true));
+            UIUtils.setBackground(viewHolder.view, UIUtils.getSelectableBackground(ctx, selectedColor, isSelectedBackgroundAnimated()));
         }
 
         //set the text for the badge or hide
