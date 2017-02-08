@@ -6,7 +6,7 @@ import android.graphics.PorterDuff;
 import android.graphics.drawable.Drawable;
 import android.net.Uri;
 import android.support.annotation.DrawableRes;
-import android.support.v4.content.ContextCompat;
+import android.support.v7.widget.AppCompatDrawableManager;
 import android.view.View;
 import android.widget.ImageView;
 
@@ -100,7 +100,7 @@ public class ImageHolder extends com.mikepenz.materialize.holder.ImageHolder {
         if (mIIcon != null) {
             icon = new IconicsDrawable(ctx, mIIcon).color(iconColor).sizeDp(24).paddingDp(paddingDp);
         } else if (getIconRes() != -1) {
-            icon = ContextCompat.getDrawable(ctx, getIconRes());
+            icon = AppCompatDrawableManager.get().getDrawable(ctx, getIconRes());
         } else if (getUri() != null) {
             try {
                 InputStream inputStream = ctx.getContentResolver().openInputStream(getUri());
