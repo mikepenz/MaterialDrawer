@@ -397,7 +397,6 @@ builder.withDrawerLayout(R.layout.material_drawer);
 * [wall:splash](https://play.google.com/store/apps/details?id=com.mikepenz.unsplash)
 * [GitSkarios](https://play.google.com/store/apps/details?id=com.alorma.github)
 * [Screener](https://play.google.com/store/apps/details?id=de.toastcode.screener)
-* [Recipedia](https://play.google.com/store/apps/details?id=com.md.recipedia)
 * [Academic Schedule](https://play.google.com/store/apps/details?id=com.auebcsschedule.ppt)
 * [Strength](https://play.google.com/store/apps/details?id=com.e13engineering.strength)
 * [Sprit Club](https://play.google.com/store/apps/details?id=at.idev.spritpreise)
@@ -425,6 +424,7 @@ builder.withDrawerLayout(R.layout.material_drawer);
 * [Makota Money Manager](https://play.google.com/store/apps/details?id=be.jatra.makota)
 * [Companion for Band](https://github.com/adithya321/Companion-for-Band)
 * [Chisme for Sensu](https://play.google.com/store/apps/details?id=com.antonionicolaspina.sensu)
+* [Recipedia](https://play.google.com/store/apps/details?id=com.md.recipedia)
 
 #Articles about the MaterialDrawer
 * [java-help.ru](http://java-help.ru/material-navigationdrawer/)
