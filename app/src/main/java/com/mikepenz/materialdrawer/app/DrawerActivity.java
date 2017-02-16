@@ -205,6 +205,7 @@ public class DrawerActivity extends AppCompatActivity {
                 })
                 .withSavedInstance(savedInstanceState)
                 .withShowDrawerOnFirstLaunch(true)
+//                .withShowDrawerUntilDraggedOpened(true)
                 .build();
 
         //if you have many different types of DrawerItems you can magically pre-cache those items to get a better scroll performance
