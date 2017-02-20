@@ -246,7 +246,7 @@ public class ProfileSettingDrawerItem extends AbstractDrawerItem<ProfileSettingD
         StringHolder.applyTo(this.getName(), viewHolder.name);
         viewHolder.name.setTextColor(color);
 
-        StringHolder.applyTo(this.getDescription(), viewHolder.description);
+        StringHolder.applyToOrHide(this.getDescription(), viewHolder.description);
         viewHolder.description.setTextColor(color);
 
         if (getTypeface() != null) {
