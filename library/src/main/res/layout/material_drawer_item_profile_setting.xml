@@ -21,14 +21,36 @@
         android:paddingStart="0dp"
         android:paddingTop="@dimen/material_drawer_item_profile_setting_icon_padding" />
 
-    <TextView
-        android:id="@+id/material_drawer_name"
-        android:layout_width="match_parent"
+    <LinearLayout
+        android:layout_width="0dp"
         android:layout_height="match_parent"
-        android:fontFamily="sans-serif"
+        android:layout_weight="1"
         android:gravity="center_vertical|start"
-        android:lines="1"
-        android:singleLine="true"
-        android:textSize="@dimen/material_drawer_item_profile_text"
-        tools:text="Some drawer text" />
+        android:orientation="vertical">
+
+        <TextView
+            android:id="@+id/material_drawer_name"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:fontFamily="sans-serif-medium"
+            android:gravity="center_vertical|start"
+            android:lines="1"
+            android:maxLines="1"
+            android:textDirection="anyRtl"
+            android:textSize="@dimen/material_drawer_item_primary_text"
+            tools:text="Some drawer text" />
+
+        <TextView
+            android:id="@+id/material_drawer_description"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:fontFamily="sans-serif"
+            android:gravity="center_vertical|start"
+            android:lines="1"
+            android:maxLines="1"
+            android:textDirection="anyRtl"
+            android:textSize="@dimen/material_drawer_item_primary_description"
+            tools:text="Some drawer text" />
+    </LinearLayout>
+
 </LinearLayout>
