@@ -426,6 +426,7 @@ builder.withDrawerLayout(R.layout.material_drawer);
 * [Chisme for Sensu](https://play.google.com/store/apps/details?id=com.antonionicolaspina.sensu)
 * [Recipedia](https://play.google.com/store/apps/details?id=com.md.recipedia)
 * [Right Сourse - ruble course](https://play.google.com/store/apps/details?id=com.currency.work.currencychecker)
+* [Gameru](https://play.google.com/store/apps/details?id=net.gameru)
 
 #Articles about the MaterialDrawer
 * [java-help.ru](http://java-help.ru/material-navigationdrawer/)
