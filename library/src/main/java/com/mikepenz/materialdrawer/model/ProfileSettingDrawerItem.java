@@ -36,12 +36,14 @@ public class ProfileSettingDrawerItem extends AbstractDrawerItem<ProfileSettingD
 
     private StringHolder name;
     private StringHolder email;
+    private StringHolder description;
 
     private boolean iconTinted = false;
 
     private ColorHolder selectedColor;
     private ColorHolder textColor;
     private ColorHolder iconColor;
+    private ColorHolder descriptionColor;
 
     private Typeface typeface = null;
 
@@ -89,7 +91,7 @@ public class ProfileSettingDrawerItem extends AbstractDrawerItem<ProfileSettingD
     }
 
     public ProfileSettingDrawerItem withDescription(String description) {
-        this.email = new StringHolder(description);
+        this.description = new StringHolder(description);
         return this;
     }
 
@@ -115,6 +117,16 @@ public class ProfileSettingDrawerItem extends AbstractDrawerItem<ProfileSettingD
     }
 
     public ProfileSettingDrawerItem withTextColorRes(@ColorRes int textColorRes) {
+        this.textColor = ColorHolder.fromColorRes(textColorRes);
+        return this;
+    }
+
+    public ProfileSettingDrawerItem withDescriptionTextColor(@ColorInt int textColor) {
+        this.textColor = ColorHolder.fromColor(textColor);
+        return this;
+    }
+
+    public ProfileSettingDrawerItem withDescriptionTextColorRes(@ColorRes int textColorRes) {
         this.textColor = ColorHolder.fromColorRes(textColorRes);
         return this;
     }
@@ -179,11 +191,11 @@ public class ProfileSettingDrawerItem extends AbstractDrawerItem<ProfileSettingD
     }
 
     public StringHolder getDescription() {
-        return email;
+        return description;
     }
 
     public void setDescription(String description) {
-        this.email = new StringHolder(description);
+        this.description = new StringHolder(description);
     }
 
     @Override
@@ -234,6 +246,9 @@ public class ProfileSettingDrawerItem extends AbstractDrawerItem<ProfileSettingD
         StringHolder.applyTo(this.getName(), viewHolder.name);
         viewHolder.name.setTextColor(color);
 
+        StringHolder.applyToOrHide(this.getDescription(), viewHolder.description);
+        viewHolder.description.setTextColor(color);
+
         if (getTypeface() != null) {
             viewHolder.name.setTypeface(getTypeface());
         }
@@ -263,12 +278,14 @@ public class ProfileSettingDrawerItem extends AbstractDrawerItem<ProfileSettingD
         private View view;
         private ImageView icon;
         private TextView name;
+        private TextView description;
 
         private ViewHolder(View view) {
             super(view);
             this.view = view;
             this.icon = (ImageView) view.findViewById(R.id.material_drawer_icon);
             this.name = (TextView) view.findViewById(R.id.material_drawer_name);
+            this.description = (TextView) view.findViewById(R.id.material_drawer_description);
         }
     }
 }
