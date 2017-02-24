@@ -35,7 +35,6 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.FrameLayout;
 import android.widget.LinearLayout;
-
 import com.mikepenz.fastadapter.FastAdapter;
 import com.mikepenz.fastadapter.IAdapter;
 import com.mikepenz.fastadapter.IExpandable;
@@ -1190,6 +1189,20 @@ public class DrawerBuilder {
         return this;
     }
 
+    //show the drawer on launch to show the user its there, keep doing it until the user has dragged it open once
+    protected boolean mShowDrawerUntilDraggedOpened = false;
+
+    /**
+     * define if the DrawerBuilder is shown until the user has dragged it open once
+     *
+     * @param showDrawerUntilDraggedOpened
+     * @return DrawerBuilder
+     */
+    public DrawerBuilder withShowDrawerUntilDraggedOpened(boolean showDrawerUntilDraggedOpened) {
+        mShowDrawerUntilDraggedOpened = showDrawerUntilDraggedOpened;
+        return this;
+    }
+
     //also generate the MiniDrawer for this Drawer
     protected boolean mGenerateMiniDrawer = false;
     protected MiniDrawer mMiniDrawer = null;
@@ -1222,14 +1235,15 @@ public class DrawerBuilder {
     }
 
     /**
-     * helper method to handle when the drawer should be shown on the first launch
+     * helper method to handle when the drawer should be shown on launch
      */
-    private void handleShowOnFirstLaunch() {
-        //check if it should be shown on first launch (and we have a drawerLayout)
-        if (mActivity != null && mDrawerLayout != null && mShowDrawerOnFirstLaunch) {
-            SharedPreferences preferences = PreferenceManager.getDefaultSharedPreferences(mActivity);
-            //if it was not shown yet
-            if (!preferences.getBoolean(Drawer.PREF_USER_LEARNED_DRAWER, false)) {
+    private void handleShowOnLaunch() {
+        //check if it should be shown on launch (and we have a drawerLayout)
+        if (mActivity != null && mDrawerLayout != null) {
+            final SharedPreferences preferences = PreferenceManager.getDefaultSharedPreferences(mActivity);
+
+            if(mShowDrawerOnFirstLaunch && !preferences.getBoolean(Drawer.PREF_USER_LEARNED_DRAWER, false)){
+                //if it was not shown yet
                 //open the drawer
                 mDrawerLayout.openDrawer(mSliderLayout);
 
@@ -1237,6 +1251,35 @@ public class DrawerBuilder {
                 SharedPreferences.Editor editor = preferences.edit();
                 editor.putBoolean(Drawer.PREF_USER_LEARNED_DRAWER, true);
                 editor.apply();
+
+            } else if(mShowDrawerUntilDraggedOpened && !preferences.getBoolean(Drawer.PREF_USER_OPENED_DRAWER_BY_DRAGGING, false)) {
+                // open the drawer since the user has not dragged it open yet
+                mDrawerLayout.openDrawer(mSliderLayout);
+
+                // add a listener to detect dragging
+                mDrawerLayout.addDrawerListener(new DrawerLayout.SimpleDrawerListener() {
+                    boolean hasBeenDragged = false;
+
+                    @Override
+                    public void onDrawerStateChanged(int newState) {
+                        if(newState == DrawerLayout.STATE_DRAGGING){
+                            // save that the user was dragging
+                            hasBeenDragged = true;
+
+                        } else if(newState == DrawerLayout.STATE_IDLE){
+                            // check if the user was dragging and if that resulted in an open drawer
+                            if(hasBeenDragged && mDrawerLayout.isDrawerOpen(mDrawerGravity)){
+                                // Save that the user has dragged it open
+                                SharedPreferences.Editor editor = preferences.edit();
+                                editor.putBoolean(Drawer.PREF_USER_OPENED_DRAWER_BY_DRAGGING, true);
+                                editor.apply();
+                            } else {
+                                // reset the drag boolean
+                                hasBeenDragged = false;
+                            }
+                        }
+                    }
+                });
             }
         }
     }
@@ -1494,8 +1537,8 @@ public class DrawerBuilder {
             mAccountHeader.toggleSelectionList(mActivity);
         }
 
-        //handle if the drawer should be shown on first launch
-        handleShowOnFirstLaunch();
+        //handle if the drawer should be shown on launch
+        handleShowOnLaunch();
 
         //we only want to hook a Drawer to the MiniDrawer if it is the main drawer, not the appended one
         if (!mAppended && mGenerateMiniDrawer) {

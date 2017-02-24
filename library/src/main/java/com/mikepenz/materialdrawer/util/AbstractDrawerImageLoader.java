@@ -16,9 +16,8 @@ public abstract class AbstractDrawerImageLoader implements DrawerImageLoader.IDr
         //for backwards compatibility call the method without tag too
         set(imageView, uri, placeholder);
         //this won't do anything
-        Log.i("MaterialDrawer", "you have not specified a ImageLoader implementation through the DrawerImageLoader.init(IDrawerImageLoader) method");
+        Log.i("MaterialDrawer", "You have not specified a ImageLoader implementation through the DrawerImageLoader.init() method, or you are still overriding the deprecated method set(ImageView iv, Uri u, Drawable d) instead of set(ImageView iv, Uri u, Drawable d, String tag)");
     }
-
     @Override
     public void cancel(ImageView imageView) {
     }

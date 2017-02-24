@@ -52,7 +52,7 @@ You can find some frequently asked questions and other resources in the [WIKI / 
 ##1. Provide the gradle dependency
 
 ```gradle
-compile('com.mikepenz:materialdrawer:5.8.1@aar') {
+compile('com.mikepenz:materialdrawer:5.8.2@aar') {
 	transitive = true
 }
 ```
@@ -424,6 +424,9 @@ builder.withDrawerLayout(R.layout.material_drawer);
 * [Makota Money Manager](https://play.google.com/store/apps/details?id=be.jatra.makota)
 * [Companion for Band](https://github.com/adithya321/Companion-for-Band)
 * [Chisme for Sensu](https://play.google.com/store/apps/details?id=com.antonionicolaspina.sensu)
+* [Recipedia](https://play.google.com/store/apps/details?id=com.md.recipedia)
+* [Right Сourse - ruble course](https://play.google.com/store/apps/details?id=com.currency.work.currencychecker)
+* [Gameru](https://play.google.com/store/apps/details?id=net.gameru)
 
 #Articles about the MaterialDrawer
 * [java-help.ru](http://java-help.ru/material-navigationdrawer/)

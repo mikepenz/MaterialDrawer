@@ -1,11 +1,11 @@
 buildscript {
     ext {
         setup = [compileSdk: 25,
-                 buildTools: "25.0.0",
+                 buildTools: "25.0.2",
                  minSdk    : 14,
                  targetSdk : 25]
 
-        versions = [supportLib: "25.0.1"]
+        versions = [supportLib: "25.2.0"]
     }
 
     repositories {
@@ -13,7 +13,7 @@ buildscript {
         mavenCentral()
     }
     dependencies {
-        classpath 'com.android.tools.build:gradle:2.2.2'
+        classpath 'com.android.tools.build:gradle:2.3.0-rc1'
         classpath 'com.novoda:bintray-release:0.3.4'
     }
 }
@@ -27,5 +27,5 @@ allprojects {
 }
 
 task wrapper(type: Wrapper) {
-    gradleVersion = '2.14.1'
+    gradleVersion = '3.4'
 }
