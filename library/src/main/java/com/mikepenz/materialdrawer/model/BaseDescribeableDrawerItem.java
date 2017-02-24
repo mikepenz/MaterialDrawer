@@ -75,7 +75,7 @@ public abstract class BaseDescribeableDrawerItem<T, VH extends BaseViewHolder> e
         int selectedIconColor = getSelectedIconColor(ctx);
 
         //set the background for the item
-        UIUtils.setBackground(viewHolder.view, UIUtils.getSelectableBackground(ctx, selectedColor, true));
+        UIUtils.setBackground(viewHolder.view, UIUtils.getSelectableBackground(ctx, selectedColor, isSelectedBackgroundAnimated()));
         //set the text for the name
         StringHolder.applyTo(this.getName(), viewHolder.name);
         //set the text for the description or hide

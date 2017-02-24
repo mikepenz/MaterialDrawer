@@ -28,6 +28,10 @@ public interface IDrawerItem<T, VH extends RecyclerView.ViewHolder> extends IIte
 
     T withSelectable(boolean selectable);
 
+    boolean isSelectedBackgroundAnimated();
+
+    T withSelectedBackgroundAnimated(boolean selectedBackgroundAnimated);
+
     int getType();
 
     int getLayoutRes();

@@ -138,6 +138,29 @@ public abstract class AbstractDrawerItem<T, VH extends RecyclerView.ViewHolder> 
         return mSelectable;
     }
 
+    // defines if the item's background' change should be animated when it is (de)selected
+    protected boolean mSelectedBackgroundAnimated = true;
+
+    /**
+     * set if this item is selectable
+     *
+     * @param selectedBackgroundAnimated true if this item's background should fade when it is (de) selected
+     * @return
+     */
+    @Override
+    public T withSelectedBackgroundAnimated(boolean selectedBackgroundAnimated) {
+        this.mSelectedBackgroundAnimated = selectedBackgroundAnimated;
+        return (T) this;
+    }
+
+    /**
+     * @return if this item is selectable
+     */
+    @Override
+    public boolean isSelectedBackgroundAnimated() {
+        return mSelectedBackgroundAnimated;
+    }
+
     public Drawer.OnDrawerItemClickListener mOnDrawerItemClickListener = null;
 
     public Drawer.OnDrawerItemClickListener getOnDrawerItemClickListener() {
