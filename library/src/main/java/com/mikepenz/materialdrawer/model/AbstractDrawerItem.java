@@ -147,7 +147,6 @@ public abstract class AbstractDrawerItem<T, VH extends RecyclerView.ViewHolder> 
      * @param selectedBackgroundAnimated true if this item's background should fade when it is (de) selected
      * @return
      */
-    @Override
     public T withSelectedBackgroundAnimated(boolean selectedBackgroundAnimated) {
         this.mSelectedBackgroundAnimated = selectedBackgroundAnimated;
         return (T) this;
@@ -156,7 +155,6 @@ public abstract class AbstractDrawerItem<T, VH extends RecyclerView.ViewHolder> 
     /**
      * @return if this item is selectable
      */
-    @Override
     public boolean isSelectedBackgroundAnimated() {
         return mSelectedBackgroundAnimated;
     }
