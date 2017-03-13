@@ -43,7 +43,7 @@ public class ProfileSettingDrawerItem extends AbstractDrawerItem<ProfileSettingD
     private ColorHolder selectedColor;
     private ColorHolder textColor;
     private ColorHolder iconColor;
-    private ColorHolder descriptionColor;
+    private ColorHolder descriptionTextColor;
 
     private Typeface typeface = null;
 
@@ -121,13 +121,13 @@ public class ProfileSettingDrawerItem extends AbstractDrawerItem<ProfileSettingD
         return this;
     }
 
-    public ProfileSettingDrawerItem withDescriptionTextColor(@ColorInt int textColor) {
-        this.textColor = ColorHolder.fromColor(textColor);
+    public ProfileSettingDrawerItem withDescriptionTextColor(@ColorInt int descriptionColor) {
+        this.descriptionTextColor = ColorHolder.fromColor(descriptionColor);
         return this;
     }
 
-    public ProfileSettingDrawerItem withDescriptionTextColorRes(@ColorRes int textColorRes) {
-        this.textColor = ColorHolder.fromColorRes(textColorRes);
+    public ProfileSettingDrawerItem withDescriptionTextColorRes(@ColorRes int descriptionColorRes) {
+        this.descriptionTextColor = ColorHolder.fromColorRes(descriptionColorRes);
         return this;
     }
 
@@ -157,6 +157,10 @@ public class ProfileSettingDrawerItem extends AbstractDrawerItem<ProfileSettingD
 
     public ColorHolder getTextColor() {
         return textColor;
+    }
+
+    public ColorHolder getDescriptionTextColor() {
+        return descriptionTextColor;
     }
 
     public ColorHolder getIconColor() {
@@ -240,6 +244,7 @@ public class ProfileSettingDrawerItem extends AbstractDrawerItem<ProfileSettingD
         //get the correct color for the text
         int color = ColorHolder.color(getTextColor(), ctx, R.attr.material_drawer_primary_text, R.color.material_drawer_primary_text);
         int iconColor = ColorHolder.color(getIconColor(), ctx, R.attr.material_drawer_primary_icon, R.color.material_drawer_primary_icon);
+        int descriptionColor = ColorHolder.color(getDescriptionTextColor(), ctx, R.attr.material_drawer_primary_text, R.color.material_drawer_primary_text);
 
         UIUtils.setBackground(viewHolder.view, UIUtils.getSelectableBackground(ctx, selectedColor, isSelectedBackgroundAnimated()));
 
@@ -247,7 +252,7 @@ public class ProfileSettingDrawerItem extends AbstractDrawerItem<ProfileSettingD
         viewHolder.name.setTextColor(color);
 
         StringHolder.applyToOrHide(this.getDescription(), viewHolder.description);
-        viewHolder.description.setTextColor(color);
+        viewHolder.description.setTextColor(descriptionColor);
 
         if (getTypeface() != null) {
             viewHolder.name.setTypeface(getTypeface());
