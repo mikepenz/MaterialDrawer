@@ -11,7 +11,6 @@ import android.support.v7.widget.RecyclerView;
 import android.view.View;
 import android.widget.ImageView;
 
-import com.mikepenz.fastadapter.utils.ViewHolderFactory;
 import com.mikepenz.iconics.typeface.IIcon;
 import com.mikepenz.materialdrawer.app.R;
 import com.mikepenz.materialdrawer.holder.ColorHolder;
@@ -195,14 +194,8 @@ public class IconDrawerItem extends AbstractDrawerItem<IconDrawerItem, IconDrawe
     }
 
     @Override
-    public ViewHolderFactory getFactory() {
-        return new ItemFactory();
-    }
-
-    public static class ItemFactory implements ViewHolderFactory<ViewHolder> {
-        public ViewHolder create(View v) {
-            return new ViewHolder(v);
-        }
+    public ViewHolder getViewHolder(View v) {
+        return new ViewHolder(v);
     }
 
     public static class ViewHolder extends RecyclerView.ViewHolder {

@@ -7,7 +7,6 @@ import android.view.MenuInflater;
 import android.view.View;
 import android.widget.ImageButton;
 
-import com.mikepenz.fastadapter.utils.ViewHolderFactory;
 import com.mikepenz.google_material_typeface_library.GoogleMaterial;
 import com.mikepenz.iconics.IconicsDrawable;
 import com.mikepenz.materialdrawer.app.R;
@@ -97,14 +96,8 @@ public class OverflowMenuDrawerItem extends BaseDescribeableDrawerItem<OverflowM
     }
 
     @Override
-    public ViewHolderFactory getFactory() {
-        return new ItemFactory();
-    }
-
-    public static class ItemFactory implements ViewHolderFactory<ViewHolder> {
-        public ViewHolder create(View v) {
-            return new ViewHolder(v);
-        }
+    public ViewHolder getViewHolder(View v) {
+        return new ViewHolder(v);
     }
 
     public static class ViewHolder extends BaseViewHolder {
