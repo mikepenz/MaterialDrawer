@@ -8,7 +8,6 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import com.mikepenz.fastadapter.utils.IdDistributor;
-import com.mikepenz.fastadapter.utils.ViewHolderFactory;
 import com.mikepenz.materialdrawer.Drawer;
 import com.mikepenz.materialdrawer.model.interfaces.IDrawerItem;
 import com.mikepenz.materialdrawer.model.interfaces.OnPostBindViewListener;
@@ -299,15 +298,6 @@ public abstract class AbstractDrawerItem<T, VH extends RecyclerView.ViewHolder> 
     }
 
     /**
-     * the abstract method to retrieve the ViewHolder factory
-     * The ViewHolder factory implementation should look like (see the commented code above)
-     *
-     * @return
-     */
-    public abstract ViewHolderFactory<VH> getFactory();
-
-
-    /**
      * generates a view by the defined LayoutRes
      *
      * @param ctx
@@ -315,7 +305,7 @@ public abstract class AbstractDrawerItem<T, VH extends RecyclerView.ViewHolder> 
      */
     @Override
     public View generateView(Context ctx) {
-        VH viewHolder = getFactory().create(LayoutInflater.from(ctx).inflate(getLayoutRes(), null, false));
+        VH viewHolder = getViewHolder(LayoutInflater.from(ctx).inflate(getLayoutRes(), null, false));
         bindView(viewHolder, Collections.emptyList());
         return viewHolder.itemView;
     }
@@ -329,7 +319,7 @@ public abstract class AbstractDrawerItem<T, VH extends RecyclerView.ViewHolder> 
      */
     @Override
     public View generateView(Context ctx, ViewGroup parent) {
-        VH viewHolder = getFactory().create(LayoutInflater.from(ctx).inflate(getLayoutRes(), parent, false));
+        VH viewHolder = getViewHolder(LayoutInflater.from(ctx).inflate(getLayoutRes(), parent, false));
         bindView(viewHolder, Collections.emptyList());
         return viewHolder.itemView;
     }
@@ -351,16 +341,43 @@ public abstract class AbstractDrawerItem<T, VH extends RecyclerView.ViewHolder> 
     }
 
     /**
+     * View got attached to the window
+     *
+     * @param holder
+     */
+    @Override
+    public void attachToWindow(VH holder) {
+
+    }
+
+    /**
+     * View got detached from the window
+     *
+     * @param holder
+     */
+    @Override
+    public void detachFromWindow(VH holder) {
+
+    }
+
+    /**
      * This method returns the ViewHolder for our item, using the provided View.
-     * By default it will try to get the ViewHolder from the ViewHolderFactory. If this one is not implemented it will go over the generic way, wasting ~5ms
      *
      * @param parent
      * @return the ViewHolder for this Item
      */
     @Override
     public VH getViewHolder(ViewGroup parent) {
-        return getFactory().create(LayoutInflater.from(parent.getContext()).inflate(getLayoutRes(), parent, false));
+        return getViewHolder(LayoutInflater.from(parent.getContext()).inflate(getLayoutRes(), parent, false));
     }
+
+    /**
+     * This method returns the ViewHolder for our item, using the provided View.
+     *
+     * @param v
+     * @return the ViewHolder for this Item
+     */
+    public abstract VH getViewHolder(View v);
 
     /**
      * If this item equals to the given identifier

@@ -7,7 +7,6 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.LinearLayout;
 
-import com.mikepenz.fastadapter.utils.ViewHolderFactory;
 import com.mikepenz.materialdrawer.R;
 import com.mikepenz.materialdrawer.holder.DimenHolder;
 import com.mikepenz.materialize.util.UIUtils;
@@ -132,14 +131,8 @@ public class ContainerDrawerItem extends AbstractDrawerItem<ContainerDrawerItem,
     }
 
     @Override
-    public ViewHolderFactory<ViewHolder> getFactory() {
-        return new ItemFactory();
-    }
-
-    public static class ItemFactory implements ViewHolderFactory<ViewHolder> {
-        public ViewHolder create(View v) {
-            return new ViewHolder(v);
-        }
+    public ViewHolder getViewHolder(View v) {
+        return new ViewHolder(v);
     }
 
     public static class ViewHolder extends RecyclerView.ViewHolder {

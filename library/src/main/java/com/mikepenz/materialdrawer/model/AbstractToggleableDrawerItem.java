@@ -5,7 +5,6 @@ import android.view.View;
 import android.widget.CompoundButton;
 import android.widget.ToggleButton;
 
-import com.mikepenz.fastadapter.utils.ViewHolderFactory;
 import com.mikepenz.materialdrawer.Drawer;
 import com.mikepenz.materialdrawer.R;
 import com.mikepenz.materialdrawer.interfaces.OnCheckedChangeListener;
@@ -103,14 +102,8 @@ public class AbstractToggleableDrawerItem<Item extends AbstractToggleableDrawerI
     }
 
     @Override
-    public ViewHolderFactory<ViewHolder> getFactory() {
-        return new ItemFactory();
-    }
-
-    public static class ItemFactory implements ViewHolderFactory<ViewHolder> {
-        public ViewHolder create(View v) {
-            return new ViewHolder(v);
-        }
+    public ViewHolder getViewHolder(View v) {
+        return new ViewHolder(v);
     }
 
     public static class ViewHolder extends BaseViewHolder {

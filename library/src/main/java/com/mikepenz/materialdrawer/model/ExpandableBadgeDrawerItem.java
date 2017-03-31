@@ -7,7 +7,6 @@ import android.support.annotation.StringRes;
 import android.support.v4.view.ViewCompat;
 import android.view.View;
 import android.widget.TextView;
-import com.mikepenz.fastadapter.utils.ViewHolderFactory;
 import com.mikepenz.iconics.IconicsDrawable;
 import com.mikepenz.iconics.view.IconicsImageView;
 import com.mikepenz.materialdrawer.Drawer;
@@ -111,10 +110,6 @@ public class ExpandableBadgeDrawerItem extends BaseDescribeableDrawerItem<Expand
     }
   };
 
-  @Override public ViewHolderFactory<ViewHolder> getFactory() {
-    return new ItemFactory();
-  }
-
   @Override public ExpandableBadgeDrawerItem withBadge(StringHolder badge) {
     this.mBadge = badge;
     return (ExpandableBadgeDrawerItem) this;
@@ -143,10 +138,9 @@ public class ExpandableBadgeDrawerItem extends BaseDescribeableDrawerItem<Expand
     return mBadgeStyle;
   }
 
-  public static class ItemFactory implements ViewHolderFactory<ViewHolder> {
-    public ViewHolder create(View v) {
-      return new ViewHolder(v);
-    }
+  @Override
+  public ViewHolder getViewHolder(View v) {
+    return new ViewHolder(v);
   }
 
   public static class ViewHolder extends BaseViewHolder {
