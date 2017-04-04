@@ -1,4 +1,4 @@
-#MaterialDrawer  [![Maven Central](https://maven-badges.herokuapp.com/maven-central/com.mikepenz/materialdrawer/badge.svg?style=flat)](https://maven-badges.herokuapp.com/maven-central/com.mikepenz/materialdrawer) [![Android Arsenal](https://img.shields.io/badge/Android%20Arsenal-MaterialDrawer-brightgreen.svg?style=flat)](https://android-arsenal.com/details/1/1526) [![Join the chat at https://gitter.im/mikepenz/MaterialDrawer](https://badges.gitter.im/Join%20Chat.svg)](https://gitter.im/mikepenz/MaterialDrawer?utm_source=badge&utm_medium=badge&utm_campaign=pr-badge&utm_content=badge)
+# MaterialDrawer  [![Maven Central](https://maven-badges.herokuapp.com/maven-central/com.mikepenz/materialdrawer/badge.svg?style=flat)](https://maven-badges.herokuapp.com/maven-central/com.mikepenz/materialdrawer) [![Android Arsenal](https://img.shields.io/badge/Android%20Arsenal-MaterialDrawer-brightgreen.svg?style=flat)](https://android-arsenal.com/details/1/1526) [![Join the chat at https://gitter.im/mikepenz/MaterialDrawer](https://badges.gitter.im/Join%20Chat.svg)](https://gitter.im/mikepenz/MaterialDrawer?utm_source=badge&utm_medium=badge&utm_campaign=pr-badge&utm_content=badge)
 
 ![MaterialDrawer the flexible, easy to use, all in one drawer library for your android project.](https://raw.githubusercontent.com/mikepenz/MaterialDrawer/develop/DEV/github/banner.png)
 
@@ -12,7 +12,7 @@ It provides you with the easiest possible implementation of a navigation drawer 
 There  is a Header with profiles (**AccountHeader**), a **MiniDrawer** for Tablets (like Gmail), provide
 **custom DrawerItems**, **custom colors**, **custom themes**, ... **No limits** for customizations.
 
-###A quick overview what's in
+### A quick overview what's in
 - **the easiest possible integration**
 - integrate in less than **5 minutes**
 - compatible down to **API Level 14**
@@ -37,27 +37,27 @@ There  is a Header with profiles (**AccountHeader**), a **MiniDrawer** for Table
 
 > If you upgrade from < 5.0.0 follow the [MIGRATION GUIDE](https://github.com/mikepenz/MaterialDrawer/blob/develop/MIGRATION.md)
 
-#Preview
-##Demo
+# Preview
+## Demo
 You can try it out here [Google Play](https://play.google.com/store/apps/details?id=com.mikepenz.unsplash) (wall:splash an open source application which uses this drawer implementation). Or you try the [Sample Application](https://play.google.com/store/apps/details?id=com.mikepenz.materialdrawer.app)
 
-##Screenshots
+## Screenshots
 ![Image](https://raw.githubusercontent.com/mikepenz/MaterialDrawer/develop/DEV/github/screenshots1.jpg)
 ![Image](https://raw.githubusercontent.com/mikepenz/MaterialDrawer/develop/DEV/github/screenshots2.jpg)
 
-#WIKI / FAQ
+# WIKI / FAQ
 You can find some frequently asked questions and other resources in the [WIKI / FAQ](FAQ.md) site.
 
-#Setup
-##1. Provide the gradle dependency
+# Setup
+## 1. Provide the gradle dependency
 
 ```gradle
-compile('com.mikepenz:materialdrawer:5.8.2@aar') {
+compile('com.mikepenz:materialdrawer:5.8.3@aar') {
 	transitive = true
 }
 ```
 
-##2. Add your drawer
+## 2. Add your drawer
 ```java
 new DrawerBuilder().withActivity(this).build();
 ```
@@ -65,8 +65,8 @@ new DrawerBuilder().withActivity(this).build();
 Great. Your drawer is now ready to use.
 
 
-#Additional Setup
-##Add items and adding some functionality
+# Additional Setup
+## Add items and adding some functionality
 
 ```java
 //if you want to update the items at a later time it is recommended to keep it in a variable
@@ -92,7 +92,7 @@ Drawer result = new DrawerBuilder()
     .build();
 ```
 
-##Selecting an item
+## Selecting an item
 ```java
 //set the selection to the item with the identifier 1
 result.setSelection(1);
@@ -108,7 +108,7 @@ you can disable it for this item using `withSelectable(false)`:
 new SecondaryDrawerItem().withName(R.string.drawer_item_dialog).withSelectable(false)
 ```
 
-##Modify items or the drawer
+## Modify items or the drawer
 
 ```java
 //modify an item of the drawer
@@ -134,7 +134,7 @@ result.closeDrawer();
 result.getDrawerLayout();
 ```
 
-##Add profiles and an AccountHeader
+## Add profiles and an AccountHeader
 ```java
 // Create the AccountHeader
 AccountHeader headerResult = new AccountHeaderBuilder()
@@ -160,7 +160,7 @@ new DrawerBuilder()
 
 ```
 
-##Use the included icon font
+## Use the included icon font
 The MaterialDrawer comes with the `core` of the [Android-Iconics](https://github.com/mikepenz/Android-Iconics) library. This allows you to create your `DrawerItems` with an icon from any font.
 
 Choose the fonts you need. [Available Fonts](https://github.com/mikepenz/Android-Iconics#2-choose-your-desired-fonts)
@@ -178,9 +178,9 @@ new PrimaryDrawerItem().withIcon(GoogleMaterial.Icon.gmd_wb_sunny)
 new SecondaryDrawerItem().withIcon(FontAwesome.Icon.faw_github)
 ```
 
-#Advanced Setup
-##Activity with ActionBar
-###Code:
+# Advanced Setup
+## Activity with ActionBar
+### Code:
 ```java
 new DrawerBuilder()
 	.withActivity(this)
@@ -192,8 +192,8 @@ new DrawerBuilder()
 	.build();
 ```
 
-##Activity with Multiple Drawers
-###Code:
+## Activity with Multiple Drawers
+### Code:
 ```java
 Drawer result = new DrawerBuilder()
 	.withActivity(this)
@@ -212,13 +212,13 @@ new DrawerBuilder()
     .append(result);
 ```
 
-##Load images via url
+## Load images via url
 The MaterialDrawer supports fetching images from URLs and setting them for the Profile icons. As the MaterialDrawer does not contain an ImageLoading library
 the dev can choose his own implementation (Picasso, Glide, ...). This has to be done, before the first image should be loaded via URL. (Should be done in the Application, but any other spot before loading the first image is working too)
 * SAMPLE using [PICASSO](https://github.com/square/picasso)
 * [SAMPLE](https://github.com/mikepenz/MaterialDrawer/blob/develop/app/src/main/java/com/mikepenz/materialdrawer/app/CustomApplication.java) using [GLIDE](https://github.com/bumptech/glide)
 
-###Code:
+### Code:
 ```java
 //initialize and create the image loader logic
 DrawerImageLoader.init(new AbstractDrawerImageLoader() {
@@ -249,22 +249,22 @@ DrawerImageLoader.init(new AbstractDrawerImageLoader() {
 An implementation with [GLIDE](https://github.com/mikepenz/MaterialDrawer/blob/develop/app/src/main/java/com/mikepenz/materialdrawer/app/CustomApplication.java#L42) can be found in the sample application
 
 
-##Switching between Back-Arrow or Hamburger-Icon
+## Switching between Back-Arrow or Hamburger-Icon
 If you use the included ActionBarDrawerToggle you can switch between back-arrow or hamburger-icon
 with the following code snippet. (Please note that the order of these lines matter)
-###Code - Show the back arrow:
+### Code - Show the back arrow:
 ```java
 result.getActionBarDrawerToggle().setDrawerIndicatorEnabled(false);
 getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 ```
-###Code - Show the hamburger icon:
+### Code - Show the hamburger icon:
 ```java
 getSupportActionBar().setDisplayHomeAsUpEnabled(false);
 result.getActionBarDrawerToggle().setDrawerIndicatorEnabled(true);
 ```
 
 
-##AndroidManifest.xml
+## AndroidManifest.xml
 The **MaterialDrawer** requires an `AppCompat` theme or a derivative theme like the `MaterialDrawerTheme`s as base. It is highly recommended to use one of the provided themes. They all use the `AppCompat` theme as parent and define the color values for the drawer.
 
 **NOTE:** The theme states ActionBar and not NoActionBar like the Appcompat style
@@ -283,7 +283,7 @@ The **MaterialDrawer** requires an `AppCompat` theme or a derivative theme like 
 - **MaterialDrawerTheme.Light.DarkToolbar.ActionBar.TranslucentStatus**
   
 
-##Style the drawer
+## Style the drawer
 ### Use of a none MaterialDrawer.* style
 If you don't use one of the provided styles you have to add the style values to your style. Here's a simple sample. 
 This is the same as the Custom style just with a parent like `parent="Theme.AppCompat.Light.DarkActionBar"`
@@ -348,14 +348,14 @@ No need to create a custom theme. Just set these colors (or some of them) and yo
     <color name="material_drawer_dark_header_selection_text">#FFF</color>
 ```
 
-#FAQ
-###How can i create a drawer without a default selection
+# FAQ
+### How can i create a drawer without a default selection
 ```java
 //just use this with the Drawer
 .withSelectedItem(-1)
 ```
 
-###I have problems with the SoftKeyboard. How can i fix this?
+### I have problems with the SoftKeyboard. How can i fix this?
 The MaterialDrawer will display your activity as FullScreen. Starting with API 19
 the `adjustResize` works different then. This is default Android behavior. 
 This is a big issue for a lot of devs so i've created a helper which "fixes" this issue. 
@@ -378,7 +378,7 @@ DrawerLayout drawerLayout = result.getDrawerLayout();
 drawerLayout.setDrawerLockMode(int lockMode); //or (int lockMode, int edgeGravity)
 ```
 
-###Can I use my own DrawerLayout implementation
+### Can I use my own DrawerLayout implementation
 MaterialDrawer allows you to use a compatible implementation of MaterialDrawer.
 Please note that the provided layout must follow the same structure as the `MaterialDrawer` internal one.
 
@@ -391,12 +391,13 @@ You'll then be able to use this custom class:
 builder.withDrawerLayout(R.layout.material_drawer);
 ```
 
-#Apps using the MaterialDrawer
+# Apps using the MaterialDrawer
 (feel free to send me new projects)
 
 * [wall:splash](https://play.google.com/store/apps/details?id=com.mikepenz.unsplash)
 * [GitSkarios](https://play.google.com/store/apps/details?id=com.alorma.github)
 * [Screener](https://play.google.com/store/apps/details?id=de.toastcode.screener)
+* [Meldmail](https://play.google.com/store/apps/details?id=com.meldmail)
 * [Academic Schedule](https://play.google.com/store/apps/details?id=com.auebcsschedule.ppt)
 * [Strength](https://play.google.com/store/apps/details?id=com.e13engineering.strength)
 * [Sprit Club](https://play.google.com/store/apps/details?id=at.idev.spritpreise)
@@ -427,26 +428,27 @@ builder.withDrawerLayout(R.layout.material_drawer);
 * [Recipedia](https://play.google.com/store/apps/details?id=com.md.recipedia)
 * [Right Сourse - ruble course](https://play.google.com/store/apps/details?id=com.currency.work.currencychecker)
 * [Gameru](https://play.google.com/store/apps/details?id=net.gameru)
+* [Boost for reddit](https://play.google.com/store/apps/details?id=com.rubenmayayo.reddit)
 
-#Articles about the MaterialDrawer
+# Articles about the MaterialDrawer
 * [java-help.ru](http://java-help.ru/material-navigationdrawer/)
 
 
-#Credits
+# Credits
 
 - Mirosław Stanek - [GitHub](https://github.com/frogermcs)
 	- For his InstaMaterial concept and the idea of inflating the drawerLayout [InstaMaterial Concept](http://frogermcs.github.io/InstaMaterial-concept-part-7-navigation-drawer/)
 
 - Lunae Luman - [Behance](https://www.behance.net/gallery/18526001/Material-Wallpaper) for the Header Image
 
-#Developed By
+# Developed By
 
 * Mike Penz 
  * [mikepenz.com](http://mikepenz.com) - <mikepenz@gmail.com>
  * [paypal.me/mikepenz](http://paypal.me/mikepenz)
 
 
-#License
+# License
 
     Copyright 2016 Mike Penz
 
