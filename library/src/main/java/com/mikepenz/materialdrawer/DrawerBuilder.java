@@ -878,6 +878,9 @@ public class DrawerBuilder {
      */
     public DrawerBuilder withPositionBasedStateManagement(boolean positionBasedStateManagement) {
         this.mPositionBasedStateManagement = positionBasedStateManagement;
+        if(mAdapter != null) {
+            this.mAdapter.withPositionBasedStateManagement(this.mPositionBasedStateManagement);
+        }
         return this;
     }
 
