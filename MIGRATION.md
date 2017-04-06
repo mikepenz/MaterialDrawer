@@ -1,4 +1,9 @@
 ###Upgrade Notes
+#### v5.9.0
+**IMPORTANT IF YOU USE THE FASTADAPTER OR MATERIALDRAWER**
+* You have to update your FastAdapter dependency to v2.5.0 with this release
+* See the MIGRATION information of the FastAdapter https://github.com/mikepenz/FastAdapter/blob/develop/MIGRATION.md
+
 #### v5.8.0
 **IMPORTANT IF YOU USE THE FASTADAPTER OR MATERIALDRAWER**
 * You have to update your FastAdapter dependency to v2.1.0 with this release

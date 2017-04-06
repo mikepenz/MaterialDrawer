@@ -12,8 +12,8 @@ android {
     defaultConfig {
         minSdkVersion setup.minSdk
         targetSdkVersion setup.targetSdk
-        versionCode 583
-        versionName "5.8.3"
+        versionCode 590
+        versionName "5.9.0"
 
         setProperty("archivesBaseName", "-v$versionName-c$versionCode")
     }
@@ -53,7 +53,7 @@ dependencies {
 
     // the sample uses more advanced functions of the fastadapter
     // https://github.com/mikepenz/FastAdapter/
-    compile 'com.mikepenz:fastadapter-commons:2.5.0.alpha-SNAPSHOT@aar'
+    compile 'com.mikepenz:fastadapter-commons:2.5.0@aar'
     // used to generate the Open Source section
     // https://github.com/mikepenz/AboutLibraries
     compile('com.mikepenz:aboutlibraries:5.9.0@aar') {

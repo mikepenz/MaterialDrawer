@@ -9,7 +9,7 @@ android {
         minSdkVersion setup.minSdk
         targetSdkVersion setup.targetSdk
         versionCode 583
-        versionName '5.8.3'
+        versionName '5.9.0'
     }
     buildTypes {
         release {
