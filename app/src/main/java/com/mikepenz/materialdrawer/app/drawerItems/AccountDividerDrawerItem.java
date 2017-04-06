@@ -10,7 +10,6 @@ import android.support.v4.view.ViewCompat;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
 
-import com.mikepenz.fastadapter.utils.ViewHolderFactory;
 import com.mikepenz.iconics.typeface.IIcon;
 import com.mikepenz.materialdrawer.app.R;
 import com.mikepenz.materialdrawer.holder.ImageHolder;
@@ -56,10 +55,6 @@ public class AccountDividerDrawerItem extends AbstractDrawerItem<AccountDividerD
         onPostBindView(this, viewHolder.itemView);
     }
 
-    @Override
-    public ViewHolderFactory<ViewHolder> getFactory() {
-        return new ItemFactory();
-    }
 
     @Override
     public AccountDividerDrawerItem withName(String name) {
@@ -116,10 +111,9 @@ public class AccountDividerDrawerItem extends AbstractDrawerItem<AccountDividerD
         return null;
     }
 
-    public static class ItemFactory implements ViewHolderFactory<ViewHolder> {
-        public ViewHolder create(View v) {
-            return new ViewHolder(v);
-        }
+    @Override
+    public ViewHolder getViewHolder(View v) {
+        return new ViewHolder(v);
     }
 
     protected static class ViewHolder extends RecyclerView.ViewHolder {
