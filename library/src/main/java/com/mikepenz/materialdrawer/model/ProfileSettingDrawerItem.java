@@ -5,10 +5,7 @@ import android.graphics.Bitmap;
 import android.graphics.Typeface;
 import android.graphics.drawable.Drawable;
 import android.net.Uri;
-import android.support.annotation.ColorInt;
-import android.support.annotation.ColorRes;
-import android.support.annotation.DrawableRes;
-import android.support.annotation.LayoutRes;
+import android.support.annotation.*;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
 import android.widget.ImageView;
@@ -88,8 +85,18 @@ public class ProfileSettingDrawerItem extends AbstractDrawerItem<ProfileSettingD
         return this;
     }
 
+    public ProfileSettingDrawerItem withName(@StringRes int nameRes) {
+        this.name = new StringHolder(nameRes);
+        return this;
+    }
+
     public ProfileSettingDrawerItem withDescription(String description) {
         this.description = new StringHolder(description);
+        return this;
+    }
+
+    public ProfileSettingDrawerItem withDescription(@StringRes int descriptionRes) {
+        this.description = new StringHolder(descriptionRes);
         return this;
     }
 

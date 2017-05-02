@@ -6,10 +6,7 @@ import android.graphics.Bitmap;
 import android.graphics.Typeface;
 import android.graphics.drawable.Drawable;
 import android.net.Uri;
-import android.support.annotation.ColorInt;
-import android.support.annotation.ColorRes;
-import android.support.annotation.DrawableRes;
-import android.support.annotation.LayoutRes;
+import android.support.annotation.*;
 import android.support.v7.widget.RecyclerView;
 import android.util.Pair;
 import android.view.View;
@@ -89,8 +86,18 @@ public class ProfileDrawerItem extends AbstractDrawerItem<ProfileDrawerItem, Pro
         return this;
     }
 
+    public ProfileDrawerItem withName(@StringRes int nameRes) {
+        this.name = new StringHolder(nameRes);
+        return this;
+    }
+
     public ProfileDrawerItem withEmail(String email) {
         this.email = new StringHolder(email);
+        return this;
+    }
+
+    public ProfileDrawerItem withEmail(@StringRes int emailRes) {
+        this.email = new StringHolder(emailRes);
         return this;
     }
 
