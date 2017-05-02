@@ -5,6 +5,7 @@ import android.content.res.ColorStateList;
 import android.graphics.drawable.Drawable;
 import android.support.annotation.ColorInt;
 import android.support.annotation.ColorRes;
+import android.support.annotation.DimenRes;
 import android.support.annotation.DrawableRes;
 import android.widget.TextView;
 
@@ -92,13 +93,23 @@ public class BadgeStyle {
         return mCorners;
     }
 
-    public BadgeStyle withCorners(int corners) {
-        this.mCorners = DimenHolder.fromPixel(corners);
+    public BadgeStyle withCorners(int cornersPx) {
+        this.mCorners = DimenHolder.fromPixel(cornersPx);
         return this;
     }
 
-    public BadgeStyle withCornersDp(int corners) {
-        this.mCorners = DimenHolder.fromDp(corners);
+    public BadgeStyle withCornersPx(int cornersPx) {
+        this.mCorners = DimenHolder.fromPixel(cornersPx);
+        return this;
+    }
+
+    public BadgeStyle withCornersDp(int cornersDp) {
+        this.mCorners = DimenHolder.fromDp(cornersDp);
+        return this;
+    }
+
+    public BadgeStyle withCornersRes(@DimenRes int cornersRes) {
+        this.mCorners = DimenHolder.fromResource(cornersRes);
         return this;
     }
 
@@ -116,6 +127,11 @@ public class BadgeStyle {
         return this;
     }
 
+    public BadgeStyle withPaddingLeftRightRees(@DimenRes int paddingLeftRight) {
+        this.mPaddingLeftRight = DimenHolder.fromResource(paddingLeftRight);
+        return this;
+    }
+
     public DimenHolder getPaddingTopBottom() {
         return mPaddingTopBottom;
     }
@@ -130,9 +146,32 @@ public class BadgeStyle {
         return this;
     }
 
-    public BadgeStyle withPadding(int padding) {
+    public BadgeStyle withPaddingTopBottomRes(@DimenRes int paddingTopBottom) {
+        this.mPaddingTopBottom = DimenHolder.fromResource(paddingTopBottom);
+        return this;
+    }
+
+    public BadgeStyle withPadding(int paddingPx) {
+        this.mPaddingLeftRight = DimenHolder.fromPixel(paddingPx);
+        this.mPaddingTopBottom = DimenHolder.fromPixel(paddingPx);
+        return this;
+    }
+
+    public BadgeStyle withPaddingPx(int padding) {
         this.mPaddingLeftRight = DimenHolder.fromPixel(padding);
         this.mPaddingTopBottom = DimenHolder.fromPixel(padding);
+        return this;
+    }
+
+    public BadgeStyle withPaddingDp(int padding) {
+        this.mPaddingLeftRight = DimenHolder.fromDp(padding);
+        this.mPaddingTopBottom = DimenHolder.fromDp(padding);
+        return this;
+    }
+
+    public BadgeStyle withPaddingRes(@DimenRes int padding) {
+        this.mPaddingLeftRight = DimenHolder.fromResource(padding);
+        this.mPaddingTopBottom = DimenHolder.fromResource(padding);
         return this;
     }
 
@@ -140,8 +179,23 @@ public class BadgeStyle {
         return mMinWidth;
     }
 
-    public BadgeStyle withMinWidth(int minWidth) {
-        this.mMinWidth = DimenHolder.fromPixel(minWidth);
+    public BadgeStyle withMinWidth(int minWidthPx) {
+        this.mMinWidth = DimenHolder.fromPixel(minWidthPx);
+        return this;
+    }
+
+    public BadgeStyle withMinWidthPx(int minWidthPx) {
+        this.mMinWidth = DimenHolder.fromPixel(minWidthPx);
+        return this;
+    }
+
+    public BadgeStyle withMinWidthDp(int minWidthPx) {
+        this.mMinWidth = DimenHolder.fromDp(minWidthPx);
+        return this;
+    }
+
+    public BadgeStyle withMinWidthRes(@DimenRes int minWidthPx) {
+        this.mMinWidth = DimenHolder.fromResource(minWidthPx);
         return this;
     }
 
