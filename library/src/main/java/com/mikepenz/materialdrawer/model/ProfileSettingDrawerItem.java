@@ -34,7 +34,6 @@ public class ProfileSettingDrawerItem extends AbstractDrawerItem<ProfileSettingD
     private ImageHolder icon;
 
     private StringHolder name;
-    private StringHolder email;
     private StringHolder description;
 
     private boolean iconTinted = false;
@@ -96,7 +95,7 @@ public class ProfileSettingDrawerItem extends AbstractDrawerItem<ProfileSettingD
 
     //NOTE we reuse the IProfile here to allow custom items within the AccountSwitcher. There is an alias method withDescription for this
     public ProfileSettingDrawerItem withEmail(String email) {
-        this.email = new StringHolder(email);
+        this.description = new StringHolder(email);
         return this;
     }
 
@@ -190,7 +189,7 @@ public class ProfileSettingDrawerItem extends AbstractDrawerItem<ProfileSettingD
     }
 
     public StringHolder getEmail() {
-        return email;
+        return description;
     }
 
     public StringHolder getDescription() {
