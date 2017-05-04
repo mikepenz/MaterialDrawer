@@ -5,10 +5,7 @@ import android.graphics.Bitmap;
 import android.graphics.Typeface;
 import android.graphics.drawable.Drawable;
 import android.net.Uri;
-import android.support.annotation.ColorInt;
-import android.support.annotation.ColorRes;
-import android.support.annotation.DrawableRes;
-import android.support.annotation.LayoutRes;
+import android.support.annotation.*;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
 import android.widget.ImageView;
@@ -34,7 +31,6 @@ public class ProfileSettingDrawerItem extends AbstractDrawerItem<ProfileSettingD
     private ImageHolder icon;
 
     private StringHolder name;
-    private StringHolder email;
     private StringHolder description;
 
     private boolean iconTinted = false;
@@ -89,14 +85,24 @@ public class ProfileSettingDrawerItem extends AbstractDrawerItem<ProfileSettingD
         return this;
     }
 
+    public ProfileSettingDrawerItem withName(@StringRes int nameRes) {
+        this.name = new StringHolder(nameRes);
+        return this;
+    }
+
     public ProfileSettingDrawerItem withDescription(String description) {
         this.description = new StringHolder(description);
         return this;
     }
 
+    public ProfileSettingDrawerItem withDescription(@StringRes int descriptionRes) {
+        this.description = new StringHolder(descriptionRes);
+        return this;
+    }
+
     //NOTE we reuse the IProfile here to allow custom items within the AccountSwitcher. There is an alias method withDescription for this
     public ProfileSettingDrawerItem withEmail(String email) {
-        this.email = new StringHolder(email);
+        this.description = new StringHolder(email);
         return this;
     }
 
@@ -190,7 +196,7 @@ public class ProfileSettingDrawerItem extends AbstractDrawerItem<ProfileSettingD
     }
 
     public StringHolder getEmail() {
-        return email;
+        return description;
     }
 
     public StringHolder getDescription() {
