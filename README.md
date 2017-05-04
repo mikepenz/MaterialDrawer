@@ -52,7 +52,7 @@ You can find some frequently asked questions and other resources in the [WIKI / 
 ## 1. Provide the gradle dependency
 
 ```gradle
-compile('com.mikepenz:materialdrawer:5.9.0@aar') {
+compile('com.mikepenz:materialdrawer:5.9.1@aar') {
 	transitive = true
 }
 ```
@@ -368,7 +368,7 @@ drawer to be displayed under the StatusBar). `.withTranslucentStatusBar(false)`
 
 You can read about this here: https://github.com/mikepenz/MaterialDrawer/issues/95, https://github.com/mikepenz/MaterialDrawer/issues/183, https://github.com/mikepenz/MaterialDrawer/issues/196
 
-###Can I lock the Drawer
+### Can I lock the Drawer
 As the MaterialDrawer will just create a normal DrawerLayout (with some magic around it) everything a normal
 DrawerLayout can do is also available in the MaterialDrawer. 
 ```java
@@ -390,6 +390,9 @@ You'll then be able to use this custom class:
 ```java
 builder.withDrawerLayout(R.layout.material_drawer);
 ```
+
+### But I prefer Kotlin
+Thanks to @zsmb13 there's now an (in)official Kotlin DSL wrapper for the MaterialDrawer https://github.com/zsmb13/MaterialDrawerKt
 
 # Apps using the MaterialDrawer
 (feel free to send me new projects)
