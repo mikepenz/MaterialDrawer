@@ -281,11 +281,11 @@ The **MaterialDrawer** requires an `AppCompat` theme or a derivative theme like 
 - **MaterialDrawerTheme.Light.DarkToolbar.TranslucentStatus**
 - **MaterialDrawerTheme.Light.DarkToolbar.ActionBar** (extends Theme.AppCompat.DarkActionBar)
 - **MaterialDrawerTheme.Light.DarkToolbar.ActionBar.TranslucentStatus**
-  
+
 
 ## Style the drawer
 ### Use of a none MaterialDrawer.* style
-If you don't use one of the provided styles you have to add the style values to your style. Here's a simple sample. 
+If you don't use one of the provided styles you have to add the style values to your style. Here's a simple sample.
 This is the same as the Custom style just with a parent like `parent="Theme.AppCompat.Light.DarkActionBar"`
 ### Custom style - styles.xml
 Create your custom style and use one of the provided themes as parent. If you don't need a custom theme see the next section, how you can set the colors just by overwriting the original colors.
@@ -318,7 +318,7 @@ No need to create a custom theme. Just set these colors (or some of them) and yo
     <color name="material_drawer_primary_dark">#1976D2</color>
     <color name="material_drawer_primary_light">#BBDEFB</color>
     <color name="material_drawer_accent">#FF4081</color>
-    
+
     <!-- OVERWRITE THESE COLORS FOR A LIGHT THEME -->
     <!-- MaterialDrawer DEFAULT colors -->
     <color name="material_drawer_background">#F9F9F9</color>
@@ -332,7 +332,7 @@ No need to create a custom theme. Just set these colors (or some of them) and yo
     <color name="material_drawer_selected">#E8E8E8</color>
     <color name="material_drawer_selected_text">#2196F3</color>
     <color name="material_drawer_header_selection_text">#FFF</color>
-    
+
     <!-- OVERWRITE THESE COLORS FOR A DARK THEME -->
     <!-- MaterialDrawer DEFAULT DARK colors -->
     <color name="material_drawer_dark_background">#303030</color>
@@ -357,8 +357,8 @@ No need to create a custom theme. Just set these colors (or some of them) and yo
 
 ### I have problems with the SoftKeyboard. How can i fix this?
 The MaterialDrawer will display your activity as FullScreen. Starting with API 19
-the `adjustResize` works different then. This is default Android behavior. 
-This is a big issue for a lot of devs so i've created a helper which "fixes" this issue. 
+the `adjustResize` works different then. This is default Android behavior.
+This is a big issue for a lot of devs so i've created a helper which "fixes" this issue.
 (It is recommend to just enable it for activities / fragments which need it)
 ```java
 .keyboardSupportEnabled(activity, enabled)
@@ -370,11 +370,11 @@ You can read about this here: https://github.com/mikepenz/MaterialDrawer/issues/
 
 ### Can I lock the Drawer
 As the MaterialDrawer will just create a normal DrawerLayout (with some magic around it) everything a normal
-DrawerLayout can do is also available in the MaterialDrawer. 
+DrawerLayout can do is also available in the MaterialDrawer.
 ```java
 //get the DrawerLayout from the Drawer
 DrawerLayout drawerLayout = result.getDrawerLayout();
-//do whatever you want with the Drawer. Like locking it. 
+//do whatever you want with the Drawer. Like locking it.
 drawerLayout.setDrawerLockMode(int lockMode); //or (int lockMode, int edgeGravity)
 ```
 
@@ -432,6 +432,7 @@ Thanks to @zsmb13 there's now an (in)official Kotlin DSL wrapper for the Materia
 * [Right Сourse - ruble course](https://play.google.com/store/apps/details?id=com.currency.work.currencychecker)
 * [Gameru](https://play.google.com/store/apps/details?id=net.gameru)
 * [Boost for reddit](https://play.google.com/store/apps/details?id=com.rubenmayayo.reddit)
+* [Touch for Facebook](https://play.google.com/store/apps/details?id=com.fa.touch.free)
 
 # Articles about the MaterialDrawer
 * [java-help.ru](http://java-help.ru/material-navigationdrawer/)
@@ -446,7 +447,7 @@ Thanks to @zsmb13 there's now an (in)official Kotlin DSL wrapper for the Materia
 
 # Developed By
 
-* Mike Penz 
+* Mike Penz
  * [mikepenz.com](http://mikepenz.com) - <mikepenz@gmail.com>
  * [paypal.me/mikepenz](http://paypal.me/mikepenz)
 
