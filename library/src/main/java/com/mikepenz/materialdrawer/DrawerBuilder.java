@@ -35,6 +35,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.FrameLayout;
 import android.widget.LinearLayout;
+
 import com.mikepenz.fastadapter.FastAdapter;
 import com.mikepenz.fastadapter.IAdapter;
 import com.mikepenz.fastadapter.IExpandable;
@@ -981,6 +982,21 @@ public class DrawerBuilder {
      */
     public DrawerBuilder addDrawerItems(@NonNull IDrawerItem... drawerItems) {
         this.getItemAdapter().add(drawerItems);
+        return this;
+    }
+
+    // defines if we want to keep the sticky items visible, upon switching to the profiles
+    protected boolean mKeepStickyItemsVisible = false;
+
+    /**
+     * Toggles if the sticky footer should stay visible upon switching to the profile list
+     * **WARNING** using this with stickyDrawerItems can lead to the selection not being updated correctly. Use with care
+     *
+     * @param keepStickyItemsVisible true if the sticky footer should stay visible
+     * @return this
+     */
+    public DrawerBuilder withKeepStickyItemsVisible(boolean keepStickyItemsVisible) {
+        this.mKeepStickyItemsVisible = keepStickyItemsVisible;
         return this;
     }
 
