@@ -37,7 +37,7 @@ dependencies {
     // contains util classes to support various android versions, and clean up code
     // comes with the awesome "Holder"-Pattern
     // https://github.com/mikepenz/Materialize
-    compile 'com.mikepenz:materialize:1.0.1@aar'
+    compile 'com.mikepenz:materialize:1.0.2@aar'
 
     // used to provide out of the box icon font support. simplifies development,
     // and provides scalable icons. the core is very very light
