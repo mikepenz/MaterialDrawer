@@ -361,6 +361,18 @@ public abstract class AbstractDrawerItem<T, VH extends RecyclerView.ViewHolder> 
     }
 
     /**
+     * is called when the ViewHolder is in a transient state. return true if you want to reuse
+     * that view anyways
+     *
+     * @param holder the viewHolder for the view which failed to recycle
+     * @return true if we want to recycle anyways (false - it get's destroyed)
+     */
+    @Override
+    public boolean failedToRecycle(VH holder) {
+        return false;
+    }
+
+    /**
      * This method returns the ViewHolder for our item, using the provided View.
      *
      * @param parent
