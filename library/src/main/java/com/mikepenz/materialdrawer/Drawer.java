@@ -986,12 +986,14 @@ public class Drawer {
         setItems(drawerItems, true);
         setSelectionAtPosition(drawerSelection, false);
 
-        //hide stickyFooter and it's shadow
-        if (getStickyFooter() != null) {
-            getStickyFooter().setVisibility(View.GONE);
-        }
-        if (getStickyFooterShadow() != null) {
-            getStickyFooterShadow().setVisibility(View.GONE);
+        if (!mDrawerBuilder.mKeepStickyItemsVisible) {
+            //hide stickyFooter and it's shadow
+            if (getStickyFooter() != null) {
+                getStickyFooter().setVisibility(View.GONE);
+            }
+            if (getStickyFooterShadow() != null) {
+                getStickyFooterShadow().setVisibility(View.GONE);
+            }
         }
     }
 
