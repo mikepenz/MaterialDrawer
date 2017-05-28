@@ -1,4 +1,4 @@
-###Upgrade Notes
+### Upgrade Notes
 #### v5.9.0 & v5.9.2
 **IMPORTANT IF YOU USE THE FASTADAPTER OR MATERIALDRAWER**
 * You have to update your FastAdapter dependency to v2.5.0 with this release
@@ -84,7 +84,7 @@
 
 #### < v4.0.0
 
-#####Common changes
+##### Common changes
 * depends on the latest `v23` **support libraries**. Those also require you to have `compileSDKVersion 23`
 * change the `onItemClick` listener to `onItemClick(View view, int i, IDrawerItem iDrawerItem)`
 * modify the import of the `AccountHeader` and `AccountHeaderBuilder` to
@@ -100,7 +100,7 @@ import com.mikepenz.materialdrawer.AccountHeaderBuilder
 * change `updateName`, `updateIcon`, `updateBadge` those methods take now an `identifier` and the specific `Holder` object
 * all `get*` methods of the `DrawerItems` will now return a `Holder` object for the specific type, making it easier to work with types like `String`, `StringRes`, `Color`, `ColorRes`, `ColorInt`, ..
 
-#####Android-Iconics (icon font)
+##### Android-Iconics (icon font)
 * the MaterialDrawer now only includes the `core` of the Android-Iconics project
  * add the fonts you use https://github.com/mikepenz/Android-Iconics#2-choose-your-desired-fonts
 * pre MaterialDrawer v4.0.0 following fonts were included
@@ -109,7 +109,7 @@ compile 'com.mikepenz:google-material-typeface:1.2.0.1@aar' //Google Material De
 compile 'com.mikepenz:fontawesome-typeface:4.4.0.1@aar' //FontAwesome **NOTE:** the packagename changed for this font
 ```
 
-#####Advanced usage changes
+##### Advanced usage changes
 * changed the `ListView` to a `RecyclerView`
  * rename methods with `*ListView*` to `*RecyclerView*`
 * the `IDrawerItem` interface was extended to better reflect a `RecyclerView` and to improve performance
