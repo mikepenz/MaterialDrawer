@@ -396,7 +396,7 @@ Thanks to @zsmb13 there's now an (in)official Kotlin DSL wrapper for the Materia
 
 # Apps using the MaterialDrawer
 (feel free to send me new projects)
-
+* [MaterialDrawerTestApp by mikepenz](https://github.com/mikepenz/MaterialDrawerTestApp)
 * [wall:splash](https://play.google.com/store/apps/details?id=com.mikepenz.unsplash)
 * [GitSkarios](https://play.google.com/store/apps/details?id=com.alorma.github)
 * [Screener](https://play.google.com/store/apps/details?id=de.toastcode.screener)
