@@ -8,8 +8,8 @@ android {
     defaultConfig {
         minSdkVersion setup.minSdk
         targetSdkVersion setup.targetSdk
-        versionCode 6002
-        versionName '6.0.0.2'
+        versionCode 6003
+        versionName '6.0.0.3'
     }
     buildTypes {
         release {
@@ -47,5 +47,5 @@ dependencies {
     // used to fill the RecyclerView with the DrawerItems
     // and provides single and multi selection, expandable items
     // https://github.com/mikepenz/FastAdapter
-    compile 'com.mikepenz:fastadapter:3.0.0.2-SNAPSHOT@aar'
+    compile 'com.mikepenz:fastadapter:3.0.0.3-SNAPSHOT@aar'
 }

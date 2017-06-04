@@ -38,9 +38,11 @@ import android.widget.LinearLayout;
 
 import com.mikepenz.fastadapter.FastAdapter;
 import com.mikepenz.fastadapter.IAdapter;
+import com.mikepenz.fastadapter.IAdapterExtension;
 import com.mikepenz.fastadapter.IExpandable;
 import com.mikepenz.fastadapter.IItemAdapter;
 import com.mikepenz.fastadapter.adapters.ItemAdapter;
+import com.mikepenz.fastadapter.expandable.ExpandableExtension;
 import com.mikepenz.fastadapter.listeners.OnClickListener;
 import com.mikepenz.fastadapter.listeners.OnLongClickListener;
 import com.mikepenz.iconics.utils.Utils;
@@ -870,6 +872,7 @@ public class DrawerBuilder {
     protected ItemAdapter<IDrawerItem> mHeaderAdapter = new ItemAdapter<>();
     protected ItemAdapter<IDrawerItem> mItemAdapter = new ItemAdapter<>();
     protected ItemAdapter<IDrawerItem> mFooterAdapter = new ItemAdapter<>();
+    protected ExpandableExtension<IDrawerItem> mExpandableExtension = new ExpandableExtension<>();
 
     /**
      * This allows to disable the default position based statemanagment of the FastAdapter and switch to the
@@ -900,6 +903,7 @@ public class DrawerBuilder {
         adapter.addAdapter(0, mHeaderAdapter);
         adapter.addAdapter(1, mItemAdapter);
         adapter.addAdapter(2, mFooterAdapter);
+        adapter.addExtension(mExpandableExtension);
         return this;
     }
 
@@ -910,7 +914,7 @@ public class DrawerBuilder {
      */
     protected FastAdapter<IDrawerItem> getAdapter() {
         if (mAdapter == null) {
-            mAdapter = FastAdapter.with(Arrays.asList(mHeaderAdapter, mItemAdapter, mFooterAdapter));
+            mAdapter = FastAdapter.with(Arrays.asList(mHeaderAdapter, mItemAdapter, mFooterAdapter), Arrays.<IAdapterExtension<IDrawerItem>>asList(mExpandableExtension));
             mAdapter.withSelectable(true);
             mAdapter.withAllowDeselection(false);
             mAdapter.setHasStableIds(mHasStableIds);
