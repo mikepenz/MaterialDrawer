@@ -9,6 +9,7 @@ buildscript {
     }
 
     repositories {
+        maven { url 'https://maven.google.com' }
         jcenter()
         mavenCentral()
     }
@@ -20,12 +21,9 @@ buildscript {
 
 allprojects {
     repositories {
+        maven { url 'https://maven.google.com' }
         jcenter()
         mavenCentral()
         maven { url "https://oss.sonatype.org/content/repositories/snapshots/" }
     }
-}
-
-task wrapper(type: Wrapper) {
-    gradleVersion = '3.4'
 }
