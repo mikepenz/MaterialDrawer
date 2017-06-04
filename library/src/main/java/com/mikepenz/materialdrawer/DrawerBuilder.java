@@ -40,8 +40,6 @@ import com.mikepenz.fastadapter.FastAdapter;
 import com.mikepenz.fastadapter.IAdapter;
 import com.mikepenz.fastadapter.IExpandable;
 import com.mikepenz.fastadapter.IItemAdapter;
-import com.mikepenz.fastadapter.adapters.FooterAdapter;
-import com.mikepenz.fastadapter.adapters.HeaderAdapter;
 import com.mikepenz.fastadapter.adapters.ItemAdapter;
 import com.mikepenz.iconics.utils.Utils;
 import com.mikepenz.materialdrawer.holder.DimenHolder;
@@ -58,6 +56,7 @@ import com.mikepenz.materialize.util.UIUtils;
 import com.mikepenz.materialize.view.ScrimInsetsRelativeLayout;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
 
@@ -866,9 +865,9 @@ public class DrawerBuilder {
     // an adapter to use for the list
     protected boolean mPositionBasedStateManagement = true;
     protected FastAdapter<IDrawerItem> mAdapter;
-    protected HeaderAdapter<IDrawerItem> mHeaderAdapter = new HeaderAdapter<>();
+    protected ItemAdapter<IDrawerItem> mHeaderAdapter = new ItemAdapter<>();
     protected ItemAdapter<IDrawerItem> mItemAdapter = new ItemAdapter<>();
-    protected FooterAdapter<IDrawerItem> mFooterAdapter = new FooterAdapter<>();
+    protected ItemAdapter<IDrawerItem> mFooterAdapter = new ItemAdapter<>();
 
     /**
      * This allows to disable the default position based statemanagment of the FastAdapter and switch to the
@@ -896,7 +895,9 @@ public class DrawerBuilder {
     public DrawerBuilder withAdapter(@NonNull FastAdapter<IDrawerItem> adapter) {
         this.mAdapter = adapter;
         //we have to rewrap as a different FastAdapter was provided
-        mHeaderAdapter.wrap(mItemAdapter.wrap(mFooterAdapter.wrap(mAdapter)));
+        adapter.addAdapter(0, mHeaderAdapter);
+        adapter.addAdapter(1, mItemAdapter);
+        adapter.addAdapter(2, mFooterAdapter);
         return this;
     }
 
@@ -907,14 +908,11 @@ public class DrawerBuilder {
      */
     protected FastAdapter<IDrawerItem> getAdapter() {
         if (mAdapter == null) {
-            mAdapter = new FastAdapter<>();
+            mAdapter = FastAdapter.with(Arrays.asList(mHeaderAdapter, mItemAdapter, mFooterAdapter));
             mAdapter.withSelectable(true);
             mAdapter.withAllowDeselection(false);
             mAdapter.setHasStableIds(mHasStableIds);
             mAdapter.withPositionBasedStateManagement(mPositionBasedStateManagement);
-
-            //we wrap our main Adapter with the item hosting adapter
-            mHeaderAdapter.wrap(mItemAdapter.wrap(mFooterAdapter.wrap(mAdapter)));
         }
         return mAdapter;
     }

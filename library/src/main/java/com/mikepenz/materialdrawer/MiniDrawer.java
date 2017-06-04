@@ -335,12 +335,12 @@ public class MiniDrawer {
         //additional stuff
         mRecyclerView.setLayoutManager(new LinearLayoutManager(ctx));
         //adapter
-        mAdapter = new FastAdapter<>();
         mItemAdapter = new ItemAdapter<>();
+        mAdapter = FastAdapter.with(mItemAdapter);
         mAdapter.withSelectable(true);
         mAdapter.withAllowDeselection(false);
         mAdapter.withPositionBasedStateManagement(mPositionBasedStateManagement);
-        mRecyclerView.setAdapter(mItemAdapter.wrap(mAdapter));
+        mRecyclerView.setAdapter(mAdapter);
 
         //if the activity with the drawer should be fullscreen add the padding for the statusbar
         if (mDrawer != null && mDrawer.mDrawerBuilder != null && (mDrawer.mDrawerBuilder.mFullscreen || mDrawer.mDrawerBuilder.mTranslucentStatusBar)) {
