@@ -867,27 +867,11 @@ public class DrawerBuilder {
     }
 
     // an adapter to use for the list
-    protected boolean mPositionBasedStateManagement = true;
     protected FastAdapter<IDrawerItem> mAdapter;
     protected ItemAdapter<IDrawerItem> mHeaderAdapter = new ItemAdapter<>();
     protected ItemAdapter<IDrawerItem> mItemAdapter = new ItemAdapter<>();
     protected ItemAdapter<IDrawerItem> mFooterAdapter = new ItemAdapter<>();
     protected ExpandableExtension<IDrawerItem> mExpandableExtension = new ExpandableExtension<>();
-
-    /**
-     * This allows to disable the default position based statemanagment of the FastAdapter and switch to the
-     * new identifier based state managment
-     *
-     * @param positionBasedStateManagement enable / disable the positionBasedStateManagement
-     * @return this
-     */
-    public DrawerBuilder withPositionBasedStateManagement(boolean positionBasedStateManagement) {
-        this.mPositionBasedStateManagement = positionBasedStateManagement;
-        if(mAdapter != null) {
-            this.mAdapter.withPositionBasedStateManagement(this.mPositionBasedStateManagement);
-        }
-        return this;
-    }
 
     /**
      * Define a custom Adapter which will be used in the drawer
@@ -918,7 +902,6 @@ public class DrawerBuilder {
             mAdapter.withSelectable(true);
             mAdapter.withAllowDeselection(false);
             mAdapter.setHasStableIds(mHasStableIds);
-            mAdapter.withPositionBasedStateManagement(mPositionBasedStateManagement);
         }
         return mAdapter;
     }
@@ -1566,7 +1549,7 @@ public class DrawerBuilder {
         //we only want to hook a Drawer to the MiniDrawer if it is the main drawer, not the appended one
         if (!mAppended && mGenerateMiniDrawer) {
             // if we should create a MiniDrawer we have to do this now
-            mMiniDrawer = new MiniDrawer().withDrawer(result).withAccountHeader(mAccountHeader).withPositionBasedStateManagement(mPositionBasedStateManagement);
+            mMiniDrawer = new MiniDrawer().withDrawer(result).withAccountHeader(mAccountHeader);
         }
 
         //forget the reference to the activity

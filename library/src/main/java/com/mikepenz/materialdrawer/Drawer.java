@@ -183,7 +183,7 @@ public class Drawer {
      */
     public MiniDrawer getMiniDrawer() {
         if (mDrawerBuilder.mMiniDrawer == null) {
-            mDrawerBuilder.mMiniDrawer = new MiniDrawer().withDrawer(this).withAccountHeader(mDrawerBuilder.mAccountHeader).withPositionBasedStateManagement(mDrawerBuilder.mPositionBasedStateManagement);
+            mDrawerBuilder.mMiniDrawer = new MiniDrawer().withDrawer(this).withAccountHeader(mDrawerBuilder.mAccountHeader);
         }
         return mDrawerBuilder.mMiniDrawer;
     }

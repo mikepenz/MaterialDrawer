@@ -105,21 +105,6 @@ public class MiniDrawer {
         return this;
     }
 
-
-    protected boolean mPositionBasedStateManagement = true;
-
-    /**
-     * This allows to disable the default position based statemanagment of the FastAdapter and switch to the
-     * new identifier based state managment
-     *
-     * @param positionBasedStateManagement enable / disable the positionBasedStateManagement
-     * @return this
-     */
-    public MiniDrawer withPositionBasedStateManagement(boolean positionBasedStateManagement) {
-        this.mPositionBasedStateManagement = positionBasedStateManagement;
-        return this;
-    }
-
     private boolean mIncludeSecondaryDrawerItems = false;
 
     /**
@@ -341,7 +326,6 @@ public class MiniDrawer {
         mAdapter = FastAdapter.with(mItemAdapter);
         mAdapter.withSelectable(true);
         mAdapter.withAllowDeselection(false);
-        mAdapter.withPositionBasedStateManagement(mPositionBasedStateManagement);
         mRecyclerView.setAdapter(mAdapter);
 
         //if the activity with the drawer should be fullscreen add the padding for the statusbar
