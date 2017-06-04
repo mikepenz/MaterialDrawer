@@ -41,6 +41,8 @@ import com.mikepenz.fastadapter.IAdapter;
 import com.mikepenz.fastadapter.IExpandable;
 import com.mikepenz.fastadapter.IItemAdapter;
 import com.mikepenz.fastadapter.adapters.ItemAdapter;
+import com.mikepenz.fastadapter.listeners.OnClickListener;
+import com.mikepenz.fastadapter.listeners.OnLongClickListener;
 import com.mikepenz.iconics.utils.Utils;
 import com.mikepenz.materialdrawer.holder.DimenHolder;
 import com.mikepenz.materialdrawer.model.AbstractDrawerItem;
@@ -1747,7 +1749,7 @@ public class DrawerBuilder {
         mAdapter.select(mSelectedItemPosition);
 
         // add the onDrawerItemClickListener if set
-        mAdapter.withOnClickListener(new FastAdapter.OnClickListener<IDrawerItem>() {
+        mAdapter.withOnClickListener(new OnClickListener<IDrawerItem>() {
             @Override
             public boolean onClick(final View view, IAdapter<IDrawerItem> adapter, final IDrawerItem item, final int position) {
                 if (!(item != null && item instanceof Selectable && !item.isSelectable())) {
@@ -1798,7 +1800,7 @@ public class DrawerBuilder {
             }
         });
         // add the onDrawerItemLongClickListener if set
-        mAdapter.withOnLongClickListener(new FastAdapter.OnLongClickListener<IDrawerItem>() {
+        mAdapter.withOnLongClickListener(new OnLongClickListener<IDrawerItem>() {
             @Override
             public boolean onLongClick(View view, IAdapter<IDrawerItem> adapter, final IDrawerItem item, final int position) {
                 if (mOnDrawerItemLongClickListener != null) {
