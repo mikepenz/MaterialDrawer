@@ -434,6 +434,7 @@ Thanks to @zsmb13 there's now an (in)official Kotlin DSL wrapper for the Materia
 * [Boost for reddit](https://play.google.com/store/apps/details?id=com.rubenmayayo.reddit)
 * [Touch for Facebook](https://play.google.com/store/apps/details?id=com.fa.touch.free)
 * [Calendula](https://github.com/citiususc/calendula)
+* [MyTimes](https://github.com/debo1994/MyTimes)
 
 # Articles about the MaterialDrawer
 * [java-help.ru](http://java-help.ru/material-navigationdrawer/)
