@@ -7,7 +7,7 @@
         android:id="@+id/material_drawer_account_header_background"
         android:layout_width="match_parent"
         android:layout_height="@dimen/material_drawer_account_header_height"
-        android:scaleType="fitXY" />
+        android:scaleType="centerCrop" />
 
     <RelativeLayout
         android:id="@+id/material_drawer_account_header"
