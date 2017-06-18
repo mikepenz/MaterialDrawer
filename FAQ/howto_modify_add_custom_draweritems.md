@@ -1,4 +1,4 @@
-#How do I change existing or add my own CustomDrawerItems to the MaterialDrawer?
+# How do I change existing or add my own CustomDrawerItems to the MaterialDrawer?
 
 Please head over here on how to implement a proper CustomDrawerItem:
 - http://stackoverflow.com/a/32543209/325479

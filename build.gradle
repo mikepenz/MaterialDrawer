@@ -5,27 +5,25 @@ buildscript {
                  minSdk    : 14,
                  targetSdk : 25]
 
-        versions = [supportLib: "25.3.1"]
+        versions = [supportLib: "25.4.0"]
     }
 
     repositories {
+        maven { url 'https://maven.google.com' }
         jcenter()
         mavenCentral()
     }
     dependencies {
-        classpath 'com.android.tools.build:gradle:2.3.0'
-        classpath 'com.novoda:bintray-release:0.3.4'
+        classpath 'com.android.tools.build:gradle:3.0.0-alpha4'
+        classpath 'com.novoda:bintray-release:0.5.0'
     }
 }
 
 allprojects {
     repositories {
+        maven { url 'https://maven.google.com' }
         jcenter()
         mavenCentral()
         maven { url "https://oss.sonatype.org/content/repositories/snapshots/" }
     }
-}
-
-task wrapper(type: Wrapper) {
-    gradleVersion = '3.4'
 }
