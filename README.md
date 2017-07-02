@@ -52,7 +52,7 @@ You can find some frequently asked questions and other resources in the [WIKI / 
 ## 1. Provide the gradle dependency
 
 ```gradle
-compile('com.mikepenz:materialdrawer:5.9.3@aar') {
+compile('com.mikepenz:materialdrawer:5.9.4@aar') {
 	transitive = true
 }
 ```
@@ -435,6 +435,7 @@ Thanks to @zsmb13 there's now an (in)official Kotlin DSL wrapper for the Materia
 * [Touch for Facebook](https://play.google.com/store/apps/details?id=com.fa.touch.free)
 * [Calendula](https://github.com/citiususc/calendula)
 * [MyTimes](https://github.com/debo1994/MyTimes)
+* [VoIP By Antisip](https://play.google.com/store/apps/details?id=com.antisip.vbyantisip)
 
 # Articles about the MaterialDrawer
 * [java-help.ru](http://java-help.ru/material-navigationdrawer/)
