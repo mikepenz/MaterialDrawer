@@ -85,7 +85,9 @@ class DrawerUtils {
         if (position > -1) {
             if (drawer.mStickyFooterView != null && drawer.mStickyFooterView instanceof LinearLayout) {
                 LinearLayout footer = (LinearLayout) drawer.mStickyFooterView;
-
+                if (drawer.mStickyFooterDivider) {
+                    position = position + 1;
+                }
                 if (footer.getChildCount() > position && position >= 0) {
                     IDrawerItem drawerItem = (IDrawerItem) footer.getChildAt(position).getTag();
                     onFooterDrawerItemClick(drawer, drawerItem, footer.getChildAt(position), fireOnClick);
