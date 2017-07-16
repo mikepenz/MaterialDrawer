@@ -45,6 +45,8 @@ import com.mikepenz.fastadapter.adapters.ItemAdapter;
 import com.mikepenz.fastadapter.expandable.ExpandableExtension;
 import com.mikepenz.fastadapter.listeners.OnClickListener;
 import com.mikepenz.fastadapter.listeners.OnLongClickListener;
+import com.mikepenz.fastadapter.utils.DefaultIdDistributor;
+import com.mikepenz.fastadapter.utils.DefaultIdDistributorImpl;
 import com.mikepenz.iconics.utils.Utils;
 import com.mikepenz.materialdrawer.holder.DimenHolder;
 import com.mikepenz.materialdrawer.model.AbstractDrawerItem;
@@ -80,6 +82,7 @@ public class DrawerBuilder {
     protected RecyclerView.LayoutManager mLayoutManager;
     protected ViewGroup mRootView;
     protected Materialize mMaterialize;
+    public final DefaultIdDistributor idDistributor = new DefaultIdDistributorImpl();
 
     /**
      * default constructor
@@ -868,9 +871,9 @@ public class DrawerBuilder {
 
     // an adapter to use for the list
     protected FastAdapter<IDrawerItem> mAdapter;
-    protected ItemAdapter<IDrawerItem> mHeaderAdapter = new ItemAdapter<>();
-    protected ItemAdapter<IDrawerItem> mItemAdapter = new ItemAdapter<>();
-    protected ItemAdapter<IDrawerItem> mFooterAdapter = new ItemAdapter<>();
+    protected IItemAdapter<IDrawerItem, IDrawerItem> mHeaderAdapter = new ItemAdapter<>().withIdDistributor(idDistributor);
+    protected IItemAdapter<IDrawerItem, IDrawerItem> mItemAdapter = new ItemAdapter<>().withIdDistributor(idDistributor);
+    protected IItemAdapter<IDrawerItem, IDrawerItem> mFooterAdapter = new ItemAdapter<>().withIdDistributor(idDistributor);
     protected ExpandableExtension<IDrawerItem> mExpandableExtension = new ExpandableExtension<>();
 
     /**
@@ -906,15 +909,15 @@ public class DrawerBuilder {
         return mAdapter;
     }
 
-    protected IItemAdapter<IDrawerItem> getItemAdapter() {
+    protected IItemAdapter<IDrawerItem, IDrawerItem> getItemAdapter() {
         return mItemAdapter;
     }
 
-    protected IItemAdapter<IDrawerItem> getHeaderAdapter() {
+    protected IItemAdapter<IDrawerItem, IDrawerItem> getHeaderAdapter() {
         return mHeaderAdapter;
     }
 
-    protected IItemAdapter<IDrawerItem> getFooterAdapter() {
+    protected IItemAdapter<IDrawerItem, IDrawerItem> getFooterAdapter() {
         return mFooterAdapter;
     }
 
@@ -1804,9 +1807,11 @@ public class DrawerBuilder {
         // try to restore all saved values again
         if (mSavedInstance != null) {
             if (!mAppended) {
+                mAdapter.deselect();
                 mAdapter.withSavedInstanceState(mSavedInstance, Drawer.BUNDLE_SELECTION);
                 DrawerUtils.setStickyFooterSelection(this, mSavedInstance.getInt(Drawer.BUNDLE_STICKY_FOOTER_SELECTION, -1), null);
             } else {
+                mAdapter.deselect();
                 mAdapter.withSavedInstanceState(mSavedInstance, Drawer.BUNDLE_SELECTION_APPENDED);
                 DrawerUtils.setStickyFooterSelection(this, mSavedInstance.getInt(Drawer.BUNDLE_STICKY_FOOTER_SELECTION_APPENDED, -1), null);
             }

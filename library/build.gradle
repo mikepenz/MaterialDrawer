@@ -37,7 +37,7 @@ dependencies {
     // contains util classes to support various android versions, and clean up code
     // comes with the awesome "Holder"-Pattern
     // https://github.com/mikepenz/Materialize
-    compile 'com.mikepenz:materialize:1.0.2@aar'
+    compile 'com.mikepenz:materialize:1.0.3@aar'
 
     // used to provide out of the box icon font support. simplifies development,
     // and provides scalable icons. the core is very very light
@@ -47,5 +47,6 @@ dependencies {
     // used to fill the RecyclerView with the DrawerItems
     // and provides single and multi selection, expandable items
     // https://github.com/mikepenz/FastAdapter
-    compile 'com.mikepenz:fastadapter:3.0.0.4-SNAPSHOT@aar'
+    compile 'com.mikepenz:fastadapter:3.0.0.6-SNAPSHOT@aar'
+    compile 'com.mikepenz:fastadapter-extensions-expandable:3.0.0.6-SNAPSHOT@aar'
 }

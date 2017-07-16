@@ -7,7 +7,6 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
-import com.mikepenz.fastadapter.utils.IdDistributor;
 import com.mikepenz.materialdrawer.Drawer;
 import com.mikepenz.materialdrawer.model.interfaces.IDrawerItem;
 import com.mikepenz.materialdrawer.model.interfaces.OnPostBindViewListener;
@@ -234,17 +233,19 @@ public abstract class AbstractDrawerItem<T, VH extends RecyclerView.ViewHolder> 
 
     /**
      * a list of subItems
+     * **WARNING** Make sure the subItems provided already have identifiers
      *
      * @param subItems
      * @return
      */
     public T withSubItems(List<IDrawerItem> subItems) {
-        this.mSubItems = IdDistributor.checkIds(subItems);
+        this.mSubItems = subItems;
         return (T) this;
     }
 
     /**
      * an array of subItems
+     * **WARNING** Make sure the subItems provided already have identifiers
      *
      * @param subItems
      * @return
@@ -253,7 +254,7 @@ public abstract class AbstractDrawerItem<T, VH extends RecyclerView.ViewHolder> 
         if (mSubItems == null) {
             mSubItems = new ArrayList<>();
         }
-        Collections.addAll(mSubItems, IdDistributor.checkIds(subItems));
+        Collections.addAll(mSubItems, subItems);
         return (T) this;
     }
 
