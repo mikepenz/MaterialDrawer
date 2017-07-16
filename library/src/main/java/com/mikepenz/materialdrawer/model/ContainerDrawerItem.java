@@ -93,9 +93,11 @@ public class ContainerDrawerItem extends AbstractDrawerItem<ContainerDrawerItem,
         }
 
         //set the height
+        int height = ViewGroup.LayoutParams.WRAP_CONTENT;
         if (mHeight != null) {
             RecyclerView.LayoutParams lp = (RecyclerView.LayoutParams) viewHolder.view.getLayoutParams();
-            lp.height = mHeight.asPixel(ctx);
+            height = mHeight.asPixel(ctx);
+            lp.height = height;
             viewHolder.view.setLayoutParams(lp);
         }
 
@@ -111,19 +113,20 @@ public class ContainerDrawerItem extends AbstractDrawerItem<ContainerDrawerItem,
         divider.setMinimumHeight(dividerHeight);
         divider.setBackgroundColor(UIUtils.getThemeColorFromAttrOrRes(ctx, R.attr.material_drawer_divider, R.color.material_drawer_divider));
 
-        LinearLayout.LayoutParams layoutParams = new LinearLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, (int) UIUtils.convertDpToPixel(dividerHeight, ctx));
+        LinearLayout.LayoutParams dividerParams = new LinearLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, (int) UIUtils.convertDpToPixel(dividerHeight, ctx));
+        LinearLayout.LayoutParams viewParams = new LinearLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, mHeight != null ? height - (int) UIUtils.convertDpToPixel(dividerHeight, ctx) : height);
 
         //depending on the position we add the view
         if (mViewPosition == Position.TOP) {
-            ((ViewGroup) viewHolder.view).addView(mView, ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT);
-            layoutParams.bottomMargin = ctx.getResources().getDimensionPixelSize(R.dimen.material_drawer_padding);
-            ((ViewGroup) viewHolder.view).addView(divider, layoutParams);
+            ((ViewGroup) viewHolder.view).addView(mView, viewParams);
+            dividerParams.bottomMargin = ctx.getResources().getDimensionPixelSize(R.dimen.material_drawer_padding);
+            ((ViewGroup) viewHolder.view).addView(divider, dividerParams);
         } else if (mViewPosition == Position.BOTTOM) {
-            layoutParams.topMargin = ctx.getResources().getDimensionPixelSize(R.dimen.material_drawer_padding);
-            ((ViewGroup) viewHolder.view).addView(divider, layoutParams);
-            ((ViewGroup) viewHolder.view).addView(mView);
+            dividerParams.topMargin = ctx.getResources().getDimensionPixelSize(R.dimen.material_drawer_padding);
+            ((ViewGroup) viewHolder.view).addView(divider, dividerParams);
+            ((ViewGroup) viewHolder.view).addView(mView, viewParams);
         } else {
-            ((ViewGroup) viewHolder.view).addView(mView);
+            ((ViewGroup) viewHolder.view).addView(mView, viewParams);
         }
 
         //call the onPostBindView method to trigger post bind view actions (like the listener to modify the item if required)

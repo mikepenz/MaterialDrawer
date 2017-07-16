@@ -11,7 +11,6 @@ import com.mikepenz.iconics.IconicsDrawable;
 import com.mikepenz.materialdrawer.util.AbstractDrawerImageLoader;
 import com.mikepenz.materialdrawer.util.DrawerImageLoader;
 import com.mikepenz.materialdrawer.util.DrawerUIUtils;
-import com.squareup.leakcanary.LeakCanary;
 
 /**
  * Created by mikepenz on 27.03.15.
@@ -22,7 +21,6 @@ public class CustomApplication extends Application {
     public void onCreate() {
         super.onCreate();
 
-        LeakCanary.install(this);
         /*
         //initialize and create the image loader logic
         DrawerImageLoader.init(new AbstractDrawerImageLoader() {

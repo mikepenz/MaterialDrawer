@@ -12,8 +12,8 @@ android {
     defaultConfig {
         minSdkVersion setup.minSdk
         targetSdkVersion setup.targetSdk
-        versionCode 592
-        versionName "5.9.2"
+        versionCode 594
+        versionName "5.9.4"
 
         setProperty("archivesBaseName", "-v$versionName-c$versionCode")
     }
@@ -49,11 +49,11 @@ dependencies {
 
     // used to showcase how to load images
     compile 'com.squareup.picasso:picasso:2.5.2'
-    compile 'com.github.bumptech.glide:glide:3.7.0'
+    compile 'com.github.bumptech.glide:glide:3.8.0'
 
     // the sample uses more advanced functions of the fastadapter
     // https://github.com/mikepenz/FastAdapter/
-    compile 'com.mikepenz:fastadapter-commons:2.5.3@aar'
+    compile 'com.mikepenz:fastadapter-commons:2.6.0@aar'
     // used to generate the Open Source section
     // https://github.com/mikepenz/AboutLibraries
     compile('com.mikepenz:aboutlibraries:5.9.5@aar') {
@@ -77,8 +77,4 @@ dependencies {
     compile 'com.mikepenz:google-material-typeface:2.2.0.1@aar'
     compile 'com.mikepenz:fontawesome-typeface:4.6.0.3@aar'
     compile 'com.mikepenz:octicons-typeface:3.0.0.1@aar'
-
-    debugCompile 'com.squareup.leakcanary:leakcanary-android:1.5'
-    releaseCompile 'com.squareup.leakcanary:leakcanary-android-no-op:1.5'
-    testCompile 'com.squareup.leakcanary:leakcanary-android-no-op:1.5'
 }
