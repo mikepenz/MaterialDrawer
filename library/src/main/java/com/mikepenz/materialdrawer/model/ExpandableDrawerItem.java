@@ -7,9 +7,9 @@ import android.support.annotation.ColorRes;
 import android.support.annotation.LayoutRes;
 import android.support.v4.view.ViewCompat;
 import android.view.View;
+import android.widget.ImageView;
 
 import com.mikepenz.iconics.IconicsDrawable;
-import com.mikepenz.iconics.view.IconicsImageView;
 import com.mikepenz.materialdrawer.Drawer;
 import com.mikepenz.materialdrawer.R;
 import com.mikepenz.materialdrawer.holder.ColorHolder;
@@ -103,12 +103,14 @@ public class ExpandableDrawerItem extends BaseDescribeableDrawerItem<ExpandableD
         bindViewHelper(viewHolder);
 
         //make sure all animations are stopped
-        viewHolder.arrow.setColor(this.arrowColor != null ? this.arrowColor.color(ctx) : getIconColor(ctx));
+        if (viewHolder.arrow.getDrawable() instanceof IconicsDrawable) {
+            ((IconicsDrawable) viewHolder.arrow.getDrawable()).color(this.arrowColor != null ? this.arrowColor.color(ctx) : getIconColor(ctx));
+        }
         viewHolder.arrow.clearAnimation();
         if (!isExpanded()) {
-            ViewCompat.setRotation(viewHolder.arrow, this.arrowRotationAngleStart);
+            viewHolder.arrow.setRotation(this.arrowRotationAngleStart);
         } else {
-            ViewCompat.setRotation(viewHolder.arrow, this.arrowRotationAngleEnd);
+            viewHolder.arrow.setRotation(this.arrowRotationAngleEnd);
         }
 
         //call the onPostBindView method to trigger post bind view actions (like the listener to modify the item if required)
@@ -121,12 +123,12 @@ public class ExpandableDrawerItem extends BaseDescribeableDrawerItem<ExpandableD
     }
 
     public static class ViewHolder extends BaseViewHolder {
-        public IconicsImageView arrow;
+        public ImageView arrow;
 
         public ViewHolder(View view) {
             super(view);
-            arrow = (IconicsImageView) view.findViewById(R.id.material_drawer_arrow);
-            arrow.setIcon(new IconicsDrawable(view.getContext(), MaterialDrawerFont.Icon.mdf_expand_more).sizeDp(16).paddingDp(2).color(Color.BLACK));
+            arrow = view.findViewById(R.id.material_drawer_arrow);
+            arrow.setImageDrawable(new IconicsDrawable(view.getContext(), MaterialDrawerFont.Icon.mdf_expand_more).sizeDp(16).paddingDp(2).color(Color.BLACK));
         }
     }
 }
