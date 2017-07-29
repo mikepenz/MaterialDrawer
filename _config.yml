@@ -1,0 +1,8 @@
+title: MaterialDrawer
+description: The flexible, easy to use, all in one drawer library for your Android project.
+show_downloads: true
+theme: jekyll-theme-minimal
+
+gems:
+  - jekyll-mentions
+  - jekyll-readme-index

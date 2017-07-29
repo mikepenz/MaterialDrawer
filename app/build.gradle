@@ -12,8 +12,8 @@ android {
     defaultConfig {
         minSdkVersion setup.minSdk
         targetSdkVersion setup.targetSdk
-        versionCode 594
-        versionName "5.9.4"
+        versionCode 595
+        versionName "5.9.5"
 
         setProperty("archivesBaseName", "-v$versionName-c$versionCode")
     }
@@ -62,7 +62,7 @@ dependencies {
     }
     //used to provide different itemAnimators for the RecyclerView
     //https://github.com/mikepenz/ItemAnimators
-    compile 'com.mikepenz:itemanimators:0.5.0@aar'
+    compile 'com.mikepenz:itemanimators:1.0.0@aar'
     // used to provide the MiniDrawer to normal Drawer crossfade effect via a SlidingPane layout
     // --> https://github.com/mikepenz/MaterialDrawer/blob/develop/app/src/main/java/com/mikepenz/materialdrawer/app/MiniDrawerActivity.java
     // https://github.com/mikepenz/Crossfader
@@ -75,6 +75,6 @@ dependencies {
     // icon fonts used inside the sample
     // https://github.com/mikepenz/Android-Iconics
     compile 'com.mikepenz:google-material-typeface:2.2.0.1@aar'
-    compile 'com.mikepenz:fontawesome-typeface:4.6.0.3@aar'
+    compile 'com.mikepenz:fontawesome-typeface:4.7.0.0@aar'
     compile 'com.mikepenz:octicons-typeface:3.0.0.1@aar'
 }

@@ -64,12 +64,9 @@
         android:paddingRight="0dp"
         android:paddingStart="@dimen/material_drawer_padding">
 
-        <com.mikepenz.iconics.view.IconicsImageView
+        <ImageView
             android:id="@+id/material_drawer_arrow"
             android:layout_width="16dp"
-            android:layout_height="16dp"
-            app:ico_color="@color/md_black_1000"
-            app:ico_icon="gmd-keyboard-arrow-down"
-            app:ico_size="16dp" />
+            android:layout_height="16dp" />
     </LinearLayout>
 </LinearLayout>
