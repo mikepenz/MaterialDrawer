@@ -438,6 +438,7 @@ Thanks to @zsmb13 there's now an (in)official Kotlin DSL wrapper for the Materia
 * [VoIP By Antisip](https://play.google.com/store/apps/details?id=com.antisip.vbyantisip)
 * [MBox - One Place for Entertainment](https://play.google.com/store/apps/details?id=com.paperwrrk.android.mbox)
 * [D Notes - Smart and Material Note Taking](https://play.google.com/store/apps/details?id=com.dvdb.bergnotes)
+* [Moviebase](https://play.google.com/store/apps/details?id=com.moviebase)
 
 # Articles about the MaterialDrawer
 * [java-help.ru](http://java-help.ru/material-navigationdrawer/)
