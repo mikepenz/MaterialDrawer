@@ -57,6 +57,11 @@ compile('com.mikepenz:materialdrawer:5.9.5@aar') {
 }
 ```
 
+If you have android.support libraries in your project, declare Material Drawer import before theses libs and include this after `transitive` parameter:
+```
+exclude group: 'com.android.support'
+```
+
 ## 2. Add your drawer
 ```java
 new DrawerBuilder().withActivity(this).build();
