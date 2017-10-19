@@ -57,7 +57,7 @@ compile('com.mikepenz:materialdrawer:5.9.5@aar') {
 }
 ```
 
-If you have android.support libraries in your project, declare Material Drawer import before theses libs and include this after `transitive` parameter:
+If you have the `android.support` libraries in your project, you can exclude those from the `MaterialDrawer` by adding the following in a new line after the `transitive` parameter:
 ```
 exclude group: 'com.android.support'
 ```
