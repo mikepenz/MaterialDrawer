@@ -446,7 +446,8 @@ Thanks to @zsmb13 there's now an (in)official Kotlin DSL wrapper for the Materia
 * [Moviebase](https://play.google.com/store/apps/details?id=com.moviebase)
 
 # Articles about the MaterialDrawer
-* [java-help.ru](http://java-help.ru/material-navigationdrawer/)
+* [java-help.ru - MaterialDrawer tutorial](http://java-help.ru/material-navigationdrawer/)
+* [MaterialDrawer in multiple activities](https://android.jlelse.eu/android-using-navigation-drawer-across-multiple-activities-the-easiest-way-b011f152aebd)
 
 
 # Credits
