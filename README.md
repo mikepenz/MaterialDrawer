@@ -12,7 +12,7 @@ It provides you with the easiest possible implementation of a navigation drawer 
 There  is a Header with profiles (**AccountHeader**), a **MiniDrawer** for Tablets (like Gmail), provide
 **custom DrawerItems**, **custom colors**, **custom themes**, ... **No limits** for customizations.
 
-### A quick overview what's in
+### A quick overview of what's in it 
 - **the easiest possible integration**
 - integrate in less than **5 minutes**
 - compatible down to **API Level 14**
