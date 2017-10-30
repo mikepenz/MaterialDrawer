@@ -12,9 +12,7 @@ import android.widget.AdapterView;
 import android.widget.FrameLayout;
 
 import com.mikepenz.fastadapter.FastAdapter;
-import com.mikepenz.fastadapter.adapters.FooterAdapter;
-import com.mikepenz.fastadapter.adapters.HeaderAdapter;
-import com.mikepenz.fastadapter.adapters.ItemAdapter;
+import com.mikepenz.fastadapter.IItemAdapter;
 import com.mikepenz.materialdrawer.holder.DimenHolder;
 import com.mikepenz.materialdrawer.holder.ImageHolder;
 import com.mikepenz.materialdrawer.holder.StringHolder;
@@ -55,6 +53,7 @@ public class Drawer {
      * expands it. This shared preference tracks this.
      */
     protected static final String PREF_USER_OPENED_DRAWER_BY_DRAGGING = "navigation_drawer_dragged_open";
+
 
     protected final DrawerBuilder mDrawerBuilder;
     private FrameLayout mContentView;
@@ -185,7 +184,7 @@ public class Drawer {
      */
     public MiniDrawer getMiniDrawer() {
         if (mDrawerBuilder.mMiniDrawer == null) {
-            mDrawerBuilder.mMiniDrawer = new MiniDrawer().withDrawer(this).withAccountHeader(mDrawerBuilder.mAccountHeader).withPositionBasedStateManagement(mDrawerBuilder.mPositionBasedStateManagement);
+            mDrawerBuilder.mMiniDrawer = new MiniDrawer().withDrawer(this).withAccountHeader(mDrawerBuilder.mAccountHeader);
         }
         return mDrawerBuilder.mMiniDrawer;
     }
@@ -235,7 +234,7 @@ public class Drawer {
      *
      * @return
      */
-    public HeaderAdapter<IDrawerItem> getHeaderAdapter() {
+    public IItemAdapter<IDrawerItem, IDrawerItem> getHeaderAdapter() {
         return mDrawerBuilder.mHeaderAdapter;
     }
 
@@ -244,7 +243,7 @@ public class Drawer {
      *
      * @return
      */
-    public ItemAdapter<IDrawerItem> getItemAdapter() {
+    public IItemAdapter<IDrawerItem, IDrawerItem> getItemAdapter() {
         return mDrawerBuilder.mItemAdapter;
     }
 
@@ -253,7 +252,7 @@ public class Drawer {
      *
      * @return
      */
-    public FooterAdapter<IDrawerItem> getFooterAdapter() {
+    public IItemAdapter<IDrawerItem, IDrawerItem> getFooterAdapter() {
         return mDrawerBuilder.mFooterAdapter;
     }
 
@@ -976,7 +975,7 @@ public class Drawer {
             originalOnDrawerItemClickListener = getOnDrawerItemClickListener();
             originalOnDrawerItemLongClickListener = getOnDrawerItemLongClickListener();
             originalDrawerState = getAdapter().saveInstanceState(new Bundle());
-            getAdapter().collapse(false);
+            mDrawerBuilder.mExpandableExtension.collapse(false);
             originalDrawerItems = getDrawerItems();
         }
 

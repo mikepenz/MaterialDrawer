@@ -22,7 +22,6 @@ import android.widget.FrameLayout;
 import android.widget.ImageView;
 import android.widget.TextView;
 
-import com.mikepenz.fastadapter.utils.IdDistributor;
 import com.mikepenz.iconics.IconicsDrawable;
 import com.mikepenz.materialdrawer.holder.ColorHolder;
 import com.mikepenz.materialdrawer.holder.DimenHolder;
@@ -612,7 +611,10 @@ public class AccountHeaderBuilder {
      * @return
      */
     public AccountHeaderBuilder withProfiles(@NonNull List<IProfile> profiles) {
-        this.mProfiles = IdDistributor.checkIds(profiles);
+        if (mDrawer != null) {
+            mDrawer.mDrawerBuilder.idDistributor.checkIds(profiles);
+        }
+        this.mProfiles = profiles;
         return this;
     }
 
@@ -626,8 +628,10 @@ public class AccountHeaderBuilder {
         if (this.mProfiles == null) {
             this.mProfiles = new ArrayList<>();
         }
-
-        Collections.addAll(this.mProfiles, IdDistributor.checkIds(profiles));
+        if (mDrawer != null) {
+            mDrawer.mDrawerBuilder.idDistributor.checkIds(profiles);
+        }
+        Collections.addAll(this.mProfiles, profiles);
 
         return this;
     }

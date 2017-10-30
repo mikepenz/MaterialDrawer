@@ -5,14 +5,14 @@
 > Does your application **contain a Drawer**? Do you want to have it **up and running in less than 5 minutes**? Do you want your drawer to follow the **Android Design Guidelines**?
 Do you have **profiles**? Do you need **flexibility**? Is Google's navigation Drawer of the **design support** not enough for you? Do you want a **simple and easy** to understand api?
 
-If any (or all) of these questions seem familiar, the **MaterialDrawer** is the perfect library for you.
+If any (or all) of these questions seem familiar, the **MaterialDrawer** is the perfect library for you all.
 
 **Never** waste your time again.
 It provides you with the easiest possible implementation of a navigation drawer for your application.
 There  is a Header with profiles (**AccountHeader**), a **MiniDrawer** for Tablets (like Gmail), provide
 **custom DrawerItems**, **custom colors**, **custom themes**, ... **No limits** for customizations.
 
-### A quick overview what's in
+### A quick overview of what's in it 
 - **the easiest possible integration**
 - integrate in less than **5 minutes**
 - compatible down to **API Level 14**
@@ -52,9 +52,18 @@ You can find some frequently asked questions and other resources in the [WIKI / 
 ## 1. Provide the gradle dependency
 
 ```gradle
-compile('com.mikepenz:materialdrawer:5.9.5@aar') {
-	transitive = true
-}
+implementation "com.mikepenz:materialdrawer:6.0.0@aar"
+
+//required support lib modules
+implementation "com.android.support:appcompat-v7:${versions.supportLib}"
+implementation "com.android.support:recyclerview-v7:${versions.supportLib}"
+implementation "com.android.support:support-annotations:${versions.supportLib}"
+implementation "com.android.support:design:${versions.supportLib}"
+```
+
+If you have the `android.support` libraries in your project, you can exclude those from the `MaterialDrawer` by adding the following in a new line after the `transitive` parameter:
+```
+exclude group: 'com.android.support'
 ```
 
 ## 2. Add your drawer
@@ -436,9 +445,13 @@ Thanks to @zsmb13 there's now an (in)official Kotlin DSL wrapper for the Materia
 * [Calendula](https://github.com/citiususc/calendula)
 * [MyTimes](https://github.com/debo1994/MyTimes)
 * [VoIP By Antisip](https://play.google.com/store/apps/details?id=com.antisip.vbyantisip)
+* [MBox - One Place for Entertainment](https://play.google.com/store/apps/details?id=com.paperwrrk.android.mbox)
+* [D Notes - Smart and Material Note Taking](https://play.google.com/store/apps/details?id=com.dvdb.bergnotes)
+* [Moviebase](https://play.google.com/store/apps/details?id=com.moviebase)
 
 # Articles about the MaterialDrawer
-* [java-help.ru](http://java-help.ru/material-navigationdrawer/)
+* [java-help.ru - MaterialDrawer tutorial](http://java-help.ru/material-navigationdrawer/)
+* [MaterialDrawer in multiple activities](https://android.jlelse.eu/android-using-navigation-drawer-across-multiple-activities-the-easiest-way-b011f152aebd)
 
 
 # Credits

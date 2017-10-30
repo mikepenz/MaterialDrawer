@@ -13,6 +13,8 @@ import android.widget.LinearLayout;
 import com.mikepenz.fastadapter.FastAdapter;
 import com.mikepenz.fastadapter.IAdapter;
 import com.mikepenz.fastadapter.adapters.ItemAdapter;
+import com.mikepenz.fastadapter.listeners.OnClickListener;
+import com.mikepenz.fastadapter.listeners.OnLongClickListener;
 import com.mikepenz.materialdrawer.interfaces.ICrossfader;
 import com.mikepenz.materialdrawer.model.MiniDrawerItem;
 import com.mikepenz.materialdrawer.model.MiniProfileDrawerItem;
@@ -103,21 +105,6 @@ public class MiniDrawer {
         return this;
     }
 
-
-    protected boolean mPositionBasedStateManagement = true;
-
-    /**
-     * This allows to disable the default position based statemanagment of the FastAdapter and switch to the
-     * new identifier based state managment
-     *
-     * @param positionBasedStateManagement enable / disable the positionBasedStateManagement
-     * @return this
-     */
-    public MiniDrawer withPositionBasedStateManagement(boolean positionBasedStateManagement) {
-        this.mPositionBasedStateManagement = positionBasedStateManagement;
-        return this;
-    }
-
     private boolean mIncludeSecondaryDrawerItems = false;
 
     /**
@@ -171,7 +158,7 @@ public class MiniDrawer {
     }
 
 
-    private FastAdapter.OnClickListener<IDrawerItem> mOnMiniDrawerItemOnClickListener;
+    private OnClickListener<IDrawerItem> mOnMiniDrawerItemOnClickListener;
 
     /**
      * Define an onClickListener for the MiniDrawer item adapter. WARNING: this will completely overwrite the default behavior
@@ -180,13 +167,13 @@ public class MiniDrawer {
      * @param onMiniDrawerItemOnClickListener
      * @return this
      */
-    public MiniDrawer withOnMiniDrawerItemOnClickListener(FastAdapter.OnClickListener<IDrawerItem> onMiniDrawerItemOnClickListener) {
+    public MiniDrawer withOnMiniDrawerItemOnClickListener(OnClickListener<IDrawerItem> onMiniDrawerItemOnClickListener) {
         this.mOnMiniDrawerItemOnClickListener = onMiniDrawerItemOnClickListener;
         return this;
     }
 
 
-    private FastAdapter.OnLongClickListener<IDrawerItem> mOnMiniDrawerItemLongClickListener;
+    private OnLongClickListener<IDrawerItem> mOnMiniDrawerItemLongClickListener;
 
     /**
      * Define an onLongClickListener for the MiniDrawer item adapter
@@ -194,7 +181,7 @@ public class MiniDrawer {
      * @param onMiniDrawerItemLongClickListener
      * @return
      */
-    public MiniDrawer withOnMiniDrawerItemLongClickListener(FastAdapter.OnLongClickListener<IDrawerItem> onMiniDrawerItemLongClickListener) {
+    public MiniDrawer withOnMiniDrawerItemLongClickListener(OnLongClickListener<IDrawerItem> onMiniDrawerItemLongClickListener) {
         this.mOnMiniDrawerItemLongClickListener = onMiniDrawerItemLongClickListener;
         return this;
     }
@@ -259,14 +246,14 @@ public class MiniDrawer {
      *
      * @return
      */
-    public FastAdapter.OnClickListener getOnMiniDrawerItemOnClickListener() {
+    public OnClickListener getOnMiniDrawerItemOnClickListener() {
         return mOnMiniDrawerItemOnClickListener;
     }
 
     /**
      * @return
      */
-    public FastAdapter.OnLongClickListener getOnMiniDrawerItemLongClickListener() {
+    public OnLongClickListener getOnMiniDrawerItemLongClickListener() {
         return mOnMiniDrawerItemLongClickListener;
     }
 
@@ -335,12 +322,11 @@ public class MiniDrawer {
         //additional stuff
         mRecyclerView.setLayoutManager(new LinearLayoutManager(ctx));
         //adapter
-        mAdapter = new FastAdapter<>();
         mItemAdapter = new ItemAdapter<>();
+        mAdapter = FastAdapter.with(mItemAdapter);
         mAdapter.withSelectable(true);
         mAdapter.withAllowDeselection(false);
-        mAdapter.withPositionBasedStateManagement(mPositionBasedStateManagement);
-        mRecyclerView.setAdapter(mItemAdapter.wrap(mAdapter));
+        mRecyclerView.setAdapter(mAdapter);
 
         //if the activity with the drawer should be fullscreen add the padding for the statusbar
         if (mDrawer != null && mDrawer.mDrawerBuilder != null && (mDrawer.mDrawerBuilder.mFullscreen || mDrawer.mDrawerBuilder.mTranslucentStatusBar)) {
@@ -481,7 +467,7 @@ public class MiniDrawer {
         if (mOnMiniDrawerItemOnClickListener != null) {
             mAdapter.withOnClickListener(mOnMiniDrawerItemOnClickListener);
         } else {
-            mAdapter.withOnClickListener(new FastAdapter.OnClickListener<IDrawerItem>() {
+            mAdapter.withOnClickListener(new OnClickListener<IDrawerItem>() {
                 @Override
                 public boolean onClick(View v, IAdapter<IDrawerItem> adapter, final IDrawerItem item, final int position) {
                     int type = getMiniDrawerType(item);
