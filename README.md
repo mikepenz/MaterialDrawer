@@ -29,7 +29,7 @@ There  is a Header with profiles (**AccountHeader**), a **MiniDrawer** for Table
 - **RTL** support
 - Gmail like **MiniDrawer**
 - expandable items
-- **badge** support
+- **badge** supports
 - define custom drawer items
 - tested and **stable**
 - sticky footer or headers
