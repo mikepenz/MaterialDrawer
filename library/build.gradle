@@ -28,25 +28,25 @@ apply from: 'gradle-mvn-push.gradle'
 apply from: 'gradle-jcenter-push.gradle'
 
 dependencies {
-    compile "com.android.support:appcompat-v7:${versions.supportLib}"
-    compile "com.android.support:recyclerview-v7:${versions.supportLib}"
-    compile "com.android.support:support-annotations:${versions.supportLib}"
-    compile "com.android.support:design:${versions.supportLib}"
+    implementation "com.android.support:appcompat-v7:${versions.supportLib}"
+    implementation "com.android.support:recyclerview-v7:${versions.supportLib}"
+    implementation "com.android.support:support-annotations:${versions.supportLib}"
+    implementation "com.android.support:design:${versions.supportLib}"
 
     // used to base on some backwards compatible themes
     // contains util classes to support various android versions, and clean up code
     // comes with the awesome "Holder"-Pattern
     // https://github.com/mikepenz/Materialize
-    compile 'com.mikepenz:materialize:1.0.3@aar'
+    api 'com.mikepenz:materialize:1.1.1@aar'
 
     // used to provide out of the box icon font support. simplifies development,
     // and provides scalable icons. the core is very very light
     // https://github.com/mikepenz/Android-Iconics
-    compile 'com.mikepenz:iconics-core:2.9.1@aar'
+    api 'com.mikepenz:iconics-core:2.9.5@aar'
 
     // used to fill the RecyclerView with the DrawerItems
     // and provides single and multi selection, expandable items
     // https://github.com/mikepenz/FastAdapter
-    compile 'com.mikepenz:fastadapter:3.0.0.6-SNAPSHOT@aar'
-    compile 'com.mikepenz:fastadapter-extensions-expandable:3.0.0.6-SNAPSHOT@aar'
+    api 'com.mikepenz:fastadapter:3.0.0@aar'
+    api 'com.mikepenz:fastadapter-extensions-expandable:3.0.0@aar'
 }
