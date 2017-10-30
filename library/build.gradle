@@ -8,8 +8,8 @@ android {
     defaultConfig {
         minSdkVersion setup.minSdk
         targetSdkVersion setup.targetSdk
-        versionCode 6006
-        versionName '6.0.0.6-SNAPSHOT'
+        versionCode 6000
+        versionName '6.0.0'
     }
     buildTypes {
         release {
