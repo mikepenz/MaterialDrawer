@@ -13,6 +13,7 @@ import android.widget.FrameLayout;
 
 import com.mikepenz.fastadapter.FastAdapter;
 import com.mikepenz.fastadapter.IItemAdapter;
+import com.mikepenz.fastadapter.expandable.ExpandableExtension;
 import com.mikepenz.materialdrawer.holder.DimenHolder;
 import com.mikepenz.materialdrawer.holder.ImageHolder;
 import com.mikepenz.materialdrawer.holder.StringHolder;
@@ -254,6 +255,15 @@ public class Drawer {
      */
     public IItemAdapter<IDrawerItem, IDrawerItem> getFooterAdapter() {
         return mDrawerBuilder.mFooterAdapter;
+    }
+
+    /**
+     * get the ExpandableExtension of the current drawer
+     *
+     * @return
+     */
+    public ExpandableExtension<IDrawerItem> getExpandableExtension() {
+        return mDrawerBuilder.mExpandableExtension;
     }
 
     /**
