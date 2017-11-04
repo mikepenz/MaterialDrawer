@@ -12,8 +12,8 @@ android {
     defaultConfig {
         minSdkVersion setup.minSdk
         targetSdkVersion setup.targetSdk
-        versionCode 6000
-        versionName "6.0.0"
+        versionCode 6010
+        versionName "6.0.1"
 
         setProperty("archivesBaseName", "MaterialDrawer-v$versionName-c$versionCode")
     }
