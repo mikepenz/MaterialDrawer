@@ -52,7 +52,9 @@ You can find some frequently asked questions and other resources in the [WIKI / 
 ## 1. Provide the gradle dependency
 
 ```gradle
-implementation "com.mikepenz:materialdrawer:6.0.0@aar"
+implementation("com.mikepenz:materialdrawer:6.0.1@aar") {
+   transitive = true
+}
 
 //required support lib modules
 implementation "com.android.support:appcompat-v7:${versions.supportLib}"
@@ -61,10 +63,6 @@ implementation "com.android.support:support-annotations:${versions.supportLib}"
 implementation "com.android.support:design:${versions.supportLib}"
 ```
 
-If you have the `android.support` libraries in your project, you can exclude those from the `MaterialDrawer` by adding the following in a new line after the `transitive` parameter:
-```
-exclude group: 'com.android.support'
-```
 
 ## 2. Add your drawer
 ```java

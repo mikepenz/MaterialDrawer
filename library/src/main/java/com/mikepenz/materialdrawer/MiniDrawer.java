@@ -394,6 +394,9 @@ public class MiniDrawer {
      * @param identifier the identifier of the item which should be selected (-1 for none)
      */
     public void setSelection(long identifier) {
+        if (identifier == -1) {
+            mAdapter.deselect();
+        }
         int count = mAdapter.getItemCount();
         for (int i = 0; i < count; i++) {
             IDrawerItem item = mAdapter.getItem(i);
