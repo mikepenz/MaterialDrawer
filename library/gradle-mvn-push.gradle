@@ -17,24 +17,29 @@
 apply plugin: 'maven'
 apply plugin: 'signing'
 
+@SuppressWarnings(["GroovyUnusedDeclaration", "GrMethodMayBeStatic"])
 def isReleaseBuild() {
-    return VERSION_NAME.contains("SNAPSHOT") == false
+    return !VERSION_NAME.contains("SNAPSHOT")
 }
 
+@SuppressWarnings("GroovyUnusedDeclaration")
 def getReleaseRepositoryUrl() {
     return hasProperty('RELEASE_REPOSITORY_URL') ? RELEASE_REPOSITORY_URL
             : "https://oss.sonatype.org/service/local/staging/deploy/maven2/"
 }
 
+@SuppressWarnings("GroovyUnusedDeclaration")
 def getSnapshotRepositoryUrl() {
     return hasProperty('SNAPSHOT_REPOSITORY_URL') ? SNAPSHOT_REPOSITORY_URL
             : "https://oss.sonatype.org/content/repositories/snapshots/"
 }
 
+@SuppressWarnings("GroovyUnusedDeclaration")
 def getRepositoryUsername() {
     return hasProperty('NEXUS_USERNAME') ? NEXUS_USERNAME : ""
 }
 
+@SuppressWarnings("GroovyUnusedDeclaration")
 def getRepositoryPassword() {
     return hasProperty('NEXUS_PASSWORD') ? NEXUS_PASSWORD : ""
 }
@@ -95,14 +100,14 @@ afterEvaluate { project ->
     android.libraryVariants.all { variant ->
         def javadocTask = task("generate${variant.name.capitalize()}Javadoc", type: Javadoc) {
             description "Generates Javadoc for $variant.name."
-            source = variant.javaCompile.source
+            source = variant.javaCompiler.source
             ext.androidJar = project.files(android.getBootClasspath().join(File.pathSeparator))
-            classpath = files(variant.javaCompile.classpath.files) + files(ext.androidJar)
+            classpath = files(variant.javaCompiler.classpath.files) + files(ext.androidJar)
             exclude '**/BuildConfig.java'
             exclude '**/R.java'
         }
 
-        javadocTask.dependsOn variant.javaCompile
+        javadocTask.dependsOn variant.javaCompiler
 
         def jarJavadocTask = task("jar${variant.name.capitalize()}Javadoc", type: Jar) {
             description "Generate Javadoc Jar for $variant.name"
@@ -116,10 +121,10 @@ afterEvaluate { project ->
         def jarSourceTask = task("jar${variant.name.capitalize()}Sources", type: Jar) {
             description "Generates Java Sources for $variant.name."
             classifier = 'sources'
-            from variant.javaCompile.source
+            from variant.javaCompiler.source
         }
 
-        jarSourceTask.dependsOn variant.javaCompile
+        jarSourceTask.dependsOn variant.javaCompiler
         artifacts.add('archives', jarSourceTask)
     }
 }
