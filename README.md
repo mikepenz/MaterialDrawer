@@ -52,7 +52,7 @@ You can find some frequently asked questions and other resources in the [WIKI / 
 ## 1. Provide the gradle dependency
 
 ```gradle
-implementation("com.mikepenz:materialdrawer:6.0.1@aar") {
+implementation("com.mikepenz:materialdrawer:6.0.2@aar") {
    transitive = true
 }
 
@@ -446,6 +446,7 @@ Thanks to @zsmb13 there's now an (in)official Kotlin DSL wrapper for the Materia
 * [MBox - One Place for Entertainment](https://play.google.com/store/apps/details?id=com.paperwrrk.android.mbox)
 * [D Notes - Smart and Material Note Taking](https://play.google.com/store/apps/details?id=com.dvdb.bergnotes)
 * [Moviebase](https://play.google.com/store/apps/details?id=com.moviebase)
+* [MyFuelLog2](https://play.google.com/store/apps/details?id=com.acty.myfuellog2)
 
 # Articles about the MaterialDrawer
 * [java-help.ru - MaterialDrawer tutorial](http://java-help.ru/material-navigationdrawer/)

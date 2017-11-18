@@ -12,8 +12,8 @@ android {
     defaultConfig {
         minSdkVersion setup.minSdk
         targetSdkVersion setup.targetSdk
-        versionCode 6010
-        versionName "6.0.1"
+        versionCode 6020
+        versionName "6.0.2"
 
         setProperty("archivesBaseName", "MaterialDrawer-v$versionName-c$versionCode")
     }
@@ -81,7 +81,7 @@ dependencies {
 }
 
 configurations.all {
-    resolutionStrategy.force "com.mikepenz:iconics-core:2.9.5"
+    resolutionStrategy.force "com.mikepenz:iconics-core:3.0.0"
     resolutionStrategy.force "com.mikepenz:fastadapter:3.0.1"
     resolutionStrategy.force "com.android.support:support-v4:${versions.supportLib}"
     resolutionStrategy.force "com.android.support:appcompat-v7:${versions.supportLib}"

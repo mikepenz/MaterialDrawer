@@ -487,7 +487,8 @@ public class MiniDrawer {
                             if (mAccountHeader != null && mAccountHeader.isSelectionListShown()) {
                                 mAccountHeader.toggleSelectionList(v.getContext());
                             }
-                            if (!mDrawer.getDrawerItem(item.getIdentifier()).isSelected()) {
+                            IDrawerItem drawerItem = mDrawer.getDrawerItem(item.getIdentifier());
+                            if (drawerItem != null && !drawerItem.isSelected()) {
                                 //set the selection
                                 mDrawer.setSelection(item, true);
                             }
