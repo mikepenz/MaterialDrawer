@@ -6,11 +6,11 @@
 
     android:theme="@style/MaterialDrawerTheme.Light.DarkActionBar.TranslucentStatus"
     -->
-    <color name="colorPrimary">#3E50B4</color>
-    <color name="colorPrimaryDark">#2F3E9E</color>
-    <color name="colorPrimaryLight">#C4C9E8</color>
-    <color name="colorAccent">#02A8F3</color>
+    <color name="colorPrimary">#3F51B5</color>
+    <color name="colorPrimaryDark">#3949AB</color>
+    <color name="colorPrimaryLight">#5C6BC0</color>
+    <color name="colorAccent">#2196F3</color>
     <!-- overwrite the selected colors because the primary color is to dark -->
-    <color name="material_drawer_selected_text">#536EEA</color>
-    <color name="material_drawer_dark_selected_text">#536EEA</color>
+    <color name="material_drawer_selected_text">#3F51B5</color>
+    <color name="material_drawer_dark_selected_text">#3F51B5</color>
 </resources>
