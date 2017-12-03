@@ -45,7 +45,7 @@ public class CustomApplication extends Application {
 
             @Override
             public void cancel(ImageView imageView) {
-                Glide.clear(imageView);
+                Glide.with(imageView.getContext()).clear(imageView);
             }
 
             @Override
