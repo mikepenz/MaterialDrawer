@@ -266,9 +266,9 @@ public class MiniDrawer {
      */
     public IDrawerItem generateMiniDrawerItem(IDrawerItem drawerItem) {
         if (drawerItem instanceof SecondaryDrawerItem) {
-            return mIncludeSecondaryDrawerItems ? new MiniDrawerItem((SecondaryDrawerItem) drawerItem).withEnableSelectedBackground(mEnableSelectedMiniDrawerItemBackground) : null;
+            return mIncludeSecondaryDrawerItems ? new MiniDrawerItem((SecondaryDrawerItem) drawerItem).withEnableSelectedBackground(mEnableSelectedMiniDrawerItemBackground).withSelectedBackgroundAnimated(false) : null;
         } else if (drawerItem instanceof PrimaryDrawerItem) {
-            return new MiniDrawerItem((PrimaryDrawerItem) drawerItem).withEnableSelectedBackground(mEnableSelectedMiniDrawerItemBackground);
+            return new MiniDrawerItem((PrimaryDrawerItem) drawerItem).withEnableSelectedBackground(mEnableSelectedMiniDrawerItemBackground).withSelectedBackgroundAnimated(false);
         } else if (drawerItem instanceof ProfileDrawerItem) {
             MiniProfileDrawerItem mpdi = new MiniProfileDrawerItem((ProfileDrawerItem) drawerItem);
             mpdi.withEnabled(mEnableProfileClick);
