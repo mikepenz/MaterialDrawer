@@ -1,5 +1,10 @@
 ### Upgrade Notes
 
+#### v6.0.3
+**IMPORTANT IF YOU USE THE FASTADAPTER OR ABOUTLIBRARIES**
+* You have to update your FastAdapter dependency to v3.2.1 with this release
+* See the MIGRATION information of the FastAdapter https://github.com/mikepenz/FastAdapter/blob/develop/MIGRATION.md
+
 #### v6.0.0
 **IMPORTANT IF YOU USE THE FASTADAPTER OR ABOUTLIBRARIES**
 * You have to update your FastAdapter dependency to v3.0.0 with this release
