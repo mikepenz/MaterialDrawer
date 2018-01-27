@@ -524,7 +524,7 @@ public class Drawer {
      * @param fireOnClick true if the click listener should be called
      */
     public void setSelection(long identifier, boolean fireOnClick) {
-        SelectExtension select = FastAdapter.getExtension(getAdapter(), SelectExtension.class);
+        SelectExtension<IDrawerItem> select = getAdapter().getExtension(SelectExtension.class);
         if(select != null) {
             select.deselect();
             select.selectByIdentifier(identifier, false, true);
@@ -588,7 +588,7 @@ public class Drawer {
      */
     public boolean setSelectionAtPosition(int position, boolean fireOnClick) {
         if (mDrawerBuilder.mRecyclerView != null) {
-            SelectExtension select = FastAdapter.getExtension(getAdapter(), SelectExtension.class);
+            SelectExtension<IDrawerItem> select = getAdapter().getExtension(SelectExtension.class);
             if (select != null) {
                 select.deselect();
                 select.select(position, false);
