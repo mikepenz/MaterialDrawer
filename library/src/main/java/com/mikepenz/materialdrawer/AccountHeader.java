@@ -347,7 +347,7 @@ public class AccountHeader {
      */
     private int getPositionByIdentifier(long identifier) {
         int found = -1;
-        if (mAccountHeaderBuilder.mProfiles != null && identifier >= 0) {
+        if (mAccountHeaderBuilder.mProfiles != null && identifier != -1) {
             for (int i = 0; i < mAccountHeaderBuilder.mProfiles.size(); i++) {
                 if (mAccountHeaderBuilder.mProfiles.get(i) != null) {
                     if (mAccountHeaderBuilder.mProfiles.get(i).getIdentifier() == identifier) {
