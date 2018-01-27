@@ -8,8 +8,8 @@ android {
     defaultConfig {
         minSdkVersion setup.minSdk
         targetSdkVersion setup.targetSdk
-        versionCode 6020
-        versionName '6.0.2'
+        versionCode 6030
+        versionName '6.0.3'
     }
     buildTypes {
         release {
@@ -42,11 +42,11 @@ dependencies {
     // used to provide out of the box icon font support. simplifies development,
     // and provides scalable icons. the core is very very light
     // https://github.com/mikepenz/Android-Iconics
-    compile 'com.mikepenz:iconics-core:3.0.0@aar'
+    compile 'com.mikepenz:iconics-core:3.0.2@aar'
 
     // used to fill the RecyclerView with the DrawerItems
     // and provides single and multi selection, expandable items
     // https://github.com/mikepenz/FastAdapter
-    compile 'com.mikepenz:fastadapter:3.0.4@aar'
-    compile 'com.mikepenz:fastadapter-extensions-expandable:3.0.3@aar'
+    compile 'com.mikepenz:fastadapter:3.2.1@aar'
+    compile 'com.mikepenz:fastadapter-extensions-expandable:3.2.1@aar'
 }

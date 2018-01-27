@@ -12,8 +12,9 @@ import android.widget.AdapterView;
 import android.widget.FrameLayout;
 
 import com.mikepenz.fastadapter.FastAdapter;
-import com.mikepenz.fastadapter.IItemAdapter;
+import com.mikepenz.fastadapter.adapters.ModelAdapter;
 import com.mikepenz.fastadapter.expandable.ExpandableExtension;
+import com.mikepenz.fastadapter.select.SelectExtension;
 import com.mikepenz.materialdrawer.holder.DimenHolder;
 import com.mikepenz.materialdrawer.holder.ImageHolder;
 import com.mikepenz.materialdrawer.holder.StringHolder;
@@ -235,7 +236,7 @@ public class Drawer {
      *
      * @return
      */
-    public IItemAdapter<IDrawerItem, IDrawerItem> getHeaderAdapter() {
+    public ModelAdapter<IDrawerItem, IDrawerItem> getHeaderAdapter() {
         return mDrawerBuilder.mHeaderAdapter;
     }
 
@@ -244,7 +245,7 @@ public class Drawer {
      *
      * @return
      */
-    public IItemAdapter<IDrawerItem, IDrawerItem> getItemAdapter() {
+    public ModelAdapter<IDrawerItem, IDrawerItem> getItemAdapter() {
         return mDrawerBuilder.mItemAdapter;
     }
 
@@ -253,7 +254,7 @@ public class Drawer {
      *
      * @return
      */
-    public IItemAdapter<IDrawerItem, IDrawerItem> getFooterAdapter() {
+    public ModelAdapter<IDrawerItem, IDrawerItem> getFooterAdapter() {
         return mDrawerBuilder.mFooterAdapter;
     }
 
@@ -425,7 +426,7 @@ public class Drawer {
      * @return
      */
     public IDrawerItem getDrawerItem(long identifier) {
-        return (IDrawerItem) getAdapter().getItem(getPosition(identifier));
+        return getAdapter().getItemById(identifier).first;
     }
 
     /**
@@ -511,8 +512,8 @@ public class Drawer {
      *
      * @param identifier the identifier to search for
      */
-    public boolean setSelection(long identifier) {
-        return setSelectionAtPosition(getPosition(identifier), true);
+    public void setSelection(long identifier) {
+        setSelection(identifier, true);
     }
 
     /**
@@ -522,8 +523,16 @@ public class Drawer {
      * @param identifier  the identifier to search for
      * @param fireOnClick true if the click listener should be called
      */
-    public boolean setSelection(long identifier, boolean fireOnClick) {
-        return setSelectionAtPosition(getPosition(identifier), fireOnClick);
+    public void setSelection(long identifier, boolean fireOnClick) {
+        SelectExtension<IDrawerItem> select = getAdapter().getExtension(SelectExtension.class);
+        if(select != null) {
+            select.deselect();
+            select.selectByIdentifier(identifier, false, true);
+
+            //we also have to call the general notify
+            Integer position = getAdapter().getItemById(identifier).second;
+            notifySelect(position != null ? position : -1, fireOnClick);
+        }
     }
 
     /**
@@ -543,8 +552,8 @@ public class Drawer {
      *
      * @param drawerItem the drawerItem to select (this requires a set identifier)
      */
-    public boolean setSelection(@NonNull IDrawerItem drawerItem) {
-        return setSelectionAtPosition(getPosition(drawerItem), true);
+    public void setSelection(@NonNull IDrawerItem drawerItem) {
+        setSelection(drawerItem.getIdentifier(), true);
     }
 
     /**
@@ -554,8 +563,8 @@ public class Drawer {
      * @param drawerItem  the drawerItem to select (this requires a set identifier)
      * @param fireOnClick true if the click listener should be called
      */
-    public boolean setSelection(@NonNull IDrawerItem drawerItem, boolean fireOnClick) {
-        return setSelectionAtPosition(getPosition(drawerItem), fireOnClick);
+    public void setSelection(@NonNull IDrawerItem drawerItem, boolean fireOnClick) {
+        setSelection(drawerItem.getIdentifier(), fireOnClick);
     }
 
     /**
@@ -579,24 +588,31 @@ public class Drawer {
      */
     public boolean setSelectionAtPosition(int position, boolean fireOnClick) {
         if (mDrawerBuilder.mRecyclerView != null) {
-            mDrawerBuilder.mAdapter.deselect();
-            mDrawerBuilder.mAdapter.select(position, false);
-            if (fireOnClick && position >= 0) {
-                IDrawerItem item = mDrawerBuilder.mAdapter.getItem(position);
-
-                if (item instanceof AbstractDrawerItem && ((AbstractDrawerItem) item).getOnDrawerItemClickListener() != null) {
-                    ((AbstractDrawerItem) item).getOnDrawerItemClickListener().onItemClick(null, position, item);
-                }
-
-                if (mDrawerBuilder.mOnDrawerItemClickListener != null) {
-                    mDrawerBuilder.mOnDrawerItemClickListener.onItemClick(null, position, item);
-                }
+            SelectExtension<IDrawerItem> select = getAdapter().getExtension(SelectExtension.class);
+            if (select != null) {
+                select.deselect();
+                select.select(position, false);
+                notifySelect(position, fireOnClick);
             }
-
-            //we set the selection on a normal item in the drawer so we have to deselect the items in the StickyDrawer
-            mDrawerBuilder.resetStickyFooterSelection();
         }
         return false;
+    }
+
+    private void notifySelect(int position, boolean fireOnClick) {
+        if (fireOnClick && position >= 0) {
+            IDrawerItem item = mDrawerBuilder.mAdapter.getItem(position);
+
+            if (item instanceof AbstractDrawerItem && ((AbstractDrawerItem) item).getOnDrawerItemClickListener() != null) {
+                ((AbstractDrawerItem) item).getOnDrawerItemClickListener().onItemClick(null, position, item);
+            }
+
+            if (mDrawerBuilder.mOnDrawerItemClickListener != null) {
+                mDrawerBuilder.mOnDrawerItemClickListener.onItemClick(null, position, item);
+            }
+        }
+
+        //we set the selection on a normal item in the drawer so we have to deselect the items in the StickyDrawer
+        mDrawerBuilder.resetStickyFooterSelection();
     }
 
     /**
@@ -736,10 +752,7 @@ public class Drawer {
      * @param identifier
      */
     public void removeItem(long identifier) {
-        int position = getPosition(identifier);
-        if (mDrawerBuilder.checkDrawerItem(position, false)) {
-            mDrawerBuilder.getItemAdapter().remove(position);
-        }
+        getItemAdapter().removeByIdentifier(identifier);
     }
 
     /**
