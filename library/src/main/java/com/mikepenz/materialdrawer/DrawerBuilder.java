@@ -42,6 +42,7 @@ import com.mikepenz.fastadapter.IAdapterExtension;
 import com.mikepenz.fastadapter.IExpandable;
 import com.mikepenz.fastadapter.IItemAdapter;
 import com.mikepenz.fastadapter.adapters.ItemAdapter;
+import com.mikepenz.fastadapter.adapters.ModelAdapter;
 import com.mikepenz.fastadapter.expandable.ExpandableExtension;
 import com.mikepenz.fastadapter.listeners.OnClickListener;
 import com.mikepenz.fastadapter.listeners.OnLongClickListener;
@@ -871,9 +872,9 @@ public class DrawerBuilder {
 
     // an adapter to use for the list
     protected FastAdapter<IDrawerItem> mAdapter;
-    protected IItemAdapter<IDrawerItem, IDrawerItem> mHeaderAdapter = new ItemAdapter<>().withIdDistributor(idDistributor);
-    protected IItemAdapter<IDrawerItem, IDrawerItem> mItemAdapter = new ItemAdapter<>().withIdDistributor(idDistributor);
-    protected IItemAdapter<IDrawerItem, IDrawerItem> mFooterAdapter = new ItemAdapter<>().withIdDistributor(idDistributor);
+    protected ModelAdapter<IDrawerItem, IDrawerItem> mHeaderAdapter = new ItemAdapter<>().withIdDistributor(idDistributor);
+    protected ModelAdapter<IDrawerItem, IDrawerItem> mItemAdapter = new ItemAdapter<>().withIdDistributor(idDistributor);
+    protected ModelAdapter<IDrawerItem, IDrawerItem> mFooterAdapter = new ItemAdapter<>().withIdDistributor(idDistributor);
     protected ExpandableExtension<IDrawerItem> mExpandableExtension = new ExpandableExtension<>();
 
     /**
@@ -903,6 +904,7 @@ public class DrawerBuilder {
         if (mAdapter == null) {
             mAdapter = FastAdapter.with(Arrays.asList(mHeaderAdapter, mItemAdapter, mFooterAdapter), Arrays.<IAdapterExtension<IDrawerItem>>asList(mExpandableExtension));
             mAdapter.withSelectable(true);
+            mAdapter.withMultiSelect(false);
             mAdapter.withAllowDeselection(false);
             mAdapter.setHasStableIds(mHasStableIds);
         }

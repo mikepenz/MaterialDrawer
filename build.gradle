@@ -2,13 +2,13 @@ buildscript {
     ext {
         setup = [
                 compileSdk: 27,
-                buildTools: "27.0.1",
+                buildTools: "27.0.2",
                 minSdk    : 14,
                 targetSdk : 27
         ]
 
         versions = [
-                supportLib: "27.0.1"
+                supportLib: "27.0.2"
         ]
     }
 
@@ -18,7 +18,7 @@ buildscript {
         mavenCentral()
     }
     dependencies {
-        classpath 'com.android.tools.build:gradle:3.0.0'
+        classpath 'com.android.tools.build:gradle:3.0.1'
         classpath 'com.novoda:bintray-release:0.7.0'
     }
 }
