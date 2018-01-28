@@ -12,8 +12,8 @@ android {
     defaultConfig {
         minSdkVersion setup.minSdk
         targetSdkVersion setup.targetSdk
-        versionCode 6030
-        versionName "6.0.3"
+        versionCode 6040
+        versionName "6.0.4"
 
         setProperty("archivesBaseName", "MaterialDrawer-v$versionName-c$versionCode")
     }
@@ -55,7 +55,7 @@ dependencies {
 
     // the sample uses more advanced functions of the fastadapter
     // https://github.com/mikepenz/FastAdapter/
-    implementation 'com.mikepenz:fastadapter-commons:3.2.1@aar'
+    implementation 'com.mikepenz:fastadapter-commons:3.2.2@aar'
     // used to generate the Open Source section
     // https://github.com/mikepenz/AboutLibraries
     implementation('com.mikepenz:aboutlibraries:6.0.0@aar') {
@@ -82,7 +82,7 @@ dependencies {
 
 configurations.all {
     resolutionStrategy.force "com.mikepenz:iconics-core:3.0.2"
-    resolutionStrategy.force "com.mikepenz:fastadapter:3.2.1"
+    resolutionStrategy.force "com.mikepenz:fastadapter:3.2.2"
     resolutionStrategy.force "com.android.support:support-v4:${versions.supportLib}"
     resolutionStrategy.force "com.android.support:appcompat-v7:${versions.supportLib}"
     resolutionStrategy.force "com.android.support:cardview-v7:${versions.supportLib}"

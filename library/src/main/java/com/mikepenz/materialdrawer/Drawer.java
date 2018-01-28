@@ -3,6 +3,7 @@ package com.mikepenz.materialdrawer;
 import android.app.Activity;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
+import android.support.v4.util.Pair;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.widget.RecyclerView;
@@ -426,7 +427,12 @@ public class Drawer {
      * @return
      */
     public IDrawerItem getDrawerItem(long identifier) {
-        return getAdapter().getItemById(identifier).first;
+        Pair<IDrawerItem, Integer> res = getAdapter().getItemById(identifier);
+        if (res != null) {
+            return res.first;
+        } else {
+            return null;
+        }
     }
 
     /**
@@ -525,13 +531,16 @@ public class Drawer {
      */
     public void setSelection(long identifier, boolean fireOnClick) {
         SelectExtension<IDrawerItem> select = getAdapter().getExtension(SelectExtension.class);
-        if(select != null) {
+        if (select != null) {
             select.deselect();
             select.selectByIdentifier(identifier, false, true);
 
             //we also have to call the general notify
-            Integer position = getAdapter().getItemById(identifier).second;
-            notifySelect(position != null ? position : -1, fireOnClick);
+            Pair<IDrawerItem, Integer> res = getAdapter().getItemById(identifier);
+            if (res != null) {
+                Integer position = res.second;
+                notifySelect(position != null ? position : -1, fireOnClick);
+            }
         }
     }
 
