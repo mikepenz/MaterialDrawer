@@ -896,7 +896,8 @@ public class AccountHeaderBuilder {
 
         if (mCurrentProfile == null) {
             int setCount = 0;
-            for (int i = 0; i < mProfiles.size(); i++) {
+            int size = mProfiles.size();
+            for (int i = 0; i < size; i++) {
                 if (mProfiles.size() > i && mProfiles.get(i).isSelectable()) {
                     if (setCount == 0 && (mCurrentProfile == null)) {
                         mCurrentProfile = mProfiles.get(i);

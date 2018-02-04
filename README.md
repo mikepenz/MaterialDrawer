@@ -52,7 +52,7 @@ You can find some frequently asked questions and other resources in the [WIKI / 
 ## 1. Provide the gradle dependency
 
 ```gradle
-implementation("com.mikepenz:materialdrawer:6.0.4@aar") {
+implementation("com.mikepenz:materialdrawer:6.0.5@aar") {
    transitive = true
 }
 
