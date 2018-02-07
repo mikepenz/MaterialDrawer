@@ -12,8 +12,8 @@ android {
     defaultConfig {
         minSdkVersion setup.minSdk
         targetSdkVersion setup.targetSdk
-        versionCode 6050
-        versionName "6.0.5"
+        versionCode 6060
+        versionName "6.0.6"
 
         setProperty("archivesBaseName", "MaterialDrawer-v$versionName-c$versionCode")
     }
@@ -58,7 +58,7 @@ dependencies {
     implementation 'com.mikepenz:fastadapter-commons:3.2.4@aar'
     // used to generate the Open Source section
     // https://github.com/mikepenz/AboutLibraries
-    implementation('com.mikepenz:aboutlibraries:6.0.3@aar') {
+    implementation('com.mikepenz:aboutlibraries:6.0.4@aar') {
         transitive = true
     }
     //used to provide different itemAnimators for the RecyclerView
