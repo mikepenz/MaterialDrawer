@@ -261,6 +261,7 @@ public class ProfileSettingDrawerItem extends AbstractDrawerItem<ProfileSettingD
 
         if (getTypeface() != null) {
             viewHolder.name.setTypeface(getTypeface());
+            viewHolder.description.setTypeface(getTypeface());
         }
 
         //set the correct icon
