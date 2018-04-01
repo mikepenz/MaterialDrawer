@@ -63,7 +63,7 @@ dependencies {
     }
     //used to provide different itemAnimators for the RecyclerView
     //https://github.com/mikepenz/ItemAnimators
-    implementation 'com.mikepenz:itemanimators:1.0.1@aar'
+    implementation 'com.mikepenz:itemanimators:1.0.2@aar'
     // used to provide the MiniDrawer to normal Drawer crossfade effect via a SlidingPane layout
     // --> https://github.com/mikepenz/MaterialDrawer/blob/develop/app/src/main/java/com/mikepenz/materialdrawer/app/MiniDrawerActivity.java
     // https://github.com/mikepenz/Crossfader
