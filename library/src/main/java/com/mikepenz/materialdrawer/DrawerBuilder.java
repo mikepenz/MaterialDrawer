@@ -1245,14 +1245,28 @@ public class DrawerBuilder {
         return this;
     }
 
+    // shared preferences to use for integrated functions
+    protected SharedPreferences mSharedPreferences;
+
+    /**
+     * Set the {@link SharedPreferences} to use for the `showDrawerOnFirstLaunch` or the `ShowDrawerUntilDraggedOpened`
+     *
+     * @param sharedPreferences SharedPreference to use
+     * @return this
+     */
+    public DrawerBuilder withSavedInstance(SharedPreferences sharedPreferences) {
+        this.mSharedPreferences = sharedPreferences;
+        return this;
+    }
+
     /**
      * helper method to handle when the drawer should be shown on launch
      */
     private void handleShowOnLaunch() {
         //check if it should be shown on launch (and we have a drawerLayout)
         if (mActivity != null && mDrawerLayout != null) {
-            if(mShowDrawerOnFirstLaunch || mShowDrawerUntilDraggedOpened) {
-                final SharedPreferences preferences = PreferenceManager.getDefaultSharedPreferences(mActivity);
+            if (mShowDrawerOnFirstLaunch || mShowDrawerUntilDraggedOpened) {
+                final SharedPreferences preferences = mSharedPreferences != null ? mSharedPreferences : PreferenceManager.getDefaultSharedPreferences(mActivity);
 
                 if (mShowDrawerOnFirstLaunch && !preferences.getBoolean(Drawer.PREF_USER_LEARNED_DRAWER, false)) {
                     //if it was not shown yet
