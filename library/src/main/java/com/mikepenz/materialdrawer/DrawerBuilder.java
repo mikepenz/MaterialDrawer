@@ -1245,52 +1245,68 @@ public class DrawerBuilder {
         return this;
     }
 
+    // shared preferences to use for integrated functions
+    protected SharedPreferences mSharedPreferences;
+
+    /**
+     * Set the {@link SharedPreferences} to use for the `showDrawerOnFirstLaunch` or the `ShowDrawerUntilDraggedOpened`
+     *
+     * @param sharedPreferences SharedPreference to use
+     * @return this
+     */
+    public DrawerBuilder withSavedInstance(SharedPreferences sharedPreferences) {
+        this.mSharedPreferences = sharedPreferences;
+        return this;
+    }
+
     /**
      * helper method to handle when the drawer should be shown on launch
      */
     private void handleShowOnLaunch() {
         //check if it should be shown on launch (and we have a drawerLayout)
         if (mActivity != null && mDrawerLayout != null) {
-            final SharedPreferences preferences = PreferenceManager.getDefaultSharedPreferences(mActivity);
+            if (mShowDrawerOnFirstLaunch || mShowDrawerUntilDraggedOpened) {
+                final SharedPreferences preferences = mSharedPreferences != null ? mSharedPreferences : PreferenceManager.getDefaultSharedPreferences(mActivity);
 
-            if(mShowDrawerOnFirstLaunch && !preferences.getBoolean(Drawer.PREF_USER_LEARNED_DRAWER, false)){
-                //if it was not shown yet
-                //open the drawer
-                mDrawerLayout.openDrawer(mSliderLayout);
+                if (mShowDrawerOnFirstLaunch && !preferences.getBoolean(Drawer.PREF_USER_LEARNED_DRAWER, false)) {
+                    //if it was not shown yet
+                    //open the drawer
+                    mDrawerLayout.openDrawer(mSliderLayout);
 
-                //save that it showed up once ;)
-                SharedPreferences.Editor editor = preferences.edit();
-                editor.putBoolean(Drawer.PREF_USER_LEARNED_DRAWER, true);
-                editor.apply();
+                    //save that it showed up once ;)
+                    SharedPreferences.Editor editor = preferences.edit();
+                    editor.putBoolean(Drawer.PREF_USER_LEARNED_DRAWER, true);
+                    editor.apply();
 
-            } else if(mShowDrawerUntilDraggedOpened && !preferences.getBoolean(Drawer.PREF_USER_OPENED_DRAWER_BY_DRAGGING, false)) {
-                // open the drawer since the user has not dragged it open yet
-                mDrawerLayout.openDrawer(mSliderLayout);
+                } else if (mShowDrawerUntilDraggedOpened && !preferences.getBoolean(Drawer.PREF_USER_OPENED_DRAWER_BY_DRAGGING, false)) {
+                    // open the drawer since the user has not dragged it open yet
+                    mDrawerLayout.openDrawer(mSliderLayout);
 
-                // add a listener to detect dragging
-                mDrawerLayout.addDrawerListener(new DrawerLayout.SimpleDrawerListener() {
-                    boolean hasBeenDragged = false;
+                    // add a listener to detect dragging
+                    mDrawerLayout.addDrawerListener(new DrawerLayout.SimpleDrawerListener() {
+                        boolean hasBeenDragged = false;
 
-                    @Override
-                    public void onDrawerStateChanged(int newState) {
-                        if(newState == DrawerLayout.STATE_DRAGGING){
-                            // save that the user was dragging
-                            hasBeenDragged = true;
+                        @Override
+                        public void onDrawerStateChanged(int newState) {
+                            if (newState == DrawerLayout.STATE_DRAGGING) {
+                                // save that the user was dragging
+                                hasBeenDragged = true;
 
-                        } else if(newState == DrawerLayout.STATE_IDLE){
-                            // check if the user was dragging and if that resulted in an open drawer
-                            if(hasBeenDragged && mDrawerLayout.isDrawerOpen(mDrawerGravity)){
-                                // Save that the user has dragged it open
-                                SharedPreferences.Editor editor = preferences.edit();
-                                editor.putBoolean(Drawer.PREF_USER_OPENED_DRAWER_BY_DRAGGING, true);
-                                editor.apply();
-                            } else {
-                                // reset the drag boolean
-                                hasBeenDragged = false;
+                            } else if (newState == DrawerLayout.STATE_IDLE) {
+                                // check if the user was dragging and if that resulted in an open drawer
+                                if (hasBeenDragged && mDrawerLayout.isDrawerOpen(mDrawerGravity)) {
+                                    // Save that the user has dragged it open
+                                    SharedPreferences.Editor editor = preferences.edit();
+                                    editor.putBoolean(Drawer.PREF_USER_OPENED_DRAWER_BY_DRAGGING, true);
+                                    editor.apply();
+                                } else {
+                                    // reset the drag boolean
+                                    hasBeenDragged = false;
+                                }
                             }
                         }
-                    }
-                });
+                    });
+                }
             }
         }
     }

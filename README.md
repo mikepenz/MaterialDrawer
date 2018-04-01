@@ -52,7 +52,7 @@ You can find some frequently asked questions and other resources in the [WIKI / 
 ## 1. Provide the gradle dependency
 
 ```gradle
-implementation("com.mikepenz:materialdrawer:6.0.6@aar") {
+implementation("com.mikepenz:materialdrawer:6.0.7@aar") {
    transitive = true
 }
 
@@ -469,7 +469,7 @@ Thanks to @zsmb13 there's now an (in)official Kotlin DSL wrapper for the Materia
 
 # License
 
-    Copyright 2016 Mike Penz
+    Copyright 2018 Mike Penz
 
     Licensed under the Apache License, Version 2.0 (the "License");
     you may not use this file except in compliance with the License.
