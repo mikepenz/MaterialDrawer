@@ -1254,7 +1254,7 @@ public class DrawerBuilder {
      * @param sharedPreferences SharedPreference to use
      * @return this
      */
-    public DrawerBuilder withSavedInstance(SharedPreferences sharedPreferences) {
+    public DrawerBuilder withSharedPreferences(SharedPreferences sharedPreferences) {
         this.mSharedPreferences = sharedPreferences;
         return this;
     }
