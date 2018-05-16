@@ -210,8 +210,7 @@ public class BezelImageView extends ImageView {
                 } else {
                     mMaskedPaint.setColorFilter(null);
                 }
-                cacheCanvas.saveLayer(mBoundsF, mMaskedPaint,
-                        Canvas.HAS_ALPHA_LAYER_SAVE_FLAG | Canvas.FULL_COLOR_LAYER_SAVE_FLAG);
+                cacheCanvas.saveLayer(mBoundsF, mMaskedPaint, Canvas.ALL_SAVE_FLAG);
                 super.onDraw(cacheCanvas);
                 cacheCanvas.restoreToCount(sc);
             } else if (isSelected) {
@@ -222,8 +221,7 @@ public class BezelImageView extends ImageView {
                 } else {
                     mMaskedPaint.setColorFilter(mDesaturateColorFilter);
                 }
-                cacheCanvas.saveLayer(mBoundsF, mMaskedPaint,
-                        Canvas.HAS_ALPHA_LAYER_SAVE_FLAG | Canvas.FULL_COLOR_LAYER_SAVE_FLAG);
+                cacheCanvas.saveLayer(mBoundsF, mMaskedPaint, Canvas.ALL_SAVE_FLAG);
                 super.onDraw(cacheCanvas);
                 cacheCanvas.restoreToCount(sc);
             } else {
