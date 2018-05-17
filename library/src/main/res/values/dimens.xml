@@ -26,6 +26,7 @@
     <dimen name="material_drawer_account_header_dropdown">22dp</dimen>
     <dimen name="material_drawer_account_header_dropdown_padding">5dp</dimen>
     <dimen name="material_drawer_account_header_dropdown_margin_bottom">14dp</dimen>
+    <dimen name="material_drawer_account_header_margin_icon">2dp</dimen>
 
     <!-- General profileIcon margins for the drawer item -->
     <dimen name="material_drawer_item_padding">8dp</dimen>
@@ -49,7 +50,8 @@
     <dimen name="material_drawer_item_profile_icon">40dp</dimen>
     <dimen name="material_drawer_item_profile_icon_width">48dp</dimen>
     <dimen name="material_drawer_item_profile_icon_padding">16dp</dimen>
-    <dimen name="material_drawer_item_profile_icon_padding_right">8dp</dimen>
+    <dimen name="material_drawer_item_profile_icon_padding_right">4dp</dimen>
+    <dimen name="material_drawer_item_profile_icon_padding_top">12dp</dimen>
     <dimen name="material_drawer_item_profile_text">14sp</dimen>
     <dimen name="material_drawer_item_profile_description">14sp</dimen>
     <!-- Definition for the profile setting item -->
