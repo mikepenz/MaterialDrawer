@@ -102,7 +102,7 @@ public class DrawerActivity extends AppCompatActivity {
                 .withToolbar(toolbar)
                 .withHasStableIds(true)
                 .withItemAnimator(new AlphaCrossFadeAnimator())
-                .withAccountHeader(headerResult) //set the AccountHeader we created earlier for the header
+                .withStickyHeader(headerResult.getView()) //set the AccountHeader we created earlier for the header
                 .addDrawerItems(
                         new PrimaryDrawerItem().withName(R.string.drawer_item_compact_header).withDescription(R.string.drawer_item_compact_header_desc).withIcon(GoogleMaterial.Icon.gmd_brightness_5).withIdentifier(1).withSelectable(false),
                         new PrimaryDrawerItem().withName(R.string.drawer_item_action_bar_drawer).withDescription(R.string.drawer_item_action_bar_drawer_desc).withIcon(FontAwesome.Icon.faw_home).withIdentifier(2).withSelectable(false),
