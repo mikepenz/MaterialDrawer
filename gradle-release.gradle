@@ -76,7 +76,7 @@ afterEvaluate { project ->
                 released = new Date()
 
                 mavenCentralSync {
-                    sync = false
+                    sync = true
                     user = getRepositoryUsername() //OSS user token
                     password = getRepositoryPassword() //OSS user password
                     close = '1'
