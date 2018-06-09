@@ -1,7 +1,9 @@
 <FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="@dimen/material_drawer_account_header_height"
-    android:clickable="true">
+    xmlns:tools="http://schemas.android.com/tools"
+    android:clickable="true"
+    >
 
     <ImageView
         android:id="@+id/material_drawer_account_header_background"
@@ -31,13 +33,14 @@
             android:layout_height="wrap_content"
             android:layout_alignParentRight="true"
             android:layout_alignTop="@+id/material_drawer_account_header_current"
+            android:paddingRight="@dimen/material_drawer_padding"
             android:gravity="right">
 
             <com.mikepenz.materialdrawer.view.BezelImageView
                 android:id="@+id/material_drawer_account_header_small_first"
                 android:layout_width="@dimen/material_drawer_account_header_secondary"
                 android:layout_height="@dimen/material_drawer_account_header_secondary"
-                android:layout_marginRight="@dimen/material_drawer_vertical_padding"
+                android:layout_margin="@dimen/material_drawer_account_header_margin_icon"
                 android:clickable="true"
                 android:elevation="2dp"
                 android:visibility="gone" />
@@ -46,7 +49,7 @@
                 android:id="@+id/material_drawer_account_header_small_second"
                 android:layout_width="@dimen/material_drawer_account_header_secondary"
                 android:layout_height="@dimen/material_drawer_account_header_secondary"
-                android:layout_marginRight="@dimen/material_drawer_vertical_padding"
+                android:layout_margin="@dimen/material_drawer_account_header_margin_icon"
                 android:clickable="true"
                 android:elevation="2dp"
                 android:visibility="gone" />
@@ -55,7 +58,7 @@
                 android:id="@+id/material_drawer_account_header_small_third"
                 android:layout_width="@dimen/material_drawer_account_header_secondary"
                 android:layout_height="@dimen/material_drawer_account_header_secondary"
-                android:layout_marginRight="@dimen/material_drawer_vertical_padding"
+                android:layout_margin="@dimen/material_drawer_account_header_margin_icon"
                 android:clickable="true"
                 android:elevation="2dp"
                 android:visibility="gone" />
