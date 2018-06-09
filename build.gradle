@@ -1,14 +1,19 @@
 buildscript {
     ext {
+        release = [
+                versionName: "6.0.7",
+                versionCode: 6070
+        ]
+
         setup = [
-                compileSdk: 27,
-                buildTools: "27.0.3",
+                compileSdk: 28,
+                buildTools: "28.0.0",
                 minSdk    : 14,
-                targetSdk : 27
+                targetSdk : 28
         ]
 
         versions = [
-                supportLib: "27.1.0"
+                supportLib: "27.1.1"
         ]
     }
 
@@ -18,8 +23,9 @@ buildscript {
         mavenCentral()
     }
     dependencies {
-        classpath 'com.android.tools.build:gradle:3.1.0'
-        classpath 'com.novoda:bintray-release:0.8.1'
+        classpath 'com.android.tools.build:gradle:3.1.2'
+        classpath 'com.github.dcendents:android-maven-gradle-plugin:2.0'
+        classpath 'com.jfrog.bintray.gradle:gradle-bintray-plugin:1.7.3'
     }
 }
 

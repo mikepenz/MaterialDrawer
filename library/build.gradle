@@ -1,5 +1,4 @@
 apply plugin: 'com.android.library'
-apply plugin: 'com.novoda.bintray-release'
 
 android {
     compileSdkVersion setup.compileSdk
@@ -8,8 +7,10 @@ android {
     defaultConfig {
         minSdkVersion setup.minSdk
         targetSdkVersion setup.targetSdk
-        versionCode 6070
-        versionName '6.0.7'
+        versionCode release.versionCode
+        versionName release.versionName
+
+        resValue "string", "materialdrawer_lib_version", "${versionName}"
     }
     buildTypes {
         release {
@@ -23,9 +24,6 @@ android {
         abortOnError false
     }
 }
-
-apply from: 'gradle-mvn-push.gradle'
-apply from: 'gradle-jcenter-push.gradle'
 
 dependencies {
     implementation "com.android.support:appcompat-v7:${versions.supportLib}"
@@ -42,11 +40,13 @@ dependencies {
     // used to provide out of the box icon font support. simplifies development,
     // and provides scalable icons. the core is very very light
     // https://github.com/mikepenz/Android-Iconics
-    api 'com.mikepenz:iconics-core:3.0.3'
+    api 'com.mikepenz:iconics-core:3.0.4'
 
     // used to fill the RecyclerView with the DrawerItems
     // and provides single and multi selection, expandable items
     // https://github.com/mikepenz/FastAdapter
-    api 'com.mikepenz:fastadapter:3.2.4@aar'
-    api 'com.mikepenz:fastadapter-extensions-expandable:3.2.4@aar'
+    api 'com.mikepenz:fastadapter:3.2.6@aar'
+    api 'com.mikepenz:fastadapter-extensions-expandable:3.2.6@aar'
 }
+
+apply from: '../gradle-release.gradle'
