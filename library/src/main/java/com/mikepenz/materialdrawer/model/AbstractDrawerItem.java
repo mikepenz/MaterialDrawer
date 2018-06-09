@@ -240,6 +240,9 @@ public abstract class AbstractDrawerItem<T, VH extends RecyclerView.ViewHolder> 
      */
     public T withSubItems(List<IDrawerItem> subItems) {
         this.mSubItems = subItems;
+        for (IDrawerItem subItem : subItems) {
+            subItem.withParent(this);
+        }
         return (T) this;
     }
 
@@ -253,6 +256,9 @@ public abstract class AbstractDrawerItem<T, VH extends RecyclerView.ViewHolder> 
     public T withSubItems(IDrawerItem... subItems) {
         if (mSubItems == null) {
             mSubItems = new ArrayList<>();
+        }
+        for (IDrawerItem subItem : subItems) {
+            subItem.withParent(this);
         }
         Collections.addAll(mSubItems, subItems);
         return (T) this;
