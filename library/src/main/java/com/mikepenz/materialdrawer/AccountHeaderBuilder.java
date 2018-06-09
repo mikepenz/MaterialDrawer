@@ -1078,7 +1078,7 @@ public class AccountHeaderBuilder {
 
         //we only handle the padding if we are not in compact mode
         if (!mCompactStyle) {
-            mAccountHeaderTextSection.setPadding(0, 0, (int) UIUtils.convertDpToPixel(56, mAccountHeaderTextSection.getContext()), 0);
+            mAccountHeaderTextSection.setPadding(0, 0, mAccountHeaderTextSection.getContext().getResources().getDimensionPixelSize(R.dimen.material_drawer_account_header_non_compact_padding), 0);
         }
 
         handleSelectionView(mCurrentProfile, true);
