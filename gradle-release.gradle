@@ -58,7 +58,7 @@ afterEvaluate { project ->
             publish = true
 
             repo = "maven"
-            name = POM_ARTIFACT_ID
+            name = GROUP + ":" + POM_ARTIFACT_ID //the name (= identifier) on bintray
             desc = POM_DESCRIPTION
 
             websiteUrl = POM_URL
@@ -77,13 +77,13 @@ afterEvaluate { project ->
 
                 mavenCentralSync {
                     sync = true
-                    user = getRepositoryUsername() //OSS user token
-                    password = getRepositoryPassword() //OSS user password
+                    user = getRepositoryUsername()
+                    password = getRepositoryPassword()
                     close = '1'
                 }
                 gpg {
-                    sign = true //Determines whether to GPG sign the files. The default is false
-                    passphrase = gpgpass //Optional. The passphrase for GPG signing'
+                    sign = true
+                    passphrase = gpgpass
                 }
             }
         }
@@ -93,7 +93,6 @@ afterEvaluate { project ->
         dependencyNode.appendNode('groupId', group)
         dependencyNode.appendNode('artifactId', name)
         dependencyNode.appendNode('version', version)
-        //dependencyNode.appendNode('type', "aar")
         dependencyNode.appendNode('scope', "compile")
     }
 
