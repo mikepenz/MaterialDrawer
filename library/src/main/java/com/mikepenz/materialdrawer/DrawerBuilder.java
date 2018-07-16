@@ -1,5 +1,6 @@
 package com.mikepenz.materialdrawer;
 
+import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.content.SharedPreferences;
 import android.content.res.Configuration;
@@ -8,46 +9,45 @@ import android.os.Build;
 import android.os.Bundle;
 import android.os.Handler;
 import android.preference.PreferenceManager;
-import android.support.annotation.ColorInt;
-import android.support.annotation.ColorRes;
-import android.support.annotation.DimenRes;
-import android.support.annotation.DrawableRes;
-import android.support.annotation.IdRes;
-import android.support.annotation.LayoutRes;
-import android.support.annotation.MenuRes;
-import android.support.annotation.NonNull;
-import android.support.v4.content.ContextCompat;
-import android.support.v4.view.GravityCompat;
-import android.support.v4.view.ViewCompat;
-import android.support.v4.widget.DrawerLayout;
-import android.support.v7.app.ActionBarDrawerToggle;
-import android.support.v7.view.SupportMenuInflater;
-import android.support.v7.view.menu.MenuBuilder;
-import android.support.v7.widget.DefaultItemAnimator;
-import android.support.v7.widget.LinearLayoutManager;
-import android.support.v7.widget.RecyclerView;
-import android.support.v7.widget.Toolbar;
+import androidx.annotation.ColorInt;
+import androidx.annotation.ColorRes;
+import androidx.annotation.DimenRes;
+import androidx.annotation.DrawableRes;
+import androidx.annotation.IdRes;
+import androidx.annotation.LayoutRes;
+import androidx.annotation.MenuRes;
+import androidx.annotation.NonNull;
+import androidx.core.content.ContextCompat;
+import androidx.core.view.GravityCompat;
+import androidx.core.view.ViewCompat;
+import androidx.drawerlayout.widget.DrawerLayout;
+import androidx.appcompat.app.ActionBarDrawerToggle;
+import androidx.appcompat.view.SupportMenuInflater;
+import androidx.appcompat.view.menu.MenuBuilder;
+import androidx.recyclerview.widget.DefaultItemAnimator;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
+import androidx.appcompat.widget.Toolbar;
 import android.view.LayoutInflater;
 import android.view.Menu;
-import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.FrameLayout;
 import android.widget.LinearLayout;
 
-import com.mikepenz.fastadapter.FastAdapter;
-import com.mikepenz.fastadapter.IAdapter;
-import com.mikepenz.fastadapter.IAdapterExtension;
-import com.mikepenz.fastadapter.IExpandable;
-import com.mikepenz.fastadapter.IItemAdapter;
-import com.mikepenz.fastadapter.adapters.ItemAdapter;
-import com.mikepenz.fastadapter.adapters.ModelAdapter;
-import com.mikepenz.fastadapter.expandable.ExpandableExtension;
-import com.mikepenz.fastadapter.listeners.OnClickListener;
-import com.mikepenz.fastadapter.listeners.OnLongClickListener;
-import com.mikepenz.fastadapter.utils.DefaultIdDistributor;
-import com.mikepenz.fastadapter.utils.DefaultIdDistributorImpl;
+import im.mash.fastadapter.FastAdapter;
+import im.mash.fastadapter.IAdapter;
+import im.mash.fastadapter.IAdapterExtension;
+import im.mash.fastadapter.IExpandable;
+import im.mash.fastadapter.IItemAdapter;
+import im.mash.fastadapter.adapters.ItemAdapter;
+import im.mash.fastadapter.adapters.ModelAdapter;
+import im.mash.fastadapter.expandable.ExpandableExtension;
+import im.mash.fastadapter.listeners.OnClickListener;
+import im.mash.fastadapter.listeners.OnLongClickListener;
+import im.mash.fastadapter.utils.DefaultIdDistributor;
+import im.mash.fastadapter.utils.DefaultIdDistributorImpl;
 import com.mikepenz.iconics.utils.Utils;
 import com.mikepenz.materialdrawer.holder.DimenHolder;
 import com.mikepenz.materialdrawer.model.AbstractDrawerItem;
@@ -98,7 +98,7 @@ public class DrawerBuilder {
      * @param activity current activity which will contain the drawer
      */
     public DrawerBuilder(@NonNull Activity activity) {
-        this.mRootView = (ViewGroup) activity.findViewById(android.R.id.content);
+        this.mRootView = activity.findViewById(android.R.id.content);
         this.mActivity = activity;
         this.mLayoutManager = new LinearLayoutManager(mActivity);
         getAdapter();
@@ -112,7 +112,7 @@ public class DrawerBuilder {
      * @param activity current activity which will contain the drawer
      */
     public DrawerBuilder withActivity(@NonNull Activity activity) {
-        this.mRootView = (ViewGroup) activity.findViewById(android.R.id.content);
+        this.mRootView = activity.findViewById(android.R.id.content);
         this.mActivity = activity;
         this.mLayoutManager = new LinearLayoutManager(mActivity);
         return this;
@@ -902,7 +902,7 @@ public class DrawerBuilder {
      */
     protected FastAdapter<IDrawerItem> getAdapter() {
         if (mAdapter == null) {
-            mAdapter = FastAdapter.with(Arrays.asList(mHeaderAdapter, mItemAdapter, mFooterAdapter), Arrays.<IAdapterExtension<IDrawerItem>>asList(mExpandableExtension));
+            mAdapter = FastAdapter.with(Arrays.asList(mHeaderAdapter, mItemAdapter, mFooterAdapter), Collections.<IAdapterExtension<IDrawerItem>>singletonList(mExpandableExtension));
             mAdapter.withSelectable(true);
             mAdapter.withMultiSelect(false);
             mAdapter.withAllowDeselection(false);
@@ -1028,10 +1028,11 @@ public class DrawerBuilder {
      * @param menuRes
      * @return
      */
+    @SuppressLint("RestrictedApi")
     public DrawerBuilder inflateMenu(@MenuRes int menuRes) {
-        MenuInflater menuInflater = new SupportMenuInflater(mActivity);
+        SupportMenuInflater menuInflater = new SupportMenuInflater(mActivity);
         MenuBuilder mMenu = new MenuBuilder(mActivity);
-
+        
         menuInflater.inflate(menuRes, mMenu);
 
         addMenuItems(mMenu, false);
@@ -1715,9 +1716,9 @@ public class DrawerBuilder {
         } else if (mSliderBackgroundColorRes != -1) {
             mSliderLayout.setBackgroundColor(ContextCompat.getColor(mActivity, mSliderBackgroundColorRes));
         } else if (mSliderBackgroundDrawable != null) {
-            UIUtils.setBackground(mSliderLayout, mSliderBackgroundDrawable);
+            mSliderLayout.setBackground(mSliderBackgroundDrawable);
         } else if (mSliderBackgroundDrawableRes != -1) {
-            UIUtils.setBackground(mSliderLayout, mSliderBackgroundDrawableRes);
+            mSliderLayout.setBackground(ContextCompat.getDrawable(mActivity, mSliderBackgroundDrawableRes));
         }
 
         //handle the header

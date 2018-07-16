@@ -2,19 +2,20 @@ package com.mikepenz.materialdrawer;
 
 import android.content.Context;
 import android.content.res.Configuration;
-import android.support.annotation.NonNull;
-import android.support.v7.widget.DefaultItemAnimator;
-import android.support.v7.widget.LinearLayoutManager;
-import android.support.v7.widget.RecyclerView;
+import androidx.annotation.NonNull;
+import androidx.recyclerview.widget.DefaultItemAnimator;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
+import im.mash.fastadapter.FastAdapter;
+import im.mash.fastadapter.IAdapter;
+import im.mash.fastadapter.adapters.ItemAdapter;
+import im.mash.fastadapter.listeners.OnClickListener;
+import im.mash.fastadapter.listeners.OnLongClickListener;
+
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.LinearLayout;
 
-import com.mikepenz.fastadapter.FastAdapter;
-import com.mikepenz.fastadapter.IAdapter;
-import com.mikepenz.fastadapter.adapters.ItemAdapter;
-import com.mikepenz.fastadapter.listeners.OnClickListener;
-import com.mikepenz.fastadapter.listeners.OnLongClickListener;
 import com.mikepenz.materialdrawer.interfaces.ICrossfader;
 import com.mikepenz.materialdrawer.model.MiniDrawerItem;
 import com.mikepenz.materialdrawer.model.MiniProfileDrawerItem;

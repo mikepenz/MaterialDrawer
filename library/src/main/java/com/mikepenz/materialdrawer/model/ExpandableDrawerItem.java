@@ -2,10 +2,10 @@ package com.mikepenz.materialdrawer.model;
 
 import android.content.Context;
 import android.graphics.Color;
-import android.support.annotation.ColorInt;
-import android.support.annotation.ColorRes;
-import android.support.annotation.LayoutRes;
-import android.support.v4.view.ViewCompat;
+import androidx.annotation.ColorInt;
+import androidx.annotation.ColorRes;
+import androidx.annotation.LayoutRes;
+import androidx.core.view.ViewCompat;
 import android.view.View;
 import android.widget.ImageView;
 

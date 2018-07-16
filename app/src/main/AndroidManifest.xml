@@ -1,4 +1,5 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
     package="com.mikepenz.materialdrawer.app">
 
     <uses-permission android:name="android.permission.INTERNET" />
@@ -8,7 +9,8 @@
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"
         android:label="@string/app_name"
-        android:roundIcon="@mipmap/ic_launcher_round">
+        android:roundIcon="@mipmap/ic_launcher_round"
+        tools:ignore="GoogleAppIndexingWarning">
         <!-- android:supportsRtl="true" -->
         <activity
             android:name=".DrawerActivity"
@@ -60,9 +62,6 @@
         <activity
             android:name=".CollapsingToolbarActivity"
             android:theme="@style/MaterialDrawerTheme.Light.DarkToolbar.TranslucentStatus" />
-        <activity
-            android:name=".CrossfadeDrawerLayoutActvitiy"
-            android:theme="@style/MaterialDrawerTheme.TranslucentStatus" />
     </application>
 
 </manifest>

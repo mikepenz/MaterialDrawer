@@ -3,7 +3,7 @@ package com.mikepenz.materialdrawer.model.utils;
 import android.content.Context;
 import android.graphics.drawable.GradientDrawable;
 import android.graphics.drawable.StateListDrawable;
-import android.support.v7.content.res.AppCompatResources;
+import androidx.appcompat.content.res.AppCompatResources;
 import android.util.StateSet;
 
 import com.mikepenz.materialdrawer.holder.BadgeStyle;

@@ -7,13 +7,13 @@ buildscript {
 
         setup = [
                 compileSdk: 28,
-                buildTools: "28.0.0",
-                minSdk    : 14,
+                buildTools: "28.0.1",
+                minSdk    : 21,
                 targetSdk : 28
         ]
 
         versions = [
-                supportLib: "27.1.1"
+                androidx: "1.0.0-beta01"
         ]
     }
 
@@ -23,9 +23,9 @@ buildscript {
         mavenCentral()
     }
     dependencies {
-        classpath 'com.android.tools.build:gradle:3.1.2'
+        classpath 'com.android.tools.build:gradle:3.2.0-beta03'
         classpath 'com.github.dcendents:android-maven-gradle-plugin:2.0'
-        classpath 'com.jfrog.bintray.gradle:gradle-bintray-plugin:1.7.3'
+        classpath 'com.jfrog.bintray.gradle:gradle-bintray-plugin:1.8.0'
     }
 }
 
@@ -34,6 +34,7 @@ allprojects {
         google()
         jcenter()
         mavenCentral()
+        maven { url 'https://jitpack.io' }
         maven { url "https://oss.sonatype.org/content/repositories/snapshots/" }
     }
 }

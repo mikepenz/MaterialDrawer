@@ -1,10 +1,10 @@
 package com.mikepenz.materialdrawer.holder;
 
-import android.support.annotation.DimenRes;
-import android.support.annotation.Dimension;
+import androidx.annotation.DimenRes;
+import androidx.annotation.Dimension;
 
-import static android.support.annotation.Dimension.DP;
-import static android.support.annotation.Dimension.PX;
+import static androidx.annotation.Dimension.DP;
+import static androidx.annotation.Dimension.PX;
 
 /**
  * Created by mikepenz on 13.07.15.
