@@ -3,8 +3,8 @@ package com.mikepenz.materialdrawer;
 import android.content.Context;
 import android.graphics.drawable.Drawable;
 import android.os.Bundle;
-import android.support.annotation.DrawableRes;
-import android.support.annotation.NonNull;
+import androidx.annotation.DrawableRes;
+import androidx.annotation.NonNull;
 import android.view.View;
 import android.widget.ImageView;
 

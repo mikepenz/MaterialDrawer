@@ -1,6 +1,6 @@
 package com.mikepenz.materialdrawer.holder;
 
-import android.support.annotation.StringRes;
+import androidx.annotation.StringRes;
 
 /**
  * Created by mikepenz on 13.07.15.

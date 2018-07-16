@@ -40,12 +40,12 @@ public class CustomApplication extends Application {
         DrawerImageLoader.init(new AbstractDrawerImageLoader() {
             @Override
             public void set(ImageView imageView, Uri uri, Drawable placeholder, String tag) {
-                Glide.with(imageView.getContext()).load(uri).placeholder(placeholder).into(imageView);
+                GlideApp.with(imageView.getContext()).load(uri).placeholder(placeholder).into(imageView);
             }
 
             @Override
             public void cancel(ImageView imageView) {
-                Glide.clear(imageView);
+                GlideApp.with(imageView.getContext()).clear(imageView);
             }
 
             @Override

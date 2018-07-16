@@ -2,13 +2,12 @@ package com.mikepenz.materialdrawer.app;
 
 import android.graphics.Color;
 import android.os.Bundle;
-import android.support.design.widget.CollapsingToolbarLayout;
-import android.support.design.widget.FloatingActionButton;
-import android.support.v7.app.AppCompatActivity;
-import android.support.v7.widget.Toolbar;
+import com.google.android.material.appbar.CollapsingToolbarLayout;
+import com.google.android.material.floatingactionbutton.FloatingActionButton;
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.Toolbar;
 import android.widget.ImageView;
 
-import com.bumptech.glide.Glide;
 import com.mikepenz.fontawesome_typeface_library.FontAwesome;
 import com.mikepenz.google_material_typeface_library.GoogleMaterial;
 import com.mikepenz.iconics.IconicsDrawable;
@@ -66,12 +65,12 @@ public class CollapsingToolbarActivity extends AppCompatActivity {
     }
 
     private void loadBackdrop() {
-        final ImageView imageView = (ImageView) findViewById(R.id.backdrop);
-        Glide.with(this).load("https://unsplash.it/600/300/?random").centerCrop().into(imageView);
+        final ImageView imageView = findViewById(R.id.backdrop);
+        GlideApp.with(this).load("https://unsplash.it/600/300/?random").centerCrop().into(imageView);
     }
 
     private void fillFab() {
-        final FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.floating_action_button);
+        final FloatingActionButton fab = findViewById(R.id.floating_action_button);
         fab.setImageDrawable(new IconicsDrawable(this, GoogleMaterial.Icon.gmd_favorite).actionBar().color(Color.WHITE));
     }
 

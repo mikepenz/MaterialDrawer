@@ -2,7 +2,7 @@ package com.mikepenz.materialdrawer.app.fragment;
 
 
 import android.os.Bundle;
-import android.support.v4.app.Fragment;
+import androidx.fragment.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -12,7 +12,7 @@ import com.mikepenz.materialdrawer.app.R;
 
 
 /**
- * A simple {@link android.support.v4.app.Fragment} subclass.
+ * A simple {@link Fragment} subclass.
  * This is just a demo fragment with a long scrollable view of editTexts. Don't see this as a reference for anything
  */
 public class DemoFragment extends Fragment {

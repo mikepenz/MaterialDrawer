@@ -1,13 +1,13 @@
 package com.mikepenz.materialdrawer.model.interfaces;
 
 import android.content.Context;
-import android.support.v7.widget.RecyclerView;
+import androidx.recyclerview.widget.RecyclerView;
 import android.view.View;
 import android.view.ViewGroup;
 
-import com.mikepenz.fastadapter.IExpandable;
-import com.mikepenz.fastadapter.IItem;
-import com.mikepenz.fastadapter.ISubItem;
+import im.mash.fastadapter.IExpandable;
+import im.mash.fastadapter.IItem;
+import im.mash.fastadapter.ISubItem;
 
 import java.util.List;
 

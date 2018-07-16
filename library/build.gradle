@@ -26,10 +26,10 @@ android {
 }
 
 dependencies {
-    implementation "com.android.support:appcompat-v7:${versions.supportLib}"
-    implementation "com.android.support:recyclerview-v7:${versions.supportLib}"
-    implementation "com.android.support:support-annotations:${versions.supportLib}"
-    implementation "com.android.support:design:${versions.supportLib}"
+    api "androidx.appcompat:appcompat:${versions.androidx}"
+    api "androidx.recyclerview:recyclerview:${versions.androidx}"
+    api "androidx.annotation:annotation:${versions.androidx}"
+    api "com.google.android.material:material:${versions.androidx}"
 
     // used to base on some backwards compatible themes
     // contains util classes to support various android versions, and clean up code
@@ -45,8 +45,7 @@ dependencies {
     // used to fill the RecyclerView with the DrawerItems
     // and provides single and multi selection, expandable items
     // https://github.com/mikepenz/FastAdapter
-    api 'com.mikepenz:fastadapter:3.2.7@aar'
-    api 'com.mikepenz:fastadapter-extensions-expandable:3.2.7@aar'
+    api 'com.github.onlymash:FastAdapter:3.2.8'
 }
 
 apply from: '../gradle-release.gradle'
