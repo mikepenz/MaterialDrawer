@@ -1,8 +1,8 @@
 buildscript {
     ext {
         release = [
-                versionName: "6.0.8",
-                versionCode: 6080
+                versionName: "6.0.9",
+                versionCode: 6090
         ]
 
         setup = [
@@ -23,7 +23,7 @@ buildscript {
         mavenCentral()
     }
     dependencies {
-        classpath 'com.android.tools.build:gradle:3.1.2'
+        classpath 'com.android.tools.build:gradle:3.1.3'
         classpath 'com.github.dcendents:android-maven-gradle-plugin:2.0'
         classpath 'com.jfrog.bintray.gradle:gradle-bintray-plugin:1.7.3'
     }

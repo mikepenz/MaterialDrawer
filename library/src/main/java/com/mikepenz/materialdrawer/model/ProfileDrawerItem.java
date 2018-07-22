@@ -81,7 +81,7 @@ public class ProfileDrawerItem extends AbstractDrawerItem<ProfileDrawerItem, Pro
         return this;
     }
 
-    public ProfileDrawerItem withName(String name) {
+    public ProfileDrawerItem withName(CharSequence name) {
         this.name = new StringHolder(name);
         return this;
     }
