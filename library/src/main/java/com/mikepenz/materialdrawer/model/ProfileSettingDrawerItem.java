@@ -80,7 +80,7 @@ public class ProfileSettingDrawerItem extends AbstractDrawerItem<ProfileSettingD
         return this;
     }
 
-    public ProfileSettingDrawerItem withName(String name) {
+    public ProfileSettingDrawerItem withName(CharSequence name) {
         this.name = new StringHolder(name);
         return this;
     }

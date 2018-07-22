@@ -57,7 +57,7 @@ public class AccountDividerDrawerItem extends AbstractDrawerItem<AccountDividerD
 
 
     @Override
-    public AccountDividerDrawerItem withName(String name) {
+    public AccountDividerDrawerItem withName(CharSequence name) {
         return null;
     }
 
