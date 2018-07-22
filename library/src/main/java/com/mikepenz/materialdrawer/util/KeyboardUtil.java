@@ -28,7 +28,9 @@ import android.view.inputmethod.InputMethodManager;
  * This class implements a hack to change the layout padding on bottom if the keyboard is shown
  * to allow long lists with editTextViews
  * Basic idea for this solution found here: http://stackoverflow.com/a/9108219/325479
+ * @deprecated Do not use this anymore, the MaterialDrawer uses the `fitsSystemWindows` now correctly so it should not be required. (it would only be required for cases with the fullscreen flag)
  */
+@Deprecated
 public class KeyboardUtil {
     private View decorView;
     private View contentView;
