@@ -38,7 +38,7 @@ public class MiniProfileDrawerItem extends AbstractDrawerItem<MiniProfileDrawerI
     }
 
     @Override
-    public MiniProfileDrawerItem withName(String name) {
+    public MiniProfileDrawerItem withName(CharSequence name) {
         return null;
     }
 
