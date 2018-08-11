@@ -44,10 +44,10 @@ android {
 dependencies {
     implementation project(':library')
 
-    implementation "com.google.android.material:material:${versions.supportLib}"
-    implementation "androidx.appcompat:appcompat:${versions.supportLib}"
-    implementation "androidx.recyclerview:recyclerview:${versions.supportLib}"
-    implementation "androidx.cardview:cardview:${versions.supportLib}"
+    implementation "com.google.android.material:material:${versions.androidX}"
+    implementation "androidx.appcompat:appcompat:${versions.androidX}"
+    implementation "androidx.recyclerview:recyclerview:${versions.androidX}"
+    implementation "androidx.cardview:cardview:${versions.androidX}"
 
     // used to showcase how to load images
     implementation 'com.squareup.picasso:picasso:2.5.2'
@@ -82,10 +82,10 @@ dependencies {
 configurations.all {
     resolutionStrategy.force "com.mikepenz:iconics-core:3.1.0-rc01"
     resolutionStrategy.force "com.mikepenz:fastadapter:3.3.0-rc01"
-    resolutionStrategy.force "com.android.support:support-v4:${versions.supportLib}"
-    resolutionStrategy.force "com.android.support:appcompat-v7:${versions.supportLib}"
-    resolutionStrategy.force "com.android.support:cardview-v7:${versions.supportLib}"
-    resolutionStrategy.force "com.android.support:recyclerview-v7:${versions.supportLib}"
-    resolutionStrategy.force "com.android.support:design:${versions.supportLib}"
-    resolutionStrategy.force "com.android.support:support-annotations:${versions.supportLib}"
+    resolutionStrategy.force "com.android.support:support-v4:${versions.androidX}"
+    resolutionStrategy.force "com.android.support:appcompat-v7:${versions.androidX}"
+    resolutionStrategy.force "com.android.support:cardview-v7:${versions.androidX}"
+    resolutionStrategy.force "com.android.support:recyclerview-v7:${versions.androidX}"
+    resolutionStrategy.force "com.android.support:design:${versions.androidX}"
+    resolutionStrategy.force "com.android.support:support-annotations:${versions.androidX}"
 }

@@ -26,10 +26,10 @@ android {
 }
 
 dependencies {
-    implementation "androidx.appcompat:appcompat:${versions.supportLib}"
-    implementation "androidx.recyclerview:recyclerview:${versions.supportLib}"
-    implementation "androidx.annotation:annotation:${versions.supportLib}"
-    implementation "com.google.android.material:material:${versions.supportLib}"
+    implementation "androidx.appcompat:appcompat:${versions.androidX}"
+    implementation "androidx.recyclerview:recyclerview:${versions.androidX}"
+    implementation "androidx.annotation:annotation:${versions.androidX}"
+    implementation "com.google.android.material:material:${versions.androidX}"
 
     // used to base on some backwards compatible themes
     // contains util classes to support various android versions, and clean up code
