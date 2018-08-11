@@ -23,7 +23,7 @@ There  is a Header with profiles (**AccountHeader**), a **MiniDrawer** for Table
  - **Google Material Design Icons**, Google **Material Community** Design Icons, FontAwesome and more
 - comes with various **themes** which help to get your own themes clean
 - modify the colors on the go
-- **uses the AppCompat support library**
+- **uses the androidX support libraries**
 - comes with multiple default drawer items
 - based on a **RecyclerView**
 - **RTL** support
@@ -52,17 +52,16 @@ You can find some frequently asked questions and other resources in the [WIKI / 
 ## 1. Provide the gradle dependency
 
 ```gradle
-implementation("com.mikepenz:materialdrawer:6.0.9@aar") {
-   transitive = true
-}
+implementation "com.mikepenz:materialdrawer:6.1.0-rc01"
 
 //required support lib modules
-implementation "com.android.support:appcompat-v7:${versions.supportLib}"
-implementation "com.android.support:recyclerview-v7:${versions.supportLib}"
-implementation "com.android.support:support-annotations:${versions.supportLib}"
-implementation "com.android.support:design:${versions.supportLib}"
+implementation "androidx.appcompat:appcompat:${versions.androidX}"
+implementation "androidx.recyclerview:recyclerview:${versions.androidX}"
+implementation "androidx.annotation:annotation:${versions.androidX}"
+implementation "com.google.android.material:material:${versions.androidX}"
 ```
 
+To use appcompat please use a version smaller than 6.1.0. (See the releases on GitHub)
 
 ## 2. Add your drawer
 ```java
@@ -398,7 +397,7 @@ You'll then be able to use this custom class:
 builder.withDrawerLayout(R.layout.material_drawer);
 ```
 
-### But I prefer Kotlin
+### Prefer Kotlin?
 Thanks to @zsmb13 there's now an (in)official Kotlin DSL wrapper for the MaterialDrawer https://github.com/zsmb13/MaterialDrawerKt
 
 # Apps using the MaterialDrawer
