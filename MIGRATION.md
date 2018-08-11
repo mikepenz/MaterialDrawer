@@ -1,5 +1,8 @@
 ### Upgrade Notes
 
+#### v6.1.0-rc01
+* Final upgrade to the new shiny androidX dependencies :)
+
 #### v6.0.3
 **IMPORTANT IF YOU USE THE FASTADAPTER OR ABOUTLIBRARIES**
 * You have to update your FastAdapter dependency to v3.2.1 with this release

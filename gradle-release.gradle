@@ -13,10 +13,11 @@ def getRepositoryPassword() {
     return hasProperty('NEXUS_PASSWORD') ? NEXUS_PASSWORD : ""
 }
 
+apply plugin: "com.jfrog.bintray"
+
 afterEvaluate { project ->
     apply plugin: 'maven-publish'
     apply plugin: 'com.github.dcendents.android-maven'
-    apply plugin: "com.jfrog.bintray"
 
     if (JavaVersion.current().isJava8Compatible()) {
         allprojects {

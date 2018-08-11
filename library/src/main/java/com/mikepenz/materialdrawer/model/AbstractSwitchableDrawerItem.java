@@ -1,7 +1,7 @@
 package com.mikepenz.materialdrawer.model;
 
-import android.support.annotation.LayoutRes;
-import android.support.v7.widget.SwitchCompat;
+import androidx.annotation.LayoutRes;
+import androidx.appcompat.widget.SwitchCompat;
 import android.view.View;
 import android.widget.CompoundButton;
 
