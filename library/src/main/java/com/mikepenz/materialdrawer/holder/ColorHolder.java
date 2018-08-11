@@ -1,7 +1,7 @@
 package com.mikepenz.materialdrawer.holder;
 
-import android.support.annotation.ColorInt;
-import android.support.annotation.ColorRes;
+import androidx.annotation.ColorInt;
+import androidx.annotation.ColorRes;
 
 /**
  * Created by mikepenz on 13.07.15.

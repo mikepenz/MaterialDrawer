@@ -3,19 +3,19 @@ package com.mikepenz.materialdrawer.holder;
 import android.content.Context;
 import android.content.res.ColorStateList;
 import android.graphics.drawable.Drawable;
-import android.support.annotation.ColorInt;
-import android.support.annotation.ColorRes;
-import android.support.annotation.DimenRes;
-import android.support.annotation.Dimension;
-import android.support.annotation.DrawableRes;
+import androidx.annotation.ColorInt;
+import androidx.annotation.ColorRes;
+import androidx.annotation.DimenRes;
+import androidx.annotation.Dimension;
+import androidx.annotation.DrawableRes;
 import android.widget.TextView;
 
 import com.mikepenz.materialdrawer.R;
 import com.mikepenz.materialdrawer.model.utils.BadgeDrawableBuilder;
 import com.mikepenz.materialize.util.UIUtils;
 
-import static android.support.annotation.Dimension.DP;
-import static android.support.annotation.Dimension.PX;
+import static androidx.annotation.Dimension.DP;
+import static androidx.annotation.Dimension.PX;
 
 /**
  * Created by mikepenz on 02.07.15.

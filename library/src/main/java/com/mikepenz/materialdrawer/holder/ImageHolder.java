@@ -5,8 +5,8 @@ import android.graphics.Bitmap;
 import android.graphics.PorterDuff;
 import android.graphics.drawable.Drawable;
 import android.net.Uri;
-import android.support.annotation.DrawableRes;
-import android.support.v7.content.res.AppCompatResources;
+import androidx.annotation.DrawableRes;
+import androidx.appcompat.content.res.AppCompatResources;
 import android.view.View;
 import android.widget.ImageView;
 

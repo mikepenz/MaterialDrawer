@@ -2,9 +2,9 @@ package com.mikepenz.materialdrawer.model;
 
 import android.content.Context;
 import android.graphics.drawable.Drawable;
-import android.support.annotation.DimenRes;
-import android.support.annotation.LayoutRes;
-import android.support.v7.widget.RecyclerView;
+import androidx.annotation.DimenRes;
+import androidx.annotation.LayoutRes;
+import androidx.recyclerview.widget.RecyclerView;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
