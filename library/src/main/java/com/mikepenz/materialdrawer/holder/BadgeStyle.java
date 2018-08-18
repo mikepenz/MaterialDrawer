@@ -19,7 +19,7 @@ import static androidx.annotation.Dimension.DP;
 import static androidx.annotation.Dimension.PX;
 
 /**
- * Created by mikepenz on 02.07.15.
+ * Class to allow defining a BadgeStyle for the `BadgeDrawerItem`
  */
 public class BadgeStyle {
     private int mGradientDrawable = R.drawable.material_drawer_badge;
@@ -27,6 +27,7 @@ public class BadgeStyle {
     private ColorHolder mColor;
     private ColorHolder mColorPressed;
     private ColorHolder mTextColor;
+    private ColorStateList mTextColorStateList;
     private DimenHolder mCorners;
     private DimenHolder mPaddingTopBottom = DimenHolder.fromDp(2); //2 looks best
     private DimenHolder mPaddingLeftRight = DimenHolder.fromDp(3); //3 looks best
@@ -91,6 +92,12 @@ public class BadgeStyle {
 
     public BadgeStyle withTextColorRes(@ColorRes int textColor) {
         this.mTextColor = ColorHolder.fromColorRes(textColor);
+        return this;
+    }
+
+    public BadgeStyle withTextColorStateList(ColorStateList textColorStateList) {
+        this.mTextColor = null;
+        this.mTextColorStateList = textColorStateList;
         return this;
     }
 
@@ -206,10 +213,12 @@ public class BadgeStyle {
         }
 
         //set the badge text color
-        if (colorStateList != null) {
-            badgeTextView.setTextColor(colorStateList);
-        } else if (mTextColor != null) {
+        if (mTextColor != null) {
             ColorHolder.applyToOr(mTextColor, badgeTextView, null);
+        } else if (mTextColorStateList != null) {
+            badgeTextView.setTextColor(mTextColorStateList);
+        } else if (colorStateList != null) {
+            badgeTextView.setTextColor(colorStateList);
         }
 
         //set the padding
