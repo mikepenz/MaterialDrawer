@@ -13,9 +13,13 @@
         <attr name="material_drawer_divider" format="color|reference" />
 
         <attr name="material_drawer_selected" format="color|reference" />
+        <attr name="material_drawer_selected_legacy" format="color|reference" /> <!-- defines material design 1.0 color -->
         <attr name="material_drawer_selected_text" format="color|reference" />
         <!-- material drawer header attrs-->
         <attr name="material_drawer_header_selection_text" format="color|reference" />
+
+        <!-- allows to enable / disable legacy style e.g. material 1 -->
+        <attr name="material_drawer_legacy_style" format="boolean|reference" />
     </declare-styleable>
 
     <declare-styleable name="BezelImageView">

@@ -10,7 +10,7 @@
     android:paddingStart="@dimen/material_mini_drawer_item_padding_sides"
     android:paddingTop="@dimen/material_mini_drawer_item_padding">
 
-    <ImageView
+    <androidx.appcompat.widget.AppCompatImageView
         android:id="@+id/material_drawer_icon"
         android:layout_width="@dimen/material_mini_drawer_item_icon"
         android:layout_height="@dimen/material_mini_drawer_item_icon"
@@ -18,7 +18,7 @@
         android:padding="@dimen/material_mini_drawer_item_icon_padding"
         android:scaleType="fitXY" />
 
-    <TextView
+    <androidx.appcompat.widget.AppCompatTextView
         android:id="@+id/material_drawer_badge"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"

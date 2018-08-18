@@ -40,6 +40,8 @@ import android.graphics.RectF;
 import android.graphics.drawable.Drawable;
 import android.net.Uri;
 import android.os.Build;
+
+import androidx.appcompat.widget.AppCompatImageView;
 import androidx.core.view.ViewCompat;
 import android.util.AttributeSet;
 import android.view.MotionEvent;
@@ -56,7 +58,7 @@ import com.mikepenz.materialdrawer.util.DrawerImageLoader;
  * drawable on top. This is useful for applying a beveled look to image contents, but is also
  * flexible enough for use with other desired aesthetics.
  */
-public class BezelImageView extends ImageView {
+public class BezelImageView extends AppCompatImageView {
     private Paint mBlackPaint;
     private Paint mMaskedPaint;
 

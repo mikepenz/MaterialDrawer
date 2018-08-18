@@ -1727,7 +1727,7 @@ public class DrawerBuilder {
         DrawerUtils.handleFooterView(this, new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                IDrawerItem drawerItem = (IDrawerItem) v.getTag();
+                IDrawerItem drawerItem = (IDrawerItem) v.getTag(R.id.material_drawer_item);
                 DrawerUtils.onFooterDrawerItemClick(DrawerBuilder.this, drawerItem, v, true);
             }
         });

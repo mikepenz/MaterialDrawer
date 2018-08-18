@@ -9,16 +9,17 @@
     android:clickable="true"
     android:elevation="8dp"
     android:fitsSystemWindows="true"
+    android:focusable="true"
     android:orientation="vertical">
 
     <View
         android:id="@+id/material_drawer_inner_shadow"
         android:layout_width="wrap_content"
         android:layout_height="match_parent"
-        android:layout_alignParentEnd="true"
-        android:layout_alignParentLeft="false"
-        android:layout_alignParentRight="true"
         android:layout_alignParentStart="false"
+        android:layout_alignParentLeft="false"
+        android:layout_alignParentEnd="true"
+        android:layout_alignParentRight="true"
         android:background="@drawable/material_drawer_shadow_left"
         android:visibility="gone" />
 </com.mikepenz.materialize.view.ScrimInsetsRelativeLayout>

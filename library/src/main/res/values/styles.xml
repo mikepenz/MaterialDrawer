@@ -37,10 +37,13 @@
         <item name="material_drawer_hint_icon">@color/material_drawer_dark_hint_icon</item>
         <item name="material_drawer_divider">@color/material_drawer_dark_divider</item>
         <item name="material_drawer_selected">@color/material_drawer_dark_selected</item>
+        <item name="material_drawer_selected_legacy">@color/material_drawer_dark_selected_legacy
+        </item>
         <item name="material_drawer_selected_text">@color/material_drawer_dark_selected_text</item>
         <item name="material_drawer_header_selection_text">
             @color/material_drawer_header_selection_text
         </item>
+        <item name="material_drawer_legacy_style">false</item>
     </style>
 
     <style name="MaterialDrawerTheme.TranslucentStatus" parent="MaterialTheme.TranslucentStatus">
@@ -62,10 +65,13 @@
         <item name="material_drawer_hint_icon">@color/material_drawer_dark_hint_icon</item>
         <item name="material_drawer_divider">@color/material_drawer_dark_divider</item>
         <item name="material_drawer_selected">@color/material_drawer_dark_selected</item>
+        <item name="material_drawer_selected_legacy">@color/material_drawer_dark_selected_legacy
+        </item>
         <item name="material_drawer_selected_text">@color/material_drawer_dark_selected_text</item>
         <item name="material_drawer_header_selection_text">
             @color/material_drawer_header_selection_text
         </item>
+        <item name="material_drawer_legacy_style">false</item>
     </style>
 
     <style name="MaterialDrawerTheme.ActionBar" parent="MaterialTheme.ActionBar">
@@ -87,10 +93,13 @@
         <item name="material_drawer_hint_icon">@color/material_drawer_dark_hint_icon</item>
         <item name="material_drawer_divider">@color/material_drawer_dark_divider</item>
         <item name="material_drawer_selected">@color/material_drawer_dark_selected</item>
+        <item name="material_drawer_selected_legacy">@color/material_drawer_dark_selected_legacy
+        </item>
         <item name="material_drawer_selected_text">@color/material_drawer_dark_selected_text</item>
         <item name="material_drawer_header_selection_text">
             @color/material_drawer_header_selection_text
         </item>
+        <item name="material_drawer_legacy_style">false</item>
     </style>
 
     <style name="MaterialDrawerTheme.ActionBar.TranslucentStatus" parent="MaterialTheme.ActionBar.TranslucentStatus">
@@ -112,10 +121,13 @@
         <item name="material_drawer_hint_icon">@color/material_drawer_dark_hint_icon</item>
         <item name="material_drawer_divider">@color/material_drawer_dark_divider</item>
         <item name="material_drawer_selected">@color/material_drawer_dark_selected</item>
+        <item name="material_drawer_selected_legacy">@color/material_drawer_dark_selected_legacy
+        </item>
         <item name="material_drawer_selected_text">@color/material_drawer_dark_selected_text</item>
         <item name="material_drawer_header_selection_text">
             @color/material_drawer_header_selection_text
         </item>
+        <item name="material_drawer_legacy_style">false</item>
     </style>
 
     <!-- LIGHT -->
@@ -137,10 +149,12 @@
         <item name="material_drawer_hint_icon">@color/material_drawer_hint_icon</item>
         <item name="material_drawer_divider">@color/material_drawer_divider</item>
         <item name="material_drawer_selected">@color/material_drawer_selected</item>
+        <item name="material_drawer_selected_legacy">@color/material_drawer_selected_legacy</item>
         <item name="material_drawer_selected_text">@color/material_drawer_selected_text</item>
         <item name="material_drawer_header_selection_text">
             @color/material_drawer_header_selection_text
         </item>
+        <item name="material_drawer_legacy_style">false</item>
     </style>
 
     <style name="MaterialDrawerTheme.Light.TranslucentStatus" parent="MaterialTheme.Light.TranslucentStatus">
@@ -161,10 +175,12 @@
         <item name="material_drawer_hint_icon">@color/material_drawer_hint_icon</item>
         <item name="material_drawer_divider">@color/material_drawer_divider</item>
         <item name="material_drawer_selected">@color/material_drawer_selected</item>
+        <item name="material_drawer_selected_legacy">@color/material_drawer_selected_legacy</item>
         <item name="material_drawer_selected_text">@color/material_drawer_selected_text</item>
         <item name="material_drawer_header_selection_text">
             @color/material_drawer_header_selection_text
         </item>
+        <item name="material_drawer_legacy_style">false</item>
     </style>
 
     <style name="MaterialDrawerTheme.Light.ActionBar" parent="MaterialTheme.Light.ActionBar">
@@ -185,10 +201,12 @@
         <item name="material_drawer_hint_icon">@color/material_drawer_hint_icon</item>
         <item name="material_drawer_divider">@color/material_drawer_divider</item>
         <item name="material_drawer_selected">@color/material_drawer_selected</item>
+        <item name="material_drawer_selected_legacy">@color/material_drawer_selected_legacy</item>
         <item name="material_drawer_selected_text">@color/material_drawer_selected_text</item>
         <item name="material_drawer_header_selection_text">
             @color/material_drawer_header_selection_text
         </item>
+        <item name="material_drawer_legacy_style">false</item>
     </style>
 
     <style name="MaterialDrawerTheme.Light.ActionBar.TranslucentStatus" parent="MaterialTheme.Light.ActionBar.TranslucentStatus">
@@ -209,10 +227,12 @@
         <item name="material_drawer_hint_icon">@color/material_drawer_hint_icon</item>
         <item name="material_drawer_divider">@color/material_drawer_divider</item>
         <item name="material_drawer_selected">@color/material_drawer_selected</item>
+        <item name="material_drawer_selected_legacy">@color/material_drawer_selected_legacy</item>
         <item name="material_drawer_selected_text">@color/material_drawer_selected_text</item>
         <item name="material_drawer_header_selection_text">
             @color/material_drawer_header_selection_text
         </item>
+        <item name="material_drawer_legacy_style">false</item>
     </style>
 
 
@@ -235,10 +255,12 @@
         <item name="material_drawer_hint_icon">@color/material_drawer_hint_icon</item>
         <item name="material_drawer_divider">@color/material_drawer_divider</item>
         <item name="material_drawer_selected">@color/material_drawer_selected</item>
+        <item name="material_drawer_selected_legacy">@color/material_drawer_selected_legacy</item>
         <item name="material_drawer_selected_text">@color/material_drawer_selected_text</item>
         <item name="material_drawer_header_selection_text">
             @color/material_drawer_header_selection_text
         </item>
+        <item name="material_drawer_legacy_style">false</item>
     </style>
 
     <style name="MaterialDrawerTheme.Light.DarkToolbar.TranslucentStatus" parent="MaterialTheme.Light.DarkToolbar.TranslucentStatus">
@@ -259,10 +281,12 @@
         <item name="material_drawer_hint_icon">@color/material_drawer_hint_icon</item>
         <item name="material_drawer_divider">@color/material_drawer_divider</item>
         <item name="material_drawer_selected">@color/material_drawer_selected</item>
+        <item name="material_drawer_selected_legacy">@color/material_drawer_selected_legacy</item>
         <item name="material_drawer_selected_text">@color/material_drawer_selected_text</item>
         <item name="material_drawer_header_selection_text">
             @color/material_drawer_header_selection_text
         </item>
+        <item name="material_drawer_legacy_style">false</item>
     </style>
 
     <style name="MaterialDrawerTheme.Light.DarkToolbar.ActionBar" parent="MaterialTheme.Light.DarkToolbar.ActionBar">
@@ -283,10 +307,12 @@
         <item name="material_drawer_hint_icon">@color/material_drawer_hint_icon</item>
         <item name="material_drawer_divider">@color/material_drawer_divider</item>
         <item name="material_drawer_selected">@color/material_drawer_selected</item>
+        <item name="material_drawer_selected_legacy">@color/material_drawer_selected_legacy</item>
         <item name="material_drawer_selected_text">@color/material_drawer_selected_text</item>
         <item name="material_drawer_header_selection_text">
             @color/material_drawer_header_selection_text
         </item>
+        <item name="material_drawer_legacy_style">false</item>
     </style>
 
     <style name="MaterialDrawerTheme.Light.DarkToolbar.ActionBar.TranslucentStatus" parent="MaterialTheme.Light.DarkToolbar.ActionBar.TranslucentStatus">
@@ -307,10 +333,12 @@
         <item name="material_drawer_hint_icon">@color/material_drawer_hint_icon</item>
         <item name="material_drawer_divider">@color/material_drawer_divider</item>
         <item name="material_drawer_selected">@color/material_drawer_selected</item>
+        <item name="material_drawer_selected_legacy">@color/material_drawer_selected_legacy</item>
         <item name="material_drawer_selected_text">@color/material_drawer_selected_text</item>
         <item name="material_drawer_header_selection_text">
             @color/material_drawer_header_selection_text
         </item>
+        <item name="material_drawer_legacy_style">false</item>
     </style>
 
 
