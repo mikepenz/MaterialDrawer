@@ -43,8 +43,8 @@ There  is a Header with profiles (**AccountHeader**), a **MiniDrawer** for Table
 You can try it out here [Sample Application](https://play.google.com/store/apps/details?id=com.mikepenz.materialdrawer.app)
 
 ## Screenshots
-![Image](https://raw.githubusercontent.com/mikepenz/MaterialDrawer/develop/DEV/github/screenshots1.jpg)
-![Image](https://raw.githubusercontent.com/mikepenz/MaterialDrawer/develop/DEV/github/screenshots2.jpg)
+![Image](https://raw.githubusercontent.com/mikepenz/MaterialDrawer/develop/DEV/github/screenshots1.png)
+![Image](https://raw.githubusercontent.com/mikepenz/MaterialDrawer/develop/DEV/github/screenshots2.png)
 
 # WIKI / FAQ
 You can find some frequently asked questions and other resources in the [WIKI / FAQ](FAQ.md) site.
