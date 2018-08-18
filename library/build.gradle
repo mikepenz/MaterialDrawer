@@ -31,8 +31,8 @@ dependencies {
     implementation "androidx.annotation:annotation:${versions.androidX}"
     implementation "com.google.android.material:material:${versions.androidX}"
 
-    // add the constraintLayout used to create the items
-    implementation "com.android.support.constraint:constraint-layout:${versions.constraintLayout}"
+    // add the constraintLayout used to create the items and headers
+    implementation "androidx.constraintlayout:constraintlayout:${versions.constraintLayout}"
 
     // used to base on some backwards compatible themes
     // contains util classes to support various android versions, and clean up code
