@@ -66,11 +66,11 @@ dependencies {
     // used to provide the MiniDrawer to normal Drawer crossfade effect via a SlidingPane layout
     // --> https://github.com/mikepenz/MaterialDrawer/blob/develop/app/src/main/java/com/mikepenz/materialdrawer/app/MiniDrawerActivity.java
     // https://github.com/mikepenz/Crossfader
-    implementation 'com.mikepenz:crossfader:1.5.1'
+    implementation 'com.mikepenz:crossfader:1.6.0-rc01'
     // used to provide the two step crossfade DrawerLayout. Which allows to have a mini layout which transforms to a normal layout within the drawer
     // --> https://github.com/mikepenz/MaterialDrawer/blob/develop/app/src/main/java/com/mikepenz/materialdrawer/app/CrossfadeDrawerLayoutActvitiy.java
     // https://github.com/mikepenz/CrossfadeDrawerLayout
-    implementation('com.mikepenz:crossfadedrawerlayout:1.0.1')
+    implementation('com.mikepenz:crossfadedrawerlayout:1.1.0-rc01')
 
     // icon fonts used inside the sample
     // https://github.com/mikepenz/Android-Iconics

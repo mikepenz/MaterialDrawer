@@ -7,7 +7,7 @@
     <color name="material_drawer_accent">@color/materialize_accent</color>
 
     <!-- MaterialDrawer DEFAULT colors -->
-    <color name="material_drawer_background">@color/md_light_background</color>
+    <color name="material_drawer_background">@color/md_white_1000</color>
     <!-- MaterialDrawer DEFAULT text / items colors -->
     <color name="material_drawer_primary_text">@color/md_light_primary_text</color>
     <!-- is overwritten for all devices > 21 (fix that transparent colors are not possible for tinting on < 21) -->
@@ -20,7 +20,7 @@
     <color name="material_drawer_selected">#1F2196F3</color>
     <color name="material_drawer_selected_legacy">#E8E8E8</color>
     <color name="material_drawer_selected_text">@color/material_drawer_primary</color>
-    <color name="material_drawer_header_selection_text">#FFF</color>
+    <color name="material_drawer_header_selection_text">@color/material_drawer_primary_text</color>
 
     <!-- MaterialDrawer DEFAULT DARK colors -->
     <color name="material_drawer_dark_background">@color/md_dark_background</color>
@@ -36,5 +36,7 @@
     <color name="material_drawer_dark_selected">#1F2196F3</color>
     <color name="material_drawer_dark_selected_legacy">#202020</color>
     <color name="material_drawer_dark_selected_text">@color/material_drawer_primary</color>
-    <color name="material_drawer_dark_header_selection_text">#FFF</color>
+    <color name="material_drawer_dark_header_selection_text">
+        @color/material_drawer_dark_primary_text
+    </color>
 </resources>
