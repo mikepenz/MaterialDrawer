@@ -3,16 +3,17 @@ package com.mikepenz.materialdrawer.holder;
 import android.content.Context;
 import android.content.res.ColorStateList;
 import android.graphics.drawable.Drawable;
+import android.widget.TextView;
+
+import com.mikepenz.materialdrawer.R;
+import com.mikepenz.materialdrawer.model.utils.BadgeDrawableBuilder;
+
 import androidx.annotation.ColorInt;
 import androidx.annotation.ColorRes;
 import androidx.annotation.DimenRes;
 import androidx.annotation.Dimension;
 import androidx.annotation.DrawableRes;
-import android.widget.TextView;
-
-import com.mikepenz.materialdrawer.R;
-import com.mikepenz.materialdrawer.model.utils.BadgeDrawableBuilder;
-import com.mikepenz.materialize.util.UIUtils;
+import androidx.core.view.ViewCompat;
 
 import static androidx.annotation.Dimension.DP;
 import static androidx.annotation.Dimension.PX;
@@ -199,16 +200,16 @@ public class BadgeStyle {
         Context ctx = badgeTextView.getContext();
         //set background for badge
         if (mBadgeBackground == null) {
-            UIUtils.setBackground(badgeTextView, new BadgeDrawableBuilder(this).build(ctx));
+            ViewCompat.setBackground(badgeTextView, new BadgeDrawableBuilder(this).build(ctx));
         } else {
-            UIUtils.setBackground(badgeTextView, mBadgeBackground);
+            ViewCompat.setBackground(badgeTextView, mBadgeBackground);
         }
 
         //set the badge text color
-        if (mTextColor != null) {
-            ColorHolder.applyToOr(mTextColor, badgeTextView, null);
-        } else if (colorStateList != null) {
+        if (colorStateList != null) {
             badgeTextView.setTextColor(colorStateList);
+        } else if (mTextColor != null) {
+            ColorHolder.applyToOr(mTextColor, badgeTextView, null);
         }
 
         //set the padding
