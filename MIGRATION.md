@@ -6,6 +6,8 @@
 <item name="material_drawer_selected_legacy">@color/material_drawer_selected</item> <!-- Defines the color if legacy style (Material 1, is enabled) -->
 <item name="material_drawer_legacy_style">false</item> <!-- Enables legacy Material 1 style -->
 ```
+* Reworked the header views to be a lot more simple by using a `ConstraintLayout`
+  * Any previously custom headers require to be adjusted to the new structure. (The statusbar `Guideline` is required, for example)
 * The viewHolder.item has no longer the item itself as tag directly. It is now defined with an id `R.id.material_drawer_item`. `ViewHolder.itemView.getTag(R.id.material_drawer_item)` will now return the `IDrawerItem`.
 
 #### v6.1.0-rc01

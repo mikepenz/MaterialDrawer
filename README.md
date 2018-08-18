@@ -15,10 +15,11 @@ There  is a Header with profiles (**AccountHeader**), a **MiniDrawer** for Table
 ### A quick overview of what's in it 
 - **the easiest possible integration**
 - integrate in less than **5 minutes**
+- depends on androidX
 - compatible down to **API Level 14**
 - includes an **AccountSwitcher**
 - quick and simple api
-- follows the **Google Material Design Guidelines**
+- follows the **NEW Google Material Design Guidelines**
 - use **vector** (.svg) icons and **icon fonts** via the [Android-Iconics](https://github.com/mikepenz/Android-Iconics) integration
  - **Google Material Design Icons**, Google **Material Community** Design Icons, FontAwesome and more
 - comes with various **themes** which help to get your own themes clean
@@ -35,11 +36,11 @@ There  is a Header with profiles (**AccountHeader**), a **MiniDrawer** for Table
 - sticky footer or headers
 - **absolutely NO limits**
 
-> If you upgrade from < 5.9.0 follow the [MIGRATION GUIDE](https://github.com/mikepenz/MaterialDrawer/blob/develop/MIGRATION.md)
+> If you upgrade from < 6.1.0 follow the [MIGRATION GUIDE](https://github.com/mikepenz/MaterialDrawer/blob/develop/MIGRATION.md)
 
 # Preview
 ## Demo
-You can try it out here [Google Play](https://play.google.com/store/apps/details?id=com.mikepenz.unsplash) (wall:splash an open source application which uses this drawer implementation). Or you try the [Sample Application](https://play.google.com/store/apps/details?id=com.mikepenz.materialdrawer.app)
+You can try it out here [Sample Application](https://play.google.com/store/apps/details?id=com.mikepenz.materialdrawer.app)
 
 ## Screenshots
 ![Image](https://raw.githubusercontent.com/mikepenz/MaterialDrawer/develop/DEV/github/screenshots1.jpg)
@@ -59,6 +60,7 @@ implementation "androidx.appcompat:appcompat:${versions.androidX}"
 implementation "androidx.recyclerview:recyclerview:${versions.androidX}"
 implementation "androidx.annotation:annotation:${versions.androidX}"
 implementation "com.google.android.material:material:${versions.androidX}"
+implementation "androidx.constraintlayout:constraintlayout:${versions.constraintLayout}"
 ```
 
 To use appcompat please use a version smaller than 6.1.0. (See the releases on GitHub)
