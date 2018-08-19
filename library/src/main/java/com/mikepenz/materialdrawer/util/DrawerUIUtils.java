@@ -63,18 +63,21 @@ public class DrawerUIUtils {
             unselected = UIUtils.getSelectableBackground(ctx);
         } else {
             // Material 2.0 styling
+            int cornerRadius = ctx.getResources().getDimensionPixelSize(R.dimen.material_drawer_item_corner_radius);
+            int paddingTopBottom = ctx.getResources().getDimensionPixelSize(R.dimen.material_drawer_item_background_padding_top_bottom);
+            int paddingStartEnd = ctx.getResources().getDimensionPixelSize(R.dimen.material_drawer_item_background_padding_start_end);
 
             // define normal selected background
             GradientDrawable gradientDrawable = new GradientDrawable();
             gradientDrawable.setColor(selected_color);
-            gradientDrawable.setCornerRadius(UIUtils.convertDpToPixel(4, ctx));
-            selected = new InsetDrawable(gradientDrawable, (int) UIUtils.convertDpToPixel(8, ctx), (int) UIUtils.convertDpToPixel(4, ctx), (int) UIUtils.convertDpToPixel(8, ctx), (int) UIUtils.convertDpToPixel(4, ctx));
+            gradientDrawable.setCornerRadius(cornerRadius);
+            selected = new InsetDrawable(gradientDrawable, paddingStartEnd, paddingTopBottom, paddingStartEnd, paddingTopBottom);
 
             // define mask for ripple
             GradientDrawable gradientMask = new GradientDrawable();
             gradientMask.setColor(Color.BLACK);
-            gradientMask.setCornerRadius(UIUtils.convertDpToPixel(4, ctx));
-            Drawable mask = new InsetDrawable(gradientMask, (int) UIUtils.convertDpToPixel(8, ctx), (int) UIUtils.convertDpToPixel(4, ctx), (int) UIUtils.convertDpToPixel(8, ctx), (int) UIUtils.convertDpToPixel(4, ctx));
+            gradientMask.setCornerRadius(cornerRadius);
+            Drawable mask = new InsetDrawable(gradientMask, paddingStartEnd, paddingTopBottom, paddingStartEnd, paddingTopBottom);
             unselected = new RippleDrawable(new ColorStateList(new int[][]{new int[]{}}, new int[]{UIUtils.getThemeColor(ctx, R.attr.colorControlHighlight)}), null, mask);
         }
 

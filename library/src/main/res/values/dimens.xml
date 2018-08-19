@@ -30,6 +30,10 @@
 
     <!-- General profileIcon margins for the drawer item -->
     <dimen name="material_drawer_item_padding">8dp</dimen>
+    <dimen name="material_drawer_item_corner_radius">4dp</dimen>
+    <dimen name="material_drawer_item_background_padding_start_end">8dp</dimen>
+    <dimen name="material_drawer_item_background_padding_top_bottom">4dp</dimen>
+
     <!-- Definition for the primary item -->
     <dimen name="material_drawer_item_primary">48dp</dimen>
     <dimen name="material_drawer_item_primary_icon">56dp</dimen>
