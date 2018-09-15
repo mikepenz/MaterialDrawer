@@ -2,9 +2,6 @@ package com.mikepenz.materialdrawer.model;
 
 import android.content.Context;
 import android.graphics.drawable.Drawable;
-import androidx.annotation.DimenRes;
-import androidx.annotation.LayoutRes;
-import androidx.recyclerview.widget.RecyclerView;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
@@ -14,9 +11,14 @@ import com.mikepenz.materialdrawer.holder.BadgeStyle;
 import com.mikepenz.materialdrawer.holder.DimenHolder;
 import com.mikepenz.materialdrawer.holder.ImageHolder;
 import com.mikepenz.materialdrawer.holder.StringHolder;
-import com.mikepenz.materialize.util.UIUtils;
 
 import java.util.List;
+
+import androidx.annotation.DimenRes;
+import androidx.annotation.LayoutRes;
+import androidx.recyclerview.widget.RecyclerView;
+
+import static com.mikepenz.materialdrawer.util.DrawerUIUtils.themeDrawerItem;
 
 /**
  * Created by mikepenz on 03.02.15.
@@ -146,7 +148,7 @@ public class MiniDrawerItem extends BaseDrawerItem<MiniDrawerItem, MiniDrawerIte
             //get the correct color for the background
             int selectedColor = getSelectedColor(ctx);
             //set the background for the item
-            UIUtils.setBackground(viewHolder.view, UIUtils.getSelectableBackground(ctx, selectedColor, isSelectedBackgroundAnimated()));
+            themeDrawerItem(ctx, viewHolder.view, selectedColor, isSelectedBackgroundAnimated());
         }
 
         //set the text for the badge or hide

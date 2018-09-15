@@ -14,7 +14,8 @@
         </item>
         <item name="material_drawer_hint_text">@color/material_drawer_dark_hint_text</item>
         <item name="material_drawer_divider">@color/material_drawer_dark_divider</item>
-        <item name="material_drawer_selected">@color/material_drawer_dark_selected</item>
+        <item name="material_drawer_selected">#1FF1433C</item>
+        <item name="material_drawer_selected_legacy">@color/material_drawer_dark_selected_legacy</item>
         <item name="material_drawer_selected_text">#F1433C</item>
         <item name="material_drawer_header_selection_text">
             @color/material_drawer_dark_primary_text

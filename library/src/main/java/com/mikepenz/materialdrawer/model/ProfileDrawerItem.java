@@ -21,7 +21,6 @@ import com.mikepenz.materialdrawer.model.interfaces.Tagable;
 import com.mikepenz.materialdrawer.model.interfaces.Typefaceable;
 import com.mikepenz.materialdrawer.util.DrawerImageLoader;
 import com.mikepenz.materialdrawer.util.DrawerUIUtils;
-import com.mikepenz.materialize.util.UIUtils;
 
 import java.util.List;
 
@@ -31,6 +30,9 @@ import androidx.annotation.DrawableRes;
 import androidx.annotation.LayoutRes;
 import androidx.annotation.StringRes;
 import androidx.recyclerview.widget.RecyclerView;
+
+import static com.mikepenz.materialdrawer.util.DrawerUIUtils.getBooleanStyleable;
+import static com.mikepenz.materialdrawer.util.DrawerUIUtils.themeDrawerItem;
 
 /**
  * Created by mikepenz on 03.02.15.
@@ -227,12 +229,13 @@ public class ProfileDrawerItem extends AbstractDrawerItem<ProfileDrawerItem, Pro
         viewHolder.itemView.setSelected(isSelected());
 
         //get the correct color for the background
-        int selectedColor = ColorHolder.color(getSelectedColor(), ctx, R.attr.material_drawer_selected, R.color.material_drawer_selected);
+        int selectedColor = getSelectedColor(ctx);
         //get the correct color for the text
         int color = getColor(ctx);
         int selectedTextColor = getSelectedTextColor(ctx);
 
-        UIUtils.setBackground(viewHolder.view, UIUtils.getSelectableBackground(ctx, selectedColor, isSelectedBackgroundAnimated()));
+        //set the background for the item
+        themeDrawerItem(ctx, viewHolder.view, selectedColor, isSelectedBackgroundAnimated());
 
         if (nameShown) {
             viewHolder.name.setVisibility(View.VISIBLE);
@@ -286,12 +289,25 @@ public class ProfileDrawerItem extends AbstractDrawerItem<ProfileDrawerItem, Pro
         private ViewHolder(View view) {
             super(view);
             this.view = view;
-            this.profileIcon = (ImageView) view.findViewById(R.id.material_drawer_profileIcon);
-            this.name = (TextView) view.findViewById(R.id.material_drawer_name);
-            this.email = (TextView) view.findViewById(R.id.material_drawer_email);
+            this.profileIcon = view.findViewById(R.id.material_drawer_profileIcon);
+            this.name = view.findViewById(R.id.material_drawer_name);
+            this.email = view.findViewById(R.id.material_drawer_email);
         }
     }
 
+    /**
+     * helper method to decide for the correct color
+     *
+     * @param ctx
+     * @return
+    */
+    protected int getSelectedColor(Context ctx) {
+        if (getBooleanStyleable(ctx, R.styleable.MaterialDrawer_material_drawer_legacy_style, false)) {
+            return ColorHolder.color(getSelectedColor(), ctx, R.attr.material_drawer_selected_legacy, R.color.material_drawer_selected_legacy);
+        } else {
+            return ColorHolder.color(getSelectedColor(), ctx, R.attr.material_drawer_selected, R.color.material_drawer_selected);
+        }
+    }
 
     /**
      * helper method to decide for the correct color

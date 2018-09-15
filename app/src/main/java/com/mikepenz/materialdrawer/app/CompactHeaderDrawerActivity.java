@@ -3,9 +3,6 @@ package com.mikepenz.materialdrawer.app;
 import android.graphics.Color;
 import android.os.Build;
 import android.os.Bundle;
-import androidx.appcompat.app.AppCompatActivity;
-import androidx.appcompat.view.ActionMode;
-import androidx.appcompat.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -26,6 +23,10 @@ import com.mikepenz.materialdrawer.model.interfaces.IDrawerItem;
 import com.mikepenz.materialdrawer.model.interfaces.IProfile;
 import com.mikepenz.materialdrawer.model.interfaces.Nameable;
 import com.mikepenz.materialize.util.UIUtils;
+
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.view.ActionMode;
+import androidx.appcompat.widget.Toolbar;
 
 public class CompactHeaderDrawerActivity extends AppCompatActivity {
     private static final int PROFILE_SETTING = 1;
@@ -55,7 +56,6 @@ public class CompactHeaderDrawerActivity extends AppCompatActivity {
         headerResult = new AccountHeaderBuilder()
                 .withActivity(this)
                 .withCompactStyle(true)
-                .withHeaderBackground(R.drawable.header)
                 .addProfiles(
                         profile,
                         profile2,

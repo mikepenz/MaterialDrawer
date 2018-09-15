@@ -15,10 +15,11 @@ There  is a Header with profiles (**AccountHeader**), a **MiniDrawer** for Table
 ### A quick overview of what's in it 
 - **the easiest possible integration**
 - integrate in less than **5 minutes**
+- depends on androidX
 - compatible down to **API Level 14**
 - includes an **AccountSwitcher**
 - quick and simple api
-- follows the **Google Material Design Guidelines**
+- follows the **NEW Google Material Design Guidelines**
 - use **vector** (.svg) icons and **icon fonts** via the [Android-Iconics](https://github.com/mikepenz/Android-Iconics) integration
  - **Google Material Design Icons**, Google **Material Community** Design Icons, FontAwesome and more
 - comes with various **themes** which help to get your own themes clean
@@ -35,15 +36,15 @@ There  is a Header with profiles (**AccountHeader**), a **MiniDrawer** for Table
 - sticky footer or headers
 - **absolutely NO limits**
 
-> If you upgrade from < 5.9.0 follow the [MIGRATION GUIDE](https://github.com/mikepenz/MaterialDrawer/blob/develop/MIGRATION.md)
+> If you upgrade from < 6.1.0 follow the [MIGRATION GUIDE](https://github.com/mikepenz/MaterialDrawer/blob/develop/MIGRATION.md)
 
 # Preview
 ## Demo
-You can try it out here [Google Play](https://play.google.com/store/apps/details?id=com.mikepenz.unsplash) (wall:splash an open source application which uses this drawer implementation). Or you try the [Sample Application](https://play.google.com/store/apps/details?id=com.mikepenz.materialdrawer.app)
+You can try it out here [Sample Application](https://play.google.com/store/apps/details?id=com.mikepenz.materialdrawer.app)
 
 ## Screenshots
-![Image](https://raw.githubusercontent.com/mikepenz/MaterialDrawer/develop/DEV/github/screenshots1.jpg)
-![Image](https://raw.githubusercontent.com/mikepenz/MaterialDrawer/develop/DEV/github/screenshots2.jpg)
+![Image](DEV/github/screenshots1.png)
+![Image](DEV/github/screenshots2.png)
 
 # WIKI / FAQ
 You can find some frequently asked questions and other resources in the [WIKI / FAQ](FAQ.md) site.
@@ -52,13 +53,14 @@ You can find some frequently asked questions and other resources in the [WIKI / 
 ## 1. Provide the gradle dependency
 
 ```gradle
-implementation "com.mikepenz:materialdrawer:6.1.0-rc01"
+implementation "com.mikepenz:materialdrawer:6.1.0-rc02"
 
 //required support lib modules
 implementation "androidx.appcompat:appcompat:${versions.androidX}"
 implementation "androidx.recyclerview:recyclerview:${versions.androidX}"
 implementation "androidx.annotation:annotation:${versions.androidX}"
 implementation "com.google.android.material:material:${versions.androidX}"
+implementation "androidx.constraintlayout:constraintlayout:${versions.constraintLayout}"
 ```
 
 To use appcompat please use a version smaller than 6.1.0. (See the releases on GitHub)
@@ -310,9 +312,11 @@ Create your custom style and use one of the provided themes as parent. If you do
         <item name="material_drawer_secondary_text">@color/material_drawer_secondary_text</item>
         <item name="material_drawer_hint_text">@color/material_drawer_hint_text</item>
         <item name="material_drawer_divider">@color/material_drawer_divider</item>
-        <item name="material_drawer_selected">@color/material_drawer_selected</item>
+        <item name="material_drawer_selected">@color/material_drawer_selected</item> <!-- Material 2 defines 12% alpha, primary color -->
+        <item name="material_drawer_selected_legacy">@color/material_drawer_selected</item> <!-- Defines the color if legacy style (Material 1, is enabled) -->
         <item name="material_drawer_selected_text">@color/material_drawer_selected_text</item>
         <item name="material_drawer_header_selection_text">@color/material_drawer_header_selection_text</item>
+        <item name="material_drawer_legacy_style">false</item> <!-- Enables legacy Material 1 style -->
     </style>
 ```
 
@@ -335,7 +339,8 @@ No need to create a custom theme. Just set these colors (or some of them) and yo
     <color name="material_drawer_hint_text">#42000000</color>
     <color name="material_drawer_divider">#1F000000</color>
     <!-- Material DEFAULT drawer colors -->
-    <color name="material_drawer_selected">#E8E8E8</color>
+    <color name="material_drawer_selected">#1F2196F3</color>
+    <color name="material_drawer_selected_legacy">#E8E8E8</color>
     <color name="material_drawer_selected_text">#2196F3</color>
     <color name="material_drawer_header_selection_text">#FFF</color>
 
@@ -349,7 +354,8 @@ No need to create a custom theme. Just set these colors (or some of them) and yo
     <color name="material_drawer_dark_hint_text">#42FFFFFF</color>
     <color name="material_drawer_dark_divider">#1FFFFFFF</color>
     <!-- MaterialDrawer DEFAULT DARK drawer colors -->
-    <color name="material_drawer_dark_selected">#202020</color>
+    <color name="material_drawer_dark_selected">#1F2196F3</color>
+    <color name="material_drawer_dark_selected_legacy">#202020</color>
     <color name="material_drawer_dark_selected_text">@color/material_drawer_primary</color>
     <color name="material_drawer_dark_header_selection_text">#FFF</color>
 ```

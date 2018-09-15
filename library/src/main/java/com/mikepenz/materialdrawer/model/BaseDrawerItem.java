@@ -5,11 +5,6 @@ import android.content.res.ColorStateList;
 import android.graphics.Typeface;
 import android.graphics.drawable.Drawable;
 import android.os.Build;
-import androidx.annotation.ColorInt;
-import androidx.annotation.ColorRes;
-import androidx.annotation.DrawableRes;
-import androidx.annotation.StringRes;
-import androidx.recyclerview.widget.RecyclerView;
 import android.util.Pair;
 
 import com.mikepenz.iconics.typeface.IIcon;
@@ -22,6 +17,14 @@ import com.mikepenz.materialdrawer.model.interfaces.Nameable;
 import com.mikepenz.materialdrawer.model.interfaces.Tagable;
 import com.mikepenz.materialdrawer.model.interfaces.Typefaceable;
 import com.mikepenz.materialdrawer.util.DrawerUIUtils;
+
+import androidx.annotation.ColorInt;
+import androidx.annotation.ColorRes;
+import androidx.annotation.DrawableRes;
+import androidx.annotation.StringRes;
+import androidx.recyclerview.widget.RecyclerView;
+
+import static com.mikepenz.materialdrawer.util.DrawerUIUtils.getBooleanStyleable;
 
 /**
  * Created by mikepenz on 03.02.15.
@@ -270,7 +273,11 @@ public abstract class BaseDrawerItem<T, VH extends RecyclerView.ViewHolder> exte
      * @return
      */
     protected int getSelectedColor(Context ctx) {
-        return ColorHolder.color(getSelectedColor(), ctx, R.attr.material_drawer_selected, R.color.material_drawer_selected);
+        if (getBooleanStyleable(ctx, R.styleable.MaterialDrawer_material_drawer_legacy_style, false)) {
+            return ColorHolder.color(getSelectedColor(), ctx, R.attr.material_drawer_selected_legacy, R.color.material_drawer_selected_legacy);
+        } else {
+            return ColorHolder.color(getSelectedColor(), ctx, R.attr.material_drawer_selected, R.color.material_drawer_selected);
+        }
     }
 
     /**

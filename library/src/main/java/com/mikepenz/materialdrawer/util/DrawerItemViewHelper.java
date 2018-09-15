@@ -76,7 +76,7 @@ public class DrawerItemViewHelper {
                     @Override
                     public void onClick(View v) {
                         if (mOnDrawerItemClickListener != null) {
-                            mOnDrawerItemClickListener.onItemClick(v, (IDrawerItem) v.getTag());
+                            mOnDrawerItemClickListener.onItemClick(v, (IDrawerItem) v.getTag(R.id.material_drawer_item));
                         }
                     }
                 });
