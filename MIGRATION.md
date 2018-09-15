@@ -4,7 +4,7 @@
 * With the introduction of the material 2 design behaviour, new theme attributes were added.
 ```xml
 <item name="material_drawer_selected_legacy">@color/material_drawer_selected</item> <!-- Defines the color if legacy style (Material 1, is enabled) -->
-<item name="material_drawer_legacy_style">false</item> <!-- Enables legacy Material 1 style -->
+<item name="material_drawer_legacy_style">true</item> <!-- Enables legacy Material 1 style -->
 ```
 * Reworked the header views to be a lot more simple by using a `ConstraintLayout`
   * Any previously custom headers require to be adjusted to the new structure. (The statusbar `Guideline` is required, for example)
