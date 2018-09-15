@@ -10,7 +10,7 @@
         android:layout_height="1dp"
         android:layout_marginTop="@dimen/material_drawer_padding" />
 
-    <TextView
+    <androidx.appcompat.widget.AppCompatTextView
         android:id="@+id/material_drawer_name"
         android:layout_width="match_parent"
         android:layout_height="@dimen/material_drawer_item_primary"

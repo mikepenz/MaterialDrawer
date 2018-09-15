@@ -4,8 +4,13 @@ import android.annotation.SuppressLint;
 import android.content.Context;
 import android.content.res.ColorStateList;
 import android.content.res.Configuration;
+import android.content.res.TypedArray;
+import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
 import android.graphics.drawable.Drawable;
+import android.graphics.drawable.GradientDrawable;
+import android.graphics.drawable.InsetDrawable;
+import android.graphics.drawable.RippleDrawable;
 import android.graphics.drawable.StateListDrawable;
 import android.os.Build;
 import android.util.DisplayMetrics;
@@ -17,12 +22,87 @@ import com.mikepenz.materialdrawer.R;
 import com.mikepenz.materialdrawer.icons.MaterialDrawerFont;
 import com.mikepenz.materialize.util.UIUtils;
 
+import androidx.annotation.StyleableRes;
+
 /**
  * Created by mikepenz on 15.03.14.
  */
 @SuppressLint("InlinedApi")
 public class DrawerUIUtils {
 
+    /**
+     * Get the boolean value of a given styleable.
+     *
+     * @param ctx
+     * @param styleable
+     * @param def
+     * @return
+     */
+    public static boolean getBooleanStyleable(Context ctx, @StyleableRes int styleable, boolean def) {
+        TypedArray ta = ctx.getTheme().obtainStyledAttributes(R.styleable.MaterialDrawer);
+        return ta.getBoolean(styleable, def);
+    }
+
+    /**
+     * Util method to theme the drawer item view's background (and foreground if possible)
+     *
+     * @param ctx            the context to use
+     * @param view           the view to theme
+     * @param selected_color the selected color to use
+     * @param animate        true if we want to animate the StateListDrawable
+     */
+    public static void themeDrawerItem(Context ctx, View view, int selected_color, boolean animate) {
+        boolean legacyStyle = getBooleanStyleable(ctx, R.styleable.MaterialDrawer_material_drawer_legacy_style, false);
+
+        Drawable selected;
+        Drawable unselected;
+
+        if (legacyStyle) {
+            // Material 1.0 styling
+            selected = new ColorDrawable(selected_color);
+            unselected = UIUtils.getSelectableBackground(ctx);
+        } else {
+            // Material 2.0 styling
+            int cornerRadius = ctx.getResources().getDimensionPixelSize(R.dimen.material_drawer_item_corner_radius);
+            int paddingTopBottom = ctx.getResources().getDimensionPixelSize(R.dimen.material_drawer_item_background_padding_top_bottom);
+            int paddingStartEnd = ctx.getResources().getDimensionPixelSize(R.dimen.material_drawer_item_background_padding_start_end);
+
+            // define normal selected background
+            GradientDrawable gradientDrawable = new GradientDrawable();
+            gradientDrawable.setColor(selected_color);
+            gradientDrawable.setCornerRadius(cornerRadius);
+            selected = new InsetDrawable(gradientDrawable, paddingStartEnd, paddingTopBottom, paddingStartEnd, paddingTopBottom);
+
+            // define mask for ripple
+            GradientDrawable gradientMask = new GradientDrawable();
+            gradientMask.setColor(Color.BLACK);
+            gradientMask.setCornerRadius(cornerRadius);
+            Drawable mask = new InsetDrawable(gradientMask, paddingStartEnd, paddingTopBottom, paddingStartEnd, paddingTopBottom);
+            unselected = new RippleDrawable(new ColorStateList(new int[][]{new int[]{}}, new int[]{UIUtils.getThemeColor(ctx, R.attr.colorControlHighlight)}), null, mask);
+        }
+
+        StateListDrawable states = new StateListDrawable();
+
+        //if possible and wanted we enable animating across states
+        if (animate) {
+            int duration = ctx.getResources().getInteger(android.R.integer.config_shortAnimTime);
+            states.setEnterFadeDuration(duration);
+            states.setExitFadeDuration(duration);
+        }
+
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
+            states.addState(new int[]{android.R.attr.state_selected}, selected);
+            states.addState(new int[]{}, new ColorDrawable(Color.TRANSPARENT));
+
+            view.setBackground(states);
+            view.setForeground(unselected);
+        } else {
+            states.addState(new int[]{android.R.attr.state_selected}, selected);
+            states.addState(new int[]{}, unselected);
+
+            view.setBackground(states);
+        }
+    }
 
     /**
      * helper to create a colorStateList for the text

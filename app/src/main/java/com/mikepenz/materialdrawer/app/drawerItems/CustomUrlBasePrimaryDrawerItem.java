@@ -2,10 +2,6 @@ package com.mikepenz.materialdrawer.app.drawerItems;
 
 import android.content.Context;
 import android.net.Uri;
-import androidx.annotation.ColorInt;
-import androidx.annotation.ColorRes;
-import androidx.annotation.StringRes;
-import androidx.recyclerview.widget.RecyclerView;
 
 import com.mikepenz.materialdrawer.holder.ColorHolder;
 import com.mikepenz.materialdrawer.holder.ImageHolder;
@@ -13,7 +9,13 @@ import com.mikepenz.materialdrawer.holder.StringHolder;
 import com.mikepenz.materialdrawer.model.BaseDrawerItem;
 import com.mikepenz.materialdrawer.util.DrawerImageLoader;
 import com.mikepenz.materialdrawer.util.DrawerUIUtils;
-import com.mikepenz.materialize.util.UIUtils;
+
+import androidx.annotation.ColorInt;
+import androidx.annotation.ColorRes;
+import androidx.annotation.StringRes;
+import androidx.recyclerview.widget.RecyclerView;
+
+import static com.mikepenz.materialdrawer.util.DrawerUIUtils.themeDrawerItem;
 
 /**
  * Created by mikepenz on 03.02.15.
@@ -79,12 +81,9 @@ public abstract class CustomUrlBasePrimaryDrawerItem<T, VH extends RecyclerView.
         //get the correct color for the text
         int color = getColor(ctx);
         int selectedTextColor = getSelectedTextColor(ctx);
-        //get the correct color for the icon
-        int iconColor = getIconColor(ctx);
-        int selectedIconColor = getSelectedIconColor(ctx);
 
         //set the background for the item
-        UIUtils.setBackground(viewHolder.view, UIUtils.getSelectableBackground(ctx, selectedColor, true));
+        themeDrawerItem(ctx, viewHolder.view, selectedColor, isSelectedBackgroundAnimated());
         //set the text for the name
         StringHolder.applyTo(this.getName(), viewHolder.name);
         //set the text for the description or hide

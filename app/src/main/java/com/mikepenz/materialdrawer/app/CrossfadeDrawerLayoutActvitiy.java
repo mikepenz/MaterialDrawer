@@ -3,9 +3,6 @@ package com.mikepenz.materialdrawer.app;
 import android.graphics.Color;
 import android.net.Uri;
 import android.os.Bundle;
-import androidx.core.view.GravityCompat;
-import androidx.appcompat.app.AppCompatActivity;
-import androidx.appcompat.widget.Toolbar;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Toast;
@@ -29,6 +26,10 @@ import com.mikepenz.materialdrawer.model.interfaces.IProfile;
 import com.mikepenz.materialdrawer.model.interfaces.Nameable;
 import com.mikepenz.materialdrawer.util.DrawerUIUtils;
 import com.mikepenz.materialize.util.UIUtils;
+
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.Toolbar;
+import androidx.core.view.GravityCompat;
 
 public class CrossfadeDrawerLayoutActvitiy extends AppCompatActivity {
     //save our header or result
@@ -56,7 +57,6 @@ public class CrossfadeDrawerLayoutActvitiy extends AppCompatActivity {
         // Create the AccountHeader
         headerResult = new AccountHeaderBuilder()
                 .withActivity(this)
-                .withHeaderBackground(R.drawable.header)
                 .addProfiles(
                         profile, profile2
                 )

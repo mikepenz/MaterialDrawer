@@ -1,11 +1,12 @@
 package com.mikepenz.materialdrawer.model;
 
-import androidx.recyclerview.widget.RecyclerView;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.mikepenz.materialdrawer.R;
+
+import androidx.recyclerview.widget.RecyclerView;
 
 public class BaseViewHolder extends RecyclerView.ViewHolder {
     protected View view;
@@ -17,8 +18,8 @@ public class BaseViewHolder extends RecyclerView.ViewHolder {
         super(view);
 
         this.view = view;
-        this.icon = (ImageView) view.findViewById(R.id.material_drawer_icon);
-        this.name = (TextView) view.findViewById(R.id.material_drawer_name);
-        this.description = (TextView) view.findViewById(R.id.material_drawer_description);
+        this.icon = view.findViewById(R.id.material_drawer_icon);
+        this.name = view.findViewById(R.id.material_drawer_name);
+        this.description = view.findViewById(R.id.material_drawer_description);
     }
 }

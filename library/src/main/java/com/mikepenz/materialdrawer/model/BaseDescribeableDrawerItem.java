@@ -3,16 +3,17 @@ package com.mikepenz.materialdrawer.model;
 import android.content.Context;
 import android.content.res.ColorStateList;
 import android.graphics.drawable.Drawable;
-import androidx.annotation.ColorInt;
-import androidx.annotation.ColorRes;
-import androidx.annotation.StringRes;
-import androidx.core.view.ViewCompat;
 
 import com.mikepenz.materialdrawer.holder.ColorHolder;
 import com.mikepenz.materialdrawer.holder.ImageHolder;
 import com.mikepenz.materialdrawer.holder.StringHolder;
 import com.mikepenz.materialdrawer.util.DrawerUIUtils;
-import com.mikepenz.materialize.util.UIUtils;
+
+import androidx.annotation.ColorInt;
+import androidx.annotation.ColorRes;
+import androidx.annotation.StringRes;
+
+import static com.mikepenz.materialdrawer.util.DrawerUIUtils.themeDrawerItem;
 
 /**
  * Created by mikepenz on 03.02.15.
@@ -76,7 +77,7 @@ public abstract class BaseDescribeableDrawerItem<T, VH extends BaseViewHolder> e
         int selectedIconColor = getSelectedIconColor(ctx);
 
         //set the background for the item
-        ViewCompat.setBackground(viewHolder.view, UIUtils.getSelectableBackground(ctx, selectedColor, isSelectedBackgroundAnimated()));
+        themeDrawerItem(ctx, viewHolder.view, selectedColor, isSelectedBackgroundAnimated());
         //set the text for the name
         StringHolder.applyTo(this.getName(), viewHolder.name);
         //set the text for the description or hide

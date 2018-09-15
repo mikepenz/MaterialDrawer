@@ -1,13 +1,12 @@
 package com.mikepenz.materialdrawer.model;
 
 import android.content.Context;
-import androidx.annotation.CallSuper;
-import androidx.recyclerview.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
 import com.mikepenz.materialdrawer.Drawer;
+import com.mikepenz.materialdrawer.R;
 import com.mikepenz.materialdrawer.model.interfaces.IDrawerItem;
 import com.mikepenz.materialdrawer.model.interfaces.OnPostBindViewListener;
 import com.mikepenz.materialdrawer.model.interfaces.Selectable;
@@ -16,6 +15,9 @@ import com.mikepenz.materialdrawer.model.interfaces.Tagable;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
+
+import androidx.annotation.CallSuper;
+import androidx.recyclerview.widget.RecyclerView;
 
 /**
  * Created by mikepenz on 14.07.15.
@@ -334,7 +336,7 @@ public abstract class AbstractDrawerItem<T, VH extends RecyclerView.ViewHolder> 
     @CallSuper
     @Override
     public void bindView(VH holder, List<Object> payloads) {
-        holder.itemView.setTag(this);
+        holder.itemView.setTag(R.id.material_drawer_item, this);
     }
 
     /**
@@ -344,7 +346,7 @@ public abstract class AbstractDrawerItem<T, VH extends RecyclerView.ViewHolder> 
      */
     @Override
     public void unbindView(VH holder) {
-
+        holder.itemView.clearAnimation();
     }
 
     /**

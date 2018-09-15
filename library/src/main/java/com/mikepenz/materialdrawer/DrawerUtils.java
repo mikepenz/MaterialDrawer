@@ -2,7 +2,6 @@ package com.mikepenz.materialdrawer;
 
 import android.content.Context;
 import android.os.Build;
-import androidx.drawerlayout.widget.DrawerLayout;
 import android.view.Gravity;
 import android.view.View;
 import android.view.ViewGroup;
@@ -17,6 +16,8 @@ import com.mikepenz.materialdrawer.util.DrawerUIUtils;
 import com.mikepenz.materialize.util.UIUtils;
 
 import java.util.List;
+
+import androidx.drawerlayout.widget.DrawerLayout;
 
 /**
  * Created by mikepenz on 23.05.15.
@@ -89,7 +90,7 @@ class DrawerUtils {
                     position = position + 1;
                 }
                 if (footer.getChildCount() > position && position >= 0) {
-                    IDrawerItem drawerItem = (IDrawerItem) footer.getChildAt(position).getTag();
+                    IDrawerItem drawerItem = (IDrawerItem) footer.getChildAt(position).getTag(R.id.material_drawer_item);
                     onFooterDrawerItemClick(drawer, drawerItem, footer.getChildAt(position), fireOnClick);
                 }
             }
@@ -163,7 +164,7 @@ class DrawerUtils {
 
                 int shadowOffset = 0;
                 for (int i = 0; i < footer.getChildCount(); i++) {
-                    Object o = footer.getChildAt(i).getTag();
+                    Object o = footer.getChildAt(i).getTag(R.id.material_drawer_item);
 
                     //count up the shadowOffset to return the correct position of the given item
                     if (o == null && drawer.mStickyFooterDivider) {
@@ -267,7 +268,7 @@ class DrawerUtils {
                 DrawerUtils.fillStickyDrawerItemFooter(drawer, drawer.mStickyFooterView, new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
-                        IDrawerItem drawerItem = (IDrawerItem) v.getTag();
+                        IDrawerItem drawerItem = (IDrawerItem) v.getTag(R.id.material_drawer_item);
                         com.mikepenz.materialdrawer.DrawerUtils.onFooterDrawerItemClick(drawer, drawerItem, v, true);
                     }
                 });
@@ -278,7 +279,7 @@ class DrawerUtils {
                 DrawerUtils.handleFooterView(drawer, new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
-                        IDrawerItem drawerItem = (IDrawerItem) v.getTag();
+                        IDrawerItem drawerItem = (IDrawerItem) v.getTag(R.id.material_drawer_item);
                         DrawerUtils.onFooterDrawerItemClick(drawer, drawerItem, v, true);
                     }
                 });
