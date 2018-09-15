@@ -53,7 +53,7 @@ You can find some frequently asked questions and other resources in the [WIKI / 
 ## 1. Provide the gradle dependency
 
 ```gradle
-implementation "com.mikepenz:materialdrawer:6.1.0-rc01.2"
+implementation "com.mikepenz:materialdrawer:6.1.0-rc02"
 
 //required support lib modules
 implementation "androidx.appcompat:appcompat:${versions.androidX}"
