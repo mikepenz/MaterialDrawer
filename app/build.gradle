@@ -48,6 +48,7 @@ dependencies {
     implementation "androidx.appcompat:appcompat:${versions.androidX}"
     implementation "androidx.recyclerview:recyclerview:${versions.androidX}"
     implementation "androidx.cardview:cardview:${versions.androidX}"
+    implementation "androidx.constraintlayout:constraintlayout:${versions.constraintLayout}"
 
     // used to showcase how to load images
     implementation 'com.squareup.picasso:picasso:2.5.2'
