@@ -13,8 +13,8 @@ buildscript {
         ]
 
         versions = [
-                androidX: '1.0.0-rc02',
-                constraintLayout: '2.0.0-alpha2'
+                androidX: '1.0.0',
+                constraintLayout: '1.1.3'
         ]
     }
 
