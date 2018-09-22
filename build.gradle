@@ -1,7 +1,7 @@
 buildscript {
     ext {
         release = [
-                versionName: "6.1.0-rc02",
+                versionName: "6.1.0",
                 versionCode: 6100
         ]
 
@@ -13,8 +13,8 @@ buildscript {
         ]
 
         versions = [
-                androidX: '1.0.0-rc02',
-                constraintLayout: '2.0.0-alpha2'
+                androidX: '1.0.0',
+                constraintLayout: '1.1.3'
         ]
     }
 
@@ -24,7 +24,7 @@ buildscript {
         mavenCentral()
     }
     dependencies {
-        classpath 'com.android.tools.build:gradle:3.3.0-alpha10'
+        classpath 'com.android.tools.build:gradle:3.3.0-alpha11'
         classpath 'com.github.dcendents:android-maven-gradle-plugin:2.1'
         classpath 'com.jfrog.bintray.gradle:gradle-bintray-plugin:1.8.4'
     }
