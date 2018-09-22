@@ -73,12 +73,32 @@ public class DrawerUIUtils {
             gradientDrawable.setCornerRadius(cornerRadius);
             selected = new InsetDrawable(gradientDrawable, paddingStartEnd, paddingTopBottom, paddingStartEnd, paddingTopBottom);
 
-            // define mask for ripple
-            GradientDrawable gradientMask = new GradientDrawable();
-            gradientMask.setColor(Color.BLACK);
-            gradientMask.setCornerRadius(cornerRadius);
-            Drawable mask = new InsetDrawable(gradientMask, paddingStartEnd, paddingTopBottom, paddingStartEnd, paddingTopBottom);
-            unselected = new RippleDrawable(new ColorStateList(new int[][]{new int[]{}}, new int[]{UIUtils.getThemeColor(ctx, R.attr.colorControlHighlight)}), null, mask);
+            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+                // define mask for ripple
+                GradientDrawable gradientMask = new GradientDrawable();
+                gradientMask.setColor(Color.BLACK);
+                gradientMask.setCornerRadius(cornerRadius);
+                Drawable mask = new InsetDrawable(gradientMask, paddingStartEnd, paddingTopBottom, paddingStartEnd, paddingTopBottom);
+
+                unselected = new RippleDrawable(new ColorStateList(new int[][]{new int[]{}}, new int[]{UIUtils.getThemeColor(ctx, R.attr.colorControlHighlight)}), null, mask);
+            } else {
+                // define touch drawable
+                GradientDrawable touchDrawable = new GradientDrawable();
+                touchDrawable.setColor(UIUtils.getThemeColor(ctx, R.attr.colorControlHighlight));
+                touchDrawable.setCornerRadius(cornerRadius);
+                Drawable touchInsetDrawable = new InsetDrawable(touchDrawable, paddingStartEnd, paddingTopBottom, paddingStartEnd, paddingTopBottom);
+
+                StateListDrawable unselectedStates = new StateListDrawable();
+                //if possible and wanted we enable animating across states
+                if (animate) {
+                    int duration = ctx.getResources().getInteger(android.R.integer.config_shortAnimTime);
+                    unselectedStates.setEnterFadeDuration(duration);
+                    unselectedStates.setExitFadeDuration(duration);
+                }
+                unselectedStates.addState(new int[]{android.R.attr.state_pressed}, touchInsetDrawable);
+                unselectedStates.addState(new int[]{}, new ColorDrawable(Color.TRANSPARENT));
+                unselected = unselectedStates;
+            }
         }
 
         StateListDrawable states = new StateListDrawable();
