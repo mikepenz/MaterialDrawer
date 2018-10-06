@@ -1061,7 +1061,7 @@ public class AccountHeaderBuilder {
      * helper method to build the views for the ui
      */
     protected void buildProfiles() {
-        mCurrentProfileView.setVisibility(View.INVISIBLE);
+        mCurrentProfileView.setVisibility(View.GONE);
         mAccountSwitcherArrow.setVisibility(View.GONE);
         mProfileFirstView.setVisibility(View.GONE);
         mProfileFirstView.setOnClickListener(null);

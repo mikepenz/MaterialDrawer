@@ -78,7 +78,8 @@
         app:layout_constraintEnd_toStartOf="@+id/material_drawer_account_header_text_switcher"
         app:layout_constraintStart_toEndOf="@id/material_drawer_account_header_current"
         app:layout_constraintTop_toBottomOf="@+id/material_drawer_statusbar_guideline"
-        app:layout_constraintVertical_chainStyle="packed" />
+        app:layout_constraintVertical_chainStyle="packed"
+        app:layout_goneMarginStart="0dp" />
 
     <androidx.appcompat.widget.AppCompatTextView
         android:id="@+id/material_drawer_account_header_email"
@@ -96,7 +97,8 @@
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toStartOf="@+id/material_drawer_account_header_text_switcher"
         app:layout_constraintStart_toEndOf="@id/material_drawer_account_header_current"
-        app:layout_constraintTop_toBottomOf="@id/material_drawer_account_header_name" />
+        app:layout_constraintTop_toBottomOf="@id/material_drawer_account_header_name"
+        app:layout_goneMarginStart="0dp" />
 
     <androidx.appcompat.widget.AppCompatImageView
         android:id="@+id/material_drawer_account_header_text_switcher"
