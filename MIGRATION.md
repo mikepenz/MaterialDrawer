@@ -1,5 +1,11 @@
 ### Upgrade Notes
 
+#### v6.1.1
+* Further adjustments for the theme to properly meet the new material 2 design guidelines.
+```xml
+<item name="material_drawer_header_selection_subtext">@color/material_drawer_header_selection_subtext</item> <!-- Defines the color of the subtext item in the header -->
+```
+
 #### v6.1.0-rc01.2
 * With the introduction of the material 2 design behaviour, new theme attributes were added.
 ```xml

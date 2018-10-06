@@ -15,17 +15,19 @@
     <dimen name="material_drawer_sticky_footer_elevation">4dp</dimen>
 
     <!-- General margins for the drawer account header -->
-    <dimen name="material_drawer_account_header_height">148dp</dimen>
+    <dimen name="material_drawer_account_header_height">160dp</dimen>
     <dimen name="material_drawer_account_header_height_compact">72dp</dimen>
     <dimen name="material_drawer_account_header_horizontal_top">16dp</dimen>
     <dimen name="material_drawer_account_header_horizontal_bottom">4dp</dimen>
-    <dimen name="material_drawer_account_header_selected">64dp</dimen>
+    <dimen name="material_drawer_account_header_selected">56dp</dimen>
     <dimen name="material_drawer_account_header_secondary">40dp</dimen>
     <dimen name="material_drawer_account_header_compact">56dp</dimen>
-    <dimen name="material_drawer_account_header_text">14sp</dimen>
+    <dimen name="material_drawer_account_header_title">20sp</dimen>
+    <dimen name="material_drawer_account_header_subtext">13sp</dimen>
+    <dimen name="material_drawer_account_header_dropdown_guideline">80dp</dimen>
     <dimen name="material_drawer_account_header_dropdown">22dp</dimen>
     <dimen name="material_drawer_account_header_dropdown_padding">5dp</dimen>
-    <dimen name="material_drawer_account_header_dropdown_margin_bottom">14dp</dimen>
+    <dimen name="material_drawer_account_header_dropdown_margin_bottom">18dp</dimen>
     <dimen name="material_drawer_account_header_non_compact_padding">56dp</dimen>
 
     <!-- General profileIcon margins for the drawer item -->

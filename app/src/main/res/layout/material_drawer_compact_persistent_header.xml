@@ -78,7 +78,7 @@
         android:fontFamily="sans-serif-medium"
         android:lines="1"
         android:singleLine="true"
-        android:textSize="@dimen/material_drawer_account_header_text"
+        android:textSize="@dimen/material_drawer_account_header_title"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toEndOf="@id/material_drawer_account_header_current"
         app:layout_constraintTop_toBottomOf="@id/material_drawer_statusbar_guideline" />

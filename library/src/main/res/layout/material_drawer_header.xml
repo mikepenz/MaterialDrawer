@@ -82,7 +82,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:orientation="horizontal"
-        app:layout_constraintGuide_end="64dp" />
+        app:layout_constraintGuide_end="@dimen/material_drawer_account_header_dropdown_guideline" />
 
     <androidx.appcompat.widget.AppCompatTextView
         android:id="@+id/material_drawer_account_header_name"
@@ -93,7 +93,7 @@
         android:fontFamily="sans-serif-medium"
         android:lines="1"
         android:maxLines="1"
-        android:textSize="@dimen/material_drawer_account_header_text"
+        android:textSize="@dimen/material_drawer_account_header_title"
         app:layout_constraintBottom_toTopOf="@id/material_drawer_account_header_email"
         app:layout_constraintEnd_toStartOf="@id/material_drawer_account_header_text_switcher"
         app:layout_constraintStart_toStartOf="parent"
@@ -110,7 +110,7 @@
         android:fontFamily="sans-serif"
         android:lines="1"
         android:maxLines="1"
-        android:textSize="@dimen/material_drawer_account_header_text"
+        android:textSize="@dimen/material_drawer_account_header_subtext"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toStartOf="@id/material_drawer_account_header_text_switcher"
         app:layout_constraintStart_toStartOf="parent"
