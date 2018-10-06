@@ -20,7 +20,9 @@
     <color name="material_drawer_selected">#1F2196F3</color>
     <color name="material_drawer_selected_legacy">#E8E8E8</color>
     <color name="material_drawer_selected_text">@color/material_drawer_primary</color>
+
     <color name="material_drawer_header_selection_text">@color/material_drawer_primary_text</color>
+    <color name="material_drawer_header_selection_subtext">@color/material_drawer_secondary_text</color>
 
     <!-- MaterialDrawer DEFAULT DARK colors -->
     <color name="material_drawer_dark_background">@color/md_dark_background</color>
@@ -36,7 +38,9 @@
     <color name="material_drawer_dark_selected">#1F2196F3</color>
     <color name="material_drawer_dark_selected_legacy">#202020</color>
     <color name="material_drawer_dark_selected_text">@color/material_drawer_primary</color>
+
     <color name="material_drawer_dark_header_selection_text">
         @color/material_drawer_dark_primary_text
     </color>
+    <color name="material_drawer_dark_header_selection_subtext">@color/material_drawer_dark_secondary_text</color>
 </resources>

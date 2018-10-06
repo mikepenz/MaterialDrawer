@@ -17,6 +17,7 @@
         <attr name="material_drawer_selected_text" format="color|reference" />
         <!-- material drawer header attrs-->
         <attr name="material_drawer_header_selection_text" format="color|reference" />
+        <attr name="material_drawer_header_selection_subtext" format="color|reference" />
 
         <!-- allows to enable / disable legacy style e.g. material 1 -->
         <attr name="material_drawer_legacy_style" format="boolean|reference" />

@@ -342,7 +342,8 @@ No need to create a custom theme. Just set these colors (or some of them) and yo
     <color name="material_drawer_selected">#1F2196F3</color>
     <color name="material_drawer_selected_legacy">#E8E8E8</color>
     <color name="material_drawer_selected_text">#2196F3</color>
-    <color name="material_drawer_header_selection_text">#FFF</color>
+    <color name="material_drawer_header_selection_text">#DE000000</color>
+    <color name="material_drawer_header_selection_subtext">#8A000000</color>
 
     <!-- OVERWRITE THESE COLORS FOR A DARK THEME -->
     <!-- MaterialDrawer DEFAULT DARK colors -->
@@ -357,7 +358,8 @@ No need to create a custom theme. Just set these colors (or some of them) and yo
     <color name="material_drawer_dark_selected">#1F2196F3</color>
     <color name="material_drawer_dark_selected_legacy">#202020</color>
     <color name="material_drawer_dark_selected_text">@color/material_drawer_primary</color>
-    <color name="material_drawer_dark_header_selection_text">#FFF</color>
+    <color name="material_drawer_dark_header_selection_text">#FFFFFFFF</color>
+    <color name="material_drawer_dark_header_selection_subtext">#B3FFFFFF</color>
 ```
 
 # FAQ

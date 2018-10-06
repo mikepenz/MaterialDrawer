@@ -811,7 +811,7 @@ public class AccountHeaderBuilder {
         setHeaderHeight(height);
 
         // get the background view
-        mAccountHeaderBackground = (ImageView) mAccountHeaderContainer.findViewById(R.id.material_drawer_account_header_background);
+        mAccountHeaderBackground = mAccountHeaderContainer.findViewById(R.id.material_drawer_account_header_background);
         // set the background
         ImageHolder.applyTo(mHeaderBackground, mAccountHeaderBackground, DrawerImageLoader.Tags.ACCOUNT_HEADER.name());
 
@@ -821,18 +821,19 @@ public class AccountHeaderBuilder {
 
         // get the text color to use for the text section
         int textColor = ColorHolder.color(mTextColor, mActivity, R.attr.material_drawer_header_selection_text, R.color.material_drawer_header_selection_text);
+        int subTextColor = ColorHolder.color(mTextColor, mActivity, R.attr.material_drawer_header_selection_subtext, R.color.material_drawer_header_selection_subtext);
 
         mAccountHeaderTextSectionBackgroundResource = UIUtils.getSelectableBackgroundRes(mActivity);
         handleSelectionView(mCurrentProfile, true);
 
         // set the arrow :D
-        mAccountSwitcherArrow = (ImageView) mAccountHeaderContainer.findViewById(R.id.material_drawer_account_header_text_switcher);
-        mAccountSwitcherArrow.setImageDrawable(new IconicsDrawable(mActivity, MaterialDrawerFont.Icon.mdf_arrow_drop_down).sizeRes(R.dimen.material_drawer_account_header_dropdown).paddingRes(R.dimen.material_drawer_account_header_dropdown_padding).color(textColor));
+        mAccountSwitcherArrow = mAccountHeaderContainer.findViewById(R.id.material_drawer_account_header_text_switcher);
+        mAccountSwitcherArrow.setImageDrawable(new IconicsDrawable(mActivity, MaterialDrawerFont.Icon.mdf_arrow_drop_down).sizeRes(R.dimen.material_drawer_account_header_dropdown).paddingRes(R.dimen.material_drawer_account_header_dropdown_padding).color(subTextColor));
 
         //get the fields for the name
-        mCurrentProfileView = (BezelImageView) mAccountHeader.findViewById(R.id.material_drawer_account_header_current);
-        mCurrentProfileName = (TextView) mAccountHeader.findViewById(R.id.material_drawer_account_header_name);
-        mCurrentProfileEmail = (TextView) mAccountHeader.findViewById(R.id.material_drawer_account_header_email);
+        mCurrentProfileView = mAccountHeader.findViewById(R.id.material_drawer_account_header_current);
+        mCurrentProfileName = mAccountHeader.findViewById(R.id.material_drawer_account_header_name);
+        mCurrentProfileEmail = mAccountHeader.findViewById(R.id.material_drawer_account_header_email);
 
         //set the typeface for the AccountHeader
         if (mNameTypeface != null) {
@@ -848,11 +849,11 @@ public class AccountHeaderBuilder {
         }
 
         mCurrentProfileName.setTextColor(textColor);
-        mCurrentProfileEmail.setTextColor(textColor);
+        mCurrentProfileEmail.setTextColor(subTextColor);
 
-        mProfileFirstView = (BezelImageView) mAccountHeader.findViewById(R.id.material_drawer_account_header_small_first);
-        mProfileSecondView = (BezelImageView) mAccountHeader.findViewById(R.id.material_drawer_account_header_small_second);
-        mProfileThirdView = (BezelImageView) mAccountHeader.findViewById(R.id.material_drawer_account_header_small_third);
+        mProfileFirstView = mAccountHeader.findViewById(R.id.material_drawer_account_header_small_first);
+        mProfileSecondView = mAccountHeader.findViewById(R.id.material_drawer_account_header_small_second);
+        mProfileThirdView = mAccountHeader.findViewById(R.id.material_drawer_account_header_small_third);
 
         //calculate the profiles to set
         calculateProfiles();
