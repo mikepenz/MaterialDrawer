@@ -316,6 +316,7 @@ Create your custom style and use one of the provided themes as parent. If you do
         <item name="material_drawer_selected_legacy">@color/material_drawer_selected</item> <!-- Defines the color if legacy style (Material 1, is enabled) -->
         <item name="material_drawer_selected_text">@color/material_drawer_selected_text</item>
         <item name="material_drawer_header_selection_text">@color/material_drawer_header_selection_text</item>
+	<item name="material_drawer_header_selection_subtext">@color/material_drawer_dark_header_selection_subtext</item>
         <item name="material_drawer_legacy_style">false</item> <!-- Enables legacy Material 1 style -->
     </style>
 ```
