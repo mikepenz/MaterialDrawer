@@ -7,6 +7,9 @@ import android.net.Uri;
 import android.widget.ImageView;
 
 import com.bumptech.glide.Glide;
+import com.bumptech.glide.annotation.GlideModule;
+import com.bumptech.glide.module.AppGlideModule;
+
 import com.mikepenz.iconics.IconicsDrawable;
 import com.mikepenz.materialdrawer.util.AbstractDrawerImageLoader;
 import com.mikepenz.materialdrawer.util.DrawerImageLoader;
@@ -71,3 +74,6 @@ public class CustomApplication extends Application {
         });
     }
 }
+
+@GlideModule
+public final class MyAppGlideModule extends AppGlideModule {}
