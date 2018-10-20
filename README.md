@@ -53,7 +53,7 @@ You can find some frequently asked questions and other resources in the [WIKI / 
 ## 1. Provide the gradle dependency
 
 ```gradle
-implementation "com.mikepenz:materialdrawer:6.1.2"
+implementation "com.mikepenz:materialdrawer:7.0.0-alpha1"
 
 //required support lib modules
 implementation "androidx.appcompat:appcompat:${versions.androidX}"
@@ -63,6 +63,10 @@ implementation "com.google.android.material:material:${versions.androidX}"
 implementation "androidx.constraintlayout:constraintlayout:${versions.constraintLayout}"
 ```
 
+## v7.x.y
+> Major release, migrates to use the FastAdapter v4 which was fully migrated to Kotlin. No migration notes yet available. Stay tuned!
+
+## v6.1.x
 To use appcompat please use a version smaller than 6.1.0. (See the releases on GitHub)
 
 ## 2. Add your drawer
