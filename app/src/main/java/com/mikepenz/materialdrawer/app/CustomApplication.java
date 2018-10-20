@@ -12,6 +12,8 @@ import com.mikepenz.materialdrawer.util.AbstractDrawerImageLoader;
 import com.mikepenz.materialdrawer.util.DrawerImageLoader;
 import com.mikepenz.materialdrawer.util.DrawerUIUtils;
 
+//implementation 'com.squareup.picasso:picasso:2.71828'
+
 /**
  * Created by mikepenz on 27.03.15.
  */
@@ -26,12 +28,12 @@ public class CustomApplication extends Application {
         DrawerImageLoader.init(new AbstractDrawerImageLoader() {
             @Override
             public void set(ImageView imageView, Uri uri, Drawable placeholder) {
-                Picasso.with(imageView.getContext()).load(uri).placeholder(placeholder).into(imageView);
+                Picasso.get().load(uri).placeholder(placeholder).into(imageView);
             }
 
             @Override
             public void cancel(ImageView imageView) {
-                Picasso.with(imageView.getContext()).cancelRequest(imageView);
+                Picasso.get().cancelRequest(imageView);
             }
         });
         */
@@ -40,12 +42,12 @@ public class CustomApplication extends Application {
         DrawerImageLoader.init(new AbstractDrawerImageLoader() {
             @Override
             public void set(ImageView imageView, Uri uri, Drawable placeholder, String tag) {
-                Glide.with(imageView.getContext()).load(uri).placeholder(placeholder).into(imageView);
+                GlideApp.with(imageView.getContext()).load(uri).placeholder(placeholder).into(imageView);
             }
 
             @Override
             public void cancel(ImageView imageView) {
-                Glide.clear(imageView);
+                Glide.with(imageView.getContext()).clear(imageView);
             }
 
             @Override
