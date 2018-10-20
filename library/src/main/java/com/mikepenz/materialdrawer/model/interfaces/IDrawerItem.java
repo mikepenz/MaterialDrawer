@@ -1,20 +1,20 @@
 package com.mikepenz.materialdrawer.model.interfaces;
 
 import android.content.Context;
-import androidx.recyclerview.widget.RecyclerView;
 import android.view.View;
 import android.view.ViewGroup;
 
 import com.mikepenz.fastadapter.IExpandable;
 import com.mikepenz.fastadapter.IItem;
-import com.mikepenz.fastadapter.ISubItem;
 
 import java.util.List;
+
+import androidx.recyclerview.widget.RecyclerView;
 
 /**
  * Created by mikepenz on 03.02.15.
  */
-public interface IDrawerItem<T, VH extends RecyclerView.ViewHolder> extends IItem<T, VH>, IExpandable<T, IDrawerItem>, ISubItem<IDrawerItem, IDrawerItem> {
+public interface IDrawerItem<VH extends RecyclerView.ViewHolder> extends IItem<VH>, IExpandable<VH> {
 
     Object getTag();
 
@@ -22,11 +22,11 @@ public interface IDrawerItem<T, VH extends RecyclerView.ViewHolder> extends IIte
 
     boolean isSelected();
 
-    T withSetSelected(boolean selected);
+    void setSelected(boolean selected);
 
     boolean isSelectable();
 
-    T withSelectable(boolean selectable);
+    void setSelectable(boolean selectable);
 
     int getType();
 

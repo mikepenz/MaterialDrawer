@@ -40,7 +40,7 @@ class DrawerUtils {
             v.setSelected(true);
 
             //remove the selection in the list
-            drawer.getAdapter().deselect();
+            drawer.getSelectExtension().deselect();
 
             //find the position of the clicked footer item
             if (drawer.mStickyFooterView != null && drawer.mStickyFooterView instanceof LinearLayout) {
@@ -122,7 +122,7 @@ class DrawerUtils {
      * @param identifier
      * @return
      */
-    public static IDrawerItem getDrawerItem(List<IDrawerItem> drawerItems, long identifier) {
+    public static IDrawerItem getDrawerItem(List<IDrawerItem<?>> drawerItems, long identifier) {
         if (identifier != -1) {
             for (IDrawerItem drawerItem : drawerItems) {
                 if (drawerItem.getIdentifier() == identifier) {
@@ -140,7 +140,7 @@ class DrawerUtils {
      * @param tag
      * @return
      */
-    public static IDrawerItem getDrawerItem(List<IDrawerItem> drawerItems, Object tag) {
+    public static IDrawerItem getDrawerItem(List<IDrawerItem<?>> drawerItems, Object tag) {
         if (tag != null) {
             for (IDrawerItem drawerItem : drawerItems) {
                 if (tag.equals(drawerItem.getTag())) {

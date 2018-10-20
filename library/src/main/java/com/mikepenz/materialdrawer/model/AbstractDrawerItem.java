@@ -5,6 +5,8 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import com.mikepenz.fastadapter.IParentItem;
+import com.mikepenz.fastadapter.ISubItem;
 import com.mikepenz.materialdrawer.Drawer;
 import com.mikepenz.materialdrawer.R;
 import com.mikepenz.materialdrawer.model.interfaces.IDrawerItem;
@@ -12,7 +14,10 @@ import com.mikepenz.materialdrawer.model.interfaces.OnPostBindViewListener;
 import com.mikepenz.materialdrawer.model.interfaces.Selectable;
 import com.mikepenz.materialdrawer.model.interfaces.Tagable;
 
+import org.jetbrains.annotations.Nullable;
+
 import java.util.ArrayList;
+import java.util.Collection;
 import java.util.Collections;
 import java.util.List;
 
@@ -22,7 +27,7 @@ import androidx.recyclerview.widget.RecyclerView;
 /**
  * Created by mikepenz on 14.07.15.
  */
-public abstract class AbstractDrawerItem<T, VH extends RecyclerView.ViewHolder> implements IDrawerItem<T, VH>, Selectable<T>, Tagable<T> {
+public abstract class AbstractDrawerItem<T, VH extends RecyclerView.ViewHolder> implements IDrawerItem<VH>, Selectable<T>, Tagable<T> {
     // the identifier for this item
     protected long mIdentifier = -1;
 
@@ -32,6 +37,10 @@ public abstract class AbstractDrawerItem<T, VH extends RecyclerView.ViewHolder> 
      * @param identifier
      * @return
      */
+    public void setIdentifier(long identifier) {
+        this.mIdentifier = identifier;
+    }
+
     public T withIdentifier(long identifier) {
         this.mIdentifier = identifier;
         return (T) this;
@@ -57,6 +66,10 @@ public abstract class AbstractDrawerItem<T, VH extends RecyclerView.ViewHolder> 
      * @param object
      * @return
      */
+    public void setTag(Object object) {
+        this.mTag = object;
+    }
+
     public T withTag(Object object) {
         this.mTag = object;
         return (T) this;
@@ -79,6 +92,10 @@ public abstract class AbstractDrawerItem<T, VH extends RecyclerView.ViewHolder> 
      * @param enabled true if this item is enabled
      * @return
      */
+    public void setEnabled(boolean enabled) {
+        this.mEnabled = enabled;
+    }
+
     public T withEnabled(boolean enabled) {
         this.mEnabled = enabled;
         return (T) this;
@@ -102,7 +119,11 @@ public abstract class AbstractDrawerItem<T, VH extends RecyclerView.ViewHolder> 
      * @return
      */
     @Override
-    public T withSetSelected(boolean selected) {
+    public void setSelected(boolean selected) {
+        this.mSelected = selected;
+    }
+
+    public T withSelected(boolean selected) {
         this.mSelected = selected;
         return (T) this;
     }
@@ -125,6 +146,10 @@ public abstract class AbstractDrawerItem<T, VH extends RecyclerView.ViewHolder> 
      * @return
      */
     @Override
+    public void setSelectable(boolean selectable) {
+        this.mSelectable = selectable;
+    }
+
     public T withSelectable(boolean selectable) {
         this.mSelectable = selectable;
         return (T) this;
@@ -208,13 +233,13 @@ public abstract class AbstractDrawerItem<T, VH extends RecyclerView.ViewHolder> 
     }
 
     // the parent of this item
-    private IDrawerItem mParent;
+    private IParentItem<?> mParent;
 
     /**
      * @return the parent of this item
      */
     @Override
-    public IDrawerItem getParent() {
+    public IParentItem<?> getParent() {
         return mParent;
     }
 
@@ -225,13 +250,18 @@ public abstract class AbstractDrawerItem<T, VH extends RecyclerView.ViewHolder> 
      * @return this
      */
     @Override
-    public IDrawerItem withParent(IDrawerItem parent) {
+    public void setParent(IParentItem<?> parent) {
         this.mParent = parent;
-        return this;
+    }
+
+    public T withParent(IParentItem<?> parent) {
+        this.mParent = parent;
+        return (T) this;
     }
 
     // the subItems to expand for this item
-    protected List<IDrawerItem> mSubItems;
+    protected List<? extends ISubItem<?>> mSubItems;
+
 
     /**
      * a list of subItems
@@ -240,11 +270,15 @@ public abstract class AbstractDrawerItem<T, VH extends RecyclerView.ViewHolder> 
      * @param subItems
      * @return
      */
-    public T withSubItems(List<IDrawerItem> subItems) {
+    public void setSubItems(@Nullable List<? extends ISubItem<?>> subItems) {
         this.mSubItems = subItems;
-        for (IDrawerItem subItem : subItems) {
-            subItem.withParent(this);
+        for (ISubItem<?> subItem : subItems) {
+            subItem.setParent(this);
         }
+    }
+
+    public T withSubItems(List<? extends ISubItem<?>> subItems) {
+        setSubItems(subItems);
         return (T) this;
     }
 
@@ -255,14 +289,18 @@ public abstract class AbstractDrawerItem<T, VH extends RecyclerView.ViewHolder> 
      * @param subItems
      * @return
      */
-    public T withSubItems(IDrawerItem... subItems) {
+    public <SubType extends ISubItem<?>> void setSubItems(SubType... subItems) {
         if (mSubItems == null) {
             mSubItems = new ArrayList<>();
         }
-        for (IDrawerItem subItem : subItems) {
-            subItem.withParent(this);
+        for (SubType subItem : subItems) {
+            subItem.setParent(this);
         }
-        Collections.addAll(mSubItems, subItems);
+        Collections.addAll((Collection<? super SubType>) mSubItems, subItems);
+    }
+
+    public T withSubItems(ISubItem<?>... subItems) {
+        setSubItems(subItems);
         return (T) this;
     }
 
@@ -270,7 +308,7 @@ public abstract class AbstractDrawerItem<T, VH extends RecyclerView.ViewHolder> 
      * @return the subItems for this item
      */
     @Override
-    public List<IDrawerItem> getSubItems() {
+    public List<? extends ISubItem<?>> getSubItems() {
         return mSubItems;
     }
 
@@ -282,7 +320,11 @@ public abstract class AbstractDrawerItem<T, VH extends RecyclerView.ViewHolder> 
      * @return this
      */
     @Override
-    public T withIsExpanded(boolean expanded) {
+    public void setExpanded(boolean expanded) {
+        mExpanded = expanded;
+    }
+
+    public T withSetExpanded(boolean expanded) {
         mExpanded = expanded;
         return (T) this;
     }

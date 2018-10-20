@@ -2,10 +2,6 @@ package com.mikepenz.materialdrawer;
 
 import android.content.Context;
 import android.content.res.Configuration;
-import androidx.annotation.NonNull;
-import androidx.recyclerview.widget.DefaultItemAnimator;
-import androidx.recyclerview.widget.LinearLayoutManager;
-import androidx.recyclerview.widget.RecyclerView;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.LinearLayout;
@@ -15,6 +11,7 @@ import com.mikepenz.fastadapter.IAdapter;
 import com.mikepenz.fastadapter.adapters.ItemAdapter;
 import com.mikepenz.fastadapter.listeners.OnClickListener;
 import com.mikepenz.fastadapter.listeners.OnLongClickListener;
+import com.mikepenz.fastadapter.select.SelectExtension;
 import com.mikepenz.materialdrawer.interfaces.ICrossfader;
 import com.mikepenz.materialdrawer.model.MiniDrawerItem;
 import com.mikepenz.materialdrawer.model.MiniProfileDrawerItem;
@@ -27,6 +24,11 @@ import com.mikepenz.materialize.util.UIUtils;
 
 import java.util.List;
 
+import androidx.annotation.NonNull;
+import androidx.recyclerview.widget.DefaultItemAnimator;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
+
 /**
  * Created by mikepenz on 15.07.15.
  * Don't count this for real yet. it's just a quick try on creating a Gmail like panel
@@ -37,8 +39,9 @@ public class MiniDrawer {
 
     private LinearLayout mContainer;
     private RecyclerView mRecyclerView;
-    protected FastAdapter<IDrawerItem> mAdapter;
-    protected ItemAdapter<IDrawerItem> mItemAdapter;
+    protected FastAdapter<IDrawerItem<?>> mAdapter;
+    protected ItemAdapter<IDrawerItem<?>> mItemAdapter;
+    protected SelectExtension<IDrawerItem<?>> mSelectExtension;
 
     private Drawer mDrawer;
 
@@ -158,7 +161,7 @@ public class MiniDrawer {
     }
 
 
-    private OnClickListener<IDrawerItem> mOnMiniDrawerItemOnClickListener;
+    private OnClickListener<IDrawerItem<?>> mOnMiniDrawerItemOnClickListener;
 
     /**
      * Define an onClickListener for the MiniDrawer item adapter. WARNING: this will completely overwrite the default behavior
@@ -167,13 +170,13 @@ public class MiniDrawer {
      * @param onMiniDrawerItemOnClickListener
      * @return this
      */
-    public MiniDrawer withOnMiniDrawerItemOnClickListener(OnClickListener<IDrawerItem> onMiniDrawerItemOnClickListener) {
+    public MiniDrawer withOnMiniDrawerItemOnClickListener(OnClickListener<IDrawerItem<?>> onMiniDrawerItemOnClickListener) {
         this.mOnMiniDrawerItemOnClickListener = onMiniDrawerItemOnClickListener;
         return this;
     }
 
 
-    private OnLongClickListener<IDrawerItem> mOnMiniDrawerItemLongClickListener;
+    private OnLongClickListener<IDrawerItem<?>> mOnMiniDrawerItemLongClickListener;
 
     /**
      * Define an onLongClickListener for the MiniDrawer item adapter
@@ -181,7 +184,7 @@ public class MiniDrawer {
      * @param onMiniDrawerItemLongClickListener
      * @return
      */
-    public MiniDrawer withOnMiniDrawerItemLongClickListener(OnLongClickListener<IDrawerItem> onMiniDrawerItemLongClickListener) {
+    public MiniDrawer withOnMiniDrawerItemLongClickListener(OnLongClickListener<IDrawerItem<?>> onMiniDrawerItemLongClickListener) {
         this.mOnMiniDrawerItemLongClickListener = onMiniDrawerItemLongClickListener;
         return this;
     }
@@ -200,7 +203,7 @@ public class MiniDrawer {
      *
      * @return
      */
-    public FastAdapter<IDrawerItem> getAdapter() {
+    public FastAdapter<IDrawerItem<?>> getAdapter() {
         return mAdapter;
     }
 
@@ -209,7 +212,7 @@ public class MiniDrawer {
      *
      * @return
      */
-    public ItemAdapter<IDrawerItem> getItemAdapter() {
+    public ItemAdapter<IDrawerItem<?>> getItemAdapter() {
         return mItemAdapter;
     }
 
@@ -324,8 +327,9 @@ public class MiniDrawer {
         //adapter
         mItemAdapter = new ItemAdapter<>();
         mAdapter = FastAdapter.with(mItemAdapter);
-        mAdapter.withSelectable(true);
-        mAdapter.withAllowDeselection(false);
+        mSelectExtension = mAdapter.getExtension(SelectExtension.class);
+        mSelectExtension.setSelectable(true);
+        mSelectExtension.setAllowDeselection(false);
         mRecyclerView.setAdapter(mAdapter);
 
         //if the activity with the drawer should be fullscreen add the padding for the statusbar
@@ -395,14 +399,14 @@ public class MiniDrawer {
      */
     public void setSelection(long identifier) {
         if (identifier == -1) {
-            mAdapter.deselect();
+            mSelectExtension.deselect();
         }
         int count = mAdapter.getItemCount();
         for (int i = 0; i < count; i++) {
             IDrawerItem item = mAdapter.getItem(i);
             if (item.getIdentifier() == identifier && !item.isSelected()) {
-                mAdapter.deselect();
-                mAdapter.select(i);
+                mSelectExtension.deselect();
+                mSelectExtension.select(i);
             }
         }
     }
@@ -461,18 +465,18 @@ public class MiniDrawer {
 
                 if (select >= 0) {
                     //+1 because of the profile
-                    mAdapter.select(select + profileOffset);
+                    mSelectExtension.select(select + profileOffset);
                 }
             }
         }
 
         //listener
         if (mOnMiniDrawerItemOnClickListener != null) {
-            mAdapter.withOnClickListener(mOnMiniDrawerItemOnClickListener);
+            mAdapter.setOnClickListener(mOnMiniDrawerItemOnClickListener);
         } else {
-            mAdapter.withOnClickListener(new OnClickListener<IDrawerItem>() {
+            mAdapter.setOnClickListener(new OnClickListener<IDrawerItem<?>>() {
                 @Override
-                public boolean onClick(View v, IAdapter<IDrawerItem> adapter, final IDrawerItem item, final int position) {
+                public boolean onClick(View v, IAdapter<IDrawerItem<?>> adapter, final IDrawerItem<?> item, final int position) {
                     int type = getMiniDrawerType(item);
 
                     //if a listener is defined and we consume the event return
@@ -508,7 +512,7 @@ public class MiniDrawer {
                 }
             });
         }
-        mAdapter.withOnLongClickListener(mOnMiniDrawerItemLongClickListener);
+        mAdapter.setOnLongClickListener(mOnMiniDrawerItemLongClickListener);
         mRecyclerView.scrollToPosition(0);
     }
 
@@ -517,7 +521,7 @@ public class MiniDrawer {
      *
      * @return
      */
-    private List<IDrawerItem> getDrawerItems() {
+    private List<IDrawerItem<?>> getDrawerItems() {
         return mDrawer.getOriginalDrawerItems() != null ? mDrawer.getOriginalDrawerItems() : mDrawer.getDrawerItems();
     }
 

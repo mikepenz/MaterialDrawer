@@ -2,12 +2,6 @@ package com.mikepenz.materialdrawer;
 
 import android.app.Activity;
 import android.os.Bundle;
-import androidx.annotation.NonNull;
-import androidx.core.util.Pair;
-import androidx.drawerlayout.widget.DrawerLayout;
-import androidx.appcompat.app.ActionBarDrawerToggle;
-import androidx.recyclerview.widget.RecyclerView;
-import androidx.appcompat.widget.Toolbar;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.FrameLayout;
@@ -30,6 +24,13 @@ import com.mikepenz.materialize.view.ScrimInsetsRelativeLayout;
 
 import java.util.ArrayList;
 import java.util.List;
+
+import androidx.annotation.NonNull;
+import androidx.appcompat.app.ActionBarDrawerToggle;
+import androidx.appcompat.widget.Toolbar;
+import androidx.drawerlayout.widget.DrawerLayout;
+import androidx.recyclerview.widget.RecyclerView;
+import kotlin.Pair;
 
 /**
  * Created by mikepenz on 03.02.15.
@@ -228,8 +229,15 @@ public class Drawer {
      *
      * @return
      */
-    public FastAdapter<IDrawerItem> getAdapter() {
-        return mDrawerBuilder.mAdapter;
+    public FastAdapter<IDrawerItem<?>> getAdapter() {
+        return mDrawerBuilder.getAdapter();
+    }
+    /**
+     *
+     * @return
+     */
+    public SelectExtension<IDrawerItem<?>> getSelectExtension() {
+        return mDrawerBuilder.getSelectExtension();
     }
 
     /**
@@ -237,7 +245,7 @@ public class Drawer {
      *
      * @return
      */
-    public ModelAdapter<IDrawerItem, IDrawerItem> getHeaderAdapter() {
+    public ModelAdapter<IDrawerItem<?>, IDrawerItem<?>> getHeaderAdapter() {
         return mDrawerBuilder.mHeaderAdapter;
     }
 
@@ -246,7 +254,7 @@ public class Drawer {
      *
      * @return
      */
-    public ModelAdapter<IDrawerItem, IDrawerItem> getItemAdapter() {
+    public ModelAdapter<IDrawerItem<?>, IDrawerItem<?>> getItemAdapter() {
         return mDrawerBuilder.mItemAdapter;
     }
 
@@ -255,7 +263,7 @@ public class Drawer {
      *
      * @return
      */
-    public ModelAdapter<IDrawerItem, IDrawerItem> getFooterAdapter() {
+    public ModelAdapter<IDrawerItem<?>, IDrawerItem<?>> getFooterAdapter() {
         return mDrawerBuilder.mFooterAdapter;
     }
 
@@ -264,7 +272,7 @@ public class Drawer {
      *
      * @return
      */
-    public ExpandableExtension<IDrawerItem> getExpandableExtension() {
+    public ExpandableExtension<IDrawerItem<?>> getExpandableExtension() {
         return mDrawerBuilder.mExpandableExtension;
     }
 
@@ -273,7 +281,7 @@ public class Drawer {
      *
      * @return
      */
-    public List<IDrawerItem> getDrawerItems() {
+    public List<IDrawerItem<?>> getDrawerItems() {
         return mDrawerBuilder.getItemAdapter().getAdapterItems();
     }
 
@@ -427,9 +435,9 @@ public class Drawer {
      * @return
      */
     public IDrawerItem getDrawerItem(long identifier) {
-        Pair<IDrawerItem, Integer> res = getAdapter().getItemById(identifier);
+        kotlin.Pair<IDrawerItem<?>, Integer> res = getAdapter().getItemById(identifier);
         if (res != null) {
-            return res.first;
+            return res.getFirst();
         } else {
             return null;
         }
@@ -441,7 +449,7 @@ public class Drawer {
      * @param tag
      * @return
      */
-    public IDrawerItem getDrawerItem(Object tag) {
+    public IDrawerItem<?> getDrawerItem(Object tag) {
         return DrawerUtils.getDrawerItem(getDrawerItems(), tag);
     }
 
@@ -471,7 +479,7 @@ public class Drawer {
      * @return
      */
     public int getCurrentSelectedPosition() {
-        return mDrawerBuilder.mAdapter.getSelections().size() == 0 ? -1 : mDrawerBuilder.mAdapter.getSelections().iterator().next();
+        return mDrawerBuilder.getSelectExtension().getSelections().size() == 0 ? -1 : mDrawerBuilder.getSelectExtension().getSelections().iterator().next();
     }
 
     /**
@@ -500,7 +508,7 @@ public class Drawer {
      * deselects all selected items
      */
     public void deselect() {
-        getAdapter().deselect();
+        getSelectExtension().deselect();
     }
 
     /**
@@ -509,7 +517,7 @@ public class Drawer {
      * @param identifier the identifier to search for
      */
     public void deselect(long identifier) {
-        getAdapter().deselect(getPosition(identifier));
+        getSelectExtension().deselect(getPosition(identifier));
     }
 
     /**
@@ -530,15 +538,15 @@ public class Drawer {
      * @param fireOnClick true if the click listener should be called
      */
     public void setSelection(long identifier, boolean fireOnClick) {
-        SelectExtension<IDrawerItem> select = getAdapter().getExtension(SelectExtension.class);
+        SelectExtension<IDrawerItem<?>> select = getAdapter().getExtension(SelectExtension.class);
         if (select != null) {
             select.deselect();
             select.selectByIdentifier(identifier, false, true);
 
             //we also have to call the general notify
-            Pair<IDrawerItem, Integer> res = getAdapter().getItemById(identifier);
+            Pair<IDrawerItem<?>, Integer> res = getAdapter().getItemById(identifier);
             if (res != null) {
-                Integer position = res.second;
+                Integer position = res.getSecond();
                 notifySelect(position != null ? position : -1, fireOnClick);
             }
         }
@@ -597,7 +605,7 @@ public class Drawer {
      */
     public boolean setSelectionAtPosition(int position, boolean fireOnClick) {
         if (mDrawerBuilder.mRecyclerView != null) {
-            SelectExtension<IDrawerItem> select = getAdapter().getExtension(SelectExtension.class);
+            SelectExtension<IDrawerItem<?>> select = getAdapter().getExtension(SelectExtension.class);
             if (select != null) {
                 select.deselect();
                 select.select(position, false);
@@ -808,7 +816,7 @@ public class Drawer {
      *
      * @param drawerItems
      */
-    public void setItems(@NonNull List<IDrawerItem> drawerItems) {
+    public void setItems(@NonNull List<IDrawerItem<?>> drawerItems) {
         setItems(drawerItems, false);
     }
 
@@ -818,7 +826,7 @@ public class Drawer {
      * @param drawerItems
      * @param switchedItems
      */
-    private void setItems(@NonNull List<IDrawerItem> drawerItems, boolean switchedItems) {
+    private void setItems(@NonNull List<IDrawerItem<?>> drawerItems, boolean switchedItems) {
         //if we are currently at a switched list set the new reference
         if (originalDrawerItems != null && !switchedItems) {
             originalDrawerItems = drawerItems;
@@ -972,7 +980,7 @@ public class Drawer {
     //variables to store and remember the original list of the drawer
     private Drawer.OnDrawerItemClickListener originalOnDrawerItemClickListener;
     private Drawer.OnDrawerItemLongClickListener originalOnDrawerItemLongClickListener;
-    private List<IDrawerItem> originalDrawerItems;
+    private List<IDrawerItem<?>> originalDrawerItems;
     private Bundle originalDrawerState;
 
     /**
@@ -989,7 +997,7 @@ public class Drawer {
      *
      * @return
      */
-    public List<IDrawerItem> getOriginalDrawerItems() {
+    public List<IDrawerItem<?>> getOriginalDrawerItems() {
         return originalDrawerItems;
     }
 
@@ -1000,7 +1008,7 @@ public class Drawer {
      * @param drawerItems
      * @param drawerSelection
      */
-    public void switchDrawerContent(@NonNull OnDrawerItemClickListener onDrawerItemClickListener, OnDrawerItemLongClickListener onDrawerItemLongClickListener, @NonNull List<IDrawerItem> drawerItems, int drawerSelection) {
+    public void switchDrawerContent(@NonNull OnDrawerItemClickListener onDrawerItemClickListener, OnDrawerItemLongClickListener onDrawerItemLongClickListener, @NonNull List<IDrawerItem<?>> drawerItems, int drawerSelection) {
         //just allow a single switched drawer
         if (!switchedDrawerContent()) {
             //save out previous values

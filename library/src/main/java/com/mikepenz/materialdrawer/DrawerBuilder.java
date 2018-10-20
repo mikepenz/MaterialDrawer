@@ -8,25 +8,6 @@ import android.os.Build;
 import android.os.Bundle;
 import android.os.Handler;
 import android.preference.PreferenceManager;
-import androidx.annotation.ColorInt;
-import androidx.annotation.ColorRes;
-import androidx.annotation.DimenRes;
-import androidx.annotation.DrawableRes;
-import androidx.annotation.IdRes;
-import androidx.annotation.LayoutRes;
-import androidx.annotation.MenuRes;
-import androidx.annotation.NonNull;
-import androidx.core.content.ContextCompat;
-import androidx.core.view.GravityCompat;
-import androidx.core.view.ViewCompat;
-import androidx.drawerlayout.widget.DrawerLayout;
-import androidx.appcompat.app.ActionBarDrawerToggle;
-import androidx.appcompat.view.SupportMenuInflater;
-import androidx.appcompat.view.menu.MenuBuilder;
-import androidx.recyclerview.widget.DefaultItemAnimator;
-import androidx.recyclerview.widget.LinearLayoutManager;
-import androidx.recyclerview.widget.RecyclerView;
-import androidx.appcompat.widget.Toolbar;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuInflater;
@@ -38,14 +19,17 @@ import android.widget.LinearLayout;
 
 import com.mikepenz.fastadapter.FastAdapter;
 import com.mikepenz.fastadapter.IAdapter;
-import com.mikepenz.fastadapter.IAdapterExtension;
 import com.mikepenz.fastadapter.IExpandable;
 import com.mikepenz.fastadapter.IItemAdapter;
 import com.mikepenz.fastadapter.adapters.ItemAdapter;
 import com.mikepenz.fastadapter.adapters.ModelAdapter;
 import com.mikepenz.fastadapter.expandable.ExpandableExtension;
+import com.mikepenz.fastadapter.expandable.ExpandableExtensionFactory;
+import com.mikepenz.fastadapter.extensions.ExtensionsFactories;
 import com.mikepenz.fastadapter.listeners.OnClickListener;
 import com.mikepenz.fastadapter.listeners.OnLongClickListener;
+import com.mikepenz.fastadapter.select.SelectExtension;
+import com.mikepenz.fastadapter.select.SelectExtensionFactory;
 import com.mikepenz.fastadapter.utils.DefaultIdDistributor;
 import com.mikepenz.fastadapter.utils.DefaultIdDistributorImpl;
 import com.mikepenz.iconics.utils.Utils;
@@ -66,6 +50,26 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
+
+import androidx.annotation.ColorInt;
+import androidx.annotation.ColorRes;
+import androidx.annotation.DimenRes;
+import androidx.annotation.DrawableRes;
+import androidx.annotation.IdRes;
+import androidx.annotation.LayoutRes;
+import androidx.annotation.MenuRes;
+import androidx.annotation.NonNull;
+import androidx.appcompat.app.ActionBarDrawerToggle;
+import androidx.appcompat.view.SupportMenuInflater;
+import androidx.appcompat.view.menu.MenuBuilder;
+import androidx.appcompat.widget.Toolbar;
+import androidx.core.content.ContextCompat;
+import androidx.core.view.GravityCompat;
+import androidx.core.view.ViewCompat;
+import androidx.drawerlayout.widget.DrawerLayout;
+import androidx.recyclerview.widget.DefaultItemAnimator;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
 /**
  * Created by mikepenz on 23.05.15.
@@ -871,11 +875,12 @@ public class DrawerBuilder {
     }
 
     // an adapter to use for the list
-    protected FastAdapter<IDrawerItem> mAdapter;
-    protected ModelAdapter<IDrawerItem, IDrawerItem> mHeaderAdapter = new ItemAdapter<>().withIdDistributor(idDistributor);
-    protected ModelAdapter<IDrawerItem, IDrawerItem> mItemAdapter = new ItemAdapter<>().withIdDistributor(idDistributor);
-    protected ModelAdapter<IDrawerItem, IDrawerItem> mFooterAdapter = new ItemAdapter<>().withIdDistributor(idDistributor);
-    protected ExpandableExtension<IDrawerItem> mExpandableExtension = new ExpandableExtension<>();
+    protected FastAdapter<IDrawerItem<?>> mAdapter;
+    protected ModelAdapter<IDrawerItem<?>, IDrawerItem<?>> mHeaderAdapter = new ItemAdapter<>();
+    protected ModelAdapter<IDrawerItem<?>, IDrawerItem<?>> mItemAdapter = new ItemAdapter<>();
+    protected ModelAdapter<IDrawerItem<?>, IDrawerItem<?>> mFooterAdapter = new ItemAdapter<>();
+    protected ExpandableExtension<IDrawerItem<?>> mExpandableExtension;
+    protected SelectExtension<IDrawerItem<?>> mSelectExtension;
 
     /**
      * Define a custom Adapter which will be used in the drawer
@@ -885,13 +890,14 @@ public class DrawerBuilder {
      * @param adapter the FastAdapter to use with this drawer
      * @return this
      */
-    public DrawerBuilder withAdapter(@NonNull FastAdapter<IDrawerItem> adapter) {
+    public DrawerBuilder withAdapter(@NonNull FastAdapter<IDrawerItem<?>> adapter) {
         this.mAdapter = adapter;
+        mSelectExtension = mAdapter.getOrCreateExtension(SelectExtension.class);
         //we have to rewrap as a different FastAdapter was provided
         adapter.addAdapter(0, mHeaderAdapter);
         adapter.addAdapter(1, mItemAdapter);
         adapter.addAdapter(2, mFooterAdapter);
-        adapter.addExtension(mExpandableExtension);
+        initAdapter();
         return this;
     }
 
@@ -900,26 +906,44 @@ public class DrawerBuilder {
      *
      * @return the FastAdapter used with this drawer
      */
-    protected FastAdapter<IDrawerItem> getAdapter() {
+    protected FastAdapter<IDrawerItem<?>> getAdapter() {
         if (mAdapter == null) {
-            mAdapter = FastAdapter.with(Arrays.asList(mHeaderAdapter, mItemAdapter, mFooterAdapter), Arrays.<IAdapterExtension<IDrawerItem>>asList(mExpandableExtension));
-            mAdapter.withSelectable(true);
-            mAdapter.withMultiSelect(false);
-            mAdapter.withAllowDeselection(false);
+            mAdapter = FastAdapter.with(Arrays.asList(mHeaderAdapter, mItemAdapter, mFooterAdapter));
             mAdapter.setHasStableIds(mHasStableIds);
+            initAdapter();
+            mSelectExtension.setSelectable(true);
+            mSelectExtension.setMultiSelect(false);
+            mSelectExtension.setAllowDeselection(false);
         }
         return mAdapter;
     }
 
-    protected IItemAdapter<IDrawerItem, IDrawerItem> getItemAdapter() {
+    protected SelectExtension<IDrawerItem<?>> getSelectExtension() {
+        getAdapter();
+        return mSelectExtension;
+    }
+
+    private void initAdapter() {
+        ExtensionsFactories.INSTANCE.register(new SelectExtensionFactory());
+        ExtensionsFactories.INSTANCE.register(new ExpandableExtensionFactory());
+
+        mSelectExtension = mAdapter.getOrCreateExtension(SelectExtension.class);
+        mHeaderAdapter.setIdDistributor(idDistributor);
+        mItemAdapter.setIdDistributor(idDistributor);
+        mFooterAdapter.setIdDistributor(idDistributor);
+        mExpandableExtension = new ExpandableExtension<>(mAdapter);
+        mAdapter.addExtension(mExpandableExtension);
+    }
+
+    protected IItemAdapter<IDrawerItem<?>, IDrawerItem<?>> getItemAdapter() {
         return mItemAdapter;
     }
 
-    protected IItemAdapter<IDrawerItem, IDrawerItem> getHeaderAdapter() {
+    protected IItemAdapter<IDrawerItem<?>, IDrawerItem<?>> getHeaderAdapter() {
         return mHeaderAdapter;
     }
 
-    protected IItemAdapter<IDrawerItem, IDrawerItem> getFooterAdapter() {
+    protected IItemAdapter<IDrawerItem<?>, IDrawerItem<?>> getFooterAdapter() {
         return mFooterAdapter;
     }
 
@@ -961,7 +985,7 @@ public class DrawerBuilder {
      * @param drawerItems
      * @return
      */
-    public DrawerBuilder withDrawerItems(@NonNull List<IDrawerItem> drawerItems) {
+    public DrawerBuilder withDrawerItems(@NonNull List<IDrawerItem<?>> drawerItems) {
         this.getItemAdapter().set(drawerItems);
         return this;
     }
@@ -993,7 +1017,7 @@ public class DrawerBuilder {
     }
 
     // always visible list in drawer
-    protected List<IDrawerItem> mStickyDrawerItems = new ArrayList<>();
+    protected List<IDrawerItem<?>> mStickyDrawerItems = new ArrayList<>();
 
     /**
      * Set the initial List of IDrawerItems for the StickyDrawerFooter
@@ -1001,7 +1025,7 @@ public class DrawerBuilder {
      * @param stickyDrawerItems
      * @return
      */
-    public DrawerBuilder withStickyDrawerItems(@NonNull List<IDrawerItem> stickyDrawerItems) {
+    public DrawerBuilder withStickyDrawerItems(@NonNull List<IDrawerItem<?>> stickyDrawerItems) {
         this.mStickyDrawerItems = stickyDrawerItems;
         return this;
     }
@@ -1012,7 +1036,7 @@ public class DrawerBuilder {
      * @param stickyDrawerItems
      * @return
      */
-    public DrawerBuilder addStickyDrawerItems(@NonNull IDrawerItem... stickyDrawerItems) {
+    public DrawerBuilder addStickyDrawerItems(@NonNull IDrawerItem<?>... stickyDrawerItems) {
         if (this.mStickyDrawerItems == null) {
             this.mStickyDrawerItems = new ArrayList<>();
         }
@@ -1733,10 +1757,10 @@ public class DrawerBuilder {
         });
 
         //if MultiSelect is possible
-        mAdapter.withMultiSelect(mMultiSelect);
+        mSelectExtension.setMultiSelect(mMultiSelect);
         if (mMultiSelect) {
-            mAdapter.withSelectOnLongClick(false);
-            mAdapter.withAllowDeselection(true);
+            mSelectExtension.setSelectOnLongClick(false);
+            mSelectExtension.setAllowDeselection(true);
         }
 
         //set the adapter on the listView
@@ -1753,13 +1777,13 @@ public class DrawerBuilder {
         if (mHeaderView != null && mSelectedItemPosition == 0) {
             mSelectedItemPosition = 1;
         }
-        mAdapter.deselect();
-        mAdapter.select(mSelectedItemPosition);
+        mSelectExtension.deselect();
+        mSelectExtension.select(mSelectedItemPosition);
 
         // add the onDrawerItemClickListener if set
-        mAdapter.withOnClickListener(new OnClickListener<IDrawerItem>() {
+        mAdapter.setOnClickListener(new OnClickListener<IDrawerItem<?>>() {
             @Override
-            public boolean onClick(final View view, IAdapter<IDrawerItem> adapter, final IDrawerItem item, final int position) {
+            public boolean onClick(final View view, IAdapter<IDrawerItem<?>> adapter, final IDrawerItem<?> item, final int position) {
                 if (!(item != null && item instanceof Selectable && !item.isSelectable())) {
                     resetStickyFooterSelection();
                     mCurrentStickyFooterSelection = -1;
@@ -1793,7 +1817,7 @@ public class DrawerBuilder {
                 }
 
                 //if we were a expandable item we consume the event closing makes no sense
-                if (item instanceof IExpandable && ((IExpandable) item).getSubItems() != null) {
+                if (item instanceof IExpandable && item.getSubItems() != null) {
                     //we consume the event and want no further handling
                     return true;
                 }
@@ -1808,9 +1832,9 @@ public class DrawerBuilder {
             }
         });
         // add the onDrawerItemLongClickListener if set
-        mAdapter.withOnLongClickListener(new OnLongClickListener<IDrawerItem>() {
+        mAdapter.setOnLongClickListener(new OnLongClickListener<IDrawerItem<?>>() {
             @Override
-            public boolean onLongClick(View view, IAdapter<IDrawerItem> adapter, final IDrawerItem item, final int position) {
+            public boolean onLongClick(View view, IAdapter<IDrawerItem<?>> adapter, final IDrawerItem<?> item, final int position) {
                 if (mOnDrawerItemLongClickListener != null) {
                     return mOnDrawerItemLongClickListener.onItemLongClick(view, position, getDrawerItem(position));
                 }
@@ -1825,11 +1849,11 @@ public class DrawerBuilder {
         // try to restore all saved values again
         if (mSavedInstance != null) {
             if (!mAppended) {
-                mAdapter.deselect();
+                mSelectExtension.deselect();
                 mAdapter.withSavedInstanceState(mSavedInstance, Drawer.BUNDLE_SELECTION);
                 DrawerUtils.setStickyFooterSelection(this, mSavedInstance.getInt(Drawer.BUNDLE_STICKY_FOOTER_SELECTION, -1), null);
             } else {
-                mAdapter.deselect();
+                mSelectExtension.deselect();
                 mAdapter.withSavedInstanceState(mSavedInstance, Drawer.BUNDLE_SELECTION_APPENDED);
                 DrawerUtils.setStickyFooterSelection(this, mSavedInstance.getInt(Drawer.BUNDLE_STICKY_FOOTER_SELECTION_APPENDED, -1), null);
             }
@@ -1837,7 +1861,7 @@ public class DrawerBuilder {
 
         // call initial onClick event to allow the dev to init the first view
         if (mFireInitialOnClick && mOnDrawerItemClickListener != null) {
-            int selection = mAdapter.getSelections().size() == 0 ? -1 : mAdapter.getSelections().iterator().next();
+            int selection = mSelectExtension.getSelections().size() == 0 ? -1 : mSelectExtension.getSelections().iterator().next();
             mOnDrawerItemClickListener.onItemClick(null, selection, getDrawerItem(selection));
         }
     }

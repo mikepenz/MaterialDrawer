@@ -3,17 +3,18 @@ package com.mikepenz.materialdrawer.model.interfaces;
 import android.graphics.Bitmap;
 import android.graphics.drawable.Drawable;
 import android.net.Uri;
-import androidx.annotation.DrawableRes;
 
 import com.mikepenz.fastadapter.IIdentifyable;
 import com.mikepenz.iconics.typeface.IIcon;
 import com.mikepenz.materialdrawer.holder.ImageHolder;
 import com.mikepenz.materialdrawer.holder.StringHolder;
 
+import androidx.annotation.DrawableRes;
+
 /**
  * Created by mikepenz on 03.02.15.
  */
-public interface IProfile<T> extends IIdentifyable<T> {
+public interface IProfile<T> extends IIdentifyable {
     T withName(CharSequence name);
 
     StringHolder getName();
@@ -36,7 +37,7 @@ public interface IProfile<T> extends IIdentifyable<T> {
 
     ImageHolder getIcon();
 
-    T withSelectable(boolean selectable);
+    void setSelectable(boolean selectable);
 
     boolean isSelectable();
 }

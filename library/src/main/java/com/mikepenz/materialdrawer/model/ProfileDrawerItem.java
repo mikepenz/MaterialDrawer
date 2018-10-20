@@ -108,12 +108,12 @@ public class ProfileDrawerItem extends AbstractDrawerItem<ProfileDrawerItem, Pro
         return this;
     }
 
-  /**
-   * Whether to show the profile name in the account switcher.
-   *
-   * @param nameShown show name in switcher
-   * @return the {@link ProfileDrawerItem}
-   */
+    /**
+     * Whether to show the profile name in the account switcher.
+     *
+     * @param nameShown show name in switcher
+     * @return the {@link ProfileDrawerItem}
+     */
     public ProfileDrawerItem withNameShown(boolean nameShown) {
         this.nameShown = nameShown;
         return this;
@@ -300,7 +300,7 @@ public class ProfileDrawerItem extends AbstractDrawerItem<ProfileDrawerItem, Pro
      *
      * @param ctx
      * @return
-    */
+     */
     protected int getSelectedColor(Context ctx) {
         if (getBooleanStyleable(ctx, R.styleable.MaterialDrawer_material_drawer_legacy_style, false)) {
             return ColorHolder.color(getSelectedColor(), ctx, R.attr.material_drawer_selected_legacy, R.color.material_drawer_selected_legacy);

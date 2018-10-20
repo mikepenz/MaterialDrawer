@@ -1357,7 +1357,7 @@ public class AccountHeaderBuilder {
     protected void buildDrawerSelectionList() {
         int selectedPosition = -1;
         int position = 0;
-        ArrayList<IDrawerItem> profileDrawerItems = new ArrayList<>();
+        ArrayList<IDrawerItem<?>> profileDrawerItems = new ArrayList<>();
         if (mProfiles != null) {
             for (IProfile profile : mProfiles) {
                 if (profile == mCurrentProfile) {
@@ -1368,7 +1368,7 @@ public class AccountHeaderBuilder {
                     }
                 }
                 if (profile instanceof IDrawerItem) {
-                    ((IDrawerItem) profile).withSetSelected(false);
+                    ((IDrawerItem) profile).setSelected(false);
                     profileDrawerItems.add((IDrawerItem) profile);
                 }
                 position = position + 1;
