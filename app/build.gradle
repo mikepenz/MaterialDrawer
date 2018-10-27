@@ -51,8 +51,13 @@ dependencies {
     implementation "androidx.constraintlayout:constraintlayout:${versions.constraintLayout}"
 
     // used to showcase how to load images
-    implementation 'com.squareup.picasso:picasso:2.5.2'
-    implementation 'com.github.bumptech.glide:glide:3.8.0'
+    implementation 'com.squareup.picasso:picasso:2.71828'
+    implementation 'com.github.bumptech.glide:glide:4.8.0'
+    annotationProcessor 'com.github.bumptech.glide:compiler:4.8.0'
+
+    // needed to fix glide androidX support
+    implementation "com.android.support:support-annotations:28.0.0-alpha3"
+    annotationProcessor 'com.android.support:support-annotations:28.0.0-alpha3'
 
     // the sample uses more advanced functions of the fastadapter
     // https://github.com/mikepenz/FastAdapter/
