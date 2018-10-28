@@ -232,12 +232,12 @@ the dev can choose his own implementation (Picasso, Glide, ...). This has to be 
 DrawerImageLoader.init(new AbstractDrawerImageLoader() {
     @Override
     public void set(ImageView imageView, Uri uri, Drawable placeholder) {
-        Picasso.with(imageView.getContext()).load(uri).placeholder(placeholder).into(imageView);
+        Picasso.get().load(uri).placeholder(placeholder).into(imageView);
     }
 
     @Override
     public void cancel(ImageView imageView) {
-        Picasso.with(imageView.getContext()).cancelRequest(imageView);
+        Picasso.get().cancelRequest(imageView);
     }
 
     /*
@@ -254,7 +254,7 @@ DrawerImageLoader.init(new AbstractDrawerImageLoader() {
 });
 ```
 
-An implementation with [GLIDE](https://github.com/mikepenz/MaterialDrawer/blob/develop/app/src/main/java/com/mikepenz/materialdrawer/app/CustomApplication.java#L42) can be found in the sample application
+An implementation with [GLIDE v4](https://github.com/mikepenz/MaterialDrawer/blob/develop/app/src/main/java/com/mikepenz/materialdrawer/app/CustomApplication.java#L42) (See tag v6.1.1 for glide v3 sample) can be found in the sample application
 
 
 ## Switching between Back-Arrow or Hamburger-Icon
@@ -316,7 +316,7 @@ Create your custom style and use one of the provided themes as parent. If you do
         <item name="material_drawer_selected_legacy">@color/material_drawer_selected</item> <!-- Defines the color if legacy style (Material 1, is enabled) -->
         <item name="material_drawer_selected_text">@color/material_drawer_selected_text</item>
         <item name="material_drawer_header_selection_text">@color/material_drawer_header_selection_text</item>
-	<item name="material_drawer_header_selection_subtext">@color/material_drawer_dark_header_selection_subtext</item>
+	    <item name="material_drawer_header_selection_subtext">@color/material_drawer_dark_header_selection_subtext</item>
         <item name="material_drawer_legacy_style">false</item> <!-- Enables legacy Material 1 style -->
     </style>
 ```
