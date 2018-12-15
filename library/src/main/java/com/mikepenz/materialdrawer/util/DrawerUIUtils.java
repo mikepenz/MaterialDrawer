@@ -17,12 +17,13 @@ import android.util.DisplayMetrics;
 import android.view.View;
 import android.view.WindowManager;
 
+import androidx.annotation.StyleableRes;
+import androidx.core.view.ViewCompat;
+
 import com.mikepenz.iconics.IconicsDrawable;
 import com.mikepenz.materialdrawer.R;
 import com.mikepenz.materialdrawer.icons.MaterialDrawerFont;
 import com.mikepenz.materialize.util.UIUtils;
-
-import androidx.annotation.StyleableRes;
 
 /**
  * Created by mikepenz on 15.03.14.
@@ -114,13 +115,13 @@ public class DrawerUIUtils {
             states.addState(new int[]{android.R.attr.state_selected}, selected);
             states.addState(new int[]{}, new ColorDrawable(Color.TRANSPARENT));
 
-            view.setBackground(states);
+            ViewCompat.setBackground(view, states);
             view.setForeground(unselected);
         } else {
             states.addState(new int[]{android.R.attr.state_selected}, selected);
             states.addState(new int[]{}, unselected);
 
-            view.setBackground(states);
+            ViewCompat.setBackground(view, states);
         }
     }
 
