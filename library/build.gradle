@@ -26,7 +26,7 @@ android {
 }
 
 dependencies {
-    implementation "androidx.appcompat:appcompat:${versions.androidX}"
+    implementation "androidx.appcompat:appcompat:${versions.appcompat}"
     implementation "androidx.recyclerview:recyclerview:${versions.androidX}"
     implementation "androidx.annotation:annotation:${versions.androidX}"
     implementation "com.google.android.material:material:${versions.androidX}"
@@ -48,8 +48,8 @@ dependencies {
     // used to fill the RecyclerView with the DrawerItems
     // and provides single and multi selection, expandable items
     // https://github.com/mikepenz/FastAdapter
-    api 'com.mikepenz:fastadapter:4.0.0-alpha3'
-    api 'com.mikepenz:fastadapter-extensions-expandable:4.0.0-alpha3'
+    api 'com.mikepenz:fastadapter:4.0.0-beta1'
+    api 'com.mikepenz:fastadapter-extensions-expandable:4.0.0-beta1'
 }
 
 apply from: '../gradle-release.gradle'
