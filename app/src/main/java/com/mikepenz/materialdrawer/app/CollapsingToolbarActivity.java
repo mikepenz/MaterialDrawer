@@ -4,6 +4,9 @@ import android.graphics.Color;
 import android.os.Bundle;
 import android.widget.ImageView;
 
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.Toolbar;
+
 import com.bumptech.glide.Glide;
 import com.google.android.material.appbar.CollapsingToolbarLayout;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
@@ -18,10 +21,8 @@ import com.mikepenz.materialdrawer.model.PrimaryDrawerItem;
 import com.mikepenz.materialdrawer.model.SecondaryDrawerItem;
 import com.mikepenz.materialdrawer.model.SectionDrawerItem;
 
-import androidx.appcompat.app.AppCompatActivity;
-import androidx.appcompat.widget.Toolbar;
-
 import static com.bumptech.glide.request.RequestOptions.centerCropTransform;
+import static com.mikepenz.iconics.IconicsColor.colorInt;
 
 public class CollapsingToolbarActivity extends AppCompatActivity {
 
@@ -75,7 +76,7 @@ public class CollapsingToolbarActivity extends AppCompatActivity {
 
     private void fillFab() {
         final FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.floating_action_button);
-        fab.setImageDrawable(new IconicsDrawable(this, GoogleMaterial.Icon.gmd_favorite).actionBar().color(Color.WHITE));
+        fab.setImageDrawable(new IconicsDrawable(this, GoogleMaterial.Icon.gmd_favorite).actionBar().color(colorInt(Color.WHITE)));
     }
 
     @Override

@@ -20,7 +20,9 @@ import android.view.WindowManager;
 import androidx.annotation.StyleableRes;
 import androidx.core.view.ViewCompat;
 
+import com.mikepenz.iconics.IconicsColor;
 import com.mikepenz.iconics.IconicsDrawable;
+import com.mikepenz.iconics.IconicsSize;
 import com.mikepenz.materialdrawer.R;
 import com.mikepenz.materialdrawer.icons.MaterialDrawerFont;
 import com.mikepenz.materialize.util.UIUtils;
@@ -192,7 +194,7 @@ public class DrawerUIUtils {
      * @return
      */
     public static Drawable getPlaceHolder(Context ctx) {
-        return new IconicsDrawable(ctx, MaterialDrawerFont.Icon.mdf_person).colorRes(R.color.accent).backgroundColorRes(R.color.primary).sizeDp(56).paddingDp(16);
+        return new IconicsDrawable(ctx, MaterialDrawerFont.Icon.mdf_person).color(IconicsColor.colorRes(R.color.accent)).backgroundColor(IconicsColor.colorRes(R.color.primary)).size(IconicsSize.dp(56)).padding(IconicsSize.dp(16));
     }
 
     /**

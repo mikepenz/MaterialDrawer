@@ -32,7 +32,6 @@ import com.mikepenz.fastadapter.select.SelectExtension;
 import com.mikepenz.fastadapter.select.SelectExtensionFactory;
 import com.mikepenz.fastadapter.utils.DefaultIdDistributor;
 import com.mikepenz.fastadapter.utils.DefaultIdDistributorImpl;
-import com.mikepenz.iconics.utils.Utils;
 import com.mikepenz.materialdrawer.holder.DimenHolder;
 import com.mikepenz.materialdrawer.model.AbstractDrawerItem;
 import com.mikepenz.materialdrawer.model.DividerDrawerItem;
@@ -425,7 +424,7 @@ public class DrawerBuilder {
             throw new RuntimeException("please pass an activity first to use this call");
         }
 
-        this.mDrawerWidth = Utils.convertDpToPx(mActivity, drawerWidthDp);
+        this.mDrawerWidth = (int) UIUtils.convertDpToPixel(drawerWidthDp, mActivity);
         return this;
     }
 

@@ -2,14 +2,17 @@ package com.mikepenz.materialdrawer.model;
 
 import android.content.Context;
 import android.graphics.Color;
+import android.view.View;
+import android.widget.ImageView;
+
 import androidx.annotation.ColorInt;
 import androidx.annotation.ColorRes;
 import androidx.annotation.LayoutRes;
 import androidx.core.view.ViewCompat;
-import android.view.View;
-import android.widget.ImageView;
 
+import com.mikepenz.iconics.IconicsColor;
 import com.mikepenz.iconics.IconicsDrawable;
+import com.mikepenz.iconics.IconicsSize;
 import com.mikepenz.materialdrawer.Drawer;
 import com.mikepenz.materialdrawer.R;
 import com.mikepenz.materialdrawer.holder.ColorHolder;
@@ -104,7 +107,7 @@ public class ExpandableDrawerItem extends BaseDescribeableDrawerItem<ExpandableD
 
         //make sure all animations are stopped
         if (viewHolder.arrow.getDrawable() instanceof IconicsDrawable) {
-            ((IconicsDrawable) viewHolder.arrow.getDrawable()).color(this.arrowColor != null ? this.arrowColor.color(ctx) : getIconColor(ctx));
+            ((IconicsDrawable) viewHolder.arrow.getDrawable()).color(IconicsColor.colorInt(this.arrowColor != null ? this.arrowColor.color(ctx) : getIconColor(ctx)));
         }
         viewHolder.arrow.clearAnimation();
         if (!isExpanded()) {
@@ -128,7 +131,7 @@ public class ExpandableDrawerItem extends BaseDescribeableDrawerItem<ExpandableD
         public ViewHolder(View view) {
             super(view);
             arrow = view.findViewById(R.id.material_drawer_arrow);
-            arrow.setImageDrawable(new IconicsDrawable(view.getContext(), MaterialDrawerFont.Icon.mdf_expand_more).sizeDp(16).paddingDp(2).color(Color.BLACK));
+            arrow.setImageDrawable(new IconicsDrawable(view.getContext(), MaterialDrawerFont.Icon.mdf_expand_more).size(IconicsSize.dp(16)).padding(IconicsSize.dp(2)).color(IconicsColor.colorInt(Color.BLACK)));
         }
     }
 }

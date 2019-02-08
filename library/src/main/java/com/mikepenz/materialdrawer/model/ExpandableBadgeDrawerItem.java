@@ -2,12 +2,13 @@ package com.mikepenz.materialdrawer.model;
 
 import android.content.Context;
 import android.graphics.Color;
-import androidx.annotation.LayoutRes;
-import androidx.annotation.StringRes;
-import androidx.core.view.ViewCompat;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
+
+import androidx.annotation.LayoutRes;
+import androidx.annotation.StringRes;
+import androidx.core.view.ViewCompat;
 
 import com.mikepenz.iconics.IconicsDrawable;
 import com.mikepenz.materialdrawer.Drawer;
@@ -20,6 +21,9 @@ import com.mikepenz.materialdrawer.model.interfaces.ColorfulBadgeable;
 import com.mikepenz.materialdrawer.model.interfaces.IDrawerItem;
 
 import java.util.List;
+
+import static com.mikepenz.iconics.IconicsColor.colorInt;
+import static com.mikepenz.iconics.IconicsSize.dp;
 
 /**
  * Created by mikepenz on 03.02.15.
@@ -75,7 +79,7 @@ public class ExpandableBadgeDrawerItem extends BaseDescribeableDrawerItem<Expand
 
         //make sure all animations are stopped
         if (viewHolder.arrow.getDrawable() instanceof IconicsDrawable) {
-            ((IconicsDrawable) viewHolder.arrow.getDrawable()).color(this.arrowColor != null ? this.arrowColor.color(ctx) : getIconColor(ctx));
+            ((IconicsDrawable) viewHolder.arrow.getDrawable()).color(colorInt(this.arrowColor != null ? this.arrowColor.color(ctx) : getIconColor(ctx)));
         }
         viewHolder.arrow.clearAnimation();
         if (!isExpanded()) {
@@ -168,7 +172,7 @@ public class ExpandableBadgeDrawerItem extends BaseDescribeableDrawerItem<Expand
             badgeContainer = view.findViewById(R.id.material_drawer_badge_container);
             badge = view.findViewById(R.id.material_drawer_badge);
             arrow = view.findViewById(R.id.material_drawer_arrow);
-            arrow.setImageDrawable(new IconicsDrawable(view.getContext(), MaterialDrawerFont.Icon.mdf_expand_more).sizeDp(16).paddingDp(2).color(Color.BLACK));
+            arrow.setImageDrawable(new IconicsDrawable(view.getContext(), MaterialDrawerFont.Icon.mdf_expand_more).size(dp(16)).padding(dp(2)).color(colorInt(Color.BLACK)));
         }
     }
 }

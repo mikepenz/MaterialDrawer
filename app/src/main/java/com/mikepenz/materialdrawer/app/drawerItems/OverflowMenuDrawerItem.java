@@ -1,11 +1,12 @@
 package com.mikepenz.materialdrawer.app.drawerItems;
 
 import android.content.Context;
-import androidx.annotation.LayoutRes;
-import androidx.appcompat.widget.PopupMenu;
 import android.view.MenuInflater;
 import android.view.View;
 import android.widget.ImageButton;
+
+import androidx.annotation.LayoutRes;
+import androidx.appcompat.widget.PopupMenu;
 
 import com.mikepenz.google_material_typeface_library.GoogleMaterial;
 import com.mikepenz.iconics.IconicsDrawable;
@@ -14,6 +15,9 @@ import com.mikepenz.materialdrawer.model.BaseDescribeableDrawerItem;
 import com.mikepenz.materialdrawer.model.BaseViewHolder;
 
 import java.util.List;
+
+import static com.mikepenz.iconics.IconicsColor.colorInt;
+import static com.mikepenz.iconics.IconicsSize.dp;
 
 /**
  * Created by mikepenz on 03.02.15.
@@ -89,7 +93,7 @@ public class OverflowMenuDrawerItem extends BaseDescribeableDrawerItem<OverflowM
         });
 
         //handle image
-        viewHolder.menu.setImageDrawable(new IconicsDrawable(ctx, GoogleMaterial.Icon.gmd_more_vert).sizeDp(12).color(getIconColor(ctx)));
+        viewHolder.menu.setImageDrawable(new IconicsDrawable(ctx, GoogleMaterial.Icon.gmd_more_vert).size(dp(12)).color(colorInt(getIconColor(ctx))));
 
         //call the onPostBindView method to trigger post bind view actions (like the listener to modify the item if required)
         onPostBindView(this, viewHolder.itemView);

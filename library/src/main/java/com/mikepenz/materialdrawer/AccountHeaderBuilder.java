@@ -13,6 +13,16 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import androidx.annotation.ColorInt;
+import androidx.annotation.ColorRes;
+import androidx.annotation.DimenRes;
+import androidx.annotation.DrawableRes;
+import androidx.annotation.LayoutRes;
+import androidx.annotation.NonNull;
+import androidx.appcompat.content.res.AppCompatResources;
+import androidx.constraintlayout.widget.Guideline;
+import androidx.core.view.ViewCompat;
+
 import com.mikepenz.iconics.IconicsDrawable;
 import com.mikepenz.materialdrawer.holder.ColorHolder;
 import com.mikepenz.materialdrawer.holder.DimenHolder;
@@ -32,15 +42,8 @@ import java.util.Collections;
 import java.util.List;
 import java.util.Stack;
 
-import androidx.annotation.ColorInt;
-import androidx.annotation.ColorRes;
-import androidx.annotation.DimenRes;
-import androidx.annotation.DrawableRes;
-import androidx.annotation.LayoutRes;
-import androidx.annotation.NonNull;
-import androidx.appcompat.content.res.AppCompatResources;
-import androidx.constraintlayout.widget.Guideline;
-import androidx.core.view.ViewCompat;
+import static com.mikepenz.iconics.IconicsColor.colorInt;
+import static com.mikepenz.iconics.IconicsSize.res;
 
 /**
  * Created by mikepenz on 23.05.15.
@@ -711,7 +714,7 @@ public class AccountHeaderBuilder {
             if (accountHeader != null) {
                 // TODO why is this null?
                 params = accountHeader.getLayoutParams();
-                if(params != null) {
+                if (params != null) {
                     params.height = height;
                     accountHeader.setLayoutParams(params);
                 }
@@ -828,7 +831,7 @@ public class AccountHeaderBuilder {
 
         // set the arrow :D
         mAccountSwitcherArrow = mAccountHeaderContainer.findViewById(R.id.material_drawer_account_header_text_switcher);
-        mAccountSwitcherArrow.setImageDrawable(new IconicsDrawable(mActivity, MaterialDrawerFont.Icon.mdf_arrow_drop_down).sizeRes(R.dimen.material_drawer_account_header_dropdown).paddingRes(R.dimen.material_drawer_account_header_dropdown_padding).color(subTextColor));
+        mAccountSwitcherArrow.setImageDrawable(new IconicsDrawable(mActivity, MaterialDrawerFont.Icon.mdf_arrow_drop_down).size(res(R.dimen.material_drawer_account_header_dropdown)).padding(res(R.dimen.material_drawer_account_header_dropdown_padding)).color(colorInt(subTextColor)));
 
         //get the fields for the name
         mCurrentProfileView = mAccountHeader.findViewById(R.id.material_drawer_account_header_current);

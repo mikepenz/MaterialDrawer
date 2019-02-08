@@ -39,6 +39,10 @@ android {
     lintOptions {
         abortOnError false
     }
+
+    packagingOptions {
+        exclude 'META-INF/library-core_release.kotlin_module'
+    }
 }
 
 dependencies {
@@ -56,8 +60,8 @@ dependencies {
     annotationProcessor 'com.github.bumptech.glide:compiler:4.8.0'
 
     // needed to fix glide androidX support
-    implementation "com.android.support:support-annotations:28.0.0-alpha3"
-    annotationProcessor 'com.android.support:support-annotations:28.0.0-alpha3'
+    implementation "com.android.support:support-annotations:28.0.0"
+    annotationProcessor 'com.android.support:support-annotations:28.0.0'
 
     // the sample uses more advanced functions of the fastadapter
     // https://github.com/mikepenz/FastAdapter/
@@ -86,7 +90,7 @@ dependencies {
 }
 
 configurations.all {
-    resolutionStrategy.force "com.mikepenz:iconics-core:3.1.0"
+    resolutionStrategy.force "com.mikepenz:iconics-core:4.0.0-a1"
     resolutionStrategy.force "com.mikepenz:fastadapter:4.0.0-alpha3"
     resolutionStrategy.force "com.android.support:support-v4:${versions.androidX}"
     resolutionStrategy.force "com.android.support:appcompat-v7:${versions.androidX}"

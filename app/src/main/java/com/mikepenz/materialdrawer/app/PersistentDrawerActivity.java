@@ -3,11 +3,12 @@ package com.mikepenz.materialdrawer.app;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
-import androidx.appcompat.app.AppCompatActivity;
-import androidx.appcompat.widget.Toolbar;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.ImageView;
+
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.Toolbar;
 
 import com.mikepenz.crossfader.Crossfader;
 import com.mikepenz.fontawesome_typeface_library.FontAwesome;
@@ -25,6 +26,9 @@ import com.mikepenz.materialdrawer.model.SecondaryDrawerItem;
 import com.mikepenz.materialdrawer.model.SectionDrawerItem;
 import com.mikepenz.materialdrawer.model.interfaces.IProfile;
 import com.mikepenz.materialize.util.UIUtils;
+
+import static com.mikepenz.iconics.IconicsColor.colorInt;
+import static com.mikepenz.iconics.IconicsSize.dp;
 
 public class PersistentDrawerActivity extends AppCompatActivity {
     private static final int PROFILE_SETTING = 1;
@@ -122,7 +126,7 @@ public class PersistentDrawerActivity extends AppCompatActivity {
         //define and create the arrow ;)
         ImageView toggle = (ImageView) headerResult.getView().findViewById(R.id.material_drawer_account_header_toggle);
         //for RTL you would have to define the other arrow
-        toggle.setImageDrawable(new IconicsDrawable(this, GoogleMaterial.Icon.gmd_chevron_left).sizeDp(16).color(Color.BLACK));
+        toggle.setImageDrawable(new IconicsDrawable(this, GoogleMaterial.Icon.gmd_chevron_left).size(dp(16)).color(colorInt(Color.BLACK)));
         toggle.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {

@@ -5,12 +5,15 @@ import android.graphics.Bitmap;
 import android.graphics.PorterDuff;
 import android.graphics.drawable.Drawable;
 import android.net.Uri;
-import androidx.annotation.DrawableRes;
-import androidx.appcompat.content.res.AppCompatResources;
 import android.view.View;
 import android.widget.ImageView;
 
+import androidx.annotation.DrawableRes;
+import androidx.appcompat.content.res.AppCompatResources;
+
+import com.mikepenz.iconics.IconicsColor;
 import com.mikepenz.iconics.IconicsDrawable;
+import com.mikepenz.iconics.IconicsSize;
 import com.mikepenz.iconics.typeface.IIcon;
 import com.mikepenz.materialdrawer.util.DrawerImageLoader;
 
@@ -98,7 +101,7 @@ public class ImageHolder extends com.mikepenz.materialize.holder.ImageHolder {
         Drawable icon = getIcon();
 
         if (mIIcon != null) {
-            icon = new IconicsDrawable(ctx, mIIcon).color(iconColor).sizeDp(24).paddingDp(paddingDp);
+            icon = new IconicsDrawable(ctx, mIIcon).color(IconicsColor.colorInt(iconColor)).size(IconicsSize.dp(24)).padding(IconicsSize.dp(paddingDp));
         } else if (getIconRes() != -1) {
             icon = AppCompatResources.getDrawable(ctx, getIconRes());
         } else if (getUri() != null) {

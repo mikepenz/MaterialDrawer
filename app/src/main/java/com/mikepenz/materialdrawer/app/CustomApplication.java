@@ -11,7 +11,9 @@ import com.mikepenz.iconics.IconicsDrawable;
 import com.mikepenz.materialdrawer.util.AbstractDrawerImageLoader;
 import com.mikepenz.materialdrawer.util.DrawerImageLoader;
 import com.mikepenz.materialdrawer.util.DrawerUIUtils;
-import com.squareup.picasso.Picasso;
+
+import static com.mikepenz.iconics.IconicsColor.colorRes;
+import static com.mikepenz.iconics.IconicsSize.dp;
 
 /**
  * Created by mikepenz on 27.03.15.
@@ -58,9 +60,9 @@ public class CustomApplication extends Application {
                 if (DrawerImageLoader.Tags.PROFILE.name().equals(tag)) {
                     return DrawerUIUtils.getPlaceHolder(ctx);
                 } else if (DrawerImageLoader.Tags.ACCOUNT_HEADER.name().equals(tag)) {
-                    return new IconicsDrawable(ctx).iconText(" ").backgroundColorRes(com.mikepenz.materialdrawer.R.color.primary).sizeDp(56);
+                    return new IconicsDrawable(ctx).iconText(" ").backgroundColor(colorRes(com.mikepenz.materialdrawer.R.color.primary)).size(dp(56));
                 } else if ("customUrlItem".equals(tag)) {
-                    return new IconicsDrawable(ctx).iconText(" ").backgroundColorRes(R.color.md_red_500).sizeDp(56);
+                    return new IconicsDrawable(ctx).iconText(" ").backgroundColor(colorRes(R.color.md_red_500)).size(dp(56));
                 }
 
                 //we use the default one for

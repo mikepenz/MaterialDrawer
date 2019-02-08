@@ -1,10 +1,15 @@
 package com.mikepenz.materialdrawer.icons;
 
-import android.content.Context;
 import android.graphics.Typeface;
 
+import androidx.core.content.res.ResourcesCompat;
+
+import com.mikepenz.iconics.Iconics;
 import com.mikepenz.iconics.typeface.IIcon;
 import com.mikepenz.iconics.typeface.ITypeface;
+import com.mikepenz.materialdrawer.R;
+
+import org.jetbrains.annotations.NotNull;
 
 import java.util.Collection;
 import java.util.HashMap;
@@ -96,15 +101,14 @@ public class MaterialDrawerFont implements ITypeface {
     }
 
     @Override
-    public Typeface getTypeface(Context context) {
-        if (typeface == null) {
-            try {
-                typeface = Typeface.createFromAsset(context.getAssets(), "fonts/" + TTF_FILE);
-            } catch (Exception e) {
-                return null;
-            }
-        }
-        return typeface;
+    public int getFontRes() {
+        return R.font.materialdrawerfont_font_v5_0_0;
+    }
+
+    @NotNull
+    @Override
+    public Typeface getRawTypeface() {
+        return ResourcesCompat.getFont(Iconics.applicationContext, getFontRes());
     }
 
     public enum Icon implements IIcon {
