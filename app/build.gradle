@@ -1,4 +1,7 @@
 apply plugin: 'com.android.application'
+apply plugin: 'kotlin-android-extensions'
+apply plugin: 'kotlin-android'
+apply plugin: 'kotlin-kapt'
 //wrap with try and catch so the build is working even if the signing stuff is missing
 try {
     apply from: '../../../signing.gradle'
@@ -42,6 +45,7 @@ android {
 
     packagingOptions {
         exclude 'META-INF/library-core_release.kotlin_module'
+        exclude 'META-INF/library_release.kotlin_module'
     }
 }
 
@@ -57,7 +61,7 @@ dependencies {
     // used to showcase how to load images
     implementation 'com.squareup.picasso:picasso:2.71828'
     implementation 'com.github.bumptech.glide:glide:4.8.0'
-    annotationProcessor 'com.github.bumptech.glide:compiler:4.8.0'
+    kapt 'com.github.bumptech.glide:compiler:4.8.0'
 
     // needed to fix glide androidX support
     implementation "com.android.support:support-annotations:28.0.0"
@@ -68,7 +72,7 @@ dependencies {
     implementation 'com.mikepenz:fastadapter-commons:4.0.0-alpha3'
     // used to generate the Open Source section
     // https://github.com/mikepenz/AboutLibraries
-    implementation 'com.mikepenz:aboutlibraries:6.2.0'
+    implementation 'com.mikepenz:aboutlibraries:7.0.0-rc1'
 
     //used to provide different itemAnimators for the RecyclerView
     //https://github.com/mikepenz/ItemAnimators
@@ -84,9 +88,12 @@ dependencies {
 
     // icon fonts used inside the sample
     // https://github.com/mikepenz/Android-Iconics
-    implementation 'com.mikepenz:google-material-typeface:3.0.1.1.original@aar'
-    implementation 'com.mikepenz:fontawesome-typeface:5.0.6.0@aar'
-    implementation 'com.mikepenz:octicons-typeface:3.0.0.1@aar'
+    implementation 'com.mikepenz:google-material-typeface:3.0.1.4.original-kotlin@aar'
+    implementation 'com.mikepenz:fontawesome-typeface:5.3.1.2-kotlin@aar'
+    //implementation 'com.mikepenz:octicons-typeface:3.0.0.1@aar'
+
+    // kotlin
+    implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk7:${versions.kotlin}"
 }
 
 configurations.all {
