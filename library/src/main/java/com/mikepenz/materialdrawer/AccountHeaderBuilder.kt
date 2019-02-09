@@ -1184,6 +1184,7 @@ class AccountHeaderBuilder {
         val mProfiles = this.profiles
         if (mCurrentProfile != null) {
             if ((profileImagesVisible || onlyMainProfileImageVisible) && !onlySmallProfileImagesVisible) {
+                currentProfileView.contentDescription = mCurrentProfile.email?.text ?: mCurrentProfile.name?.text ?: currentProfileView.context.getString(R.string.material_drawer_profile_content_description)
                 setImageOrPlaceholder(currentProfileView, mCurrentProfile.icon)
                 if (profileImagesClickable) {
                     currentProfileView.setOnClickListener(onCurrentProfileClickListener)
@@ -1193,7 +1194,6 @@ class AccountHeaderBuilder {
                     currentProfileView.disableTouchFeedback(true)
                 }
                 currentProfileView.visibility = View.VISIBLE
-
                 currentProfileView.invalidate()
             } else if (compactStyle) {
                 currentProfileView.visibility = View.GONE
@@ -1213,6 +1213,7 @@ class AccountHeaderBuilder {
                 this ?: return
                 setImageOrPlaceholder(imageView, this.icon)
                 imageView.setTag(R.id.material_drawer_profile_header, this)
+                imageView.contentDescription = this.email?.text ?: this.name?.text ?: imageView.context.getString(R.string.material_drawer_profile_content_description)
                 if (profileImagesClickable) {
                     imageView.setOnClickListener(onProfileClickListener)
                     imageView.setOnLongClickListener(onProfileLongClickListener)

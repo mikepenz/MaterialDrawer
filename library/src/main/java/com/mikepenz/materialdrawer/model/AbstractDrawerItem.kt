@@ -32,9 +32,10 @@ abstract class AbstractDrawerItem<T, VH : RecyclerView.ViewHolder> : IDrawerItem
     override var isSelected = false
     // defines if this item is selectable
     override var isSelectable = true
-
     // defines if the item's background' change should be animated when it is (de)selected
     var isSelectedBackgroundAnimated = true
+    // defines the content descripton of items
+    var contentDescription: String? = null
 
     open var onDrawerItemClickListener: Drawer.OnDrawerItemClickListener? = null
 
@@ -90,6 +91,11 @@ abstract class AbstractDrawerItem<T, VH : RecyclerView.ViewHolder> : IDrawerItem
 
     open fun withSelectable(selectable: Boolean): T {
         this.isSelectable = selectable
+        return this as T
+    }
+
+    open fun withContentDescription(contentDescription: String?): T {
+        this.contentDescription = contentDescription
         return this as T
     }
 
@@ -205,6 +211,9 @@ abstract class AbstractDrawerItem<T, VH : RecyclerView.ViewHolder> : IDrawerItem
 
     @CallSuper
     override fun bindView(holder: VH, payloads: MutableList<Any>) {
+        contentDescription?.let {
+            holder.itemView.contentDescription = it
+        }
         holder.itemView.setTag(R.id.material_drawer_item, this)
     }
 
@@ -281,13 +290,13 @@ abstract class AbstractDrawerItem<T, VH : RecyclerView.ViewHolder> : IDrawerItem
     /**
      * If this item equals to the given object
      *
-     * @param o
+     * @param other
      * @return
      */
-    override fun equals(o: Any?): Boolean {
-        if (this === o) return true
-        if (o == null || javaClass != o.javaClass) return false
-        val that = o as AbstractDrawerItem<*, *>?
+    override fun equals(other: Any?): Boolean {
+        if (this === other) return true
+        if (other == null || javaClass != other.javaClass) return false
+        val that = other as AbstractDrawerItem<*, *>?
         return identifier == that?.identifier
     }
 

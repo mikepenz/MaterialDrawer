@@ -30,8 +30,7 @@ class DividerDrawerItem : AbstractDrawerItem<DividerDrawerItem, DividerDrawerIte
         holder.view.isClickable = false
         holder.view.isEnabled = false
         holder.view.minimumHeight = 1
-        ViewCompat.setImportantForAccessibility(holder.view,
-                ViewCompat.IMPORTANT_FOR_ACCESSIBILITY_NO)
+        ViewCompat.setImportantForAccessibility(holder.view, ViewCompat.IMPORTANT_FOR_ACCESSIBILITY_NO)
 
         //set the color for the divider
         holder.divider.setBackgroundColor(UIUtils.getThemeColorFromAttrOrRes(ctx, R.attr.material_drawer_divider, R.color.material_drawer_divider))
