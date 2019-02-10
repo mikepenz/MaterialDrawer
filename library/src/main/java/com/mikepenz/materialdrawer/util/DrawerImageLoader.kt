@@ -9,7 +9,9 @@ import android.widget.ImageView
  * Created by mikepenz on 24.03.15.
  */
 class DrawerImageLoader private constructor(var imageLoader: IDrawerImageLoader?) {
-    private var mHandleAllUris = false
+
+    private var mHandleAllProtocols = false
+    private var mHandledProtocols = listOf<String?>("http", "https")
 
     enum class Tags {
         PROFILE,
@@ -17,8 +19,19 @@ class DrawerImageLoader private constructor(var imageLoader: IDrawerImageLoader?
         ACCOUNT_HEADER
     }
 
-    fun withHandleAllUris(handleAllUris: Boolean): DrawerImageLoader {
-        this.mHandleAllUris = handleAllUris
+    /**
+     * Makes this DrawerImageLoader handle all Uri protocols
+     */
+    fun withHandleAllProtocols(handleAllProtocols: Boolean): DrawerImageLoader {
+        this.mHandleAllProtocols = handleAllProtocols
+        return this
+    }
+
+    /**
+     * @param protocols The Uri protocols which this DrawerImageLoader will handle
+     */
+    fun withProtocols(vararg protocols: String): DrawerImageLoader {
+        this.mHandledProtocols = protocols.toList()
         return this
     }
 
@@ -29,15 +42,14 @@ class DrawerImageLoader private constructor(var imageLoader: IDrawerImageLoader?
      * @return false if not consumed
      */
     fun setImage(imageView: ImageView, uri: Uri, tag: String?): Boolean {
-        //if we do not handle all uris and are not http or https we keep the original behavior
-        if (mHandleAllUris || "http" == uri.scheme || "https" == uri.scheme) {
+        // If we do not handle this protocol we keep the original behavior
+        return if (mHandleAllProtocols || uri.scheme in mHandledProtocols) {
             imageLoader?.let {
                 val placeHolder = it.placeholder(imageView.context, tag)
                 it[imageView, uri, placeHolder] = tag
             }
-            return true
-        }
-        return false
+            true
+        } else false
     }
 
     fun cancelImage(imageView: ImageView) {
