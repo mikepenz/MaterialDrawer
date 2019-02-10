@@ -24,6 +24,12 @@ interface IDrawerItem<VH : RecyclerView.ViewHolder> : IItem<VH>, IExpandable<VH>
 
     override val layoutRes: Int
 
+    override var identifier: Long
+
+    override var isExpanded: Boolean
+
+    override val isAutoExpanding: Boolean
+
     override fun generateView(ctx: Context): View
 
     override fun generateView(ctx: Context, parent: ViewGroup): View

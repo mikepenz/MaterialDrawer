@@ -90,7 +90,7 @@ dependencies {
     // https://github.com/mikepenz/Android-Iconics
     implementation 'com.mikepenz:google-material-typeface:3.0.1.4.original-kotlin@aar'
     implementation 'com.mikepenz:fontawesome-typeface:5.3.1.2-kotlin@aar'
-    //implementation 'com.mikepenz:octicons-typeface:3.0.0.1@aar'
+    implementation 'com.mikepenz:octicons-typeface:3.2.0.6-kotlin@aar'
 
     // kotlin
     implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk7:${versions.kotlin}"
