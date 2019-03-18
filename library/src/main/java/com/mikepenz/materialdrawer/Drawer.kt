@@ -470,6 +470,9 @@ class Drawer(internal val drawerBuilder: DrawerBuilder) {
      */
     fun deselect(identifier: Long) {
         selectExtension.deselect(getPosition(identifier))
+
+        // we want to deselect all items, also the sticky drawer
+        drawerBuilder.resetStickyFooterSelection()
     }
 
     /**
