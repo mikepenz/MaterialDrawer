@@ -11,8 +11,6 @@ import androidx.recyclerview.widget.RecyclerView
 import com.mikepenz.fastadapter.FastAdapter
 import com.mikepenz.fastadapter.IAdapter
 import com.mikepenz.fastadapter.adapters.ItemAdapter
-import com.mikepenz.fastadapter.listeners.OnClickListener
-import com.mikepenz.fastadapter.listeners.OnLongClickListener
 import com.mikepenz.fastadapter.select.SelectExtension
 import com.mikepenz.materialdrawer.interfaces.ICrossfader
 import com.mikepenz.materialdrawer.model.*
@@ -80,8 +78,8 @@ class MiniDrawer {
     private var mEnableSelectedMiniDrawerItemBackground = false
     private var mEnableProfileClick = true
     private var mOnMiniDrawerItemClickListener: OnMiniDrawerItemClickListener? = null
-    private var mOnMiniDrawerItemOnClickListener: OnClickListener<IDrawerItem<*>>? = null
-    private var mOnMiniDrawerItemLongClickListener: OnLongClickListener<IDrawerItem<*>>? = null
+    private var mOnMiniDrawerItemOnClickListener: ((v: View?, adapter: IAdapter<IDrawerItem<*>>, item: IDrawerItem<*>, position: Int) -> Boolean)? = null
+    private var mOnMiniDrawerItemLongClickListener: ((v: View, adapter: IAdapter<IDrawerItem<*>>, item: IDrawerItem<*>, position: Int) -> Boolean)? = null
 
 
     /**
@@ -89,13 +87,13 @@ class MiniDrawer {
      *
      * @return
      */
-    val onMiniDrawerItemOnClickListener: OnClickListener<*>?
+    val onMiniDrawerItemOnClickListener: ((v: View?, adapter: IAdapter<IDrawerItem<*>>, item: IDrawerItem<*>, position: Int) -> Boolean)?
         get() = mOnMiniDrawerItemOnClickListener
 
     /**
      * @return
      */
-    val onMiniDrawerItemLongClickListener: OnLongClickListener<*>?
+    val onMiniDrawerItemLongClickListener: ((v: View, adapter: IAdapter<IDrawerItem<*>>, item: IDrawerItem<*>, position: Int) -> Boolean)?
         get() = mOnMiniDrawerItemLongClickListener
 
     /**
@@ -212,7 +210,7 @@ class MiniDrawer {
      * @param onMiniDrawerItemOnClickListener
      * @return this
      */
-    fun withOnMiniDrawerItemOnClickListener(onMiniDrawerItemOnClickListener: OnClickListener<IDrawerItem<*>>): MiniDrawer {
+    fun withOnMiniDrawerItemOnClickListener(onMiniDrawerItemOnClickListener: ((v: View?, adapter: IAdapter<IDrawerItem<*>>, item: IDrawerItem<*>, position: Int) -> Boolean)?): MiniDrawer {
         this.mOnMiniDrawerItemOnClickListener = onMiniDrawerItemOnClickListener
         return this
     }
@@ -223,7 +221,7 @@ class MiniDrawer {
      * @param onMiniDrawerItemLongClickListener
      * @return
      */
-    fun withOnMiniDrawerItemLongClickListener(onMiniDrawerItemLongClickListener: OnLongClickListener<IDrawerItem<*>>): MiniDrawer {
+    fun withOnMiniDrawerItemLongClickListener(onMiniDrawerItemLongClickListener: ((v: View, adapter: IAdapter<IDrawerItem<*>>, item: IDrawerItem<*>, position: Int) -> Boolean)?): MiniDrawer {
         this.mOnMiniDrawerItemLongClickListener = onMiniDrawerItemLongClickListener
         return this
     }
@@ -443,15 +441,13 @@ class MiniDrawer {
         if (mOnMiniDrawerItemOnClickListener != null) {
             adapter.onClickListener = mOnMiniDrawerItemOnClickListener
         } else {
-            adapter.onClickListener = object : OnClickListener<IDrawerItem<*>> {
-                override fun onClick(v: View?, adapter: IAdapter<IDrawerItem<*>>, item: IDrawerItem<*>, position: Int): Boolean {
-                    val type = getMiniDrawerType(item)
+            adapter.onClickListener = { v: View?, _: IAdapter<IDrawerItem<*>>, item: IDrawerItem<*>, position: Int ->
+                val type = getMiniDrawerType(item)
 
-                    //if a listener is defined and we consume the event return
-                    if (mOnMiniDrawerItemClickListener?.onItemClick(v, position, item, type) == true) {
-                        return false
-                    }
-
+                //if a listener is defined and we consume the event return
+                if (mOnMiniDrawerItemClickListener?.onItemClick(v, position, item, type) == true) {
+                    false
+                } else {
                     if (type == ITEM) {
                         //fire the onClickListener also if the specific drawerItem is not Selectable
                         if (item.isSelectable) {
@@ -481,7 +477,7 @@ class MiniDrawer {
 
                         crossFader?.crossfade()
                     }
-                    return false
+                    false
                 }
             }
         }

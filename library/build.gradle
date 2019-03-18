@@ -45,13 +45,13 @@ dependencies {
     // used to provide out of the box icon font support. simplifies development,
     // and provides scalable icons. the core is very very light
     // https://github.com/mikepenz/Android-Iconics
-    api 'com.mikepenz:iconics-core:4.0.0-b1'
+    api "com.mikepenz:iconics-core:${versions.iconics}"
 
     // used to fill the RecyclerView with the DrawerItems
     // and provides single and multi selection, expandable items
     // https://github.com/mikepenz/FastAdapter
-    api 'com.mikepenz:fastadapter:4.0.0-beta1'
-    api 'com.mikepenz:fastadapter-extensions-expandable:4.0.0-beta1'
+    api "com.mikepenz:fastadapter:${versions.fastadapter}"
+    api "com.mikepenz:fastadapter-extensions-expandable:${versions.fastadapter}"
 
     // kotlin
     implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk7:${versions.kotlin}"

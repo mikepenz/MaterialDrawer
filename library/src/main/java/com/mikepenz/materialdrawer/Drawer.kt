@@ -13,6 +13,7 @@ import com.mikepenz.fastadapter.FastAdapter
 import com.mikepenz.fastadapter.adapters.ModelAdapter
 import com.mikepenz.fastadapter.expandable.ExpandableExtension
 import com.mikepenz.fastadapter.select.SelectExtension
+import com.mikepenz.fastadapter.select.getSelectExtension
 import com.mikepenz.materialdrawer.holder.DimenHolder
 import com.mikepenz.materialdrawer.holder.ImageHolder
 import com.mikepenz.materialdrawer.holder.StringHolder
@@ -28,20 +29,7 @@ import com.mikepenz.materialize.view.ScrimInsetsRelativeLayout
 /**
  * Created by mikepenz on 03.02.15.
  */
-class Drawer
-/**
- * the internal Constructor for the result
- *
- * @param drawerBuilder
- */
-(
-        /**
-         * the internal getter of the mDrawerBuilder
-         * only used internally to prevent the default behavior of some public methods
-         *
-         * @return
-         */
-        internal val drawerBuilder: DrawerBuilder) {
+class Drawer(internal val drawerBuilder: DrawerBuilder) {
     private var mContentView: FrameLayout? = null
 
     /**
@@ -493,7 +481,7 @@ class Drawer
      */
     @JvmOverloads
     fun setSelection(identifier: Long, fireOnClick: Boolean = true) {
-        val select = adapter.getExtension<SelectExtension<IDrawerItem<*>>>(SelectExtension::class.java)
+        val select = adapter.getSelectExtension()
         if (select != null) {
             select.deselect()
             select.selectByIdentifier(identifier, false, true)

@@ -14,7 +14,6 @@ import com.mikepenz.materialdrawer.model.interfaces.IDrawerItem
 import com.mikepenz.materialdrawer.model.interfaces.OnPostBindViewListener
 import com.mikepenz.materialdrawer.model.interfaces.Selectable
 import com.mikepenz.materialdrawer.model.interfaces.Tagable
-import java.util.*
 
 /**
  * Created by mikepenz on 14.07.15.
@@ -45,13 +44,13 @@ abstract class AbstractDrawerItem<T, VH : RecyclerView.ViewHolder> : IDrawerItem
     // the parent of this item
     override var parent: IParentItem<*>? = null
     // the subItems to expand for this item
-    private var mSubItems: MutableList<out ISubItem<*>>? = null
-    override var subItems: MutableList<out ISubItem<*>>?
+    private var mSubItems: MutableList<ISubItem<*>> = mutableListOf()
+    override var subItems: MutableList<ISubItem<*>>
         get() = mSubItems
         set(subItems) {
             this.mSubItems = subItems
 
-            subItems?.let {
+            subItems.let {
                 for (subItem in it) {
                     subItem.parent = this
                 }
@@ -162,16 +161,12 @@ abstract class AbstractDrawerItem<T, VH : RecyclerView.ViewHolder> : IDrawerItem
      * @return
      */
     fun <SubType : ISubItem<*>> setSubItems(vararg subItems: SubType) {
-        if (mSubItems == null) {
-            mSubItems = ArrayList<SubType>()
-        }
         for (subItem in subItems) {
             subItem.parent = this
         }
 
-        val cur = mSubItems?.toMutableList()
-        cur?.addAll(subItems)
-        mSubItems = cur
+        mSubItems.clear()
+        mSubItems.addAll(subItems)
     }
 
     fun withSubItems(vararg subItems: ISubItem<*>): T {

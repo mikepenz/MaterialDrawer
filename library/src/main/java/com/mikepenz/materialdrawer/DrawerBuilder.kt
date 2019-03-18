@@ -36,8 +36,6 @@ import com.mikepenz.fastadapter.adapters.ModelAdapter
 import com.mikepenz.fastadapter.expandable.ExpandableExtension
 import com.mikepenz.fastadapter.expandable.ExpandableExtensionFactory
 import com.mikepenz.fastadapter.extensions.ExtensionsFactories
-import com.mikepenz.fastadapter.listeners.OnClickListener
-import com.mikepenz.fastadapter.listeners.OnLongClickListener
 import com.mikepenz.fastadapter.select.SelectExtension
 import com.mikepenz.fastadapter.select.SelectExtensionFactory
 import com.mikepenz.fastadapter.utils.DefaultIdDistributor
@@ -1716,56 +1714,51 @@ class DrawerBuilder {
         mSelectExtension.select(mSelectedItemPosition)
 
         // add the onDrawerItemClickListener if set
-        adapter.onClickListener = object : OnClickListener<IDrawerItem<*>> {
-            override fun onClick(v: View?, adapter: IAdapter<IDrawerItem<*>>, item: IDrawerItem<*>, position: Int): Boolean {
-                if (!(item is Selectable<*> && !item.isSelectable)) {
-                    resetStickyFooterSelection()
-                    mCurrentStickyFooterSelection = -1
+
+        adapter.onClickListener = { v: View?, _: IAdapter<IDrawerItem<*>>, item: IDrawerItem<*>, position: Int ->
+            if (!(item is Selectable<*> && !item.isSelectable)) {
+                resetStickyFooterSelection()
+                mCurrentStickyFooterSelection = -1
+            }
+
+            //call the listener
+            var consumed = false
+
+            //call the item specific listener
+            if (item is AbstractDrawerItem<*, *>) {
+                consumed = item.onDrawerItemClickListener?.onItemClick(v, position, item)
+                        ?: false
+            }
+
+            //call the drawer listener
+            mOnDrawerItemClickListener?.let { mOnDrawerItemClickListener ->
+                if (mDelayDrawerClickEvent > 0) {
+                    Handler().postDelayed({ mOnDrawerItemClickListener.onItemClick(v, position, item) }, mDelayDrawerClickEvent.toLong())
+                } else {
+                    consumed = mOnDrawerItemClickListener.onItemClick(v, position, item)
                 }
+            }
 
-                //call the listener
-                var consumed = false
+            //we have to notify the miniDrawer if existing, and if the event was not consumed yet
+            if (!consumed) {
+                consumed = mMiniDrawer?.onItemClick(item) ?: false
+            }
 
-                //call the item specific listener
-                if (item is AbstractDrawerItem<*, *>) {
-                    consumed = item.onDrawerItemClickListener?.onItemClick(v, position, item)
-                            ?: false
-                }
-
-                //call the drawer listener
-                mOnDrawerItemClickListener?.let { mOnDrawerItemClickListener ->
-                    if (mDelayDrawerClickEvent > 0) {
-                        Handler().postDelayed({ mOnDrawerItemClickListener.onItemClick(v, position, item) }, mDelayDrawerClickEvent.toLong())
-                    } else {
-                        consumed = mOnDrawerItemClickListener.onItemClick(v, position, item)
-                    }
-                }
-
-                //we have to notify the miniDrawer if existing, and if the event was not consumed yet
-                if (!consumed) {
-                    consumed = mMiniDrawer?.onItemClick(item) ?: false
-                }
-
-                //if we were a expandable item we consume the event closing makes no sense
-                if (item.subItems != null) {
-                    //we consume the event and want no further handling
-                    return true
-                }
-
-
+            //if we were a expandable item we consume the event closing makes no sense
+            if (item.subItems.isNotEmpty()) {
+                //we consume the event and want no further handling
+                true
+            } else {
                 if (!consumed) {
                     //close the drawer after click
                     closeDrawerDelayed()
                 }
-
-                return consumed
+                consumed
             }
         }
         // add the onDrawerItemLongClickListener if set
-        adapter.onLongClickListener = object : OnLongClickListener<IDrawerItem<*>> {
-            override fun onLongClick(v: View, adapter: IAdapter<IDrawerItem<*>>, item: IDrawerItem<*>, position: Int): Boolean {
-                return mOnDrawerItemLongClickListener?.onItemLongClick(v, position, item) ?: false
-            }
+        adapter.onLongClickListener = { v: View, _: IAdapter<IDrawerItem<*>>, item: IDrawerItem<*>, position: Int ->
+            mOnDrawerItemLongClickListener?.onItemLongClick(v, position, item) ?: false
         }
 
         mRecyclerView.scrollToPosition(0)
