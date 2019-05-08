@@ -15,7 +15,7 @@ There  is a Header with profiles (**AccountHeader**), a **MiniDrawer** for Table
 ### A quick overview of what's in it 
 - **the easiest possible integration**
 - integrate in less than **5 minutes**
-- depends on androidX
+- **uses the androidX support libraries**
 - compatible down to **API Level 14**
 - includes an **AccountSwitcher**
 - quick and simple api
@@ -24,7 +24,6 @@ There  is a Header with profiles (**AccountHeader**), a **MiniDrawer** for Table
  - **Google Material Design Icons**, Google **Material Community** Design Icons, FontAwesome and more
 - comes with various **themes** which help to get your own themes clean
 - modify the colors on the go
-- **uses the androidX support libraries**
 - comes with multiple default drawer items
 - based on a **RecyclerView**
 - **RTL** support
