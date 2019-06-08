@@ -195,7 +195,7 @@ class DrawerActivity : AppCompatActivity() {
     };
     */
 
-    override fun onSaveInstanceState(_outState: Bundle?) {
+    override fun onSaveInstanceState(_outState: Bundle) {
         var outState = _outState
         //add the values which need to be saved from the drawer to the bundle
         if (::result.isInitialized) {

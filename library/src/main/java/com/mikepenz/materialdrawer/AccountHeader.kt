@@ -319,8 +319,8 @@ class AccountHeader(val accountHeaderBuilder: AccountHeaderBuilder) {
      * @param savedInstanceState
      * @return
      */
-    fun saveInstanceState(savedInstanceState: Bundle?): Bundle? {
-        savedInstanceState?.putInt(BUNDLE_SELECTION_HEADER, accountHeaderBuilder.currentSelection)
+    fun saveInstanceState(savedInstanceState: Bundle): Bundle {
+        savedInstanceState.putInt(BUNDLE_SELECTION_HEADER, accountHeaderBuilder.currentSelection)
         return savedInstanceState
     }
 

@@ -67,7 +67,7 @@ class CollapsingToolbarActivity : AppCompatActivity() {
         floatingActionButton.setImageDrawable(IconicsDrawable(this, GoogleMaterial.Icon.gmd_favorite).actionBar().color(colorInt(Color.WHITE)))
     }
 
-    override fun onSaveInstanceState(_outState: Bundle?) {
+    override fun onSaveInstanceState(_outState: Bundle) {
         var outState = _outState
         //add the values which need to be saved from the drawer to the bundle
         outState = result?.saveInstanceState(outState) ?: outState

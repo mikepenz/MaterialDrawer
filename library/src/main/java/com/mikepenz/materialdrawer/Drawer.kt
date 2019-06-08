@@ -905,22 +905,19 @@ class Drawer(internal val drawerBuilder: DrawerBuilder) {
      * @param savedInstanceState
      * @return
      */
-    fun saveInstanceState(_savedInstanceState: Bundle?): Bundle? {
-        var savedInstanceState = _savedInstanceState
-        if (savedInstanceState != null) {
-            savedInstanceState = if (!drawerBuilder.mAppended) {
-                drawerBuilder.adapter.saveInstanceState(savedInstanceState, BUNDLE_SELECTION)?.apply {
-                    putInt(BUNDLE_STICKY_FOOTER_SELECTION, drawerBuilder.mCurrentStickyFooterSelection)
-                    putBoolean(BUNDLE_DRAWER_CONTENT_SWITCHED, switchedDrawerContent())
-                }
-            } else {
-                drawerBuilder.adapter.saveInstanceState(savedInstanceState, BUNDLE_SELECTION_APPENDED)?.apply {
-                    putInt(BUNDLE_STICKY_FOOTER_SELECTION_APPENDED, drawerBuilder.mCurrentStickyFooterSelection)
-                    putBoolean(BUNDLE_DRAWER_CONTENT_SWITCHED_APPENDED, switchedDrawerContent())
-                }
+    fun saveInstanceState(_savedInstanceState: Bundle): Bundle {
+        if (!drawerBuilder.mAppended) {
+            drawerBuilder.adapter.saveInstanceState(_savedInstanceState, BUNDLE_SELECTION)?.apply {
+                putInt(BUNDLE_STICKY_FOOTER_SELECTION, drawerBuilder.mCurrentStickyFooterSelection)
+                putBoolean(BUNDLE_DRAWER_CONTENT_SWITCHED, switchedDrawerContent())
+            }
+        } else {
+            drawerBuilder.adapter.saveInstanceState(_savedInstanceState, BUNDLE_SELECTION_APPENDED)?.apply {
+                putInt(BUNDLE_STICKY_FOOTER_SELECTION_APPENDED, drawerBuilder.mCurrentStickyFooterSelection)
+                putBoolean(BUNDLE_DRAWER_CONTENT_SWITCHED_APPENDED, switchedDrawerContent())
             }
         }
-        return savedInstanceState
+        return _savedInstanceState
     }
 
 

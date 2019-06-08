@@ -48,7 +48,7 @@ class ActionBarActivity : AppCompatActivity() {
         supportActionBar?.setHomeButtonEnabled(false)
     }
 
-    override fun onSaveInstanceState(_outState: Bundle?) {
+    override fun onSaveInstanceState(_outState: Bundle) {
         //add the values which need to be saved from the drawer to the bundle
         super.onSaveInstanceState(result?.saveInstanceState(_outState) ?: _outState)
     }
