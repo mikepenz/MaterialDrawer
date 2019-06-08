@@ -18,7 +18,7 @@ buildscript {
                 constraintLayout: '1.1.3',
                 kotlin          : "1.3.21",
                 fastadapter     : "4.0.0-rc03",
-                iconics         : "4.0.0-b1"
+                iconics         : "4.0.0"
         ]
     }
 

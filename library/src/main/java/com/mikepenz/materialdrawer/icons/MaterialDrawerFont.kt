@@ -8,17 +8,14 @@ import java.util.*
 /**
  * Created by mikepenz on 01.11.14.
  */
-class MaterialDrawerFont : ITypeface {
-    override val characters: HashMap<String, Char>
-        get() {
-            if (mChars == null) {
-                val aChars = HashMap<String, Char>()
-                Icon.values().associateTo(aChars) { it.name to it.character }
-                mChars = aChars
-            }
+object MaterialDrawerFont : ITypeface {
 
-            return mChars as HashMap<String, Char>
-        }
+    override val fontRes: Int
+        get() = R.font.materialdrawerfont_font_v5_0_0
+
+    override val characters: Map<String, Char> by lazy {
+        Icon.values().associate { it.name to it.character }
+    }
 
     override val mappingPrefix: String
         get() = "mdf"
@@ -32,8 +29,8 @@ class MaterialDrawerFont : ITypeface {
     override val iconCount: Int
         get() = characters.size
 
-    override val icons: Collection<String>
-        get() = Icon.values().map { it.name }.toCollection(LinkedList())
+    override val icons: List<String>
+        get() = characters.keys.toCollection(LinkedList())
 
     override val author: String
         get() = ""
@@ -50,12 +47,7 @@ class MaterialDrawerFont : ITypeface {
     override val licenseUrl: String
         get() = ""
 
-    override val fontRes: Int
-        get() = R.font.materialdrawerfont_font_v5_0_0
-
-    override fun getIcon(key: String): IIcon {
-        return Icon.valueOf(key)
-    }
+    override fun getIcon(key: String): IIcon = Icon.valueOf(key)
 
     enum class Icon constructor(override val character: Char) : IIcon {
         mdf_arrow_drop_down('\ue5c5'),
@@ -64,16 +56,6 @@ class MaterialDrawerFont : ITypeface {
         mdf_expand_more('\ue5cf'),
         mdf_person('\ue7fd');
 
-        override val typeface: ITypeface
-            get() = savedTypeface
-
-        companion object {
-            // remember the typeface so we can use it later
-            private val savedTypeface: ITypeface by lazy { MaterialDrawerFont() }
-        }
-    }
-
-    companion object {
-        private var mChars: HashMap<String, Char>? = null
+        override val typeface: ITypeface by lazy { MaterialDrawerFont }
     }
 }
