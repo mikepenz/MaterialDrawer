@@ -4,6 +4,10 @@
 
 Now library is kotlin-first.
 
+* this release contains a big amount of changes, including many breaking API changes to make its implementation easier, and make the APIs better compatible with kotlin. 
+* please note that the interface for items changed in the `FastAdapter` as such migrating to the new version will require more effort. 
+
+
 * Update `FastAdapter` to v4 and make all relevant adjustments to the provided `DrawerItem`s
   * Check the `FastAdapter` changelog and [migration guide](https://github.com/mikepenz/FastAdapter/blob/develop/MIGRATION.md)
 * Update `Android-Iconics` to v4
