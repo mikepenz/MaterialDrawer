@@ -61,9 +61,10 @@ abstract class BaseDescribeableDrawerItem<T, VH : BaseViewHolder> : BaseDrawerIt
         //get the correct color for the icon
         val iconColor = getIconColor(ctx)
         val selectedIconColor = getSelectedIconColor(ctx)
+        val shapeAppearanceModel = getShapeAppearanceModel(ctx)
 
         //set the background for the item
-        themeDrawerItem(ctx, viewHolder.view, selectedColor, isSelectedBackgroundAnimated)
+        themeDrawerItem(ctx, viewHolder.view, selectedColor, isSelectedBackgroundAnimated, shapeAppearanceModel)
         //set the text for the name
         StringHolder.applyTo(this.name, viewHolder.name)
         //set the text for the description or hide

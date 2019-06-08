@@ -1,24 +1,29 @@
 package com.mikepenz.materialdrawer.model
 
 import android.content.Context
+import android.content.res.ColorStateList
+import android.graphics.Typeface
+import android.util.Pair
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.annotation.CallSuper
+import androidx.annotation.ColorInt
 import androidx.recyclerview.widget.RecyclerView
+import com.google.android.material.shape.ShapeAppearanceModel
 import com.mikepenz.fastadapter.IParentItem
 import com.mikepenz.fastadapter.ISubItem
 import com.mikepenz.materialdrawer.Drawer
 import com.mikepenz.materialdrawer.R
-import com.mikepenz.materialdrawer.model.interfaces.IDrawerItem
-import com.mikepenz.materialdrawer.model.interfaces.OnPostBindViewListener
-import com.mikepenz.materialdrawer.model.interfaces.Selectable
-import com.mikepenz.materialdrawer.model.interfaces.Tagable
+import com.mikepenz.materialdrawer.holder.ColorHolder
+import com.mikepenz.materialdrawer.holder.applyColor
+import com.mikepenz.materialdrawer.model.interfaces.*
+import com.mikepenz.materialdrawer.util.DrawerUIUtils
 
 /**
  * Created by mikepenz on 14.07.15.
  */
-abstract class AbstractDrawerItem<T, VH : RecyclerView.ViewHolder> : IDrawerItem<VH>, Selectable<T>, Tagable<T> {
+abstract class AbstractDrawerItem<T, VH : RecyclerView.ViewHolder> : IDrawerItem<VH>, Selectable<T>, Tagable<T>, Typefaceable<T> {
     // the identifier for this item
     override var identifier: Long = -1
 
@@ -35,6 +40,13 @@ abstract class AbstractDrawerItem<T, VH : RecyclerView.ViewHolder> : IDrawerItem
     var isSelectedBackgroundAnimated = true
     // defines the content descripton of items
     var contentDescription: String? = null
+
+    var selectedColor: ColorHolder? = null
+    var textColor: ColorHolder? = null
+    var selectedTextColor: ColorHolder? = null
+    var disabledTextColor: ColorHolder? = null
+    override var typeface: Typeface? = null
+    var colorStateList: Pair<Int, ColorStateList>? = null
 
     open var onDrawerItemClickListener: Drawer.OnDrawerItemClickListener? = null
 
@@ -95,6 +107,14 @@ abstract class AbstractDrawerItem<T, VH : RecyclerView.ViewHolder> : IDrawerItem
 
     open fun withContentDescription(contentDescription: String?): T {
         this.contentDescription = contentDescription
+        return this as T
+    }
+
+    /**
+     * allows to set the typeface being useable for the item implementation
+     */
+    override fun withTypeface(typeface: Typeface?): T {
+        this.typeface = typeface
         return this as T
     }
 
@@ -302,5 +322,70 @@ abstract class AbstractDrawerItem<T, VH : RecyclerView.ViewHolder> : IDrawerItem
      */
     override fun hashCode(): Int {
         return java.lang.Long.valueOf(identifier).hashCode()
+    }
+
+    /**
+     * helper method to decide for the correct color
+     *
+     * @param ctx
+     * @return
+     */
+    protected fun getSelectedColor(ctx: Context): Int {
+        return if (DrawerUIUtils.getBooleanStyleable(ctx, R.styleable.MaterialDrawer_material_drawer_legacy_style, false)) {
+            selectedColor.applyColor(ctx, R.attr.material_drawer_selected_legacy, R.color.material_drawer_selected_legacy)
+        } else {
+            selectedColor.applyColor(ctx, R.attr.material_drawer_selected, R.color.material_drawer_selected)
+        }
+    }
+
+    /**
+     * helper method to decide for the correct color
+     *
+     * @param ctx
+     * @return
+     */
+    protected open fun getColor(ctx: Context): Int {
+        return if (isEnabled) {
+            textColor.applyColor(ctx, R.attr.material_drawer_primary_text, R.color.material_drawer_primary_text)
+        } else {
+            disabledTextColor.applyColor(ctx, R.attr.material_drawer_hint_text, R.color.material_drawer_hint_text)
+        }
+    }
+
+    /**
+     * helper method to decide for the correct color
+     *
+     * @param ctx
+     * @return
+     */
+    protected fun getSelectedTextColor(ctx: Context): Int {
+        return selectedTextColor.applyColor(ctx, R.attr.material_drawer_selected_text, R.color.material_drawer_selected_text)
+    }
+
+    /**
+     * helper method to decide for the ShapeAppearanceModel used for the drawable's corners
+     *
+     * @param ctx
+     * @return
+     */
+    protected fun getShapeAppearanceModel(ctx: Context): ShapeAppearanceModel {
+        val cornerRadius = ctx.resources.getDimensionPixelSize(R.dimen.material_drawer_item_corner_radius)
+        val shapeAppearanceModel = ShapeAppearanceModel()
+        shapeAppearanceModel.setCornerRadius(cornerRadius.toFloat())
+        return shapeAppearanceModel
+    }
+
+    /**
+     * helper to get the ColorStateList for the text and remembering it so we do not have to recreate it all the time
+     *
+     * @param color
+     * @param selectedTextColor
+     * @return
+     */
+    protected fun getTextColorStateList(@ColorInt color: Int, @ColorInt selectedTextColor: Int): ColorStateList? {
+        if (colorStateList == null || color + selectedTextColor != colorStateList?.first) {
+            colorStateList = Pair(color + selectedTextColor, DrawerUIUtils.getTextColorStateList(color, selectedTextColor))
+        }
+        return colorStateList?.second
     }
 }

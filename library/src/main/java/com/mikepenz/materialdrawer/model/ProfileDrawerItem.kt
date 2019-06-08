@@ -1,12 +1,8 @@
 package com.mikepenz.materialdrawer.model
 
-import android.content.Context
-import android.content.res.ColorStateList
 import android.graphics.Bitmap
-import android.graphics.Typeface
 import android.graphics.drawable.Drawable
 import android.net.Uri
-import android.util.Pair
 import android.view.View
 import android.widget.ImageView
 import android.widget.TextView
@@ -17,29 +13,20 @@ import com.mikepenz.materialdrawer.R
 import com.mikepenz.materialdrawer.holder.ColorHolder
 import com.mikepenz.materialdrawer.holder.ImageHolder
 import com.mikepenz.materialdrawer.holder.StringHolder
-import com.mikepenz.materialdrawer.holder.applyColor
 import com.mikepenz.materialdrawer.model.interfaces.IProfile
 import com.mikepenz.materialdrawer.model.interfaces.Tagable
-import com.mikepenz.materialdrawer.model.interfaces.Typefaceable
 import com.mikepenz.materialdrawer.util.DrawerImageLoader
 import com.mikepenz.materialdrawer.util.DrawerUIUtils
-import com.mikepenz.materialdrawer.util.DrawerUIUtils.getBooleanStyleable
 import com.mikepenz.materialdrawer.util.DrawerUIUtils.themeDrawerItem
 
 /**
  * Created by mikepenz on 03.02.15.
  */
-class ProfileDrawerItem : AbstractDrawerItem<ProfileDrawerItem, ProfileDrawerItem.ViewHolder>(), IProfile<ProfileDrawerItem>, Tagable<ProfileDrawerItem>, Typefaceable<ProfileDrawerItem> {
+class ProfileDrawerItem : AbstractDrawerItem<ProfileDrawerItem, ProfileDrawerItem.ViewHolder>(), IProfile<ProfileDrawerItem>, Tagable<ProfileDrawerItem> {
     override var icon: ImageHolder? = null
     override var name: StringHolder? = null
     override var email: StringHolder? = null
-    override var typeface: Typeface? = null
     var isNameShown = false
-    var selectedColor: ColorHolder? = null
-    var textColor: ColorHolder? = null
-    var selectedTextColor: ColorHolder? = null
-    var disabledTextColor: ColorHolder? = null
-    var colorStateList: Pair<Int, ColorStateList>? = null
 
     override val type: Int
         get() = R.id.material_drawer_item_profile
@@ -150,11 +137,6 @@ class ProfileDrawerItem : AbstractDrawerItem<ProfileDrawerItem, ProfileDrawerIte
         return this
     }
 
-    override fun withTypeface(typeface: Typeface?): ProfileDrawerItem {
-        this.typeface = typeface
-        return this
-    }
-
     override fun bindView(holder: ViewHolder, payloads: MutableList<Any>) {
         super.bindView(holder, payloads)
 
@@ -174,9 +156,10 @@ class ProfileDrawerItem : AbstractDrawerItem<ProfileDrawerItem, ProfileDrawerIte
         //get the correct color for the text
         val color = getColor(ctx)
         val selectedTextColor = getSelectedTextColor(ctx)
+        val shapeAppearanceModel = getShapeAppearanceModel(ctx)
 
         //set the background for the item
-        themeDrawerItem(ctx, holder.view, selectedColor, isSelectedBackgroundAnimated)
+        themeDrawerItem(ctx, holder.view, selectedColor, isSelectedBackgroundAnimated, shapeAppearanceModel)
 
         if (isNameShown) {
             holder.name.visibility = View.VISIBLE
@@ -225,58 +208,5 @@ class ProfileDrawerItem : AbstractDrawerItem<ProfileDrawerItem, ProfileDrawerIte
         internal val name: TextView = view.findViewById(R.id.material_drawer_name)
         internal val email: TextView = view.findViewById(R.id.material_drawer_email)
 
-    }
-
-    /**
-     * helper method to decide for the correct color
-     *
-     * @param ctx
-     * @return
-     */
-    protected fun getSelectedColor(ctx: Context): Int {
-        return if (getBooleanStyleable(ctx, R.styleable.MaterialDrawer_material_drawer_legacy_style, false)) {
-            selectedColor.applyColor(ctx, R.attr.material_drawer_selected_legacy, R.color.material_drawer_selected_legacy)
-        } else {
-            selectedColor.applyColor(ctx, R.attr.material_drawer_selected, R.color.material_drawer_selected)
-        }
-    }
-
-    /**
-     * helper method to decide for the correct color
-     *
-     * @param ctx
-     * @return
-     */
-    protected fun getColor(ctx: Context): Int {
-        return if (isEnabled) {
-            textColor.applyColor(ctx, R.attr.material_drawer_primary_text, R.color.material_drawer_primary_text)
-        } else {
-            disabledTextColor.applyColor(ctx, R.attr.material_drawer_hint_text, R.color.material_drawer_hint_text)
-        }
-    }
-
-    /**
-     * helper method to decide for the correct color
-     *
-     * @param ctx
-     * @return
-     */
-    protected fun getSelectedTextColor(ctx: Context): Int {
-        return selectedTextColor.applyColor(ctx, R.attr.material_drawer_selected_text, R.color.material_drawer_selected_text)
-    }
-
-    /**
-     * helper to get the ColorStateList for the text and remembering it so we do not have to recreate it all the time
-     *
-     * @param color
-     * @param selectedTextColor
-     * @return
-     */
-    protected fun getTextColorStateList(@ColorInt color: Int, @ColorInt selectedTextColor: Int): ColorStateList? {
-        if (colorStateList == null || color + selectedTextColor != colorStateList?.first) {
-            colorStateList = Pair(color + selectedTextColor, DrawerUIUtils.getTextColorStateList(color, selectedTextColor))
-        }
-
-        return colorStateList?.second
     }
 }

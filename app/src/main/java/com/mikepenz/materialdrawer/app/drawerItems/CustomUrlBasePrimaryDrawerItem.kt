@@ -71,9 +71,10 @@ abstract class CustomUrlBasePrimaryDrawerItem<T, VH : RecyclerView.ViewHolder> :
         //get the correct color for the text
         val color = getColor(ctx)
         val selectedTextColor = getSelectedTextColor(ctx)
+        val shapeAppearanceModel = getShapeAppearanceModel(ctx)
 
         //set the background for the item
-        DrawerUIUtils.themeDrawerItem(ctx, viewHolder.view, selectedColor, isSelectedBackgroundAnimated)
+        DrawerUIUtils.themeDrawerItem(ctx, viewHolder.view, selectedColor, isSelectedBackgroundAnimated, shapeAppearanceModel)
         //set the text for the name
         StringHolder.applyTo(this.name, viewHolder.name)
         //set the text for the description or hide

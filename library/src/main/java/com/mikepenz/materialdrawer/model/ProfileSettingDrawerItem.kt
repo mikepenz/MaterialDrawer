@@ -1,6 +1,5 @@
 package com.mikepenz.materialdrawer.model
 
-import android.content.Context
 import android.graphics.Bitmap
 import android.graphics.Typeface
 import android.graphics.drawable.Drawable
@@ -21,7 +20,6 @@ import com.mikepenz.materialdrawer.model.interfaces.IProfile
 import com.mikepenz.materialdrawer.model.interfaces.Tagable
 import com.mikepenz.materialdrawer.model.interfaces.Typefaceable
 import com.mikepenz.materialdrawer.util.DrawerUIUtils
-import com.mikepenz.materialdrawer.util.DrawerUIUtils.getBooleanStyleable
 import com.mikepenz.materialize.util.UIUtils
 
 /**
@@ -33,8 +31,6 @@ class ProfileSettingDrawerItem : AbstractDrawerItem<ProfileSettingDrawerItem, Pr
     override var email: StringHolder? = null
 
     var isIconTinted = false
-    var selectedColor: ColorHolder? = null
-    var textColor: ColorHolder? = null
     var iconColor: ColorHolder? = null
     var descriptionTextColor: ColorHolder? = null
 
@@ -210,20 +206,6 @@ class ProfileSettingDrawerItem : AbstractDrawerItem<ProfileSettingDrawerItem, Pr
 
         //call the onPostBindView method to trigger post bind view actions (like the listener to modify the item if required)
         onPostBindView(this, holder.itemView)
-    }
-
-    /**
-     * helper method to decide for the correct color
-     *
-     * @param ctx
-     * @return
-     */
-    protected fun getSelectedColor(ctx: Context): Int {
-        return if (getBooleanStyleable(ctx, R.styleable.MaterialDrawer_material_drawer_legacy_style, false)) {
-            selectedColor.applyColor(ctx, R.attr.material_drawer_selected_legacy, R.color.material_drawer_selected_legacy)
-        } else {
-            selectedColor.applyColor(ctx, R.attr.material_drawer_selected, R.color.material_drawer_selected)
-        }
     }
 
     override fun getViewHolder(v: View): ViewHolder {

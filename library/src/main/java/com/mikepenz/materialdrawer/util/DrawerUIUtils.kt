@@ -11,6 +11,8 @@ import android.view.View
 import android.view.WindowManager
 import androidx.annotation.StyleableRes
 import androidx.core.view.ViewCompat
+import com.google.android.material.shape.MaterialShapeDrawable
+import com.google.android.material.shape.ShapeAppearanceModel
 import com.mikepenz.iconics.IconicsColor
 import com.mikepenz.iconics.IconicsDrawable
 import com.mikepenz.iconics.IconicsSize
@@ -45,7 +47,7 @@ object DrawerUIUtils {
      * @param selected_color the selected color to use
      * @param animate        true if we want to animate the StateListDrawable
      */
-    fun themeDrawerItem(ctx: Context, view: View, selected_color: Int, animate: Boolean) {
+    fun themeDrawerItem(ctx: Context, view: View, selected_color: Int, animate: Boolean, shapeAppearanceModel: ShapeAppearanceModel) {
         val legacyStyle = getBooleanStyleable(ctx, R.styleable.MaterialDrawer_material_drawer_legacy_style, false)
 
         val selected: Drawable
@@ -57,29 +59,25 @@ object DrawerUIUtils {
             unselected = UIUtils.getSelectableBackground(ctx)
         } else {
             // Material 2.0 styling
-            val cornerRadius = ctx.resources.getDimensionPixelSize(R.dimen.material_drawer_item_corner_radius)
             val paddingTopBottom = ctx.resources.getDimensionPixelSize(R.dimen.material_drawer_item_background_padding_top_bottom)
             val paddingStartEnd = ctx.resources.getDimensionPixelSize(R.dimen.material_drawer_item_background_padding_start_end)
 
             // define normal selected background
-            val gradientDrawable = GradientDrawable()
-            gradientDrawable.setColor(selected_color)
-            gradientDrawable.cornerRadius = cornerRadius.toFloat()
+            val gradientDrawable = MaterialShapeDrawable(shapeAppearanceModel)
+            gradientDrawable.fillColor = ColorStateList.valueOf(selected_color)
             selected = InsetDrawable(gradientDrawable, paddingStartEnd, paddingTopBottom, paddingStartEnd, paddingTopBottom)
 
             if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
                 // define mask for ripple
-                val gradientMask = GradientDrawable()
-                gradientMask.setColor(Color.BLACK)
-                gradientMask.cornerRadius = cornerRadius.toFloat()
+                val gradientMask = MaterialShapeDrawable(shapeAppearanceModel)
+                gradientMask.fillColor = ColorStateList.valueOf(Color.BLACK)
                 val mask = InsetDrawable(gradientMask, paddingStartEnd, paddingTopBottom, paddingStartEnd, paddingTopBottom)
 
                 unselected = RippleDrawable(ColorStateList(arrayOf(intArrayOf()), intArrayOf(UIUtils.getThemeColor(ctx, R.attr.colorControlHighlight))), null, mask)
             } else {
                 // define touch drawable
-                val touchDrawable = GradientDrawable()
-                touchDrawable.setColor(UIUtils.getThemeColor(ctx, R.attr.colorControlHighlight))
-                touchDrawable.cornerRadius = cornerRadius.toFloat()
+                val touchDrawable = MaterialShapeDrawable(shapeAppearanceModel)
+                touchDrawable.fillColor = ColorStateList.valueOf(UIUtils.getThemeColor(ctx, R.attr.colorControlHighlight))
                 val touchInsetDrawable = InsetDrawable(touchDrawable, paddingStartEnd, paddingTopBottom, paddingStartEnd, paddingTopBottom)
 
                 val unselectedStates = StateListDrawable()

@@ -20,9 +20,7 @@ import com.mikepenz.materialize.util.UIUtils
 class SectionDrawerItem : AbstractDrawerItem<SectionDrawerItem, SectionDrawerItem.ViewHolder>(), Nameable<SectionDrawerItem>, Typefaceable<SectionDrawerItem> {
 
     var divider = true
-    var textColor: ColorHolder? = null
     override var name: StringHolder? = null
-    override var typeface: Typeface? = null
     override var isEnabled: Boolean = false
     override var isSelected: Boolean = false
 

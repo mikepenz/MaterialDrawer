@@ -1,18 +1,13 @@
 package com.mikepenz.materialdrawer.model
 
 import android.content.Context
-import android.content.res.ColorStateList
-import android.graphics.Typeface
 import android.graphics.drawable.Drawable
 import android.os.Build
-import android.util.Pair
-
 import androidx.annotation.ColorInt
 import androidx.annotation.ColorRes
 import androidx.annotation.DrawableRes
 import androidx.annotation.StringRes
 import androidx.recyclerview.widget.RecyclerView
-
 import com.mikepenz.iconics.typeface.IIcon
 import com.mikepenz.materialdrawer.R
 import com.mikepenz.materialdrawer.holder.ColorHolder
@@ -22,28 +17,18 @@ import com.mikepenz.materialdrawer.holder.applyColor
 import com.mikepenz.materialdrawer.model.interfaces.Iconable
 import com.mikepenz.materialdrawer.model.interfaces.Nameable
 import com.mikepenz.materialdrawer.model.interfaces.Tagable
-import com.mikepenz.materialdrawer.model.interfaces.Typefaceable
-import com.mikepenz.materialdrawer.util.DrawerUIUtils
-
-import com.mikepenz.materialdrawer.util.DrawerUIUtils.getBooleanStyleable
 
 /**
  * Created by mikepenz on 03.02.15.
  */
-abstract class BaseDrawerItem<T, VH : RecyclerView.ViewHolder> : AbstractDrawerItem<T, VH>(), Nameable<T>, Iconable<T>, Tagable<T>, Typefaceable<T> {
+abstract class BaseDrawerItem<T, VH : RecyclerView.ViewHolder> : AbstractDrawerItem<T, VH>(), Nameable<T>, Iconable<T>, Tagable<T> {
     override var icon: ImageHolder? = null
     var selectedIcon: ImageHolder? = null
     override var name: StringHolder? = null
     var isIconTinted = false
-    var selectedColor: ColorHolder? = null
-    var textColor: ColorHolder? = null
-    var selectedTextColor: ColorHolder? = null
-    var disabledTextColor: ColorHolder? = null
     var iconColor: ColorHolder? = null
     var selectedIconColor: ColorHolder? = null
     var disabledIconColor: ColorHolder? = null
-    override var typeface: Typeface? = null
-    var colorStateList: Pair<Int, ColorStateList>? = null
 
     var level = 1
         protected set
@@ -204,52 +189,9 @@ abstract class BaseDrawerItem<T, VH : RecyclerView.ViewHolder> : AbstractDrawerI
         return withIconTintingEnabled(iconTinted)
     }
 
-    override fun withTypeface(typeface: Typeface?): T {
-        this.typeface = typeface
-        return this as T
-    }
-
     fun withLevel(level: Int): T {
         this.level = level
         return this as T
-    }
-
-    /**
-     * helper method to decide for the correct color
-     *
-     * @param ctx
-     * @return
-     */
-    protected fun getSelectedColor(ctx: Context): Int {
-        return if (getBooleanStyleable(ctx, R.styleable.MaterialDrawer_material_drawer_legacy_style, false)) {
-            selectedColor.applyColor(ctx, R.attr.material_drawer_selected_legacy, R.color.material_drawer_selected_legacy)
-        } else {
-            selectedColor.applyColor(ctx, R.attr.material_drawer_selected, R.color.material_drawer_selected)
-        }
-    }
-
-    /**
-     * helper method to decide for the correct color
-     *
-     * @param ctx
-     * @return
-     */
-    protected open fun getColor(ctx: Context): Int {
-        return if (isEnabled) {
-            textColor.applyColor(ctx, R.attr.material_drawer_primary_text, R.color.material_drawer_primary_text)
-        } else {
-            disabledTextColor.applyColor(ctx, R.attr.material_drawer_hint_text, R.color.material_drawer_hint_text)
-        }
-    }
-
-    /**
-     * helper method to decide for the correct color
-     *
-     * @param ctx
-     * @return
-     */
-    protected fun getSelectedTextColor(ctx: Context): Int {
-        return selectedTextColor.applyColor(ctx, R.attr.material_drawer_selected_text, R.color.material_drawer_selected_text)
     }
 
     /**
@@ -274,19 +216,5 @@ abstract class BaseDrawerItem<T, VH : RecyclerView.ViewHolder> : AbstractDrawerI
      */
     protected fun getSelectedIconColor(ctx: Context): Int {
         return selectedIconColor.applyColor(ctx, R.attr.material_drawer_selected_text, R.color.material_drawer_selected_text)
-    }
-
-    /**
-     * helper to get the ColorStateList for the text and remembering it so we do not have to recreate it all the time
-     *
-     * @param color
-     * @param selectedTextColor
-     * @return
-     */
-    protected fun getTextColorStateList(@ColorInt color: Int, @ColorInt selectedTextColor: Int): ColorStateList? {
-        if (colorStateList == null || color + selectedTextColor != colorStateList?.first) {
-            colorStateList = Pair(color + selectedTextColor, DrawerUIUtils.getTextColorStateList(color, selectedTextColor))
-        }
-        return colorStateList?.second
     }
 }
