@@ -56,10 +56,10 @@ You can find some frequently asked questions and other resources in the [WIKI / 
 implementation "com.mikepenz:materialdrawer:7.0.0-beta01"
 
 //required support lib modules
-implementation "androidx.appcompat:appcompat:${versions.androidX}"
-implementation "androidx.recyclerview:recyclerview:${versions.androidX}"
-implementation "androidx.annotation:annotation:${versions.androidX}"
-implementation "com.google.android.material:material:${versions.androidX}"
+implementation "androidx.appcompat:appcompat:${versions.appcompat}"
+implementation "androidx.recyclerview:recyclerview:${versions.recyclerView}"
+implementation "androidx.annotation:annotation:${versions.annotation}"
+implementation "com.google.android.material:material:${versions.material}"
 implementation "androidx.constraintlayout:constraintlayout:${versions.constraintLayout}"
 ```
 
