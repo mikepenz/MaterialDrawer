@@ -920,6 +920,20 @@ class Drawer(internal val drawerBuilder: DrawerBuilder) {
         return _savedInstanceState
     }
 
+    /**
+     * Call this helper method on the onBackPressed method of the activity.
+     * Returns true if the drawer was open and it closed with the call.
+     * Returns false if the drawer was already closed and can continue with the default activity behavior.
+     *
+     * @return true if acted, false if not acted
+     */
+    fun onBackPressed(): Boolean {
+        if (isDrawerOpen) {
+            closeDrawer()
+            return true
+        }
+        return false
+    }
 
     interface OnDrawerNavigationListener {
         /**
