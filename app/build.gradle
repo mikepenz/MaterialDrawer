@@ -18,6 +18,8 @@ android {
         versionCode release.versionCode
         versionName release.versionName
 
+        multiDexEnabled true
+
         setProperty("archivesBaseName", "MaterialDrawer-v$versionName-c$versionCode")
     }
     buildTypes {
