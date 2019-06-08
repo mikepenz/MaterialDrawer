@@ -2,4 +2,5 @@
 <resources>
     <string name="material_drawer_open">Open</string>
     <string name="material_drawer_close">Close</string>
+    <string name="material_drawer_profile_content_description">Profile icon</string>
 </resources>

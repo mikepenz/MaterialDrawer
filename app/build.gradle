@@ -1,4 +1,7 @@
 apply plugin: 'com.android.application'
+apply plugin: 'kotlin-android-extensions'
+apply plugin: 'kotlin-android'
+apply plugin: 'kotlin-kapt'
 //wrap with try and catch so the build is working even if the signing stuff is missing
 try {
     apply from: '../../../signing.gradle'
@@ -14,6 +17,8 @@ android {
         targetSdkVersion setup.targetSdk
         versionCode release.versionCode
         versionName release.versionName
+
+        multiDexEnabled true
 
         setProperty("archivesBaseName", "MaterialDrawer-v$versionName-c$versionCode")
     }
@@ -39,32 +44,37 @@ android {
     lintOptions {
         abortOnError false
     }
+
+    packagingOptions {
+        exclude 'META-INF/library-core_release.kotlin_module'
+        exclude 'META-INF/library_release.kotlin_module'
+    }
 }
 
 dependencies {
     implementation project(':library')
 
-    implementation "com.google.android.material:material:${versions.androidX}"
-    implementation "androidx.appcompat:appcompat:${versions.androidX}"
-    implementation "androidx.recyclerview:recyclerview:${versions.androidX}"
-    implementation "androidx.cardview:cardview:${versions.androidX}"
+    implementation "com.google.android.material:material:${versions.material}"
+    implementation "androidx.appcompat:appcompat:${versions.appcompat}"
+    implementation "androidx.recyclerview:recyclerview:${versions.recyclerView}"
+    implementation "androidx.cardview:cardview:${versions.cardview}"
     implementation "androidx.constraintlayout:constraintlayout:${versions.constraintLayout}"
 
     // used to showcase how to load images
     implementation 'com.squareup.picasso:picasso:2.71828'
     implementation 'com.github.bumptech.glide:glide:4.8.0'
-    annotationProcessor 'com.github.bumptech.glide:compiler:4.8.0'
+    kapt 'com.github.bumptech.glide:compiler:4.8.0'
 
     // needed to fix glide androidX support
-    implementation "com.android.support:support-annotations:28.0.0-alpha3"
-    annotationProcessor 'com.android.support:support-annotations:28.0.0-alpha3'
+    implementation "com.android.support:support-annotations:28.0.0"
+    annotationProcessor 'com.android.support:support-annotations:28.0.0'
 
     // the sample uses more advanced functions of the fastadapter
     // https://github.com/mikepenz/FastAdapter/
-    implementation 'com.mikepenz:fastadapter-commons:3.3.0'
+    implementation "com.mikepenz:fastadapter-extensions-utils:${versions.fastadapter}"
     // used to generate the Open Source section
     // https://github.com/mikepenz/AboutLibraries
-    implementation 'com.mikepenz:aboutlibraries:6.2.0'
+    implementation 'com.mikepenz:aboutlibraries:7.0.0-rc1'
 
     //used to provide different itemAnimators for the RecyclerView
     //https://github.com/mikepenz/ItemAnimators
@@ -80,18 +90,15 @@ dependencies {
 
     // icon fonts used inside the sample
     // https://github.com/mikepenz/Android-Iconics
-    implementation 'com.mikepenz:google-material-typeface:3.0.1.1.original@aar'
-    implementation 'com.mikepenz:fontawesome-typeface:5.0.6.0@aar'
-    implementation 'com.mikepenz:octicons-typeface:3.0.0.1@aar'
+    implementation 'com.mikepenz:google-material-typeface:3.0.1.4.original-kotlin@aar'
+    implementation 'com.mikepenz:fontawesome-typeface:5.3.1.2-kotlin@aar'
+    implementation 'com.mikepenz:octicons-typeface:3.2.0.6-kotlin@aar'
+
+    // kotlin
+    implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk7:${versions.kotlin}"
 }
 
 configurations.all {
-    resolutionStrategy.force "com.mikepenz:iconics-core:3.1.0"
-    resolutionStrategy.force "com.mikepenz:fastadapter:3.3.0"
-    resolutionStrategy.force "com.android.support:support-v4:${versions.androidX}"
-    resolutionStrategy.force "com.android.support:appcompat-v7:${versions.androidX}"
-    resolutionStrategy.force "com.android.support:cardview-v7:${versions.androidX}"
-    resolutionStrategy.force "com.android.support:recyclerview-v7:${versions.androidX}"
-    resolutionStrategy.force "com.android.support:design:${versions.androidX}"
-    resolutionStrategy.force "com.android.support:support-annotations:${versions.androidX}"
+    resolutionStrategy.force "com.mikepenz:iconics-core:${versions.iconics}"
+    resolutionStrategy.force "com.mikepenz:fastadapter:${versions.fastadapter}"
 }
