@@ -70,8 +70,8 @@ implementation "androidx.constraintlayout:constraintlayout:${versions.constraint
 To use appcompat please use a version smaller than 6.1.0. (See the releases on GitHub)
 
 ## 2. Add your drawer
-```java
-new DrawerBuilder().withActivity(this).build();
+```kotlin
+DrawerBuilder().withActivity(this).build()
 ```
 
 Great. Your drawer is now ready to use.
@@ -80,96 +80,94 @@ Great. Your drawer is now ready to use.
 # Additional Setup
 ## Add items and adding some functionality
 
-```java
+```kotlin
 //if you want to update the items at a later time it is recommended to keep it in a variable
-PrimaryDrawerItem item1 = new PrimaryDrawerItem().withIdentifier(1).withName(R.string.drawer_item_home);
-SecondaryDrawerItem item2 = new SecondaryDrawerItem().withIdentifier(2).withName(R.string.drawer_item_settings);
+val item1 = PrimaryDrawerItem().withIdentifier(1).withName(R.string.drawer_item_home)
+val item2 = SecondaryDrawerItem().withIdentifier(2).withName(R.string.drawer_item_settings)
 
 //create the drawer and remember the `Drawer` result object
-Drawer result = new DrawerBuilder()
+val result = DrawerBuilder()
     .withActivity(this)
     .withToolbar(toolbar)
     .addDrawerItems(
 	    item1,
-	    new DividerDrawerItem(),
+	    DividerDrawerItem(),
 	    item2,
-	    new SecondaryDrawerItem().withName(R.string.drawer_item_settings)
+	    SecondaryDrawerItem().withName(R.string.drawer_item_settings)
     )
-    .withOnDrawerItemClickListener(new Drawer.OnDrawerItemClickListener() {
-        @Override
-        public boolean onItemClick(View view, int position, IDrawerItem drawerItem) {
+    .withOnDrawerItemClickListener(object : Drawer.OnDrawerItemClickListener {
+        override fun onItemClick(view: View?, position: Int, drawerItem: IDrawerItem<*>): Boolean {
     	    // do something with the clicked item :D
+            return false
         }
     })
-    .build();
+    .build()
 ```
 
 ## Selecting an item
-```java
+```kotlin
 //set the selection to the item with the identifier 1
-result.setSelection(1);
+result.setSelection(1)
 //set the selection to the item with the identifier 2
-result.setSelection(item2);
+result.setSelection(item2)
 //set the selection and also fire the `onItemClick`-listener
-result.setSelection(1, true);
+result.setSelection(1, true)
 ```
 
 By default, when a drawer item is clicked, it becomes the new selected item. If this isn't the expected behavior,
 you can disable it for this item using `withSelectable(false)`:
-```java
-new SecondaryDrawerItem().withName(R.string.drawer_item_dialog).withSelectable(false)
+```kotlin
+SecondaryDrawerItem().withName(R.string.drawer_item_dialog).withSelectable(false)
 ```
 
 ## Modify items or the drawer
 
-```java
+```kotlin
 //modify an item of the drawer
-item1.withName("A new name for this drawerItem").withBadge("19").withBadgeStyle(new BadgeStyle().withTextColor(Color.WHITE).withColorRes(R.color.md_red_700));
+item1.withName("A new name for this drawerItem").withBadge("19").withBadgeStyle(new BadgeStyle().withTextColor(Color.WHITE).withColorRes(R.color.md_red_700))
 //notify the drawer about the updated element. it will take care about everything else
-result.updateItem(item1);
+result.updateItem(item1)
 
 //to update only the name, badge, icon you can also use one of the quick methods
-result.updateName(1, "A new name");
+result.updateName(1, "A new name")
 
 //the result object also allows you to add new items, remove items, add footer, sticky footer, ..
-result.addItem(new DividerDrawerItem());
-result.addStickyFooterItem(new PrimaryDrawerItem().withName("StickyFooterItem"));
+result.addItem(DividerDrawerItem())
+result.addStickyFooterItem(PrimaryDrawerItem().withName("StickyFooterItem"))
 
 //remove items with an identifier
-result.removeItem(2);
+result.removeItem(2)
 
 //open / close the drawer
-result.openDrawer();
-result.closeDrawer();
+result.openDrawer()
+result.closeDrawer()
 
 //get the reference to the `DrawerLayout` itself
-result.getDrawerLayout();
+result.getDrawerLayout()
 ```
 
 ## Add profiles and an AccountHeader
-```java
+```kotlin
 // Create the AccountHeader
-AccountHeader headerResult = new AccountHeaderBuilder()
+val headerResult = AccountHeaderBuilder()
 	.withActivity(this)
     .withHeaderBackground(R.drawable.header)
 	.addProfiles(
-		new ProfileDrawerItem().withName("Mike Penz").withEmail("mikepenz@gmail.com").withIcon(getResources().getDrawable(R.drawable.profile))
+		ProfileDrawerItem().withName("Mike Penz").withEmail("mikepenz@gmail.com").withIcon(getResources().getDrawable(R.drawable.profile))
 	)
-    .withOnAccountHeaderListener(new AccountHeader.OnAccountHeaderListener() {
-		@Override
-		public boolean onProfileChanged(View view, IProfile profile, boolean currentProfile) {
-		    return false;
-		}
-	})
-	.build();
+	.withOnAccountHeaderListener(object : AccountHeader.OnAccountHeaderListener {
+        override fun onProfileChanged(view: View?, profile: IProfile<*>, current: Boolean): Boolean {
+            return false
+        }
+    })
+	.build()
 
 //Now create your drawer and pass the AccountHeader.Result
-new DrawerBuilder()
+DrawerBuilder()
     .withAccountHeader(headerResult)
     //additional Drawer setup as shown above
     ...
-    .build();
-
+    .build()
 ```
 
 ## Use the included icon font
@@ -182,46 +180,47 @@ compile 'com.mikepenz:google-material-typeface:x.y.z@aar' //Google Material Icon
 compile 'com.mikepenz:fontawesome-typeface:x.y.z@aar'     //FontAwesome
 ```
 
-**java**
-```java
+**kotlin**
+
+```kotlin
 //now you can simply use any icon of the Google Material Icons font
-new PrimaryDrawerItem().withIcon(GoogleMaterial.Icon.gmd_wb_sunny)
+PrimaryDrawerItem().withIcon(GoogleMaterial.Icon.gmd_wb_sunny)
 //Or an icon from FontAwesome
-new SecondaryDrawerItem().withIcon(FontAwesome.Icon.faw_github)
+SecondaryDrawerItem().withIcon(FontAwesome.Icon.faw_github)
 ```
 
 # Advanced Setup
 ## Activity with ActionBar
 ### Code:
-```java
-new DrawerBuilder()
+```kotlin
+DrawerBuilder()
 	.withActivity(this)
 	.withTranslucentStatusBar(false)
     .withActionBarDrawerToggle(false)
 	.addDrawerItems(
 		//pass your items here
 	)
-	.build();
+	.build()
 ```
 
 ## Activity with Multiple Drawers
 ### Code:
-```java
-Drawer result = new DrawerBuilder()
+```kotlin
+val result = DrawerBuilder()
 	.withActivity(this)
 	.withToolbar(toolbar)
 	.addDrawerItems(
 		//pass your items here
 	)
-	.build();
+	.build()
 
-new DrawerBuilder()
+DrawerBuilder()
 	.withActivity(this)
     .addDrawerItems(
     	//pass your items here
     )
     .withDrawerGravity(Gravity.END)
-    .append(result);
+    .append(result)
 ```
 
 ## Load images via url
@@ -231,31 +230,31 @@ the dev can choose his own implementation (Picasso, Glide, ...). This has to be 
 * [SAMPLE](https://github.com/mikepenz/MaterialDrawer/blob/develop/app/src/main/java/com/mikepenz/materialdrawer/app/CustomApplication.java) using [GLIDE](https://github.com/bumptech/glide)
 
 ### Code:
-```java
+```kotlin
 //initialize and create the image loader logic
-DrawerImageLoader.init(new AbstractDrawerImageLoader() {
-    @Override
-    public void set(ImageView imageView, Uri uri, Drawable placeholder) {
-        Picasso.get().load(uri).placeholder(placeholder).into(imageView);
+DrawerImageLoader.init(object : AbstractDrawerImageLoader() {
+    override fun set(imageView: ImageView, uri: Uri, placeholder: Drawable) {
+        Picasso.get().load(uri).placeholder(placeholder).into(imageView)
     }
 
-    @Override
-    public void cancel(ImageView imageView) {
-        Picasso.get().cancelRequest(imageView);
+    override fun cancel(imageView: ImageView) {
+        Picasso.get().cancelRequest(imageView)
     }
-
+    
     /*
-    @Override
-    public Drawable placeholder(Context ctx) {
-        return super.placeholder(ctx);
+    override fun set(imageView: ImageView, uri: Uri, placeholder: Drawable, tag: String?) {
+        super.set(imageView, uri, placeholder, tag)
     }
 
-    @Override
-    public Drawable placeholder(Context ctx, String tag) {
-        return super.placeholder(ctx, tag);
+    override fun placeholder(ctx: Context): Drawable {
+        return super.placeholder(ctx)
+    }
+
+    override fun placeholder(ctx: Context, tag: String?): Drawable {
+        return super.placeholder(ctx, tag)
     }
     */
-});
+})
 ```
 
 An implementation with [GLIDE v4](https://github.com/mikepenz/MaterialDrawer/blob/develop/app/src/main/java/com/mikepenz/materialdrawer/app/CustomApplication.java#L42) (See tag v6.1.1 for glide v3 sample) can be found in the sample application
@@ -265,12 +264,12 @@ An implementation with [GLIDE v4](https://github.com/mikepenz/MaterialDrawer/blo
 If you use the included ActionBarDrawerToggle you can switch between back-arrow or hamburger-icon
 with the following code snippet. (Please note that the order of these lines matter)
 ### Code - Show the back arrow:
-```java
+```kotlin
 result.getActionBarDrawerToggle().setDrawerIndicatorEnabled(false);
 getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 ```
 ### Code - Show the hamburger icon:
-```java
+```kotlin
 getSupportActionBar().setDisplayHomeAsUpEnabled(false);
 result.getActionBarDrawerToggle().setDrawerIndicatorEnabled(true);
 ```

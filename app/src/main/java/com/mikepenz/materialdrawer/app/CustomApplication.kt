@@ -12,6 +12,7 @@ import com.mikepenz.iconics.IconicsSize.Companion.dp
 import com.mikepenz.materialdrawer.util.AbstractDrawerImageLoader
 import com.mikepenz.materialdrawer.util.DrawerImageLoader
 import com.mikepenz.materialdrawer.util.DrawerUIUtils
+import com.squareup.picasso.Picasso
 
 /**
  * Created by mikepenz on 27.03.15.
@@ -22,17 +23,15 @@ class CustomApplication : Application() {
 
         //initialize and create the image loader logic
         /*
-        DrawerImageLoader.init(new AbstractDrawerImageLoader() {
-            @Override
-            public void set(ImageView imageView, Uri uri, Drawable placeholder) {
-                Picasso.get().load(uri).placeholder(placeholder).into(imageView);
+        DrawerImageLoader.init(object : AbstractDrawerImageLoader() {
+            override fun set(imageView: ImageView, uri: Uri, placeholder: Drawable) {
+                Picasso.get().load(uri).placeholder(placeholder).into(imageView)
             }
 
-            @Override
-            public void cancel(ImageView imageView) {
-                Picasso.get().cancelRequest(imageView);
+            override fun cancel(imageView: ImageView) {
+                Picasso.get().cancelRequest(imageView)
             }
-        });
+        })
         */
 
         //initialize and create the image loader logic
