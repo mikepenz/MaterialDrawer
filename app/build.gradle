@@ -54,10 +54,10 @@ android {
 dependencies {
     implementation project(':library')
 
-    implementation "com.google.android.material:material:${versions.androidX}"
-    implementation "androidx.appcompat:appcompat:${versions.androidX}"
-    implementation "androidx.recyclerview:recyclerview:${versions.androidX}"
-    implementation "androidx.cardview:cardview:${versions.androidX}"
+    implementation "com.google.android.material:material:${versions.material}"
+    implementation "androidx.appcompat:appcompat:${versions.appcompat}"
+    implementation "androidx.recyclerview:recyclerview:${versions.recyclerView}"
+    implementation "androidx.cardview:cardview:${versions.cardview}"
     implementation "androidx.constraintlayout:constraintlayout:${versions.constraintLayout}"
 
     // used to showcase how to load images
@@ -101,10 +101,4 @@ dependencies {
 configurations.all {
     resolutionStrategy.force "com.mikepenz:iconics-core:${versions.iconics}"
     resolutionStrategy.force "com.mikepenz:fastadapter:${versions.fastadapter}"
-    resolutionStrategy.force "com.android.support:support-v4:${versions.androidX}"
-    resolutionStrategy.force "com.android.support:appcompat-v7:${versions.androidX}"
-    resolutionStrategy.force "com.android.support:cardview-v7:${versions.androidX}"
-    resolutionStrategy.force "com.android.support:recyclerview-v7:${versions.androidX}"
-    resolutionStrategy.force "com.android.support:design:${versions.androidX}"
-    resolutionStrategy.force "com.android.support:support-annotations:${versions.androidX}"
 }
