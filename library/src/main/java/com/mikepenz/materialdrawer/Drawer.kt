@@ -1001,56 +1001,23 @@ class Drawer(internal val drawerBuilder: DrawerBuilder) {
         /**
          * BUNDLE param to store the selection
          */
-        val BUNDLE_SELECTION = "_selection"
-        val BUNDLE_SELECTION_APPENDED = "_selection_appended"
-        val BUNDLE_STICKY_FOOTER_SELECTION = "bundle_sticky_footer_selection"
-        val BUNDLE_STICKY_FOOTER_SELECTION_APPENDED = "bundle_sticky_footer_selection_appended"
-        val BUNDLE_DRAWER_CONTENT_SWITCHED = "bundle_drawer_content_switched"
-        val BUNDLE_DRAWER_CONTENT_SWITCHED_APPENDED = "bundle_drawer_content_switched_appended"
+        const val BUNDLE_SELECTION = "_selection"
+        const val BUNDLE_SELECTION_APPENDED = "_selection_appended"
+        const val BUNDLE_STICKY_FOOTER_SELECTION = "bundle_sticky_footer_selection"
+        const val BUNDLE_STICKY_FOOTER_SELECTION_APPENDED = "bundle_sticky_footer_selection_appended"
+        const val BUNDLE_DRAWER_CONTENT_SWITCHED = "bundle_drawer_content_switched"
+        const val BUNDLE_DRAWER_CONTENT_SWITCHED_APPENDED = "bundle_drawer_content_switched_appended"
 
         /**
          * Per the design guidelines, you should show the drawer on launch until the user manually
          * expands it. This shared preference tracks this.
          */
-        val PREF_USER_LEARNED_DRAWER = "navigation_drawer_learned"
+        const val PREF_USER_LEARNED_DRAWER = "navigation_drawer_learned"
 
         /**
          * Per the design guidelines, you should show the drawer on launch until the user manually
          * expands it. This shared preference tracks this.
          */
-        val PREF_USER_OPENED_DRAWER_BY_DRAGGING = "navigation_drawer_dragged_open"
+        const val PREF_USER_OPENED_DRAWER_BY_DRAGGING = "navigation_drawer_dragged_open"
     }
 }
-/**
- * Sets the toolbar which should be used in combination with the drawer
- * This will handle the ActionBarDrawerToggle for you.
- * Do not set this if you are in a sub activity and want to handle the back arrow on your own
- *
- * @param activity
- * @param toolbar  the toolbar which is used in combination with the drawer
- */
-/**
- * method to replace a previous set header
- *
- * @param view
- * @param padding
- * @param divider
- */
-/**
- * set the current selection in the drawer
- * NOTE: This will trigger onDrawerItemSelected without a view!
- *
- * @param identifier the identifier to search for
- */
-/**
- * set the current selection in the drawer
- * NOTE: This will trigger onDrawerItemSelected without a view!
- *
- * @param position the position to select
- */
-/**
- * set the current selection in the footer of the drawer
- * NOTE: This will trigger onDrawerItemSelected without a view!
- *
- * @param position the position to select
- */
