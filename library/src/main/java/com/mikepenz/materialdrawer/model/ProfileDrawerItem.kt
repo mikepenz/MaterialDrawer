@@ -22,7 +22,7 @@ import com.mikepenz.materialdrawer.util.DrawerUIUtils.themeDrawerItem
 /**
  * Created by mikepenz on 03.02.15.
  */
-class ProfileDrawerItem : AbstractDrawerItem<ProfileDrawerItem, ProfileDrawerItem.ViewHolder>(), IProfile<ProfileDrawerItem>, Tagable<ProfileDrawerItem> {
+open class ProfileDrawerItem : AbstractDrawerItem<ProfileDrawerItem, ProfileDrawerItem.ViewHolder>(), IProfile<ProfileDrawerItem>, Tagable<ProfileDrawerItem> {
     override var icon: ImageHolder? = null
     override var name: StringHolder? = null
     override var email: StringHolder? = null
@@ -203,10 +203,9 @@ class ProfileDrawerItem : AbstractDrawerItem<ProfileDrawerItem, ProfileDrawerIte
         return ViewHolder(v)
     }
 
-    class ViewHolder internal constructor(internal val view: View) : RecyclerView.ViewHolder(view) {
+    open class ViewHolder internal constructor(internal val view: View) : RecyclerView.ViewHolder(view) {
         internal val profileIcon: ImageView = view.findViewById(R.id.material_drawer_profileIcon)
         internal val name: TextView = view.findViewById(R.id.material_drawer_name)
         internal val email: TextView = view.findViewById(R.id.material_drawer_email)
-
     }
 }

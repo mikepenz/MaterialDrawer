@@ -10,7 +10,7 @@ import com.mikepenz.materialize.util.UIUtils
 /**
  * Created by mikepenz on 03.02.15.
  */
-class DividerDrawerItem : AbstractDrawerItem<DividerDrawerItem, DividerDrawerItem.ViewHolder>() {
+open class DividerDrawerItem : AbstractDrawerItem<DividerDrawerItem, DividerDrawerItem.ViewHolder>() {
     override val type: Int
         get() = R.id.material_drawer_item_divider
 

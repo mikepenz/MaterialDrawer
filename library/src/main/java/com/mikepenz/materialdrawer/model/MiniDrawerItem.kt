@@ -16,7 +16,7 @@ import com.mikepenz.materialdrawer.util.DrawerUIUtils.themeDrawerItem
 /**
  * Created by mikepenz on 03.02.15.
  */
-class MiniDrawerItem : BaseDrawerItem<MiniDrawerItem, MiniDrawerItem.ViewHolder> {
+open class MiniDrawerItem : BaseDrawerItem<MiniDrawerItem, MiniDrawerItem.ViewHolder> {
     var mBadge: StringHolder? = null
     var mBadgeStyle: BadgeStyle? = BadgeStyle()
     var mEnableSelectedBackground = false

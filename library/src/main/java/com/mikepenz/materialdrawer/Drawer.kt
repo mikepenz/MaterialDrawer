@@ -29,7 +29,7 @@ import com.mikepenz.materialize.view.ScrimInsetsRelativeLayout
 /**
  * Created by mikepenz on 03.02.15.
  */
-class Drawer(internal val drawerBuilder: DrawerBuilder) {
+open class Drawer(internal val drawerBuilder: DrawerBuilder) {
     private var mContentView: FrameLayout? = null
 
     /**

@@ -31,7 +31,7 @@ import java.util.*
 /**
  * Created by mikepenz on 23.05.15.
  */
-class AccountHeaderBuilder {
+open class AccountHeaderBuilder {
     // global references to views we need later
     internal lateinit var statusBarGuideline: Guideline
     internal lateinit var accountHeader: View

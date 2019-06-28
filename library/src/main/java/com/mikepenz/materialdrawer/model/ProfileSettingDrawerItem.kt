@@ -25,7 +25,7 @@ import com.mikepenz.materialize.util.UIUtils
 /**
  * Created by mikepenz on 03.02.15.
  */
-class ProfileSettingDrawerItem : AbstractDrawerItem<ProfileSettingDrawerItem, ProfileSettingDrawerItem.ViewHolder>(), IProfile<ProfileSettingDrawerItem>, Tagable<ProfileSettingDrawerItem>, Typefaceable<ProfileSettingDrawerItem> {
+open class ProfileSettingDrawerItem : AbstractDrawerItem<ProfileSettingDrawerItem, ProfileSettingDrawerItem.ViewHolder>(), IProfile<ProfileSettingDrawerItem>, Tagable<ProfileSettingDrawerItem>, Typefaceable<ProfileSettingDrawerItem> {
     override var icon: ImageHolder? = null
     override var name: StringHolder? = null
     override var email: StringHolder? = null
@@ -212,7 +212,7 @@ class ProfileSettingDrawerItem : AbstractDrawerItem<ProfileSettingDrawerItem, Pr
         return ViewHolder(v)
     }
 
-    class ViewHolder internal constructor(internal val view: View) : RecyclerView.ViewHolder(view) {
+    open class ViewHolder internal constructor(internal val view: View) : RecyclerView.ViewHolder(view) {
         internal val icon: ImageView = view.findViewById<View>(R.id.material_drawer_icon) as ImageView
         internal val name: TextView = view.findViewById<View>(R.id.material_drawer_name) as TextView
         internal val description: TextView = view.findViewById<View>(R.id.material_drawer_description) as TextView

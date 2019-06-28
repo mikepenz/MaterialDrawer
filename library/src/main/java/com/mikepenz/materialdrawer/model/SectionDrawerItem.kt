@@ -17,7 +17,7 @@ import com.mikepenz.materialize.util.UIUtils
 /**
  * Created by mikepenz on 03.02.15.
  */
-class SectionDrawerItem : AbstractDrawerItem<SectionDrawerItem, SectionDrawerItem.ViewHolder>(), Nameable<SectionDrawerItem>, Typefaceable<SectionDrawerItem> {
+open class SectionDrawerItem : AbstractDrawerItem<SectionDrawerItem, SectionDrawerItem.ViewHolder>(), Nameable<SectionDrawerItem>, Typefaceable<SectionDrawerItem> {
 
     var divider = true
     override var name: StringHolder? = null

@@ -85,7 +85,7 @@ open class AbstractToggleableDrawerItem<Item : AbstractToggleableDrawerItem<Item
         return ViewHolder(v)
     }
 
-    class ViewHolder internal constructor(view: View) : BaseViewHolder(view) {
+    open class ViewHolder internal constructor(view: View) : BaseViewHolder(view) {
         internal val toggle: ToggleButton = view.findViewById<View>(R.id.material_drawer_toggle) as ToggleButton
     }
 }

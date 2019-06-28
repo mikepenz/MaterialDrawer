@@ -73,7 +73,7 @@ abstract class AbstractBadgeableDrawerItem<Item : AbstractBadgeableDrawerItem<It
         return ViewHolder(v)
     }
 
-    class ViewHolder(view: View) : BaseViewHolder(view) {
+    open class ViewHolder(view: View) : BaseViewHolder(view) {
         internal val badgeContainer: View = view.findViewById(R.id.material_drawer_badge_container)
         internal val badge: TextView = view.findViewById<View>(R.id.material_drawer_badge) as TextView
     }

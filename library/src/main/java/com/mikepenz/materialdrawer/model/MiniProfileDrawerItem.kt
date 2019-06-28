@@ -19,7 +19,7 @@ import com.mikepenz.materialdrawer.model.interfaces.IProfile
 /**
  * Created by mikepenz on 03.02.15.
  */
-class MiniProfileDrawerItem : AbstractDrawerItem<MiniProfileDrawerItem, MiniProfileDrawerItem.ViewHolder>, IProfile<MiniProfileDrawerItem> {
+open class MiniProfileDrawerItem : AbstractDrawerItem<MiniProfileDrawerItem, MiniProfileDrawerItem.ViewHolder>, IProfile<MiniProfileDrawerItem> {
     override var icon: ImageHolder? = null
     override var name: StringHolder? = null
     override var email: StringHolder? = null

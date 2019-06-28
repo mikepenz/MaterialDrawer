@@ -8,7 +8,7 @@ import com.mikepenz.materialdrawer.holder.applyColor
 /**
  * Created by mikepenz on 03.02.15.
  */
-class SecondarySwitchDrawerItem : AbstractSwitchableDrawerItem<SecondarySwitchDrawerItem>() {
+open class SecondarySwitchDrawerItem : AbstractSwitchableDrawerItem<SecondarySwitchDrawerItem>() {
 
     override val type: Int
         get() = R.id.material_drawer_item_secondary_switch

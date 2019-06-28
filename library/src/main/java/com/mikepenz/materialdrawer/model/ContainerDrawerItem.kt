@@ -12,7 +12,7 @@ import com.mikepenz.materialize.util.UIUtils
 /**
  * Created by mikepenz on 03.02.15.
  */
-class ContainerDrawerItem : AbstractDrawerItem<ContainerDrawerItem, ContainerDrawerItem.ViewHolder>() {
+open class ContainerDrawerItem : AbstractDrawerItem<ContainerDrawerItem, ContainerDrawerItem.ViewHolder>() {
 
     var height: DimenHolder? = null
     var view: View? = null

@@ -57,7 +57,7 @@ import java.util.*
 /**
  * Created by mikepenz on 23.05.15.
  */
-class DrawerBuilder {
+open class DrawerBuilder {
 
     // some internal vars
     // variable to check if a builder is only used once

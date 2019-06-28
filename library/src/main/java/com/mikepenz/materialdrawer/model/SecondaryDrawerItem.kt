@@ -8,7 +8,7 @@ import com.mikepenz.materialdrawer.holder.applyColor
 /**
  * Created by mikepenz on 03.02.15.
  */
-class SecondaryDrawerItem : AbstractBadgeableDrawerItem<SecondaryDrawerItem>() {
+open class SecondaryDrawerItem : AbstractBadgeableDrawerItem<SecondaryDrawerItem>() {
 
     override val type: Int
         get() = R.id.material_drawer_item_secondary
