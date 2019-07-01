@@ -31,7 +31,7 @@ class DrawerFragment : Fragment() {
 
         result = DrawerBuilder()
                 .withActivity(activity!!)
-                .withRootView(view.findViewById<ViewGroup)>(R.id.rootView)
+                .withRootView(view.findViewById<ViewGroup>(R.id.rootView))
                 .withDisplayBelowStatusBar(false)
                 .withSavedInstance(savedInstanceState)
                 .addDrawerItems(

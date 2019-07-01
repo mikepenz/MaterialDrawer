@@ -122,7 +122,7 @@ class EmbeddedDrawerActivity : AppCompatActivity() {
                 .withSavedInstance(savedInstanceState)
                 .buildView()
 
-        (findViewById<ViewGroup).addView(result.slider)>(R.id.frame_container)
+        findViewById<ViewGroup>(R.id.frame_container).addView(result.slider)
     }
 
     override fun onSaveInstanceState(_outState: Bundle) {
