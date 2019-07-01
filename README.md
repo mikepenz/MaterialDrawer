@@ -71,7 +71,7 @@ implementation "androidx.constraintlayout:constraintlayout:${versions.constraint
 ```
 
 ## v7.x.y
-> Major release, migrates to use the FastAdapter v4 which was fully migrated to Kotlin. Check out the changelog or the [MIGRATION GUIDE](https://github.com/mikepenz/FastAdapter/blob/develop/MIGRATION.md for more details
+> Major release, migrates to use the FastAdapter v4 which was fully migrated to Kotlin. Check out the changelog or the [MIGRATION GUIDE](https://github.com/mikepenz/FastAdapter/blob/develop/MIGRATION.md) for more details
 
 ## 2. Add your drawer
 ```kotlin
