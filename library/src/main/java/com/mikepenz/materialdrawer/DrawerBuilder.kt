@@ -330,7 +330,7 @@ open class DrawerBuilder {
     fun withRootView(@IdRes rootViewRes: Int): DrawerBuilder {
         val mActivity = this.mActivity
                 ?: throw RuntimeException("please pass an activity first to use this call")
-        return withRootView(mActivity.findViewById<ViewGroup)>(rootViewRes)
+        return withRootView(mActivity.findViewById<ViewGroup>(rootViewRes))
     }
 
     /**
