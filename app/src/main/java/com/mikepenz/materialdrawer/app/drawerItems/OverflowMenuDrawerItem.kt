@@ -81,6 +81,6 @@ class OverflowMenuDrawerItem : BaseDescribeableDrawerItem<OverflowMenuDrawerItem
 
     class ViewHolder(view: View) : BaseViewHolder(view) {
         //protected ImageButton ibOverflow;
-        internal val menu: ImageButton = view.findViewById<View>(R.id.material_drawer_menu_overflow) as ImageButton
+        internal val menu: ImageButton = view.findViewById<ImageButton>(R.id.material_drawer_menu_overflow)
     }
 }

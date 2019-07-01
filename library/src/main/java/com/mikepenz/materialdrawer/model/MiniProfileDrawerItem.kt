@@ -128,6 +128,6 @@ open class MiniProfileDrawerItem : AbstractDrawerItem<MiniProfileDrawerItem, Min
     }
 
     class ViewHolder(view: View) : RecyclerView.ViewHolder(view) {
-        internal val icon: ImageView = view.findViewById<View>(R.id.material_drawer_icon) as ImageView
+        internal val icon: ImageView = view.findViewById<ImageView>(R.id.material_drawer_icon)
     }
 }

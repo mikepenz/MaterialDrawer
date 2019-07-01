@@ -286,7 +286,7 @@ open class DrawerBuilder {
      * @param activity current activity which will contain the drawer
      */
     constructor(activity: Activity) {
-        this.mRootView = activity.findViewById<View>(android.R.id.content) as ViewGroup
+        this.mRootView = activity.findViewById<ViewGroup>(android.R.id.content)
         this.mActivity = activity
         this.mLayoutManager = LinearLayoutManager(mActivity)
         adapter
@@ -300,7 +300,7 @@ open class DrawerBuilder {
      * @param activity current activity which will contain the drawer
      */
     fun withActivity(activity: Activity): DrawerBuilder {
-        this.mRootView = activity.findViewById<View>(android.R.id.content) as ViewGroup
+        this.mRootView = activity.findViewById<ViewGroup>(android.R.id.content)
         this.mActivity = activity
         this.mLayoutManager = LinearLayoutManager(mActivity)
         return this
@@ -330,7 +330,7 @@ open class DrawerBuilder {
     fun withRootView(@IdRes rootViewRes: Int): DrawerBuilder {
         val mActivity = this.mActivity
                 ?: throw RuntimeException("please pass an activity first to use this call")
-        return withRootView(mActivity.findViewById<View>(rootViewRes) as ViewGroup)
+        return withRootView(mActivity.findViewById<ViewGroup)>(rootViewRes)
     }
 
     /**
@@ -1626,7 +1626,7 @@ open class DrawerBuilder {
         val contentView: View
         if (!::mRecyclerView.isInitialized) {
             contentView = LayoutInflater.from(mActivity).inflate(R.layout.material_drawer_recycler_view, mSliderLayout, false)
-            mRecyclerView = contentView.findViewById<View>(R.id.material_drawer_recycler_view) as RecyclerView
+            mRecyclerView = contentView.findViewById<RecyclerView>(R.id.material_drawer_recycler_view)
             //set the itemAnimator
             mRecyclerView.itemAnimator = mItemAnimator
             //some style improvements on older devices

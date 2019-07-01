@@ -43,7 +43,7 @@ class AdvancedActivity : AppCompatActivity() {
         setContentView(R.layout.activity_sample)
 
         // Handle Toolbar
-        val toolbar = findViewById<View>(R.id.toolbar) as Toolbar
+        val toolbar = findViewById<Toolbar>(R.id.toolbar)
         setSupportActionBar(toolbar)
         supportActionBar?.setTitle(R.string.drawer_item_advanced_drawer)
 

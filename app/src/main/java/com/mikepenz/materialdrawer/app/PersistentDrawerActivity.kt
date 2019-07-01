@@ -114,7 +114,7 @@ class PersistentDrawerActivity : AppCompatActivity() {
         miniResult.withCrossFader(CrossfadeWrapper(crossFader))
 
         //define and create the arrow ;)
-        val toggle = headerResult.view.findViewById<View>(R.id.material_drawer_account_header_toggle) as ImageView
+        val toggle = headerResult.view.findViewById<ImageView>(R.id.material_drawer_account_header_toggle)
         //for RTL you would have to define the other arrow
         toggle.setImageDrawable(IconicsDrawable(this, GoogleMaterial.Icon.gmd_chevron_left).size(dp(16)).color(colorInt(Color.BLACK)))
         toggle.setOnClickListener { crossFader.crossFade() }

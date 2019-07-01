@@ -161,7 +161,7 @@ open class MiniDrawerItem : BaseDrawerItem<MiniDrawerItem, MiniDrawerItem.ViewHo
     }
 
     class ViewHolder(internal val view: View) : RecyclerView.ViewHolder(view) {
-        internal val icon: ImageView = view.findViewById<View>(R.id.material_drawer_icon) as ImageView
-        internal val badge: TextView = view.findViewById<View>(R.id.material_drawer_badge) as TextView
+        internal val icon: ImageView = view.findViewById<ImageView>(R.id.material_drawer_icon)
+        internal val badge: TextView = view.findViewById<TextView>(R.id.material_drawer_badge)
     }
 }

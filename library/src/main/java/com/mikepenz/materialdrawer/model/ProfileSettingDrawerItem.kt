@@ -213,8 +213,8 @@ open class ProfileSettingDrawerItem : AbstractDrawerItem<ProfileSettingDrawerIte
     }
 
     open class ViewHolder internal constructor(internal val view: View) : RecyclerView.ViewHolder(view) {
-        internal val icon: ImageView = view.findViewById<View>(R.id.material_drawer_icon) as ImageView
-        internal val name: TextView = view.findViewById<View>(R.id.material_drawer_name) as TextView
-        internal val description: TextView = view.findViewById<View>(R.id.material_drawer_description) as TextView
+        internal val icon: ImageView = view.findViewById<ImageView>(R.id.material_drawer_icon)
+        internal val name: TextView = view.findViewById<TextView>(R.id.material_drawer_name)
+        internal val description: TextView = view.findViewById<TextView>(R.id.material_drawer_description)
     }
 }

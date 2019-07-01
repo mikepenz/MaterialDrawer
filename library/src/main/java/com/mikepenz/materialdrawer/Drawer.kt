@@ -88,7 +88,7 @@ open class Drawer(internal val drawerBuilder: DrawerBuilder) {
     val content: FrameLayout?
         get() {
             if (mContentView == null) {
-                mContentView = this.drawerBuilder.mDrawerLayout.findViewById<View>(R.id.content_layout) as FrameLayout
+                mContentView = this.drawerBuilder.mDrawerLayout.findViewById<FrameLayout>(R.id.content_layout)
             }
             return mContentView
         }
