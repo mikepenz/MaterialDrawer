@@ -113,7 +113,7 @@ open class SectionDrawerItem : AbstractDrawerItem<SectionDrawerItem, SectionDraw
 
     class ViewHolder internal constructor(internal val view: View) : RecyclerView.ViewHolder(view) {
         internal val divider: View = view.findViewById(R.id.material_drawer_divider)
-        internal val name: TextView = view.findViewById<View>(R.id.material_drawer_name) as TextView
+        internal val name: TextView = view.findViewById<TextView>(R.id.material_drawer_name)
 
     }
 }

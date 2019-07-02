@@ -90,6 +90,6 @@ abstract class AbstractSwitchableDrawerItem<Item : AbstractSwitchableDrawerItem<
     }
 
     open class ViewHolder internal constructor(view: View) : BaseViewHolder(view) {
-        internal val switchView: SwitchCompat = view.findViewById<View>(R.id.material_drawer_switch) as SwitchCompat
+        internal val switchView: SwitchCompat = view.findViewById<SwitchCompat>(R.id.material_drawer_switch)
     }
 }

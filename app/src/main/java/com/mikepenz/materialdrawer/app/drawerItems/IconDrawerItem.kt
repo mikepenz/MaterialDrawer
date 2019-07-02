@@ -161,7 +161,7 @@ class IconDrawerItem : AbstractDrawerItem<IconDrawerItem, IconDrawerItem.ViewHol
     }
 
     class ViewHolder internal constructor(private val view: View) : RecyclerView.ViewHolder(view) {
-        var icon: ImageView = view.findViewById<View>(R.id.material_drawer_icon) as ImageView
+        var icon: ImageView = view.findViewById<ImageView>(R.id.material_drawer_icon)
 
     }
 }

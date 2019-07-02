@@ -29,7 +29,7 @@ class SecondDrawerFragment : Fragment() {
 
         result = DrawerBuilder()
                 .withActivity(activity!!)
-                .withRootView(view.findViewById<View>(R.id.rootView) as ViewGroup)
+                .withRootView(view.findViewById<ViewGroup>(R.id.rootView))
                 .withDisplayBelowStatusBar(false)
                 .withSavedInstance(savedInstanceState)
                 .addDrawerItems(
@@ -39,7 +39,7 @@ class SecondDrawerFragment : Fragment() {
                 )
                 .buildForFragment()
 
-        val textView = view.findViewById<View>(R.id.title) as TextView
+        val textView = view.findViewById<TextView>(R.id.title)
         textView.text = arguments!!.getString(KEY_TITLE)
 
         result?.apply {

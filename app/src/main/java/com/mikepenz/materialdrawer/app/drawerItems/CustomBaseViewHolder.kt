@@ -7,8 +7,8 @@ import androidx.recyclerview.widget.RecyclerView
 import com.mikepenz.materialdrawer.app.R
 
 open class CustomBaseViewHolder(var view: View) : RecyclerView.ViewHolder(view) {
-    var icon: ImageView = view.findViewById<View>(R.id.material_drawer_icon) as ImageView
-    var name: TextView = view.findViewById<View>(R.id.material_drawer_name) as TextView
-    var description: TextView = view.findViewById<View>(R.id.material_drawer_description) as TextView
+    var icon: ImageView = view.findViewById<ImageView>(R.id.material_drawer_icon)
+    var name: TextView = view.findViewById<TextView>(R.id.material_drawer_name)
+    var description: TextView = view.findViewById<TextView>(R.id.material_drawer_description)
 
 }
