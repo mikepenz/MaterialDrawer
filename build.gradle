@@ -15,13 +15,13 @@ buildscript {
         versions = [
                 androidX        : '1.0.0',
                 annotation      : '1.1.0',
-                recyclerView    : '1.1.0-alpha06',
+                recyclerView    : '1.1.0-beta01',
                 material        : '1.1.0-alpha07',
-                appcompat       : '1.1.0-beta01',
-                drawerlayout    : '1.1.0-alpha01',
+                appcompat       : '1.1.0-rc01',
+                drawerlayout    : '1.1.0-alpha02',
                 constraintLayout: '2.0.0-beta2',
                 cardview        : '1.0.0',
-                kotlin          : "1.3.31",
+                kotlin          : "1.3.41",
                 fastadapter     : "4.0.1",
                 iconics         : "4.0.0"
         ]
