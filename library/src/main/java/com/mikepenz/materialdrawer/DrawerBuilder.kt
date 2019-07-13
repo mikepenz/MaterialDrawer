@@ -1297,7 +1297,7 @@ open class DrawerBuilder {
      *
      * @return
      */
-    fun build(): Drawer {
+    open fun build(): Drawer {
         if (mUsed) {
             throw RuntimeException("you must not reuse a DrawerBuilder builder")
         }
@@ -1344,7 +1344,7 @@ open class DrawerBuilder {
      *
      * @return
      */
-    fun buildForFragment(): Drawer {
+    open fun buildForFragment(): Drawer {
         if (mUsed) {
             throw RuntimeException("you must not reuse a DrawerBuilder builder")
         }
@@ -1492,7 +1492,7 @@ open class DrawerBuilder {
      *
      * @return Result object with only the content set
      */
-    fun buildView(): Drawer {
+    open fun buildView(): Drawer {
         val mActivity = this.mActivity
                 ?: throw RuntimeException("please pass an activity first to use this call")
 
@@ -1549,7 +1549,7 @@ open class DrawerBuilder {
      * @param result the Drawer.Result of an existing Drawer
      * @return
      */
-    fun append(result: Drawer): Drawer {
+    open fun append(result: Drawer): Drawer {
         if (mUsed) {
             throw RuntimeException("you must not reuse a DrawerBuilder builder")
         }

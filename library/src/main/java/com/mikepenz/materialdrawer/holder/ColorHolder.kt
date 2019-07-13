@@ -11,7 +11,7 @@ import androidx.annotation.ColorRes
 /**
  * Created by mikepenz on 13.07.15.
  */
-class ColorHolder : com.mikepenz.materialize.holder.ColorHolder() {
+open class ColorHolder : com.mikepenz.materialize.holder.ColorHolder() {
     companion object {
         fun fromColorRes(@ColorRes colorRes: Int): ColorHolder {
             val colorHolder = ColorHolder()

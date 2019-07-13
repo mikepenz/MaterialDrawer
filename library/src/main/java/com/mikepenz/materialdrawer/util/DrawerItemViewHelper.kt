@@ -12,7 +12,7 @@ import java.util.*
 /**
  * Created by mikepenz on 27.03.15.
  */
-class DrawerItemViewHelper(private val mContext: Context) {
+open class DrawerItemViewHelper(private val mContext: Context) {
 
     private var mDrawerItems = ArrayList<IDrawerItem<*>>()
 

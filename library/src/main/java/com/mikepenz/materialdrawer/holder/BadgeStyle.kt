@@ -13,7 +13,7 @@ import com.mikepenz.materialdrawer.model.utils.BadgeDrawableBuilder
 /**
  * Class to allow defining a BadgeStyle for the `BadgeDrawerItem`
  */
-class BadgeStyle {
+open class BadgeStyle {
     var gradientDrawable = R.drawable.material_drawer_badge
     var badgeBackground: Drawable? = null
     var color: ColorHolder? = null
@@ -155,7 +155,7 @@ class BadgeStyle {
     }
 
     @JvmOverloads
-    fun style(badgeTextView: TextView, colorStateList: ColorStateList? = null) {
+    open fun style(badgeTextView: TextView, colorStateList: ColorStateList? = null) {
         val ctx = badgeTextView.context
         //set background for badge
         if (badgeBackground == null) {

@@ -21,7 +21,7 @@ import com.mikepenz.materialize.util.UIUtils
  * Created by mikepenz on 15.07.15.
  * Don't count this for real yet. it's just a quick try on creating a Gmail like panel
  */
-class MiniDrawer {
+open class MiniDrawer {
 
     private lateinit var mContainer: LinearLayout
     /**
@@ -233,7 +233,7 @@ class MiniDrawer {
      * @param drawerItem
      * @return
      */
-    fun generateMiniDrawerItem(drawerItem: IDrawerItem<*>): IDrawerItem<*>? {
+    open fun generateMiniDrawerItem(drawerItem: IDrawerItem<*>): IDrawerItem<*>? {
         return when (drawerItem) {
             is SecondaryDrawerItem -> if (mIncludeSecondaryDrawerItems) MiniDrawerItem(drawerItem).withEnableSelectedBackground(mEnableSelectedMiniDrawerItemBackground).withSelectedBackgroundAnimated(false) else null
             is PrimaryDrawerItem -> MiniDrawerItem(drawerItem).withEnableSelectedBackground(mEnableSelectedMiniDrawerItemBackground).withSelectedBackgroundAnimated(false)
@@ -248,7 +248,7 @@ class MiniDrawer {
      * @param drawerItem
      * @return
      */
-    fun getMiniDrawerType(drawerItem: IDrawerItem<*>): Int {
+    open fun getMiniDrawerType(drawerItem: IDrawerItem<*>): Int {
         if (drawerItem is MiniProfileDrawerItem) {
             return PROFILE
         } else if (drawerItem is MiniDrawerItem) {
@@ -263,7 +263,7 @@ class MiniDrawer {
      * @param ctx
      * @return
      */
-    fun build(ctx: Context): View {
+    open fun build(ctx: Context): View {
         mContainer = LinearLayout(ctx)
         if (mInnerShadow) {
             if (!mInRTL) {
@@ -400,7 +400,7 @@ class MiniDrawer {
     /**
      * creates the items for the MiniDrawer
      */
-    fun createItems() {
+    open fun createItems() {
         itemAdapter.clear()
 
         var profileOffset = 0

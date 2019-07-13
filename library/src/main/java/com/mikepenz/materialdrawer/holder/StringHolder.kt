@@ -8,7 +8,7 @@ import com.mikepenz.materialize.holder.StringHolder
 /**
  * Created by mikepenz on 13.07.15.
  */
-class StringHolder : com.mikepenz.materialize.holder.StringHolder {
+open class StringHolder : com.mikepenz.materialize.holder.StringHolder {
     constructor(text: CharSequence?) : super(text)
 
     constructor(@StringRes textRes: Int) : super(textRes)

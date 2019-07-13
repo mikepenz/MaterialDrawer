@@ -8,7 +8,7 @@ import android.widget.ImageView
 /**
  * Created by mikepenz on 24.03.15.
  */
-class DrawerImageLoader private constructor(var imageLoader: IDrawerImageLoader?) {
+open class DrawerImageLoader private constructor(var imageLoader: IDrawerImageLoader?) {
 
     private var mHandleAllProtocols = false
     private var mHandledProtocols = listOf<String?>("http", "https")
@@ -41,7 +41,7 @@ class DrawerImageLoader private constructor(var imageLoader: IDrawerImageLoader?
      * @param tag
      * @return false if not consumed
      */
-    fun setImage(imageView: ImageView, uri: Uri, tag: String?): Boolean {
+    open fun setImage(imageView: ImageView, uri: Uri, tag: String?): Boolean {
         // If we do not handle this protocol we keep the original behavior
         return if (mHandleAllProtocols || uri.scheme in mHandledProtocols) {
             imageLoader?.let {

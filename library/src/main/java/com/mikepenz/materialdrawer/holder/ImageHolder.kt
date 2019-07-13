@@ -20,7 +20,7 @@ import java.io.FileNotFoundException
  * Created by mikepenz on 13.07.15.
  */
 
-class ImageHolder : com.mikepenz.materialize.holder.ImageHolder {
+open class ImageHolder : com.mikepenz.materialize.holder.ImageHolder {
     var iIcon: IIcon? = null
 
     constructor(url: String) : super(url) {}

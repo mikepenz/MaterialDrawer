@@ -863,7 +863,7 @@ open class AccountHeaderBuilder {
      *
      * @return
      */
-    fun build(): AccountHeader {
+    open fun build(): AccountHeader {
         val activity = this.activity
                 ?: throw RuntimeException("please pass an activity first to use this call")
 

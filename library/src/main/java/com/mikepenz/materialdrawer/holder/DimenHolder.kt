@@ -9,7 +9,7 @@ import androidx.annotation.Dimension.PX
 /**
  * Created by mikepenz on 13.07.15.
  */
-class DimenHolder : com.mikepenz.materialize.holder.DimenHolder() {
+open class DimenHolder : com.mikepenz.materialize.holder.DimenHolder() {
     companion object {
         fun fromPixel(@Dimension(unit = PX) pixel: Int): DimenHolder {
             val dimenHolder = DimenHolder()
