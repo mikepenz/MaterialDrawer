@@ -16,7 +16,7 @@ buildscript {
                 androidX        : '1.0.0',
                 annotation      : '1.1.0',
                 recyclerView    : '1.1.0-beta01',
-                material        : '1.1.0-alpha07',
+                material        : '1.1.0-alpha08',
                 appcompat       : '1.1.0-rc01',
                 drawerlayout    : '1.1.0-alpha02',
                 constraintLayout: '2.0.0-beta2',
@@ -33,7 +33,7 @@ buildscript {
         mavenCentral()
     }
     dependencies {
-        classpath 'com.android.tools.build:gradle:3.4.1'
+        classpath 'com.android.tools.build:gradle:3.4.2'
         classpath 'com.github.dcendents:android-maven-gradle-plugin:2.1'
         classpath 'com.jfrog.bintray.gradle:gradle-bintray-plugin:1.8.4'
         classpath "org.jetbrains.kotlin:kotlin-gradle-plugin:${versions.kotlin}"
