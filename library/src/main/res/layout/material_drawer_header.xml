@@ -24,6 +24,7 @@
 
     <com.mikepenz.materialdrawer.view.BezelImageView
         android:id="@+id/material_drawer_account_header_current"
+        style="@style/BezelImageView"
         android:layout_width="@dimen/material_drawer_account_header_selected"
         android:layout_height="@dimen/material_drawer_account_header_selected"
         android:layout_marginStart="@dimen/material_drawer_vertical_padding"
@@ -37,6 +38,7 @@
 
     <com.mikepenz.materialdrawer.view.BezelImageView
         android:id="@+id/material_drawer_account_header_small_first"
+        style="@style/BezelImageView"
         android:layout_width="@dimen/material_drawer_account_header_secondary"
         android:layout_height="@dimen/material_drawer_account_header_secondary"
         android:layout_marginTop="@dimen/material_drawer_account_header_horizontal_top"
@@ -51,6 +53,7 @@
 
     <com.mikepenz.materialdrawer.view.BezelImageView
         android:id="@+id/material_drawer_account_header_small_second"
+        style="@style/BezelImageView"
         android:layout_width="@dimen/material_drawer_account_header_secondary"
         android:layout_height="@dimen/material_drawer_account_header_secondary"
         android:layout_marginTop="@dimen/material_drawer_account_header_horizontal_top"
@@ -65,6 +68,7 @@
 
     <com.mikepenz.materialdrawer.view.BezelImageView
         android:id="@+id/material_drawer_account_header_small_third"
+        style="@style/BezelImageView"
         android:layout_width="@dimen/material_drawer_account_header_secondary"
         android:layout_height="@dimen/material_drawer_account_header_secondary"
         android:layout_marginTop="@dimen/material_drawer_account_header_horizontal_top"

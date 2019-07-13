@@ -5,15 +5,16 @@
 
     <com.mikepenz.materialdrawer.view.BezelImageView
         android:id="@+id/material_drawer_icon"
+        style="@style/BezelImageView"
         android:layout_width="@dimen/material_mini_drawer_item_profile_icon"
         android:layout_height="@dimen/material_mini_drawer_item_profile_icon"
         android:layout_gravity="center_vertical"
-        android:layout_marginBottom="@dimen/material_mini_drawer_item_profile_icon_padding"
-        android:layout_marginEnd="@dimen/material_mini_drawer_item_profile_icon_padding"
-        android:layout_marginLeft="@dimen/material_mini_drawer_item_profile_icon_padding"
-        android:layout_marginRight="@dimen/material_mini_drawer_item_profile_icon_padding"
         android:layout_marginStart="@dimen/material_mini_drawer_item_profile_icon_padding"
+        android:layout_marginLeft="@dimen/material_mini_drawer_item_profile_icon_padding"
         android:layout_marginTop="@dimen/material_mini_drawer_item_profile_icon_padding"
+        android:layout_marginEnd="@dimen/material_mini_drawer_item_profile_icon_padding"
+        android:layout_marginRight="@dimen/material_mini_drawer_item_profile_icon_padding"
+        android:layout_marginBottom="@dimen/material_mini_drawer_item_profile_icon_padding"
         android:clickable="false"
         android:elevation="1dp" />
 </LinearLayout>

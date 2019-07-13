@@ -306,68 +306,81 @@ This is the same as the Custom style just with a parent like `parent="Theme.AppC
 Create your custom style and use one of the provided themes as parent. If you don't need a custom theme see the next section, how you can set the colors just by overwriting the original colors.
 
 ```xml
-    <style name="CustomTheme" parent="MaterialDrawerTheme">
-        <!-- ...and here we setting appcompat’s color theming attrs -->
-        <item name="colorPrimary">@color/material_drawer_primary</item>
-        <item name="colorPrimaryDark">@color/material_drawer_primary_dark</item>
-        <item name="colorAccent">@color/material_drawer_accent</item>
+<style name="CustomTheme" parent="MaterialDrawerTheme">
+    <!-- ...and here we setting appcompat’s color theming attrs -->
+    <item name="colorPrimary">@color/material_drawer_primary</item>
+    <item name="colorPrimaryDark">@color/material_drawer_primary_dark</item>
+    <item name="colorAccent">@color/material_drawer_accent</item>
 
-        <!-- MaterialDrawer specific values -->
-        <item name="material_drawer_background">@color/material_drawer_background</item>
-        <item name="material_drawer_primary_text">@color/material_drawer_primary_text</item>
-        <item name="material_drawer_primary_icon">@color/material_drawer_primary_icon</item>
-        <item name="material_drawer_secondary_text">@color/material_drawer_secondary_text</item>
-        <item name="material_drawer_hint_text">@color/material_drawer_hint_text</item>
-        <item name="material_drawer_divider">@color/material_drawer_divider</item>
-        <item name="material_drawer_selected">@color/material_drawer_selected</item> <!-- Material 2 defines 12% alpha, primary color -->
-        <item name="material_drawer_selected_legacy">@color/material_drawer_selected</item> <!-- Defines the color if legacy style (Material 1, is enabled) -->
-        <item name="material_drawer_selected_text">@color/material_drawer_selected_text</item>
-        <item name="material_drawer_header_selection_text">@color/material_drawer_header_selection_text</item>
-	    <item name="material_drawer_header_selection_subtext">@color/material_drawer_dark_header_selection_subtext</item>
-        <item name="material_drawer_legacy_style">false</item> <!-- Enables legacy Material 1 style -->
-    </style>
+    <!-- MaterialDrawer specific values -->
+    <item name="material_drawer_background">@color/material_drawer_background</item>
+    <item name="material_drawer_primary_text">@color/material_drawer_primary_text</item>
+    <item name="material_drawer_primary_icon">@color/material_drawer_primary_icon</item>
+    <item name="material_drawer_secondary_text">@color/material_drawer_secondary_text</item>
+    <item name="material_drawer_hint_text">@color/material_drawer_hint_text</item>
+    <item name="material_drawer_divider">@color/material_drawer_divider</item>
+    <item name="material_drawer_selected">@color/material_drawer_selected</item> <!-- Material 2 defines 12% alpha, primary color -->
+    <item name="material_drawer_selected_legacy">@color/material_drawer_selected</item> <!-- Defines the color if legacy style (Material 1, is enabled) -->
+    <item name="material_drawer_selected_text">@color/material_drawer_selected_text</item>
+    <item name="material_drawer_header_selection_text">@color/material_drawer_header_selection_text</item>
+    <item name="material_drawer_header_selection_subtext">@color/material_drawer_dark_header_selection_subtext</item>
+    <item name="material_drawer_legacy_style">false</item> <!-- Enables legacy Material 1 style -->
+</style>
+```
+
+### Adjust BezelImageView style
+
+Overwrite the Style of the BezelImageView for the whole MaterialDrawer
+   
+```xml
+<style name="BezelImageView">
+    <item name="biv_maskDrawable">@drawable/material_drawer_rectangle_mask</item>
+    <item name="biv_drawCircularShadow">false</item>
+    <item name="biv_selectorOnPress">@color/material_drawer_primary</item>
+    <item name="android:scaleType">centerInside</item>
+</style>
 ```
 
 ## Custom colors - colors.xml
 No need to create a custom theme. Just set these colors (or some of them) and you have your own style.
 ```xml
-	<!-- Material DEFAULT colors -->
-    <color name="material_drawer_primary">#2196F3</color>
-    <color name="material_drawer_primary_dark">#1976D2</color>
-    <color name="material_drawer_primary_light">#BBDEFB</color>
-    <color name="material_drawer_accent">#FF4081</color>
+<!-- Material DEFAULT colors -->
+<color name="material_drawer_primary">#2196F3</color>
+<color name="material_drawer_primary_dark">#1976D2</color>
+<color name="material_drawer_primary_light">#BBDEFB</color>
+<color name="material_drawer_accent">#FF4081</color>
 
-    <!-- OVERWRITE THESE COLORS FOR A LIGHT THEME -->
-    <!-- MaterialDrawer DEFAULT colors -->
-    <color name="material_drawer_background">#F9F9F9</color>
-    <!-- Material DEFAULT text / items colors -->
-    <color name="material_drawer_primary_text">#DE000000</color>
-    <color name="material_drawer_primary_icon">#8A000000</color>
-    <color name="material_drawer_secondary_text">#8A000000</color>
-    <color name="material_drawer_hint_text">#42000000</color>
-    <color name="material_drawer_divider">#1F000000</color>
-    <!-- Material DEFAULT drawer colors -->
-    <color name="material_drawer_selected">#1F2196F3</color>
-    <color name="material_drawer_selected_legacy">#E8E8E8</color>
-    <color name="material_drawer_selected_text">#2196F3</color>
-    <color name="material_drawer_header_selection_text">#DE000000</color>
-    <color name="material_drawer_header_selection_subtext">#8A000000</color>
+<!-- OVERWRITE THESE COLORS FOR A LIGHT THEME -->
+<!-- MaterialDrawer DEFAULT colors -->
+<color name="material_drawer_background">#F9F9F9</color>
+<!-- Material DEFAULT text / items colors -->
+<color name="material_drawer_primary_text">#DE000000</color>
+<color name="material_drawer_primary_icon">#8A000000</color>
+<color name="material_drawer_secondary_text">#8A000000</color>
+<color name="material_drawer_hint_text">#42000000</color>
+<color name="material_drawer_divider">#1F000000</color>
+<!-- Material DEFAULT drawer colors -->
+<color name="material_drawer_selected">#1F2196F3</color>
+<color name="material_drawer_selected_legacy">#E8E8E8</color>
+<color name="material_drawer_selected_text">#2196F3</color>
+<color name="material_drawer_header_selection_text">#DE000000</color>
+<color name="material_drawer_header_selection_subtext">#8A000000</color>
 
-    <!-- OVERWRITE THESE COLORS FOR A DARK THEME -->
-    <!-- MaterialDrawer DEFAULT DARK colors -->
-    <color name="material_drawer_dark_background">#303030</color>
-    <!-- MaterialDrawer DEFAULT DARK text / items colors -->
-    <color name="material_drawer_dark_primary_text">#DEFFFFFF</color>
-    <color name="material_drawer_dark_primary_icon">#8AFFFFFF</color>
-    <color name="material_drawer_dark_secondary_text">#8AFFFFFF</color>
-    <color name="material_drawer_dark_hint_text">#42FFFFFF</color>
-    <color name="material_drawer_dark_divider">#1FFFFFFF</color>
-    <!-- MaterialDrawer DEFAULT DARK drawer colors -->
-    <color name="material_drawer_dark_selected">#1F2196F3</color>
-    <color name="material_drawer_dark_selected_legacy">#202020</color>
-    <color name="material_drawer_dark_selected_text">@color/material_drawer_primary</color>
-    <color name="material_drawer_dark_header_selection_text">#FFFFFFFF</color>
-    <color name="material_drawer_dark_header_selection_subtext">#B3FFFFFF</color>
+<!-- OVERWRITE THESE COLORS FOR A DARK THEME -->
+<!-- MaterialDrawer DEFAULT DARK colors -->
+<color name="material_drawer_dark_background">#303030</color>
+<!-- MaterialDrawer DEFAULT DARK text / items colors -->
+<color name="material_drawer_dark_primary_text">#DEFFFFFF</color>
+<color name="material_drawer_dark_primary_icon">#8AFFFFFF</color>
+<color name="material_drawer_dark_secondary_text">#8AFFFFFF</color>
+<color name="material_drawer_dark_hint_text">#42FFFFFF</color>
+<color name="material_drawer_dark_divider">#1FFFFFFF</color>
+<!-- MaterialDrawer DEFAULT DARK drawer colors -->
+<color name="material_drawer_dark_selected">#1F2196F3</color>
+<color name="material_drawer_dark_selected_legacy">#202020</color>
+<color name="material_drawer_dark_selected_text">@color/material_drawer_primary</color>
+<color name="material_drawer_dark_header_selection_text">#FFFFFFFF</color>
+<color name="material_drawer_dark_header_selection_subtext">#B3FFFFFF</color>
 ```
 
 # FAQ
