@@ -49,4 +49,6 @@ dependencies {
     implementation "androidx.navigation:navigation-ui-ktx:${versions.navigation}"
 }
 
-apply from: '../gradle-release.gradle'
+if (project.hasProperty('pushall') || project.hasProperty('library_nav_only')) {
+    apply from: '../gradle-release.gradle'
+}
