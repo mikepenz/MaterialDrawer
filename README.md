@@ -53,7 +53,7 @@ You can find some frequently asked questions and other resources in the [WIKI / 
 
 ## Latest releases
 
-- Kotlin | [v7.0.0-rc03](https://github.com/mikepenz/MaterialDrawer/tree/v7.0.0-rc03)
+- Kotlin | [v7.0.0-rc04](https://github.com/mikepenz/MaterialDrawer/tree/v7.0.0-rc04)
 - Java && AndroidX | [v6.1.2](https://github.com/mikepenz/MaterialDrawer/tree/v6.1.2)
 - Java && AppCompat |[v6.0.9](https://github.com/mikepenz/MaterialDrawer/tree/v6.0.9)
 

@@ -1,9 +1,9 @@
-buildscript { 
+buildscript {
     ext.kotlin_version = '1.3.41'
 
     ext {
         release = [
-                versionName: "7.0.0-rc03",
+                versionName: "7.0.0-rc04",
                 versionCode: 7000
         ]
 
@@ -41,7 +41,8 @@ buildscript {
         classpath 'com.jfrog.bintray.gradle:gradle-bintray-plugin:1.8.4'
         classpath "org.jetbrains.kotlin:kotlin-gradle-plugin:${versions.kotlin}"
         classpath "androidx.navigation:navigation-safe-args-gradle-plugin:${versions.navigation}"
-    classpath "org.jetbrains.kotlin:kotlin-gradle-plugin:$kotlin_version" }
+        classpath "org.jetbrains.kotlin:kotlin-gradle-plugin:$kotlin_version"
+    }
 }
 
 allprojects {
