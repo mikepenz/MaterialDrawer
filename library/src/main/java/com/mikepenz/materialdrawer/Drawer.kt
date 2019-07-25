@@ -8,6 +8,7 @@ import android.widget.FrameLayout
 import androidx.appcompat.app.ActionBarDrawerToggle
 import androidx.appcompat.widget.Toolbar
 import androidx.drawerlayout.widget.DrawerLayout
+import androidx.navigation.NavController
 import androidx.recyclerview.widget.RecyclerView
 import com.mikepenz.fastadapter.FastAdapter
 import com.mikepenz.fastadapter.adapters.ModelAdapter
@@ -23,6 +24,7 @@ import com.mikepenz.materialdrawer.model.interfaces.Badgeable
 import com.mikepenz.materialdrawer.model.interfaces.IDrawerItem
 import com.mikepenz.materialdrawer.model.interfaces.Iconable
 import com.mikepenz.materialdrawer.model.interfaces.Nameable
+import com.mikepenz.materialdrawer.util.DrawerNavigationUI
 import com.mikepenz.materialize.Materialize
 import com.mikepenz.materialize.view.ScrimInsetsRelativeLayout
 
@@ -933,6 +935,18 @@ open class Drawer(internal val drawerBuilder: DrawerBuilder) {
             return true
         }
         return false
+    }
+
+    /**
+     * Sets up a {@link Drawer} for use with a {@link NavController}.
+     * The selected item in the Drawer will automatically be updated when the destination
+     * changes.
+     *
+     * @param navController The NavController that hosts the destination.
+     * @return
+     */
+    fun setupWithNavController(navController: NavController) {
+        DrawerNavigationUI.setupWithNavController(this, navController)
     }
 
     interface OnDrawerNavigationListener {
