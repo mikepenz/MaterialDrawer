@@ -60,6 +60,7 @@ android {
 
 dependencies {
     implementation project(':library')
+    implementation project(':library-nav')
 
     implementation "com.google.android.material:material:${versions.material}"
     implementation "androidx.appcompat:appcompat:${versions.appcompat}"

@@ -6,16 +6,32 @@ import androidx.annotation.IdRes
 import androidx.navigation.NavController
 import androidx.navigation.NavDestination
 import androidx.navigation.NavOptions
-import androidx.navigation.ui.NavigationUI
 import com.mikepenz.materialdrawer.Drawer
 import com.mikepenz.materialdrawer.model.NavigationDrawerItem
 import com.mikepenz.materialdrawer.model.interfaces.IDrawerItem
-import java.lang.IllegalArgumentException
 import java.lang.ref.WeakReference
+
+// Notify user that the DSL is currently experimental
+@Experimental(level = Experimental.Level.WARNING)
+annotation class ExperimentalNavController
+
+/**
+ * Sets up a {@link Drawer} for use with a {@link NavController}.
+ * The selected item in the Drawer will automatically be updated when the destination
+ * changes.
+ *
+ * @param navController The NavController that hosts the destination.
+ * @return
+ */
+@ExperimentalNavController
+fun Drawer.setupWithNavController(navController: NavController) {
+    DrawerNavigationUI.setupWithNavController(this, navController)
+}
 
 /**
  * Created by petretiandrea on 19.07.19.
  */
+@ExperimentalNavController
 object DrawerNavigationUI {
 
     /**
@@ -34,7 +50,7 @@ object DrawerNavigationUI {
         drawer.onDrawerItemClickListener = object : Drawer.OnDrawerItemClickListener {
             override fun onItemClick(view: View?, position: Int, drawerItem: IDrawerItem<*>): Boolean {
                 val success = performNavigation(drawerItem, navController)
-                if(success) {
+                if (success) {
                     drawer.closeDrawer()
                 }
                 return success
@@ -44,11 +60,11 @@ object DrawerNavigationUI {
         navController.addOnDestinationChangedListener(object : NavController.OnDestinationChangedListener {
             override fun onDestinationChanged(controller: NavController, destination: NavDestination, arguments: Bundle?) {
                 val drawerWeak: Drawer? = weakReference.get()
-                if(drawerWeak == null) {
+                if (drawerWeak == null) {
                     navController.removeOnDestinationChangedListener(this)
                 }
                 drawerWeak?.drawerItems?.filterIsInstance<NavigationDrawerItem<*>>()?.forEach {
-                    if(matchDestination(destination, it.destination)) drawerWeak.setSelection(it, false)
+                    if (matchDestination(destination, it.destination)) drawerWeak.setSelection(it, false)
                 }
             }
         })
@@ -66,7 +82,7 @@ object DrawerNavigationUI {
      * @return True if the navigation is performed, False otherwise.
      */
     private fun performNavigation(item: IDrawerItem<*>, navController: NavController): Boolean {
-        return when(item) {
+        return when (item) {
             is NavigationDrawerItem -> {
                 val builder = NavOptions.Builder()
                         .setLaunchSingleTop(true)
