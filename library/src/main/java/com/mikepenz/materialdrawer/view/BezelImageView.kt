@@ -42,7 +42,7 @@ import com.mikepenz.materialdrawer.util.DrawerImageLoader
  * drawable on top. This is useful for applying a beveled look to image contents, but is also
  * flexible enough for use with other desired aesthetics.
  */
-class BezelImageView @JvmOverloads constructor(context: Context, attrs: AttributeSet? = null, defStyle: Int = 0) : AppCompatImageView(context, attrs, defStyle) {
+open class BezelImageView @JvmOverloads constructor(context: Context, attrs: AttributeSet? = null, defStyle: Int = 0) : AppCompatImageView(context, attrs, defStyle) {
     private val mBlackPaint: Paint
     private val mMaskedPaint: Paint
 
