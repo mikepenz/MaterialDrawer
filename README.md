@@ -34,6 +34,7 @@ There  is a Header with profiles (**AccountHeader**), a **MiniDrawer** for Table
 - tested and **stable**
 - sticky footer or headers
 - **absolutely NO limits**
+- NavController support by @petretiandrea
 
 > If you upgrade from < 6.1.0 follow the [MIGRATION GUIDE](https://github.com/mikepenz/MaterialDrawer/blob/develop/MIGRATION.md)
 
@@ -68,6 +69,9 @@ implementation "androidx.recyclerview:recyclerview:${versions.recyclerView}"
 implementation "androidx.annotation:annotation:${versions.annotation}"
 implementation "com.google.android.material:material:${versions.material}"
 implementation "androidx.constraintlayout:constraintlayout:${versions.constraintLayout}"
+
+// Add for NavController support
+implementation "com.mikepenz:materialdrawer-nav:${lastestMaterialDrawerRelease}"
 ```
 
 ## v7.x.y
@@ -426,7 +430,7 @@ You'll then be able to use this custom class:
 builder.withDrawerLayout(R.layout.material_drawer);
 ```
 
-### Prefer Kotlin?
+### Prefer a Kotlin DSL?
 Thanks to @zsmb13 there's now an (in)official Kotlin DSL wrapper for the MaterialDrawer https://github.com/zsmb13/MaterialDrawerKt
 
 # Apps using the MaterialDrawer
