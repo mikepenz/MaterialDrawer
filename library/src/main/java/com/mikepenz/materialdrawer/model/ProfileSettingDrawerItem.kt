@@ -1,13 +1,16 @@
 package com.mikepenz.materialdrawer.model
 
 import android.graphics.Bitmap
-import android.graphics.Typeface
 import android.graphics.drawable.Drawable
 import android.net.Uri
 import android.view.View
 import android.widget.ImageView
 import android.widget.TextView
-import androidx.annotation.*
+import androidx.annotation.ColorInt
+import androidx.annotation.ColorRes
+import androidx.annotation.DrawableRes
+import androidx.annotation.LayoutRes
+import androidx.annotation.StringRes
 import androidx.core.view.ViewCompat
 import androidx.recyclerview.widget.RecyclerView
 import com.mikepenz.iconics.typeface.IIcon
@@ -96,26 +99,6 @@ open class ProfileSettingDrawerItem : AbstractDrawerItem<ProfileSettingDrawerIte
     //NOTE we reuse the IProfile here to allow custom items within the AccountSwitcher. There is an alias method withDescription for this
     override fun withEmail(email: String?): ProfileSettingDrawerItem {
         this.email = StringHolder(email)
-        return this
-    }
-
-    fun withSelectedColor(@ColorInt selectedColor: Int): ProfileSettingDrawerItem {
-        this.selectedColor = ColorHolder.fromColor(selectedColor)
-        return this
-    }
-
-    fun withSelectedColorRes(@ColorRes selectedColorRes: Int): ProfileSettingDrawerItem {
-        this.selectedColor = ColorHolder.fromColorRes(selectedColorRes)
-        return this
-    }
-
-    fun withTextColor(@ColorInt textColor: Int): ProfileSettingDrawerItem {
-        this.textColor = ColorHolder.fromColor(textColor)
-        return this
-    }
-
-    fun withTextColorRes(@ColorRes textColorRes: Int): ProfileSettingDrawerItem {
-        this.textColor = ColorHolder.fromColorRes(textColorRes)
         return this
     }
 
