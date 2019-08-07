@@ -204,7 +204,7 @@ abstract class AbstractDrawerItem<T, VH : RecyclerView.ViewHolder> : IDrawerItem
      * @param drawerItem the drawerItem which is bound to the view
      * @param view       the currently view which will be bound
      */
-    fun onPostBindView(drawerItem: IDrawerItem<*>, view: View) {
+    protected fun onPostBindView(drawerItem: IDrawerItem<*>, view: View) {
         onPostBindViewListener?.onBindView(drawerItem, view)
     }
 
