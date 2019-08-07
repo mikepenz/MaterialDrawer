@@ -53,13 +53,13 @@ open class ProfileSettingDrawerItem : AbstractDrawerItem<ProfileSettingDrawerIte
         return this
     }
 
-    override fun withIcon(icon: Bitmap): ProfileSettingDrawerItem {
-        this.icon = ImageHolder(icon)
+    override fun withIcon(bitmap: Bitmap): ProfileSettingDrawerItem {
+        this.icon = ImageHolder(bitmap)
         return this
     }
 
-    override fun withIcon(iicon: IIcon): ProfileSettingDrawerItem {
-        this.icon = ImageHolder(iicon)
+    override fun withIcon(icon: IIcon): ProfileSettingDrawerItem {
+        this.icon = ImageHolder(icon)
         return this
     }
 
