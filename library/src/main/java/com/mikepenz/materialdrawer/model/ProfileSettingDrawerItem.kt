@@ -34,7 +34,6 @@ open class ProfileSettingDrawerItem : AbstractDrawerItem<ProfileSettingDrawerIte
     var iconColor: ColorHolder? = null
     var descriptionTextColor: ColorHolder? = null
 
-    override var typeface: Typeface? = null
     override var isSelectable = false
 
     override val type: Int
@@ -137,11 +136,6 @@ open class ProfileSettingDrawerItem : AbstractDrawerItem<ProfileSettingDrawerIte
 
     fun withIconColorRes(@ColorRes iconColorRes: Int): ProfileSettingDrawerItem {
         this.iconColor = ColorHolder.fromColorRes(iconColorRes)
-        return this
-    }
-
-    override fun withTypeface(typeface: Typeface?): ProfileSettingDrawerItem {
-        this.typeface = typeface
         return this
     }
 
