@@ -395,5 +395,6 @@
         <item name="biv_maskDrawable">@drawable/material_drawer_circle_mask</item>
         <item name="biv_drawCircularShadow">true</item>
         <item name="biv_selectorOnPress">@color/material_drawer_primary</item>
+        <item name="android:scaleType">centerInside</item>
     </style>
 </resources>

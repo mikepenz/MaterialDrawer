@@ -1,5 +1,22 @@
 ### Upgrade Notes
 
+#### v7.0.0
+
+Now library is kotlin-first.
+
+* this release contains a big amount of changes, including many breaking API changes to make its implementation easier, and make the APIs better compatible with kotlin. 
+* please note that the interface for items changed in the `FastAdapter` as such migrating to the new version will require more effort. 
+
+
+* Update `FastAdapter` to v4 and make all relevant adjustments to the provided `DrawerItem`s
+  * Check the `FastAdapter` changelog and [migration guide](https://github.com/mikepenz/FastAdapter/blob/develop/MIGRATION.md)
+* Update `Android-Iconics` to v4
+  * Ensure to update `Android-Iconics` for your project, and use the updated kotlin icon dependencies
+  * See the migration notes for `Android-Iconics` if you run into problems
+* The general interfaces and everything stayed the same, and mainly everything was migrated to kotlin
+
+If you have any issues during the migration, or any questions come up please open a github issue so we can improve the migration guide or the documentation.
+
 #### v6.1.1
 * Further adjustments for the theme to properly meet the new material 2 design guidelines.
 ```xml

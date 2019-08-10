@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/navigation"
+    app:startDestination="@id/fragmentHome">
+
+    <fragment
+        android:id="@+id/fragmentHome"
+        android:name="com.mikepenz.materialdrawer.app.fragment.DemoMessageFragment"
+        android:label="DemoMessageFragment"
+        tools:layout="@layout/fragment_message_sample">
+        <argument
+            android:name="message"
+            android:defaultValue="Fragment Home"
+            app:argType="string" />
+        <action
+            android:id="@+id/action_fragmentHome_to_messageFragment1"
+            app:destination="@id/messageFragment1" />
+        <action
+            android:id="@+id/action_fragmentHome_to_messageFragment2"
+            app:destination="@id/messageFragment2" />
+        <action
+            android:id="@+id/action_fragmentHome_to_messageFragment3"
+            app:destination="@id/messageFragment3" />
+    </fragment>
+    <fragment
+        android:id="@+id/messageFragment1"
+        android:name="com.mikepenz.materialdrawer.app.fragment.DemoMessageFragment"
+        android:label="DemoMessageFragment"
+        tools:layout="@layout/fragment_message_sample">
+        <argument
+            android:name="message"
+            android:defaultValue="Fragment1"
+            app:argType="string" />
+    </fragment>
+    <fragment
+        android:id="@+id/messageFragment2"
+        android:name="com.mikepenz.materialdrawer.app.fragment.DemoMessageFragment"
+        android:label="DemoMessageFragment"
+        tools:layout="@layout/fragment_message_sample">
+        <argument
+            android:name="message"
+            android:defaultValue="Fragment2"
+            app:argType="string" />
+    </fragment>
+    <fragment
+        android:id="@+id/messageFragment3"
+        android:name="com.mikepenz.materialdrawer.app.fragment.DemoMessageFragment"
+        android:label="DemoMessageFragment"
+        tools:layout="@layout/fragment_message_sample">
+        <argument
+            android:name="message"
+            android:defaultValue="Fragment3"
+            app:argType="string" />
+    </fragment>
+
+</navigation>

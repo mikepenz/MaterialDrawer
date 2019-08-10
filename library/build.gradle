@@ -1,4 +1,6 @@
 apply plugin: 'com.android.library'
+apply plugin: 'kotlin-android'
+apply plugin: 'kotlin-android-extensions'
 
 android {
     compileSdkVersion setup.compileSdk
@@ -12,24 +14,38 @@ android {
 
         resValue "string", "materialdrawer_lib_version", "${versionName}"
     }
+
     buildTypes {
         release {
             minifyEnabled false
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.txt'
         }
     }
+
     productFlavors {
     }
+
     lintOptions {
         abortOnError false
+    }
+
+    compileOptions {
+        sourceCompatibility JavaVersion.VERSION_1_8
+        targetCompatibility JavaVersion.VERSION_1_8
+    }
+
+    packagingOptions {
+        exclude 'META-INF/library-core_release.kotlin_module'
+        exclude 'META-INF/library_release.kotlin_module'
     }
 }
 
 dependencies {
-    implementation "androidx.appcompat:appcompat:${versions.androidX}"
-    implementation "androidx.recyclerview:recyclerview:${versions.androidX}"
-    implementation "androidx.annotation:annotation:${versions.androidX}"
-    implementation "com.google.android.material:material:${versions.androidX}"
+    implementation "androidx.drawerlayout:drawerlayout:${versions.drawerlayout}"
+    implementation "androidx.appcompat:appcompat:${versions.appcompat}"
+    implementation "androidx.recyclerview:recyclerview:${versions.recyclerView}"
+    implementation "androidx.annotation:annotation:${versions.annotation}"
+    implementation "com.google.android.material:material:${versions.material}"
 
     // add the constraintLayout used to create the items and headers
     implementation "androidx.constraintlayout:constraintlayout:${versions.constraintLayout}"
@@ -38,18 +54,23 @@ dependencies {
     // contains util classes to support various android versions, and clean up code
     // comes with the awesome "Holder"-Pattern
     // https://github.com/mikepenz/Materialize
-    api 'com.mikepenz:materialize:1.2.0'
+    api 'com.mikepenz:materialize:1.2.1'
 
     // used to provide out of the box icon font support. simplifies development,
     // and provides scalable icons. the core is very very light
     // https://github.com/mikepenz/Android-Iconics
-    api 'com.mikepenz:iconics-core:3.1.0'
+    api "com.mikepenz:iconics-core:${versions.iconics}"
 
     // used to fill the RecyclerView with the DrawerItems
     // and provides single and multi selection, expandable items
     // https://github.com/mikepenz/FastAdapter
-    api 'com.mikepenz:fastadapter:3.3.0'
-    api 'com.mikepenz:fastadapter-extensions-expandable:3.3.0'
+    api "com.mikepenz:fastadapter:${versions.fastadapter}"
+    api "com.mikepenz:fastadapter-extensions-expandable:${versions.fastadapter}"
+
+    // kotlin
+    implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk7:${versions.kotlin}"
 }
 
-apply from: '../gradle-release.gradle'
+if (project.hasProperty('pushall') || project.hasProperty('library_only')) {
+    apply from: '../gradle-release.gradle'
+}
