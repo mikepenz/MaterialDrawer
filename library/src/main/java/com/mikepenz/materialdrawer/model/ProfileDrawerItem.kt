@@ -6,11 +6,12 @@ import android.net.Uri
 import android.view.View
 import android.widget.ImageView
 import android.widget.TextView
-import androidx.annotation.*
+import androidx.annotation.DrawableRes
+import androidx.annotation.LayoutRes
+import androidx.annotation.StringRes
 import androidx.recyclerview.widget.RecyclerView
 import com.mikepenz.iconics.typeface.IIcon
 import com.mikepenz.materialdrawer.R
-import com.mikepenz.materialdrawer.holder.ColorHolder
 import com.mikepenz.materialdrawer.holder.ImageHolder
 import com.mikepenz.materialdrawer.holder.StringHolder
 import com.mikepenz.materialdrawer.model.interfaces.IProfile
@@ -94,46 +95,6 @@ open class ProfileDrawerItem : AbstractDrawerItem<ProfileDrawerItem, ProfileDraw
      */
     fun withNameShown(nameShown: Boolean): ProfileDrawerItem {
         this.isNameShown = nameShown
-        return this
-    }
-
-    fun withSelectedColor(@ColorInt selectedColor: Int): ProfileDrawerItem {
-        this.selectedColor = ColorHolder.fromColor(selectedColor)
-        return this
-    }
-
-    fun withSelectedColorRes(@ColorRes selectedColorRes: Int): ProfileDrawerItem {
-        this.selectedColor = ColorHolder.fromColorRes(selectedColorRes)
-        return this
-    }
-
-    fun withTextColor(@ColorInt textColor: Int): ProfileDrawerItem {
-        this.textColor = ColorHolder.fromColor(textColor)
-        return this
-    }
-
-    fun withTextColorRes(@ColorRes textColorRes: Int): ProfileDrawerItem {
-        this.textColor = ColorHolder.fromColorRes(textColorRes)
-        return this
-    }
-
-    fun withSelectedTextColor(@ColorInt selectedTextColor: Int): ProfileDrawerItem {
-        this.selectedTextColor = ColorHolder.fromColor(selectedTextColor)
-        return this
-    }
-
-    fun withSelectedTextColorRes(@ColorRes selectedColorRes: Int): ProfileDrawerItem {
-        this.selectedTextColor = ColorHolder.fromColorRes(selectedColorRes)
-        return this
-    }
-
-    fun withDisabledTextColor(@ColorInt disabledTextColor: Int): ProfileDrawerItem {
-        this.disabledTextColor = ColorHolder.fromColor(disabledTextColor)
-        return this
-    }
-
-    fun withDisabledTextColorRes(@ColorRes disabledTextColorRes: Int): ProfileDrawerItem {
-        this.disabledTextColor = ColorHolder.fromColorRes(disabledTextColorRes)
         return this
     }
 

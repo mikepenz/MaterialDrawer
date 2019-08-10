@@ -9,6 +9,7 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.annotation.CallSuper
 import androidx.annotation.ColorInt
+import androidx.annotation.ColorRes
 import androidx.recyclerview.widget.RecyclerView
 import com.google.android.material.shape.ShapeAppearanceModel
 import com.mikepenz.fastadapter.IParentItem
@@ -17,7 +18,11 @@ import com.mikepenz.materialdrawer.Drawer
 import com.mikepenz.materialdrawer.R
 import com.mikepenz.materialdrawer.holder.ColorHolder
 import com.mikepenz.materialdrawer.holder.applyColor
-import com.mikepenz.materialdrawer.model.interfaces.*
+import com.mikepenz.materialdrawer.model.interfaces.IDrawerItem
+import com.mikepenz.materialdrawer.model.interfaces.OnPostBindViewListener
+import com.mikepenz.materialdrawer.model.interfaces.Selectable
+import com.mikepenz.materialdrawer.model.interfaces.Tagable
+import com.mikepenz.materialdrawer.model.interfaces.Typefaceable
 import com.mikepenz.materialdrawer.util.DrawerUIUtils
 
 /**
@@ -110,6 +115,46 @@ abstract class AbstractDrawerItem<T, VH : RecyclerView.ViewHolder> : IDrawerItem
         return this as T
     }
 
+    fun withSelectedColor(@ColorInt selectedColor: Int): T {
+        this.selectedColor = ColorHolder.fromColor(selectedColor)
+        return this as T
+    }
+
+    fun withSelectedColorRes(@ColorRes selectedColorRes: Int): T {
+        this.selectedColor = ColorHolder.fromColorRes(selectedColorRes)
+        return this as T
+    }
+
+    fun withTextColor(@ColorInt textColor: Int): T {
+        this.textColor = ColorHolder.fromColor(textColor)
+        return this as T
+    }
+
+    fun withTextColorRes(@ColorRes textColorRes: Int): T {
+        this.textColor = ColorHolder.fromColorRes(textColorRes)
+        return this as T
+    }
+
+    fun withSelectedTextColor(@ColorInt selectedTextColor: Int): T {
+        this.selectedTextColor = ColorHolder.fromColor(selectedTextColor)
+        return this as T
+    }
+
+    fun withSelectedTextColorRes(@ColorRes selectedColorRes: Int): T {
+        this.selectedTextColor = ColorHolder.fromColorRes(selectedColorRes)
+        return this as T
+    }
+
+    fun withDisabledTextColor(@ColorInt disabledTextColor: Int): T {
+        this.disabledTextColor = ColorHolder.fromColor(disabledTextColor)
+        return this as T
+    }
+
+    fun withDisabledTextColorRes(@ColorRes disabledTextColorRes: Int): T {
+        this.disabledTextColor = ColorHolder.fromColorRes(disabledTextColorRes)
+        return this as T
+    }
+
     /**
      * allows to set the typeface being useable for the item implementation
      */
@@ -159,7 +204,7 @@ abstract class AbstractDrawerItem<T, VH : RecyclerView.ViewHolder> : IDrawerItem
      * @param drawerItem the drawerItem which is bound to the view
      * @param view       the currently view which will be bound
      */
-    fun onPostBindView(drawerItem: IDrawerItem<*>, view: View) {
+    protected fun onPostBindView(drawerItem: IDrawerItem<*>, view: View) {
         onPostBindViewListener?.onBindView(drawerItem, view)
     }
 

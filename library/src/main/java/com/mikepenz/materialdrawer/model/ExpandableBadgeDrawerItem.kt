@@ -25,7 +25,7 @@ import com.mikepenz.materialdrawer.model.interfaces.IDrawerItem
  */
 open class ExpandableBadgeDrawerItem : BaseDescribeableDrawerItem<ExpandableBadgeDrawerItem, ExpandableBadgeDrawerItem.ViewHolder>(), ColorfulBadgeable<ExpandableBadgeDrawerItem> {
 
-    var mOnDrawerItemClickListener: Drawer.OnDrawerItemClickListener? = null
+    private var mOnDrawerItemClickListener: Drawer.OnDrawerItemClickListener? = null
     var arrowColor: ColorHolder? = null
     var arrowRotationAngleStart = 0
     var arrowRotationAngleEnd = 180

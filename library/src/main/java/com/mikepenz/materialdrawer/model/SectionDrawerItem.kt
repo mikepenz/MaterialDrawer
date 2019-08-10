@@ -1,13 +1,11 @@
 package com.mikepenz.materialdrawer.model
 
-import android.graphics.Typeface
 import android.view.View
 import android.widget.TextView
 import androidx.annotation.LayoutRes
 import androidx.annotation.StringRes
 import androidx.recyclerview.widget.RecyclerView
 import com.mikepenz.materialdrawer.R
-import com.mikepenz.materialdrawer.holder.ColorHolder
 import com.mikepenz.materialdrawer.holder.StringHolder
 import com.mikepenz.materialdrawer.holder.applyColor
 import com.mikepenz.materialdrawer.model.interfaces.Nameable
@@ -48,21 +46,6 @@ open class SectionDrawerItem : AbstractDrawerItem<SectionDrawerItem, SectionDraw
 
     fun withDivider(divider: Boolean): SectionDrawerItem {
         this.divider = divider
-        return this
-    }
-
-    fun withTextColor(textColor: Int): SectionDrawerItem {
-        this.textColor = ColorHolder.fromColor(textColor)
-        return this
-    }
-
-    fun withTextColorRes(textColorRes: Int): SectionDrawerItem {
-        this.textColor = ColorHolder.fromColorRes(textColorRes)
-        return this
-    }
-
-    override fun withTypeface(typeface: Typeface?): SectionDrawerItem {
-        this.typeface = typeface
         return this
     }
 

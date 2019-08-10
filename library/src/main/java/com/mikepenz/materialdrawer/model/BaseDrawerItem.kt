@@ -90,46 +90,6 @@ abstract class BaseDrawerItem<T, VH : RecyclerView.ViewHolder> : AbstractDrawerI
         return this as T
     }
 
-    fun withSelectedColor(@ColorInt selectedColor: Int): T {
-        this.selectedColor = ColorHolder.fromColor(selectedColor)
-        return this as T
-    }
-
-    fun withSelectedColorRes(@ColorRes selectedColorRes: Int): T {
-        this.selectedColor = ColorHolder.fromColorRes(selectedColorRes)
-        return this as T
-    }
-
-    fun withTextColor(@ColorInt textColor: Int): T {
-        this.textColor = ColorHolder.fromColor(textColor)
-        return this as T
-    }
-
-    fun withTextColorRes(@ColorRes textColorRes: Int): T {
-        this.textColor = ColorHolder.fromColorRes(textColorRes)
-        return this as T
-    }
-
-    fun withSelectedTextColor(@ColorInt selectedTextColor: Int): T {
-        this.selectedTextColor = ColorHolder.fromColor(selectedTextColor)
-        return this as T
-    }
-
-    fun withSelectedTextColorRes(@ColorRes selectedColorRes: Int): T {
-        this.selectedTextColor = ColorHolder.fromColorRes(selectedColorRes)
-        return this as T
-    }
-
-    fun withDisabledTextColor(@ColorInt disabledTextColor: Int): T {
-        this.disabledTextColor = ColorHolder.fromColor(disabledTextColor)
-        return this as T
-    }
-
-    fun withDisabledTextColorRes(@ColorRes disabledTextColorRes: Int): T {
-        this.disabledTextColor = ColorHolder.fromColorRes(disabledTextColorRes)
-        return this as T
-    }
-
     fun withIconColor(@ColorInt iconColor: Int): T {
         this.iconColor = ColorHolder.fromColor(iconColor)
         return this as T

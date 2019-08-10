@@ -1,13 +1,16 @@
 package com.mikepenz.materialdrawer.model
 
 import android.graphics.Bitmap
-import android.graphics.Typeface
 import android.graphics.drawable.Drawable
 import android.net.Uri
 import android.view.View
 import android.widget.ImageView
 import android.widget.TextView
-import androidx.annotation.*
+import androidx.annotation.ColorInt
+import androidx.annotation.ColorRes
+import androidx.annotation.DrawableRes
+import androidx.annotation.LayoutRes
+import androidx.annotation.StringRes
 import androidx.core.view.ViewCompat
 import androidx.recyclerview.widget.RecyclerView
 import com.mikepenz.iconics.typeface.IIcon
@@ -34,7 +37,6 @@ open class ProfileSettingDrawerItem : AbstractDrawerItem<ProfileSettingDrawerIte
     var iconColor: ColorHolder? = null
     var descriptionTextColor: ColorHolder? = null
 
-    override var typeface: Typeface? = null
     override var isSelectable = false
 
     override val type: Int
@@ -54,13 +56,13 @@ open class ProfileSettingDrawerItem : AbstractDrawerItem<ProfileSettingDrawerIte
         return this
     }
 
-    override fun withIcon(icon: Bitmap): ProfileSettingDrawerItem {
-        this.icon = ImageHolder(icon)
+    override fun withIcon(bitmap: Bitmap): ProfileSettingDrawerItem {
+        this.icon = ImageHolder(bitmap)
         return this
     }
 
-    override fun withIcon(iicon: IIcon): ProfileSettingDrawerItem {
-        this.icon = ImageHolder(iicon)
+    override fun withIcon(icon: IIcon): ProfileSettingDrawerItem {
+        this.icon = ImageHolder(icon)
         return this
     }
 
@@ -100,26 +102,6 @@ open class ProfileSettingDrawerItem : AbstractDrawerItem<ProfileSettingDrawerIte
         return this
     }
 
-    fun withSelectedColor(@ColorInt selectedColor: Int): ProfileSettingDrawerItem {
-        this.selectedColor = ColorHolder.fromColor(selectedColor)
-        return this
-    }
-
-    fun withSelectedColorRes(@ColorRes selectedColorRes: Int): ProfileSettingDrawerItem {
-        this.selectedColor = ColorHolder.fromColorRes(selectedColorRes)
-        return this
-    }
-
-    fun withTextColor(@ColorInt textColor: Int): ProfileSettingDrawerItem {
-        this.textColor = ColorHolder.fromColor(textColor)
-        return this
-    }
-
-    fun withTextColorRes(@ColorRes textColorRes: Int): ProfileSettingDrawerItem {
-        this.textColor = ColorHolder.fromColorRes(textColorRes)
-        return this
-    }
-
     fun withDescriptionTextColor(@ColorInt descriptionColor: Int): ProfileSettingDrawerItem {
         this.descriptionTextColor = ColorHolder.fromColor(descriptionColor)
         return this
@@ -137,11 +119,6 @@ open class ProfileSettingDrawerItem : AbstractDrawerItem<ProfileSettingDrawerIte
 
     fun withIconColorRes(@ColorRes iconColorRes: Int): ProfileSettingDrawerItem {
         this.iconColor = ColorHolder.fromColorRes(iconColorRes)
-        return this
-    }
-
-    override fun withTypeface(typeface: Typeface?): ProfileSettingDrawerItem {
-        this.typeface = typeface
         return this
     }
 
