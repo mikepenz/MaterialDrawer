@@ -15,6 +15,7 @@ buildscript {
         ]
 
         versions = [
+                multiDex        : '2.0.0',
                 androidX        : '1.0.0',
                 annotation      : '1.1.0',
                 recyclerView    : '1.1.0-beta01',

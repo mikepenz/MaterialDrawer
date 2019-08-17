@@ -62,6 +62,7 @@ dependencies {
     implementation project(':library')
     implementation project(':library-nav')
 
+    implementation "androidx.multidex:multidex:${versions.multiDex}"
     implementation "com.google.android.material:material:${versions.material}"
     implementation "androidx.appcompat:appcompat:${versions.appcompat}"
     implementation "androidx.recyclerview:recyclerview:${versions.recyclerView}"

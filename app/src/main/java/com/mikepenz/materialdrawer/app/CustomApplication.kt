@@ -1,10 +1,10 @@
 package com.mikepenz.materialdrawer.app
 
-import android.app.Application
 import android.content.Context
 import android.graphics.drawable.Drawable
 import android.net.Uri
 import android.widget.ImageView
+import androidx.multidex.MultiDexApplication
 import com.bumptech.glide.Glide
 import com.mikepenz.iconics.IconicsColor.Companion.colorRes
 import com.mikepenz.iconics.IconicsDrawable
@@ -12,12 +12,11 @@ import com.mikepenz.iconics.IconicsSize.Companion.dp
 import com.mikepenz.materialdrawer.util.AbstractDrawerImageLoader
 import com.mikepenz.materialdrawer.util.DrawerImageLoader
 import com.mikepenz.materialdrawer.util.DrawerUIUtils
-import com.squareup.picasso.Picasso
 
 /**
  * Created by mikepenz on 27.03.15.
  */
-class CustomApplication : Application() {
+class CustomApplication : MultiDexApplication() {
     override fun onCreate() {
         super.onCreate()
 
