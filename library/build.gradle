@@ -34,10 +34,8 @@ android {
         targetCompatibility JavaVersion.VERSION_1_8
     }
 
-    packagingOptions {
-        exclude 'META-INF/library-core_release.kotlin_module'
-        exclude 'META-INF/library_release.kotlin_module'
-    }
+    // specify the artifactId as module-name for kotlin
+    kotlinOptions.freeCompilerArgs += ["-module-name", POM_ARTIFACT_ID]
 }
 
 dependencies {
