@@ -5,6 +5,8 @@ import android.os.Build
 import android.os.Bundle
 import android.view.MenuItem
 import androidx.appcompat.app.AppCompatActivity
+import androidx.core.view.ViewCompat
+import androidx.core.view.updatePadding
 import com.mikepenz.iconics.typeface.library.fontawesome.FontAwesome
 import com.mikepenz.materialdrawer.Drawer
 import com.mikepenz.materialdrawer.DrawerBuilder
@@ -59,39 +61,17 @@ class FullscreenDrawerActivity : AppCompatActivity() {
         supportActionBar?.setDisplayHomeAsUpEnabled(true)
         supportActionBar?.setHomeButtonEnabled(false)
 
-        /*
-        //USE THIS CODE TO GET A FULL TRANSPARENT STATUS BAR
-        //YOU HAVE TO UNCOMMENT THE setWindowFlag too.
-        if (Build.VERSION.SDK_INT >= 19 && Build.VERSION.SDK_INT < 21) {
-            setWindowFlag(this, WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS, true)
+        result?.drawerLayout?.let {
+            ViewCompat.setOnApplyWindowInsetsListener(it) { v, insets ->
+                toolbar.updatePadding(top = insets.systemWindowInsetTop)
+                insets
+            }
         }
-        if (Build.VERSION.SDK_INT >= 19) {
-            window.decorView.systemUiVisibility = View.SYSTEM_UI_FLAG_LAYOUT_STABLE or View.SYSTEM_UI_FLAG_LAYOUT_FULLSCREEN
-        }
-        if (Build.VERSION.SDK_INT >= 21) {
-            setWindowFlag(this, WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS, false)
-            window.statusBarColor = Color.TRANSPARENT
-        }
-        */
 
         if (Build.VERSION.SDK_INT >= 19) {
             result?.drawerLayout?.fitsSystemWindows = false
         }
     }
-
-    /*
-
-    public static void setWindowFlag(Activity activity, final int bits, boolean on) {
-        Window win = activity.getWindow();
-        WindowManager.LayoutParams winParams = win.getAttributes();
-        if (on) {
-            winParams.flags |= bits;
-        } else {
-            winParams.flags &= ~bits;
-        }
-        win.setAttributes(winParams);
-    }
-    */
 
     override fun onSaveInstanceState(_outState: Bundle) {
         var outState = _outState
