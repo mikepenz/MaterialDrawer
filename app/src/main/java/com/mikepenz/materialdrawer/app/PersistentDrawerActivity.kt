@@ -7,6 +7,8 @@ import android.view.MenuItem
 import android.view.View
 import android.widget.ImageView
 import androidx.appcompat.app.AppCompatActivity
+import androidx.core.view.ViewCompat
+import androidx.core.view.updatePadding
 import com.mikepenz.crossfader.Crossfader
 import com.mikepenz.crossfader.view.CrossFadeSlidingPaneLayout
 import com.mikepenz.iconics.IconicsColor.Companion.colorInt
@@ -118,6 +120,11 @@ class PersistentDrawerActivity : AppCompatActivity() {
         //for RTL you would have to define the other arrow
         toggle.setImageDrawable(IconicsDrawable(this, GoogleMaterial.Icon.gmd_chevron_left).size(dp(16)).color(colorInt(Color.BLACK)))
         toggle.setOnClickListener { crossFader.crossFade() }
+
+        ViewCompat.setOnApplyWindowInsetsListener(root) { v, insets ->
+            toolbar.updatePadding(top = insets.systemWindowInsetTop)
+            insets
+        }
     }
 
     override fun onSaveInstanceState(_outState: Bundle) {
