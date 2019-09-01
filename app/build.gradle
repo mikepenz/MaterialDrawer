@@ -51,11 +51,6 @@ android {
         sourceCompatibility JavaVersion.VERSION_1_8
         targetCompatibility JavaVersion.VERSION_1_8
     }
-
-    packagingOptions {
-        exclude 'META-INF/library-core_release.kotlin_module'
-        exclude 'META-INF/library_release.kotlin_module'
-    }
 }
 
 dependencies {
@@ -68,6 +63,7 @@ dependencies {
     implementation "androidx.recyclerview:recyclerview:${versions.recyclerView}"
     implementation "androidx.cardview:cardview:${versions.cardview}"
     implementation "androidx.constraintlayout:constraintlayout:${versions.constraintLayout}"
+    implementation "androidx.slidingpanelayout:slidingpanelayout:${versions.slidingpaneLayout}"
 
     // used to showcase how to load images
     implementation 'com.squareup.picasso:picasso:2.71828'
@@ -85,7 +81,7 @@ dependencies {
     implementation "com.mikepenz:fastadapter-extensions-utils:${versions.fastadapter}"
     // used to generate the Open Source section
     // https://github.com/mikepenz/AboutLibraries
-    implementation 'com.mikepenz:aboutlibraries:7.0.0'
+    implementation 'com.mikepenz:aboutlibraries:7.0.3'
 
     //used to provide different itemAnimators for the RecyclerView
     //https://github.com/mikepenz/ItemAnimators
