@@ -84,15 +84,8 @@ object DrawerNavigationUI {
     private fun performNavigation(item: IDrawerItem<*>, navController: NavController): Boolean {
         return when (item) {
             is NavigationDrawerItem -> {
-                val builder = NavOptions.Builder()
-                        .setLaunchSingleTop(true)
-                        .setEnterAnim(androidx.navigation.ui.R.anim.nav_default_enter_anim)
-                        .setExitAnim(androidx.navigation.ui.R.anim.nav_default_exit_anim)
-                        .setPopEnterAnim(androidx.navigation.ui.R.anim.nav_default_pop_enter_anim)
-                        .setPopExitAnim(androidx.navigation.ui.R.anim.nav_default_pop_exit_anim)
-                val options = builder.build()
                 try {
-                    navController.navigate(item.destination, null, options)
+                    navController.navigate(item.destination, item.args, item.options)
                     true
                 } catch (e: IllegalArgumentException) {
                     false
