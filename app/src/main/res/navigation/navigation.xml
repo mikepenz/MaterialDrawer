@@ -54,5 +54,8 @@
             android:defaultValue="Fragment3"
             app:argType="string" />
     </fragment>
+    <action
+        android:id="@+id/action_global_fragmentHome"
+        app:popUpTo="@id/fragmentHome" />
 
 </navigation>

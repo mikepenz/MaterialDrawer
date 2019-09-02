@@ -4,6 +4,7 @@ import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.widget.Toolbar
 import androidx.navigation.findNavController
+import androidx.navigation.ui.NavigationUI
 import com.mikepenz.materialdrawer.DrawerBuilder
 import com.mikepenz.materialdrawer.model.DividerDrawerItem
 import com.mikepenz.materialdrawer.model.NavigationDrawerItem
@@ -26,7 +27,7 @@ class NavControllerActivity : AppCompatActivity() {
                 .withActivity(this)
                 .withToolbar(toolbar)
                 .addDrawerItems(
-                        NavigationDrawerItem(R.id.fragmentHome, PrimaryDrawerItem().withName("Home")),
+                        NavigationDrawerItem(R.id.action_global_fragmentHome, PrimaryDrawerItem().withName("Home")),
                         DividerDrawerItem(),
                         NavigationDrawerItem(R.id.messageFragment1, PrimaryDrawerItem().withName("Fragment1")),
                         NavigationDrawerItem(R.id.messageFragment2, PrimaryDrawerItem().withName("Fragment2")),
@@ -36,5 +37,7 @@ class NavControllerActivity : AppCompatActivity() {
 
         // setup the drawer with navigation controller
         drawer.setupWithNavController(navController)
+        // setup Action Bar
+        NavigationUI.setupActionBarWithNavController(this, navController, drawer.drawerLayout)
     }
 }
