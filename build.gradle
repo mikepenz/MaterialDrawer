@@ -19,7 +19,7 @@ buildscript {
                 androidX         : '1.0.0',
                 annotation       : '1.1.0',
                 recyclerView     : '1.1.0-beta03',
-                material         : '1.1.0-alpha09',
+                material         : '1.1.0-alpha10',
                 appcompat        : '1.1.0-rc01',
                 drawerlayout     : '1.1.0-alpha03',
                 constraintLayout : '2.0.0-beta2',
