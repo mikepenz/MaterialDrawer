@@ -27,7 +27,7 @@ buildscript {
                 kotlin           : "1.3.50",
                 fastadapter      : "4.1.0-b02",
                 iconics          : "4.0.1-b02",
-                navigation       : "2.0.0",
+                navigation       : "2.1.0",
                 slidingpaneLayout: "1.0.0"
         ]
     }
