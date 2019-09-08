@@ -44,7 +44,7 @@ class SecondDrawerFragment : Fragment() {
 
         result?.apply {
             drawerLayout.fitsSystemWindows = false
-            slider.fitsSystemWindows = false
+            (slider as View).fitsSystemWindows = false
         }
 
         return view

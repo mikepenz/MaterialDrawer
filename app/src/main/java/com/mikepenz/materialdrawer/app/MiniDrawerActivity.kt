@@ -143,7 +143,7 @@ class MiniDrawerActivity : AppCompatActivity() {
         //the crossfader library can be found here: https://github.com/mikepenz/Crossfader
         crossFader = Crossfader<CrossFadeSlidingPaneLayout>()
                 .withContent(findViewById<View>(R.id.crossfade_content))
-                .withFirst(result.slider, firstWidth)
+                .withFirst(result.slider as View, firstWidth)
                 .withSecond(miniResult.build(this), secondWidth)
                 .withSavedInstance(savedInstanceState)
                 .build()

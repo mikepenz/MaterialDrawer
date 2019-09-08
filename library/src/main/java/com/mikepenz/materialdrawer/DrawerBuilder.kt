@@ -51,7 +51,6 @@ import com.mikepenz.materialdrawer.util.DrawerUIUtils
 import com.mikepenz.materialize.Materialize
 import com.mikepenz.materialize.MaterializeBuilder
 import com.mikepenz.materialize.util.UIUtils
-import com.mikepenz.materialize.view.ScrimInsetsRelativeLayout
 import java.util.*
 
 /**
@@ -103,7 +102,7 @@ open class DrawerBuilder {
 
     // the drawerLayout to use
     internal lateinit var mDrawerLayout: DrawerLayout
-    internal lateinit var mSliderLayout: ScrimInsetsRelativeLayout
+    internal lateinit var mSliderLayout: com.mikepenz.materialdrawer.view.ScrimInsetsRelativeLayout
 
     //the background color for the slider
     internal var mSliderBackgroundColor = 0
@@ -1502,7 +1501,7 @@ open class DrawerBuilder {
         }
 
         // get the slider view
-        mSliderLayout = mActivity.layoutInflater.inflate(R.layout.material_drawer_slider, mDrawerLayout, false) as ScrimInsetsRelativeLayout
+        mSliderLayout = mActivity.layoutInflater.inflate(R.layout.material_drawer_slider, mDrawerLayout, false) as com.mikepenz.materialdrawer.view.ScrimInsetsRelativeLayout
         mSliderLayout.setBackgroundColor(UIUtils.getThemeColorFromAttrOrRes(mActivity, R.attr.material_drawer_background, R.color.material_drawer_background))
         // get the layout params
         var params: DrawerLayout.LayoutParams? = mSliderLayout.layoutParams as DrawerLayout.LayoutParams?
@@ -1564,7 +1563,7 @@ open class DrawerBuilder {
         mDrawerLayout = result.drawerLayout
 
         // get the slider view
-        mSliderLayout = mActivity.layoutInflater.inflate(R.layout.material_drawer_slider, mDrawerLayout, false) as ScrimInsetsRelativeLayout
+        mSliderLayout = mActivity.layoutInflater.inflate(R.layout.material_drawer_slider, mDrawerLayout, false) as com.mikepenz.materialdrawer.view.ScrimInsetsRelativeLayout
         mSliderLayout.setBackgroundColor(UIUtils.getThemeColorFromAttrOrRes(mActivity, R.attr.material_drawer_background, R.color.material_drawer_background))
         // get the layout params
         (mSliderLayout.layoutParams as DrawerLayout.LayoutParams).also {

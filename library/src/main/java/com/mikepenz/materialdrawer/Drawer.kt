@@ -24,7 +24,7 @@ import com.mikepenz.materialdrawer.model.interfaces.IDrawerItem
 import com.mikepenz.materialdrawer.model.interfaces.Iconable
 import com.mikepenz.materialdrawer.model.interfaces.Nameable
 import com.mikepenz.materialize.Materialize
-import com.mikepenz.materialize.view.ScrimInsetsRelativeLayout
+import com.mikepenz.materialize.view.IScrimInsetsLayout
 
 /**
  * Created by mikepenz on 03.02.15.
@@ -77,7 +77,7 @@ open class Drawer(internal val drawerBuilder: DrawerBuilder) {
      *
      * @return
      */
-    val slider: ScrimInsetsRelativeLayout
+    val slider: IScrimInsetsLayout
         get() = drawerBuilder.mSliderLayout
 
     /**
@@ -389,9 +389,9 @@ open class Drawer(internal val drawerBuilder: DrawerBuilder) {
      * @param gravity the gravity which is defined for the drawer
      */
     fun setGravity(gravity: Int) {
-        val params = slider.layoutParams as DrawerLayout.LayoutParams
+        val params = (slider as View).layoutParams as DrawerLayout.LayoutParams
         params.gravity = gravity
-        slider.layoutParams = params
+        (slider as View).layoutParams = params
         drawerBuilder.mDrawerGravity = gravity
     }
 
