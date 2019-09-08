@@ -107,7 +107,7 @@ class PersistentDrawerActivity : AppCompatActivity() {
         //create and build our crossfader (see the MiniDrawer is also builded in here, as the build method returns the view to be used in the crossfader)
         crossFader = Crossfader<CrossFadeSlidingPaneLayout>()
                 .withContent(findViewById<View>(R.id.crossfade_content))
-                .withFirst(result.slider, firstWidth)
+                .withFirst(result.slider as View, firstWidth)
                 .withSecond(miniResult.build(this), secondWidth)
                 .withSavedInstance(savedInstanceState)
                 .build()

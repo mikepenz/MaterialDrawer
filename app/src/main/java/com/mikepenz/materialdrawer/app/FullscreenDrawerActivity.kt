@@ -1,5 +1,6 @@
 package com.mikepenz.materialdrawer.app
 
+import android.content.res.Configuration
 import android.graphics.Color
 import android.os.Build
 import android.os.Bundle
@@ -70,6 +71,10 @@ class FullscreenDrawerActivity : AppCompatActivity() {
 
         if (Build.VERSION.SDK_INT >= 19) {
             result?.drawerLayout?.fitsSystemWindows = false
+
+            if (resources.configuration.orientation == Configuration.ORIENTATION_LANDSCAPE) {
+                result?.slider?.isTintNavigationBar = false
+            }
         }
     }
 
