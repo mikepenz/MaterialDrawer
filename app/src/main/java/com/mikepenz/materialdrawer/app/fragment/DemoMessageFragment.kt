@@ -29,6 +29,7 @@ class DemoMessageFragment : Fragment() {
         btnFragment1.setOnClickListener { navigateTo(R.id.messageFragment1) }
         btnFragment2.setOnClickListener { navigateTo(R.id.messageFragment2) }
         btnFragment3.setOnClickListener { navigateTo(R.id.messageFragment3) }
+        btnPopup.setOnClickListener { navigateTo(R.id.action_global_fragmentHome) }
     }
 
     private fun navigateTo(destination: Int) {

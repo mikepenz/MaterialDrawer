@@ -415,9 +415,9 @@ abstract class AbstractDrawerItem<T, VH : RecyclerView.ViewHolder> : IDrawerItem
      */
     protected fun getShapeAppearanceModel(ctx: Context): ShapeAppearanceModel {
         val cornerRadius = ctx.resources.getDimensionPixelSize(R.dimen.material_drawer_item_corner_radius)
-        val shapeAppearanceModel = ShapeAppearanceModel()
-        shapeAppearanceModel.setCornerRadius(cornerRadius.toFloat())
-        return shapeAppearanceModel
+
+        return ShapeAppearanceModel()
+            .withCornerRadius(cornerRadius.toFloat())
     }
 
     /**

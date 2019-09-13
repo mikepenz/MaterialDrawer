@@ -70,8 +70,7 @@
         <activity
             android:name=".NavControllerActivity"
             android:label="NavControllerExample"
-            android:theme="@style/MaterialDrawerTheme.Light.DarkToolbar">
-        </activity>
+            android:theme="@style/MaterialDrawerTheme.Light.DarkToolbar"></activity>
     </application>
 
 </manifest>

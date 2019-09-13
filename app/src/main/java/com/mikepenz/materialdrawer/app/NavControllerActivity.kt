@@ -26,7 +26,7 @@ class NavControllerActivity : AppCompatActivity() {
                 .withActivity(this)
                 .withToolbar(toolbar)
                 .addDrawerItems(
-                        NavigationDrawerItem(R.id.fragmentHome, PrimaryDrawerItem().withName("Home")),
+                        NavigationDrawerItem(R.id.action_global_fragmentHome, PrimaryDrawerItem().withName("Home"), null, null),
                         DividerDrawerItem(),
                         NavigationDrawerItem(R.id.messageFragment1, PrimaryDrawerItem().withName("Fragment1")),
                         NavigationDrawerItem(R.id.messageFragment2, PrimaryDrawerItem().withName("Fragment2")),

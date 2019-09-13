@@ -5,7 +5,6 @@ import android.view.View
 import androidx.annotation.IdRes
 import androidx.navigation.NavController
 import androidx.navigation.NavDestination
-import androidx.navigation.NavOptions
 import com.mikepenz.materialdrawer.Drawer
 import com.mikepenz.materialdrawer.model.NavigationDrawerItem
 import com.mikepenz.materialdrawer.model.interfaces.IDrawerItem
@@ -64,7 +63,13 @@ object DrawerNavigationUI {
                     navController.removeOnDestinationChangedListener(this)
                 }
                 drawerWeak?.drawerItems?.filterIsInstance<NavigationDrawerItem<*>>()?.forEach {
-                    if (matchDestination(destination, it.destination)) drawerWeak.setSelection(it, false)
+                    // A ResId may refers to 3 intents.
+                    val destinationId = controller.graph.getAction(it.resId)?.let { action ->
+                        if (action.destinationId != 0) action.destinationId // an action navigate to a destination
+                        else action.navOptions?.popUpTo // an action pop to a destination
+                    } ?: it.resId // a destination
+
+                    if (matchDestination(destination, destinationId)) drawerWeak.setSelection(it, false)
                 }
             }
         })
@@ -74,7 +79,7 @@ object DrawerNavigationUI {
      * Try to perform a navigation using the NavController to destination associated to IDrawerItem.
      *
      * Importantly, it assumes that the item type's is {@link NavigationDrawerItem} and that
-     * the destination matches a valid {@link NavDestination#getAction(int) action id} or {@link NavDestination#getId() destination id}
+     * the resId matches a valid {@link NavDestination#getAction(int) action id} or {@link NavDestination#getId() destination id}
      * to be navigated to.
      *
      * @param item The selected drawer item
@@ -84,15 +89,8 @@ object DrawerNavigationUI {
     private fun performNavigation(item: IDrawerItem<*>, navController: NavController): Boolean {
         return when (item) {
             is NavigationDrawerItem -> {
-                val builder = NavOptions.Builder()
-                        .setLaunchSingleTop(true)
-                        .setEnterAnim(androidx.navigation.ui.R.anim.nav_default_enter_anim)
-                        .setExitAnim(androidx.navigation.ui.R.anim.nav_default_exit_anim)
-                        .setPopEnterAnim(androidx.navigation.ui.R.anim.nav_default_pop_enter_anim)
-                        .setPopExitAnim(androidx.navigation.ui.R.anim.nav_default_pop_exit_anim)
-                val options = builder.build()
                 try {
-                    navController.navigate(item.destination, null, options)
+                    navController.navigate(item.resId, item.args, item.options)
                     true
                 } catch (e: IllegalArgumentException) {
                     false
