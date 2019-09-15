@@ -9,9 +9,10 @@ import androidx.recyclerview.widget.RecyclerView
 import com.mikepenz.materialdrawer.R
 import com.mikepenz.materialdrawer.holder.BadgeStyle
 import com.mikepenz.materialdrawer.holder.DimenHolder
-import com.mikepenz.materialdrawer.holder.ImageHolder
 import com.mikepenz.materialdrawer.holder.StringHolder
 import com.mikepenz.materialdrawer.util.DrawerUIUtils.themeDrawerItem
+import com.mikepenz.materialdrawer.util.FixStateListDrawable
+import com.mikepenz.materialdrawer.util.ImageHolder
 
 /**
  * Created by mikepenz on 03.02.15.
@@ -47,8 +48,6 @@ open class MiniDrawerItem : BaseDrawerItem<MiniDrawerItem, MiniDrawerItem.ViewHo
         this.selectedColor = primaryDrawerItem.selectedColor
 
         this.iconColor = primaryDrawerItem.iconColor
-        this.selectedIconColor = primaryDrawerItem.selectedIconColor
-        this.disabledIconColor = primaryDrawerItem.disabledIconColor
     }
 
     constructor(secondaryDrawerItem: SecondaryDrawerItem) {
@@ -69,8 +68,6 @@ open class MiniDrawerItem : BaseDrawerItem<MiniDrawerItem, MiniDrawerItem.ViewHo
         this.selectedColor = secondaryDrawerItem.selectedColor
 
         this.iconColor = secondaryDrawerItem.iconColor
-        this.selectedIconColor = secondaryDrawerItem.selectedIconColor
-        this.disabledIconColor = secondaryDrawerItem.disabledIconColor
     }
 
 
@@ -125,7 +122,6 @@ open class MiniDrawerItem : BaseDrawerItem<MiniDrawerItem, MiniDrawerItem.ViewHo
 
         //get the correct color for the icon
         val iconColor = getIconColor(ctx)
-        val selectedIconColor = getSelectedIconColor(ctx)
         val shapeAppearanceModel = getShapeAppearanceModel(ctx)
 
         if (mEnableSelectedBackground) {
@@ -144,8 +140,10 @@ open class MiniDrawerItem : BaseDrawerItem<MiniDrawerItem, MiniDrawerItem.ViewHo
 
         //get the drawables for our icon and set it
         val icon = ImageHolder.decideIcon(icon, ctx, iconColor, isIconTinted, 1)
-        val selectedIcon = ImageHolder.decideIcon(selectedIcon, ctx, selectedIconColor, isIconTinted, 1)
-        ImageHolder.applyMultiIconTo(icon, iconColor, selectedIcon, selectedIconColor, isIconTinted, holder.icon)
+        val selectedIcon = ImageHolder.decideIcon(selectedIcon, ctx, iconColor, isIconTinted, 1)
+        ImageHolder.applyMultiIconTo(icon, selectedIcon, iconColor, isIconTinted, holder.icon)
+
+        holder.icon.setImageDrawable(FixStateListDrawable(icon, selectedIcon, iconColor))
 
         //for android API 17 --> Padding not applied via xml
         val verticalPadding = ctx.resources.getDimensionPixelSize(R.dimen.material_drawer_padding)

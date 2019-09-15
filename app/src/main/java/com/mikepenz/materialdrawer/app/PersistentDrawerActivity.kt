@@ -59,7 +59,7 @@ class PersistentDrawerActivity : AppCompatActivity() {
         headerResult = AccountHeaderBuilder()
                 .withActivity(this)
                 .withCompactStyle(true)
-                .withTranslucentStatusBar(true)
+                //.withTranslucentStatusBar(true)
                 .withHeaderBackground(ColorDrawable(Color.parseColor("#FDFDFD")))
                 .withHeightPx(UIUtils.getActionBarHeight(this))
                 .withAccountHeader(R.layout.material_drawer_compact_persistent_header)

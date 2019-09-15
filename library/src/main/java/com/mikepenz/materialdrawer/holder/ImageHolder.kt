@@ -159,7 +159,6 @@ open class ImageHolder : com.mikepenz.materialize.holder.ImageHolder {
             com.mikepenz.materialize.holder.ImageHolder.applyMultiIconTo(icon, iconColor, selectedIcon, selectedIconColor, tinted, imageView)
         }
 
-
         fun applyToOrSetInvisible(imageHolder: ImageHolder?, imageView: ImageView?, tag: String? = null) {
             com.mikepenz.materialize.holder.ImageHolder.applyToOrSetInvisible(imageHolder, imageView, tag)
         }

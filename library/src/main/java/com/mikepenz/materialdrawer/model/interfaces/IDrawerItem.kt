@@ -5,12 +5,13 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.mikepenz.fastadapter.IExpandable
+import com.mikepenz.fastadapter.IIdentifyable
 import com.mikepenz.fastadapter.IItem
 
 /**
  * Created by mikepenz on 03.02.15.
  */
-interface IDrawerItem<VH : RecyclerView.ViewHolder> : IItem<VH>, IExpandable<VH> {
+interface IDrawerItem<VH : RecyclerView.ViewHolder> : IItem<VH>, IExpandable<VH>, IIdentifyable {
 
     override var tag: Any?
 

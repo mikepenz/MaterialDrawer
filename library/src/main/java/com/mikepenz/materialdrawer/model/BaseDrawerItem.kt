@@ -1,22 +1,19 @@
 package com.mikepenz.materialdrawer.model
 
 import android.content.Context
+import android.content.res.ColorStateList
 import android.graphics.drawable.Drawable
 import android.os.Build
-import androidx.annotation.ColorInt
-import androidx.annotation.ColorRes
 import androidx.annotation.DrawableRes
 import androidx.annotation.StringRes
 import androidx.recyclerview.widget.RecyclerView
 import com.mikepenz.iconics.typeface.IIcon
-import com.mikepenz.materialdrawer.R
-import com.mikepenz.materialdrawer.holder.ColorHolder
-import com.mikepenz.materialdrawer.holder.ImageHolder
 import com.mikepenz.materialdrawer.holder.StringHolder
-import com.mikepenz.materialdrawer.holder.applyColor
 import com.mikepenz.materialdrawer.model.interfaces.Iconable
 import com.mikepenz.materialdrawer.model.interfaces.Nameable
 import com.mikepenz.materialdrawer.model.interfaces.Tagable
+import com.mikepenz.materialdrawer.util.ImageHolder
+import com.mikepenz.materialdrawer.util.getPrimaryDrawerIconColor
 
 /**
  * Created by mikepenz on 03.02.15.
@@ -26,9 +23,8 @@ abstract class BaseDrawerItem<T, VH : RecyclerView.ViewHolder> : AbstractDrawerI
     var selectedIcon: ImageHolder? = null
     override var name: StringHolder? = null
     var isIconTinted = false
-    var iconColor: ColorHolder? = null
-    var selectedIconColor: ColorHolder? = null
-    var disabledIconColor: ColorHolder? = null
+    var iconColor: ColorStateList? = null
+
 
     var level = 1
         protected set
@@ -90,33 +86,8 @@ abstract class BaseDrawerItem<T, VH : RecyclerView.ViewHolder> : AbstractDrawerI
         return this as T
     }
 
-    fun withIconColor(@ColorInt iconColor: Int): T {
-        this.iconColor = ColorHolder.fromColor(iconColor)
-        return this as T
-    }
-
-    fun withIconColorRes(@ColorRes iconColorRes: Int): T {
-        this.iconColor = ColorHolder.fromColorRes(iconColorRes)
-        return this as T
-    }
-
-    fun withSelectedIconColor(@ColorInt selectedIconColor: Int): T {
-        this.selectedIconColor = ColorHolder.fromColor(selectedIconColor)
-        return this as T
-    }
-
-    fun withSelectedIconColorRes(@ColorRes selectedColorRes: Int): T {
-        this.selectedIconColor = ColorHolder.fromColorRes(selectedColorRes)
-        return this as T
-    }
-
-    fun withDisabledIconColor(@ColorInt disabledIconColor: Int): T {
-        this.disabledIconColor = ColorHolder.fromColor(disabledIconColor)
-        return this as T
-    }
-
-    fun withDisabledIconColorRes(@ColorRes disabledIconColorRes: Int): T {
-        this.disabledIconColor = ColorHolder.fromColorRes(disabledIconColorRes)
+    fun withIconColor(iconColor: ColorStateList): T {
+        this.iconColor = iconColor
         return this as T
     }
 
@@ -132,23 +103,6 @@ abstract class BaseDrawerItem<T, VH : RecyclerView.ViewHolder> : AbstractDrawerI
         return this as T
     }
 
-    @Deprecated("")
-    fun withIconTinted(iconTinted: Boolean): T {
-        this.isIconTinted = iconTinted
-        return this as T
-    }
-
-    /**
-     * for backwards compatibility - withIconTinted..
-     *
-     * @param iconTinted
-     * @return
-     */
-    @Deprecated("")
-    fun withTintSelectedIcon(iconTinted: Boolean): T {
-        return withIconTintingEnabled(iconTinted)
-    }
-
     fun withLevel(level: Int): T {
         this.level = level
         return this as T
@@ -160,21 +114,7 @@ abstract class BaseDrawerItem<T, VH : RecyclerView.ViewHolder> : AbstractDrawerI
      * @param ctx
      * @return
      */
-    fun getIconColor(ctx: Context): Int {
-        return if (this.isEnabled) {
-            iconColor.applyColor(ctx, R.attr.material_drawer_primary_icon, R.color.material_drawer_primary_icon)
-        } else {
-            disabledIconColor.applyColor(ctx, R.attr.material_drawer_hint_icon, R.color.material_drawer_hint_icon)
-        }
-    }
-
-    /**
-     * helper method to decide for the correct color
-     *
-     * @param ctx
-     * @return
-     */
-    protected fun getSelectedIconColor(ctx: Context): Int {
-        return selectedIconColor.applyColor(ctx, R.attr.material_drawer_selected_text, R.color.material_drawer_selected_text)
+    fun getIconColor(ctx: Context): ColorStateList {
+        return ctx.getPrimaryDrawerIconColor()
     }
 }

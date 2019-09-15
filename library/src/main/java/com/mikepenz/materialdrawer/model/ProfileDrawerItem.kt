@@ -19,6 +19,7 @@ import com.mikepenz.materialdrawer.model.interfaces.Tagable
 import com.mikepenz.materialdrawer.util.DrawerImageLoader
 import com.mikepenz.materialdrawer.util.DrawerUIUtils
 import com.mikepenz.materialdrawer.util.DrawerUIUtils.themeDrawerItem
+import com.mikepenz.materialdrawer.util.getThemeColor
 
 /**
  * Created by mikepenz on 03.02.15.
@@ -115,8 +116,8 @@ open class ProfileDrawerItem : AbstractDrawerItem<ProfileDrawerItem, ProfileDraw
         //get the correct color for the background
         val selectedColor = getSelectedColor(ctx)
         //get the correct color for the text
-        val color = getColor(ctx)
-        val selectedTextColor = getSelectedTextColor(ctx)
+        val color = ctx.getThemeColor(R.attr.materialDrawerPrimaryText)
+        val selectedTextColor = ctx.getThemeColor(R.attr.materialDrawerSelectedText)
         val shapeAppearanceModel = getShapeAppearanceModel(ctx)
 
         //set the background for the item

@@ -88,7 +88,7 @@ open class ContainerDrawerItem : AbstractDrawerItem<ContainerDrawerItem, Contain
 
         val divider = View(ctx)
         divider.minimumHeight = dividerHeight
-        divider.setBackgroundColor(UIUtils.getThemeColorFromAttrOrRes(ctx, R.attr.material_drawer_divider, R.color.material_drawer_divider))
+        divider.setBackgroundColor(UIUtils.getThemeColorFromAttrOrRes(ctx, R.attr.materialDrawerDivider, R.color.material_drawer_divider))
 
         val dividerParams = LinearLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, UIUtils.convertDpToPixel(dividerHeight.toFloat(), ctx).toInt())
         val viewParams = LinearLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, if (this.height != null) height - UIUtils.convertDpToPixel(dividerHeight.toFloat(), ctx).toInt() else height)

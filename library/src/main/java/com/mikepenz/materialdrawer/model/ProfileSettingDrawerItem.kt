@@ -158,9 +158,9 @@ open class ProfileSettingDrawerItem : AbstractDrawerItem<ProfileSettingDrawerIte
         //get the correct color for the background
         val selectedColor = getSelectedColor(ctx)
         //get the correct color for the text
-        val color = textColor.applyColor(ctx, R.attr.material_drawer_primary_text, R.color.material_drawer_primary_text)
-        val iconColor = iconColor.applyColor(ctx, R.attr.material_drawer_primary_icon, R.color.material_drawer_primary_icon)
-        val descriptionColor = descriptionTextColor.applyColor(ctx, R.attr.material_drawer_primary_text, R.color.material_drawer_primary_text)
+        val color = textColor.applyColor(ctx, R.attr.materialDrawerPrimaryText, R.color.material_drawer_primary_text)
+        val iconColor = iconColor.applyColor(ctx, R.attr.materialDrawerPrimaryIcon, R.color.material_drawer_primary_icon)
+        val descriptionColor = descriptionTextColor.applyColor(ctx, R.attr.materialDrawerPrimaryText, R.color.material_drawer_primary_text)
 
         ViewCompat.setBackground(holder.view, UIUtils.getSelectableBackground(ctx, selectedColor, isSelectedBackgroundAnimated))
 

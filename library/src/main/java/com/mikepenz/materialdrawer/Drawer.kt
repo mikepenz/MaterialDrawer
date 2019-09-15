@@ -15,7 +15,6 @@ import com.mikepenz.fastadapter.expandable.ExpandableExtension
 import com.mikepenz.fastadapter.select.SelectExtension
 import com.mikepenz.fastadapter.select.getSelectExtension
 import com.mikepenz.materialdrawer.holder.DimenHolder
-import com.mikepenz.materialdrawer.holder.ImageHolder
 import com.mikepenz.materialdrawer.holder.StringHolder
 import com.mikepenz.materialdrawer.model.AbstractDrawerItem
 import com.mikepenz.materialdrawer.model.ContainerDrawerItem
@@ -23,7 +22,7 @@ import com.mikepenz.materialdrawer.model.interfaces.Badgeable
 import com.mikepenz.materialdrawer.model.interfaces.IDrawerItem
 import com.mikepenz.materialdrawer.model.interfaces.Iconable
 import com.mikepenz.materialdrawer.model.interfaces.Nameable
-import com.mikepenz.materialize.Materialize
+import com.mikepenz.materialdrawer.util.ImageHolder
 import com.mikepenz.materialize.view.IScrimInsetsLayout
 
 /**
@@ -48,14 +47,6 @@ open class Drawer(internal val drawerBuilder: DrawerBuilder) {
      */
     val isDrawerOpen: Boolean
         get() = drawerBuilder.mDrawerLayout.isDrawerOpen(drawerBuilder.mDrawerGravity)
-
-    /**
-     * get the Materialize object used to beautify your activity
-     *
-     * @return
-     */
-    val materialize: Materialize
-        get() = drawerBuilder.mMaterialize
 
 
     /**
@@ -332,17 +323,6 @@ open class Drawer(internal val drawerBuilder: DrawerBuilder) {
         drawerBuilder.mDrawerLayout.closeDrawer(drawerBuilder.mDrawerGravity)
     }
 
-
-    /**
-     * set the insetsFrameLayout to display the content in fullscreen
-     * under the statusBar and navigationBar
-     *
-     * @param fullscreen
-     */
-    fun setFullscreen(fullscreen: Boolean) {
-        drawerBuilder.mMaterialize.setFullscreen(fullscreen)
-    }
-
     /**
      * method to replace a previous set header
      *
@@ -412,7 +392,7 @@ open class Drawer(internal val drawerBuilder: DrawerBuilder) {
      * @return
      */
     fun getPosition(identifier: Long): Int {
-        return DrawerUtils.getPositionByIdentifier(drawerBuilder, identifier)
+        return 0 //DrawerUtils.getPositionByIdentifier(drawerBuilder, identifier)
     }
 
     /**
@@ -570,7 +550,7 @@ open class Drawer(internal val drawerBuilder: DrawerBuilder) {
      */
     @JvmOverloads
     fun setStickyFooterSelectionAtPosition(position: Int, fireOnClick: Boolean = true) {
-        DrawerUtils.setStickyFooterSelection(drawerBuilder, position, fireOnClick)
+        //DrawerUtils.setStickyFooterSelection(drawerBuilder, position, fireOnClick)
     }
 
     /**
@@ -772,7 +752,7 @@ open class Drawer(internal val drawerBuilder: DrawerBuilder) {
             drawerBuilder.mStickyDrawerItems[position] = drawerItem
         }
 
-        DrawerUtils.rebuildStickyFooterView(drawerBuilder)
+        //DrawerUtils.rebuildStickyFooterView(drawerBuilder)
     }
 
 
@@ -783,7 +763,7 @@ open class Drawer(internal val drawerBuilder: DrawerBuilder) {
      */
     fun addStickyFooterItem(drawerItem: IDrawerItem<*>) {
         drawerBuilder.mStickyDrawerItems.add(drawerItem)
-        DrawerUtils.rebuildStickyFooterView(drawerBuilder)
+        //DrawerUtils.rebuildStickyFooterView(drawerBuilder)
     }
 
     /**
@@ -794,7 +774,7 @@ open class Drawer(internal val drawerBuilder: DrawerBuilder) {
      */
     fun addStickyFooterItemAtPosition(drawerItem: IDrawerItem<*>, position: Int) {
         drawerBuilder.mStickyDrawerItems.add(position, drawerItem)
-        DrawerUtils.rebuildStickyFooterView(drawerBuilder)
+        //DrawerUtils.rebuildStickyFooterView(drawerBuilder)
     }
 
     /**
@@ -807,7 +787,7 @@ open class Drawer(internal val drawerBuilder: DrawerBuilder) {
         if (drawerBuilder.mStickyDrawerItems.size > position) {
             drawerBuilder.mStickyDrawerItems[position] = drawerItem
         }
-        DrawerUtils.rebuildStickyFooterView(drawerBuilder)
+        //DrawerUtils.rebuildStickyFooterView(drawerBuilder)
     }
 
 
@@ -820,7 +800,7 @@ open class Drawer(internal val drawerBuilder: DrawerBuilder) {
         if (drawerBuilder.mStickyDrawerItems.size > position) {
             drawerBuilder.mStickyDrawerItems.removeAt(position)
         }
-        DrawerUtils.rebuildStickyFooterView(drawerBuilder)
+        //DrawerUtils.rebuildStickyFooterView(drawerBuilder)
     }
 
     /**

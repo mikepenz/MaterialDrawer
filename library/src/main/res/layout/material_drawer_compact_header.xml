@@ -1,13 +1,6 @@
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<merge xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
-    android:id="@+id/material_drawer_account_header"
-    android:layout_width="match_parent"
-    android:layout_height="@dimen/material_drawer_account_header_height_compact"
-    android:clickable="true"
-    android:fitsSystemWindows="false"
-    android:focusable="true"
-    app:layout_dodgeInsetEdges="top">
+    xmlns:tools="http://schemas.android.com/tools">
 
     <androidx.appcompat.widget.AppCompatImageView
         android:id="@+id/material_drawer_account_header_background"
@@ -112,4 +105,4 @@
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent" />
 
-</androidx.constraintlayout.widget.ConstraintLayout>
+</merge>

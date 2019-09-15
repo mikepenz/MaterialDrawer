@@ -18,11 +18,7 @@ import com.mikepenz.materialdrawer.Drawer
 import com.mikepenz.materialdrawer.R
 import com.mikepenz.materialdrawer.holder.ColorHolder
 import com.mikepenz.materialdrawer.holder.applyColor
-import com.mikepenz.materialdrawer.model.interfaces.IDrawerItem
-import com.mikepenz.materialdrawer.model.interfaces.OnPostBindViewListener
-import com.mikepenz.materialdrawer.model.interfaces.Selectable
-import com.mikepenz.materialdrawer.model.interfaces.Tagable
-import com.mikepenz.materialdrawer.model.interfaces.Typefaceable
+import com.mikepenz.materialdrawer.model.interfaces.*
 import com.mikepenz.materialdrawer.util.DrawerUIUtils
 
 /**
@@ -274,7 +270,7 @@ abstract class AbstractDrawerItem<T, VH : RecyclerView.ViewHolder> : IDrawerItem
         contentDescription?.let {
             holder.itemView.contentDescription = it
         }
-        holder.itemView.setTag(R.id.material_drawer_item, this)
+        holder.itemView.setTag(com.mikepenz.materialdrawer.R.id.material_drawer_item, this)
     }
 
     /**
@@ -376,10 +372,10 @@ abstract class AbstractDrawerItem<T, VH : RecyclerView.ViewHolder> : IDrawerItem
      * @return
      */
     protected fun getSelectedColor(ctx: Context): Int {
-        return if (DrawerUIUtils.getBooleanStyleable(ctx, R.styleable.MaterialDrawer_material_drawer_legacy_style, false)) {
-            selectedColor.applyColor(ctx, R.attr.material_drawer_selected_legacy, R.color.material_drawer_selected_legacy)
+        return if (DrawerUIUtils.getBooleanStyleable(ctx, com.mikepenz.materialdrawer.R.styleable.MaterialDrawerSliderView_materialDrawerLegacyStyle, false)) {
+            selectedColor.applyColor(ctx, com.mikepenz.materialdrawer.R.attr.materialDrawerSelectedLegacy, com.mikepenz.materialdrawer.R.color.material_drawer_selected_legacy)
         } else {
-            selectedColor.applyColor(ctx, R.attr.material_drawer_selected, R.color.material_drawer_selected)
+            selectedColor.applyColor(ctx, com.mikepenz.materialdrawer.R.attr.materialDrawerSelected, com.mikepenz.materialdrawer.R.color.material_drawer_selected)
         }
     }
 
@@ -390,10 +386,11 @@ abstract class AbstractDrawerItem<T, VH : RecyclerView.ViewHolder> : IDrawerItem
      * @return
      */
     protected open fun getColor(ctx: Context): Int {
+
         return if (isEnabled) {
-            textColor.applyColor(ctx, R.attr.material_drawer_primary_text, R.color.material_drawer_primary_text)
+            textColor.applyColor(ctx, com.mikepenz.materialdrawer.R.attr.materialDrawerPrimaryText, com.mikepenz.materialdrawer.R.color.material_drawer_primary_text)
         } else {
-            disabledTextColor.applyColor(ctx, R.attr.material_drawer_hint_text, R.color.material_drawer_hint_text)
+            disabledTextColor.applyColor(ctx, com.mikepenz.materialdrawer.R.attr.materialDrawerHintText, com.mikepenz.materialdrawer.R.color.material_drawer_hint_text)
         }
     }
 
@@ -404,7 +401,7 @@ abstract class AbstractDrawerItem<T, VH : RecyclerView.ViewHolder> : IDrawerItem
      * @return
      */
     protected fun getSelectedTextColor(ctx: Context): Int {
-        return selectedTextColor.applyColor(ctx, R.attr.material_drawer_selected_text, R.color.material_drawer_selected_text)
+        return selectedTextColor.applyColor(ctx, com.mikepenz.materialdrawer.R.attr.materialDrawerSelectedText, com.mikepenz.materialdrawer.R.color.material_drawer_selected_text)
     }
 
     /**

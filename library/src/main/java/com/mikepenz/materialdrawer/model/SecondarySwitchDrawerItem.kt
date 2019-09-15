@@ -26,9 +26,9 @@ open class SecondarySwitchDrawerItem : AbstractSwitchableDrawerItem<SecondarySwi
      */
     override fun getColor(ctx: Context): Int {
         return if (isEnabled) {
-            textColor.applyColor(ctx, R.attr.material_drawer_secondary_text, R.color.material_drawer_secondary_text)
+            textColor.applyColor(ctx, R.attr.materialDrawerSecondaryText, R.color.material_drawer_secondary_text)
         } else {
-            disabledTextColor.applyColor(ctx, R.attr.material_drawer_hint_text, R.color.material_drawer_hint_text)
+            disabledTextColor.applyColor(ctx, R.attr.materialDrawerHintText, R.color.material_drawer_hint_text)
         }
     }
 }

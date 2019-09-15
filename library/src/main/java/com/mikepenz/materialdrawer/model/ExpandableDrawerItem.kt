@@ -89,8 +89,7 @@ open class ExpandableDrawerItem : BaseDescribeableDrawerItem<ExpandableDrawerIte
 
         //make sure all animations are stopped
         if (holder.arrow.drawable is IconicsDrawable) {
-            (holder.arrow.drawable as IconicsDrawable).color(IconicsColor.colorInt(this.arrowColor?.color(ctx)
-                    ?: getIconColor(ctx)))
+            (holder.arrow.drawable as IconicsDrawable).color(this.arrowColor?.color(ctx)?.let { IconicsColor.colorInt(it) } ?: IconicsColor.colorList(getIconColor(ctx)))
         }
         holder.arrow.clearAnimation()
         if (!isExpanded) {

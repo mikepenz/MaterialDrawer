@@ -1,6 +1,5 @@
 package com.mikepenz.materialdrawer.app
 
-import android.graphics.Color
 import android.os.Bundle
 import android.view.Menu
 import android.view.MenuItem
@@ -77,7 +76,7 @@ class AdvancedActivity : AppCompatActivity() {
                         SecondaryDrawerItem().withName(R.string.drawer_item_settings).withIcon(FontAwesome.Icon.faw_cart_plus),
                         SecondaryDrawerItem().withName(R.string.drawer_item_help).withIcon(FontAwesome.Icon.faw_database).withEnabled(false),
                         SecondaryDrawerItem().withName(R.string.drawer_item_open_source).withIcon(FontAwesome.Icon.faw_github),
-                        SecondaryDrawerItem().withName(R.string.drawer_item_contact).withSelectedIconColor(Color.RED).withIconTintingEnabled(true).withIcon(IconicsDrawable(this, GoogleMaterial.Icon.gmd_add).actionBar().padding(dp(5)).color(colorRes(R.color.material_drawer_dark_primary_text))).withTag("Bullhorn"),
+                        SecondaryDrawerItem().withName(R.string.drawer_item_contact).withIconTintingEnabled(true).withIcon(IconicsDrawable(this, GoogleMaterial.Icon.gmd_add).actionBar().padding(dp(5)).color(colorRes(R.color.material_drawer_dark_primary_text))).withTag("Bullhorn"),
                         SecondaryDrawerItem().withName(R.string.drawer_item_help).withIcon(FontAwesome.Icon.faw_question).withEnabled(false)
                 ) // add the items we want to use with our Drawer
                 .withOnDrawerNavigationListener(object : Drawer.OnDrawerNavigationListener {
@@ -181,7 +180,7 @@ class AdvancedActivity : AppCompatActivity() {
                 //set the view to the result
                 result.header = headerResult.view
                 //set the drawer to the header (so it will manage the profile list correctly)
-                headerResult.setDrawer(result)
+                // TODO headerResult.setDrawer(result)
                 return true
             }
             R.id.menu_5 -> {
@@ -191,7 +190,7 @@ class AdvancedActivity : AppCompatActivity() {
                 //set the view to the result
                 result.header = headerResult.view
                 //set the drawer to the header (so it will manage the profile list correctly)
-                headerResult.setDrawer(result)
+                //TODO headerResult.setDrawer(result)
                 return true
             }
             else -> return super.onOptionsItemSelected(item)

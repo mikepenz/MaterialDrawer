@@ -66,7 +66,7 @@ open class SectionDrawerItem : AbstractDrawerItem<SectionDrawerItem, SectionDraw
         holder.view.isEnabled = false
 
         //define the text color
-        holder.name.setTextColor(textColor.applyColor(ctx, R.attr.material_drawer_secondary_text, R.color.material_drawer_secondary_text))
+        holder.name.setTextColor(textColor.applyColor(ctx, R.attr.materialDrawerSecondaryText, R.color.material_drawer_secondary_text))
 
         //set the text for the name
         StringHolder.applyTo(this.name, holder.name)
@@ -84,7 +84,7 @@ open class SectionDrawerItem : AbstractDrawerItem<SectionDrawerItem, SectionDraw
         }
 
         //set the color for the divider
-        holder.divider.setBackgroundColor(UIUtils.getThemeColorFromAttrOrRes(ctx, R.attr.material_drawer_divider, R.color.material_drawer_divider))
+        holder.divider.setBackgroundColor(UIUtils.getThemeColorFromAttrOrRes(ctx, R.attr.materialDrawerDivider, R.color.material_drawer_divider))
 
         //call the onPostBindView method to trigger post bind view actions (like the listener to modify the item if required)
         onPostBindView(this, holder.itemView)

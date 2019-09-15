@@ -141,11 +141,11 @@ class IconDrawerItem : AbstractDrawerItem<IconDrawerItem, IconDrawerItem.ViewHol
 
         //get the correct color for the icon
         val iconColorInt: Int = if (this.isEnabled) {
-            iconColor.applyColor(ctx, R.attr.material_drawer_primary_icon, R.color.material_drawer_primary_icon)
+            iconColor.applyColor(ctx, R.attr.materialDrawerPrimaryIcon, R.color.material_drawer_primary_icon)
         } else {
-            disabledIconColor.applyColor(ctx, R.attr.material_drawer_hint_icon, R.color.material_drawer_hint_icon)
+            disabledIconColor.applyColor(ctx, R.attr.materialDrawerHintIcon, R.color.material_drawer_hint_icon)
         }
-        val selectedIconColorInt = selectedIconColor.applyColor(ctx, R.attr.material_drawer_selected_text, R.color.material_drawer_selected_text)
+        val selectedIconColorInt = selectedIconColor.applyColor(ctx, R.attr.materialDrawerSelectedText, R.color.material_drawer_selected_text)
 
         //get the drawables for our icon and set it
         val icon = ImageHolder.decideIcon(icon, ctx, iconColorInt, isIconTinted, 1)

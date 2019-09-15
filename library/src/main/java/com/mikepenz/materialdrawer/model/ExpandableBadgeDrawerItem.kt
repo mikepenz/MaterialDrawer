@@ -8,6 +8,7 @@ import androidx.annotation.LayoutRes
 import androidx.annotation.StringRes
 import androidx.core.view.ViewCompat
 import com.mikepenz.iconics.IconicsColor.Companion.colorInt
+import com.mikepenz.iconics.IconicsColor.Companion.colorList
 import com.mikepenz.iconics.IconicsDrawable
 import com.mikepenz.iconics.IconicsSize.Companion.dp
 import com.mikepenz.materialdrawer.Drawer
@@ -18,6 +19,7 @@ import com.mikepenz.materialdrawer.holder.StringHolder
 import com.mikepenz.materialdrawer.icons.MaterialDrawerFont
 import com.mikepenz.materialdrawer.model.interfaces.ColorfulBadgeable
 import com.mikepenz.materialdrawer.model.interfaces.IDrawerItem
+import com.mikepenz.materialdrawer.util.getThemeColor
 
 /**
  * Created by mikepenz on 03.02.15.
@@ -72,7 +74,7 @@ open class ExpandableBadgeDrawerItem : BaseDescribeableDrawerItem<ExpandableBadg
         val badgeVisible = StringHolder.applyToOrHide(badge, holder.badge)
         //style the badge if it is visible
         if (badgeVisible) {
-            badgeStyle?.style(holder.badge, getTextColorStateList(getColor(ctx), getSelectedTextColor(ctx)))
+            badgeStyle?.style(holder.badge, getTextColorStateList(ctx.getThemeColor(R.attr.materialDrawerPrimaryText), ctx.getThemeColor(R.attr.materialDrawerSelectedText)))
             holder.badgeContainer.visibility = View.VISIBLE
         } else {
             holder.badgeContainer.visibility = View.GONE
@@ -85,7 +87,7 @@ open class ExpandableBadgeDrawerItem : BaseDescribeableDrawerItem<ExpandableBadg
 
         //make sure all animations are stopped
         if (holder.arrow.drawable is IconicsDrawable) {
-            (holder.arrow.drawable as IconicsDrawable).color(colorInt(this.arrowColor?.color(ctx) ?: getIconColor(ctx)))
+            (holder.arrow.drawable as IconicsDrawable).color(this.arrowColor?.color(ctx)?.let { colorInt(it) } ?: colorList(getIconColor(ctx)))
         }
         holder.arrow.clearAnimation()
         if (!isExpanded) {

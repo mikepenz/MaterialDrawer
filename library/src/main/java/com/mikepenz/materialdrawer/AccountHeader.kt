@@ -8,6 +8,7 @@ import android.widget.ImageView
 import androidx.annotation.DrawableRes
 import com.mikepenz.materialdrawer.holder.ImageHolder
 import com.mikepenz.materialdrawer.model.interfaces.IProfile
+import com.mikepenz.materialdrawer.widget.MaterialDrawerSliderView
 import java.util.*
 
 /**
@@ -77,8 +78,8 @@ class AccountHeader(val accountHeaderBuilder: AccountHeaderBuilder) {
      *
      * @param drawer
      */
-    fun setDrawer(drawer: Drawer) {
-        accountHeaderBuilder.drawer = drawer
+    fun setSliderView(sliderView: MaterialDrawerSliderView) {
+        accountHeaderBuilder.sliderView = sliderView
     }
 
     /**
@@ -168,8 +169,8 @@ class AccountHeader(val accountHeaderBuilder: AccountHeaderBuilder) {
     fun setActiveProfile(profile: IProfile<*>, fireOnProfileChanged: Boolean) {
         val isCurrentSelectedProfile = accountHeaderBuilder.switchProfiles(profile)
         //if the selectionList is shown we should also update the current selected profile in the list
-        if (accountHeaderBuilder.drawer != null && isSelectionListShown) {
-            accountHeaderBuilder.drawer?.setSelection(profile.identifier, false)
+        if (accountHeaderBuilder.sliderView != null && isSelectionListShown) {
+            accountHeaderBuilder.sliderView?.setSelection(profile.identifier, false)
         }
         //fire the event if enabled and a listener is set
         if (fireOnProfileChanged && accountHeaderBuilder.onAccountHeaderListener != null) {

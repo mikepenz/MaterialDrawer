@@ -62,7 +62,7 @@ class EmbeddedDrawerActivity : AppCompatActivity() {
         // Create the AccountHeader
         headerResult = AccountHeaderBuilder()
                 .withActivity(this)
-                .withTranslucentStatusBar(false)
+                //.withTranslucentStatusBar(false)
                 .addProfiles(
                         profile,
                         profile2,

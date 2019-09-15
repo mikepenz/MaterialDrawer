@@ -4,10 +4,12 @@ import androidx.annotation.ColorInt
 import androidx.annotation.ColorRes
 import androidx.annotation.StringRes
 import com.mikepenz.materialdrawer.holder.ColorHolder
-import com.mikepenz.materialdrawer.holder.ImageHolder
 import com.mikepenz.materialdrawer.holder.StringHolder
 import com.mikepenz.materialdrawer.util.DrawerUIUtils
 import com.mikepenz.materialdrawer.util.DrawerUIUtils.themeDrawerItem
+import com.mikepenz.materialdrawer.util.ImageHolder
+import com.mikepenz.materialdrawer.util.getPrimaryDrawerIconColor
+import com.mikepenz.materialdrawer.util.getPrimaryDrawerTextColor
 
 /**
  * Created by mikepenz on 03.02.15.
@@ -49,18 +51,23 @@ abstract class BaseDescribeableDrawerItem<T, VH : BaseViewHolder> : BaseDrawerIt
 
         //set the item selected if it is
         viewHolder.itemView.isSelected = isSelected
+        viewHolder.name.isSelected = isSelected
+        viewHolder.description.isSelected = isSelected
+        viewHolder.icon.isSelected = isSelected
 
         //set the item enabled if it is
         viewHolder.itemView.isEnabled = isEnabled
+        viewHolder.name.isEnabled = isEnabled
+        viewHolder.description.isEnabled = isEnabled
+        viewHolder.icon.isEnabled = isEnabled
 
         //get the correct color for the background
         val selectedColor = getSelectedColor(ctx)
         //get the correct color for the text
-        val color = getColor(ctx)
-        val selectedTextColor = getTextColorStateList(color, getSelectedTextColor(ctx))
+
+        val textColor = ctx.getPrimaryDrawerTextColor()
         //get the correct color for the icon
-        val iconColor = getIconColor(ctx)
-        val selectedIconColor = getSelectedIconColor(ctx)
+        val iconColor = ctx.getPrimaryDrawerIconColor()
         val shapeAppearanceModel = getShapeAppearanceModel(ctx)
 
         //set the background for the item
@@ -71,9 +78,9 @@ abstract class BaseDescribeableDrawerItem<T, VH : BaseViewHolder> : BaseDrawerIt
         StringHolder.applyToOrHide(this.description, viewHolder.description)
 
         //set the colors for textViews
-        viewHolder.name.setTextColor(selectedTextColor)
+        viewHolder.name.setTextColor(textColor)
         //set the description text color
-        descriptionTextColor?.applyToOr(viewHolder.description, selectedTextColor)
+        viewHolder.description.setTextColor(textColor)
 
         //define the typeface for our textViews
         if (typeface != null) {
@@ -81,14 +88,10 @@ abstract class BaseDescribeableDrawerItem<T, VH : BaseViewHolder> : BaseDrawerIt
             viewHolder.description.typeface = typeface
         }
 
-        //get the drawables for our icon and set it
+        //get the drawables for our icon and set it)
         val icon = ImageHolder.decideIcon(icon, ctx, iconColor, isIconTinted, 1)
-        if (icon != null) {
-            val selectedIcon = ImageHolder.decideIcon(selectedIcon, ctx, selectedIconColor, isIconTinted, 1)
-            ImageHolder.applyMultiIconTo(icon, iconColor, selectedIcon, selectedIconColor, isIconTinted, viewHolder.icon)
-        } else {
-            ImageHolder.applyDecidedIconOrSetGone(icon, viewHolder.icon, iconColor, isIconTinted, 1)
-        }
+        val selectedIcon = ImageHolder.decideIcon(selectedIcon, ctx, iconColor, isIconTinted, 1)
+        ImageHolder.applyMultiIconTo(icon, selectedIcon, iconColor, isIconTinted, viewHolder.icon)
 
         //for android API 17 --> Padding not applied via xml
         DrawerUIUtils.setDrawerVerticalPadding(viewHolder.view, level)

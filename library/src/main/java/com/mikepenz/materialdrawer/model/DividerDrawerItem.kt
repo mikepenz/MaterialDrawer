@@ -33,7 +33,7 @@ open class DividerDrawerItem : AbstractDrawerItem<DividerDrawerItem, DividerDraw
         ViewCompat.setImportantForAccessibility(holder.view, ViewCompat.IMPORTANT_FOR_ACCESSIBILITY_NO)
 
         //set the color for the divider
-        holder.divider.setBackgroundColor(UIUtils.getThemeColorFromAttrOrRes(ctx, R.attr.material_drawer_divider, R.color.material_drawer_divider))
+        holder.divider.setBackgroundColor(UIUtils.getThemeColorFromAttrOrRes(ctx, R.attr.materialDrawerDivider, R.color.material_drawer_divider))
 
         //call the onPostBindView method to trigger post bind view actions (like the listener to modify the item if required)
         onPostBindView(this, holder.itemView)

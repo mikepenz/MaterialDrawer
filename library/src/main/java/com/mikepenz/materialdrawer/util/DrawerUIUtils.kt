@@ -35,7 +35,7 @@ object DrawerUIUtils {
      * @return
      */
     fun getBooleanStyleable(ctx: Context, @StyleableRes styleable: Int, def: Boolean): Boolean {
-        val ta = ctx.theme.obtainStyledAttributes(R.styleable.MaterialDrawer)
+        val ta = ctx.theme.obtainStyledAttributes(R.styleable.MaterialDrawerSliderView)
         return ta.getBoolean(styleable, def)
     }
 
@@ -48,7 +48,7 @@ object DrawerUIUtils {
      * @param animate        true if we want to animate the StateListDrawable
      */
     fun themeDrawerItem(ctx: Context, view: View, selected_color: Int, animate: Boolean, shapeAppearanceModel: ShapeAppearanceModel) {
-        val legacyStyle = getBooleanStyleable(ctx, R.styleable.MaterialDrawer_material_drawer_legacy_style, false)
+        val legacyStyle = getBooleanStyleable(ctx, R.styleable.MaterialDrawerSliderView_materialDrawerLegacyStyle, false)
 
         val selected: Drawable
         val unselected: Drawable

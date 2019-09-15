@@ -13,6 +13,7 @@ import android.view.LayoutInflater
 import android.view.Menu
 import android.view.View
 import android.view.ViewGroup
+import android.view.ViewGroup.LayoutParams.MATCH_PARENT
 import android.widget.FrameLayout
 import android.widget.LinearLayout
 import androidx.annotation.*
@@ -48,8 +49,6 @@ import com.mikepenz.materialdrawer.model.SecondaryDrawerItem
 import com.mikepenz.materialdrawer.model.interfaces.IDrawerItem
 import com.mikepenz.materialdrawer.model.interfaces.Selectable
 import com.mikepenz.materialdrawer.util.DrawerUIUtils
-import com.mikepenz.materialize.Materialize
-import com.mikepenz.materialize.MaterializeBuilder
 import com.mikepenz.materialize.util.UIUtils
 import java.util.*
 
@@ -68,7 +67,6 @@ open class DrawerBuilder {
     internal var mActivity: Activity? = null
     internal lateinit var mLayoutManager: RecyclerView.LayoutManager
     internal lateinit var mRootView: ViewGroup
-    internal lateinit var mMaterialize: Materialize
     val idDistributor: DefaultIdDistributor<IIdentifyable> = DefaultIdDistributorImpl()
 
     // set non translucent statusBar mode
@@ -193,7 +191,7 @@ open class DrawerBuilder {
     internal var adapter: FastAdapter<IDrawerItem<*>>
         get() {
             if (!::_adapter.isInitialized) {
-                _adapter = FastAdapter.with(Arrays.asList(mHeaderAdapter, mItemAdapter, mFooterAdapter))
+                _adapter = FastAdapter.with(listOf(mHeaderAdapter, mItemAdapter, mFooterAdapter))
                 _adapter.setHasStableIds(mHasStableIds)
                 initAdapter()
                 mSelectExtension.isSelectable = true
@@ -1312,17 +1310,17 @@ open class DrawerBuilder {
             withDrawerLayout(-1)
         }
 
-        //some new Materialize magic ;)
-        mMaterialize = MaterializeBuilder()
-                .withActivity(mActivity)
-                .withRootView(mRootView)
-                .withFullscreen(mFullscreen)
-                .withSystemUIHidden(mSystemUIHidden)
-                .withUseScrimInsetsLayout(false)
-                .withTransparentStatusBar(mTranslucentStatusBar)
-                .withTranslucentNavigationBarProgrammatically(mTranslucentNavigationBarProgrammatically)
-                .withContainer(mDrawerLayout)
-                .build()
+        //get the content view
+        val originalContentView = mRootView.getChildAt(0)
+
+        // remove the contentView
+        mRootView.removeView(originalContentView)
+
+        // add the root content to the drawer
+        mDrawerLayout.addView(originalContentView, MATCH_PARENT, MATCH_PARENT)
+
+        //add the drawerLayout to the root
+        mRootView.addView(mDrawerLayout, MATCH_PARENT, MATCH_PARENT)
 
         //handle the navigation stuff of the ActionBarDrawerToggle and the drawer in general
         handleDrawerNavigation(mActivity, false)
@@ -1378,8 +1376,8 @@ open class DrawerBuilder {
 
         //create the layoutParams to use for the contentView
         val layoutParamsContentView = FrameLayout.LayoutParams(
-                ViewGroup.LayoutParams.MATCH_PARENT,
-                ViewGroup.LayoutParams.MATCH_PARENT
+                MATCH_PARENT,
+                MATCH_PARENT
         )
 
         //add the drawer
@@ -1502,7 +1500,7 @@ open class DrawerBuilder {
 
         // get the slider view
         mSliderLayout = mActivity.layoutInflater.inflate(R.layout.material_drawer_slider, mDrawerLayout, false) as com.mikepenz.materialdrawer.view.ScrimInsetsRelativeLayout
-        mSliderLayout.setBackgroundColor(UIUtils.getThemeColorFromAttrOrRes(mActivity, R.attr.material_drawer_background, R.color.material_drawer_background))
+        mSliderLayout.setBackgroundColor(UIUtils.getThemeColorFromAttrOrRes(mActivity, R.attr.materialDrawerBackground, R.color.material_drawer_background))
         // get the layout params
         var params: DrawerLayout.LayoutParams? = mSliderLayout.layoutParams as DrawerLayout.LayoutParams?
         if (params != null) {
@@ -1520,7 +1518,7 @@ open class DrawerBuilder {
         //create the result object
         val result = Drawer(this)
         //set the drawer for the accountHeader if set
-        mAccountHeader?.setDrawer(result)
+        // mAccountHeader?.setDrawer(result)
 
         //toggle selection list if we were previously on the account list
         if (mSavedInstance?.getBoolean(Drawer.BUNDLE_DRAWER_CONTENT_SWITCHED, false) == true) {
@@ -1564,7 +1562,7 @@ open class DrawerBuilder {
 
         // get the slider view
         mSliderLayout = mActivity.layoutInflater.inflate(R.layout.material_drawer_slider, mDrawerLayout, false) as com.mikepenz.materialdrawer.view.ScrimInsetsRelativeLayout
-        mSliderLayout.setBackgroundColor(UIUtils.getThemeColorFromAttrOrRes(mActivity, R.attr.material_drawer_background, R.color.material_drawer_background))
+        mSliderLayout.setBackgroundColor(UIUtils.getThemeColorFromAttrOrRes(mActivity, R.attr.materialDrawerBackground, R.color.material_drawer_background))
         // get the layout params
         (mSliderLayout.layoutParams as DrawerLayout.LayoutParams).also {
             // set the gravity of this drawerGravity
@@ -1604,8 +1602,8 @@ open class DrawerBuilder {
         //if we have a customView use this
         if (mCustomView != null) {
             val contentParams = LinearLayout.LayoutParams(
-                    ViewGroup.LayoutParams.MATCH_PARENT,
-                    ViewGroup.LayoutParams.MATCH_PARENT
+                    MATCH_PARENT,
+                    MATCH_PARENT
             )
             contentParams.weight = 1f
             mSliderLayout.addView(mCustomView, contentParams)
@@ -1654,8 +1652,8 @@ open class DrawerBuilder {
         }
 
         val params = LinearLayout.LayoutParams(
-                ViewGroup.LayoutParams.MATCH_PARENT,
-                ViewGroup.LayoutParams.MATCH_PARENT
+                MATCH_PARENT,
+                MATCH_PARENT
         )
         params.weight = 1f
         mSliderLayout.addView(contentView, params)
@@ -1680,13 +1678,13 @@ open class DrawerBuilder {
         }
 
         //handle the header
-        DrawerUtils.handleHeaderView(this)
+        // DrawerUtils.handleHeaderView(this)
 
         //handle the footer
-        DrawerUtils.handleFooterView(this, View.OnClickListener { v ->
-            val drawerItem = v.getTag(R.id.material_drawer_item) as IDrawerItem<*>
-            DrawerUtils.onFooterDrawerItemClick(this@DrawerBuilder, drawerItem, v, true)
-        })
+        //DrawerUtils.handleFooterView(this, View.OnClickListener { v ->
+        //    val drawerItem = v.getTag(R.id.material_drawer_item) as IDrawerItem<*>
+        //    DrawerUtils.onFooterDrawerItemClick(this@DrawerBuilder, drawerItem, v, true)
+        //})
 
         //if MultiSelect is possible
         mSelectExtension.multiSelect = mMultiSelect
@@ -1704,7 +1702,7 @@ open class DrawerBuilder {
 
         //predefine selection (should be the first element
         if (mSelectedItemPosition == 0 && mSelectedItemIdentifier != 0L) {
-            mSelectedItemPosition = DrawerUtils.getPositionByIdentifier(this, mSelectedItemIdentifier)
+            //mSelectedItemPosition = DrawerUtils.getPositionByIdentifier(this, mSelectedItemIdentifier)
         }
         if (mHeaderView != null && mSelectedItemPosition == 0) {
             mSelectedItemPosition = 1
@@ -1767,11 +1765,11 @@ open class DrawerBuilder {
             if (!mAppended) {
                 mSelectExtension.deselect()
                 adapter.withSavedInstanceState(mSavedInstance, Drawer.BUNDLE_SELECTION)
-                DrawerUtils.setStickyFooterSelection(this, mSavedInstance.getInt(Drawer.BUNDLE_STICKY_FOOTER_SELECTION, -1), null)
+                //DrawerUtils.setStickyFooterSelection(this, mSavedInstance.getInt(Drawer.BUNDLE_STICKY_FOOTER_SELECTION, -1), null)
             } else {
                 mSelectExtension.deselect()
                 adapter.withSavedInstanceState(mSavedInstance, Drawer.BUNDLE_SELECTION_APPENDED)
-                DrawerUtils.setStickyFooterSelection(this, mSavedInstance.getInt(Drawer.BUNDLE_STICKY_FOOTER_SELECTION_APPENDED, -1), null)
+                //DrawerUtils.setStickyFooterSelection(this, mSavedInstance.getInt(Drawer.BUNDLE_STICKY_FOOTER_SELECTION_APPENDED, -1), null)
             }
         }
 

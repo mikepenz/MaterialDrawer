@@ -16,6 +16,7 @@ import com.mikepenz.materialdrawer.model.ContainerDrawerItem
 import com.mikepenz.materialdrawer.model.interfaces.IDrawerItem
 import com.mikepenz.materialdrawer.model.interfaces.Selectable
 import com.mikepenz.materialdrawer.util.DrawerUIUtils
+import com.mikepenz.materialdrawer.widget.MaterialDrawerSliderView
 import com.mikepenz.materialize.util.UIUtils
 
 /**
@@ -30,29 +31,28 @@ internal object DrawerUtils {
      * @param v
      * @param fireOnClick true if we should call the listener, false if not, null to not call the listener and not close the drawer
      */
-    fun onFooterDrawerItemClick(drawer: DrawerBuilder, drawerItem: IDrawerItem<*>, v: View, fireOnClick: Boolean?) {
+    fun onFooterDrawerItemClick(sliderView: MaterialDrawerSliderView, drawerItem: IDrawerItem<*>, v: View, fireOnClick: Boolean?) {
         val checkable = !(drawerItem is Selectable<*> && !drawerItem.isSelectable)
         if (checkable) {
-            drawer.resetStickyFooterSelection()
+            sliderView.resetStickyFooterSelection()
 
             v.isActivated = true
             v.isSelected = true
 
             //remove the selection in the list
-            drawer.selectExtension.deselect()
+            sliderView.selectExtension.deselect()
 
             //find the position of the clicked footer item
-            if (drawer.mStickyFooterView != null && drawer.mStickyFooterView is LinearLayout) {
-                val footer = drawer.mStickyFooterView as LinearLayout
+            if (sliderView.stickyFooterView != null && sliderView.stickyFooterView is LinearLayout) {
+                val footer = sliderView.stickyFooterView as LinearLayout
                 for (i in 0 until footer.childCount) {
                     if (footer.getChildAt(i) === v) {
-                        drawer.mCurrentStickyFooterSelection = i
+                        sliderView.currentStickyFooterSelection = i
                         break
                     }
                 }
             }
         }
-
 
         if (fireOnClick != null) {
             var consumed = false
@@ -63,15 +63,15 @@ internal object DrawerUtils {
                             ?: false
                 }
 
-                if (drawer.mOnDrawerItemClickListener != null) {
-                    consumed = drawer.mOnDrawerItemClickListener?.onItemClick(v, -1, drawerItem)
+                if (sliderView.onDrawerItemClickListener != null) {
+                    consumed = sliderView.onDrawerItemClickListener?.onItemClick(v, -1, drawerItem)
                             ?: false
                 }
             }
 
             if (!consumed) {
                 //close the drawer after click
-                drawer.closeDrawerDelayed()
+                sliderView.closeDrawerDelayed()
             }
         }
     }
@@ -83,17 +83,17 @@ internal object DrawerUtils {
      * @param position
      * @param fireOnClick
      */
-    fun setStickyFooterSelection(drawer: DrawerBuilder, _position: Int, fireOnClick: Boolean?) {
+    fun setStickyFooterSelection(sliderView: MaterialDrawerSliderView, _position: Int, fireOnClick: Boolean?) {
         var position = _position
         if (position > -1) {
-            if (drawer.mStickyFooterView != null && drawer.mStickyFooterView is LinearLayout) {
-                val footer = drawer.mStickyFooterView as LinearLayout
-                if (drawer.mStickyFooterDivider) {
+            if (sliderView.stickyFooterView != null && sliderView.stickyFooterView is LinearLayout) {
+                val footer = sliderView.stickyFooterView as LinearLayout
+                if (sliderView.stickyFooterDivider) {
                     position += 1
                 }
                 if (footer.childCount > position && position >= 0) {
                     val drawerItem = footer.getChildAt(position).getTag(R.id.material_drawer_item) as IDrawerItem<*>
-                    onFooterDrawerItemClick(drawer, drawerItem, footer.getChildAt(position), fireOnClick)
+                    onFooterDrawerItemClick(sliderView, drawerItem, footer.getChildAt(position), fireOnClick)
                 }
             }
         }
@@ -105,10 +105,10 @@ internal object DrawerUtils {
      * @param identifier
      * @return
      */
-    fun getPositionByIdentifier(drawer: DrawerBuilder, identifier: Long): Int {
+    fun getPositionByIdentifier(sliderView: MaterialDrawerSliderView, identifier: Long): Int {
         if (identifier != -1L) {
-            for (i in 0 until drawer.adapter.itemCount) {
-                if (drawer.adapter.getItem(i)?.identifier == identifier) {
+            for (i in 0 until sliderView.adapter.itemCount) {
+                if (sliderView.adapter.getItem(i)?.identifier == identifier) {
                     return i
                 }
             }
@@ -188,42 +188,46 @@ internal object DrawerUtils {
      *
      * @param drawer
      */
-    fun handleHeaderView(drawer: DrawerBuilder) {
+    fun handleHeaderView(sliderView: MaterialDrawerSliderView) {
         //use the AccountHeader if set
-        drawer.mAccountHeader?.let {
-            if (drawer.mAccountHeaderSticky) {
-                drawer.mStickyHeaderView = it.view
+        sliderView.accountHeader?.let {
+            if (sliderView.accountHeaderSticky) {
+                sliderView.stickyHeaderView = it
             } else {
-                drawer.mHeaderView = it.view
-                drawer.mHeaderDivider = it.accountHeaderBuilder.dividerBelowHeader
-                drawer.mHeaderPadding = it.accountHeaderBuilder.paddingBelowHeader
+                sliderView.headerView = it
+                sliderView.headerDivider = it.dividerBelowHeader
+                sliderView.headerPadding = it.paddingBelowHeader
             }
         }
 
         //sticky header view
-        drawer.mStickyHeaderView?.let {
+        sliderView.stickyHeaderView?.let {
+            sliderView.findViewById<View>(R.id.material_drawer_sticky_header)?.let { header ->
+                sliderView.removeView(header)
+            }
+
             //add the sticky footer view and align it to the bottom
             val layoutParams = RelativeLayout.LayoutParams(RelativeLayout.LayoutParams.MATCH_PARENT, RelativeLayout.LayoutParams.WRAP_CONTENT)
             layoutParams.addRule(RelativeLayout.ALIGN_PARENT_TOP, 1)
             it.id = R.id.material_drawer_sticky_header
-            drawer.mSliderLayout.addView(it, 0, layoutParams)
+            sliderView.addView(it, 0, layoutParams)
 
             //now align the recyclerView below the stickyFooterView ;)
-            val layoutParamsListView = drawer.mRecyclerView.layoutParams as RelativeLayout.LayoutParams
+            val layoutParamsListView = sliderView.recyclerView.layoutParams as RelativeLayout.LayoutParams
             layoutParamsListView.addRule(RelativeLayout.BELOW, R.id.material_drawer_sticky_header)
-            drawer.mRecyclerView.layoutParams = layoutParamsListView
+            sliderView.recyclerView.layoutParams = layoutParamsListView
 
             //set a background color or the elevation will not work
-            it.setBackgroundColor(UIUtils.getThemeColorFromAttrOrRes(drawer.mActivity, R.attr.material_drawer_background, R.color.material_drawer_background))
+            it.setBackgroundColor(UIUtils.getThemeColorFromAttrOrRes(sliderView.context, R.attr.materialDrawerBackground, R.color.material_drawer_background))
 
-            if (drawer.mStickyHeaderShadow) {
+            if (sliderView.stickyHeaderShadow) {
                 //add a shadow
                 if (Build.VERSION.SDK_INT >= 21) {
-                    it.elevation = UIUtils.convertDpToPixel(4f, drawer.mActivity)
+                    it.elevation = UIUtils.convertDpToPixel(4f, sliderView.context)
                 } else {
-                    val view = View(drawer.mActivity)
+                    val view = View(sliderView.context)
                     view.setBackgroundResource(R.drawable.material_drawer_shadow_bottom)
-                    drawer.mSliderLayout.addView(view, RelativeLayout.LayoutParams.MATCH_PARENT, UIUtils.convertDpToPixel(4f, drawer.mActivity).toInt())
+                    sliderView.addView(view, RelativeLayout.LayoutParams.MATCH_PARENT, UIUtils.convertDpToPixel(4f, sliderView.context).toInt())
                     //now align the shadow below the stickyHeader ;)
                     val lps = view.layoutParams as RelativeLayout.LayoutParams
                     lps.addRule(RelativeLayout.BELOW, R.id.material_drawer_sticky_header)
@@ -232,18 +236,18 @@ internal object DrawerUtils {
             }
 
             //remove the padding of the recyclerView again we have the header on top of it
-            drawer.mRecyclerView.setPadding(0, 0, 0, 0)
+            sliderView.recyclerView.setPadding(0, 0, 0, 0)
         }
 
         // set the header (do this before the setAdapter because some devices will crash else
-        drawer.mHeaderView?.let {
-            if (drawer.mHeaderPadding) {
-                drawer.headerAdapter.add(ContainerDrawerItem().withView(it).withHeight(drawer.mHeiderHeight).withDivider(drawer.mHeaderDivider).withViewPosition(ContainerDrawerItem.Position.TOP))
+        sliderView.headerView?.let {
+            if (sliderView.headerPadding) {
+                sliderView.headerAdapter.add(ContainerDrawerItem().withView(it).withHeight(sliderView.headerHeight).withDivider(sliderView.headerDivider).withViewPosition(ContainerDrawerItem.Position.TOP))
             } else {
-                drawer.headerAdapter.add(ContainerDrawerItem().withView(it).withHeight(drawer.mHeiderHeight).withDivider(drawer.mHeaderDivider).withViewPosition(ContainerDrawerItem.Position.NONE))
+                sliderView.headerAdapter.add(ContainerDrawerItem().withView(it).withHeight(sliderView.headerHeight).withDivider(sliderView.headerDivider).withViewPosition(ContainerDrawerItem.Position.NONE))
             }
             //set the padding on the top to 0
-            drawer.mRecyclerView.setPadding(drawer.mRecyclerView.paddingLeft, 0, drawer.mRecyclerView.paddingRight, drawer.mRecyclerView.paddingBottom)
+            sliderView.recyclerView.setPadding(sliderView.recyclerView.paddingLeft, 0, sliderView.recyclerView.paddingRight, sliderView.recyclerView.paddingBottom)
         }
     }
 
@@ -252,31 +256,31 @@ internal object DrawerUtils {
      *
      * @param drawer
      */
-    fun rebuildStickyFooterView(drawer: DrawerBuilder) {
-        drawer.mStickyFooterView?.let {
+    fun rebuildStickyFooterView(sliderView: MaterialDrawerSliderView) {
+        sliderView.stickyFooterView?.let {
             it.removeAllViews()
 
             //create the divider
-            if (drawer.mStickyFooterDivider) {
+            if (sliderView.stickyFooterDivider) {
                 addStickyFooterDivider(it.context, it)
             }
 
             //fill the footer with items
-            DrawerUtils.fillStickyDrawerItemFooter(drawer, it, View.OnClickListener { v ->
+            fillStickyDrawerItemFooter(sliderView, it, View.OnClickListener { v ->
                 val drawerItem = v.getTag(R.id.material_drawer_item) as IDrawerItem<*>
-                com.mikepenz.materialdrawer.DrawerUtils.onFooterDrawerItemClick(drawer, drawerItem, v, true)
+                onFooterDrawerItemClick(sliderView, drawerItem, v, true)
             })
 
             it.visibility = View.VISIBLE
         } ?: run {
             //there was no footer yet. now just create one
-            DrawerUtils.handleFooterView(drawer, View.OnClickListener { v ->
+            handleFooterView(sliderView, View.OnClickListener { v ->
                 val drawerItem = v.getTag(R.id.material_drawer_item) as IDrawerItem<*>
-                DrawerUtils.onFooterDrawerItemClick(drawer, drawerItem, v, true)
+                onFooterDrawerItemClick(sliderView, drawerItem, v, true)
             })
         }
 
-        setStickyFooterSelection(drawer, drawer.mCurrentStickyFooterSelection, false)
+        setStickyFooterSelection(sliderView, sliderView.currentStickyFooterSelection, false)
     }
 
     /**
@@ -284,36 +288,38 @@ internal object DrawerUtils {
      *
      * @param drawer
      */
-    fun handleFooterView(drawer: DrawerBuilder, onClickListener: View.OnClickListener) {
-        val ctx = drawer.mSliderLayout.context
+    fun handleFooterView(sliderView: MaterialDrawerSliderView, onClickListener: View.OnClickListener) {
+        val ctx = sliderView.context
 
         //use the StickyDrawerItems if set
-        if (drawer.mStickyDrawerItems.size > 0) {
-            drawer.mStickyFooterView = DrawerUtils.buildStickyDrawerItemFooter(ctx, drawer, onClickListener)
+        if (sliderView.stickyDrawerItems.size > 0) {
+            sliderView.stickyFooterView = DrawerUtils.buildStickyDrawerItemFooter(sliderView, onClickListener)
         }
 
         //sticky footer view
-        drawer.mStickyFooterView?.let {
+        sliderView.stickyFooterView?.let {
             //add the sticky footer view and align it to the bottom
             val layoutParams = RelativeLayout.LayoutParams(RelativeLayout.LayoutParams.MATCH_PARENT, RelativeLayout.LayoutParams.WRAP_CONTENT)
             layoutParams.addRule(RelativeLayout.ALIGN_PARENT_BOTTOM, 1)
             it.id = R.id.material_drawer_sticky_footer
-            drawer.mSliderLayout.addView(it, layoutParams)
+            sliderView.addView(it, layoutParams)
 
-            if ((drawer.mTranslucentNavigationBar || drawer.mFullscreen) && Build.VERSION.SDK_INT >= 19) {
-                it.setPadding(0, 0, 0, UIUtils.getNavigationBarHeight(ctx))
+            /**
+            if ((sliderView.mTranslucentNavigationBar || drawer.mFullscreen) && Build.VERSION.SDK_INT >= 19) {
+            it.setPadding(0, 0, 0, UIUtils.getNavigationBarHeight(ctx))
             }
+             **/
 
             //now align the recyclerView above the stickyFooterView ;)
-            val layoutParamsListView = drawer.mRecyclerView.layoutParams as RelativeLayout.LayoutParams
+            val layoutParamsListView = sliderView.recyclerView.layoutParams as RelativeLayout.LayoutParams
             layoutParamsListView.addRule(RelativeLayout.ABOVE, R.id.material_drawer_sticky_footer)
-            drawer.mRecyclerView.layoutParams = layoutParamsListView
+            sliderView.recyclerView.layoutParams = layoutParamsListView
 
             //handle shadow on top of the sticky footer
-            if (drawer.mStickyFooterShadow) {
-                drawer.mStickyFooterShadowView = View(ctx).also { stickyFooterShadowView ->
+            if (sliderView.stickyFooterShadow) {
+                sliderView.stickyFooterShadowView = View(ctx).also { stickyFooterShadowView ->
                     stickyFooterShadowView.setBackgroundResource(R.drawable.material_drawer_shadow_top)
-                    drawer.mSliderLayout.addView(stickyFooterShadowView, RelativeLayout.LayoutParams.MATCH_PARENT, ctx.resources.getDimensionPixelSize(R.dimen.material_drawer_sticky_footer_elevation))
+                    sliderView.addView(stickyFooterShadowView, RelativeLayout.LayoutParams.MATCH_PARENT, ctx.resources.getDimensionPixelSize(R.dimen.material_drawer_sticky_footer_elevation))
                     //now align the shadow below the stickyHeader ;)
                     val lps = stickyFooterShadowView.layoutParams as RelativeLayout.LayoutParams
                     lps.addRule(RelativeLayout.ABOVE, R.id.material_drawer_sticky_footer)
@@ -322,15 +328,15 @@ internal object DrawerUtils {
             }
 
             //remove the padding of the recyclerView again we have the footer below it
-            drawer.mRecyclerView.setPadding(drawer.mRecyclerView.paddingLeft, drawer.mRecyclerView.paddingTop, drawer.mRecyclerView.paddingRight, ctx.resources.getDimensionPixelSize(R.dimen.material_drawer_padding))
+            sliderView.recyclerView.setPadding(sliderView.recyclerView.paddingLeft, sliderView.recyclerView.paddingTop, sliderView.recyclerView.paddingRight, ctx.resources.getDimensionPixelSize(R.dimen.material_drawer_padding))
         }
 
         // set the footer (do this before the setAdapter because some devices will crash else
-        drawer.mFooterView?.let {
-            if (drawer.mFooterDivider) {
-                drawer.footerAdapter.add(ContainerDrawerItem().withView(it).withViewPosition(ContainerDrawerItem.Position.BOTTOM))
+        sliderView.footerView?.let {
+            if (sliderView.footerDivider) {
+                sliderView.footerAdapter.add(ContainerDrawerItem().withView(it).withViewPosition(ContainerDrawerItem.Position.BOTTOM))
             } else {
-                drawer.footerAdapter.add(ContainerDrawerItem().withView(it).withViewPosition(ContainerDrawerItem.Position.NONE))
+                sliderView.footerAdapter.add(ContainerDrawerItem().withView(it).withViewPosition(ContainerDrawerItem.Position.NONE))
             }
         }
     }
@@ -341,20 +347,20 @@ internal object DrawerUtils {
      *
      * @return
      */
-    fun buildStickyDrawerItemFooter(ctx: Context, drawer: DrawerBuilder, onClickListener: View.OnClickListener): ViewGroup {
+    fun buildStickyDrawerItemFooter(sliderView: MaterialDrawerSliderView, onClickListener: View.OnClickListener): ViewGroup {
         //create the container view
-        val linearLayout = LinearLayout(ctx)
+        val linearLayout = LinearLayout(sliderView.context)
         linearLayout.layoutParams = LinearLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT)
         linearLayout.orientation = LinearLayout.VERTICAL
         //set the background color to the drawer background color (if it has alpha the shadow won't be visible)
-        linearLayout.setBackgroundColor(UIUtils.getThemeColorFromAttrOrRes(ctx, R.attr.material_drawer_background, R.color.material_drawer_background))
+        linearLayout.setBackgroundColor(UIUtils.getThemeColorFromAttrOrRes(sliderView.context, R.attr.materialDrawerBackground, R.color.material_drawer_background))
 
         //create the divider
-        if (drawer.mStickyFooterDivider) {
-            addStickyFooterDivider(ctx, linearLayout)
+        if (sliderView.stickyFooterDivider) {
+            addStickyFooterDivider(sliderView.context, linearLayout)
         }
 
-        fillStickyDrawerItemFooter(drawer, linearLayout, onClickListener)
+        fillStickyDrawerItemFooter(sliderView, linearLayout, onClickListener)
 
         return linearLayout
     }
@@ -370,7 +376,7 @@ internal object DrawerUtils {
         val dividerParams = LinearLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT)
         divider.minimumHeight = UIUtils.convertDpToPixel(1f, ctx).toInt()
         divider.orientation = LinearLayout.VERTICAL
-        divider.setBackgroundColor(UIUtils.getThemeColorFromAttrOrRes(ctx, R.attr.material_drawer_divider, R.color.material_drawer_divider))
+        divider.setBackgroundColor(UIUtils.getThemeColorFromAttrOrRes(ctx, R.attr.materialDrawerDivider, R.color.material_drawer_divider))
         footerView.addView(divider, dividerParams)
     }
 
@@ -381,9 +387,9 @@ internal object DrawerUtils {
      * @param container
      * @param onClickListener
      */
-    fun fillStickyDrawerItemFooter(drawer: DrawerBuilder, container: ViewGroup, onClickListener: View.OnClickListener) {
+    fun fillStickyDrawerItemFooter(sliderView: MaterialDrawerSliderView, container: ViewGroup, onClickListener: View.OnClickListener) {
         //add all drawer items
-        for (drawerItem in drawer.mStickyDrawerItems) {
+        for (drawerItem in sliderView.stickyDrawerItems) {
             val view = drawerItem.generateView(container.context, container)
             view.tag = drawerItem
 
