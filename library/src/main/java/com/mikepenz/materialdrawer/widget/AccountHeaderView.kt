@@ -21,13 +21,17 @@ import com.mikepenz.iconics.IconicsSize
 import com.mikepenz.materialdrawer.AccountHeader
 import com.mikepenz.materialdrawer.Drawer
 import com.mikepenz.materialdrawer.R
-import com.mikepenz.materialdrawer.holder.*
+import com.mikepenz.materialdrawer.holder.ColorHolder
+import com.mikepenz.materialdrawer.holder.DimenHolder
+import com.mikepenz.materialdrawer.holder.ImageHolder
+import com.mikepenz.materialdrawer.holder.StringHolder
 import com.mikepenz.materialdrawer.icons.MaterialDrawerFont
 import com.mikepenz.materialdrawer.model.interfaces.IDrawerItem
 import com.mikepenz.materialdrawer.model.interfaces.IProfile
 import com.mikepenz.materialdrawer.util.DrawerImageLoader
 import com.mikepenz.materialdrawer.util.DrawerUIUtils
-import com.mikepenz.materialdrawer.holder.ImageHolder
+import com.mikepenz.materialdrawer.util.getHeaderSelectionSubTextColor
+import com.mikepenz.materialdrawer.util.getHeaderSelectionTextColor
 import com.mikepenz.materialdrawer.view.BezelImageView
 import com.mikepenz.materialize.util.UIUtils
 import java.util.*
@@ -354,15 +358,15 @@ class AccountHeaderView @JvmOverloads constructor(context: Context, attrs: Attri
         }
 
         // get the text color to use for the text section
-        val textColor = textColor.applyColor(context, R.attr.materialDrawerHeaderSelectionText, R.color.material_drawer_header_selection_text)
-        val subTextColor = this.textColor.applyColor(context, R.attr.materialDrawerHeaderSelectionSubtext, R.color.material_drawer_header_selection_subtext)
+        val textColor = context.getHeaderSelectionTextColor() // textColor.applyColor(context, R.attr.materialDrawerHeaderSelectionText, R.color.material_drawer_header_selection_text)
+        val subTextColor = context.getHeaderSelectionSubTextColor()  // this.textColor.applyColor(context, R.attr.materialDrawerHeaderSelectionSubtext, R.color.material_drawer_header_selection_subtext)
 
         accountHeaderTextSectionBackgroundResource = UIUtils.getSelectableBackgroundRes(context)
         handleSelectionView(currentProfile, true)
 
         // set the arrow :D
         accountSwitcherArrow = findViewById(R.id.material_drawer_account_header_text_switcher)
-        accountSwitcherArrow.setImageDrawable(IconicsDrawable(context, MaterialDrawerFont.Icon.mdf_arrow_drop_down).size(IconicsSize.res(R.dimen.material_drawer_account_header_dropdown)).padding(IconicsSize.res(R.dimen.material_drawer_account_header_dropdown_padding)).color(IconicsColor.colorInt(subTextColor)))
+        accountSwitcherArrow.setImageDrawable(IconicsDrawable(context, MaterialDrawerFont.Icon.mdf_arrow_drop_down).size(IconicsSize.res(R.dimen.material_drawer_account_header_dropdown)).padding(IconicsSize.res(R.dimen.material_drawer_account_header_dropdown_padding)).color(IconicsColor.colorList(subTextColor)))
 
         //get the fields for the name
         currentProfileView = findViewById(R.id.material_drawer_account_header_current)

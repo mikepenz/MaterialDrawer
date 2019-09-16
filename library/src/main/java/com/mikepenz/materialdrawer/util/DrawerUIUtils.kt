@@ -177,7 +177,7 @@ object DrawerUIUtils {
      * @return
      */
     fun getPlaceHolder(ctx: Context): Drawable {
-        return IconicsDrawable(ctx, MaterialDrawerFont.Icon.mdf_person).color(IconicsColor.colorRes(R.color.accent)).backgroundColor(IconicsColor.colorRes(R.color.primary)).size(IconicsSize.dp(56)).padding(IconicsSize.dp(16))
+        return IconicsDrawable(ctx, MaterialDrawerFont.Icon.mdf_person).color(IconicsColor.colorInt(ctx.getThemeColor(R.attr.colorAccent))).backgroundColor(IconicsColor.colorInt(ctx.getThemeColor(R.attr.colorPrimary))).size(IconicsSize.dp(56)).padding(IconicsSize.dp(16))
     }
 
     /**

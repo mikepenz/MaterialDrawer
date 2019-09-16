@@ -17,8 +17,8 @@
 
     <style name="Widget.MaterialDrawerHeaderStyle" parent="">
         <item name="compactStyle">false</item>
-        <item name="materialDrawerHeaderSelectionText">?colorPrimary</item>
-        <item name="materialDrawerHeaderSelectionSubtext">?colorPrimary</item>
+        <item name="materialDrawerHeaderSelectionText">?colorOnSurface</item>
+        <item name="materialDrawerHeaderSelectionSubtext">?colorOnSurface</item>
     </style>
 
     <!-- DrawerArrowStyles -->

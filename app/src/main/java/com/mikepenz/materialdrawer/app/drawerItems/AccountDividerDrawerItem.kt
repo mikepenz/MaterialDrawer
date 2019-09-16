@@ -10,11 +10,11 @@ import androidx.core.view.ViewCompat
 import androidx.recyclerview.widget.RecyclerView
 import com.mikepenz.iconics.typeface.IIcon
 import com.mikepenz.materialdrawer.app.R
+import com.mikepenz.materialdrawer.holder.ImageHolder
 import com.mikepenz.materialdrawer.holder.StringHolder
 import com.mikepenz.materialdrawer.model.AbstractDrawerItem
 import com.mikepenz.materialdrawer.model.interfaces.IProfile
-import com.mikepenz.materialdrawer.holder.ImageHolder
-import com.mikepenz.materialize.util.UIUtils
+import com.mikepenz.materialdrawer.util.getDividerColor
 
 class AccountDividerDrawerItem : AbstractDrawerItem<AccountDividerDrawerItem, AccountDividerDrawerItem.ViewHolder>(), IProfile<AccountDividerDrawerItem> {
     override val type: Int
@@ -49,7 +49,7 @@ class AccountDividerDrawerItem : AbstractDrawerItem<AccountDividerDrawerItem, Ac
                 ViewCompat.IMPORTANT_FOR_ACCESSIBILITY_NO)
 
         //set the color for the divider
-        holder.divider.setBackgroundColor(UIUtils.getThemeColorFromAttrOrRes(ctx, com.mikepenz.materialdrawer.R.attr.materialDrawerDivider, com.mikepenz.materialdrawer.R.color.material_drawer_divider))
+        holder.divider.setBackgroundColor(ctx.getDividerColor())
 
         //call the onPostBindView method to trigger post bind view actions (like the listener to modify the item if required)
         onPostBindView(this, holder.itemView)

@@ -68,8 +68,24 @@ fun Context.getSelectedColor(): Int {
     return ColorUtils.setAlphaComponent(color, (255 * getSupportFloat(R.dimen.material_drawer_selected_background_alpha)).toInt())
 }
 
-internal fun <T> Context.resolveStyledValue(resolver: (typedArray: TypedArray) -> T): T {
-    val a = obtainStyledAttributes(null, R.styleable.MaterialDrawerSliderView, R.attr.materialDrawerStyle, R.style.Widget_MaterialDrawerStyle)
+fun Context.getHeaderSelectionTextColor(): ColorStateList {
+    return resolveStyledHeaderValue {
+        it.getColorStateList(R.styleable.AccountHeaderView_materialDrawerHeaderSelectionText)!!
+    }
+}
+
+fun Context.getHeaderSelectionSubTextColor(): ColorStateList {
+    return resolveStyledHeaderValue {
+        it.getColorStateList(R.styleable.AccountHeaderView_materialDrawerHeaderSelectionSubtext)!!
+    }
+}
+
+internal fun <T> Context.resolveStyledHeaderValue(resolver: (typedArray: TypedArray) -> T): T {
+    return resolveStyledValue(R.styleable.AccountHeaderView, R.attr.materialDrawerHeaderStyle, R.style.Widget_MaterialDrawerHeaderStyle, resolver)
+}
+
+internal fun <T> Context.resolveStyledValue(attrs: IntArray = R.styleable.MaterialDrawerSliderView, defStyleAttr: Int = R.attr.materialDrawerStyle, defStyleRes: Int = R.style.Widget_MaterialDrawerStyle, resolver: (typedArray: TypedArray) -> T): T {
+    val a = obtainStyledAttributes(null, attrs, defStyleAttr, defStyleRes)
     val value = resolver.invoke(a)
     a.recycle()
     return value

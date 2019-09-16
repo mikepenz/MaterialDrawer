@@ -2,12 +2,12 @@
 <resources>
     <declare-styleable name="MaterialDrawerTheme">
         <attr name="materialDrawerStyle" format="reference" />
+        <attr name="materialDrawerHeaderStyle" format="reference" />
     </declare-styleable>
 
     <declare-styleable name="MaterialDrawerSliderView">
         <attr name="insetForeground" format="color|reference" />
 
-        <attr name="materialDrawerWindowBackground" format="color|reference" />
         <attr name="materialDrawerBackground" format="color|reference" />
 
         <attr name="materialDrawerPrimaryText" format="color|reference" />

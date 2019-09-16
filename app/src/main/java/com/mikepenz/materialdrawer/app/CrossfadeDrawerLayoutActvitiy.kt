@@ -24,7 +24,6 @@ import com.mikepenz.materialdrawer.model.SectionDrawerItem
 import com.mikepenz.materialdrawer.model.interfaces.IDrawerItem
 import com.mikepenz.materialdrawer.model.interfaces.Nameable
 import com.mikepenz.materialdrawer.util.DrawerUIUtils
-import com.mikepenz.materialize.util.UIUtils
 import kotlinx.android.synthetic.main.activity_sample_dark_toolbar.*
 
 class CrossfadeDrawerLayoutActvitiy : AppCompatActivity() {
@@ -101,7 +100,7 @@ class CrossfadeDrawerLayoutActvitiy : AppCompatActivity() {
         //build the view for the MiniDrawer
         val view = miniResult.build(this)
         //set the background of the MiniDrawer as this would be transparent
-        view.setBackgroundColor(UIUtils.getThemeColorFromAttrOrRes(this, com.mikepenz.materialdrawer.R.attr.materialDrawerBackground, com.mikepenz.materialdrawer.R.color.material_drawer_background))
+        // TODO view.setBackgroundColor(slider.background)
         //we do not have the MiniDrawer view during CrossfadeDrawerLayout creation so we will add it here
         crossfadeDrawerLayout.smallView.addView(view, ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.MATCH_PARENT)
 

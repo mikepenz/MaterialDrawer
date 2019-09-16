@@ -282,7 +282,6 @@ open class MiniDrawer {
         //some style improvements on older devices
         recyclerView.setFadingEdgeLength(0)
         //set the drawing cache background to the same color as the slider to improve performance
-        //mRecyclerView.setDrawingCacheBackgroundColor(UIUtils.getThemeColorFromAttrOrRes(mActivity, R.attr.material_drawer_background, R.color.material_drawer_background));
         recyclerView.clipToPadding = false
         //additional stuff
         recyclerView.layoutManager = LinearLayoutManager(ctx)

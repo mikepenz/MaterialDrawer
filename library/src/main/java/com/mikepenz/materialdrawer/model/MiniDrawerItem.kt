@@ -12,7 +12,6 @@ import com.mikepenz.materialdrawer.holder.DimenHolder
 import com.mikepenz.materialdrawer.holder.ImageHolder
 import com.mikepenz.materialdrawer.holder.StringHolder
 import com.mikepenz.materialdrawer.util.DrawerUIUtils.themeDrawerItem
-import com.mikepenz.materialdrawer.util.FixStateListDrawable
 
 /**
  * Created by mikepenz on 03.02.15.
@@ -144,8 +143,6 @@ open class MiniDrawerItem : BaseDrawerItem<MiniDrawerItem, MiniDrawerItem.ViewHo
         val icon = ImageHolder.decideIcon(icon, ctx, iconColor, isIconTinted, 1)
         val selectedIcon = ImageHolder.decideIcon(selectedIcon, ctx, iconColor, isIconTinted, 1)
         ImageHolder.applyMultiIconTo(icon, selectedIcon, iconColor, isIconTinted, holder.icon)
-
-        holder.icon.setImageDrawable(FixStateListDrawable(icon, selectedIcon, iconColor))
 
         //for android API 17 --> Padding not applied via xml
         val verticalPadding = ctx.resources.getDimensionPixelSize(R.dimen.material_drawer_padding)
