@@ -6,11 +6,7 @@ import android.net.Uri
 import android.view.View
 import android.widget.ImageView
 import android.widget.TextView
-import androidx.annotation.ColorInt
-import androidx.annotation.ColorRes
-import androidx.annotation.DrawableRes
-import androidx.annotation.LayoutRes
-import androidx.annotation.StringRes
+import androidx.annotation.*
 import androidx.core.view.ViewCompat
 import androidx.recyclerview.widget.RecyclerView
 import com.mikepenz.iconics.typeface.IIcon
@@ -18,11 +14,11 @@ import com.mikepenz.materialdrawer.R
 import com.mikepenz.materialdrawer.holder.ColorHolder
 import com.mikepenz.materialdrawer.holder.ImageHolder
 import com.mikepenz.materialdrawer.holder.StringHolder
-import com.mikepenz.materialdrawer.holder.applyColor
 import com.mikepenz.materialdrawer.model.interfaces.IProfile
 import com.mikepenz.materialdrawer.model.interfaces.Tagable
 import com.mikepenz.materialdrawer.model.interfaces.Typefaceable
 import com.mikepenz.materialdrawer.util.DrawerUIUtils
+import com.mikepenz.materialdrawer.util.getPrimaryDrawerIconColor
 import com.mikepenz.materialize.util.UIUtils
 
 /**
@@ -151,16 +147,22 @@ open class ProfileSettingDrawerItem : AbstractDrawerItem<ProfileSettingDrawerIte
 
         //set the item enabled if it is
         holder.itemView.isEnabled = isEnabled
+        holder.name.isEnabled = isEnabled
+        holder.description.isEnabled = isEnabled
+        holder.icon.isEnabled = isEnabled
 
         //set the item selected if it is
         holder.itemView.isSelected = isSelected
+        holder.name.isSelected = isSelected
+        holder.description.isSelected = isSelected
+        holder.icon.isSelected = isSelected
 
         //get the correct color for the background
         val selectedColor = getSelectedColor(ctx)
         //get the correct color for the text
-        val color = textColor.applyColor(ctx, R.attr.materialDrawerPrimaryText, R.color.material_drawer_primary_text)
-        val iconColor = iconColor.applyColor(ctx, R.attr.materialDrawerPrimaryIcon, R.color.material_drawer_primary_icon)
-        val descriptionColor = descriptionTextColor.applyColor(ctx, R.attr.materialDrawerPrimaryText, R.color.material_drawer_primary_text)
+        val color = getColor(ctx)
+        val iconColor = ctx.getPrimaryDrawerIconColor()
+        val descriptionColor = getColor(ctx)
 
         ViewCompat.setBackground(holder.view, UIUtils.getSelectableBackground(ctx, selectedColor, isSelectedBackgroundAnimated))
 

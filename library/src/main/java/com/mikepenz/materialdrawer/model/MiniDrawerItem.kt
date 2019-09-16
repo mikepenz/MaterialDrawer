@@ -9,10 +9,10 @@ import androidx.recyclerview.widget.RecyclerView
 import com.mikepenz.materialdrawer.R
 import com.mikepenz.materialdrawer.holder.BadgeStyle
 import com.mikepenz.materialdrawer.holder.DimenHolder
+import com.mikepenz.materialdrawer.holder.ImageHolder
 import com.mikepenz.materialdrawer.holder.StringHolder
 import com.mikepenz.materialdrawer.util.DrawerUIUtils.themeDrawerItem
 import com.mikepenz.materialdrawer.util.FixStateListDrawable
-import com.mikepenz.materialdrawer.util.ImageHolder
 
 /**
  * Created by mikepenz on 03.02.15.
@@ -113,9 +113,11 @@ open class MiniDrawerItem : BaseDrawerItem<MiniDrawerItem, MiniDrawerItem.ViewHo
 
         //set the item enabled if it is
         holder.itemView.isEnabled = isEnabled
+        holder.icon.isEnabled = isEnabled
 
         //set the item selected if it is
         holder.itemView.isSelected = isSelected
+        holder.icon.isSelected = isSelected
 
         //
         holder.itemView.tag = this

@@ -22,7 +22,7 @@ import com.mikepenz.materialdrawer.model.interfaces.Badgeable
 import com.mikepenz.materialdrawer.model.interfaces.IDrawerItem
 import com.mikepenz.materialdrawer.model.interfaces.Iconable
 import com.mikepenz.materialdrawer.model.interfaces.Nameable
-import com.mikepenz.materialdrawer.util.ImageHolder
+import com.mikepenz.materialdrawer.holder.ImageHolder
 import com.mikepenz.materialize.view.IScrimInsetsLayout
 
 /**

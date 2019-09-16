@@ -12,9 +12,9 @@ import androidx.recyclerview.widget.RecyclerView
 import com.mikepenz.iconics.typeface.IIcon
 import com.mikepenz.materialdrawer.app.R
 import com.mikepenz.materialdrawer.holder.ColorHolder
-import com.mikepenz.materialdrawer.holder.ImageHolder
-import com.mikepenz.materialdrawer.holder.applyColor
 import com.mikepenz.materialdrawer.model.AbstractDrawerItem
+import com.mikepenz.materialdrawer.holder.ImageHolder
+import com.mikepenz.materialdrawer.util.getPrimaryDrawerIconColor
 
 /**
  * Created by mikepenz on 03.02.15.
@@ -140,17 +140,12 @@ class IconDrawerItem : AbstractDrawerItem<IconDrawerItem, IconDrawerItem.ViewHol
         holder.itemView.id = hashCode()
 
         //get the correct color for the icon
-        val iconColorInt: Int = if (this.isEnabled) {
-            iconColor.applyColor(ctx, R.attr.materialDrawerPrimaryIcon, R.color.material_drawer_primary_icon)
-        } else {
-            disabledIconColor.applyColor(ctx, R.attr.materialDrawerHintIcon, R.color.material_drawer_hint_icon)
-        }
-        val selectedIconColorInt = selectedIconColor.applyColor(ctx, R.attr.materialDrawerSelectedText, R.color.material_drawer_selected_text)
+        val iconColor = ctx.getPrimaryDrawerIconColor()
 
-        //get the drawables for our icon and set it
-        val icon = ImageHolder.decideIcon(icon, ctx, iconColorInt, isIconTinted, 1)
-        val selectedIcon = ImageHolder.decideIcon(selectedIcon, ctx, selectedIconColorInt, isIconTinted, 1)
-        ImageHolder.applyMultiIconTo(icon, iconColorInt, selectedIcon, selectedIconColorInt, isIconTinted, holder.icon)
+        //get the drawables for our icon and set it)
+        val icon = ImageHolder.decideIcon(icon, ctx, iconColor, isIconTinted, 1)
+        val selectedIcon = ImageHolder.decideIcon(selectedIcon, ctx, iconColor, isIconTinted, 1)
+        ImageHolder.applyMultiIconTo(icon, selectedIcon, iconColor, isIconTinted, holder.icon)
 
         //call the onPostBindView method to trigger post bind view actions (like the listener to modify the item if required)
         onPostBindView(this, holder.itemView)

@@ -55,7 +55,7 @@ class CustomUrlPrimaryDrawerItem : CustomUrlBasePrimaryDrawerItem<CustomUrlPrima
         val badgeVisible = StringHolder.applyToOrHide(badge, holder.badge)
         //style the badge if it is visible
         if (badgeVisible) {
-            badgeStyle!!.style(holder.badge, getTextColorStateList(getColor(ctx), getSelectedTextColor(ctx)))
+            badgeStyle!!.style(holder.badge, getColor(ctx))
             holder.badgeContainer.visibility = View.VISIBLE
         } else {
             holder.badgeContainer.visibility = View.GONE

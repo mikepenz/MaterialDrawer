@@ -12,7 +12,7 @@ import com.mikepenz.materialdrawer.holder.StringHolder
 import com.mikepenz.materialdrawer.model.interfaces.Iconable
 import com.mikepenz.materialdrawer.model.interfaces.Nameable
 import com.mikepenz.materialdrawer.model.interfaces.Tagable
-import com.mikepenz.materialdrawer.util.ImageHolder
+import com.mikepenz.materialdrawer.holder.ImageHolder
 import com.mikepenz.materialdrawer.util.getPrimaryDrawerIconColor
 
 /**
@@ -114,7 +114,7 @@ abstract class BaseDrawerItem<T, VH : RecyclerView.ViewHolder> : AbstractDrawerI
      * @param ctx
      * @return
      */
-    fun getIconColor(ctx: Context): ColorStateList {
+    open fun getIconColor(ctx: Context): ColorStateList {
         return ctx.getPrimaryDrawerIconColor()
     }
 }

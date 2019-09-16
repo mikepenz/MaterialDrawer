@@ -19,7 +19,6 @@ import com.mikepenz.materialdrawer.holder.StringHolder
 import com.mikepenz.materialdrawer.icons.MaterialDrawerFont
 import com.mikepenz.materialdrawer.model.interfaces.ColorfulBadgeable
 import com.mikepenz.materialdrawer.model.interfaces.IDrawerItem
-import com.mikepenz.materialdrawer.util.getThemeColor
 
 /**
  * Created by mikepenz on 03.02.15.
@@ -74,7 +73,7 @@ open class ExpandableBadgeDrawerItem : BaseDescribeableDrawerItem<ExpandableBadg
         val badgeVisible = StringHolder.applyToOrHide(badge, holder.badge)
         //style the badge if it is visible
         if (badgeVisible) {
-            badgeStyle?.style(holder.badge, getTextColorStateList(ctx.getThemeColor(R.attr.materialDrawerPrimaryText), ctx.getThemeColor(R.attr.materialDrawerSelectedText)))
+            badgeStyle?.style(holder.badge, getColor(ctx))
             holder.badgeContainer.visibility = View.VISIBLE
         } else {
             holder.badgeContainer.visibility = View.GONE

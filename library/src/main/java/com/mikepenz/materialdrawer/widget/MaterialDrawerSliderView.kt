@@ -52,7 +52,7 @@ import com.mikepenz.materialdrawer.holder.StringHolder
 import com.mikepenz.materialdrawer.model.*
 import com.mikepenz.materialdrawer.model.interfaces.*
 import com.mikepenz.materialdrawer.util.DrawerUIUtils
-import com.mikepenz.materialdrawer.util.ImageHolder
+import com.mikepenz.materialdrawer.holder.ImageHolder
 import com.mikepenz.materialize.view.OnInsetsCallback
 import java.util.*
 

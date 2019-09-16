@@ -16,6 +16,7 @@ import com.mikepenz.materialdrawer.model.ContainerDrawerItem
 import com.mikepenz.materialdrawer.model.interfaces.IDrawerItem
 import com.mikepenz.materialdrawer.model.interfaces.Selectable
 import com.mikepenz.materialdrawer.util.DrawerUIUtils
+import com.mikepenz.materialdrawer.util.getDividerColor
 import com.mikepenz.materialdrawer.widget.MaterialDrawerSliderView
 import com.mikepenz.materialize.util.UIUtils
 
@@ -376,7 +377,7 @@ internal object DrawerUtils {
         val dividerParams = LinearLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT)
         divider.minimumHeight = UIUtils.convertDpToPixel(1f, ctx).toInt()
         divider.orientation = LinearLayout.VERTICAL
-        divider.setBackgroundColor(UIUtils.getThemeColorFromAttrOrRes(ctx, R.attr.materialDrawerDivider, R.color.material_drawer_divider))
+        divider.setBackgroundColor(ctx.getDividerColor())
         footerView.addView(divider, dividerParams)
     }
 

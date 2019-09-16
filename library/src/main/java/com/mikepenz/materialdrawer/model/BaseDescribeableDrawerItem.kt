@@ -4,12 +4,10 @@ import androidx.annotation.ColorInt
 import androidx.annotation.ColorRes
 import androidx.annotation.StringRes
 import com.mikepenz.materialdrawer.holder.ColorHolder
+import com.mikepenz.materialdrawer.holder.ImageHolder
 import com.mikepenz.materialdrawer.holder.StringHolder
 import com.mikepenz.materialdrawer.util.DrawerUIUtils
 import com.mikepenz.materialdrawer.util.DrawerUIUtils.themeDrawerItem
-import com.mikepenz.materialdrawer.util.ImageHolder
-import com.mikepenz.materialdrawer.util.getPrimaryDrawerIconColor
-import com.mikepenz.materialdrawer.util.getPrimaryDrawerTextColor
 
 /**
  * Created by mikepenz on 03.02.15.
@@ -65,9 +63,9 @@ abstract class BaseDescribeableDrawerItem<T, VH : BaseViewHolder> : BaseDrawerIt
         val selectedColor = getSelectedColor(ctx)
         //get the correct color for the text
 
-        val textColor = ctx.getPrimaryDrawerTextColor()
+        val textColor = getColor(ctx)
         //get the correct color for the icon
-        val iconColor = ctx.getPrimaryDrawerIconColor()
+        val iconColor = getIconColor(ctx)
         val shapeAppearanceModel = getShapeAppearanceModel(ctx)
 
         //set the background for the item

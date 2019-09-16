@@ -12,9 +12,9 @@ import androidx.recyclerview.widget.RecyclerView
 import com.mikepenz.iconics.typeface.IIcon
 import com.mikepenz.materialdrawer.R
 import com.mikepenz.materialdrawer.holder.DimenHolder
-import com.mikepenz.materialdrawer.holder.ImageHolder
 import com.mikepenz.materialdrawer.holder.StringHolder
 import com.mikepenz.materialdrawer.model.interfaces.IProfile
+import com.mikepenz.materialdrawer.holder.ImageHolder
 
 /**
  * Created by mikepenz on 03.02.15.

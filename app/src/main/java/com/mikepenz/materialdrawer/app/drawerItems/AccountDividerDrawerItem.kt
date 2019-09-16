@@ -10,10 +10,10 @@ import androidx.core.view.ViewCompat
 import androidx.recyclerview.widget.RecyclerView
 import com.mikepenz.iconics.typeface.IIcon
 import com.mikepenz.materialdrawer.app.R
-import com.mikepenz.materialdrawer.holder.ImageHolder
 import com.mikepenz.materialdrawer.holder.StringHolder
 import com.mikepenz.materialdrawer.model.AbstractDrawerItem
 import com.mikepenz.materialdrawer.model.interfaces.IProfile
+import com.mikepenz.materialdrawer.holder.ImageHolder
 import com.mikepenz.materialize.util.UIUtils
 
 class AccountDividerDrawerItem : AbstractDrawerItem<AccountDividerDrawerItem, AccountDividerDrawerItem.ViewHolder>(), IProfile<AccountDividerDrawerItem> {

@@ -19,7 +19,6 @@ import com.mikepenz.materialdrawer.model.interfaces.Tagable
 import com.mikepenz.materialdrawer.util.DrawerImageLoader
 import com.mikepenz.materialdrawer.util.DrawerUIUtils
 import com.mikepenz.materialdrawer.util.DrawerUIUtils.themeDrawerItem
-import com.mikepenz.materialdrawer.util.getThemeColor
 
 /**
  * Created by mikepenz on 03.02.15.
@@ -109,15 +108,20 @@ open class ProfileDrawerItem : AbstractDrawerItem<ProfileDrawerItem, ProfileDraw
 
         //set the item enabled if it is
         holder.itemView.isEnabled = isEnabled
+        holder.name.isEnabled = isEnabled
+        holder.email.isEnabled = isEnabled
+        holder.profileIcon.isEnabled = isEnabled
 
         //set the item selected if it is
         holder.itemView.isSelected = isSelected
+        holder.name.isSelected = isSelected
+        holder.email.isSelected = isSelected
+        holder.profileIcon.isSelected = isSelected
 
         //get the correct color for the background
         val selectedColor = getSelectedColor(ctx)
         //get the correct color for the text
-        val color = ctx.getThemeColor(R.attr.materialDrawerPrimaryText)
-        val selectedTextColor = ctx.getThemeColor(R.attr.materialDrawerSelectedText)
+        val color = getColor(ctx)
         val shapeAppearanceModel = getShapeAppearanceModel(ctx)
 
         //set the background for the item
@@ -145,9 +149,9 @@ open class ProfileDrawerItem : AbstractDrawerItem<ProfileDrawerItem, ProfileDraw
         }
 
         if (isNameShown) {
-            holder.name.setTextColor(getTextColorStateList(color, selectedTextColor))
+            holder.name.setTextColor(color)
         }
-        holder.email.setTextColor(getTextColorStateList(color, selectedTextColor))
+        holder.email.setTextColor(color)
 
         //cancel previous started image loading processes
         DrawerImageLoader.instance.cancelImage(holder.profileIcon)

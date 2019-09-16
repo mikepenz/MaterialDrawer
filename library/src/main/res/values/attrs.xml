@@ -13,13 +13,12 @@
         <attr name="materialDrawerPrimaryText" format="color|reference" />
         <attr name="materialDrawerPrimaryIcon" format="color|reference" />
         <attr name="materialDrawerSecondaryText" format="color|reference" />
-        <attr name="materialDrawerHintText" format="color|reference" />
-        <attr name="materialDrawerHintIcon" format="color|reference" />
+        <attr name="materialDrawerSecondaryIcon" format="color|reference" />
+
         <attr name="materialDrawerDivider" format="color|reference" />
 
         <attr name="materialDrawerSelected" format="color|reference" />
         <attr name="materialDrawerSelectedLegacy" format="color|reference" /> <!-- defines material design 1.0 color -->
-        <attr name="materialDrawerSelectedText" format="color|reference" />
 
         <!-- allows to enable / disable legacy style e.g. material 1 -->
         <attr name="materialDrawerLegacyStyle" format="boolean|reference" />

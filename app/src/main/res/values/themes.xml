@@ -13,6 +13,18 @@
         <item name="android:windowTranslucentStatus">true</item>
     </style>
 
+    <style name="CustomTheme" parent="MaterialDrawerTheme.TranslucentStatus">
+        <!-- ...and here we setting appcompat’s color theme attrs -->
+        <item name="colorPrimary">#F1433C</item>
+        <item name="colorPrimaryDark">#D03033</item>
+        <item name="colorAccent">#02A8F3</item>
+
+        <item name="materialDrawerStyle">@style/Widget.MaterialDrawerStyleCustom</item>
+
+        <!-- CAB :D -->
+        <item name="windowActionModeOverlay">true</item>
+    </style>
+
 
     <!-- LIGHT -->
     <style name="SampleApp.DayNight.DarkActionBar" parent="Theme.MaterialComponents.DayNight.DarkActionBar">

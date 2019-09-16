@@ -8,12 +8,10 @@
         <item name="materialDrawerPrimaryText">?android:textColorPrimary</item>
         <item name="materialDrawerPrimaryIcon">?android:textColorPrimary</item>
         <item name="materialDrawerSecondaryText">?android:textColorSecondary</item>
-        <item name="materialDrawerHintText">?android:textColorSecondary</item>
-        <item name="materialDrawerHintIcon">?android:textColorHint</item>
+        <item name="materialDrawerSecondaryIcon">?android:textColorSecondary</item>
         <item name="materialDrawerDivider">?android:textColorHint</item>
         <item name="materialDrawerSelected">?colorPrimary</item>
-        <item name="materialDrawerSelectedLegacy">?colorSurface</item>
-        <item name="materialDrawerSelectedText">?colorPrimary</item>
+        <item name="materialDrawerSelectedLegacy">?colorOnSurface</item>
         <item name="materialDrawerLegacyStyle">false</item>
     </style>
 

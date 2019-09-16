@@ -7,10 +7,10 @@ import androidx.annotation.StringRes
 import androidx.recyclerview.widget.RecyclerView
 import com.mikepenz.materialdrawer.R
 import com.mikepenz.materialdrawer.holder.StringHolder
-import com.mikepenz.materialdrawer.holder.applyColor
 import com.mikepenz.materialdrawer.model.interfaces.Nameable
 import com.mikepenz.materialdrawer.model.interfaces.Typefaceable
-import com.mikepenz.materialize.util.UIUtils
+import com.mikepenz.materialdrawer.util.getDividerColor
+import com.mikepenz.materialdrawer.util.getSecondaryDrawerTextColor
 
 /**
  * Created by mikepenz on 03.02.15.
@@ -66,7 +66,7 @@ open class SectionDrawerItem : AbstractDrawerItem<SectionDrawerItem, SectionDraw
         holder.view.isEnabled = false
 
         //define the text color
-        holder.name.setTextColor(textColor.applyColor(ctx, R.attr.materialDrawerSecondaryText, R.color.material_drawer_secondary_text))
+        holder.name.setTextColor(ctx.getSecondaryDrawerTextColor())
 
         //set the text for the name
         StringHolder.applyTo(this.name, holder.name)
@@ -84,7 +84,7 @@ open class SectionDrawerItem : AbstractDrawerItem<SectionDrawerItem, SectionDraw
         }
 
         //set the color for the divider
-        holder.divider.setBackgroundColor(UIUtils.getThemeColorFromAttrOrRes(ctx, R.attr.materialDrawerDivider, R.color.material_drawer_divider))
+        holder.divider.setBackgroundColor(ctx.getDividerColor())
 
         //call the onPostBindView method to trigger post bind view actions (like the listener to modify the item if required)
         onPostBindView(this, holder.itemView)
@@ -96,7 +96,7 @@ open class SectionDrawerItem : AbstractDrawerItem<SectionDrawerItem, SectionDraw
 
     class ViewHolder internal constructor(internal val view: View) : RecyclerView.ViewHolder(view) {
         internal val divider: View = view.findViewById(R.id.material_drawer_divider)
-        internal val name: TextView = view.findViewById<TextView>(R.id.material_drawer_name)
+        internal val name: TextView = view.findViewById(R.id.material_drawer_name)
 
     }
 }

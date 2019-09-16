@@ -6,8 +6,8 @@ import android.os.Bundle
 import android.view.View
 import android.widget.ImageView
 import androidx.annotation.DrawableRes
-import com.mikepenz.materialdrawer.holder.ImageHolder
 import com.mikepenz.materialdrawer.model.interfaces.IProfile
+import com.mikepenz.materialdrawer.holder.ImageHolder
 import com.mikepenz.materialdrawer.widget.MaterialDrawerSliderView
 import java.util.*
 

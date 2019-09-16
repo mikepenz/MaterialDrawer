@@ -52,7 +52,7 @@ open class DrawerItemViewHelper(private val mContext: Context) {
             divider.layoutParams = LinearLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT)
             divider.minimumHeight = UIUtils.convertDpToPixel(1f, mContext).toInt()
             divider.orientation = LinearLayout.VERTICAL
-            divider.setBackgroundColor(UIUtils.getThemeColorFromAttrOrRes(mContext, R.attr.materialDrawerDivider, R.color.material_drawer_divider))
+            divider.setBackgroundColor(mContext.getDividerColor())
             linearLayout.addView(divider)
         }
 

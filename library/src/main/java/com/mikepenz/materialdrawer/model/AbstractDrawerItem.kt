@@ -17,9 +17,11 @@ import com.mikepenz.fastadapter.ISubItem
 import com.mikepenz.materialdrawer.Drawer
 import com.mikepenz.materialdrawer.R
 import com.mikepenz.materialdrawer.holder.ColorHolder
-import com.mikepenz.materialdrawer.holder.applyColor
 import com.mikepenz.materialdrawer.model.interfaces.*
 import com.mikepenz.materialdrawer.util.DrawerUIUtils
+import com.mikepenz.materialdrawer.util.getLegacySelectColor
+import com.mikepenz.materialdrawer.util.getPrimaryDrawerTextColor
+import com.mikepenz.materialdrawer.util.getSelectedColor
 
 /**
  * Created by mikepenz on 14.07.15.
@@ -373,9 +375,9 @@ abstract class AbstractDrawerItem<T, VH : RecyclerView.ViewHolder> : IDrawerItem
      */
     protected fun getSelectedColor(ctx: Context): Int {
         return if (DrawerUIUtils.getBooleanStyleable(ctx, com.mikepenz.materialdrawer.R.styleable.MaterialDrawerSliderView_materialDrawerLegacyStyle, false)) {
-            selectedColor.applyColor(ctx, com.mikepenz.materialdrawer.R.attr.materialDrawerSelectedLegacy, com.mikepenz.materialdrawer.R.color.material_drawer_selected_legacy)
+            ctx.getLegacySelectColor()
         } else {
-            selectedColor.applyColor(ctx, com.mikepenz.materialdrawer.R.attr.materialDrawerSelected, com.mikepenz.materialdrawer.R.color.material_drawer_selected)
+            ctx.getSelectedColor()
         }
     }
 
@@ -385,23 +387,8 @@ abstract class AbstractDrawerItem<T, VH : RecyclerView.ViewHolder> : IDrawerItem
      * @param ctx
      * @return
      */
-    protected open fun getColor(ctx: Context): Int {
-
-        return if (isEnabled) {
-            textColor.applyColor(ctx, com.mikepenz.materialdrawer.R.attr.materialDrawerPrimaryText, com.mikepenz.materialdrawer.R.color.material_drawer_primary_text)
-        } else {
-            disabledTextColor.applyColor(ctx, com.mikepenz.materialdrawer.R.attr.materialDrawerHintText, com.mikepenz.materialdrawer.R.color.material_drawer_hint_text)
-        }
-    }
-
-    /**
-     * helper method to decide for the correct color
-     *
-     * @param ctx
-     * @return
-     */
-    protected fun getSelectedTextColor(ctx: Context): Int {
-        return selectedTextColor.applyColor(ctx, com.mikepenz.materialdrawer.R.attr.materialDrawerSelectedText, com.mikepenz.materialdrawer.R.color.material_drawer_selected_text)
+    protected open fun getColor(ctx: Context): ColorStateList {
+        return ctx.getPrimaryDrawerTextColor()
     }
 
     /**
@@ -413,19 +400,5 @@ abstract class AbstractDrawerItem<T, VH : RecyclerView.ViewHolder> : IDrawerItem
     protected fun getShapeAppearanceModel(ctx: Context): ShapeAppearanceModel {
         val cornerRadius = ctx.resources.getDimensionPixelSize(R.dimen.material_drawer_item_corner_radius)
         return ShapeAppearanceModel().withCornerSize(cornerRadius.toFloat())
-    }
-
-    /**
-     * helper to get the ColorStateList for the text and remembering it so we do not have to recreate it all the time
-     *
-     * @param color
-     * @param selectedTextColor
-     * @return
-     */
-    protected fun getTextColorStateList(@ColorInt color: Int, @ColorInt selectedTextColor: Int): ColorStateList? {
-        if (colorStateList == null || color + selectedTextColor != colorStateList?.first) {
-            colorStateList = Pair(color + selectedTextColor, DrawerUIUtils.getTextColorStateList(color, selectedTextColor))
-        }
-        return colorStateList?.second
     }
 }

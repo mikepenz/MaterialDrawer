@@ -1,28 +1,18 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
 
-    <style name="CustomTheme" parent="MaterialDrawerTheme.TranslucentStatus">
-        <!-- ...and here we setting appcompat’s color theme attrs -->
-        <item name="colorPrimary">#F1433C</item>
-        <item name="colorPrimaryDark">#D03033</item>
-        <item name="colorAccent">#02A8F3</item>
-
+    <style name="Widget.MaterialDrawerStyleCustom" parent="">
         <!-- MaterialDrawer specific values -->
         <item name="materialDrawerBackground">@color/material_drawer_dark_background</item>
         <item name="materialDrawerPrimaryText">@color/material_drawer_dark_primary_text</item>
         <item name="materialDrawerSecondaryText">@color/material_drawer_dark_secondary_text
         </item>
-        <item name="materialDrawerHintText">@color/material_drawer_dark_hint_text</item>
         <item name="materialDrawerDivider">@color/material_drawer_dark_divider</item>
         <item name="materialDrawerSelected">#1FF1433C</item>
         <item name="materialDrawerSelectedLegacy">@color/material_drawer_dark_selected_legacy</item>
-        <item name="materialDrawerSelectedText">#F1433C</item>
         <item name="materialDrawerHeaderSelectionText">
             @color/material_drawer_dark_primary_text
         </item>
-
-        <!-- CAB :D -->
-        <item name="windowActionModeOverlay">true</item>
     </style>
 
     <!--

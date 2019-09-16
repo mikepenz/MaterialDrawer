@@ -73,4 +73,7 @@
 
     <!-- Definition for the section item -->
     <dimen name="material_drawer_item_section_text">14sp</dimen>
+
+    <!-- Alpha for selected background -->
+    <dimen name="material_drawer_selected_background_alpha">0.12</dimen>
 </resources>

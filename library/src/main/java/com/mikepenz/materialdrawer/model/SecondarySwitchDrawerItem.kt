@@ -1,9 +1,11 @@
 package com.mikepenz.materialdrawer.model
 
 import android.content.Context
+import android.content.res.ColorStateList
 import androidx.annotation.LayoutRes
 import com.mikepenz.materialdrawer.R
-import com.mikepenz.materialdrawer.holder.applyColor
+import com.mikepenz.materialdrawer.util.getSecondaryDrawerIconColor
+import com.mikepenz.materialdrawer.util.getSecondaryDrawerTextColor
 
 /**
  * Created by mikepenz on 03.02.15.
@@ -17,18 +19,11 @@ open class SecondarySwitchDrawerItem : AbstractSwitchableDrawerItem<SecondarySwi
         @LayoutRes
         get() = R.layout.material_drawer_item_secondary_switch
 
-    /**
-     * helper method to decide for the correct color
-     * OVERWRITE to get the correct secondary color
-     *
-     * @param ctx
-     * @return
-     */
-    override fun getColor(ctx: Context): Int {
-        return if (isEnabled) {
-            textColor.applyColor(ctx, R.attr.materialDrawerSecondaryText, R.color.material_drawer_secondary_text)
-        } else {
-            disabledTextColor.applyColor(ctx, R.attr.materialDrawerHintText, R.color.material_drawer_hint_text)
-        }
+    override fun getColor(ctx: Context): ColorStateList {
+        return ctx.getSecondaryDrawerTextColor()
+    }
+
+    override fun getIconColor(ctx: Context): ColorStateList {
+        return ctx.getSecondaryDrawerIconColor()
     }
 }
