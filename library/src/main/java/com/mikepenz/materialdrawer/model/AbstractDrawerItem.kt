@@ -18,8 +18,6 @@ import com.mikepenz.materialdrawer.Drawer
 import com.mikepenz.materialdrawer.R
 import com.mikepenz.materialdrawer.holder.ColorHolder
 import com.mikepenz.materialdrawer.model.interfaces.*
-import com.mikepenz.materialdrawer.util.DrawerUIUtils
-import com.mikepenz.materialdrawer.util.getLegacySelectColor
 import com.mikepenz.materialdrawer.util.getPrimaryDrawerTextColor
 import com.mikepenz.materialdrawer.util.getSelectedColor
 
@@ -374,11 +372,7 @@ abstract class AbstractDrawerItem<T, VH : RecyclerView.ViewHolder> : IDrawerItem
      * @return
      */
     protected fun getSelectedColor(ctx: Context): Int {
-        return if (DrawerUIUtils.getBooleanStyleable(ctx, com.mikepenz.materialdrawer.R.styleable.MaterialDrawerSliderView_materialDrawerLegacyStyle, false)) {
-            ctx.getLegacySelectColor()
-        } else {
-            ctx.getSelectedColor()
-        }
+        return ctx.getSelectedColor()
     }
 
     /**

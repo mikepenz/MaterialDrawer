@@ -299,8 +299,8 @@ class AccountHeaderView @JvmOverloads constructor(context: Context, attrs: Attri
 
     init {
         val a = context.obtainStyledAttributes(attrs, R.styleable.AccountHeaderView, defStyleAttr, R.style.Widget_MaterialDrawerHeaderStyle)
-        compactStyle = a.getBoolean(R.styleable.AccountHeaderView_compactStyle, false)
-        val headerLayout = a.getResourceId(R.styleable.AccountHeaderView_headerLayout, if (compactStyle) R.layout.material_drawer_compact_header else R.layout.material_drawer_header)
+        compactStyle = a.getBoolean(R.styleable.AccountHeaderView_materialDrawerCompactStyle, false)
+        val headerLayout = a.getResourceId(R.styleable.AccountHeaderView_materialDrawerHeaderLayout, if (compactStyle) R.layout.material_drawer_compact_header else R.layout.material_drawer_header)
         a.recycle()
 
         LayoutInflater.from(context).inflate(headerLayout, this, true)

@@ -32,7 +32,7 @@ fun Context.getSecondaryDrawerIconColor(): ColorStateList {
     return createDrawerItemColorStateList(R.styleable.MaterialDrawerSliderView_materialDrawerSecondaryIcon)!!
 }
 
-fun Context.createDrawerItemColorStateList(@StyleableRes styleableRes: Int, @StyleableRes selectedStyleable: Int = R.styleable.MaterialDrawerSliderView_materialDrawerSelected): ColorStateList? {
+fun Context.createDrawerItemColorStateList(@StyleableRes styleableRes: Int, @StyleableRes selectedStyleable: Int = R.styleable.MaterialDrawerSliderView_materialDrawerSelectedBackgroundColor): ColorStateList? {
     val a = obtainStyledAttributes(null, R.styleable.MaterialDrawerSliderView, R.attr.materialDrawerStyle, R.style.Widget_MaterialDrawerStyle)
     val baseColor = a.getColorStateList(styleableRes) ?: return null
     val selectedColor = a.getColor(selectedStyleable, getThemeColor(R.attr.colorPrimary))
@@ -48,22 +48,14 @@ fun Context.createDrawerItemColorStateList(@StyleableRes styleableRes: Int, @Sty
 @ColorInt
 fun Context.getDividerColor(): Int {
     return resolveStyledValue {
-        it.getColor(R.styleable.MaterialDrawerSliderView_materialDrawerDivider, getThemeColor(R.attr.materialDrawerDivider, getSupportColor(R.color.material_drawer_divider)))
+        it.getColor(R.styleable.MaterialDrawerSliderView_materialDrawerDividerColor, getThemeColor(R.attr.materialDrawerDividerColor, getSupportColor(R.color.material_drawer_divider)))
     }
-}
-
-@ColorInt
-fun Context.getLegacySelectColor(): Int {
-    val color = resolveStyledValue {
-        it.getColor(R.styleable.MaterialDrawerSliderView_materialDrawerSelectedLegacy, getThemeColor(R.attr.materialDrawerSelectedLegacy, getSupportColor(R.color.material_drawer_selected_legacy)))
-    }
-    return ColorUtils.setAlphaComponent(color, (255 * getSupportFloat(R.dimen.material_drawer_selected_background_alpha)).toInt())
 }
 
 @ColorInt
 fun Context.getSelectedColor(): Int {
     val color = resolveStyledValue {
-        it.getColor(R.styleable.MaterialDrawerSliderView_materialDrawerSelected, getThemeColor(R.attr.materialDrawerSelected, getSupportColor(R.color.material_drawer_selected)))
+        it.getColor(R.styleable.MaterialDrawerSliderView_materialDrawerSelectedBackgroundColor, getThemeColor(R.attr.materialDrawerSelectedBackgroundColor, getSupportColor(R.color.material_drawer_selected)))
     }
     return ColorUtils.setAlphaComponent(color, (255 * getSupportFloat(R.dimen.material_drawer_selected_background_alpha)).toInt())
 }

@@ -222,7 +222,7 @@ open class MaterialDrawerSliderView @JvmOverloads constructor(context: Context, 
 
     init {
         val a = context.obtainStyledAttributes(attrs, R.styleable.MaterialDrawerSliderView, defStyleAttr, R.style.Widget_MaterialDrawerStyle)
-        insetForeground = a.getDrawable(R.styleable.MaterialDrawerSliderView_insetForeground)
+        insetForeground = a.getDrawable(R.styleable.MaterialDrawerSliderView_materialDrawerInsetForeground)
         background = a.getDrawable(R.styleable.MaterialDrawerSliderView_materialDrawerBackground)
         a.recycle()
         setWillNotDraw(true) // No need to draw until the insets are adjusted

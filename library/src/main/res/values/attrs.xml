@@ -6,7 +6,7 @@
     </declare-styleable>
 
     <declare-styleable name="MaterialDrawerSliderView">
-        <attr name="insetForeground" format="color|reference" />
+        <attr name="materialDrawerInsetForeground" format="color|reference" />
 
         <attr name="materialDrawerBackground" format="color|reference" />
 
@@ -15,19 +15,14 @@
         <attr name="materialDrawerSecondaryText" format="color|reference" />
         <attr name="materialDrawerSecondaryIcon" format="color|reference" />
 
-        <attr name="materialDrawerDivider" format="color|reference" />
+        <attr name="materialDrawerDividerColor" format="color|reference" />
 
-        <attr name="materialDrawerSelected" format="color|reference" />
-        <attr name="materialDrawerSelectedLegacy" format="color|reference" /> <!-- defines material design 1.0 color -->
-
-        <!-- allows to enable / disable legacy style e.g. material 1 -->
-        <attr name="materialDrawerLegacyStyle" format="boolean|reference" />
+        <attr name="materialDrawerSelectedBackgroundColor" format="color|reference" />
     </declare-styleable>
 
-
     <declare-styleable name="AccountHeaderView">
-        <attr name="headerLayout" format="reference" />
-        <attr name="compactStyle" format="boolean" />
+        <attr name="materialDrawerHeaderLayout" format="reference" />
+        <attr name="materialDrawerCompactStyle" format="boolean" />
 
         <!-- material drawer header attrs-->
         <attr name="materialDrawerHeaderSelectionText" format="color|reference" />
@@ -35,8 +30,8 @@
     </declare-styleable>
 
     <declare-styleable name="BezelImageView">
-        <attr name="biv_maskDrawable" format="reference" />
-        <attr name="biv_drawCircularShadow" format="boolean" />
-        <attr name="biv_selectorOnPress" format="color|reference" />
+        <attr name="materialDrawerMaskDrawable" format="reference" />
+        <attr name="materialDrawerDrawCircularShadow" format="boolean" />
+        <attr name="materialDrawerSelectorOnPress" format="color|reference" />
     </declare-styleable>
 </resources>

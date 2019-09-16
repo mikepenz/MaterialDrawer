@@ -2,21 +2,19 @@
 <resources>
 
     <style name="Widget.MaterialDrawerStyle" parent="">
-        <item name="insetForeground">#4000</item>
+        <item name="materialDrawerInsetForeground">#4000</item>
         <!-- MaterialDrawer specific values -->
         <item name="materialDrawerBackground">?colorSurface</item>
         <item name="materialDrawerPrimaryText">?android:textColorPrimary</item>
         <item name="materialDrawerPrimaryIcon">?android:textColorPrimary</item>
         <item name="materialDrawerSecondaryText">?android:textColorSecondary</item>
         <item name="materialDrawerSecondaryIcon">?android:textColorSecondary</item>
-        <item name="materialDrawerDivider">?android:textColorHint</item>
-        <item name="materialDrawerSelected">?colorPrimary</item>
-        <item name="materialDrawerSelectedLegacy">?colorOnSurface</item>
-        <item name="materialDrawerLegacyStyle">false</item>
+        <item name="materialDrawerDividerColor">?android:textColorHint</item>
+        <item name="materialDrawerSelectedBackgroundColor">?colorPrimary</item>
     </style>
 
     <style name="Widget.MaterialDrawerHeaderStyle" parent="">
-        <item name="compactStyle">false</item>
+        <item name="materialDrawerCompactStyle">false</item>
         <item name="materialDrawerHeaderSelectionText">?colorOnSurface</item>
         <item name="materialDrawerHeaderSelectionSubtext">?colorOnSurface</item>
     </style>
@@ -35,9 +33,9 @@
 
     <!-- BezelImageView -->
     <style name="BezelImageView">
-        <item name="biv_maskDrawable">@drawable/material_drawer_circle_mask</item>
-        <item name="biv_drawCircularShadow">true</item>
-        <item name="biv_selectorOnPress">@color/material_drawer_primary</item>
+        <item name="materialDrawerMaskDrawable">@drawable/material_drawer_circle_mask</item>
+        <item name="materialDrawerDrawCircularShadow">true</item>
+        <item name="materialDrawerSelectorOnPress">@color/material_drawer_primary</item>
         <item name="android:scaleType">centerInside</item>
     </style>
 </resources>

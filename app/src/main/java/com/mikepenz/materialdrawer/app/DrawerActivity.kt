@@ -1,9 +1,12 @@
 package com.mikepenz.materialdrawer.app
 
 import android.content.Intent
+import android.content.res.Configuration
 import android.graphics.Color
 import android.os.Bundle
+import android.view.MenuItem
 import android.view.View
+import androidx.appcompat.app.ActionBarDrawerToggle
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.ViewCompat
 import androidx.core.view.updatePadding
@@ -24,9 +27,11 @@ import com.mikepenz.materialdrawer.widget.AccountHeaderView
 import kotlinx.android.synthetic.main.activity_sample.*
 import kotlinx.android.synthetic.main.activity_sample_dark_toolbar.toolbar
 
+
 class DrawerActivity : AppCompatActivity() {
 
     private lateinit var headerView: AccountHeaderView
+    private lateinit var actionBarDrawerToggle: ActionBarDrawerToggle
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -34,6 +39,10 @@ class DrawerActivity : AppCompatActivity() {
 
         // Handle Toolbar
         setSupportActionBar(toolbar)
+        supportActionBar?.setDisplayHomeAsUpEnabled(true)
+        supportActionBar?.setHomeButtonEnabled(true)
+
+        actionBarDrawerToggle = ActionBarDrawerToggle(this, root, toolbar, com.mikepenz.materialdrawer.R.string.material_drawer_open, com.mikepenz.materialdrawer.R.string.material_drawer_close)
 
         // Create a few sample profile
         // NOTE you have to define the loader logic too. See the CustomApplication for more details
@@ -179,6 +188,23 @@ class DrawerActivity : AppCompatActivity() {
             toolbar.updatePadding(top = insets.systemWindowInsetTop)
             insets
         }
+    }
+
+    override fun onConfigurationChanged(newConfig: Configuration) {
+        super.onConfigurationChanged(newConfig)
+        actionBarDrawerToggle.onConfigurationChanged(newConfig)
+    }
+
+    override fun onPostCreate(savedInstanceState: Bundle?) {
+        super.onPostCreate(savedInstanceState)
+        actionBarDrawerToggle.syncState()
+    }
+
+    override fun onOptionsItemSelected(item: MenuItem): Boolean {
+        if (actionBarDrawerToggle.onOptionsItemSelected(item)) {
+            return true;
+        }
+        return super.onOptionsItemSelected(item)
     }
 
     override fun onSaveInstanceState(_outState: Bundle) {

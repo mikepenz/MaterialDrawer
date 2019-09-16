@@ -18,7 +18,6 @@
     <color name="material_drawer_divider">@color/md_light_dividers</color>
     <!-- MaterialDrawer DEFAULT drawer colors -->
     <color name="material_drawer_selected">#1F2196F3</color>
-    <color name="material_drawer_selected_legacy">#E8E8E8</color>
 
     <color name="material_drawer_header_selection_text">@color/material_drawer_primary_text</color>
     <color name="material_drawer_header_selection_subtext">@color/material_drawer_secondary_text</color>
@@ -35,7 +34,6 @@
     <color name="material_drawer_dark_divider">@color/md_dark_dividers</color>
     <!-- MaterialDrawer DEFAULT DARK drawer colors -->
     <color name="material_drawer_dark_selected">#1F2196F3</color>
-    <color name="material_drawer_dark_selected_legacy">#202020</color>
     <color name="material_drawer_dark_selected_text">@color/material_drawer_primary</color>
 
     <color name="material_drawer_dark_header_selection_text">

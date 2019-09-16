@@ -7,9 +7,8 @@
         <item name="materialDrawerPrimaryText">@color/material_drawer_dark_primary_text</item>
         <item name="materialDrawerSecondaryText">@color/material_drawer_dark_secondary_text
         </item>
-        <item name="materialDrawerDivider">@color/material_drawer_dark_divider</item>
-        <item name="materialDrawerSelected">#1FF1433C</item>
-        <item name="materialDrawerSelectedLegacy">@color/material_drawer_dark_selected_legacy</item>
+        <item name="materialDrawerDividerColor">@color/material_drawer_dark_divider</item>
+        <item name="materialDrawerSelectedBackgroundColor">#1FF1433C</item>
         <item name="materialDrawerHeaderSelectionText">
             @color/material_drawer_dark_primary_text
         </item>
