@@ -26,7 +26,7 @@
         <activity
             android:name=".CompactHeaderDrawerActivity"
             android:label="@string/app_name"
-            android:theme="@style/CustomTheme" />
+            android:theme="@style/SampleApp.DayNight.Compact" />
         <activity
             android:name=".PersistentDrawerActivity"
             android:label="@string/app_name"

@@ -28,10 +28,7 @@ import com.mikepenz.materialdrawer.holder.StringHolder
 import com.mikepenz.materialdrawer.icons.MaterialDrawerFont
 import com.mikepenz.materialdrawer.model.interfaces.IDrawerItem
 import com.mikepenz.materialdrawer.model.interfaces.IProfile
-import com.mikepenz.materialdrawer.util.DrawerImageLoader
-import com.mikepenz.materialdrawer.util.DrawerUIUtils
-import com.mikepenz.materialdrawer.util.getHeaderSelectionSubTextColor
-import com.mikepenz.materialdrawer.util.getHeaderSelectionTextColor
+import com.mikepenz.materialdrawer.util.*
 import com.mikepenz.materialdrawer.view.BezelImageView
 import com.mikepenz.materialize.util.UIUtils
 import java.util.*
@@ -298,10 +295,10 @@ class AccountHeaderView @JvmOverloads constructor(context: Context, attrs: Attri
     }
 
     init {
-        val a = context.obtainStyledAttributes(attrs, R.styleable.AccountHeaderView, defStyleAttr, R.style.Widget_MaterialDrawerHeaderStyle)
-        compactStyle = a.getBoolean(R.styleable.AccountHeaderView_materialDrawerCompactStyle, false)
-        val headerLayout = a.getResourceId(R.styleable.AccountHeaderView_materialDrawerHeaderLayout, if (compactStyle) R.layout.material_drawer_compact_header else R.layout.material_drawer_header)
-        a.recycle()
+        val headerLayout = context.resolveStyledHeaderValue {
+            compactStyle = it.getBoolean(R.styleable.AccountHeaderView_materialDrawerCompactStyle, false)
+            it.getResourceId(R.styleable.AccountHeaderView_materialDrawerHeaderLayout, if (compactStyle) R.layout.material_drawer_compact_header else R.layout.material_drawer_header)
+        }
 
         LayoutInflater.from(context).inflate(headerLayout, this, true)
 

@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
 
-    <style name="Widget.MaterialDrawerStyleCustom" parent="">
+    <style name="Widget.MaterialDrawerStyleCustom" parent="Widget.MaterialDrawerStyle">
         <!-- MaterialDrawer specific values -->
         <item name="materialDrawerBackground">@color/material_drawer_dark_background</item>
         <item name="materialDrawerPrimaryText">@color/material_drawer_dark_primary_text</item>
@@ -23,6 +23,13 @@
         <item name="android:scaleType">centerInside</item>
     </style>
     -->
+
+    <style name="Widget.MaterialDrawerHeaderStyleCustom" parent="">
+        <item name="materialDrawerCompactStyle">true</item>
+        <item name="materialDrawerHeaderSelectionText">?colorOnSurface</item>
+        <item name="materialDrawerHeaderSelectionSubtext">?colorOnSurface</item>
+    </style>
+
 
     <style name="FullscreenTheme" parent="MaterialDrawerTheme.Light.DarkToolbar.TranslucentStatus"></style>
 </resources>

@@ -2,7 +2,7 @@
 <resources>
 
     <!-- LIGHT -->
-    <style name="SampleApp.DayNight" parent="Theme.MaterialComponents.Light.NoActionBar">
+    <style name="SampleApp.DayNight" parent="Theme.MaterialComponents.DayNight.NoActionBar">
         <!-- ...and here we setting appcompat’s color theming attrs -->
         <item name="colorPrimary">@color/material_drawer_primary</item>
         <item name="colorPrimaryDark">@color/material_drawer_primary_dark</item>
@@ -10,6 +10,18 @@
 
         <item name="materialDrawerStyle">@style/Widget.MaterialDrawerStyle</item>
         <item name="materialDrawerHeaderStyle">@style/Widget.MaterialDrawerHeaderStyle</item>
+
+        <item name="android:windowTranslucentStatus">true</item>
+    </style>
+
+    <style name="SampleApp.DayNight.Compact" parent="Theme.MaterialComponents.Light.NoActionBar">
+        <!-- ...and here we setting appcompat’s color theming attrs -->
+        <item name="colorPrimary">@color/material_drawer_primary</item>
+        <item name="colorPrimaryDark">@color/material_drawer_primary_dark</item>
+        <item name="colorAccent">@color/material_drawer_accent</item>
+
+        <item name="materialDrawerStyle">@style/Widget.MaterialDrawerStyle</item>
+        <item name="materialDrawerHeaderStyle">@style/Widget.MaterialDrawerHeaderStyleCustom</item>
 
         <item name="android:windowTranslucentStatus">true</item>
     </style>

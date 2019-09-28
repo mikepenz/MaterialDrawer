@@ -12,7 +12,6 @@ import androidx.core.view.ViewCompat
 import androidx.core.view.updatePadding
 import com.mikepenz.aboutlibraries.Libs
 import com.mikepenz.aboutlibraries.LibsBuilder
-import com.mikepenz.iconics.IconicsColor.Companion.colorRes
 import com.mikepenz.iconics.IconicsDrawable
 import com.mikepenz.iconics.IconicsSize.Companion.dp
 import com.mikepenz.iconics.typeface.library.fontawesome.FontAwesome
@@ -64,7 +63,7 @@ class DrawerActivity : AppCompatActivity() {
                     profile5,
                     profile6,
                     //don't ask but google uses 14dp for the add account icon in gmail but 20dp for the normal icons (like manage account)
-                    ProfileSettingDrawerItem().withName("Add Account").withDescription("Add new GitHub Account").withIcon(IconicsDrawable(context, GoogleMaterial.Icon.gmd_add).actionBar().padding(dp(5)).color(colorRes(R.color.material_drawer_primary_text))).withIdentifier(PROFILE_SETTING.toLong()),
+                    ProfileSettingDrawerItem().withName("Add Account").withDescription("Add new GitHub Account").withIcon(IconicsDrawable(context, GoogleMaterial.Icon.gmd_add).actionBar().padding(dp(5))).withIconTinted(true).withIdentifier(PROFILE_SETTING.toLong()),
                     ProfileSettingDrawerItem().withName("Manage Account").withIcon(GoogleMaterial.Icon.gmd_settings).withIdentifier(100001)
             )
             onAccountHeaderListener = object : AccountHeader.OnAccountHeaderListener {

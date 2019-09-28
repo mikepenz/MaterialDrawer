@@ -15,15 +15,20 @@ import androidx.annotation.*
 import androidx.appcompat.content.res.AppCompatResources
 import androidx.constraintlayout.widget.Guideline
 import androidx.core.view.ViewCompat
-import com.mikepenz.iconics.IconicsColor.Companion.colorInt
+import com.mikepenz.iconics.IconicsColor.Companion.colorList
 import com.mikepenz.iconics.IconicsDrawable
 import com.mikepenz.iconics.IconicsSize.Companion.res
-import com.mikepenz.materialdrawer.holder.*
+import com.mikepenz.materialdrawer.holder.ColorHolder
+import com.mikepenz.materialdrawer.holder.DimenHolder
+import com.mikepenz.materialdrawer.holder.ImageHolder
+import com.mikepenz.materialdrawer.holder.StringHolder
 import com.mikepenz.materialdrawer.icons.MaterialDrawerFont
 import com.mikepenz.materialdrawer.model.interfaces.IDrawerItem
 import com.mikepenz.materialdrawer.model.interfaces.IProfile
 import com.mikepenz.materialdrawer.util.DrawerImageLoader
 import com.mikepenz.materialdrawer.util.DrawerUIUtils
+import com.mikepenz.materialdrawer.util.getHeaderSelectionSubTextColor
+import com.mikepenz.materialdrawer.util.getHeaderSelectionTextColor
 import com.mikepenz.materialdrawer.view.BezelImageView
 import com.mikepenz.materialdrawer.widget.MaterialDrawerSliderView
 import com.mikepenz.materialize.util.UIUtils
@@ -916,15 +921,15 @@ open class AccountHeaderBuilder {
         }
 
         // get the text color to use for the text section
-        val textColor = textColor.applyColor(activity, R.attr.materialDrawerHeaderSelectionText, R.color.material_drawer_header_selection_text)
-        val subTextColor = this.textColor.applyColor(activity, R.attr.materialDrawerHeaderSelectionSubtext, R.color.material_drawer_header_selection_subtext)
+        val textColor = activity.getHeaderSelectionTextColor()
+        val subTextColor = activity.getHeaderSelectionSubTextColor()
 
         accountHeaderTextSectionBackgroundResource = UIUtils.getSelectableBackgroundRes(activity)
         handleSelectionView(currentProfile, true)
 
         // set the arrow :D
         accountSwitcherArrow = accountHeaderContainer.findViewById(R.id.material_drawer_account_header_text_switcher)
-        accountSwitcherArrow.setImageDrawable(IconicsDrawable(activity, MaterialDrawerFont.Icon.mdf_arrow_drop_down).size(res(R.dimen.material_drawer_account_header_dropdown)).padding(res(R.dimen.material_drawer_account_header_dropdown_padding)).color(colorInt(subTextColor)))
+        accountSwitcherArrow.setImageDrawable(IconicsDrawable(activity, MaterialDrawerFont.Icon.mdf_arrow_drop_down).size(res(R.dimen.material_drawer_account_header_dropdown)).padding(res(R.dimen.material_drawer_account_header_dropdown_padding)).color(colorList(subTextColor)))
 
         //get the fields for the name
         currentProfileView = accountHeader.findViewById(R.id.material_drawer_account_header_current)
