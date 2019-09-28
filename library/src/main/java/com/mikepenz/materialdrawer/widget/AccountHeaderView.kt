@@ -464,7 +464,7 @@ class AccountHeaderView @JvmOverloads constructor(context: Context, attrs: Attri
      * @param drawer
      * @return
      */
-    fun withSliderView(sliderView: MaterialDrawerSliderView) {
+    fun attachToSliderView(sliderView: MaterialDrawerSliderView) {
         this.sliderView = sliderView
 
         //set the top padding to 0 as this would happen when the AccountHeader is created during Drawer build time

@@ -46,7 +46,7 @@ class CompactHeaderDrawerActivity : AppCompatActivity() {
 
         // Create the AccountHeader
         headerView = AccountHeaderView(this).apply {
-            withSliderView(slider)
+            attachToSliderView(slider)
             addProfiles(
                     profile,
                     profile2,
@@ -60,28 +60,29 @@ class CompactHeaderDrawerActivity : AppCompatActivity() {
             withSavedInstance(savedInstanceState)
         }
 
-        slider.itemAdapter.add(
-                PrimaryDrawerItem().withName(R.string.drawer_item_home).withIcon(FontAwesome.Icon.faw_home).withIdentifier(1),
-                PrimaryDrawerItem().withName(R.string.drawer_item_free_play).withIcon(FontAwesome.Icon.faw_gamepad),
-                PrimaryDrawerItem().withName(R.string.drawer_item_custom).withIcon(FontAwesome.Icon.faw_eye).withIdentifier(5),
-                SectionDrawerItem().withName(R.string.drawer_item_section_header),
-                SecondaryDrawerItem().withName(R.string.drawer_item_settings).withIcon(FontAwesome.Icon.faw_cog),
-                SecondaryDrawerItem().withName(R.string.drawer_item_help).withIcon(FontAwesome.Icon.faw_question).withEnabled(false),
-                SecondaryDrawerItem().withName(R.string.drawer_item_open_source).withIcon(FontAwesome.Icon.faw_github),
-                SecondaryDrawerItem().withName(R.string.drawer_item_contact).withIcon(FontAwesome.Icon.faw_bullhorn)
-        )
-
-        slider.adapter.onClickListener = { v, adapter, drawerItem, position ->
-            if (drawerItem.identifier == 1L) {
-                startSupportActionMode(ActionBarCallBack())
-                findViewById<View>(R.id.action_mode_bar).setBackgroundColor(UIUtils.getThemeColorFromAttrOrRes(this@CompactHeaderDrawerActivity, R.attr.colorPrimary, R.color.material_drawer_primary))
+        slider.apply {
+            itemAdapter.add(
+                    PrimaryDrawerItem().withName(R.string.drawer_item_home).withIcon(FontAwesome.Icon.faw_home).withIdentifier(1),
+                    PrimaryDrawerItem().withName(R.string.drawer_item_free_play).withIcon(FontAwesome.Icon.faw_gamepad),
+                    PrimaryDrawerItem().withName(R.string.drawer_item_custom).withIcon(FontAwesome.Icon.faw_eye).withIdentifier(5),
+                    SectionDrawerItem().withName(R.string.drawer_item_section_header),
+                    SecondaryDrawerItem().withName(R.string.drawer_item_settings).withIcon(FontAwesome.Icon.faw_cog),
+                    SecondaryDrawerItem().withName(R.string.drawer_item_help).withIcon(FontAwesome.Icon.faw_question).withEnabled(false),
+                    SecondaryDrawerItem().withName(R.string.drawer_item_open_source).withIcon(FontAwesome.Icon.faw_github),
+                    SecondaryDrawerItem().withName(R.string.drawer_item_contact).withIcon(FontAwesome.Icon.faw_bullhorn)
+            )
+            adapter.onClickListener = { v, adapter, drawerItem, position ->
+                if (drawerItem.identifier == 1L) {
+                    startSupportActionMode(ActionBarCallBack())
+                    findViewById<View>(R.id.action_mode_bar).setBackgroundColor(UIUtils.getThemeColorFromAttrOrRes(this@CompactHeaderDrawerActivity, R.attr.colorPrimary, R.color.material_drawer_primary))
+                }
+                if (drawerItem is Nameable<*>) {
+                    toolbar.title = drawerItem.name?.getText(this@CompactHeaderDrawerActivity)
+                }
+                false
             }
-            if (drawerItem is Nameable<*>) {
-                toolbar.title = drawerItem.name?.getText(this@CompactHeaderDrawerActivity)
-            }
-            false
+            withSavedInstance(savedInstanceState)
         }
-        slider.withSavedInstance(savedInstanceState)
 
         // set the selection to the item with the identifier 5
         if (savedInstanceState == null) {
