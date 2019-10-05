@@ -3,7 +3,7 @@ buildscript {
         kotlin_version = '1.3.50'
 
         release = [
-                versionName: "7.0.0-rc07",
+                versionName: "7.0.0-rc08",
                 versionCode: 7000
         ]
 
