@@ -38,9 +38,6 @@
             android:name=".MenuDrawerActivity"
             android:theme="@style/MaterialDrawerTheme.Light.DarkToolbar" />
         <activity
-            android:name=".NonTranslucentDrawerActivity"
-            android:theme="@style/MaterialDrawerTheme" />
-        <activity
             android:name=".MultiDrawerActivity"
             android:theme="@style/SampleApp.DayNight" />
         <activity
@@ -48,7 +45,7 @@
             android:theme="@style/MaterialDrawerTheme.TranslucentStatus" />
         <activity
             android:name=".EmbeddedDrawerActivity"
-            android:theme="@style/MaterialDrawerTheme" />
+            android:theme="@style/SampleApp.DayNight" />
         <activity
             android:name=".MiniDrawerActivity"
             android:theme="@style/MaterialDrawerTheme" />
