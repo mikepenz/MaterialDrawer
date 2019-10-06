@@ -42,7 +42,7 @@
             android:theme="@style/SampleApp.DayNight" />
         <activity
             android:name=".AdvancedActivity"
-            android:theme="@style/MaterialDrawerTheme.TranslucentStatus" />
+            android:theme="@style/SampleApp.DayNight" />
         <activity
             android:name=".EmbeddedDrawerActivity"
             android:theme="@style/SampleApp.DayNight" />

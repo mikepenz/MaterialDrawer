@@ -5,7 +5,6 @@ import android.content.res.Configuration
 import android.graphics.Color
 import android.os.Bundle
 import android.view.MenuItem
-import android.view.View
 import androidx.appcompat.app.ActionBarDrawerToggle
 import androidx.appcompat.app.AppCompatActivity
 import com.mikepenz.aboutlibraries.Libs
@@ -14,12 +13,10 @@ import com.mikepenz.iconics.IconicsDrawable
 import com.mikepenz.iconics.IconicsSize.Companion.dp
 import com.mikepenz.iconics.typeface.library.fontawesome.FontAwesome
 import com.mikepenz.iconics.typeface.library.googlematerial.GoogleMaterial
-import com.mikepenz.materialdrawer.AccountHeader
 import com.mikepenz.materialdrawer.holder.BadgeStyle
 import com.mikepenz.materialdrawer.holder.StringHolder
 import com.mikepenz.materialdrawer.model.*
 import com.mikepenz.materialdrawer.model.interfaces.IDrawerItem
-import com.mikepenz.materialdrawer.model.interfaces.IProfile
 import com.mikepenz.materialdrawer.widget.AccountHeaderView
 import kotlinx.android.synthetic.main.activity_sample.*
 import kotlinx.android.synthetic.main.activity_sample_dark_toolbar.toolbar
@@ -64,22 +61,20 @@ class DrawerActivity : AppCompatActivity() {
                     ProfileSettingDrawerItem().withName("Add Account").withDescription("Add new GitHub Account").withIcon(IconicsDrawable(context, GoogleMaterial.Icon.gmd_add).actionBar().padding(dp(5))).withIconTinted(true).withIdentifier(PROFILE_SETTING.toLong()),
                     ProfileSettingDrawerItem().withName("Manage Account").withIcon(GoogleMaterial.Icon.gmd_settings).withIdentifier(100001)
             )
-            onAccountHeaderListener = object : AccountHeader.OnAccountHeaderListener {
-                override fun onProfileChanged(view: View?, profile: IProfile<*>, current: Boolean): Boolean {
-                    //sample usage of the onProfileChanged listener
-                    //if the clicked item has the identifier 1 add a new profile ;)
-                    if (profile is IDrawerItem<*> && profile.identifier == PROFILE_SETTING.toLong()) {
-                        val count = 100 + (profiles?.size ?: 0) + 1
-                        val newProfile = ProfileDrawerItem().withNameShown(true).withName("Batman$count").withEmail("batman$count@gmail.com").withIcon(R.drawable.profile5).withIdentifier(count.toLong())
-                        profiles?.let {
-                            //we know that there are 2 setting elements. set the new profile above them ;)
-                            addProfile(newProfile, it.size - 2)
-                        } ?: addProfiles(newProfile)
-                    }
-
-                    //false if you have not consumed the event and it should close the drawer
-                    return false
+            onAccountHeaderListener = { view, profile, current ->
+                //sample usage of the onProfileChanged listener
+                //if the clicked item has the identifier 1 add a new profile ;)
+                if (profile is IDrawerItem<*> && profile.identifier == PROFILE_SETTING.toLong()) {
+                    val count = 100 + (profiles?.size ?: 0) + 1
+                    val newProfile = ProfileDrawerItem().withNameShown(true).withName("Batman$count").withEmail("batman$count@gmail.com").withIcon(R.drawable.profile5).withIdentifier(count.toLong())
+                    profiles?.let {
+                        //we know that there are 2 setting elements. set the new profile above them ;)
+                        addProfile(newProfile, it.size - 2)
+                    } ?: addProfiles(newProfile)
                 }
+
+                //false if you have not consumed the event and it should close the drawer
+                false
             }
             withSavedInstance(savedInstanceState)
         }

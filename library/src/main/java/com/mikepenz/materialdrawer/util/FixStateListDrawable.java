@@ -41,7 +41,9 @@ public class FixStateListDrawable extends StateListDrawable {
 
     @Override
     protected boolean onStateChange(int[] states) {
-        super.setColorFilter(color.getColorForState(states, color.getDefaultColor()), PorterDuff.Mode.SRC_IN);
+        if (color != null) {
+            super.setColorFilter(color.getColorForState(states, color.getDefaultColor()), PorterDuff.Mode.SRC_IN);
+        }
         return super.onStateChange(states);
     }
 

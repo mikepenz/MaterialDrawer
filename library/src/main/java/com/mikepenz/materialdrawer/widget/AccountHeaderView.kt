@@ -9,6 +9,8 @@ import android.text.TextUtils
 import android.util.AttributeSet
 import android.view.LayoutInflater
 import android.view.View
+import android.view.View.OnClickListener
+import android.view.View.OnLongClickListener
 import android.widget.ImageView
 import android.widget.TextView
 import androidx.appcompat.content.res.AppCompatResources
@@ -32,7 +34,7 @@ import com.mikepenz.materialdrawer.view.BezelImageView
 import com.mikepenz.materialize.util.UIUtils
 import java.util.*
 
-class AccountHeaderView @JvmOverloads constructor(context: Context, attrs: AttributeSet? = null, defStyleAttr: Int = 0) : ConstraintLayout(context, attrs, defStyleAttr) {
+class AccountHeaderView @JvmOverloads constructor(context: Context, attrs: AttributeSet? = null, defStyleAttr: Int = 0, compact: Boolean? = null) : ConstraintLayout(context, attrs, defStyleAttr) {
 
     var savedInstanceKey: String = ""
 
@@ -121,6 +123,12 @@ class AccountHeaderView @JvmOverloads constructor(context: Context, attrs: Attri
 
     //the background for the header
     var headerBackground: ImageHolder? = null
+        set(value) {
+            accountHeaderBackground?.let {
+                value?.applyTo(it, DrawerImageLoader.Tags.ACCOUNT_HEADER.name)
+            }
+            field = value
+        }
 
     //background scale type
     var headerBackgroundScaleType: ImageView.ScaleType? = null
@@ -153,10 +161,10 @@ class AccountHeaderView @JvmOverloads constructor(context: Context, attrs: Attri
     var onProfileClickDrawerCloseDelay = 100
 
     // the onAccountHeaderProfileImageListener to set
-    var onAccountHeaderProfileImageListener: AccountHeader.OnAccountHeaderProfileImageListener? = null
+    var onAccountHeaderProfileImageListener: ((view: View, profile: IProfile<*>, current: Boolean) -> Boolean)? = null
 
     // the onAccountHeaderSelectionListener to set
-    var onAccountHeaderSelectionViewClickListener: AccountHeader.OnAccountHeaderSelectionViewClickListener? = null
+    var onAccountHeaderSelectionViewClickListener: ((view: View, profile: IProfile<*>) -> Boolean)? = null
 
     //set the selection list enabled if there is only a single profile
     var selectionListEnabledForSingleProfile = true
@@ -168,10 +176,10 @@ class AccountHeaderView @JvmOverloads constructor(context: Context, attrs: Attri
     var profiles: MutableList<IProfile<*>>? = null
 
     // the click listener to be fired on profile or selection click
-    var onAccountHeaderListener: AccountHeader.OnAccountHeaderListener? = null
+    var onAccountHeaderListener: ((view: View?, profile: IProfile<*>, current: Boolean) -> Boolean)? = null
 
     //the on long click listener to be fired on profile longClick inside the list
-    var onAccountHeaderItemLongClickListener: AccountHeader.OnAccountHeaderItemLongClickListener? = null
+    var onAccountHeaderItemLongClickListener: ((view: View?, profile: IProfile<*>, current: Boolean) -> Boolean)? = null
 
     // the drawer to set the AccountSwitcher for
     var sliderView: MaterialDrawerSliderView? = null
@@ -179,20 +187,20 @@ class AccountHeaderView @JvmOverloads constructor(context: Context, attrs: Attri
     /**
      * onProfileClickListener to notify onClick on the current profile image
      */
-    private val onCurrentProfileClickListener = View.OnClickListener { v -> onProfileImageClick(v, true) }
+    private val onCurrentProfileClickListener = OnClickListener { v -> onProfileImageClick(v, true) }
 
     /**
      * onProfileClickListener to notify onClick on a profile image
      */
-    private val onProfileClickListener = View.OnClickListener { v -> onProfileImageClick(v, false) }
+    private val onProfileClickListener = OnClickListener { v -> onProfileImageClick(v, false) }
 
     /**
      * onProfileLongClickListener to call the onProfileImageLongClick on the current profile image
      */
-    private val onCurrentProfileLongClickListener = View.OnLongClickListener { v ->
+    private val onCurrentProfileLongClickListener = OnLongClickListener { v ->
         if (onAccountHeaderProfileImageListener != null) {
             val profile = v.getTag(R.id.material_drawer_profile_header) as IProfile<*>
-            return@OnLongClickListener onAccountHeaderProfileImageListener?.onProfileImageLongClick(v, profile, true)
+            return@OnLongClickListener onAccountHeaderProfileImageListener?.invoke(v, profile, true)
                     ?: false
         }
         false
@@ -201,10 +209,10 @@ class AccountHeaderView @JvmOverloads constructor(context: Context, attrs: Attri
     /**
      * onProfileLongClickListener to call the onProfileImageLongClick on a profile image
      */
-    private val onProfileLongClickListener = View.OnLongClickListener { v ->
+    private val onProfileLongClickListener = OnLongClickListener { v ->
         if (onAccountHeaderProfileImageListener != null) {
             val profile = v.getTag(R.id.material_drawer_profile_header) as IProfile<*>
-            return@OnLongClickListener onAccountHeaderProfileImageListener?.onProfileImageLongClick(v, profile, false)
+            return@OnLongClickListener onAccountHeaderProfileImageListener?.invoke(v, profile, false)
                     ?: false
         }
         false
@@ -253,7 +261,7 @@ class AccountHeaderView @JvmOverloads constructor(context: Context, attrs: Attri
 
         var consumed = false
         if (drawerItem is IProfile<*>) {
-            consumed = onAccountHeaderListener?.onProfileChanged(view, drawerItem as IProfile<*>, isCurrentSelectedProfile) ?: false
+            consumed = onAccountHeaderListener?.invoke(view, drawerItem as IProfile<*>, isCurrentSelectedProfile) ?: false
         }
 
         //if a custom behavior was chosen via the CloseDrawerOnProfileListClick then use this. else react on the result of the onProfileChanged listener
@@ -280,8 +288,7 @@ class AccountHeaderView @JvmOverloads constructor(context: Context, attrs: Attri
             val isCurrentSelectedProfile: Boolean = drawerItem.isSelected
 
             if (drawerItem is IProfile<*>) {
-                // TODO
-                onAccountHeaderItemLongClickListener?.onProfileLongClick(view!!, drawerItem as IProfile<*>, isCurrentSelectedProfile) ?: false
+                onAccountHeaderItemLongClickListener?.invoke(view, drawerItem as IProfile<*>, isCurrentSelectedProfile) ?: false
             } else {
                 false
             }
@@ -292,7 +299,7 @@ class AccountHeaderView @JvmOverloads constructor(context: Context, attrs: Attri
 
     init {
         val headerLayout = context.resolveStyledHeaderValue {
-            compactStyle = it.getBoolean(R.styleable.AccountHeaderView_materialDrawerCompactStyle, false)
+            compactStyle = compact ?: it.getBoolean(R.styleable.AccountHeaderView_materialDrawerCompactStyle, false)
             it.getResourceId(R.styleable.AccountHeaderView_materialDrawerHeaderLayout, if (compactStyle) R.layout.material_drawer_compact_header else R.layout.material_drawer_header)
         }
 
@@ -393,11 +400,18 @@ class AccountHeaderView @JvmOverloads constructor(context: Context, attrs: Attri
         buildProfiles()
     }
 
+    override fun onAttachedToWindow() {
+        super.onAttachedToWindow()
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT_WATCH) {
+            requestApplyInsets()
+        }
+    }
+
     /**
      * onSelectionClickListener to notify the onClick on the checkbox
      */
-    private val onSelectionClickListener = View.OnClickListener { v ->
-        val consumed = onAccountHeaderSelectionViewClickListener?.onClick(v, v.getTag(R.id.material_drawer_profile_header) as IProfile<*>)
+    private val onSelectionClickListener = OnClickListener { v ->
+        val consumed = onAccountHeaderSelectionViewClickListener?.invoke(v, v.getTag(R.id.material_drawer_profile_header) as IProfile<*>)
                 ?: false
         if (accountSwitcherArrow.visibility == View.VISIBLE && !consumed) {
             toggleSelectionList(v.context)
@@ -838,7 +852,7 @@ class AccountHeaderView @JvmOverloads constructor(context: Context, attrs: Attri
     private fun onProfileImageClick(v: View, current: Boolean) {
         val profile = v.getTag(R.id.material_drawer_profile_header) as IProfile<*>
 
-        val consumed = onAccountHeaderProfileImageListener?.onProfileImageClick(v, profile, current)
+        val consumed = onAccountHeaderProfileImageListener?.invoke(v, profile, current)
                 ?: false
 
         //if the event was already consumed by the click don't continue. note that this will also stop the profile change event
@@ -861,7 +875,7 @@ class AccountHeaderView @JvmOverloads constructor(context: Context, attrs: Attri
         // }
 
         //notify about the changed profile
-        val consumed = onAccountHeaderListener?.onProfileChanged(v, profile, current) ?: false
+        val consumed = onAccountHeaderListener?.invoke(v, profile, current) ?: false
         if (!consumed) {
             if (onProfileClickDrawerCloseDelay > 0) {
                 Handler().postDelayed({
@@ -971,7 +985,7 @@ class AccountHeaderView @JvmOverloads constructor(context: Context, attrs: Attri
         }
         //fire the event if enabled and a listener is set
         if (fireOnProfileChanged && onAccountHeaderListener != null) {
-            onAccountHeaderListener?.onProfileChanged(null, profile, isCurrentSelectedProfile)
+            onAccountHeaderListener?.invoke(null, profile, isCurrentSelectedProfile)
         }
     }
 
@@ -988,5 +1002,35 @@ class AccountHeaderView @JvmOverloads constructor(context: Context, attrs: Attri
                 return
             }
         }
+    }
+
+    /**
+     * Helper method to update a profile using it's identifier
+     *
+     * @param newProfile
+     */
+    fun updateProfile(newProfile: IProfile<*>) {
+        val found = getPositionByIdentifier(newProfile.identifier)
+        if (found > -1) {
+            profiles?.set(found, newProfile)
+            updateHeaderAndList()
+        }
+    }
+
+    /**
+     * gets the position of a profile by it's identifier
+     *
+     * @param identifier
+     * @return
+     */
+    private fun getPositionByIdentifier(identifier: Long): Int {
+        if (identifier != -1L) {
+            profiles?.forEachIndexed { index, iProfile ->
+                if (iProfile.identifier == identifier) {
+                    return index
+                }
+            }
+        }
+        return -1
     }
 }

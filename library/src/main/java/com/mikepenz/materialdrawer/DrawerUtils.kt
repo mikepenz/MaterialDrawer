@@ -354,7 +354,7 @@ internal object DrawerUtils {
         linearLayout.layoutParams = LinearLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT)
         linearLayout.orientation = LinearLayout.VERTICAL
         //set the background color to the drawer background color (if it has alpha the shadow won't be visible)
-        linearLayout.background = sliderView.background
+        //linearLayout.background = sliderView.background
 
         //create the divider
         if (sliderView.stickyFooterDivider) {

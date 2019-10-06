@@ -1,5 +1,6 @@
 package com.mikepenz.materialdrawer.app
 
+import android.content.res.Configuration
 import android.graphics.Color
 import android.os.Build
 import android.os.Bundle
@@ -88,6 +89,23 @@ class CompactHeaderDrawerActivity : AppCompatActivity() {
         }
     }
 
+    override fun onConfigurationChanged(newConfig: Configuration) {
+        super.onConfigurationChanged(newConfig)
+        actionBarDrawerToggle.onConfigurationChanged(newConfig)
+    }
+
+    override fun onPostCreate(savedInstanceState: Bundle?) {
+        super.onPostCreate(savedInstanceState)
+        actionBarDrawerToggle.syncState()
+    }
+
+    override fun onOptionsItemSelected(item: MenuItem): Boolean {
+        if (actionBarDrawerToggle.onOptionsItemSelected(item)) {
+            return true;
+        }
+        return super.onOptionsItemSelected(item)
+    }
+
     override fun onSaveInstanceState(_outState: Bundle) {
         var outState = _outState
         //add the values which need to be saved from the drawer to the bundle
@@ -95,17 +113,6 @@ class CompactHeaderDrawerActivity : AppCompatActivity() {
         //add the values which need to be saved from the accountHeader to the bundle
         outState = headerView.saveInstanceState(outState)
         super.onSaveInstanceState(outState)
-    }
-
-    override fun onOptionsItemSelected(item: MenuItem): Boolean {
-        //handle the click on the back arrow click
-        return when (item.itemId) {
-            android.R.id.home -> {
-                onBackPressed()
-                true
-            }
-            else -> super.onOptionsItemSelected(item)
-        }
     }
 
     override fun onBackPressed() {

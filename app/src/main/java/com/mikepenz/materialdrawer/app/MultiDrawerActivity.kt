@@ -53,6 +53,7 @@ class MultiDrawerActivity : AppCompatActivity() {
                 false
             }
             withSavedInstance(savedInstanceState)
+            setSelectionAtPosition(0)
         }
 
         slider_end.apply {
