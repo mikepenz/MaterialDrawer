@@ -103,7 +103,7 @@ class EmbeddedDrawerActivity : AppCompatActivity() {
                     SwitchDrawerItem().withName("Switch").withIcon(GoogleMaterial.Icon.gmd_pan_tool).withChecked(true).withOnCheckedChangeListener(onCheckedChangeListener),
                     ToggleDrawerItem().withName("Toggle").withIcon(GoogleMaterial.Icon.gmd_pan_tool).withChecked(true).withOnCheckedChangeListener(onCheckedChangeListener)
             )
-            adapter.onClickListener = { v, adapter, drawerItem, position ->
+            onDrawerItemClickListener = { v, drawerItem, position ->
                 if (drawerItem is Nameable<*>) {
                     Toast.makeText(this@EmbeddedDrawerActivity, drawerItem.name?.getText(this@EmbeddedDrawerActivity), Toast.LENGTH_SHORT).show()
                 }

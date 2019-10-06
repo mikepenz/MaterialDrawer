@@ -5,7 +5,6 @@ import android.os.Build
 import android.os.Bundle
 import android.view.Menu
 import android.view.MenuItem
-import android.view.View
 import androidx.appcompat.app.ActionBarDrawerToggle
 import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.view.ActionMode
@@ -71,10 +70,9 @@ class CompactHeaderDrawerActivity : AppCompatActivity() {
                     SecondaryDrawerItem().withName(R.string.drawer_item_open_source).withIcon(FontAwesome.Icon.faw_github),
                     SecondaryDrawerItem().withName(R.string.drawer_item_contact).withIcon(FontAwesome.Icon.faw_bullhorn)
             )
-            adapter.onClickListener = { v, adapter, drawerItem, position ->
+            onDrawerItemClickListener = { v, drawerItem, position ->
                 if (drawerItem.identifier == 1L) {
                     startSupportActionMode(ActionBarCallBack())
-                    findViewById<View>(R.id.action_mode_bar).setBackgroundColor(UIUtils.getThemeColorFromAttrOrRes(this@CompactHeaderDrawerActivity, R.attr.colorPrimary, R.color.material_drawer_primary))
                 }
                 if (drawerItem is Nameable<*>) {
                     toolbar.title = drawerItem.name?.getText(this@CompactHeaderDrawerActivity)

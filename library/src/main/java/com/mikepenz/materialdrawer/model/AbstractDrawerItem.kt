@@ -14,7 +14,6 @@ import androidx.recyclerview.widget.RecyclerView
 import com.google.android.material.shape.ShapeAppearanceModel
 import com.mikepenz.fastadapter.IParentItem
 import com.mikepenz.fastadapter.ISubItem
-import com.mikepenz.materialdrawer.Drawer
 import com.mikepenz.materialdrawer.R
 import com.mikepenz.materialdrawer.holder.ColorHolder
 import com.mikepenz.materialdrawer.model.interfaces.*
@@ -49,7 +48,7 @@ abstract class AbstractDrawerItem<T, VH : RecyclerView.ViewHolder> : IDrawerItem
     override var typeface: Typeface? = null
     var colorStateList: Pair<Int, ColorStateList>? = null
 
-    open var onDrawerItemClickListener: Drawer.OnDrawerItemClickListener? = null
+    open var onDrawerItemClickListener: ((v: View?, item: IDrawerItem<*>, position: Int) -> Boolean)? = null
 
     var onPostBindViewListener: OnPostBindViewListener? = null
         protected set
@@ -178,7 +177,7 @@ abstract class AbstractDrawerItem<T, VH : RecyclerView.ViewHolder> : IDrawerItem
      * @param onDrawerItemClickListener
      * @return
      */
-    open fun withOnDrawerItemClickListener(onDrawerItemClickListener: Drawer.OnDrawerItemClickListener): T {
+    open fun withOnDrawerItemClickListener(onDrawerItemClickListener: ((v: View?, item: IDrawerItem<*>, position: Int) -> Boolean)? = null): T {
         this.onDrawerItemClickListener = onDrawerItemClickListener
         return this as T
     }

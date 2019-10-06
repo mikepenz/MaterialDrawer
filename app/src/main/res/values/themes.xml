@@ -12,6 +12,9 @@
         <item name="materialDrawerHeaderStyle">@style/Widget.MaterialDrawerHeaderStyle</item>
 
         <item name="android:windowTranslucentStatus">true</item>
+
+        <!-- CAB :D -->
+        <item name="windowActionModeOverlay">true</item>
     </style>
 
     <style name="SampleApp.DayNight.Compact" parent="Theme.MaterialComponents.Light.NoActionBar">
@@ -24,6 +27,9 @@
         <item name="materialDrawerHeaderStyle">@style/Widget.MaterialDrawerHeaderStyleCustom</item>
 
         <item name="android:windowTranslucentStatus">true</item>
+
+        <!-- CAB :D -->
+        <item name="windowActionModeOverlay">true</item>
     </style>
 
     <style name="CustomTheme" parent="MaterialDrawerTheme.TranslucentStatus">

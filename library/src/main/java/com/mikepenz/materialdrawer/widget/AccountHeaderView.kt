@@ -19,7 +19,6 @@ import com.mikepenz.iconics.IconicsColor
 import com.mikepenz.iconics.IconicsDrawable
 import com.mikepenz.iconics.IconicsSize
 import com.mikepenz.materialdrawer.AccountHeader
-import com.mikepenz.materialdrawer.Drawer
 import com.mikepenz.materialdrawer.R
 import com.mikepenz.materialdrawer.holder.ColorHolder
 import com.mikepenz.materialdrawer.holder.DimenHolder
@@ -231,66 +230,63 @@ class AccountHeaderView @JvmOverloads constructor(context: Context, attrs: Attri
     /**
      * onDrawerItemClickListener to catch the selection for the new profile!
      */
-    private val onDrawerItemClickListener = object : Drawer.OnDrawerItemClickListener {
-        override fun onItemClick(view: View?, position: Int, drawerItem: IDrawerItem<*>): Boolean {
-            val isCurrentSelectedProfile: Boolean = if (drawerItem is IProfile<*> && drawerItem.isSelectable) {
-                switchProfiles(drawerItem as IProfile<*>)
-            } else {
-                false
-            }
-
-            if (resetDrawerOnProfileListClick) {
-                sliderView?.onDrawerItemClickListener = null
-            }
-
-            //wrap the onSelection call and the reset stuff within a handler to prevent lag
-            if (resetDrawerOnProfileListClick && sliderView != null && view != null && view.context != null) {
-                resetDrawerContent(view.context)
-            }
-
-            //notify the MiniDrawer about the clicked profile (only if one exists and is hooked to the Drawer
-            // TODO drawer?.drawerBuilder?.let {
-            //     it.mMiniDrawer?.onProfileClick()
-            // }
-
-
-            var consumed = false
-            if (drawerItem is IProfile<*>) {
-                consumed = onAccountHeaderListener?.onProfileChanged(view, drawerItem as IProfile<*>, isCurrentSelectedProfile)
-                        ?: false
-            }
-
-            //if a custom behavior was chosen via the CloseDrawerOnProfileListClick then use this. else react on the result of the onProfileChanged listener
-            closeDrawerOnProfileListClick?.let {
-                consumed = consumed && (!it)
-            }
-
-            //totally custom handling of the drawer behavior as otherwise the selection of the profile list is set to the Drawer
-            if (!consumed) {
-                //close the drawer after click
-                sliderView?.closeDrawerDelayed()
-            }
-
-            //consume the event to prevent setting the clicked item as selected in the already switched item list
-            return true
+    private val onDrawerItemClickListener: ((View?, IDrawerItem<*>, Int) -> Boolean) = { view: View?, drawerItem: IDrawerItem<*>, position: Int ->
+        val isCurrentSelectedProfile: Boolean = if (drawerItem is IProfile<*> && drawerItem.isSelectable) {
+            switchProfiles(drawerItem as IProfile<*>)
+        } else {
+            false
         }
+
+        if (resetDrawerOnProfileListClick) {
+            sliderView?.onDrawerItemClickListener = null
+        }
+
+        //wrap the onSelection call and the reset stuff within a handler to prevent lag
+        if (resetDrawerOnProfileListClick && sliderView != null && view != null && view.context != null) {
+            resetDrawerContent(view.context)
+        }
+
+        //notify the MiniDrawer about the clicked profile (only if one exists and is hooked to the Drawer
+        // TODO drawer?.drawerBuilder?.let {
+        //     it.mMiniDrawer?.onProfileClick()
+        // }
+
+        var consumed = false
+        if (drawerItem is IProfile<*>) {
+            consumed = onAccountHeaderListener?.onProfileChanged(view, drawerItem as IProfile<*>, isCurrentSelectedProfile) ?: false
+        }
+
+        //if a custom behavior was chosen via the CloseDrawerOnProfileListClick then use this. else react on the result of the onProfileChanged listener
+        closeDrawerOnProfileListClick?.let {
+            consumed = consumed && (!it)
+        }
+
+        //totally custom handling of the drawer behavior as otherwise the selection of the profile list is set to the Drawer
+        if (!consumed) {
+            //close the drawer after click
+            sliderView?.closeDrawerDelayed()
+        }
+
+        //consume the event to prevent setting the clicked item as selected in the already switched item list
+        true
     }
 
     /**
      * onDrawerItemLongClickListener to catch the longClick for a profile
      */
-    private val onDrawerItemLongClickListener = object : Drawer.OnDrawerItemLongClickListener {
-        override fun onItemLongClick(view: View, position: Int, drawerItem: IDrawerItem<*>): Boolean {
-            //if a longClickListener was defined use it
-            if (onAccountHeaderItemLongClickListener != null) {
-                val isCurrentSelectedProfile: Boolean = drawerItem.isSelected
+    private val onDrawerItemLongClickListener: ((View?, IDrawerItem<*>, Int) -> Boolean) = { view: View?, drawerItem: IDrawerItem<*>, position: Int ->
+        //if a longClickListener was defined use it
+        if (onAccountHeaderItemLongClickListener != null) {
+            val isCurrentSelectedProfile: Boolean = drawerItem.isSelected
 
-                if (drawerItem is IProfile<*>) {
-                    return onAccountHeaderItemLongClickListener?.onProfileLongClick(view, drawerItem as IProfile<*>, isCurrentSelectedProfile)
-                            ?: false
-                }
+            if (drawerItem is IProfile<*>) {
+                // TODO
+                onAccountHeaderItemLongClickListener?.onProfileLongClick(view!!, drawerItem as IProfile<*>, isCurrentSelectedProfile) ?: false
+            } else {
+                false
             }
-            return false
+        } else {
+            false
         }
     }
 

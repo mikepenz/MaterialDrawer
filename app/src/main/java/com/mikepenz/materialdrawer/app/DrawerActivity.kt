@@ -123,7 +123,7 @@ class DrawerActivity : AppCompatActivity() {
                     SecondaryToggleDrawerItem ().withName("Secondary toggle").withIcon(Octicons.Icon.oct_tools).withChecked(true).withOnCheckedChangeListener(onCheckedChangeListener)
                     */
             )
-            adapter.onClickListener = { v, adapter, drawerItem, position ->
+            onDrawerItemClickListener = { v, drawerItem, position ->
                 //check if the drawerItem is set.
                 //there are different reasons for the drawerItem to be null
                 //--> click on the header

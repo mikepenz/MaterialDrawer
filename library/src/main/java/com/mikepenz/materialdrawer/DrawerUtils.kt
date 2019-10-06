@@ -60,12 +60,12 @@ internal object DrawerUtils {
 
             if (fireOnClick) {
                 if (drawerItem is AbstractDrawerItem<*, *> && drawerItem.onDrawerItemClickListener != null) {
-                    consumed = drawerItem.onDrawerItemClickListener?.onItemClick(v, -1, drawerItem)
+                    consumed = drawerItem.onDrawerItemClickListener?.invoke(v, drawerItem, -1)
                             ?: false
                 }
 
                 if (sliderView.onDrawerItemClickListener != null) {
-                    consumed = sliderView.onDrawerItemClickListener?.onItemClick(v, -1, drawerItem)
+                    consumed = sliderView.onDrawerItemClickListener?.invoke(v, drawerItem, -1)
                             ?: false
                 }
             }

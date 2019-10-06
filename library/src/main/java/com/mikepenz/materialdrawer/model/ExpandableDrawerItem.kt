@@ -10,7 +10,6 @@ import androidx.core.view.ViewCompat
 import com.mikepenz.iconics.IconicsColor
 import com.mikepenz.iconics.IconicsDrawable
 import com.mikepenz.iconics.IconicsSize
-import com.mikepenz.materialdrawer.Drawer
 import com.mikepenz.materialdrawer.R
 import com.mikepenz.materialdrawer.holder.ColorHolder
 import com.mikepenz.materialdrawer.icons.MaterialDrawerFont
@@ -22,7 +21,7 @@ import com.mikepenz.materialdrawer.model.interfaces.IDrawerItem
  */
 open class ExpandableDrawerItem : BaseDescribeableDrawerItem<ExpandableDrawerItem, ExpandableDrawerItem.ViewHolder>() {
 
-    var mOnDrawerItemClickListener: Drawer.OnDrawerItemClickListener? = null
+    var mOnDrawerItemClickListener: ((v: View?, item: IDrawerItem<*>, position: Int) -> Boolean)? = null
     var arrowColor: ColorHolder? = null
     var arrowRotationAngleStart = 0
     var arrowRotationAngleEnd = 180
@@ -37,22 +36,20 @@ open class ExpandableDrawerItem : BaseDescribeableDrawerItem<ExpandableDrawerIte
     /**
      * our internal onDrawerItemClickListener which will handle the arrow animation
      */
-    override var onDrawerItemClickListener: Drawer.OnDrawerItemClickListener? = object : Drawer.OnDrawerItemClickListener {
-        override fun onItemClick(view: View?, position: Int, drawerItem: IDrawerItem<*>): Boolean {
-            if (drawerItem is AbstractDrawerItem<*, *> && drawerItem.isEnabled) {
-                view?.let {
-                    if (drawerItem.subItems != null) {
-                        if (drawerItem.isExpanded) {
-                            ViewCompat.animate(view.findViewById(R.id.material_drawer_arrow)).rotation(this@ExpandableDrawerItem.arrowRotationAngleEnd.toFloat()).start()
-                        } else {
-                            ViewCompat.animate(view.findViewById(R.id.material_drawer_arrow)).rotation(this@ExpandableDrawerItem.arrowRotationAngleStart.toFloat()).start()
-                        }
+    override var onDrawerItemClickListener: ((View?, IDrawerItem<*>, Int) -> Boolean)? = { view, drawerItem, position ->
+        if (drawerItem is AbstractDrawerItem<*, *> && drawerItem.isEnabled) {
+            view?.let {
+                if (drawerItem.subItems != null) {
+                    if (drawerItem.isExpanded) {
+                        ViewCompat.animate(view.findViewById(R.id.material_drawer_arrow)).rotation(this@ExpandableDrawerItem.arrowRotationAngleEnd.toFloat()).start()
+                    } else {
+                        ViewCompat.animate(view.findViewById(R.id.material_drawer_arrow)).rotation(this@ExpandableDrawerItem.arrowRotationAngleStart.toFloat()).start()
                     }
                 }
             }
-
-            return mOnDrawerItemClickListener?.onItemClick(view, position, drawerItem) ?: false
         }
+
+        mOnDrawerItemClickListener?.invoke(view, drawerItem, position) ?: false
     }
 
     fun withArrowColor(@ColorInt arrowColor: Int): ExpandableDrawerItem {
@@ -75,7 +72,7 @@ open class ExpandableDrawerItem : BaseDescribeableDrawerItem<ExpandableDrawerIte
         return this
     }
 
-    override fun withOnDrawerItemClickListener(onDrawerItemClickListener: Drawer.OnDrawerItemClickListener): ExpandableDrawerItem {
+    override fun withOnDrawerItemClickListener(onDrawerItemClickListener: ((v: View?, item: IDrawerItem<*>, position: Int) -> Boolean)?): ExpandableDrawerItem {
         mOnDrawerItemClickListener = onDrawerItemClickListener
         return this
     }

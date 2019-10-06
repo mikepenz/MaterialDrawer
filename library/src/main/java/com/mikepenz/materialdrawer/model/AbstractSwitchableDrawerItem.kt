@@ -4,10 +4,8 @@ import android.view.View
 import android.widget.CompoundButton
 import androidx.annotation.LayoutRes
 import androidx.appcompat.widget.SwitchCompat
-import com.mikepenz.materialdrawer.Drawer
 import com.mikepenz.materialdrawer.R
 import com.mikepenz.materialdrawer.interfaces.OnCheckedChangeListener
-import com.mikepenz.materialdrawer.model.interfaces.IDrawerItem
 
 /**
  * Created by mikepenz on 03.02.15.
@@ -70,16 +68,14 @@ abstract class AbstractSwitchableDrawerItem<Item : AbstractSwitchableDrawerItem<
         holder.switchView.isEnabled = isSwitchEnabled
 
         //add a onDrawerItemClickListener here to be able to check / uncheck if the drawerItem can't be selected
-        withOnDrawerItemClickListener(object : Drawer.OnDrawerItemClickListener {
-            override fun onItemClick(view: View?, position: Int, drawerItem: IDrawerItem<*>): Boolean {
-                if (!isSelectable) {
-                    isChecked = !isChecked
-                    holder.switchView.isChecked = isChecked
-                }
-
-                return false
+        withOnDrawerItemClickListener { v, item, position ->
+            if (!isSelectable) {
+                isChecked = !isChecked
+                holder.switchView.isChecked = isChecked
             }
-        })
+
+            false
+        }
 
         //call the onPostBindView method to trigger post bind view actions (like the listener to modify the item if required)
         onPostBindView(this, holder.itemView)

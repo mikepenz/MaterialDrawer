@@ -18,17 +18,19 @@ class ActionBarActivity : AppCompatActivity() {
         setContentView(R.layout.activity_sample_actionbar)
         setTitle(R.string.drawer_item_action_bar_drawer)
 
-        slider.itemAdapter.add(
-                PrimaryDrawerItem().withName(R.string.drawer_item_home).withIcon(FontAwesome.Icon.faw_home),
-                SecondaryDrawerItem().withName(R.string.drawer_item_settings).withIcon(FontAwesome.Icon.faw_cog)
-        )
-        slider.adapter.onClickListener = { v, adapter, drawerItem, position ->
-            if (drawerItem is Nameable<*>) {
-                Toast.makeText(this@ActionBarActivity, (drawerItem as Nameable<*>).name!!.getText(this@ActionBarActivity), Toast.LENGTH_SHORT).show()
+        slider.apply {
+            itemAdapter.add(
+                    PrimaryDrawerItem().withName(R.string.drawer_item_home).withIcon(FontAwesome.Icon.faw_home),
+                    SecondaryDrawerItem().withName(R.string.drawer_item_settings).withIcon(FontAwesome.Icon.faw_cog)
+            )
+            onDrawerItemClickListener = { v, drawerItem, position ->
+                if (drawerItem is Nameable<*>) {
+                    Toast.makeText(this@ActionBarActivity, (drawerItem as Nameable<*>).name!!.getText(this@ActionBarActivity), Toast.LENGTH_SHORT).show()
+                }
+                false
             }
-            false
+            withSavedInstance(savedInstanceState)
         }
-        slider.withSavedInstance(savedInstanceState)
 
         supportActionBar?.setDisplayHomeAsUpEnabled(true)
         supportActionBar?.setHomeButtonEnabled(false)

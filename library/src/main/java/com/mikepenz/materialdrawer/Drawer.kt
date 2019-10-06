@@ -15,6 +15,7 @@ import com.mikepenz.fastadapter.expandable.ExpandableExtension
 import com.mikepenz.fastadapter.select.SelectExtension
 import com.mikepenz.fastadapter.select.getSelectExtension
 import com.mikepenz.materialdrawer.holder.DimenHolder
+import com.mikepenz.materialdrawer.holder.ImageHolder
 import com.mikepenz.materialdrawer.holder.StringHolder
 import com.mikepenz.materialdrawer.model.AbstractDrawerItem
 import com.mikepenz.materialdrawer.model.ContainerDrawerItem
@@ -22,7 +23,6 @@ import com.mikepenz.materialdrawer.model.interfaces.Badgeable
 import com.mikepenz.materialdrawer.model.interfaces.IDrawerItem
 import com.mikepenz.materialdrawer.model.interfaces.Iconable
 import com.mikepenz.materialdrawer.model.interfaces.Nameable
-import com.mikepenz.materialdrawer.holder.ImageHolder
 import com.mikepenz.materialize.view.IScrimInsetsLayout
 
 /**
@@ -531,7 +531,7 @@ open class Drawer(internal val drawerBuilder: DrawerBuilder) {
         if (fireOnClick && position >= 0) {
             drawerBuilder.adapter.getItem(position)?.let { item ->
                 if (item is AbstractDrawerItem<*, *>) {
-                    item.onDrawerItemClickListener?.onItemClick(null, position, item)
+                    //item.onDrawerItemClickListener?.onItemClick(null, position, item)
                 }
                 drawerBuilder.mOnDrawerItemClickListener?.onItemClick(null, position, item)
             }

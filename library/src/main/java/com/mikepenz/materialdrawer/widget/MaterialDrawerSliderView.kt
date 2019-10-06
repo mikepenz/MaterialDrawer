@@ -39,7 +39,6 @@ import com.mikepenz.fastadapter.select.SelectExtensionFactory
 import com.mikepenz.fastadapter.select.getSelectExtension
 import com.mikepenz.fastadapter.utils.DefaultIdDistributor
 import com.mikepenz.fastadapter.utils.DefaultIdDistributorImpl
-import com.mikepenz.materialdrawer.Drawer
 import com.mikepenz.materialdrawer.Drawer.Companion.BUNDLE_DRAWER_CONTENT_SWITCHED
 import com.mikepenz.materialdrawer.Drawer.Companion.BUNDLE_SELECTION
 import com.mikepenz.materialdrawer.Drawer.Companion.BUNDLE_STICKY_FOOTER_SELECTION
@@ -48,11 +47,11 @@ import com.mikepenz.materialdrawer.DrawerUtils.handleHeaderView
 import com.mikepenz.materialdrawer.DrawerUtils.rebuildStickyFooterView
 import com.mikepenz.materialdrawer.R
 import com.mikepenz.materialdrawer.holder.DimenHolder
+import com.mikepenz.materialdrawer.holder.ImageHolder
 import com.mikepenz.materialdrawer.holder.StringHolder
 import com.mikepenz.materialdrawer.model.*
 import com.mikepenz.materialdrawer.model.interfaces.*
 import com.mikepenz.materialdrawer.util.DrawerUIUtils
-import com.mikepenz.materialdrawer.holder.ImageHolder
 import com.mikepenz.materialize.view.OnInsetsCallback
 import java.util.*
 
@@ -203,14 +202,14 @@ open class MaterialDrawerSliderView @JvmOverloads constructor(context: Context, 
     var stickyDrawerItems: MutableList<IDrawerItem<*>> = ArrayList()
 
     // onDrawerItemClickListeners
-    var onDrawerItemClickListener: Drawer.OnDrawerItemClickListener? = null
+    var onDrawerItemClickListener: ((v: View?, item: IDrawerItem<*>, position: Int) -> Boolean)? = null
 
     // onDrawerItemClickListeners
-    var onDrawerItemLongClickListener: Drawer.OnDrawerItemLongClickListener? = null
+    var onDrawerItemLongClickListener: ((v: View?, item: IDrawerItem<*>, position: Int) -> Boolean)? = null
 
     //variables to store and remember the original list of the drawer
-    private var originalOnDrawerItemClickListener: Drawer.OnDrawerItemClickListener? = null
-    private var originalOnDrawerItemLongClickListener: Drawer.OnDrawerItemLongClickListener? = null
+    private var originalOnDrawerItemClickListener: ((v: View?, item: IDrawerItem<*>, position: Int) -> Boolean)? = null
+    private var originalOnDrawerItemLongClickListener: ((v: View?, item: IDrawerItem<*>, position: Int) -> Boolean)? = null
     /**
      * get the original list of drawerItems
      *
@@ -229,15 +228,6 @@ open class MaterialDrawerSliderView @JvmOverloads constructor(context: Context, 
 
         adapter
         createContent()
-
-        if (parent != null) {
-            drawerLayout = parent as? DrawerLayout
-            (layoutParams as DrawerLayout.LayoutParams).also {
-                // if this is a drawer from the right, change the margins :D &  set the new params
-                it.width = DrawerUIUtils.getOptimalDrawerWidth(context)
-                layoutParams = it
-            }
-        }
 
         ViewCompat.setOnApplyWindowInsetsListener(this) { v, insets ->
             if (null == this.insets) {
@@ -309,6 +299,15 @@ open class MaterialDrawerSliderView @JvmOverloads constructor(context: Context, 
     override fun onAttachedToWindow() {
         super.onAttachedToWindow()
         insetForeground?.callback = this
+
+        if (parent != null) {
+            drawerLayout = parent as? DrawerLayout
+            (layoutParams as DrawerLayout.LayoutParams).also {
+                // if this is a drawer from the right, change the margins :D &  set the new params
+                it.width = DrawerUIUtils.getOptimalDrawerWidth(context)
+                layoutParams = it
+            }
+        }
     }
 
     override fun onDetachedFromWindow() {
@@ -570,7 +569,7 @@ open class MaterialDrawerSliderView @JvmOverloads constructor(context: Context, 
         this.selectExtension.select(selectedItemPosition)
 
         // add the onDrawerItemClickListener if set
-        adapter.onClickListener = { v: View?, _: IAdapter<IDrawerItem<*>>, item: IDrawerItem<*>, position: Int ->
+        adapter.onClickListener = { v: View?, adapter: IAdapter<IDrawerItem<*>>, item: IDrawerItem<*>, position: Int ->
             if (!(item is Selectable<*> && !item.isSelectable)) {
                 resetStickyFooterSelection()
                 currentStickyFooterSelection = -1
@@ -581,15 +580,15 @@ open class MaterialDrawerSliderView @JvmOverloads constructor(context: Context, 
 
             //call the item specific listener
             if (item is AbstractDrawerItem<*, *>) {
-                consumed = item.onDrawerItemClickListener?.onItemClick(v, position, item) ?: false
+                consumed = item.onDrawerItemClickListener?.invoke(v, item, position) ?: false
             }
 
             //call the drawer listener
             onDrawerItemClickListener?.let { mOnDrawerItemClickListener ->
                 if (delayDrawerClickEvent > 0) {
-                    Handler().postDelayed({ mOnDrawerItemClickListener.onItemClick(v, position, item) }, delayDrawerClickEvent.toLong())
+                    Handler().postDelayed({ mOnDrawerItemClickListener.invoke(v, item, position) }, delayDrawerClickEvent.toLong())
                 } else {
-                    consumed = mOnDrawerItemClickListener.onItemClick(v, position, item)
+                    consumed = mOnDrawerItemClickListener.invoke(v, item, position)
                 }
             }
 
@@ -606,8 +605,8 @@ open class MaterialDrawerSliderView @JvmOverloads constructor(context: Context, 
             }
         }
         // add the onDrawerItemLongClickListener if set
-        adapter.onLongClickListener = { v: View, _: IAdapter<IDrawerItem<*>>, item: IDrawerItem<*>, position: Int ->
-            onDrawerItemLongClickListener?.onItemLongClick(v, position, item) ?: false
+        adapter.onLongClickListener = { v: View, adapter: IAdapter<IDrawerItem<*>>, item: IDrawerItem<*>, position: Int ->
+            onDrawerItemLongClickListener?.invoke(v, item, position) ?: false
         }
 
         recyclerView.scrollToPosition(0)
@@ -616,7 +615,7 @@ open class MaterialDrawerSliderView @JvmOverloads constructor(context: Context, 
         if (fireInitialOnClick && onDrawerItemClickListener != null) {
             val selection = if (this.selectExtension.selections.isEmpty()) -1 else this.selectExtension.selections.iterator().next()
             adapter.getItem(selection)?.let {
-                onDrawerItemClickListener?.onItemClick(null, selection, it)
+                onDrawerItemClickListener?.invoke(null, it, selection)
             }
         }
     }
@@ -671,7 +670,7 @@ open class MaterialDrawerSliderView @JvmOverloads constructor(context: Context, 
      * @param drawerItems
      * @param drawerSelection
      */
-    fun switchDrawerContent(onDrawerItemClickListenerInner: Drawer.OnDrawerItemClickListener, onDrawerItemLongClickListenerInner: Drawer.OnDrawerItemLongClickListener, drawerItemsInner: List<IDrawerItem<*>>, drawerSelection: Int) {
+    fun switchDrawerContent(onDrawerItemClickListenerInner: ((v: View?, item: IDrawerItem<*>, position: Int) -> Boolean)?, onDrawerItemLongClickListenerInner: ((v: View?, item: IDrawerItem<*>, position: Int) -> Boolean)?, drawerItemsInner: List<IDrawerItem<*>>, drawerSelection: Int) {
         //just allow a single switched drawer
         if (!switchedDrawerContent()) {
             //save out previous values
@@ -759,9 +758,9 @@ open class MaterialDrawerSliderView @JvmOverloads constructor(context: Context, 
         if (fireOnClick && position >= 0) {
             adapter.getItem(position)?.let { item ->
                 if (item is AbstractDrawerItem<*, *>) {
-                    item.onDrawerItemClickListener?.onItemClick(null, position, item)
+                    item.onDrawerItemClickListener?.invoke(null, item, position)
                 }
-                onDrawerItemClickListener?.onItemClick(null, position, item)
+                onDrawerItemClickListener?.invoke(null, item, position)
             }
         }
 

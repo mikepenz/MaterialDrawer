@@ -1365,7 +1365,7 @@ open class AccountHeaderBuilder {
                 position += 1
             }
         }
-        sliderView?.switchDrawerContent(onDrawerItemClickListener, onDrawerItemLongClickListener, profileDrawerItems, selectedPosition)
+        //sliderView?.switchDrawerContent(onDrawerItemClickListener, onDrawerItemLongClickListener, profileDrawerItems, selectedPosition)
     }
 
     /**

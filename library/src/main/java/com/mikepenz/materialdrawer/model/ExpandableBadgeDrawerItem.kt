@@ -11,7 +11,6 @@ import com.mikepenz.iconics.IconicsColor.Companion.colorInt
 import com.mikepenz.iconics.IconicsColor.Companion.colorList
 import com.mikepenz.iconics.IconicsDrawable
 import com.mikepenz.iconics.IconicsSize.Companion.dp
-import com.mikepenz.materialdrawer.Drawer
 import com.mikepenz.materialdrawer.R
 import com.mikepenz.materialdrawer.holder.BadgeStyle
 import com.mikepenz.materialdrawer.holder.ColorHolder
@@ -26,7 +25,7 @@ import com.mikepenz.materialdrawer.model.interfaces.IDrawerItem
  */
 open class ExpandableBadgeDrawerItem : BaseDescribeableDrawerItem<ExpandableBadgeDrawerItem, ExpandableBadgeDrawerItem.ViewHolder>(), ColorfulBadgeable<ExpandableBadgeDrawerItem> {
 
-    private var mOnDrawerItemClickListener: Drawer.OnDrawerItemClickListener? = null
+    private var mOnDrawerItemClickListener: ((v: View?, item: IDrawerItem<*>, position: Int) -> Boolean)? = null
     var arrowColor: ColorHolder? = null
     var arrowRotationAngleStart = 0
     var arrowRotationAngleEnd = 180
@@ -43,23 +42,21 @@ open class ExpandableBadgeDrawerItem : BaseDescribeableDrawerItem<ExpandableBadg
     /**
      * our internal onDrawerItemClickListener which will handle the arrow animation
      */
-    override var onDrawerItemClickListener: Drawer.OnDrawerItemClickListener? = object : Drawer.OnDrawerItemClickListener {
-        override fun onItemClick(view: View?, position: Int, drawerItem: IDrawerItem<*>): Boolean {
-            if (drawerItem is AbstractDrawerItem<*, *> && drawerItem.isEnabled) {
-                if (drawerItem.subItems != null) {
-                    view?.let {
-                        if (drawerItem.isExpanded) {
-                            ViewCompat.animate(view.findViewById(R.id.material_drawer_arrow)).rotation(this@ExpandableBadgeDrawerItem.arrowRotationAngleEnd.toFloat()).start()
-                        } else {
-                            ViewCompat.animate(view.findViewById(R.id.material_drawer_arrow))
-                                    .rotation(this@ExpandableBadgeDrawerItem.arrowRotationAngleStart.toFloat())
-                                    .start()
-                        }
+    override var onDrawerItemClickListener: ((View?, IDrawerItem<*>, Int) -> Boolean)? = { view, drawerItem, position ->
+        if (drawerItem is AbstractDrawerItem<*, *> && drawerItem.isEnabled) {
+            if (drawerItem.subItems != null) {
+                view?.let {
+                    if (drawerItem.isExpanded) {
+                        ViewCompat.animate(view.findViewById(R.id.material_drawer_arrow)).rotation(this@ExpandableBadgeDrawerItem.arrowRotationAngleEnd.toFloat()).start()
+                    } else {
+                        ViewCompat.animate(view.findViewById(R.id.material_drawer_arrow))
+                                .rotation(this@ExpandableBadgeDrawerItem.arrowRotationAngleStart.toFloat())
+                                .start()
                     }
                 }
             }
-            return mOnDrawerItemClickListener?.onItemClick(view, position, drawerItem) ?: false
         }
+        mOnDrawerItemClickListener?.invoke(view, drawerItem, position) ?: false
     }
 
     override fun bindView(holder: ExpandableBadgeDrawerItem.ViewHolder, payloads: MutableList<Any>) {
@@ -99,7 +96,7 @@ open class ExpandableBadgeDrawerItem : BaseDescribeableDrawerItem<ExpandableBadg
         onPostBindView(this, holder.itemView)
     }
 
-    override fun withOnDrawerItemClickListener(onDrawerItemClickListener: Drawer.OnDrawerItemClickListener): ExpandableBadgeDrawerItem {
+    override fun withOnDrawerItemClickListener(onDrawerItemClickListener: ((v: View?, item: IDrawerItem<*>, position: Int) -> Boolean)?): ExpandableBadgeDrawerItem {
         mOnDrawerItemClickListener = onDrawerItemClickListener
         return this
     }

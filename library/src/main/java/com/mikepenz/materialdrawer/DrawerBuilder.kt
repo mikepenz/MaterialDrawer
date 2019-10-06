@@ -1723,8 +1723,8 @@ open class DrawerBuilder {
 
             //call the item specific listener
             if (item is AbstractDrawerItem<*, *>) {
-                consumed = item.onDrawerItemClickListener?.onItemClick(v, position, item)
-                        ?: false
+                //consumed = item.onDrawerItemClickListener?.onItemClick(v, position, item)
+                //        ?: false
             }
 
             //call the drawer listener
