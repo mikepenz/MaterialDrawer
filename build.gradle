@@ -18,7 +18,7 @@ buildscript {
                 multiDex         : '2.0.1',
                 androidX         : '1.0.0',
                 annotation       : '1.1.0',
-                recyclerView     : '1.1.0-beta04',
+                recyclerView     : '1.1.0-beta05',
                 material         : '1.1.0-beta01',
                 appcompat        : '1.1.0',
                 drawerlayout     : '1.1.0-alpha03',
@@ -26,7 +26,7 @@ buildscript {
                 cardview         : '1.0.0',
                 kotlin           : "1.3.50",
                 fastadapter      : "4.1.0",
-                iconics          : "4.0.1-b02",
+                iconics          : "4.0.1",
                 navigation       : "2.1.0",
                 slidingpaneLayout: "1.0.0"
         ]
