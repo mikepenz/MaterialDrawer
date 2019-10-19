@@ -36,7 +36,7 @@
             android:theme="@style/SampleApp.DayNight.DarkActionBar" />
         <activity
             android:name=".MenuDrawerActivity"
-            android:theme="@style/MaterialDrawerTheme.Light.DarkToolbar" />
+            android:theme="@style/SampleApp.DayNight" />
         <activity
             android:name=".MultiDrawerActivity"
             android:theme="@style/SampleApp.DayNight" />
@@ -67,7 +67,7 @@
         <activity
             android:name=".NavControllerActivity"
             android:label="NavControllerExample"
-            android:theme="@style/MaterialDrawerTheme.Light.DarkToolbar"></activity>
+            android:theme="@style/SampleApp.DayNight" />
     </application>
 
 </manifest>
