@@ -1531,7 +1531,7 @@ open class DrawerBuilder {
         //we only want to hook a Drawer to the MiniDrawer if it is the main drawer, not the appended one
         if (!mAppended && mGenerateMiniDrawer) {
             // if we should create a MiniDrawer we have to do this now
-            mMiniDrawer = MiniDrawer().withDrawer(result).withAccountHeader(mAccountHeader)
+            //mMiniDrawer = MiniDrawer().withDrawer(result).withAccountHeader(mAccountHeader)
         }
 
         //forget the reference to the activity

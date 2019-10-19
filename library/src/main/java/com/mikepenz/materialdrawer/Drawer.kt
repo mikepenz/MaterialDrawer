@@ -57,7 +57,7 @@ open class Drawer(internal val drawerBuilder: DrawerBuilder) {
     val miniDrawer: MiniDrawer?
         get() {
             if (drawerBuilder.mMiniDrawer == null) {
-                drawerBuilder.mMiniDrawer = MiniDrawer().withDrawer(this).withAccountHeader(drawerBuilder.mAccountHeader)
+                //drawerBuilder.mMiniDrawer = MiniDrawer().withDrawer(this).withAccountHeader(drawerBuilder.mAccountHeader)
             }
             return drawerBuilder.mMiniDrawer
         }

@@ -1,7 +1,6 @@
 package com.mikepenz.materialdrawer
 
 import android.content.Context
-import android.content.res.Configuration
 import android.view.View
 import android.view.ViewGroup
 import android.widget.LinearLayout
@@ -15,7 +14,8 @@ import com.mikepenz.fastadapter.select.SelectExtension
 import com.mikepenz.materialdrawer.interfaces.ICrossfader
 import com.mikepenz.materialdrawer.model.*
 import com.mikepenz.materialdrawer.model.interfaces.IDrawerItem
-import com.mikepenz.materialize.util.UIUtils
+import com.mikepenz.materialdrawer.widget.AccountHeaderView
+import com.mikepenz.materialdrawer.widget.MaterialDrawerSliderView
 
 /**
  * Created by mikepenz on 15.07.15.
@@ -53,7 +53,7 @@ open class MiniDrawer {
      *
      * @return
      */
-    var drawer: Drawer? = null
+    var drawer: MaterialDrawerSliderView? = null
         private set
 
     /**
@@ -61,7 +61,7 @@ open class MiniDrawer {
      *
      * @return
      */
-    var accountHeader: AccountHeader? = null
+    var accountHeader: AccountHeaderView? = null
         private set
 
     /**
@@ -102,7 +102,7 @@ open class MiniDrawer {
      * @return
      */
     private val drawerItems: List<IDrawerItem<*>>
-        get() = drawer?.originalDrawerItems ?: drawer?.drawerItems ?: ArrayList()
+        get() = drawer?.originalDrawerItems ?: drawer?.itemAdapter?.adapterItems ?: ArrayList()
 
     /**
      * Provide the Drawer which will be used as dataSource for the drawerItems
@@ -110,7 +110,7 @@ open class MiniDrawer {
      * @param drawer
      * @return
      */
-    fun withDrawer(drawer: Drawer): MiniDrawer {
+    fun withDrawer(drawer: MaterialDrawerSliderView): MiniDrawer {
         this.drawer = drawer
         return this
     }
@@ -121,7 +121,7 @@ open class MiniDrawer {
      * @param accountHeader
      * @return
      */
-    fun withAccountHeader(accountHeader: AccountHeader?): MiniDrawer {
+    fun withAccountHeader(accountHeader: AccountHeaderView?): MiniDrawer {
         this.accountHeader = accountHeader
         return this
     }
@@ -294,7 +294,9 @@ open class MiniDrawer {
         recyclerView.adapter = adapter
 
         //if the activity with the drawer should be fullscreen add the padding for the statusbar
-        drawer?.drawerBuilder?.let { builder ->
+        /*
+        TODO
+        drawer?.let { builder ->
             if ((builder.mFullscreen || builder.mTranslucentStatusBar)) {
                 recyclerView.setPadding(recyclerView.paddingLeft, UIUtils.getStatusBarHeight(ctx), recyclerView.paddingRight, recyclerView.paddingBottom)
             }
@@ -304,6 +306,7 @@ open class MiniDrawer {
                 recyclerView.setPadding(recyclerView.paddingLeft, recyclerView.paddingTop, recyclerView.paddingRight, UIUtils.getNavigationBarHeight(ctx))
             }
         }
+         */
 
         //set the adapter with the items
         createItems()
@@ -452,25 +455,25 @@ open class MiniDrawer {
                         if (item.isSelectable) {
                             //make sure we are on the original drawerItemList
                             accountHeader?.let {
-                                if (it.isSelectionListShown) {
-                                    it.toggleSelectionList(it.view.context)
+                                if (it.selectionListShown) {
+                                    it.toggleSelectionList(it.context)
                                 }
                             }
                             val drawerItem = drawer?.getDrawerItem(item.identifier)
                             if (drawerItem != null && !drawerItem.isSelected) {
                                 //set the selection
-                                drawer?.setSelection(item, true)
+                                drawer?.setSelection(item.identifier, true)
                             }
                         } else if (drawer?.onDrawerItemClickListener != null) {
                             DrawerUtils.getDrawerItem(drawerItems, item.identifier)?.let {
                                 //get the original `DrawerItem` from the Drawer as this one will contain all information
-                                drawer?.onDrawerItemClickListener?.onItemClick(v, position, it)
+                                drawer?.onDrawerItemClickListener?.invoke(v, it, position)
                             }
                         }
                     } else if (type == PROFILE) {
                         accountHeader?.let {
-                            if (!it.isSelectionListShown) {
-                                it.toggleSelectionList(it.view.context)
+                            if (!it.selectionListShown) {
+                                it.toggleSelectionList(it.context)
                             }
                         }
 

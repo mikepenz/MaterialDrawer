@@ -63,7 +63,7 @@
             android:theme="@style/MaterialDrawerTheme.Light.DarkToolbar.TranslucentStatus" />
         <activity
             android:name=".CrossfadeDrawerLayoutActvitiy"
-            android:theme="@style/MaterialDrawerTheme.TranslucentStatus" />
+            android:theme="@style/SampleApp.DayNight" />
         <activity
             android:name=".NavControllerActivity"
             android:label="NavControllerExample"

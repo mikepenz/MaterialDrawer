@@ -302,7 +302,7 @@ open class MaterialDrawerSliderView @JvmOverloads constructor(context: Context, 
 
         if (parent != null) {
             drawerLayout = parent as? DrawerLayout
-            (layoutParams as DrawerLayout.LayoutParams).also {
+            layoutParams?.also {
                 // if this is a drawer from the right, change the margins :D &  set the new params
                 it.width = DrawerUIUtils.getOptimalDrawerWidth(context)
                 layoutParams = it

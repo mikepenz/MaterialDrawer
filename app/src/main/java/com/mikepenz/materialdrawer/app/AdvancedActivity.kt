@@ -1,9 +1,11 @@
 package com.mikepenz.materialdrawer.app
 
+import android.content.res.Configuration
 import android.os.Bundle
 import android.view.Menu
 import android.view.MenuItem
 import android.widget.Toast
+import androidx.appcompat.app.ActionBarDrawerToggle
 import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.widget.PopupMenu
 import com.mikepenz.iconics.IconicsColor.Companion.colorRes
@@ -25,6 +27,7 @@ import kotlinx.android.synthetic.main.activity_sample.*
 class AdvancedActivity : AppCompatActivity() {
 
     private lateinit var headerView: AccountHeaderView
+    private lateinit var actionBarDrawerToggle: ActionBarDrawerToggle
 
     private lateinit var profile: IProfile<*>
     private lateinit var profile2: IProfile<*>
@@ -38,7 +41,11 @@ class AdvancedActivity : AppCompatActivity() {
 
         // Handle Toolbar
         setSupportActionBar(toolbar)
+        supportActionBar?.setDisplayHomeAsUpEnabled(true)
+        supportActionBar?.setHomeButtonEnabled(true)
         supportActionBar?.setTitle(R.string.drawer_item_advanced_drawer)
+
+        actionBarDrawerToggle = ActionBarDrawerToggle(this, root, toolbar, com.mikepenz.materialdrawer.R.string.material_drawer_open, com.mikepenz.materialdrawer.R.string.material_drawer_close)
 
         // Create a few sample profile
         profile = ProfileDrawerItem().withName("Mike Penz").withEmail("mikepenz@gmail.com").withIcon(resources.getDrawable(R.drawable.profile))
@@ -128,6 +135,16 @@ class AdvancedActivity : AppCompatActivity() {
         }
     }
 
+    override fun onConfigurationChanged(newConfig: Configuration) {
+        super.onConfigurationChanged(newConfig)
+        actionBarDrawerToggle.onConfigurationChanged(newConfig)
+    }
+
+    override fun onPostCreate(savedInstanceState: Bundle?) {
+        super.onPostCreate(savedInstanceState)
+        actionBarDrawerToggle.syncState()
+    }
+
     override fun onCreateOptionsMenu(menu: Menu): Boolean {
         val inflater = menuInflater
         inflater.inflate(R.menu.main, menu)
@@ -164,7 +181,9 @@ class AdvancedActivity : AppCompatActivity() {
                 //TODO headerResult.setDrawer(result)
                 return true
             }
-            else -> return super.onOptionsItemSelected(item)
+            else -> {
+                return actionBarDrawerToggle.onOptionsItemSelected(item)
+            }
         }
     }
 
