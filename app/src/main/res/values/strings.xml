@@ -23,7 +23,6 @@
     <string name="drawer_item_mini_drawer_desc">Always visible MiniDrawer</string>
     <string name="drawer_item_fullscreen_drawer">FullScreen Drawer</string>
     <string name="drawer_item_fullscreen_drawer_desc">Drawer in FullScreen activity</string>
-    <string name="drawer_item_custom_container_drawer">CustomContainer Drawer</string>
     <string name="drawer_item_custom_container_drawer_desc">Drawer in different view hirachy</string>
     <string name="drawer_item_menu_drawer">Menu Drawer</string>
     <string name="drawer_item_menu_drawer_desc">Drawer from menu.xml</string>

@@ -9,19 +9,16 @@ import com.mikepenz.iconics.IconicsColor.Companion.colorInt
 import com.mikepenz.iconics.IconicsDrawable
 import com.mikepenz.iconics.typeface.library.fontawesome.FontAwesome
 import com.mikepenz.iconics.typeface.library.googlematerial.GoogleMaterial
-import com.mikepenz.materialdrawer.AccountHeader
-import com.mikepenz.materialdrawer.AccountHeaderBuilder
-import com.mikepenz.materialdrawer.Drawer
-import com.mikepenz.materialdrawer.DrawerBuilder
+import com.mikepenz.materialdrawer.holder.ImageHolder
 import com.mikepenz.materialdrawer.model.PrimaryDrawerItem
 import com.mikepenz.materialdrawer.model.SecondaryDrawerItem
 import com.mikepenz.materialdrawer.model.SectionDrawerItem
+import com.mikepenz.materialdrawer.widget.AccountHeaderView
 import kotlinx.android.synthetic.main.activity_sample_collapsing_toolbar.*
 
 class CollapsingToolbarActivity : AppCompatActivity() {
 
-    private var headerResult: AccountHeader? = null
-    private var result: Drawer? = null
+    private lateinit var headerView: AccountHeaderView
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -30,30 +27,27 @@ class CollapsingToolbarActivity : AppCompatActivity() {
         setSupportActionBar(toolbar)
         collapsingToolbar.title = getString(R.string.drawer_item_collapsing_toolbar_drawer)
 
-        headerResult = AccountHeaderBuilder()
-                .withActivity(this)
-                .withCompactStyle(false)
-                .withHeaderBackground(R.drawable.header)
-                .withSavedInstance(savedInstanceState)
-                .build()
 
-        result = DrawerBuilder()
-                .withActivity(this)
-                .withAccountHeader(headerResult!!)
-                .withToolbar(toolbar)
-                .withFullscreen(true)
-                .addDrawerItems(
-                        PrimaryDrawerItem().withName(R.string.drawer_item_home).withIcon(FontAwesome.Icon.faw_home).withIdentifier(1),
-                        PrimaryDrawerItem().withName(R.string.drawer_item_free_play).withIcon(FontAwesome.Icon.faw_gamepad),
-                        PrimaryDrawerItem().withName(R.string.drawer_item_custom).withIcon(FontAwesome.Icon.faw_eye),
-                        SectionDrawerItem().withName(R.string.drawer_item_section_header),
-                        SecondaryDrawerItem().withName(R.string.drawer_item_settings).withIcon(FontAwesome.Icon.faw_cog),
-                        SecondaryDrawerItem().withName(R.string.drawer_item_help).withIcon(FontAwesome.Icon.faw_question).withEnabled(false),
-                        SecondaryDrawerItem().withName(R.string.drawer_item_open_source).withIcon(FontAwesome.Icon.faw_github),
-                        SecondaryDrawerItem().withName(R.string.drawer_item_contact).withIcon(FontAwesome.Icon.faw_bullhorn)
-                )
-                .withSavedInstance(savedInstanceState)
-                .build()
+        // Create the AccountHeader
+        headerView = AccountHeaderView(this).apply {
+            attachToSliderView(slider)
+            headerBackground = ImageHolder(R.drawable.header)
+            withSavedInstance(savedInstanceState)
+        }
+
+        slider.apply {
+            itemAdapter.add(
+                    PrimaryDrawerItem().withName(R.string.drawer_item_home).withIcon(FontAwesome.Icon.faw_home).withIdentifier(1),
+                    PrimaryDrawerItem().withName(R.string.drawer_item_free_play).withIcon(FontAwesome.Icon.faw_gamepad),
+                    PrimaryDrawerItem().withName(R.string.drawer_item_custom).withIcon(FontAwesome.Icon.faw_eye).withIdentifier(5),
+                    SectionDrawerItem().withName(R.string.drawer_item_section_header),
+                    SecondaryDrawerItem().withName(R.string.drawer_item_settings).withIcon(FontAwesome.Icon.faw_cog),
+                    SecondaryDrawerItem().withName(R.string.drawer_item_help).withIcon(FontAwesome.Icon.faw_question).withEnabled(false),
+                    SecondaryDrawerItem().withName(R.string.drawer_item_open_source).withIcon(FontAwesome.Icon.faw_github),
+                    SecondaryDrawerItem().withName(R.string.drawer_item_contact).withIcon(FontAwesome.Icon.faw_bullhorn)
+            )
+            withSavedInstance(savedInstanceState)
+        }
 
         fillFab()
         loadBackdrop()
@@ -70,9 +64,9 @@ class CollapsingToolbarActivity : AppCompatActivity() {
     override fun onSaveInstanceState(_outState: Bundle) {
         var outState = _outState
         //add the values which need to be saved from the drawer to the bundle
-        outState = result?.saveInstanceState(outState) ?: outState
+        outState = slider.saveInstanceState(outState)
         //add the values which need to be saved from the accountHeader to the bundle
-        outState = headerResult?.saveInstanceState(outState) ?: outState
+        outState = headerView.saveInstanceState(outState)
         super.onSaveInstanceState(outState)
     }
 }

@@ -53,14 +53,11 @@
             android:name=".FullscreenDrawerActivity"
             android:theme="@style/FullscreenTheme" />
         <activity
-            android:name=".CustomContainerActivity"
-            android:theme="@style/MaterialDrawerTheme.Light.DarkToolbar" />
-        <activity
             android:name=".FragmentActivity"
             android:theme="@style/MaterialDrawerTheme.Light.DarkToolbar" />
         <activity
             android:name=".CollapsingToolbarActivity"
-            android:theme="@style/MaterialDrawerTheme.Light.DarkToolbar.TranslucentStatus" />
+            android:theme="@style/SampleApp.DayNight" />
         <activity
             android:name=".CrossfadeDrawerLayoutActvitiy"
             android:theme="@style/SampleApp.DayNight" />
