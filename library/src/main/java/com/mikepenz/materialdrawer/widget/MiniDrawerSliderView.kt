@@ -77,7 +77,7 @@ class MiniDrawerSliderView @JvmOverloads constructor(context: Context, attrs: At
 
     private var mInnerShadow = false
     private var mInRTL = false
-    private var mIncludeSecondaryDrawerItems = false
+    var includeSecondaryDrawerItems = false
     private var mEnableSelectedMiniDrawerItemBackground = false
     private var mEnableProfileClick = true
     private var mOnMiniDrawerItemClickListener: MiniDrawer.OnMiniDrawerItemClickListener? = null
@@ -332,7 +332,7 @@ class MiniDrawerSliderView @JvmOverloads constructor(context: Context, attrs: At
      */
     open fun generateMiniDrawerItem(drawerItem: IDrawerItem<*>): IDrawerItem<*>? {
         return when (drawerItem) {
-            is SecondaryDrawerItem -> if (mIncludeSecondaryDrawerItems) MiniDrawerItem(drawerItem).withEnableSelectedBackground(mEnableSelectedMiniDrawerItemBackground).withSelectedBackgroundAnimated(false) else null
+            is SecondaryDrawerItem -> if (includeSecondaryDrawerItems) MiniDrawerItem(drawerItem).withEnableSelectedBackground(mEnableSelectedMiniDrawerItemBackground).withSelectedBackgroundAnimated(false) else null
             is PrimaryDrawerItem -> MiniDrawerItem(drawerItem).withEnableSelectedBackground(mEnableSelectedMiniDrawerItemBackground).withSelectedBackgroundAnimated(false)
             is ProfileDrawerItem -> MiniProfileDrawerItem(drawerItem).apply { withEnabled(mEnableProfileClick) }
             else -> null
