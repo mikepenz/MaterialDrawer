@@ -20,7 +20,6 @@ import androidx.core.view.ViewCompat
 import com.mikepenz.iconics.IconicsColor
 import com.mikepenz.iconics.IconicsDrawable
 import com.mikepenz.iconics.IconicsSize
-import com.mikepenz.materialdrawer.AccountHeader
 import com.mikepenz.materialdrawer.R
 import com.mikepenz.materialdrawer.holder.ColorHolder
 import com.mikepenz.materialdrawer.holder.DimenHolder
@@ -183,6 +182,16 @@ class AccountHeaderView @JvmOverloads constructor(context: Context, attrs: Attri
 
     // the drawer to set the AccountSwitcher for
     var sliderView: MaterialDrawerSliderView? = null
+        set(value) {
+            field = value
+            if (field?.accountHeader != this) {
+                field?.accountHeader = this
+            }
+        }
+
+    // miniDrawer
+    val miniDrawer: MiniDrawerSliderView?
+        get() = sliderView?.miniDrawer
 
     /**
      * onProfileClickListener to notify onClick on the current profile image
@@ -255,9 +264,7 @@ class AccountHeaderView @JvmOverloads constructor(context: Context, attrs: Attri
         }
 
         //notify the MiniDrawer about the clicked profile (only if one exists and is hooked to the Drawer
-        // TODO drawer?.drawerBuilder?.let {
-        //     it.mMiniDrawer?.onProfileClick()
-        // }
+        miniDrawer?.onProfileClick()
 
         var consumed = false
         if (drawerItem is IProfile<*>) {
@@ -320,7 +327,7 @@ class AccountHeaderView @JvmOverloads constructor(context: Context, attrs: Attri
                 context.resources.getDimensionPixelSize(R.dimen.material_drawer_account_header_height_compact)
             } else {
                 //calculate the header height by getting the optimal drawer width and calculating it * 9 / 16
-                (DrawerUIUtils.getOptimalDrawerWidth(context) * AccountHeader.NAVIGATION_DRAWER_ACCOUNT_ASPECT_RATIO).toInt()
+                (DrawerUIUtils.getOptimalDrawerWidth(context) * NAVIGATION_DRAWER_ACCOUNT_ASPECT_RATIO).toInt()
             }
         }
 
@@ -495,7 +502,7 @@ class AccountHeaderView @JvmOverloads constructor(context: Context, attrs: Attri
     fun withSavedInstance(savedInstance: Bundle?) {
         // try to restore all saved values again
         savedInstance?.let { si ->
-            val selection = si.getInt(AccountHeader.BUNDLE_SELECTION_HEADER + savedInstanceKey, -1)
+            val selection = si.getInt(BUNDLE_SELECTION_HEADER + savedInstanceKey, -1)
             if (selection != -1) {
                 //predefine selection (should be the first element
                 profiles?.let {
@@ -869,10 +876,7 @@ class AccountHeaderView @JvmOverloads constructor(context: Context, attrs: Attri
         resetDrawerContent(v.context)
 
         //notify the MiniDrawer about the clicked profile (only if one exists and is hooked to the Drawer
-        // TODO
-        // drawer?.let {
-        //     it.drawerBuilder.mMiniDrawer?.onProfileClick()
-        // }
+        miniDrawer?.onProfileClick()
 
         //notify about the changed profile
         val consumed = onAccountHeaderListener?.invoke(v, profile, current) ?: false
@@ -968,7 +972,7 @@ class AccountHeaderView @JvmOverloads constructor(context: Context, attrs: Attri
      * @return
      */
     fun saveInstanceState(savedInstanceState: Bundle): Bundle {
-        savedInstanceState.putInt(AccountHeader.BUNDLE_SELECTION_HEADER + savedInstanceKey, currentSelection)
+        savedInstanceState.putInt(BUNDLE_SELECTION_HEADER + savedInstanceKey, currentSelection)
         return savedInstanceState
     }
 
@@ -1032,5 +1036,11 @@ class AccountHeaderView @JvmOverloads constructor(context: Context, attrs: Attri
             }
         }
         return -1
+    }
+
+    companion object {
+        const val NAVIGATION_DRAWER_ACCOUNT_ASPECT_RATIO = 9.0 / 16.0
+
+        const val BUNDLE_SELECTION_HEADER = "bundle_selection_header"
     }
 }

@@ -28,6 +28,7 @@ import com.mikepenz.materialize.view.IScrimInsetsLayout
 /**
  * Created by mikepenz on 03.02.15.
  */
+@Deprecated(message = "", level = DeprecationLevel.WARNING)
 open class Drawer(internal val drawerBuilder: DrawerBuilder) {
     private var mContentView: FrameLayout? = null
 

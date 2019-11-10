@@ -1,6 +1,7 @@
 package com.mikepenz.materialdrawer.app
 
 import android.os.Bundle
+import android.view.View
 import android.view.ViewGroup
 import android.widget.ListPopupWindow
 import android.widget.Toast
@@ -9,7 +10,6 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.GravityCompat
 import androidx.drawerlayout.widget.DrawerLayout
 import com.mikepenz.iconics.typeface.library.fontawesome.FontAwesome
-import com.mikepenz.materialdrawer.MiniDrawer
 import com.mikepenz.materialdrawer.interfaces.ICrossfader
 import com.mikepenz.materialdrawer.model.PrimaryDrawerItem
 import com.mikepenz.materialdrawer.model.ProfileDrawerItem
@@ -18,11 +18,13 @@ import com.mikepenz.materialdrawer.model.interfaces.Nameable
 import com.mikepenz.materialdrawer.util.DrawerUIUtils
 import com.mikepenz.materialdrawer.widget.AccountHeaderView
 import com.mikepenz.materialdrawer.widget.MaterialDrawerSliderView
+import com.mikepenz.materialdrawer.widget.MiniDrawerSliderView
 import com.mikepenz.materialize.util.UIUtils
 import kotlinx.android.synthetic.main.activity_sample_crossfader.*
 
 class CrossfadeDrawerLayoutActvitiy : AppCompatActivity() {
     private lateinit var slider: MaterialDrawerSliderView
+    private lateinit var miniSliderView: MiniDrawerSliderView
     private lateinit var headerView: AccountHeaderView
     private lateinit var actionBarDrawerToggle: ActionBarDrawerToggle
 
@@ -86,19 +88,19 @@ class CrossfadeDrawerLayoutActvitiy : AppCompatActivity() {
             withSavedInstance(savedInstanceState)
         }
 
+        miniSliderView = MiniDrawerSliderView(this).apply {
+            drawer = slider
+        }
+
         //define maxDrawerWidth
         root.setMaxWidthPx(DrawerUIUtils.getOptimalDrawerWidth(this))
         //add second view (which is the miniDrawer)
-        val miniResult = MiniDrawer().withDrawer(slider).withAccountHeader(headerView) // we know it is not null
-        //build the view for the MiniDrawer
-        val view = miniResult.build(this)
-        //set the background of the MiniDrawer as this would be transparent
-        view.background = slider.background
+        miniSliderView.background = slider.background
         //we do not have the MiniDrawer view during CrossfadeDrawerLayout creation so we will add it here
-        root.smallView.addView(view, ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.MATCH_PARENT)
+        root.smallView.addView(miniSliderView, ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.MATCH_PARENT)
 
         //define the crossfader to be used with the miniDrawer. This is required to be able to automatically toggle open / close
-        miniResult.withCrossFader(object : ICrossfader {
+        miniSliderView.crossFader = object : ICrossfader {
 
             override val isCrossfaded: Boolean
                 get() = root.isCrossfaded
@@ -112,7 +114,7 @@ class CrossfadeDrawerLayoutActvitiy : AppCompatActivity() {
                     root.closeDrawer(GravityCompat.START)
                 }
             }
-        })
+        }
 
 
         /**
@@ -166,8 +168,8 @@ class CrossfadeDrawerLayoutActvitiy : AppCompatActivity() {
 
     override fun onBackPressed() {
         //handle the back press :D close the drawer first and if the drawer is closed close the activity
-        if (root.isDrawerOpen(slider)) {
-            root.closeDrawer(slider)
+        if (root.isDrawerOpen(slider.parent as View)) {
+            root.closeDrawer(slider.parent as View)
         } else {
             super.onBackPressed()
         }

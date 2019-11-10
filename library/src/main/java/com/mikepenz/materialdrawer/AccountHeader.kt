@@ -6,14 +6,15 @@ import android.os.Bundle
 import android.view.View
 import android.widget.ImageView
 import androidx.annotation.DrawableRes
-import com.mikepenz.materialdrawer.model.interfaces.IProfile
 import com.mikepenz.materialdrawer.holder.ImageHolder
+import com.mikepenz.materialdrawer.model.interfaces.IProfile
 import com.mikepenz.materialdrawer.widget.MaterialDrawerSliderView
 import java.util.*
 
 /**
  * Created by mikepenz on 27.02.15.
  */
+@Deprecated(message = "", level = DeprecationLevel.WARNING)
 class AccountHeader(val accountHeaderBuilder: AccountHeaderBuilder) {
 
     /**

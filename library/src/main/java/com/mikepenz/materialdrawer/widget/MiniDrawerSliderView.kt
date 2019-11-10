@@ -1,9 +1,11 @@
-package com.mikepenz.materialdrawer
+package com.mikepenz.materialdrawer.widget
 
 import android.content.Context
+import android.util.AttributeSet
 import android.view.View
 import android.view.ViewGroup
 import android.widget.LinearLayout
+import androidx.core.view.ViewCompat
 import androidx.recyclerview.widget.DefaultItemAnimator
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
@@ -11,43 +13,38 @@ import com.mikepenz.fastadapter.FastAdapter
 import com.mikepenz.fastadapter.IAdapter
 import com.mikepenz.fastadapter.adapters.ItemAdapter
 import com.mikepenz.fastadapter.select.SelectExtension
+import com.mikepenz.materialdrawer.DrawerUtils
+import com.mikepenz.materialdrawer.MiniDrawer
+import com.mikepenz.materialdrawer.R
 import com.mikepenz.materialdrawer.interfaces.ICrossfader
 import com.mikepenz.materialdrawer.model.*
 import com.mikepenz.materialdrawer.model.interfaces.IDrawerItem
-import com.mikepenz.materialdrawer.widget.AccountHeaderView
-import com.mikepenz.materialdrawer.widget.MaterialDrawerSliderView
 
-/**
- * Created by mikepenz on 15.07.15.
- * Don't count this for real yet. it's just a quick try on creating a Gmail like panel
- */
-@Deprecated(message = "", level = DeprecationLevel.WARNING)
-open class MiniDrawer {
+class MiniDrawerSliderView @JvmOverloads constructor(context: Context, attrs: AttributeSet? = null, defStyleAttr: Int = R.attr.materialDrawerStyle) : LinearLayout(context, attrs, defStyleAttr) {
 
-    private lateinit var mContainer: LinearLayout
     /**
      * get the RecyclerView of this MiniDrawer
      *
      * @return
      */
-    lateinit var recyclerView: RecyclerView
+    var recyclerView: RecyclerView
         private set
     /**
      * get the FastAdapter of this MiniDrawer
      *
      * @return
      */
-    lateinit var adapter: FastAdapter<IDrawerItem<*>>
+    var adapter: FastAdapter<IDrawerItem<*>>
         protected set
     /**
      * get the ItemAdapter of this MiniDrawer
      *
      * @return
      */
-    lateinit var itemAdapter: ItemAdapter<IDrawerItem<*>>
+    var itemAdapter: ItemAdapter<IDrawerItem<*>>
         protected set
 
-    lateinit var mSelectExtension: SelectExtension<IDrawerItem<*>>
+    var mSelectExtension: SelectExtension<IDrawerItem<*>>
 
     /**
      * get the Drawer used to fill this MiniDrawer
@@ -55,15 +52,21 @@ open class MiniDrawer {
      * @return
      */
     var drawer: MaterialDrawerSliderView? = null
-        private set
+        set(value) {
+            field = value
+            if (field?.miniDrawer != this) {
+                field?.miniDrawer = this
+            }
+            createItems()
+        }
 
     /**
      * get the AccountHeader used to fill the this MiniDrawer
      *
      * @return
      */
-    var accountHeader: AccountHeaderView? = null
-        private set
+    val accountHeader: AccountHeaderView?
+        get() = drawer?.accountHeader
 
     /**
      * get the Crossfader used for this MiniDrawer
@@ -71,14 +74,13 @@ open class MiniDrawer {
      * @return
      */
     var crossFader: ICrossfader? = null
-        private set
 
     private var mInnerShadow = false
     private var mInRTL = false
     private var mIncludeSecondaryDrawerItems = false
     private var mEnableSelectedMiniDrawerItemBackground = false
     private var mEnableProfileClick = true
-    private var mOnMiniDrawerItemClickListener: OnMiniDrawerItemClickListener? = null
+    private var mOnMiniDrawerItemClickListener: MiniDrawer.OnMiniDrawerItemClickListener? = null
     private var mOnMiniDrawerItemOnClickListener: ((v: View?, adapter: IAdapter<IDrawerItem<*>>, item: IDrawerItem<*>, position: Int) -> Boolean)? = null
     private var mOnMiniDrawerItemLongClickListener: ((v: View, adapter: IAdapter<IDrawerItem<*>>, item: IDrawerItem<*>, position: Int) -> Boolean)? = null
 
@@ -105,178 +107,22 @@ open class MiniDrawer {
     private val drawerItems: List<IDrawerItem<*>>
         get() = drawer?.originalDrawerItems ?: drawer?.itemAdapter?.adapterItems ?: ArrayList()
 
-    /**
-     * Provide the Drawer which will be used as dataSource for the drawerItems
-     *
-     * @param drawer
-     * @return
-     */
-    fun withDrawer(drawer: MaterialDrawerSliderView): MiniDrawer {
-        this.drawer = drawer
-        return this
-    }
+    init {
+        val a = context.obtainStyledAttributes(attrs, R.styleable.MaterialDrawerSliderView, defStyleAttr, R.style.Widget_MaterialDrawerStyle)
+        background = a.getDrawable(R.styleable.MaterialDrawerSliderView_materialDrawerBackground)
+        a.recycle()
 
-    /**
-     * Provide the AccountHeader which will be used as the dataSource for the profiles
-     *
-     * @param accountHeader
-     * @return
-     */
-    fun withAccountHeader(accountHeader: AccountHeaderView?): MiniDrawer {
-        this.accountHeader = accountHeader
-        return this
-    }
-
-    /**
-     * Provide the Crossfader implementation which is used with this MiniDrawer
-     *
-     * @param crossFader
-     * @return
-     */
-    fun withCrossFader(crossFader: ICrossfader): MiniDrawer {
-        this.crossFader = crossFader
-        return this
-    }
-
-    /**
-     * set to true if you want to show the innerShadow on the MiniDrawer
-     *
-     * @param innerShadow
-     * @return
-     */
-    fun withInnerShadow(innerShadow: Boolean): MiniDrawer {
-        this.mInnerShadow = innerShadow
-        return this
-    }
-
-    /**
-     * set to true if you want the MiniDrawer in RTL mode
-     *
-     * @param inRTL
-     * @return
-     */
-    fun withInRTL(inRTL: Boolean): MiniDrawer {
-        this.mInRTL = inRTL
-        return this
-    }
-
-    /**
-     * set to true if you also want to display secondaryDrawerItems
-     *
-     * @param includeSecondaryDrawerItems
-     * @return
-     */
-    fun withIncludeSecondaryDrawerItems(includeSecondaryDrawerItems: Boolean): MiniDrawer {
-        this.mIncludeSecondaryDrawerItems = includeSecondaryDrawerItems
-        return this
-    }
-
-    /**
-     * set to true if you want to display the background for the miniDrawerItem
-     *
-     * @param enableSelectedMiniDrawerItemBackground
-     * @return
-     */
-    fun withEnableSelectedMiniDrawerItemBackground(enableSelectedMiniDrawerItemBackground: Boolean): MiniDrawer {
-        this.mEnableSelectedMiniDrawerItemBackground = enableSelectedMiniDrawerItemBackground
-        return this
-    }
-
-    /**
-     * set to false if you do not want the profile image to toggle to the normal drawers profile selection
-     *
-     * @param enableProfileClick
-     * @return this
-     */
-    fun withEnableProfileClick(enableProfileClick: Boolean): MiniDrawer {
-        this.mEnableProfileClick = enableProfileClick
-        return this
-    }
-
-    /**
-     * Define the onMiniDrawerItemClickListener called before any logic in the MiniDrawer is run, allows you to intercept the default behavior
-     *
-     * @param onMiniDrawerItemClickListener
-     * @return this
-     */
-    fun withOnMiniDrawerItemClickListener(onMiniDrawerItemClickListener: OnMiniDrawerItemClickListener): MiniDrawer {
-        this.mOnMiniDrawerItemClickListener = onMiniDrawerItemClickListener
-        return this
-    }
-
-    /**
-     * Define an onClickListener for the MiniDrawer item adapter. WARNING: this will completely overwrite the default behavior
-     * You may want to check the `OnMiniDrawerItemClickListener` (withOnMiniDrawerItemClickListener) which just hooks into the default behavior
-     *
-     * @param onMiniDrawerItemOnClickListener
-     * @return this
-     */
-    fun withOnMiniDrawerItemOnClickListener(onMiniDrawerItemOnClickListener: ((v: View?, adapter: IAdapter<IDrawerItem<*>>, item: IDrawerItem<*>, position: Int) -> Boolean)?): MiniDrawer {
-        this.mOnMiniDrawerItemOnClickListener = onMiniDrawerItemOnClickListener
-        return this
-    }
-
-    /**
-     * Define an onLongClickListener for the MiniDrawer item adapter
-     *
-     * @param onMiniDrawerItemLongClickListener
-     * @return
-     */
-    fun withOnMiniDrawerItemLongClickListener(onMiniDrawerItemLongClickListener: ((v: View, adapter: IAdapter<IDrawerItem<*>>, item: IDrawerItem<*>, position: Int) -> Boolean)?): MiniDrawer {
-        this.mOnMiniDrawerItemLongClickListener = onMiniDrawerItemLongClickListener
-        return this
-    }
-
-
-    /**
-     * generates a MiniDrawerItem from a IDrawerItem
-     *
-     * @param drawerItem
-     * @return
-     */
-    open fun generateMiniDrawerItem(drawerItem: IDrawerItem<*>): IDrawerItem<*>? {
-        return when (drawerItem) {
-            is SecondaryDrawerItem -> if (mIncludeSecondaryDrawerItems) MiniDrawerItem(drawerItem).withEnableSelectedBackground(mEnableSelectedMiniDrawerItemBackground).withSelectedBackgroundAnimated(false) else null
-            is PrimaryDrawerItem -> MiniDrawerItem(drawerItem).withEnableSelectedBackground(mEnableSelectedMiniDrawerItemBackground).withSelectedBackgroundAnimated(false)
-            is ProfileDrawerItem -> MiniProfileDrawerItem(drawerItem).apply { withEnabled(mEnableProfileClick) }
-            else -> null
-        }
-    }
-
-    /**
-     * gets the type of a IDrawerItem
-     *
-     * @param drawerItem
-     * @return
-     */
-    open fun getMiniDrawerType(drawerItem: IDrawerItem<*>): Int {
-        if (drawerItem is MiniProfileDrawerItem) {
-            return PROFILE
-        } else if (drawerItem is MiniDrawerItem) {
-            return ITEM
-        }
-        return -1
-    }
-
-    /**
-     * build the MiniDrawer
-     *
-     * @param ctx
-     * @return
-     */
-    open fun build(ctx: Context): View {
-        mContainer = LinearLayout(ctx)
         if (mInnerShadow) {
             if (!mInRTL) {
-                mContainer.setBackgroundResource(R.drawable.material_drawer_shadow_left)
+                setBackgroundResource(R.drawable.material_drawer_shadow_left)
             } else {
-                mContainer.setBackgroundResource(R.drawable.material_drawer_shadow_right)
+                setBackgroundResource(R.drawable.material_drawer_shadow_right)
             }
         }
 
         //create and append recyclerView
-        recyclerView = RecyclerView(ctx)
-        mContainer.addView(recyclerView, ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.MATCH_PARENT)
+        recyclerView = RecyclerView(context)
+        addView(recyclerView, ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.MATCH_PARENT)
 
         //set the itemAnimator
         recyclerView.itemAnimator = DefaultItemAnimator()
@@ -285,7 +131,7 @@ open class MiniDrawer {
         //set the drawing cache background to the same color as the slider to improve performance
         recyclerView.clipToPadding = false
         //additional stuff
-        recyclerView.layoutManager = LinearLayoutManager(ctx)
+        recyclerView.layoutManager = LinearLayoutManager(context)
         //adapter
         itemAdapter = ItemAdapter()
         adapter = FastAdapter.with(itemAdapter)
@@ -294,26 +140,16 @@ open class MiniDrawer {
         mSelectExtension.allowDeselection = false
         recyclerView.adapter = adapter
 
-        //if the activity with the drawer should be fullscreen add the padding for the statusbar
-        /*
-        TODO
-        drawer?.let { builder ->
-            if ((builder.mFullscreen || builder.mTranslucentStatusBar)) {
-                recyclerView.setPadding(recyclerView.paddingLeft, UIUtils.getStatusBarHeight(ctx), recyclerView.paddingRight, recyclerView.paddingBottom)
-            }
-
-            //if the activity with the drawer should be fullscreen add the padding for the navigationBar
-            if ((builder.mFullscreen || builder.mTranslucentNavigationBar) && ctx.resources.configuration.orientation == Configuration.ORIENTATION_PORTRAIT) {
-                recyclerView.setPadding(recyclerView.paddingLeft, recyclerView.paddingTop, recyclerView.paddingRight, UIUtils.getNavigationBarHeight(ctx))
-            }
+        // set the insets
+        ViewCompat.setOnApplyWindowInsetsListener(this) { v, insets ->
+            recyclerView.setPadding(recyclerView.paddingLeft, insets.systemWindowInsetTop, recyclerView.paddingRight, insets.systemWindowInsetBottom)
+            insets
         }
-         */
 
         //set the adapter with the items
         createItems()
-
-        return mContainer
     }
+
 
     /**
      * call this method to trigger the onProfileClick on the MiniDrawer
@@ -488,16 +324,34 @@ open class MiniDrawer {
         recyclerView.scrollToPosition(0)
     }
 
+    /**
+     * generates a MiniDrawerItem from a IDrawerItem
+     *
+     * @param drawerItem
+     * @return
+     */
+    open fun generateMiniDrawerItem(drawerItem: IDrawerItem<*>): IDrawerItem<*>? {
+        return when (drawerItem) {
+            is SecondaryDrawerItem -> if (mIncludeSecondaryDrawerItems) MiniDrawerItem(drawerItem).withEnableSelectedBackground(mEnableSelectedMiniDrawerItemBackground).withSelectedBackgroundAnimated(false) else null
+            is PrimaryDrawerItem -> MiniDrawerItem(drawerItem).withEnableSelectedBackground(mEnableSelectedMiniDrawerItemBackground).withSelectedBackgroundAnimated(false)
+            is ProfileDrawerItem -> MiniProfileDrawerItem(drawerItem).apply { withEnabled(mEnableProfileClick) }
+            else -> null
+        }
+    }
 
-    interface OnMiniDrawerItemClickListener {
-        /**
-         * @param view
-         * @param position
-         * @param drawerItem
-         * @param type       either MiniDrawer.PROFILE or MiniDrawer.ITEM
-         * @return true if the event was consumed
-         */
-        fun onItemClick(view: View?, position: Int, drawerItem: IDrawerItem<*>, type: Int): Boolean
+    /**
+     * gets the type of a IDrawerItem
+     *
+     * @param drawerItem
+     * @return
+     */
+    open fun getMiniDrawerType(drawerItem: IDrawerItem<*>): Int {
+        if (drawerItem is MiniProfileDrawerItem) {
+            return MiniDrawer.PROFILE
+        } else if (drawerItem is MiniDrawerItem) {
+            return MiniDrawer.ITEM
+        }
+        return -1
     }
 
     companion object {

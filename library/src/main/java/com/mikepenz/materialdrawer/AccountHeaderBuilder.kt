@@ -37,6 +37,7 @@ import java.util.*
 /**
  * Created by mikepenz on 23.05.15.
  */
+@Deprecated(message = "", level = DeprecationLevel.WARNING)
 open class AccountHeaderBuilder {
     // global references to views we need later
     internal lateinit var statusBarGuideline: Guideline

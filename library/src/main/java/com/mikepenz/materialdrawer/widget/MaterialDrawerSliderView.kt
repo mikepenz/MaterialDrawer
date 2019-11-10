@@ -85,8 +85,20 @@ open class MaterialDrawerSliderView @JvmOverloads constructor(context: Context, 
     var accountHeader: AccountHeaderView? = null
         set(value) {
             field = value
+            if (field?.sliderView != this) {
+                field?.attachToSliderView(this)
+            }
         }
     var accountHeaderSticky = false
+
+    // miniDrawer
+    var miniDrawer: MiniDrawerSliderView? = null
+        set(value) {
+            field = value
+            if (field?.drawer != this) {
+                field?.drawer = this
+            }
+        }
 
     // defines if the drawer should scroll to top after click
     var scrollToTopAfterClick = false
@@ -144,6 +156,9 @@ open class MaterialDrawerSliderView @JvmOverloads constructor(context: Context, 
 
     // the drawerLayout owning this slider
     var drawerLayout: DrawerLayout? = null
+
+    // custom width
+    var customWidth: Int? = null
 
     // an RecyclerView to use within the drawer :D
     lateinit var recyclerView: RecyclerView
@@ -304,7 +319,7 @@ open class MaterialDrawerSliderView @JvmOverloads constructor(context: Context, 
             drawerLayout = parent as? DrawerLayout
             layoutParams?.also {
                 // if this is a drawer from the right, change the margins :D &  set the new params
-                it.width = DrawerUIUtils.getOptimalDrawerWidth(context)
+                it.width = customWidth ?: DrawerUIUtils.getOptimalDrawerWidth(context)
                 layoutParams = it
             }
         }
@@ -590,6 +605,11 @@ open class MaterialDrawerSliderView @JvmOverloads constructor(context: Context, 
                 } else {
                     consumed = mOnDrawerItemClickListener.invoke(v, item, position)
                 }
+            }
+
+            //we have to notify the miniDrawer if existing, and if the event was not consumed yet
+            if (!consumed) {
+                consumed = miniDrawer?.onItemClick(item) ?: false
             }
 
             //if we were a expandable item we consume the event closing makes no sense

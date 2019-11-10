@@ -55,6 +55,7 @@ import java.util.*
 /**
  * Created by mikepenz on 23.05.15.
  */
+@Deprecated(message = "", level = DeprecationLevel.WARNING)
 open class DrawerBuilder {
 
     // some internal vars
