@@ -14,7 +14,6 @@ import com.mikepenz.fastadapter.IAdapter
 import com.mikepenz.fastadapter.adapters.ItemAdapter
 import com.mikepenz.fastadapter.select.SelectExtension
 import com.mikepenz.materialdrawer.DrawerUtils
-import com.mikepenz.materialdrawer.MiniDrawer
 import com.mikepenz.materialdrawer.R
 import com.mikepenz.materialdrawer.interfaces.ICrossfader
 import com.mikepenz.materialdrawer.model.*
@@ -80,7 +79,7 @@ class MiniDrawerSliderView @JvmOverloads constructor(context: Context, attrs: At
     var includeSecondaryDrawerItems = false
     private var mEnableSelectedMiniDrawerItemBackground = false
     private var mEnableProfileClick = true
-    private var mOnMiniDrawerItemClickListener: MiniDrawer.OnMiniDrawerItemClickListener? = null
+    private var mOnMiniDrawerItemClickListener: OnMiniDrawerItemClickListener? = null
     private var mOnMiniDrawerItemOnClickListener: ((v: View?, adapter: IAdapter<IDrawerItem<*>>, item: IDrawerItem<*>, position: Int) -> Boolean)? = null
     private var mOnMiniDrawerItemLongClickListener: ((v: View, adapter: IAdapter<IDrawerItem<*>>, item: IDrawerItem<*>, position: Int) -> Boolean)? = null
 
@@ -347,11 +346,22 @@ class MiniDrawerSliderView @JvmOverloads constructor(context: Context, attrs: At
      */
     open fun getMiniDrawerType(drawerItem: IDrawerItem<*>): Int {
         if (drawerItem is MiniProfileDrawerItem) {
-            return MiniDrawer.PROFILE
+            return PROFILE
         } else if (drawerItem is MiniDrawerItem) {
-            return MiniDrawer.ITEM
+            return ITEM
         }
         return -1
+    }
+
+    interface OnMiniDrawerItemClickListener {
+        /**
+         * @param view
+         * @param position
+         * @param drawerItem
+         * @param type       either MiniDrawer.PROFILE or MiniDrawer.ITEM
+         * @return true if the event was consumed
+         */
+        fun onItemClick(view: View?, position: Int, drawerItem: IDrawerItem<*>, type: Int): Boolean
     }
 
     companion object {

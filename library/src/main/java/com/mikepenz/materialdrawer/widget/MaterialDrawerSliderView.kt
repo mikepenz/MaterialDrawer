@@ -39,9 +39,6 @@ import com.mikepenz.fastadapter.select.SelectExtensionFactory
 import com.mikepenz.fastadapter.select.getSelectExtension
 import com.mikepenz.fastadapter.utils.DefaultIdDistributor
 import com.mikepenz.fastadapter.utils.DefaultIdDistributorImpl
-import com.mikepenz.materialdrawer.Drawer.Companion.BUNDLE_DRAWER_CONTENT_SWITCHED
-import com.mikepenz.materialdrawer.Drawer.Companion.BUNDLE_SELECTION
-import com.mikepenz.materialdrawer.Drawer.Companion.BUNDLE_STICKY_FOOTER_SELECTION
 import com.mikepenz.materialdrawer.DrawerUtils
 import com.mikepenz.materialdrawer.DrawerUtils.handleHeaderView
 import com.mikepenz.materialdrawer.DrawerUtils.rebuildStickyFooterView
@@ -980,5 +977,26 @@ open class MaterialDrawerSliderView @JvmOverloads constructor(context: Context, 
      */
     internal fun checkDrawerItem(position: Int, includeOffset: Boolean): Boolean {
         return adapter.getItem(position) != null
+    }
+
+    companion object {
+        /**
+         * BUNDLE param to store the selection
+         */
+        const val BUNDLE_SELECTION = "_selection"
+        const val BUNDLE_STICKY_FOOTER_SELECTION = "bundle_sticky_footer_selection"
+        const val BUNDLE_DRAWER_CONTENT_SWITCHED = "bundle_drawer_content_switched"
+
+        /**
+         * Per the design guidelines, you should show the drawer on launch until the user manually
+         * expands it. This shared preference tracks this.
+         */
+        const val PREF_USER_LEARNED_DRAWER = "navigation_drawer_learned"
+
+        /**
+         * Per the design guidelines, you should show the drawer on launch until the user manually
+         * expands it. This shared preference tracks this.
+         */
+        const val PREF_USER_OPENED_DRAWER_BY_DRAGGING = "navigation_drawer_dragged_open"
     }
 }

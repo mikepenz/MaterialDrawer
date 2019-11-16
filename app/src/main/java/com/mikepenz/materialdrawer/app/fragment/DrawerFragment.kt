@@ -8,7 +8,6 @@ import android.view.ViewGroup
 import android.widget.TextView
 import androidx.fragment.app.Fragment
 import com.mikepenz.iconics.typeface.library.fontawesome.FontAwesome
-import com.mikepenz.materialdrawer.Drawer
 import com.mikepenz.materialdrawer.app.R
 import com.mikepenz.materialdrawer.model.PrimaryDrawerItem
 import com.mikepenz.materialdrawer.model.SecondaryDrawerItem
@@ -21,8 +20,6 @@ import kotlinx.android.synthetic.main.activity_sample.*
  * This is just a demo fragment with a long scrollable view of editTexts. Don't see this as a reference for anything
  */
 class DrawerFragment : Fragment() {
-
-    private var result: Drawer? = null
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         // Inflate the layout for this fragment

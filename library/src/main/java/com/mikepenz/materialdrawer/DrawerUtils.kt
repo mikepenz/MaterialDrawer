@@ -160,18 +160,18 @@ internal object DrawerUtils {
      * @param identifier
      * @return
      */
-    fun getStickyFooterPositionByIdentifier(drawer: DrawerBuilder, identifier: Long): Int {
+    fun getStickyFooterPositionByIdentifier(drawer: MaterialDrawerSliderView, identifier: Long): Int {
         if (identifier != -1L) {
-            if (drawer.mStickyFooterView != null && drawer.mStickyFooterView is LinearLayout) {
-                val footer = drawer.mStickyFooterView as LinearLayout
+            if (drawer.stickyFooterView != null && drawer.stickyFooterView is LinearLayout) {
+                val footer = drawer.stickyFooterView as LinearLayout
 
                 var shadowOffset = 0
                 for (i in 0 until footer.childCount) {
                     val o = footer.getChildAt(i).getTag(R.id.material_drawer_item)
 
                     //count up the shadowOffset to return the correct position of the given item
-                    if (o == null && drawer.mStickyFooterDivider) {
-                        shadowOffset = shadowOffset + 1
+                    if (o == null && drawer.stickyFooterDivider) {
+                        shadowOffset += 1
                     }
 
                     if (o != null && o is IDrawerItem<*> && o.identifier == identifier) {
@@ -416,10 +416,13 @@ internal object DrawerUtils {
      * @return
      */
     @SuppressLint("RtlHardcoded")
-    fun processDrawerLayoutParams(drawer: DrawerBuilder, params: DrawerLayout.LayoutParams?): DrawerLayout.LayoutParams? {
+    fun processDrawerLayoutParams(drawer: MaterialDrawerSliderView, params: DrawerLayout.LayoutParams?): DrawerLayout.LayoutParams? {
         if (params != null) {
-            val ctx = drawer.mDrawerLayout.context
-            if (drawer.mDrawerGravity == Gravity.RIGHT || drawer.mDrawerGravity == Gravity.END) {
+            val drawerLayout = drawer.drawerLayout ?: return null
+            val ctx = drawerLayout.context
+
+            val lp = drawerLayout.layoutParams as DrawerLayout.LayoutParams
+            if (lp.gravity == Gravity.RIGHT || lp.gravity == Gravity.END) {
                 params.rightMargin = 0
                 if (Build.VERSION.SDK_INT >= 17) {
                     params.marginEnd = 0
@@ -431,8 +434,9 @@ internal object DrawerUtils {
                 }
             }
 
-            if (drawer.mDrawerWidth > -1) {
-                params.width = drawer.mDrawerWidth
+            val customWidth = drawer.customWidth ?: -1
+            if (customWidth > -1) {
+                params.width = customWidth
             } else {
                 params.width = DrawerUIUtils.getOptimalDrawerWidth(ctx)
             }
