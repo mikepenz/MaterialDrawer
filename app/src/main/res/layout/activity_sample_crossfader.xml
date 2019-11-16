@@ -1,4 +1,4 @@
-<com.mikepenz.crossfadedrawerlayout.view.CrossfadeDrawerLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<com.mikepenz.materialdrawer.app.widget.CrossfadeDrawerLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:id="@+id/root"
     android:layout_width="match_parent"
@@ -39,4 +39,32 @@
                 android:textSize="16sp" />
         </FrameLayout>
     </androidx.constraintlayout.widget.ConstraintLayout>
-</com.mikepenz.crossfadedrawerlayout.view.CrossfadeDrawerLayout>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/crossFadeSlider"
+        android:layout_width="72dp"
+        android:layout_height="match_parent"
+        android:layout_gravity="start"
+        android:fitsSystemWindows="true">
+
+        <com.mikepenz.materialdrawer.widget.MaterialDrawerSliderView
+            android:id="@+id/crossFadeLargeView"
+            android:layout_width="72dp"
+            android:layout_height="0dp"
+            android:fitsSystemWindows="true"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <com.mikepenz.materialdrawer.widget.MiniDrawerSliderView
+            android:id="@+id/crossFadeSmallView"
+            android:layout_width="72dp"
+            android:layout_height="0dp"
+            android:fitsSystemWindows="true"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</com.mikepenz.materialdrawer.app.widget.CrossfadeDrawerLayout>

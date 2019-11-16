@@ -8,7 +8,6 @@ import androidx.appcompat.app.ActionBarDrawerToggle
 import androidx.appcompat.app.AppCompatActivity
 import com.mikepenz.materialdrawer.model.interfaces.Nameable
 import kotlinx.android.synthetic.main.activity_sample.*
-import kotlinx.android.synthetic.main.activity_sample_dark_toolbar.toolbar
 
 class MenuDrawerActivity : AppCompatActivity() {
 

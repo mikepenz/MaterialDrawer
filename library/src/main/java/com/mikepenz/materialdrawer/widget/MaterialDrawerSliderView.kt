@@ -159,6 +159,10 @@ open class MaterialDrawerSliderView @JvmOverloads constructor(context: Context, 
 
     // custom width
     var customWidth: Int? = null
+        set(value) {
+            field = value
+            onAttachedToWindow()
+        }
 
     // an RecyclerView to use within the drawer :D
     lateinit var recyclerView: RecyclerView

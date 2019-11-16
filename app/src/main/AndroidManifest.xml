@@ -48,7 +48,7 @@
             android:theme="@style/SampleApp.DayNight" />
         <activity
             android:name=".MiniDrawerActivity"
-            android:theme="@style/MaterialDrawerTheme" />
+            android:theme="@style/SampleApp.DayNight" />
         <activity
             android:name=".FullscreenDrawerActivity"
             android:theme="@style/SampleApp.DayNight" />

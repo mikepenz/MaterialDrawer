@@ -6,13 +6,13 @@ import android.view.MenuItem
 import androidx.appcompat.app.AppCompatActivity
 import com.mikepenz.materialdrawer.app.fragment.DrawerFragment
 import com.mikepenz.materialdrawer.app.fragment.SecondDrawerFragment
-import kotlinx.android.synthetic.main.activity_sample_fragment_dark_toolbar.*
+import kotlinx.android.synthetic.main.activity_sample_fragment.*
 
 class FragmentActivity : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_sample_fragment_dark_toolbar)
+        setContentView(R.layout.activity_sample_fragment)
 
         // Handle Toolbar
         setSupportActionBar(toolbar)
