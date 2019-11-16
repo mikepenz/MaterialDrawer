@@ -51,10 +51,10 @@
             android:theme="@style/MaterialDrawerTheme" />
         <activity
             android:name=".FullscreenDrawerActivity"
-            android:theme="@style/FullscreenTheme" />
+            android:theme="@style/SampleApp.DayNight" />
         <activity
             android:name=".FragmentActivity"
-            android:theme="@style/MaterialDrawerTheme.Light.DarkToolbar" />
+            android:theme="@style/SampleApp.DayNight" />
         <activity
             android:name=".CollapsingToolbarActivity"
             android:theme="@style/SampleApp.DayNight" />

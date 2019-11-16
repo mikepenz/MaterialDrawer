@@ -32,11 +32,9 @@
 
     <style name="Widget.MaterialDrawerHeaderStylePersistent" parent="">
         <item name="materialDrawerCompactStyle">true</item>
-        <item name="materialDrawerHeaderLayout">@layout/material_drawer_compact_persistent_header</item>
+        <item name="materialDrawerHeaderLayout">@layout/material_drawer_compact_persistent_header
+        </item>
         <item name="materialDrawerHeaderSelectionText">?colorOnSurface</item>
         <item name="materialDrawerHeaderSelectionSubtext">?colorOnSurface</item>
     </style>
-
-
-    <style name="FullscreenTheme" parent="MaterialDrawerTheme.Light.DarkToolbar.TranslucentStatus"></style>
 </resources>
