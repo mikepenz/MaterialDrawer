@@ -23,6 +23,8 @@ import com.mikepenz.materialdrawer.model.interfaces.Badgeable
 import com.mikepenz.materialdrawer.model.interfaces.IDrawerItem
 import com.mikepenz.materialdrawer.model.interfaces.Iconable
 import com.mikepenz.materialdrawer.model.interfaces.Nameable
+import com.mikepenz.materialdrawer.util.ifNotNull
+import com.mikepenz.materialdrawer.util.otherwise
 import com.mikepenz.materialize.Materialize
 import com.mikepenz.materialize.view.ScrimInsetsRelativeLayout
 
@@ -299,7 +301,7 @@ open class Drawer(internal val drawerBuilder: DrawerBuilder) {
      *
      * @return
      */
-    var originalDrawerItems: List<IDrawerItem<*>>? = null
+    var originalDrawerItems: MutableList<IDrawerItem<*>>? = null
         private set
     private var originalDrawerState: Bundle? = null
 
@@ -636,7 +638,11 @@ open class Drawer(internal val drawerBuilder: DrawerBuilder) {
      */
     fun updateItemAtPosition(drawerItem: IDrawerItem<*>, position: Int) {
         if (drawerBuilder.checkDrawerItem(position, false)) {
-            drawerBuilder.itemAdapter[position] = drawerItem
+            originalDrawerItems.ifNotNull {
+                it[position] = drawerItem
+            } otherwise {
+                drawerBuilder.itemAdapter[position] = drawerItem
+            }
         }
     }
 
@@ -646,7 +652,11 @@ open class Drawer(internal val drawerBuilder: DrawerBuilder) {
      * @param drawerItem
      */
     fun addItem(drawerItem: IDrawerItem<*>) {
-        drawerBuilder.itemAdapter.add(drawerItem)
+        originalDrawerItems.ifNotNull {
+            it.add(drawerItem)
+        } otherwise {
+            drawerBuilder.itemAdapter.add(drawerItem)
+        }
     }
 
     /**
@@ -656,7 +666,11 @@ open class Drawer(internal val drawerBuilder: DrawerBuilder) {
      * @param position
      */
     fun addItemAtPosition(drawerItem: IDrawerItem<*>, position: Int) {
-        drawerBuilder.itemAdapter.add(position, drawerItem)
+        originalDrawerItems.ifNotNull {
+            it.add(position, drawerItem)
+        } otherwise {
+            drawerBuilder.itemAdapter.add(position, drawerItem)
+        }
     }
 
     /**
@@ -666,7 +680,11 @@ open class Drawer(internal val drawerBuilder: DrawerBuilder) {
      * @param position
      */
     fun setItemAtPosition(drawerItem: IDrawerItem<*>, position: Int) {
-        drawerBuilder.itemAdapter.add(position, drawerItem)
+        originalDrawerItems.ifNotNull {
+            it[position] = drawerItem
+        } otherwise {
+            drawerBuilder.itemAdapter[position] = drawerItem
+        }
     }
 
     /**
@@ -675,8 +693,12 @@ open class Drawer(internal val drawerBuilder: DrawerBuilder) {
      * @param position
      */
     fun removeItemByPosition(position: Int) {
-        if (drawerBuilder.checkDrawerItem(position, false)) {
-            drawerBuilder.itemAdapter.remove(position)
+        originalDrawerItems.ifNotNull {
+            it.removeAt(position)
+        } otherwise {
+            if (drawerBuilder.checkDrawerItem(position, false)) {
+                drawerBuilder.itemAdapter.remove(position)
+            }
         }
     }
 
@@ -686,7 +708,11 @@ open class Drawer(internal val drawerBuilder: DrawerBuilder) {
      * @param identifier
      */
     fun removeItem(identifier: Long) {
-        itemAdapter.removeByIdentifier(identifier)
+        originalDrawerItems.ifNotNull {
+            it.removeAll { item -> item.identifier == identifier }
+        } otherwise {
+            itemAdapter.removeByIdentifier(identifier)
+        }
     }
 
     /**
@@ -695,7 +721,9 @@ open class Drawer(internal val drawerBuilder: DrawerBuilder) {
      * @param identifiers
      */
     fun removeItems(vararg identifiers: Long) {
-        if (identifiers != null) {
+        originalDrawerItems.ifNotNull {
+            it.removeAll { item -> identifiers.contains(item.identifier) }
+        } otherwise {
             for (identifier in identifiers) {
                 removeItem(identifier)
             }
@@ -706,7 +734,11 @@ open class Drawer(internal val drawerBuilder: DrawerBuilder) {
      * Removes all items from drawer
      */
     fun removeAllItems() {
-        drawerBuilder.itemAdapter.clear()
+        originalDrawerItems.ifNotNull {
+            it.clear()
+        } otherwise {
+            drawerBuilder.itemAdapter.clear()
+        }
     }
 
     /**
@@ -715,7 +747,11 @@ open class Drawer(internal val drawerBuilder: DrawerBuilder) {
      * @param drawerItems
      */
     fun addItems(vararg drawerItems: IDrawerItem<*>) {
-        drawerBuilder.itemAdapter.add(*drawerItems)
+        originalDrawerItems.ifNotNull {
+            it.addAll(drawerItems)
+        } otherwise {
+            drawerBuilder.itemAdapter.add(drawerItems.asList())
+        }
     }
 
     /**
@@ -725,7 +761,11 @@ open class Drawer(internal val drawerBuilder: DrawerBuilder) {
      * @param drawerItems
      */
     fun addItemsAtPosition(position: Int, vararg drawerItems: IDrawerItem<*>) {
-        drawerBuilder.itemAdapter.add(position, *drawerItems)
+        originalDrawerItems.ifNotNull {
+            it.addAll(position, drawerItems.asList())
+        } otherwise {
+            drawerBuilder.itemAdapter.add(position, drawerItems.asList())
+        }
     }
 
     /**
@@ -746,7 +786,7 @@ open class Drawer(internal val drawerBuilder: DrawerBuilder) {
     private fun setItems(drawerItems: List<IDrawerItem<*>>?, switchedItems: Boolean) {
         //if we are currently at a switched list set the new reference
         if (originalDrawerItems != null && !switchedItems) {
-            originalDrawerItems = drawerItems
+            originalDrawerItems = drawerItems?.toMutableList()
         }
         drawerBuilder.itemAdapter.setNewList(drawerItems ?: ArrayList())
     }
@@ -855,7 +895,7 @@ open class Drawer(internal val drawerBuilder: DrawerBuilder) {
             originalOnDrawerItemLongClickListener = onDrawerItemLongClickListener
             originalDrawerState = adapter.saveInstanceState(Bundle())
             drawerBuilder.mExpandableExtension.collapse(false)
-            originalDrawerItems = drawerItems
+            originalDrawerItems = drawerItems.toMutableList()
         }
 
         //set the new items
