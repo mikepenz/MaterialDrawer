@@ -709,7 +709,7 @@ open class Drawer(internal val drawerBuilder: DrawerBuilder) {
      */
     fun removeItem(identifier: Long) {
         originalDrawerItems.ifNotNull {
-            throw UnsupportedOperationException("Can not remove an item by identifier if the list is swapped")
+            it.removeAll { item -> item.identifier == identifier }
         } otherwise {
             itemAdapter.removeByIdentifier(identifier)
         }
@@ -722,7 +722,7 @@ open class Drawer(internal val drawerBuilder: DrawerBuilder) {
      */
     fun removeItems(vararg identifiers: Long) {
         originalDrawerItems.ifNotNull {
-            throw UnsupportedOperationException("Can not remove items by identifier if the list is swapped")
+            it.removeAll { item -> identifiers.contains(item.identifier) }
         } otherwise {
             for (identifier in identifiers) {
                 removeItem(identifier)
