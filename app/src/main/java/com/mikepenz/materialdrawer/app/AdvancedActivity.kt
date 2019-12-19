@@ -120,8 +120,9 @@ class AdvancedActivity : AppCompatActivity() {
                         profile5,
                         //don't ask but google uses 14dp for the add account icon in gmail but 20dp for the normal icons (like manage account)
                         ProfileSettingDrawerItem().withName("Add Account").withDescription("Add new GitHub Account").withIcon(IconicsDrawable(this, GoogleMaterial.Icon.gmd_add).actionBar().padding(dp(5)).color(colorRes(R.color.material_drawer_dark_primary_text))).withIdentifier(PROFILE_SETTING.toLong()),
-                        ProfileSettingDrawerItem().withName("Manage Account").withIcon(GoogleMaterial.Icon.gmd_settings)
+                        ProfileSettingDrawerItem().withName("Manage Account").withIcon(GoogleMaterial.Icon.gmd_settings).withIdentifier(75463)
                 )
+                .withResetDrawerOnProfileListClick(false)
                 .withTextColor(ContextCompat.getColor(this, R.color.material_drawer_dark_primary_text))
                 .withOnAccountHeaderListener(object : AccountHeader.OnAccountHeaderListener {
                     override fun onProfileChanged(view: View?, profile: IProfile<*>, current: Boolean): Boolean {
@@ -137,10 +138,14 @@ class AdvancedActivity : AppCompatActivity() {
                             } else {
                                 headerResult.addProfiles(newProfile)
                             }
+                        } else if (profile is IDrawerItem<*> && (profile as IDrawerItem<*>).identifier == 75463L) {
+                            for (i in 1..5) {
+                                result.addItemAtPosition(SecondaryDrawerItem().withName(R.string.drawer_item_help).withIcon(FontAwesome.Icon.faw_database), 5)
+                            }
                         }
 
                         //false if you have not consumed the event and it should close the drawer
-                        return false
+                        return true
                     }
                 })
                 .withSavedInstance(savedInstanceState)
