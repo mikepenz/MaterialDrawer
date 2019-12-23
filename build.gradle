@@ -1,7 +1,5 @@
 buildscript {
     ext {
-        kotlin_version = '1.3.50'
-
         release = [
                 versionName: "8.0.0-a02",
                 versionCode: 8000
@@ -16,18 +14,17 @@ buildscript {
 
         versions = [
                 multiDex         : '2.0.1',
-                androidX         : '1.0.0',
                 annotation       : '1.1.0',
-                recyclerView     : '1.1.0-beta05',
-                material         : '1.1.0-beta02',
+                recyclerView     : '1.1.0',
+                material         : '1.1.0-rc01',
                 appcompat        : '1.1.0',
                 drawerlayout     : '1.1.0-alpha03',
-                constraintLayout : '2.0.0-beta3',
+                constraintLayout : '2.0.0-beta4',
                 cardview         : '1.0.0',
-                kotlin           : "1.3.50",
-                fastadapter      : "4.1.1",
-                iconics          : "4.0.1",
-                navigation       : "2.1.0",
+                kotlin           : "1.3.61",
+                fastadapter      : "4.1.2",
+                iconics          : "4.0.2",
+                navigation       : "2.2.0-rc04",
                 slidingpaneLayout: "1.0.0"
         ]
     }
@@ -38,12 +35,11 @@ buildscript {
         mavenCentral()
     }
     dependencies {
-        classpath 'com.android.tools.build:gradle:3.5.1'
+        classpath 'com.android.tools.build:gradle:3.5.3'
         classpath 'com.github.dcendents:android-maven-gradle-plugin:2.1'
         classpath 'com.jfrog.bintray.gradle:gradle-bintray-plugin:1.8.4'
         classpath "org.jetbrains.kotlin:kotlin-gradle-plugin:${versions.kotlin}"
         classpath "androidx.navigation:navigation-safe-args-gradle-plugin:${versions.navigation}"
-        classpath "org.jetbrains.kotlin:kotlin-gradle-plugin:$kotlin_version"
     }
 }
 
