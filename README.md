@@ -159,7 +159,7 @@ result.getDrawerLayout()
 // Create the AccountHeader
 val headerResult = AccountHeaderBuilder()
 	.withActivity(this)
-    .withHeaderBackground(R.drawable.header)
+        .withHeaderBackground(R.drawable.header)
 	.addProfiles(
 		ProfileDrawerItem().withName("Mike Penz").withEmail("mikepenz@gmail.com").withIcon(getResources().getDrawable(R.drawable.profile))
 	)
@@ -170,7 +170,7 @@ val headerResult = AccountHeaderBuilder()
     })
 	.build()
 
-//Now create your drawer and pass the AccountHeader.Result
+// Now create your drawer and pass the AccountHeader.Result
 DrawerBuilder()
     .withAccountHeader(headerResult)
     //additional Drawer setup as shown above
@@ -204,7 +204,7 @@ SecondaryDrawerItem().withIcon(FontAwesome.Icon.faw_github)
 DrawerBuilder()
 	.withActivity(this)
 	.withTranslucentStatusBar(false)
-    .withActionBarDrawerToggle(false)
+        .withActionBarDrawerToggle(false)
 	.addDrawerItems(
 		//pass your items here
 	)
@@ -223,7 +223,7 @@ val result = DrawerBuilder()
 	.build()
 
 DrawerBuilder()
-	.withActivity(this)
+    .withActivity(this)
     .addDrawerItems(
     	//pass your items here
     )
