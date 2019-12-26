@@ -303,7 +303,7 @@ The **MaterialDrawer** requires an `AppCompat` theme or a derivative theme like 
 
 
 ## Style the drawer
-### Use of a none MaterialDrawer.* style
+### Use of a non MaterialDrawer.* style
 If you don't use one of the provided styles you have to add the style values to your style. Here's a simple sample.
 This is the same as the Custom style just with a parent like `parent="Theme.AppCompat.Light.DarkActionBar"`
 ### Custom style - styles.xml
