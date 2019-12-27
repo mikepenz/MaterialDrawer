@@ -32,7 +32,7 @@ import com.mikepenz.materialdrawer.view.BezelImageView
 import com.mikepenz.materialize.util.UIUtils
 import java.util.*
 
-class AccountHeaderView @JvmOverloads constructor(context: Context, attrs: AttributeSet? = null, defStyleAttr: Int = 0, compact: Boolean? = null) : ConstraintLayout(context, attrs, defStyleAttr) {
+open class AccountHeaderView @JvmOverloads constructor(context: Context, attrs: AttributeSet? = null, defStyleAttr: Int = 0, compact: Boolean? = null) : ConstraintLayout(context, attrs, defStyleAttr) {
     var savedInstanceKey: String = ""
 
     // global references to views we need later

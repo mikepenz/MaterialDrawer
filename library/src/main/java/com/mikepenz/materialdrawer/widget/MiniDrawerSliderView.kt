@@ -20,31 +20,29 @@ import com.mikepenz.materialdrawer.model.*
 import com.mikepenz.materialdrawer.model.interfaces.IDrawerItem
 import com.mikepenz.materialdrawer.util.getDrawerItem
 
-class MiniDrawerSliderView @JvmOverloads constructor(context: Context, attrs: AttributeSet? = null, defStyleAttr: Int = R.attr.materialDrawerStyle) : LinearLayout(context, attrs, defStyleAttr) {
+open class MiniDrawerSliderView @JvmOverloads constructor(context: Context, attrs: AttributeSet? = null, defStyleAttr: Int = R.attr.materialDrawerStyle) : LinearLayout(context, attrs, defStyleAttr) {
 
     /**
      * get the RecyclerView of this MiniDrawer
      *
      * @return
      */
-    var recyclerView: RecyclerView
-        private set
+    val recyclerView: RecyclerView
+
     /**
      * get the FastAdapter of this MiniDrawer
      *
      * @return
      */
-    var adapter: FastAdapter<IDrawerItem<*>>
-        protected set
+    val adapter: FastAdapter<IDrawerItem<*>>
+
     /**
      * get the ItemAdapter of this MiniDrawer
      *
      * @return
      */
-    var itemAdapter: ItemAdapter<IDrawerItem<*>>
-        protected set
-
-    var mSelectExtension: SelectExtension<IDrawerItem<*>>
+    val itemAdapter: ItemAdapter<IDrawerItem<*>>
+    val selectExtension: SelectExtension<IDrawerItem<*>>
 
     /**
      * get the Drawer used to fill this MiniDrawer
@@ -75,29 +73,51 @@ class MiniDrawerSliderView @JvmOverloads constructor(context: Context, attrs: At
      */
     var crossFader: ICrossfader? = null
 
-    private var mInnerShadow = false
-    private var mInRTL = false
+    var innerShadow = false
+        set(value) {
+            field = value
+            updateInnerShadow()
+        }
+
+    var inRTL = false
+        set(value) {
+            field = value
+            updateInnerShadow()
+        }
+
     var includeSecondaryDrawerItems = false
-    private var mEnableSelectedMiniDrawerItemBackground = false
-    private var mEnableProfileClick = true
-    private var mOnMiniDrawerItemClickListener: OnMiniDrawerItemClickListener? = null
-    private var mOnMiniDrawerItemOnClickListener: ((v: View?, adapter: IAdapter<IDrawerItem<*>>, item: IDrawerItem<*>, position: Int) -> Boolean)? = null
-    private var mOnMiniDrawerItemLongClickListener: ((v: View, adapter: IAdapter<IDrawerItem<*>>, item: IDrawerItem<*>, position: Int) -> Boolean)? = null
+        set(value) {
+            field = value
+            createItems()
+        }
 
+    private var enableSelectedMiniDrawerItemBackground = false
+        set(value) {
+            field = value
+            createItems()
+        }
 
-    /**
-     * the defined FastAdapter.OnClickListener which completely replaces the original behavior
-     *
-     * @return
-     */
-    val onMiniDrawerItemOnClickListener: ((v: View?, adapter: IAdapter<IDrawerItem<*>>, item: IDrawerItem<*>, position: Int) -> Boolean)?
-        get() = mOnMiniDrawerItemOnClickListener
+    private var enableProfileClick = true
+        set(value) {
+            field = value
+            createItems()
+        }
 
-    /**
-     * @return
-     */
-    val onMiniDrawerItemLongClickListener: ((v: View, adapter: IAdapter<IDrawerItem<*>>, item: IDrawerItem<*>, position: Int) -> Boolean)?
-        get() = mOnMiniDrawerItemLongClickListener
+    private var onMiniDrawerItemClickListener: ((view: View?, position: Int, drawerItem: IDrawerItem<*>, type: Int) -> Boolean)? = null
+    private var onMiniDrawerItemOnClickListener: ((v: View?, adapter: IAdapter<IDrawerItem<*>>, item: IDrawerItem<*>, position: Int) -> Boolean)? = null
+        set(value) {
+            field = value
+            if (value == null) {
+                createItems()
+            } else {
+                adapter.onClickListener = value
+            }
+        }
+    private var onMiniDrawerItemLongClickListener: ((v: View, adapter: IAdapter<IDrawerItem<*>>, item: IDrawerItem<*>, position: Int) -> Boolean)? = null
+        set(value) {
+            field = value
+            adapter.onLongClickListener = value
+        }
 
     /**
      * returns always the original drawerItems and not the switched content
@@ -112,13 +132,7 @@ class MiniDrawerSliderView @JvmOverloads constructor(context: Context, attrs: At
         background = a.getDrawable(R.styleable.MaterialDrawerSliderView_materialDrawerBackground)
         a.recycle()
 
-        if (mInnerShadow) {
-            if (!mInRTL) {
-                setBackgroundResource(R.drawable.material_drawer_shadow_left)
-            } else {
-                setBackgroundResource(R.drawable.material_drawer_shadow_right)
-            }
-        }
+        updateInnerShadow()
 
         //create and append recyclerView
         recyclerView = RecyclerView(context)
@@ -135,9 +149,9 @@ class MiniDrawerSliderView @JvmOverloads constructor(context: Context, attrs: At
         //adapter
         itemAdapter = ItemAdapter()
         adapter = FastAdapter.with(itemAdapter)
-        mSelectExtension = adapter.getOrCreateExtension(SelectExtension::class.java)!! // definitely not null
-        mSelectExtension.isSelectable = true
-        mSelectExtension.allowDeselection = false
+        selectExtension = adapter.getOrCreateExtension(SelectExtension::class.java)!! // definitely not null
+        selectExtension.isSelectable = true
+        selectExtension.allowDeselection = false
         recyclerView.adapter = adapter
 
         // set the insets
@@ -150,6 +164,17 @@ class MiniDrawerSliderView @JvmOverloads constructor(context: Context, attrs: At
         createItems()
     }
 
+    private fun updateInnerShadow() {
+        if (innerShadow) {
+            if (!inRTL) {
+                setBackgroundResource(R.drawable.material_drawer_shadow_left)
+            } else {
+                setBackgroundResource(R.drawable.material_drawer_shadow_right)
+            }
+        } else {
+            background = null
+        }
+    }
 
     /**
      * call this method to trigger the onProfileClick on the MiniDrawer
@@ -204,14 +229,14 @@ class MiniDrawerSliderView @JvmOverloads constructor(context: Context, attrs: At
      */
     fun setSelection(identifier: Long) {
         if (identifier == -1L) {
-            mSelectExtension.deselect()
+            selectExtension.deselect()
         }
         val count = adapter.itemCount
         for (i in 0 until count) {
             val item = adapter.getItem(i)
             if (item?.identifier == identifier && !item.isSelected) {
-                mSelectExtension.deselect()
-                mSelectExtension.select(i)
+                selectExtension.deselect()
+                selectExtension.select(i)
             }
         }
     }
@@ -272,19 +297,19 @@ class MiniDrawerSliderView @JvmOverloads constructor(context: Context, attrs: At
 
             if (select >= 0) {
                 //+1 because of the profile
-                mSelectExtension.select(select + profileOffset)
+                selectExtension.select(select + profileOffset)
             }
         }
 
         //listener
-        if (mOnMiniDrawerItemOnClickListener != null) {
-            adapter.onClickListener = mOnMiniDrawerItemOnClickListener
+        if (this.onMiniDrawerItemOnClickListener != null) {
+            adapter.onClickListener = this.onMiniDrawerItemOnClickListener
         } else {
             adapter.onClickListener = { v: View?, _: IAdapter<IDrawerItem<*>>, item: IDrawerItem<*>, position: Int ->
                 val type = getMiniDrawerType(item)
 
                 //if a listener is defined and we consume the event return
-                if (mOnMiniDrawerItemClickListener?.onItemClick(v, position, item, type) == true) {
+                if (onMiniDrawerItemClickListener?.invoke(v, position, item, type) == true) {
                     false
                 } else {
                     if (type == ITEM) {
@@ -320,7 +345,7 @@ class MiniDrawerSliderView @JvmOverloads constructor(context: Context, attrs: At
                 }
             }
         }
-        adapter.onLongClickListener = mOnMiniDrawerItemLongClickListener
+        adapter.onLongClickListener = onMiniDrawerItemLongClickListener
         recyclerView.scrollToPosition(0)
     }
 
@@ -332,9 +357,9 @@ class MiniDrawerSliderView @JvmOverloads constructor(context: Context, attrs: At
      */
     open fun generateMiniDrawerItem(drawerItem: IDrawerItem<*>): IDrawerItem<*>? {
         return when (drawerItem) {
-            is SecondaryDrawerItem -> if (includeSecondaryDrawerItems) MiniDrawerItem(drawerItem).withEnableSelectedBackground(mEnableSelectedMiniDrawerItemBackground).withSelectedBackgroundAnimated(false) else null
-            is PrimaryDrawerItem -> MiniDrawerItem(drawerItem).withEnableSelectedBackground(mEnableSelectedMiniDrawerItemBackground).withSelectedBackgroundAnimated(false)
-            is ProfileDrawerItem -> MiniProfileDrawerItem(drawerItem).apply { withEnabled(mEnableProfileClick) }
+            is SecondaryDrawerItem -> if (includeSecondaryDrawerItems) MiniDrawerItem(drawerItem).withEnableSelectedBackground(enableSelectedMiniDrawerItemBackground).withSelectedBackgroundAnimated(false) else null
+            is PrimaryDrawerItem -> MiniDrawerItem(drawerItem).withEnableSelectedBackground(enableSelectedMiniDrawerItemBackground).withSelectedBackgroundAnimated(false)
+            is ProfileDrawerItem -> MiniProfileDrawerItem(drawerItem).apply { withEnabled(enableProfileClick) }
             else -> null
         }
     }
@@ -352,17 +377,6 @@ class MiniDrawerSliderView @JvmOverloads constructor(context: Context, attrs: At
             return ITEM
         }
         return -1
-    }
-
-    interface OnMiniDrawerItemClickListener {
-        /**
-         * @param view
-         * @param position
-         * @param drawerItem
-         * @param type       either MiniDrawer.PROFILE or MiniDrawer.ITEM
-         * @return true if the event was consumed
-         */
-        fun onItemClick(view: View?, position: Int, drawerItem: IDrawerItem<*>, type: Int): Boolean
     }
 
     companion object {
