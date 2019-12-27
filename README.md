@@ -160,7 +160,7 @@ result.getDrawerLayout()
 // Create the AccountHeader
 val headerResult = AccountHeaderBuilder()
 	.withActivity(this)
-    .withHeaderBackground(R.drawable.header)
+        .withHeaderBackground(R.drawable.header)
 	.addProfiles(
 		ProfileDrawerItem().withName("Mike Penz").withEmail("mikepenz@gmail.com").withIcon(getResources().getDrawable(R.drawable.profile))
 	)
@@ -171,7 +171,7 @@ val headerResult = AccountHeaderBuilder()
     })
 	.build()
 
-//Now create your drawer and pass the AccountHeader.Result
+// Now create your drawer and pass the AccountHeader.Result
 DrawerBuilder()
     .withAccountHeader(headerResult)
     //additional Drawer setup as shown above
@@ -205,7 +205,7 @@ SecondaryDrawerItem().withIcon(FontAwesome.Icon.faw_github)
 DrawerBuilder()
 	.withActivity(this)
 	.withTranslucentStatusBar(false)
-    .withActionBarDrawerToggle(false)
+        .withActionBarDrawerToggle(false)
 	.addDrawerItems(
 		//pass your items here
 	)
@@ -224,7 +224,7 @@ val result = DrawerBuilder()
 	.build()
 
 DrawerBuilder()
-	.withActivity(this)
+    .withActivity(this)
     .addDrawerItems(
     	//pass your items here
     )
@@ -304,7 +304,7 @@ The **MaterialDrawer** requires an `AppCompat` theme or a derivative theme like 
 
 
 ## Style the drawer
-### Use of a none MaterialDrawer.* style
+### Use of a non MaterialDrawer.* style
 If you don't use one of the provided styles you have to add the style values to your style. Here's a simple sample.
 This is the same as the Custom style just with a parent like `parent="Theme.AppCompat.Light.DarkActionBar"`
 ### Custom style - styles.xml
