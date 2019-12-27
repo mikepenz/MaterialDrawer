@@ -292,7 +292,7 @@ class MiniDrawerSliderView @JvmOverloads constructor(context: Context, attrs: At
                             //make sure we are on the original drawerItemList
                             accountHeader?.let {
                                 if (it.selectionListShown) {
-                                    it.toggleSelectionList(it.context)
+                                    it.toggleSelectionList()
                                 }
                             }
                             val drawerItem = drawer?.getDrawerItem(item.identifier)
@@ -309,7 +309,7 @@ class MiniDrawerSliderView @JvmOverloads constructor(context: Context, attrs: At
                     } else if (type == PROFILE) {
                         accountHeader?.let {
                             if (!it.selectionListShown) {
-                                it.toggleSelectionList(it.context)
+                                it.toggleSelectionList()
                             }
                         }
 

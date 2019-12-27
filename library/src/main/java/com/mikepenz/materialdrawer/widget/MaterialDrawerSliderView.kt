@@ -339,18 +339,16 @@ open class MaterialDrawerSliderView @JvmOverloads constructor(context: Context, 
      * @return
      */
     fun withSavedInstance(savedInstance: Bundle?) {
+        savedInstance ?: return
         // try to restore all saved values again
-        savedInstance?.let { si ->
-            this.selectExtension.deselect()
-            adapter.withSavedInstanceState(si, BUNDLE_SELECTION + savedInstanceKey)
-            DrawerUtils.setStickyFooterSelection(this, si.getInt(BUNDLE_STICKY_FOOTER_SELECTION + savedInstanceKey, -1), null)
+        this.selectExtension.deselect()
+        adapter.withSavedInstanceState(savedInstance, BUNDLE_SELECTION + savedInstanceKey)
+        DrawerUtils.setStickyFooterSelection(this, savedInstance.getInt(BUNDLE_STICKY_FOOTER_SELECTION + savedInstanceKey, -1), null)
 
-            //toggle selection list if we were previously on the account list
-            if (si.getBoolean(BUNDLE_DRAWER_CONTENT_SWITCHED + savedInstanceKey, false)) {
-                accountHeader?.toggleSelectionList(context)
-            }
+        //toggle selection list if we were previously on the account list
+        if (savedInstance.getBoolean(BUNDLE_DRAWER_CONTENT_SWITCHED + savedInstanceKey, false)) {
+            accountHeader?.toggleSelectionList()
         }
-
     }
 
     /**
@@ -626,7 +624,7 @@ open class MaterialDrawerSliderView @JvmOverloads constructor(context: Context, 
             }
         }
         // add the onDrawerItemLongClickListener if set
-        adapter.onLongClickListener = { v: View, adapter: IAdapter<IDrawerItem<*>>, item: IDrawerItem<*>, position: Int ->
+        adapter.onLongClickListener = { v: View, _: IAdapter<IDrawerItem<*>>, item: IDrawerItem<*>, position: Int ->
             onDrawerItemLongClickListener?.invoke(v, item, position) ?: false
         }
 
@@ -645,12 +643,11 @@ open class MaterialDrawerSliderView @JvmOverloads constructor(context: Context, 
      * simple helper method to reset the selection of the sticky footer
      */
     internal fun resetStickyFooterSelection() {
-        stickyFooterView?.let {
-            if (it is LinearLayout) {
-                for (i in 0 until it.childCount) {
-                    it.getChildAt(i).isActivated = false
-                    it.getChildAt(i).isSelected = false
-                }
+        val stickyFooterView = stickyFooterView ?: return
+        if (stickyFooterView is LinearLayout) {
+            for (i in 0 until stickyFooterView.childCount) {
+                stickyFooterView.getChildAt(i).isActivated = false
+                stickyFooterView.getChildAt(i).isSelected = false
             }
         }
     }

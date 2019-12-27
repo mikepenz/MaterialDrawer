@@ -21,7 +21,6 @@ import com.mikepenz.iconics.IconicsColor
 import com.mikepenz.iconics.IconicsDrawable
 import com.mikepenz.iconics.IconicsSize
 import com.mikepenz.materialdrawer.R
-import com.mikepenz.materialdrawer.holder.ColorHolder
 import com.mikepenz.materialdrawer.holder.DimenHolder
 import com.mikepenz.materialdrawer.holder.ImageHolder
 import com.mikepenz.materialdrawer.holder.StringHolder
@@ -34,19 +33,19 @@ import com.mikepenz.materialize.util.UIUtils
 import java.util.*
 
 class AccountHeaderView @JvmOverloads constructor(context: Context, attrs: AttributeSet? = null, defStyleAttr: Int = 0, compact: Boolean? = null) : ConstraintLayout(context, attrs, defStyleAttr) {
-
     var savedInstanceKey: String = ""
 
     // global references to views we need later
-    var statusBarGuideline: Guideline
-    var accountHeaderBackground: ImageView
-    var currentProfileView: BezelImageView
-    var accountSwitcherArrow: ImageView
-    var currentProfileName: TextView
-    var currentProfileEmail: TextView
-    var profileFirstView: BezelImageView
-    var profileSecondView: BezelImageView
-    var profileThirdView: BezelImageView
+    val accountHeader: View
+    val statusBarGuideline: Guideline
+    val accountHeaderBackground: ImageView
+    val currentProfileView: BezelImageView
+    val accountSwitcherArrow: ImageView
+    val currentProfileName: TextView
+    val currentProfileEmail: TextView
+    val profileFirstView: BezelImageView
+    val profileSecondView: BezelImageView
+    val profileThirdView: BezelImageView
 
     /**
      * Selects the given profile and sets it to the new active profile
@@ -66,8 +65,19 @@ class AccountHeaderView @JvmOverloads constructor(context: Context, attrs: Attri
     internal var profileThird: IProfile<*>? = null
 
     // global stuff
-    var selectionListShown = false
+    private var _selectionListShown = false
+    var selectionListShown: Boolean
+        get() = _selectionListShown
+        set(value) {
+            if (value != _selectionListShown) {
+                toggleSelectionList()
+            }
+        }
     var accountHeaderTextSectionBackgroundResource = -1
+        set(value) {
+            field = value
+            buildProfiles()
+        }
 
     // defines if we use the compactStyle
     internal var compactStyle = false
@@ -83,9 +93,10 @@ class AccountHeaderView @JvmOverloads constructor(context: Context, attrs: Attri
 
     // set the account header height
     var height: DimenHolder? = null
-
-    //the background color for the slider
-    var textColor: ColorHolder? = null
+        set(value) {
+            field = value
+            reconstructHeader()
+        }
 
     //the current selected profile is visible in the list
     var currentHiddenInList = false
@@ -93,53 +104,77 @@ class AccountHeaderView @JvmOverloads constructor(context: Context, attrs: Attri
     //set to hide the first or second line
     var selectionFirstLineShown = true
         set(value) {
-            updateHeaderAndList()
             field = value
+            updateHeaderAndList()
         }
     var selectionSecondLineShown = true
         set(value) {
-            updateHeaderAndList()
             field = value
+            updateHeaderAndList()
         }
 
     //set one of these to define the text in the first or second line with in the account selector
     var selectionFirstLine: String? = null
         set(value) {
-            updateHeaderAndList()
             field = value
+            updateHeaderAndList()
         }
     var selectionSecondLine: String? = null
         set(value) {
-            updateHeaderAndList()
             field = value
+            updateHeaderAndList()
         }
 
     // set no divider below the header
     var paddingBelowHeader = true
+        set(value) {
+            field = value
+            sliderView?.setHeader(this, paddingBelowHeader, dividerBelowHeader)
+        }
 
     // set no divider below the header
     var dividerBelowHeader = true
+        set(value) {
+            field = value
+            sliderView?.setHeader(this, paddingBelowHeader, dividerBelowHeader)
+        }
 
     //the background for the header
     var headerBackground: ImageHolder? = null
         set(value) {
-            accountHeaderBackground?.let {
-                value?.applyTo(it, DrawerImageLoader.Tags.ACCOUNT_HEADER.name)
-            }
+            value?.applyTo(accountHeaderBackground, DrawerImageLoader.Tags.ACCOUNT_HEADER.name)
             field = value
         }
 
     //background scale type
-    var headerBackgroundScaleType: ImageView.ScaleType? = null
+    var headerBackgroundScaleType: ImageView.ScaleType?
+        get() = accountHeaderBackground.scaleType
+        set(value) {
+            if (value != null) {
+                accountHeaderBackground.scaleType = value
+            }
+        }
 
     //profile images in the header are shown or not
     var profileImagesVisible = true
+        set(value) {
+            field = value
+            buildProfiles()
+        }
 
     //only the main profile image is visible
     var onlyMainProfileImageVisible = false
+        set(value) {
+            field = value
+            buildProfiles()
+        }
 
     //show small profile images but hide MainProfileImage
     var onlySmallProfileImagesVisible = false
+        set(value) {
+            field = value
+            buildProfiles()
+        }
 
     //close the drawer after a profile was clicked in the list
     var closeDrawerOnProfileListClick: Boolean? = null
@@ -149,12 +184,20 @@ class AccountHeaderView @JvmOverloads constructor(context: Context, attrs: Attri
 
     // set the profile images clickable or not
     var profileImagesClickable = true
+        set(value) {
+            field = value
+            buildProfiles()
+        }
 
     // set to use the alternative profile header switching
     var alternativeProfileHeaderSwitching = false
 
     // enable 3 small header previews
     var threeSmallProfileImages = false
+        set(value) {
+            field = value
+            buildProfiles()
+        }
 
     //the delay which is waited before the drawer is closed
     var onProfileClickDrawerCloseDelay = 100
@@ -167,12 +210,27 @@ class AccountHeaderView @JvmOverloads constructor(context: Context, attrs: Attri
 
     //set the selection list enabled if there is only a single profile
     var selectionListEnabledForSingleProfile = true
+        set(value) {
+            field = value
+            buildProfiles()
+        }
 
     //set the selection enabled disabled
     var selectionListEnabled = true
+        set(value) {
+            field = value
+            buildProfiles()
+        }
 
     // the profiles to display
     var profiles: MutableList<IProfile<*>>? = null
+        set(value) {
+            field = value
+            value?.mapNotNull { it as? IDrawerItem<*> }?.forEach { item ->
+                sliderView?.idDistributor?.checkId(item)
+            }
+            updateHeaderAndList()
+        }
 
     // the click listener to be fired on profile or selection click
     var onAccountHeaderListener: ((view: View?, profile: IProfile<*>, current: Boolean) -> Boolean)? = null
@@ -259,8 +317,8 @@ class AccountHeaderView @JvmOverloads constructor(context: Context, attrs: Attri
         }
 
         //wrap the onSelection call and the reset stuff within a handler to prevent lag
-        if (resetDrawerOnProfileListClick && sliderView != null && view != null && view.context != null) {
-            resetDrawerContent(view.context)
+        if (resetDrawerOnProfileListClick && sliderView != null) {
+            resetDrawerContent()
         }
 
         //notify the MiniDrawer about the clicked profile (only if one exists and is hooked to the Drawer
@@ -310,29 +368,31 @@ class AccountHeaderView @JvmOverloads constructor(context: Context, attrs: Attri
             it.getResourceId(R.styleable.AccountHeaderView_materialDrawerHeaderLayout, if (compactStyle) R.layout.material_drawer_compact_header else R.layout.material_drawer_header)
         }
 
-        LayoutInflater.from(context).inflate(headerLayout, this, true)
+        // the account header
+        accountHeader = LayoutInflater.from(context).inflate(headerLayout, this, true)
 
         // get the header view within the container
         statusBarGuideline = findViewById(R.id.material_drawer_statusbar_guideline)
 
+        // get the background view
+        accountHeaderBackground = findViewById(R.id.material_drawer_account_header_background)
+
+        // set the arrow :D
+        accountSwitcherArrow = findViewById(R.id.material_drawer_account_header_text_switcher)
+
+        //get the fields for the name
+        currentProfileView = findViewById(R.id.material_drawer_account_header_current)
+        currentProfileName = findViewById(R.id.material_drawer_account_header_name)
+        currentProfileEmail = findViewById(R.id.material_drawer_account_header_email)
+
+        profileFirstView = findViewById(R.id.material_drawer_account_header_small_first)
+        profileSecondView = findViewById(R.id.material_drawer_account_header_small_second)
+        profileThirdView = findViewById(R.id.material_drawer_account_header_small_third)
+
+        reconstructHeader()
+
         //the default min header height by default 148dp
         val defaultHeaderMinHeight = context.resources.getDimensionPixelSize(R.dimen.material_drawer_account_header_height)
-
-        // handle the height for the header
-        var height = 0
-        this.height?.let {
-            height = it.asPixel(context)
-        } ?: run {
-            height = if (compactStyle) {
-                context.resources.getDimensionPixelSize(R.dimen.material_drawer_account_header_height_compact)
-            } else {
-                //calculate the header height by getting the optimal drawer width and calculating it * 9 / 16
-                (DrawerUIUtils.getOptimalDrawerWidth(context) * NAVIGATION_DRAWER_ACCOUNT_ASPECT_RATIO).toInt()
-            }
-        }
-
-        //set the height for the header
-        setHeaderHeight(height)
 
         // set the insets
         ViewCompat.setOnApplyWindowInsetsListener(this) { v, insets ->
@@ -340,6 +400,7 @@ class AccountHeaderView @JvmOverloads constructor(context: Context, attrs: Attri
             val topInset = insets.systemWindowInsetTop ?: 0
             statusBarGuideline.setGuidelineBegin(topInset)
 
+            val height = resolveHeight()
             var newHeight = height
             //in fact it makes no difference if we have a translucent statusBar or not. we want 9/16 just if we are not compact
             if (compactStyle) {
@@ -354,31 +415,42 @@ class AccountHeaderView @JvmOverloads constructor(context: Context, attrs: Attri
 
             insets
         }
+    }
 
-        // get the background view
-        accountHeaderBackground = findViewById(R.id.material_drawer_account_header_background)
+    private fun resolveHeight(): Int {
+        // handle the height for the header
+        var height = 0
+        this.height?.let {
+            height = it.asPixel(context)
+        } ?: run {
+            height = if (compactStyle) {
+                context.resources.getDimensionPixelSize(R.dimen.material_drawer_account_header_height_compact)
+            } else {
+                //calculate the header height by getting the optimal drawer width and calculating it * 9 / 16
+                (DrawerUIUtils.getOptimalDrawerWidth(context) * NAVIGATION_DRAWER_ACCOUNT_ASPECT_RATIO).toInt()
+            }
+        }
+        return height
+    }
+
+    private fun reconstructHeader() {
+        //set the height for the header
+        setHeaderHeight(resolveHeight())
+
         // set the background
         headerBackground?.applyTo(accountHeaderBackground, DrawerImageLoader.Tags.ACCOUNT_HEADER.name)
-
-        if (headerBackgroundScaleType != null) {
-            accountHeaderBackground.scaleType = headerBackgroundScaleType
-        }
 
         // get the text color to use for the text section
         val textColor = context.getHeaderSelectionTextColor() // textColor.applyColor(context, R.attr.materialDrawerHeaderSelectionText, R.color.material_drawer_header_selection_text)
         val subTextColor = context.getHeaderSelectionSubTextColor()  // this.textColor.applyColor(context, R.attr.materialDrawerHeaderSelectionSubtext, R.color.material_drawer_header_selection_subtext)
 
-        accountHeaderTextSectionBackgroundResource = UIUtils.getSelectableBackgroundRes(context)
+        if (accountHeaderTextSectionBackgroundResource == -1) {
+            accountHeaderTextSectionBackgroundResource = UIUtils.getSelectableBackgroundRes(context)
+        }
         handleSelectionView(currentProfile, true)
 
-        // set the arrow :D
-        accountSwitcherArrow = findViewById(R.id.material_drawer_account_header_text_switcher)
+        // set the arrow
         accountSwitcherArrow.setImageDrawable(IconicsDrawable(context, MaterialDrawerFont.Icon.mdf_arrow_drop_down).size(IconicsSize.res(R.dimen.material_drawer_account_header_dropdown)).padding(IconicsSize.res(R.dimen.material_drawer_account_header_dropdown_padding)).color(IconicsColor.colorList(subTextColor)))
-
-        //get the fields for the name
-        currentProfileView = findViewById(R.id.material_drawer_account_header_current)
-        currentProfileName = findViewById(R.id.material_drawer_account_header_name)
-        currentProfileEmail = findViewById(R.id.material_drawer_account_header_email)
 
         //set the typeface for the AccountHeader
         if (nameTypeface != null) {
@@ -395,10 +467,6 @@ class AccountHeaderView @JvmOverloads constructor(context: Context, attrs: Attri
 
         currentProfileName.setTextColor(textColor)
         currentProfileEmail.setTextColor(subTextColor)
-
-        profileFirstView = findViewById(R.id.material_drawer_account_header_small_first)
-        profileSecondView = findViewById(R.id.material_drawer_account_header_small_second)
-        profileThirdView = findViewById(R.id.material_drawer_account_header_small_third)
 
         //calculate the profiles to set
         calculateProfiles()
@@ -421,22 +489,8 @@ class AccountHeaderView @JvmOverloads constructor(context: Context, attrs: Attri
         val consumed = onAccountHeaderSelectionViewClickListener?.invoke(v, v.getTag(R.id.material_drawer_profile_header) as IProfile<*>)
                 ?: false
         if (accountSwitcherArrow.visibility == View.VISIBLE && !consumed) {
-            toggleSelectionList(v.context)
+            toggleSelectionList()
         }
-    }
-
-    /**
-     * set the arrayList of DrawerItems for the drawer
-     *
-     * @param profiles
-     * @return
-     */
-    fun withProfiles(profiles: MutableList<IProfile<*>>) {
-        profiles.mapNotNull { it as? IDrawerItem<*> }.forEach { item ->
-            sliderView?.idDistributor?.checkId(item)
-        }
-        this.profiles = profiles
-        updateHeaderAndList()
     }
 
     /**
@@ -454,7 +508,6 @@ class AccountHeaderView @JvmOverloads constructor(context: Context, attrs: Attri
         updateHeaderAndList()
     }
 
-
     /**
      * add single ore more DrawerItems to the Drawer
      *
@@ -467,7 +520,7 @@ class AccountHeaderView @JvmOverloads constructor(context: Context, attrs: Attri
         }
 
         this.profiles?.let {
-            it.mapNotNull { it as? IDrawerItem<*> }.forEach { item ->
+            it.mapNotNull { di -> di as? IDrawerItem<*> }.forEach { item ->
                 sliderView?.idDistributor?.checkId(item)
             }
             Collections.addAll<IProfile<*>>(it, *profiles)
@@ -500,15 +553,14 @@ class AccountHeaderView @JvmOverloads constructor(context: Context, attrs: Attri
      * @return
      */
     fun withSavedInstance(savedInstance: Bundle?) {
+        savedInstance ?: return
         // try to restore all saved values again
-        savedInstance?.let { si ->
-            val selection = si.getInt(BUNDLE_SELECTION_HEADER + savedInstanceKey, -1)
-            if (selection != -1) {
-                //predefine selection (should be the first element
-                profiles?.let {
-                    if (selection > -1 && selection < it.size) {
-                        switchProfiles(it[selection])
-                    }
+        val selection = savedInstance.getInt(BUNDLE_SELECTION_HEADER + savedInstanceKey, -1)
+        if (selection != -1) {
+            //predefine selection (should be the first element
+            profiles?.let {
+                if (selection > -1 && selection < it.size) {
+                    switchProfiles(it[selection])
                 }
             }
         }
@@ -525,19 +577,15 @@ class AccountHeaderView @JvmOverloads constructor(context: Context, attrs: Attri
             this.layoutParams = it
         }
 
-        this.findViewById<View>(R.id.material_drawer_account_header)?.let { accountHeader ->
-            val p = accountHeader.layoutParams
-            if (p != null) {
-                p.height = height
-                accountHeader.layoutParams = p
-            }
+        val lp = accountHeader.layoutParams
+        if (lp != null) {
+            lp.height = height
+            accountHeader.layoutParams = lp
         }
 
-        this.findViewById<View>(R.id.material_drawer_account_header_background)?.let { accountHeaderBackground ->
-            val p = accountHeaderBackground.layoutParams
-            p.height = height
-            accountHeaderBackground.layoutParams = p
-        }
+        val p = accountHeaderBackground.layoutParams
+        p.height = height
+        accountHeaderBackground.layoutParams = p
     }
 
     /**
@@ -873,7 +921,7 @@ class AccountHeaderView @JvmOverloads constructor(context: Context, attrs: Attri
         switchProfiles(profile)
 
         //reset the drawer content
-        resetDrawerContent(v.context)
+        resetDrawerContent()
 
         //notify the MiniDrawer about the clicked profile (only if one exists and is hooked to the Drawer
         miniDrawer?.onProfileClick()
@@ -893,24 +941,21 @@ class AccountHeaderView @JvmOverloads constructor(context: Context, attrs: Attri
 
     /**
      * helper method to toggle the collection
-     *
-     * @param ctx
      */
-    internal fun toggleSelectionList(ctx: Context) {
-        sliderView?.let { sliderView ->
-            //if we already show the list. reset everything instead
-            selectionListShown = if (sliderView.switchedDrawerContent()) {
-                resetDrawerContent(ctx)
-                false
-            } else {
-                //build and set the drawer selection list
-                buildDrawerSelectionList()
+    internal fun toggleSelectionList() {
+        val sliderView = sliderView ?: return
+        //if we already show the list. reset everything instead
+        _selectionListShown = if (sliderView.switchedDrawerContent()) {
+            resetDrawerContent()
+            false
+        } else {
+            //build and set the drawer selection list
+            buildDrawerSelectionList()
 
-                // update the arrow image within the drawer
-                accountSwitcherArrow.clearAnimation()
-                ViewCompat.animate(accountSwitcherArrow).rotation(180f).start()
-                true
-            }
+            // update the arrow image within the drawer
+            accountSwitcherArrow.clearAnimation()
+            ViewCompat.animate(accountSwitcherArrow).rotation(180f).start()
+            true
         }
     }
 
@@ -944,7 +989,7 @@ class AccountHeaderView @JvmOverloads constructor(context: Context, attrs: Attri
     /**
      * helper method to reset the drawer content
      */
-    private fun resetDrawerContent(ctx: Context) {
+    private fun resetDrawerContent() {
         sliderView?.resetDrawerContent()
 
         accountSwitcherArrow.clearAnimation()
