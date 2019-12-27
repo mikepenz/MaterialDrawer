@@ -196,8 +196,8 @@ internal object DrawerUtils {
                 sliderView.stickyHeaderView = it
             } else {
                 sliderView.headerView = it
-                sliderView.headerDivider = it.dividerBelowHeader
-                sliderView.headerPadding = it.paddingBelowHeader
+                sliderView._headerDivider = it.dividerBelowHeader
+                sliderView._headerPadding = it.paddingBelowHeader
             }
         }
 
@@ -294,7 +294,7 @@ internal object DrawerUtils {
 
         //use the StickyDrawerItems if set
         if (sliderView.stickyDrawerItems.size > 0) {
-            sliderView.stickyFooterView = DrawerUtils.buildStickyDrawerItemFooter(sliderView, onClickListener)
+            sliderView.stickyFooterView = buildStickyDrawerItemFooter(sliderView, onClickListener)
         }
 
         //sticky footer view

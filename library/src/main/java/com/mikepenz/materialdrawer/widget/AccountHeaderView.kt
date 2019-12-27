@@ -84,12 +84,24 @@ class AccountHeaderView @JvmOverloads constructor(context: Context, attrs: Attri
 
     // the typeface used for textViews within the AccountHeader
     var typeface: Typeface? = null
+        set(value) {
+            field = value
+            reconstructHeader()
+        }
 
     // the typeface used for name textView only. overrides typeface
     var nameTypeface: Typeface? = null
+        set(value) {
+            field = value
+            reconstructHeader()
+        }
 
     // the typeface used for email textView only. overrides typeface
     var emailTypeface: Typeface? = null
+        set(value) {
+            field = value
+            reconstructHeader()
+        }
 
     // set the account header height
     var height: DimenHolder? = null
@@ -119,6 +131,7 @@ class AccountHeaderView @JvmOverloads constructor(context: Context, attrs: Attri
             field = value
             updateHeaderAndList()
         }
+
     var selectionSecondLine: String? = null
         set(value) {
             field = value

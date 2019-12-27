@@ -40,7 +40,9 @@ import com.mikepenz.fastadapter.select.getSelectExtension
 import com.mikepenz.fastadapter.utils.DefaultIdDistributor
 import com.mikepenz.fastadapter.utils.DefaultIdDistributorImpl
 import com.mikepenz.materialdrawer.DrawerUtils
+import com.mikepenz.materialdrawer.DrawerUtils.handleFooterView
 import com.mikepenz.materialdrawer.DrawerUtils.handleHeaderView
+import com.mikepenz.materialdrawer.DrawerUtils.onFooterDrawerItemClick
 import com.mikepenz.materialdrawer.DrawerUtils.rebuildStickyFooterView
 import com.mikepenz.materialdrawer.R
 import com.mikepenz.materialdrawer.holder.DimenHolder
@@ -58,14 +60,31 @@ import java.util.*
 open class MaterialDrawerSliderView @JvmOverloads constructor(context: Context, attrs: AttributeSet? = null, defStyleAttr: Int = R.attr.materialDrawerStyle) : RelativeLayout(context, attrs, defStyleAttr) {
 
     var insetForeground: Drawable? = null
-    internal var insets: Rect? = null
+        set(value) {
+            field = value
+            invalidate()
+        }
+
+    private var insets: Rect? = null
     private val tempRect = Rect()
 
     var onInsetsCallback: OnInsetsCallback? = null
 
     var tintStatusBar = false
+        set(value) {
+            field = value
+            invalidate()
+        }
     var tintNavigationBar = true
+        set(value) {
+            field = value
+            invalidate()
+        }
     var systemUIVisible = true
+        set(value) {
+            field = value
+            invalidate()
+        }
 
     internal var currentStickyFooterSelection = -1
 
@@ -73,10 +92,18 @@ open class MaterialDrawerSliderView @JvmOverloads constructor(context: Context, 
 
     // the activity to use
     var layoutManager: RecyclerView.LayoutManager = LinearLayoutManager(context)
+        set(value) {
+            field = value
+            createContent()
+        }
     val idDistributor: DefaultIdDistributor<IDrawerItem<*>> = DefaultIdDistributorImpl()
 
     //defines if we want a inner shadow (used in with the MiniDrawer)
     private var innerShadow = false
+        set(value) {
+            field = value
+            createContent()
+        }
 
     //the account selection header to use
     var accountHeader: AccountHeaderView? = null
@@ -87,6 +114,10 @@ open class MaterialDrawerSliderView @JvmOverloads constructor(context: Context, 
             }
         }
     var accountHeaderSticky = false
+        set(value) {
+            field = value
+            handleHeaderView(this)
+        }
 
     // miniDrawer
     var miniDrawer: MiniDrawerSliderView? = null
@@ -102,9 +133,24 @@ open class MaterialDrawerSliderView @JvmOverloads constructor(context: Context, 
 
     // header view
     var headerView: View? = null
-    var headerDivider = true
-    var headerPadding = true
+    internal var _headerDivider = true
+    var headerDivider: Boolean
+        get() = _headerDivider
+        set(value) {
+            _headerDivider = value
+            handleHeaderView(this)
+        }
+    internal var _headerPadding = true
+    var headerPadding: Boolean
+        get() = _headerPadding
+        set(value) {
+            handleHeaderView(this)
+        }
     var headerHeight: DimenHolder? = null
+        set(value) {
+            field = value
+            handleHeaderView(this)
+        }
 
     // sticky view
     var stickyHeaderView: View? = null
@@ -122,16 +168,35 @@ open class MaterialDrawerSliderView @JvmOverloads constructor(context: Context, 
     // footer view
     var footerView: View? = null
     var footerDivider = true
-    var footerClickable = false
+        set(value) {
+            field = value
+            handleFooterView(this, footerClickListener)
+        }
+    private val footerClickListener = OnClickListener { v ->
+        val drawerItem = v.getTag(R.id.material_drawer_item) as IDrawerItem<*>
+        onFooterDrawerItemClick(this, drawerItem, v, true)
+    }
 
     // sticky view
     var stickyFooterView: ViewGroup? = null
     // divider shown on top of the sticky footer
     var stickyFooterDivider = false
+        set(value) {
+            field = value
+            rebuildStickyFooterView(this)
+        }
     // sticky view
     var stickyFooterShadowView: View? = null
+        set(value) {
+            field = value
+            rebuildStickyFooterView(this)
+        }
     // shadow shown on the top of the sticky footer
     var stickyFooterShadow = true
+        set(value) {
+            field = value
+            handleFooterView(this, footerClickListener)
+        }
 
     // fire onClick after build
     var fireInitialOnClick = false
@@ -146,13 +211,26 @@ open class MaterialDrawerSliderView @JvmOverloads constructor(context: Context, 
         get() = this.selectExtension.multiSelect
 
     // item to select
-    var selectedItemPosition = 0
+    private var _selectedItemPosition: Int = 0
+    var selectedItemPosition: Int
+        get() = _selectedItemPosition
+        set(value) {
+            _selectedItemPosition = if (value == 0 && headerView != null) 1 else value
+            this.selectExtension.deselect()
+            this.selectExtension.select(_selectedItemPosition)
+        }
 
     // item to select
     var selectedItemIdentifier: Long = 0
+        set(value) {
+            field = value
+            selectedItemPosition = DrawerUtils.getPositionByIdentifier(this, selectedItemIdentifier)
+        }
 
-    // the drawerLayout owning this slider
-    var drawerLayout: DrawerLayout? = null
+    // the _drawerLayout owning this slider
+    internal var _drawerLayout: DrawerLayout? = null
+    val drawerLayout: DrawerLayout?
+        get() = _drawerLayout
 
     // custom width
     var customWidth: Int? = null
@@ -198,9 +276,20 @@ open class MaterialDrawerSliderView @JvmOverloads constructor(context: Context, 
 
     // Defines a Adapter which wraps the main Adapter used in the RecyclerView to allow extended navigation and other stuff
     var adapterWrapper: RecyclerView.Adapter<*>? = null
+        set(value) {
+            if (!::_adapter.isInitialized) {
+                throw RuntimeException("this adapter has to be set in conjunction to a normal adapter which is used inside this wrapper adapter")
+            }
+            field = value
+            createContent()
+        }
 
     //defines the itemAnimator to be used in conjunction with the RecyclerView
     var itemAnimator: RecyclerView.ItemAnimator = DefaultItemAnimator()
+        set(value) {
+            field = value
+            createContent()
+        }
 
     // close drawer on click
     var closeOnClick = true
@@ -317,7 +406,7 @@ open class MaterialDrawerSliderView @JvmOverloads constructor(context: Context, 
         insetForeground?.callback = this
 
         if (parent != null) {
-            drawerLayout = parent as? DrawerLayout
+            _drawerLayout = parent as? DrawerLayout
             layoutParams?.also {
                 // if this is a drawer from the right, change the margins :D &  set the new params
                 it.width = customWidth ?: DrawerUIUtils.getOptimalDrawerWidth(context)
@@ -446,19 +535,6 @@ open class MaterialDrawerSliderView @JvmOverloads constructor(context: Context, 
     }
 
     /**
-     * Defines a Adapter which wraps the main Adapter used in the RecyclerView to allow extended navigation and other stuff
-     *
-     * @param adapterWrapper
-     * @return
-     */
-    fun withAdapterWrapper(adapterWrapper: RecyclerView.Adapter<*>) {
-        if (!::_adapter.isInitialized) {
-            throw RuntimeException("this adapter has to be set in conjunction to a normal adapter which is used inside this wrapper adapter")
-        }
-        this.adapterWrapper = adapterWrapper
-    }
-
-    /**
      * Inflates the DrawerItems from a menu.xml
      *
      * @param menuRes
@@ -526,23 +602,25 @@ open class MaterialDrawerSliderView @JvmOverloads constructor(context: Context, 
         if (!::recyclerView.isInitialized) {
             contentView = LayoutInflater.from(context).inflate(R.layout.material_drawer_recycler_view, this, false)
             recyclerView = contentView.findViewById(R.id.material_drawer_recycler_view)
-            //set the itemAnimator
-            recyclerView.itemAnimator = itemAnimator
             //some style improvements on older devices
             recyclerView.setFadingEdgeLength(0)
             recyclerView.clipToPadding = false
-            //additional stuff
-            recyclerView.layoutManager = layoutManager
-
         } else {
             contentView = recyclerView
         }
+
+        //set the itemAnimator
+        recyclerView.itemAnimator = itemAnimator
+        //additional stuff
+        recyclerView.layoutManager = layoutManager
 
         val params = LinearLayout.LayoutParams(
                 ViewGroup.LayoutParams.MATCH_PARENT,
                 ViewGroup.LayoutParams.MATCH_PARENT
         )
         params.weight = 1f
+
+        this.removeView(contentView) // ensure the view is not already part
         this.addView(contentView, params)
 
         if (innerShadow) {
@@ -557,13 +635,10 @@ open class MaterialDrawerSliderView @JvmOverloads constructor(context: Context, 
         }
 
         //handle the header
-        DrawerUtils.handleHeaderView(this)
+        handleHeaderView(this)
 
         //handle the footer
-        DrawerUtils.handleFooterView(this, OnClickListener { v ->
-            val drawerItem = v.getTag(R.id.material_drawer_item) as IDrawerItem<*>
-            DrawerUtils.onFooterDrawerItemClick(this, drawerItem, v, true)
-        })
+        handleFooterView(this, footerClickListener)
 
         //set the adapter on the listView
         if (adapterWrapper == null) {
@@ -572,18 +647,13 @@ open class MaterialDrawerSliderView @JvmOverloads constructor(context: Context, 
             recyclerView.adapter = adapterWrapper
         }
 
-        //predefine selection (should be the first element
-        if (selectedItemPosition == 0 && selectedItemIdentifier != 0L) {
-            selectedItemPosition = DrawerUtils.getPositionByIdentifier(this, selectedItemIdentifier)
+        //predefine selection (should be the first element)
+        if (headerView != null && _selectedItemPosition == 0) {
+            selectedItemPosition = _selectedItemPosition
         }
-        if (headerView != null && selectedItemPosition == 0) {
-            selectedItemPosition = 1
-        }
-        this.selectExtension.deselect()
-        this.selectExtension.select(selectedItemPosition)
 
         // add the onDrawerItemClickListener if set
-        adapter.onClickListener = { v: View?, adapter: IAdapter<IDrawerItem<*>>, item: IDrawerItem<*>, position: Int ->
+        adapter.onClickListener = { v: View?, _: IAdapter<IDrawerItem<*>>, item: IDrawerItem<*>, position: Int ->
             if (!(item is Selectable<*> && !item.isSelectable)) {
                 resetStickyFooterSelection()
                 currentStickyFooterSelection = -1
@@ -656,17 +726,17 @@ open class MaterialDrawerSliderView @JvmOverloads constructor(context: Context, 
      * helper method to close the drawer delayed
      */
     internal fun closeDrawerDelayed() {
-        if (closeOnClick && drawerLayout != null) {
+        if (closeOnClick && _drawerLayout != null) {
             if (delayOnDrawerClose > -1) {
                 Handler().postDelayed({
-                    drawerLayout?.closeDrawers()
+                    _drawerLayout?.closeDrawers()
 
                     if (scrollToTopAfterClick) {
                         recyclerView.smoothScrollToPosition(0)
                     }
                 }, delayOnDrawerClose.toLong())
             } else {
-                drawerLayout?.closeDrawers()
+                _drawerLayout?.closeDrawers()
             }
         }
     }
