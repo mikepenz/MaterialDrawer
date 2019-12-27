@@ -8,11 +8,8 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.LinearLayout
 import android.widget.RelativeLayout
-
 import androidx.drawerlayout.widget.DrawerLayout
-
 import com.mikepenz.materialdrawer.model.AbstractDrawerItem
-import com.mikepenz.materialdrawer.model.ContainerDrawerItem
 import com.mikepenz.materialdrawer.model.interfaces.IDrawerItem
 import com.mikepenz.materialdrawer.model.interfaces.Selectable
 import com.mikepenz.materialdrawer.util.DrawerUIUtils
@@ -195,9 +192,9 @@ internal object DrawerUtils {
             if (sliderView.accountHeaderSticky) {
                 sliderView.stickyHeaderView = it
             } else {
-                sliderView.headerView = it
                 sliderView._headerDivider = it.dividerBelowHeader
                 sliderView._headerPadding = it.paddingBelowHeader
+                sliderView.headerView = it
             }
         }
 
@@ -238,17 +235,6 @@ internal object DrawerUtils {
 
             //remove the padding of the recyclerView again we have the header on top of it
             sliderView.recyclerView.setPadding(0, 0, 0, 0)
-        }
-
-        // set the header (do this before the setAdapter because some devices will crash else
-        sliderView.headerView?.let {
-            if (sliderView.headerPadding) {
-                sliderView.headerAdapter.add(ContainerDrawerItem().withView(it).withHeight(sliderView.headerHeight).withDivider(sliderView.headerDivider).withViewPosition(ContainerDrawerItem.Position.TOP))
-            } else {
-                sliderView.headerAdapter.add(ContainerDrawerItem().withView(it).withHeight(sliderView.headerHeight).withDivider(sliderView.headerDivider).withViewPosition(ContainerDrawerItem.Position.NONE))
-            }
-            //set the padding on the top to 0
-            sliderView.recyclerView.setPadding(sliderView.recyclerView.paddingLeft, 0, sliderView.recyclerView.paddingRight, sliderView.recyclerView.paddingBottom)
         }
     }
 
@@ -294,7 +280,7 @@ internal object DrawerUtils {
 
         //use the StickyDrawerItems if set
         if (sliderView.stickyDrawerItems.size > 0) {
-            sliderView.stickyFooterView = buildStickyDrawerItemFooter(sliderView, onClickListener)
+            sliderView._stickyFooterView = buildStickyDrawerItemFooter(sliderView, onClickListener)
         }
 
         //sticky footer view
@@ -330,15 +316,6 @@ internal object DrawerUtils {
 
             //remove the padding of the recyclerView again we have the footer below it
             sliderView.recyclerView.setPadding(sliderView.recyclerView.paddingLeft, sliderView.recyclerView.paddingTop, sliderView.recyclerView.paddingRight, ctx.resources.getDimensionPixelSize(R.dimen.material_drawer_padding))
-        }
-
-        // set the footer (do this before the setAdapter because some devices will crash else
-        sliderView.footerView?.let {
-            if (sliderView.footerDivider) {
-                sliderView.footerAdapter.add(ContainerDrawerItem().withView(it).withViewPosition(ContainerDrawerItem.Position.BOTTOM))
-            } else {
-                sliderView.footerAdapter.add(ContainerDrawerItem().withView(it).withViewPosition(ContainerDrawerItem.Position.NONE))
-            }
         }
     }
 

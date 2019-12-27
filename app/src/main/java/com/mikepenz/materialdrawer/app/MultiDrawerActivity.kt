@@ -10,6 +10,7 @@ import com.mikepenz.materialdrawer.model.SecondaryDrawerItem
 import com.mikepenz.materialdrawer.model.SectionDrawerItem
 import com.mikepenz.materialdrawer.model.interfaces.Badgeable
 import com.mikepenz.materialdrawer.model.interfaces.Nameable
+import com.mikepenz.materialdrawer.util.updateItem
 import kotlinx.android.synthetic.main.activity_multi_sample.*
 
 class MultiDrawerActivity : AppCompatActivity() {

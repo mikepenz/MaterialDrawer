@@ -18,6 +18,7 @@ import com.mikepenz.materialdrawer.R
 import com.mikepenz.materialdrawer.interfaces.ICrossfader
 import com.mikepenz.materialdrawer.model.*
 import com.mikepenz.materialdrawer.model.interfaces.IDrawerItem
+import com.mikepenz.materialdrawer.util.getDrawerItem
 
 class MiniDrawerSliderView @JvmOverloads constructor(context: Context, attrs: AttributeSet? = null, defStyleAttr: Int = R.attr.materialDrawerStyle) : LinearLayout(context, attrs, defStyleAttr) {
 

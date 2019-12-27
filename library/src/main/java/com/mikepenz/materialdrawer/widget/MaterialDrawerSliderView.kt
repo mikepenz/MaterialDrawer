@@ -16,7 +16,6 @@ import android.view.View.OnClickListener
 import android.view.ViewGroup
 import android.widget.LinearLayout
 import android.widget.RelativeLayout
-import androidx.annotation.LayoutRes
 import androidx.annotation.MenuRes
 import androidx.appcompat.view.SupportMenuInflater
 import androidx.appcompat.view.menu.MenuBuilder
@@ -46,10 +45,9 @@ import com.mikepenz.materialdrawer.DrawerUtils.onFooterDrawerItemClick
 import com.mikepenz.materialdrawer.DrawerUtils.rebuildStickyFooterView
 import com.mikepenz.materialdrawer.R
 import com.mikepenz.materialdrawer.holder.DimenHolder
-import com.mikepenz.materialdrawer.holder.ImageHolder
-import com.mikepenz.materialdrawer.holder.StringHolder
 import com.mikepenz.materialdrawer.model.*
-import com.mikepenz.materialdrawer.model.interfaces.*
+import com.mikepenz.materialdrawer.model.interfaces.IDrawerItem
+import com.mikepenz.materialdrawer.model.interfaces.Selectable
 import com.mikepenz.materialdrawer.util.DrawerUIUtils
 import com.mikepenz.materialize.view.OnInsetsCallback
 import java.util.*
@@ -133,18 +131,32 @@ open class MaterialDrawerSliderView @JvmOverloads constructor(context: Context, 
 
     // header view
     var headerView: View? = null
+        set(value) {
+            field = value
+            headerAdapter.clear()
+            if (value != null) {
+                if (headerPadding) {
+                    headerAdapter.add(ContainerDrawerItem().withView(value).withDivider(headerDivider).withHeight(headerHeight).withViewPosition(ContainerDrawerItem.Position.TOP))
+                } else {
+                    headerAdapter.add(ContainerDrawerItem().withView(value).withDivider(headerDivider).withHeight(headerHeight).withViewPosition(ContainerDrawerItem.Position.NONE))
+                }
+                //we need to set the padding so the header starts on top
+                recyclerView.setPadding(recyclerView.paddingLeft, 0, recyclerView.paddingRight, recyclerView.paddingBottom)
+            }
+        }
     internal var _headerDivider = true
     var headerDivider: Boolean
         get() = _headerDivider
         set(value) {
             _headerDivider = value
-            handleHeaderView(this)
+            headerView = headerView
         }
     internal var _headerPadding = true
     var headerPadding: Boolean
         get() = _headerPadding
         set(value) {
-            handleHeaderView(this)
+            _headerPadding = value
+            headerView = headerView
         }
     var headerHeight: DimenHolder? = null
         set(value) {
@@ -167,10 +179,21 @@ open class MaterialDrawerSliderView @JvmOverloads constructor(context: Context, 
 
     // footer view
     var footerView: View? = null
+        set(value) {
+            field = value
+            // set the footer (do this before the setAdapter because some devices will crash else
+            if (value != null) {
+                if (footerDivider) {
+                    footerAdapter.add(ContainerDrawerItem().withView(value).withViewPosition(ContainerDrawerItem.Position.BOTTOM))
+                } else {
+                    footerAdapter.add(ContainerDrawerItem().withView(value).withViewPosition(ContainerDrawerItem.Position.NONE))
+                }
+            }
+        }
     var footerDivider = true
         set(value) {
             field = value
-            handleFooterView(this, footerClickListener)
+            footerView = footerView
         }
     private val footerClickListener = OnClickListener { v ->
         val drawerItem = v.getTag(R.id.material_drawer_item) as IDrawerItem<*>
@@ -178,7 +201,10 @@ open class MaterialDrawerSliderView @JvmOverloads constructor(context: Context, 
     }
 
     // sticky view
-    var stickyFooterView: ViewGroup? = null
+    internal var _stickyFooterView: ViewGroup? = null
+    val stickyFooterView: ViewGroup?
+        get() = _stickyFooterView
+
     // divider shown on top of the sticky footer
     var stickyFooterDivider = false
         set(value) {
@@ -244,6 +270,10 @@ open class MaterialDrawerSliderView @JvmOverloads constructor(context: Context, 
 
     // if the adapter should enable hasStableIds to improve performance and allow animations
     var hasStableIds = false
+        set(value) {
+            field = value
+            adapter.setHasStableIds(hasStableIds)
+        }
 
     // an adapter to use for the list
     internal lateinit var _adapter: FastAdapter<IDrawerItem<*>>
@@ -272,6 +302,12 @@ open class MaterialDrawerSliderView @JvmOverloads constructor(context: Context, 
         }
         set(value) {
             _adapter = value
+            this.selectExtension = _adapter.getOrCreateExtension(SelectExtension::class.java)!! // is definitely not null
+            //we have to rewrap as a different FastAdapter was provided
+            _adapter.addAdapter(0, headerAdapter)
+            _adapter.addAdapter(1, itemAdapter)
+            _adapter.addAdapter(2, footerAdapter)
+            initAdapter()
         }
 
     // Defines a Adapter which wraps the main Adapter used in the RecyclerView to allow extended navigation and other stuff
@@ -438,89 +474,6 @@ open class MaterialDrawerSliderView @JvmOverloads constructor(context: Context, 
         if (savedInstance.getBoolean(BUNDLE_DRAWER_CONTENT_SWITCHED + savedInstanceKey, false)) {
             accountHeader?.toggleSelectionList()
         }
-    }
-
-    /**
-     * Add a header to the DrawerBuilder ListView defined by a resource.
-     *
-     * @param headerViewRes
-     * @return
-     */
-    fun withHeader(@LayoutRes headerViewRes: Int) {
-        if (headerViewRes != -1) {
-            //i know there should be a root, bit i got none here
-            this.headerView = LayoutInflater.from(context).inflate(headerViewRes, null, false)
-        }
-    }
-
-    /**
-     * Add a sticky header below the DrawerBuilder ListView defined by a resource.
-     *
-     * @param stickyHeaderRes
-     * @return
-     */
-    fun withStickyHeader(@LayoutRes stickyHeaderRes: Int) {
-        if (stickyHeaderRes != -1) {
-            //i know there should be a root, bit i got none here
-            this.stickyHeaderView = LayoutInflater.from(context).inflate(stickyHeaderRes, null, false)
-        }
-    }
-
-    /**
-     * Add a footer to the DrawerBuilder ListView defined by a resource.
-     *
-     * @param footerViewRes
-     * @return
-     */
-    fun withFooter(@LayoutRes footerViewRes: Int) {
-        if (footerViewRes != -1) {
-            //i know there should be a root, bit i got none here
-            this.footerView = LayoutInflater.from(context).inflate(footerViewRes, null, false)
-        }
-    }
-
-    /**
-     * Add a sticky footer below the DrawerBuilder ListView defined by a resource.
-     *
-     * @param stickyFooterRes
-     * @return
-     */
-    fun withStickyFooter(@LayoutRes stickyFooterRes: Int) {
-        if (stickyFooterRes != -1) {
-            //i know there should be a root, bit i got none here
-            this.stickyFooterView = LayoutInflater.from(context).inflate(stickyFooterRes, null, false) as ViewGroup
-        }
-    }
-
-    /**
-     * define this if you want enable hasStableIds for the adapter which is generated.
-     * WARNING: only use this if you have set an identifer for all of your items else this could cause
-     * many weird things
-     *
-     * @param hasStableIds
-     * @return
-     */
-    fun withHasStableIds(hasStableIds: Boolean) {
-        this.hasStableIds = hasStableIds
-        adapter.setHasStableIds(hasStableIds)
-    }
-
-    /**
-     * Define a custom Adapter which will be used in the drawer
-     * NOTE: this is not recommender
-     * WARNING: if you do this after adding items you will loose those!
-     *
-     * @param adapter the FastAdapter to use with this drawer
-     * @return this
-     */
-    fun withAdapter(adaptr: FastAdapter<IDrawerItem<*>>) {
-        this.adapter = adaptr
-        this.selectExtension = adapter.getOrCreateExtension(SelectExtension::class.java)!! // is definitely not null
-        //we have to rewrap as a different FastAdapter was provided
-        adapter.addAdapter(0, headerAdapter)
-        adapter.addAdapter(1, itemAdapter)
-        adapter.addAdapter(2, footerAdapter)
-        initAdapter()
     }
 
     private fun initAdapter() {
@@ -824,7 +777,6 @@ open class MaterialDrawerSliderView @JvmOverloads constructor(context: Context, 
         itemAdapter.setNewList(drawerItems ?: ArrayList())
     }
 
-
     /*
      * set the current selection in the drawer
      * NOTE: this also deselects all other selections. if you do not want this. use the direct api of the adater .getAdapter().select(position, fireOnClick)
@@ -855,30 +807,6 @@ open class MaterialDrawerSliderView @JvmOverloads constructor(context: Context, 
         //we set the selection on a normal item in the drawer so we have to deselect the items in the StickyDrawer
         resetStickyFooterSelection()
     }
-
-
-    /**
-     * method to replace a previous set header
-     *
-     * @param view
-     * @param padding
-     * @param divider
-     * @param height
-     */
-    @JvmOverloads
-    fun setHeader(view: View?, padding: Boolean, divider: Boolean, height: DimenHolder? = null) {
-        headerAdapter.clear()
-        view?.let {
-            if (padding) {
-                headerAdapter.add(ContainerDrawerItem().withView(view).withDivider(divider).withHeight(height).withViewPosition(ContainerDrawerItem.Position.TOP))
-            } else {
-                headerAdapter.add(ContainerDrawerItem().withView(view).withDivider(divider).withHeight(height).withViewPosition(ContainerDrawerItem.Position.NONE))
-            }
-        }
-        //we need to set the padding so the header starts on top
-        recyclerView.setPadding(recyclerView.paddingLeft, 0, recyclerView.paddingRight, recyclerView.paddingBottom)
-    }
-
 
     /**
      * set the current selection in the drawer
@@ -912,7 +840,6 @@ open class MaterialDrawerSliderView @JvmOverloads constructor(context: Context, 
         rebuildStickyFooterView(this)
     }
 
-
     /**
      * add the values to the bundle for saveInstanceState
      *
@@ -925,125 +852,6 @@ open class MaterialDrawerSliderView @JvmOverloads constructor(context: Context, 
             putBoolean(BUNDLE_DRAWER_CONTENT_SWITCHED + savedInstanceKey, switchedDrawerContent())
         }
         return _savedInstanceState
-    }
-
-    /**
-     * calculates the position of an drawerItem. searching by it's identifier
-     *
-     * @param drawerItem
-     * @return
-     */
-    fun getPosition(drawerItem: IDrawerItem<*>): Int {
-        return getPosition(drawerItem.identifier)
-    }
-
-    /**
-     * calculates the position of an drawerItem. searching by it's identifier
-     *
-     * @param identifier
-     * @return
-     */
-    fun getPosition(identifier: Long): Int {
-        return DrawerUtils.getPositionByIdentifier(this, identifier)
-    }
-
-    /**
-     * returns the DrawerItem by the given identifier
-     *
-     * @param identifier
-     * @return
-     */
-    fun getDrawerItem(identifier: Long): IDrawerItem<*>? {
-        val res = adapter.getItemById(identifier)
-        return res?.first
-    }
-
-    /**
-     * returns the found drawerItem by the given tag
-     *
-     * @param tag
-     * @return
-     */
-    fun getDrawerItem(tag: Any): IDrawerItem<*>? {
-        return DrawerUtils.getDrawerItem(itemAdapter.adapterItems, tag)
-    }
-
-    /**
-     * update a specific drawer item :D
-     * automatically identified by its id
-     *
-     * @param drawerItem
-     */
-    fun updateItem(drawerItem: IDrawerItem<*>) {
-        updateItemAtPosition(drawerItem, getPosition(drawerItem))
-    }
-
-    /**
-     * update the badge for a specific drawerItem
-     * identified by its id
-     *
-     * @param identifier
-     * @param badge
-     */
-    fun updateBadge(identifier: Long, badge: StringHolder) {
-        val drawerItem = getDrawerItem(identifier)
-        if (drawerItem is Badgeable<*>) {
-            drawerItem.withBadge(badge)
-            updateItem(drawerItem)
-        }
-    }
-
-    /**
-     * update the name for a specific drawerItem
-     * identified by its id
-     *
-     * @param identifier
-     * @param name
-     */
-    fun updateName(identifier: Long, name: StringHolder) {
-        val drawerItem = getDrawerItem(identifier)
-        if (drawerItem is Nameable<*>) {
-            drawerItem.withName(name)
-            updateItem(drawerItem)
-        }
-    }
-
-    /**
-     * update the name for a specific drawerItem
-     * identified by its id
-     *
-     * @param identifier
-     * @param image
-     */
-    fun updateIcon(identifier: Long, image: ImageHolder) {
-        val drawerItem = getDrawerItem(identifier)
-        if (drawerItem is Iconable<*>) {
-            drawerItem.withIcon(image)
-            updateItem(drawerItem)
-        }
-    }
-
-    /**
-     * Update a drawerItem at a specific position
-     *
-     * @param drawerItem
-     * @param position
-     */
-    fun updateItemAtPosition(drawerItem: IDrawerItem<*>, position: Int) {
-        if (checkDrawerItem(position, false)) {
-            itemAdapter[position] = drawerItem
-        }
-    }
-
-    /**
-     * check if the item is within the bounds of the list
-     *
-     * @param position
-     * @param includeOffset
-     * @return
-     */
-    internal fun checkDrawerItem(position: Int, includeOffset: Boolean): Boolean {
-        return adapter.getItem(position) != null
     }
 
     companion object {

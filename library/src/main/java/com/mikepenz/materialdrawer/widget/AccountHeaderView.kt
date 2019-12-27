@@ -142,14 +142,14 @@ class AccountHeaderView @JvmOverloads constructor(context: Context, attrs: Attri
     var paddingBelowHeader = true
         set(value) {
             field = value
-            sliderView?.setHeader(this, paddingBelowHeader, dividerBelowHeader)
+            sliderView?.headerPadding = paddingBelowHeader
         }
 
     // set no divider below the header
     var dividerBelowHeader = true
         set(value) {
             field = value
-            sliderView?.setHeader(this, paddingBelowHeader, dividerBelowHeader)
+            sliderView?.headerDivider = dividerBelowHeader
         }
 
     //the background for the header
@@ -554,7 +554,7 @@ class AccountHeaderView @JvmOverloads constructor(context: Context, attrs: Attri
         sliderView.recyclerView.setPadding(sliderView.recyclerView.paddingLeft, 0, sliderView.recyclerView.paddingRight, sliderView.recyclerView.paddingBottom)
 
         //everything created. now set the header
-        sliderView.setHeader(this, paddingBelowHeader, dividerBelowHeader)
+        sliderView.headerView = this
 
         this.sliderView?.accountHeader = this
     }

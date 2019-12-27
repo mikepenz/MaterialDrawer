@@ -16,10 +16,10 @@ import com.mikepenz.iconics.typeface.library.fontawesome.FontAwesome
 import com.mikepenz.iconics.typeface.library.googlematerial.GoogleMaterial
 import com.mikepenz.materialdrawer.holder.BadgeStyle
 import com.mikepenz.materialdrawer.holder.ColorHolder
-import com.mikepenz.materialdrawer.holder.DimenHolder
 import com.mikepenz.materialdrawer.holder.StringHolder
 import com.mikepenz.materialdrawer.model.*
 import com.mikepenz.materialdrawer.model.interfaces.IDrawerItem
+import com.mikepenz.materialdrawer.util.updateBadge
 import com.mikepenz.materialdrawer.widget.AccountHeaderView
 import kotlinx.android.synthetic.main.activity_sample.*
 import kotlinx.coroutines.delay
@@ -180,8 +180,6 @@ class DrawerActivity : AppCompatActivity() {
 
         lifecycleScope.launch {
             delay(2000)
-            headerView.height = DimenHolder.fromDp(300)
-
         }
     }
 
