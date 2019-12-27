@@ -32,6 +32,10 @@ import com.mikepenz.materialdrawer.view.BezelImageView
 import com.mikepenz.materialize.util.UIUtils
 import java.util.*
 
+/**
+ * This view offers support to add an account switcher to the [MaterialDrawerSliderView]
+ * It will hook onto the [MaterialDrawerSliderView] and coordinate updating and showing the proper set of elements
+ */
 open class AccountHeaderView @JvmOverloads constructor(context: Context, attrs: AttributeSet? = null, defStyleAttr: Int = 0, compact: Boolean? = null) : ConstraintLayout(context, attrs, defStyleAttr) {
     var savedInstanceKey: String = ""
 

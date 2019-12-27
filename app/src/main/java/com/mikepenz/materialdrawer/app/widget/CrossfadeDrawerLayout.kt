@@ -16,7 +16,7 @@ import com.mikepenz.materialize.util.UIUtils
 /**
  * Created by mikepenz on 20.10.15.
  */
-class CrossfadeDrawerLayout : DrawerLayout {
+open class CrossfadeDrawerLayout : DrawerLayout {
     var drawerOpened = false
         private set
 
@@ -25,7 +25,7 @@ class CrossfadeDrawerLayout : DrawerLayout {
     //remember the previous width to optimize performance
     private var prevWidth = -1
 
-    var crossfadeListener: CrossfadeListener? = null
+    var crossfadeListener: ((containerView: View?, currentSlidePercentage: Float, slideOffset: Int) -> Unit)? = null
 
     var minWidthPx = 0
     var maxWidthPx = 0
@@ -299,11 +299,7 @@ class CrossfadeDrawerLayout : DrawerLayout {
         largeView.isClickable = true
         largeView.visibility = if (alpha > 0.01f) View.VISIBLE else View.GONE
         //notify the crossfadeListener
-        crossfadeListener?.onCrossfade(container, calculatePercentage(width), width)
-    }
-
-    interface CrossfadeListener {
-        fun onCrossfade(containerView: View?, currentSlidePercentage: Float, slideOffset: Int)
+        crossfadeListener?.invoke(container, calculatePercentage(width), width)
     }
 
     companion object {

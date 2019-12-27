@@ -177,10 +177,6 @@ class DrawerActivity : AppCompatActivity() {
         }
 
         slider.updateBadge(4, StringHolder(10.toString() + ""))
-
-        lifecycleScope.launch {
-            delay(2000)
-        }
     }
 
     override fun onConfigurationChanged(newConfig: Configuration) {

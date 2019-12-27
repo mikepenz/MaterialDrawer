@@ -6,9 +6,7 @@ import android.content.res.ColorStateList
 import android.graphics.Color
 import android.graphics.drawable.*
 import android.os.Build
-import android.util.DisplayMetrics
 import android.view.View
-import android.view.WindowManager
 import androidx.annotation.StyleableRes
 import androidx.core.view.ViewCompat
 import com.google.android.material.shape.MaterialShapeDrawable
@@ -158,9 +156,8 @@ object DrawerUIUtils {
     fun getOptimalDrawerWidth(context: Context): Int {
         val possibleMinDrawerWidth = UIUtils.getScreenWidth(context) - UIUtils.getActionBarHeight(context)
         val maxDrawerWidth = context.resources.getDimensionPixelSize(R.dimen.material_drawer_width)
-        return Math.min(possibleMinDrawerWidth, maxDrawerWidth)
+        return possibleMinDrawerWidth.coerceAtMost(maxDrawerWidth)
     }
-
 
     /**
      * helper method to get a person placeHolder drawable
@@ -198,21 +195,5 @@ object DrawerUIUtils {
         } else {
             v.setPadding(verticalPadding * level, 0, verticalPadding, 0)
         }
-    }
-
-    /**
-     * helper to check if the system bar is on the bottom of the screen
-     *
-     * @param ctx
-     * @return
-     */
-    fun isSystemBarOnBottom(ctx: Context): Boolean {
-        val wm = ctx.getSystemService(Context.WINDOW_SERVICE) as WindowManager
-        val metrics = DisplayMetrics()
-        wm.defaultDisplay.getMetrics(metrics)
-        val cfg = ctx.resources.configuration
-        val canMove = metrics.widthPixels != metrics.heightPixels && cfg.smallestScreenWidthDp < 600
-
-        return !canMove || metrics.widthPixels < metrics.heightPixels
     }
 }

@@ -1,6 +1,5 @@
 package com.mikepenz.materialdrawer.util
 
-import com.mikepenz.materialdrawer.DrawerUtils
 import com.mikepenz.materialdrawer.holder.ImageHolder
 import com.mikepenz.materialdrawer.holder.StringHolder
 import com.mikepenz.materialdrawer.model.interfaces.Badgeable

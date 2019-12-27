@@ -1,4 +1,4 @@
-package com.mikepenz.materialdrawer
+package com.mikepenz.materialdrawer.util
 
 import android.annotation.SuppressLint
 import android.content.Context
@@ -9,11 +9,10 @@ import android.view.ViewGroup
 import android.widget.LinearLayout
 import android.widget.RelativeLayout
 import androidx.drawerlayout.widget.DrawerLayout
+import com.mikepenz.materialdrawer.R
 import com.mikepenz.materialdrawer.model.AbstractDrawerItem
 import com.mikepenz.materialdrawer.model.interfaces.IDrawerItem
 import com.mikepenz.materialdrawer.model.interfaces.Selectable
-import com.mikepenz.materialdrawer.util.DrawerUIUtils
-import com.mikepenz.materialdrawer.util.getDividerColor
 import com.mikepenz.materialdrawer.widget.MaterialDrawerSliderView
 import com.mikepenz.materialize.util.UIUtils
 

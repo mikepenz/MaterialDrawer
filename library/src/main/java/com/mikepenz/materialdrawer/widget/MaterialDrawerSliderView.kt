@@ -38,22 +38,23 @@ import com.mikepenz.fastadapter.select.SelectExtensionFactory
 import com.mikepenz.fastadapter.select.getSelectExtension
 import com.mikepenz.fastadapter.utils.DefaultIdDistributor
 import com.mikepenz.fastadapter.utils.DefaultIdDistributorImpl
-import com.mikepenz.materialdrawer.DrawerUtils
-import com.mikepenz.materialdrawer.DrawerUtils.handleFooterView
-import com.mikepenz.materialdrawer.DrawerUtils.handleHeaderView
-import com.mikepenz.materialdrawer.DrawerUtils.onFooterDrawerItemClick
-import com.mikepenz.materialdrawer.DrawerUtils.rebuildStickyFooterView
 import com.mikepenz.materialdrawer.R
 import com.mikepenz.materialdrawer.holder.DimenHolder
 import com.mikepenz.materialdrawer.model.*
 import com.mikepenz.materialdrawer.model.interfaces.IDrawerItem
 import com.mikepenz.materialdrawer.model.interfaces.Selectable
 import com.mikepenz.materialdrawer.util.DrawerUIUtils
+import com.mikepenz.materialdrawer.util.DrawerUtils
+import com.mikepenz.materialdrawer.util.DrawerUtils.handleFooterView
+import com.mikepenz.materialdrawer.util.DrawerUtils.handleHeaderView
+import com.mikepenz.materialdrawer.util.DrawerUtils.onFooterDrawerItemClick
+import com.mikepenz.materialdrawer.util.DrawerUtils.rebuildStickyFooterView
 import com.mikepenz.materialize.view.OnInsetsCallback
 import java.util.*
 
 /**
- *
+ * This view is a simple drop in view for the [DrawerLayout] offering a convenient API to provide a nice and flexible slider view following
+ * the material design guidelines v2.
  */
 open class MaterialDrawerSliderView @JvmOverloads constructor(context: Context, attrs: AttributeSet? = null, defStyleAttr: Int = R.attr.materialDrawerStyle) : RelativeLayout(context, attrs, defStyleAttr) {
 
@@ -97,7 +98,7 @@ open class MaterialDrawerSliderView @JvmOverloads constructor(context: Context, 
     val idDistributor: DefaultIdDistributor<IDrawerItem<*>> = DefaultIdDistributorImpl()
 
     //defines if we want a inner shadow (used in with the MiniDrawer)
-    private var innerShadow = false
+    var innerShadow = false
         set(value) {
             field = value
             createContent()
@@ -577,7 +578,12 @@ open class MaterialDrawerSliderView @JvmOverloads constructor(context: Context, 
         this.addView(contentView, params)
 
         if (innerShadow) {
-            val innerShadow = this.findViewById<View>(R.id.material_drawer_inner_shadow)
+            var innerShadow = this.findViewById<View?>(R.id.material_drawer_inner_shadow)
+            if (innerShadow == null) {
+                innerShadow = LayoutInflater.from(context).inflate(R.layout.material_drawer_inner_shadow, this, false)!!
+                this.addView(innerShadow)
+            }
+
             innerShadow.visibility = View.VISIBLE
             innerShadow.bringToFront()
             if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.JELLY_BEAN && gravity == GravityCompat.END) {
@@ -585,6 +591,8 @@ open class MaterialDrawerSliderView @JvmOverloads constructor(context: Context, 
             } else {
                 innerShadow.setBackgroundResource(R.drawable.material_drawer_shadow_left)
             }
+        } else {
+            removeView(this.findViewById<View?>(R.id.material_drawer_inner_shadow))
         }
 
         //handle the header
@@ -601,9 +609,7 @@ open class MaterialDrawerSliderView @JvmOverloads constructor(context: Context, 
         }
 
         //predefine selection (should be the first element)
-        if (headerView != null && _selectedItemPosition == 0) {
-            selectedItemPosition = _selectedItemPosition
-        }
+        selectedItemPosition = _selectedItemPosition
 
         // add the onDrawerItemClickListener if set
         adapter.onClickListener = { v: View?, _: IAdapter<IDrawerItem<*>>, item: IDrawerItem<*>, position: Int ->
@@ -775,6 +781,7 @@ open class MaterialDrawerSliderView @JvmOverloads constructor(context: Context, 
             originalDrawerItems = drawerItems
         }
         itemAdapter.setNewList(drawerItems ?: ArrayList())
+        _selectedItemPosition = -1
     }
 
     /*
@@ -795,6 +802,7 @@ open class MaterialDrawerSliderView @JvmOverloads constructor(context: Context, 
     }
 
     private fun notifySelect(position: Int, fireOnClick: Boolean) {
+        _selectedItemPosition = position
         if (fireOnClick && position >= 0) {
             adapter.getItem(position)?.let { item ->
                 if (item is AbstractDrawerItem<*, *>) {
