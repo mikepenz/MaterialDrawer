@@ -30,7 +30,7 @@
     <dimen name="material_drawer_account_header_secondary">40dp</dimen>
     <dimen name="material_drawer_account_header_compact">56dp</dimen>
     <dimen name="material_drawer_account_header_title">20sp</dimen>
-    <dimen name="material_drawer_account_header_subtext">13sp</dimen>
+    <dimen name="material_drawer_account_header_subtext">14sp</dimen>
     <dimen name="material_drawer_account_header_dropdown_guideline">80dp</dimen>
     <dimen name="material_drawer_account_header_dropdown">22dp</dimen>
     <dimen name="material_drawer_account_header_dropdown_padding">1dp</dimen>

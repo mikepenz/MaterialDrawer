@@ -270,7 +270,7 @@ open class MaterialDrawerSliderView @JvmOverloads constructor(context: Context, 
     lateinit var recyclerView: RecyclerView
 
     // if the adapter should enable hasStableIds to improve performance and allow animations
-    var hasStableIds = false
+    var hasStableIds = true
         set(value) {
             field = value
             adapter.setHasStableIds(hasStableIds)

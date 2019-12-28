@@ -8,6 +8,7 @@ import com.mikepenz.materialdrawer.holder.ImageHolder
 import com.mikepenz.materialdrawer.holder.StringHolder
 import com.mikepenz.materialdrawer.util.DrawerUIUtils
 import com.mikepenz.materialdrawer.util.DrawerUIUtils.themeDrawerItem
+import com.mikepenz.materialdrawer.util.getSecondaryDrawerTextColor
 
 /**
  * Created by mikepenz on 03.02.15.
@@ -64,6 +65,7 @@ abstract class BaseDescribeableDrawerItem<T, VH : BaseViewHolder> : BaseDrawerIt
         //get the correct color for the text
 
         val textColor = getColor(ctx)
+        val textColorSecondary = ctx.getSecondaryDrawerTextColor()
         //get the correct color for the icon
         val iconColor = getIconColor(ctx)
         val shapeAppearanceModel = getShapeAppearanceModel(ctx)
@@ -78,7 +80,7 @@ abstract class BaseDescribeableDrawerItem<T, VH : BaseViewHolder> : BaseDrawerIt
         //set the colors for textViews
         viewHolder.name.setTextColor(textColor)
         //set the description text color
-        viewHolder.description.setTextColor(textColor)
+        viewHolder.description.setTextColor(textColorSecondary)
 
         //define the typeface for our textViews
         if (typeface != null) {

@@ -6,7 +6,7 @@
         <!-- MaterialDrawer specific values -->
         <item name="materialDrawerBackground">?colorSurface</item>
         <item name="materialDrawerPrimaryText">?android:textColorPrimary</item>
-        <item name="materialDrawerPrimaryIcon">?android:textColorPrimary</item>
+        <item name="materialDrawerPrimaryIcon">?android:textColorSecondary</item>
         <item name="materialDrawerSecondaryText">?android:textColorSecondary</item>
         <item name="materialDrawerSecondaryIcon">?android:textColorSecondary</item>
         <item name="materialDrawerDividerColor">?android:textColorHint</item>
@@ -15,8 +15,8 @@
 
     <style name="Widget.MaterialDrawerHeaderStyle" parent="">
         <item name="materialDrawerCompactStyle">false</item>
-        <item name="materialDrawerHeaderSelectionText">?colorOnSurface</item>
-        <item name="materialDrawerHeaderSelectionSubtext">?colorOnSurface</item>
+        <item name="materialDrawerHeaderSelectionText">?android:textColorPrimary</item>
+        <item name="materialDrawerHeaderSelectionSubtext">?android:textColorSecondary</item>
     </style>
 
     <!-- DrawerArrowStyles -->
