@@ -3,15 +3,11 @@
 
     <style name="Widget.MaterialDrawerStyleCustom" parent="Widget.MaterialDrawerStyle">
         <!-- MaterialDrawer specific values -->
-        <item name="materialDrawerBackground">@color/material_drawer_dark_background</item>
-        <item name="materialDrawerPrimaryText">@color/material_drawer_dark_primary_text</item>
-        <item name="materialDrawerSecondaryText">@color/material_drawer_dark_secondary_text
-        </item>
-        <item name="materialDrawerDividerColor">@color/material_drawer_dark_divider</item>
+        <item name="materialDrawerBackground">#303030</item>
+        <item name="materialDrawerPrimaryText">?android:textColorPrimary</item>
+        <item name="materialDrawerSecondaryText">?android:textColorSecondary</item>
+        <item name="materialDrawerDividerColor">#1FFFFFFF</item>
         <item name="materialDrawerSelectedBackgroundColor">#1FF1433C</item>
-        <item name="materialDrawerHeaderSelectionText">
-            @color/material_drawer_dark_primary_text
-        </item>
     </style>
 
     <!--

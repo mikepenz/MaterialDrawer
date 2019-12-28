@@ -8,8 +8,6 @@ Simple add the following to your modules build.gradle. It allows you to define w
 ```xml
 
 configurations.all {
-    resolutionStrategy.force "com.mikepenz:iconics-core:3.0.0"
-    resolutionStrategy.force "com.mikepenz:fastadapter:3.0.1"
     resolutionStrategy.force "com.android.support:support-v4:${versions.androidX}"
     resolutionStrategy.force "com.android.support:appcompat-v7:${versions.androidX}"
     resolutionStrategy.force "com.android.support:cardview-v7:${versions.androidX}"

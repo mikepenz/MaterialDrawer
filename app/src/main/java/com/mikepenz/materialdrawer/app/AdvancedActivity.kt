@@ -111,7 +111,7 @@ class AdvancedActivity : AppCompatActivity() {
                     profile4,
                     profile5,
                     //don't ask but google uses 14dp for the add account icon in gmail but 20dp for the normal icons (like manage account)
-                    ProfileSettingDrawerItem().withName("Add Account").withDescription("Add new GitHub Account").withIcon(IconicsDrawable(this@AdvancedActivity, GoogleMaterial.Icon.gmd_add).actionBar().padding(dp(5)).color(colorRes(R.color.material_drawer_dark_primary_text))).withIdentifier(PROFILE_SETTING.toLong()),
+                    ProfileSettingDrawerItem().withName("Add Account").withDescription("Add new GitHub Account").withIcon(IconicsDrawable(this@AdvancedActivity, GoogleMaterial.Icon.gmd_add).actionBar().padding(dp(5))).withIdentifier(PROFILE_SETTING.toLong()),
                     ProfileSettingDrawerItem().withName("Manage Account").withIcon(GoogleMaterial.Icon.gmd_settings)
             )
             onAccountHeaderListener = { view, profile, current ->

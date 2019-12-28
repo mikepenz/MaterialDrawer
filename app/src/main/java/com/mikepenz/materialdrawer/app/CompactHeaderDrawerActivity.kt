@@ -133,7 +133,7 @@ class CompactHeaderDrawerActivity : AppCompatActivity() {
 
         override fun onCreateActionMode(mode: ActionMode, menu: Menu): Boolean {
             if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
-                window.statusBarColor = UIUtils.getThemeColorFromAttrOrRes(this@CompactHeaderDrawerActivity, R.attr.colorPrimaryDark, R.color.material_drawer_primary_dark)
+                window.statusBarColor = UIUtils.getThemeColorFromAttrOrRes(this@CompactHeaderDrawerActivity, R.attr.colorPrimaryDark, R.color.colorPrimaryDark)
             }
 
             mode.menuInflater.inflate(R.menu.cab, menu)

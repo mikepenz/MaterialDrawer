@@ -280,6 +280,7 @@ open class MaterialDrawerSliderView @JvmOverloads constructor(context: Context, 
     internal lateinit var _adapter: FastAdapter<IDrawerItem<*>>
     var headerAdapter: ModelAdapter<IDrawerItem<*>, IDrawerItem<*>> = ItemAdapter()
     var itemAdapter: ModelAdapter<IDrawerItem<*>, IDrawerItem<*>> = ItemAdapter()
+    var secondaryItemAdapter: ModelAdapter<IDrawerItem<*>, IDrawerItem<*>> = ItemAdapter()
     var footerAdapter: ModelAdapter<IDrawerItem<*>, IDrawerItem<*>> = ItemAdapter()
     lateinit var expandableExtension: ExpandableExtension<IDrawerItem<*>>
     lateinit var selectExtension: SelectExtension<IDrawerItem<*>>
@@ -292,7 +293,8 @@ open class MaterialDrawerSliderView @JvmOverloads constructor(context: Context, 
     var adapter: FastAdapter<IDrawerItem<*>>
         get() {
             if (!::_adapter.isInitialized) {
-                _adapter = FastAdapter.with(listOf(headerAdapter, itemAdapter, footerAdapter))
+                secondaryItemAdapter.active = false
+                _adapter = FastAdapter.with(listOf(headerAdapter, itemAdapter, secondaryItemAdapter, footerAdapter))
                 _adapter.setHasStableIds(hasStableIds)
                 initAdapter()
                 this.selectExtension.isSelectable = true
@@ -302,12 +304,14 @@ open class MaterialDrawerSliderView @JvmOverloads constructor(context: Context, 
             return _adapter
         }
         set(value) {
+            secondaryItemAdapter.active = false
             _adapter = value
             this.selectExtension = _adapter.getOrCreateExtension(SelectExtension::class.java)!! // is definitely not null
             //we have to rewrap as a different FastAdapter was provided
             _adapter.addAdapter(0, headerAdapter)
             _adapter.addAdapter(1, itemAdapter)
-            _adapter.addAdapter(2, footerAdapter)
+            _adapter.addAdapter(2, secondaryItemAdapter)
+            _adapter.addAdapter(3, footerAdapter)
             initAdapter()
         }
 
@@ -352,13 +356,6 @@ open class MaterialDrawerSliderView @JvmOverloads constructor(context: Context, 
     //variables to store and remember the original list of the drawer
     private var originalOnDrawerItemClickListener: ((v: View?, item: IDrawerItem<*>, position: Int) -> Boolean)? = null
     private var originalOnDrawerItemLongClickListener: ((v: View?, item: IDrawerItem<*>, position: Int) -> Boolean)? = null
-    /**
-     * get the original list of drawerItems
-     *
-     * @return
-     */
-    var originalDrawerItems: List<IDrawerItem<*>>? = null
-        private set
     private var originalDrawerState: Bundle? = null
 
     init {
@@ -707,7 +704,7 @@ open class MaterialDrawerSliderView @JvmOverloads constructor(context: Context, 
      * @return
      */
     fun switchedDrawerContent(): Boolean {
-        return !(originalOnDrawerItemClickListener == null && originalDrawerItems == null && originalDrawerState == null)
+        return !(originalOnDrawerItemClickListener == null && originalDrawerState == null)
     }
 
     /**
@@ -725,13 +722,15 @@ open class MaterialDrawerSliderView @JvmOverloads constructor(context: Context, 
             originalOnDrawerItemLongClickListener = onDrawerItemLongClickListener
             originalDrawerState = adapter.saveInstanceState(Bundle())
             expandableExtension.collapse(false)
-            originalDrawerItems = itemAdapter.adapterItems
+
+            secondaryItemAdapter.active = true
+            itemAdapter.active = false
         }
 
         //set the new items
         onDrawerItemClickListener = onDrawerItemClickListenerInner
         onDrawerItemLongClickListener = onDrawerItemLongClickListenerInner
-        setItems(drawerItemsInner, true)
+        secondaryItemAdapter.set(drawerItemsInner)
         setSelectionAtPosition(drawerSelection, false)
 
         if (!keepStickyItemsVisible) {
@@ -749,13 +748,14 @@ open class MaterialDrawerSliderView @JvmOverloads constructor(context: Context, 
             //set the new items
             onDrawerItemClickListener = originalOnDrawerItemClickListener
             onDrawerItemLongClickListener = originalOnDrawerItemLongClickListener
-            setItems(originalDrawerItems, true)
             adapter.withSavedInstanceState(originalDrawerState)
             //remove the references
             originalOnDrawerItemClickListener = null
             originalOnDrawerItemLongClickListener = null
-            originalDrawerItems = null
             originalDrawerState = null
+
+            secondaryItemAdapter.active = false
+            itemAdapter.active = true
 
             //if we switch back scroll back to the top
             recyclerView.smoothScrollToPosition(0)
@@ -767,21 +767,6 @@ open class MaterialDrawerSliderView @JvmOverloads constructor(context: Context, 
             //if we currently show the accountHeader selection list make sure to reset this attr
             accountHeader?._selectionListShown = false
         }
-    }
-
-    /**
-     * replace the current DrawerItems with the new ArrayList.
-     *
-     * @param drawerItems
-     * @param switchedItems
-     */
-    private fun setItems(drawerItems: List<IDrawerItem<*>>?, switchedItems: Boolean) {
-        //if we are currently at a switched list set the new reference
-        if (originalDrawerItems != null && !switchedItems) {
-            originalDrawerItems = drawerItems
-        }
-        itemAdapter.setNewList(drawerItems ?: ArrayList())
-        _selectedItemPosition = -1
     }
 
     /*
@@ -796,8 +781,10 @@ open class MaterialDrawerSliderView @JvmOverloads constructor(context: Context, 
     @JvmOverloads
     fun setSelectionAtPosition(position: Int, fireOnClick: Boolean = true): Boolean {
         selectExtension.deselect()
-        selectExtension.select(position, false)
-        notifySelect(position, fireOnClick)
+        if (position >= 0) {
+            selectExtension.select(position, false)
+            notifySelect(position, fireOnClick)
+        }
         return false
     }
 

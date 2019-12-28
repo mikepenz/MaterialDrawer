@@ -14,11 +14,11 @@ import com.mikepenz.fastadapter.FastAdapter
 import com.mikepenz.fastadapter.IAdapter
 import com.mikepenz.fastadapter.adapters.ItemAdapter
 import com.mikepenz.fastadapter.select.SelectExtension
-import com.mikepenz.materialdrawer.util.DrawerUtils
 import com.mikepenz.materialdrawer.R
 import com.mikepenz.materialdrawer.interfaces.ICrossfader
 import com.mikepenz.materialdrawer.model.*
 import com.mikepenz.materialdrawer.model.interfaces.IDrawerItem
+import com.mikepenz.materialdrawer.util.DrawerUtils
 import com.mikepenz.materialdrawer.util.getDrawerItem
 
 /**
@@ -130,7 +130,7 @@ open class MiniDrawerSliderView @JvmOverloads constructor(context: Context, attr
      * @return
      */
     private val drawerItems: List<IDrawerItem<*>>
-        get() = drawer?.originalDrawerItems ?: drawer?.itemAdapter?.adapterItems ?: ArrayList()
+        get() = drawer?.itemAdapter?.adapterItems ?: ArrayList()
 
     init {
         val a = context.obtainStyledAttributes(attrs, R.styleable.MaterialDrawerSliderView, defStyleAttr, R.style.Widget_MaterialDrawerStyle)
