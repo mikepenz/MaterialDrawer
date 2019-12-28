@@ -48,6 +48,6 @@ dependencies {
     api "com.mikepenz:iconics-core:${versions.iconics}"
 }
 
-if (project.hasProperty('pushall') || project.hasProperty('library_nav_only')) {
+if (project.hasProperty('pushall') || project.hasProperty('library_iconics_only')) {
     apply from: '../gradle-release.gradle'
 }
