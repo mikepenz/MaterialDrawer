@@ -1,3 +1,4 @@
 include ':app'
 include ':library'
+include ':library-iconics'
 include ':library-nav'

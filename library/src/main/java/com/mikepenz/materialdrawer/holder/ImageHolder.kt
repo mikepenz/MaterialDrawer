@@ -10,23 +10,24 @@ import android.view.View
 import android.widget.ImageView
 import androidx.annotation.DrawableRes
 import androidx.core.content.ContextCompat
-import com.mikepenz.iconics.IconicsColor
-import com.mikepenz.iconics.IconicsDrawable
-import com.mikepenz.iconics.IconicsSize
-import com.mikepenz.iconics.typeface.IIcon
+import com.mikepenz.materialdrawer.util.DrawerUIUtils.getIconStateList
 import com.mikepenz.materialdrawer.util.FixStateListDrawable
-import com.mikepenz.materialize.util.UIUtils
 import java.io.FileNotFoundException
 
 /**
  * Created by mikepenz on 13.07.15.
  */
-class ImageHolder {
+open class ImageHolder {
     var uri: Uri? = null
+        internal set
     var icon: Drawable? = null
+        internal set
     var bitmap: Bitmap? = null
+        internal set
     var iconRes = -1
-    var iIcon: IIcon? = null
+        internal set
+
+    protected constructor()
 
     constructor(url: String) {
         this.uri = Uri.parse(url)
@@ -48,10 +49,6 @@ class ImageHolder {
         this.iconRes = iconRes
     }
 
-    constructor(iicon: IIcon) {
-        this.iIcon = iicon
-    }
-
     /**
      * sets an existing image to the imageView
      *
@@ -60,14 +57,12 @@ class ImageHolder {
      * @return true if an image was set
      */
     @JvmOverloads
-    fun applyTo(imageView: ImageView, tag: String? = null): Boolean {
-        val ii = iIcon
+    open fun applyTo(imageView: ImageView, tag: String? = null): Boolean {
         when {
             uri != null -> imageView.setImageURI(uri)
             icon != null -> imageView.setImageDrawable(icon)
             bitmap != null -> imageView.setImageBitmap(bitmap)
             iconRes != -1 -> imageView.setImageResource(iconRes)
-            ii != null -> imageView.setImageDrawable(IconicsDrawable(imageView.context, ii).actionBar())
             else -> {
                 imageView.setImageBitmap(null)
                 return false
@@ -84,12 +79,9 @@ class ImageHolder {
      * @param tint
      * @return
      */
-    fun decideIcon(ctx: Context, iconColor: ColorStateList, tint: Boolean, paddingDp: Int = 1): Drawable? {
+    open fun decideIcon(ctx: Context, iconColor: ColorStateList, tint: Boolean, paddingDp: Int = 1): Drawable? {
         var icon = this.icon
-        val iicon = iIcon
-
         when {
-            iicon != null -> icon = IconicsDrawable(ctx, iicon).color(IconicsColor.colorList(iconColor)).size(IconicsSize.dp(24)).padding(IconicsSize.dp(paddingDp))
             iconRes != -1 -> icon = ContextCompat.getDrawable(ctx, iconRes)
             uri != null -> try {
                 val inputStream = ctx.contentResolver.openInputStream(uri!!)
@@ -223,7 +215,7 @@ class ImageHolder {
                     if (tinted) {
                         imageView.setImageDrawable(FixStateListDrawable(icon, selectedIcon, iconColor))
                     } else {
-                        imageView.setImageDrawable(UIUtils.getIconStateList(icon, selectedIcon))
+                        imageView.setImageDrawable(getIconStateList(icon, selectedIcon))
                     }
                 } else if (tinted) {
                     imageView.setImageDrawable(FixStateListDrawable(icon, iconColor))

@@ -9,7 +9,6 @@ import android.widget.TextView
 import androidx.annotation.*
 import androidx.core.view.ViewCompat
 import androidx.recyclerview.widget.RecyclerView
-import com.mikepenz.iconics.typeface.IIcon
 import com.mikepenz.materialdrawer.R
 import com.mikepenz.materialdrawer.holder.ColorHolder
 import com.mikepenz.materialdrawer.holder.ImageHolder
@@ -19,7 +18,7 @@ import com.mikepenz.materialdrawer.model.interfaces.Tagable
 import com.mikepenz.materialdrawer.model.interfaces.Typefaceable
 import com.mikepenz.materialdrawer.util.DrawerUIUtils
 import com.mikepenz.materialdrawer.util.getPrimaryDrawerIconColor
-import com.mikepenz.materialize.util.UIUtils
+import com.mikepenz.materialdrawer.util.getSelectableBackground
 
 /**
  * Created by mikepenz on 03.02.15.
@@ -54,11 +53,6 @@ open class ProfileSettingDrawerItem : AbstractDrawerItem<ProfileSettingDrawerIte
 
     override fun withIcon(bitmap: Bitmap): ProfileSettingDrawerItem {
         this.icon = ImageHolder(bitmap)
-        return this
-    }
-
-    override fun withIcon(icon: IIcon): ProfileSettingDrawerItem {
-        this.icon = ImageHolder(icon)
         return this
     }
 
@@ -164,7 +158,7 @@ open class ProfileSettingDrawerItem : AbstractDrawerItem<ProfileSettingDrawerIte
         val iconColor = ctx.getPrimaryDrawerIconColor()
         val descriptionColor = getColor(ctx)
 
-        ViewCompat.setBackground(holder.view, UIUtils.getSelectableBackground(ctx, selectedColor, isSelectedBackgroundAnimated))
+        ViewCompat.setBackground(holder.view, ctx.getSelectableBackground(selectedColor, isSelectedBackgroundAnimated))
 
         StringHolder.applyTo(this.name, holder.name)
         holder.name.setTextColor(color)

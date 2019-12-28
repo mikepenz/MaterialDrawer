@@ -6,17 +6,15 @@ import android.content.res.ColorStateList
 import android.graphics.Color
 import android.graphics.drawable.*
 import android.os.Build
+import android.view.Gravity
 import android.view.View
 import androidx.annotation.StyleableRes
+import androidx.appcompat.content.res.AppCompatResources
+import androidx.core.graphics.drawable.DrawableCompat
 import androidx.core.view.ViewCompat
 import com.google.android.material.shape.MaterialShapeDrawable
 import com.google.android.material.shape.ShapeAppearanceModel
-import com.mikepenz.iconics.IconicsColor
-import com.mikepenz.iconics.IconicsDrawable
-import com.mikepenz.iconics.IconicsSize
 import com.mikepenz.materialdrawer.R
-import com.mikepenz.materialdrawer.icons.MaterialDrawerFont
-import com.mikepenz.materialize.util.UIUtils
 
 /**
  * Created by mikepenz on 15.03.14.
@@ -64,11 +62,11 @@ object DrawerUIUtils {
             gradientMask.fillColor = ColorStateList.valueOf(Color.BLACK)
             val mask = InsetDrawable(gradientMask, paddingStartEnd, paddingTopBottom, paddingStartEnd, paddingTopBottom)
 
-            unselected = RippleDrawable(ColorStateList(arrayOf(intArrayOf()), intArrayOf(UIUtils.getThemeColor(ctx, R.attr.colorControlHighlight))), null, mask)
+            unselected = RippleDrawable(ColorStateList(arrayOf(intArrayOf()), intArrayOf(ctx.getThemeColor(R.attr.colorControlHighlight))), null, mask)
         } else {
             // define touch drawable
             val touchDrawable = MaterialShapeDrawable(shapeAppearanceModel)
-            touchDrawable.fillColor = ColorStateList.valueOf(UIUtils.getThemeColor(ctx, R.attr.colorControlHighlight))
+            touchDrawable.fillColor = ColorStateList.valueOf(ctx.getThemeColor(R.attr.colorControlHighlight))
             val touchInsetDrawable = InsetDrawable(touchDrawable, paddingStartEnd, paddingTopBottom, paddingStartEnd, paddingTopBottom)
 
             val unselectedStates = StateListDrawable()
@@ -154,7 +152,7 @@ object DrawerUIUtils {
      * @return
      */
     fun getOptimalDrawerWidth(context: Context): Int {
-        val possibleMinDrawerWidth = UIUtils.getScreenWidth(context) - UIUtils.getActionBarHeight(context)
+        val possibleMinDrawerWidth = context.getScreenWidth() - context.getActionBarHeight()
         val maxDrawerWidth = context.resources.getDimensionPixelSize(R.dimen.material_drawer_width)
         return possibleMinDrawerWidth.coerceAtMost(maxDrawerWidth)
     }
@@ -166,7 +164,28 @@ object DrawerUIUtils {
      * @return
      */
     fun getPlaceHolder(ctx: Context): Drawable {
-        return IconicsDrawable(ctx, MaterialDrawerFont.Icon.mdf_person).color(IconicsColor.colorInt(ctx.getThemeColor(R.attr.colorAccent))).backgroundColor(IconicsColor.colorInt(ctx.getThemeColor(R.attr.colorPrimary))).size(IconicsSize.dp(56)).padding(IconicsSize.dp(16))
+        val accountDrawable = AppCompatResources.getDrawable(ctx, R.drawable.material_drawer_ico_account_layer) as LayerDrawable
+        val placeholderSize = ctx.resources.getDimensionPixelSize(R.dimen.material_drawer_profile_icon_placeholder)
+        if (Build.VERSION.SDK_INT >= 23) {
+            accountDrawable.setLayerWidth(0, placeholderSize)
+            accountDrawable.setLayerHeight(0, placeholderSize)
+        }
+        DrawableCompat.wrap(accountDrawable.getDrawable(0)).let {
+            DrawableCompat.setTint(it, ctx.getThemeColor(R.attr.colorPrimary))
+            accountDrawable.setDrawableByLayerId(R.id.background, it)
+        }
+        val iconSize = ctx.resources.getDimensionPixelSize(R.dimen.material_drawer_profile_icon_placeholder_icon)
+        if (Build.VERSION.SDK_INT >= 23) {
+            accountDrawable.setLayerWidth(1, iconSize)
+            accountDrawable.setLayerHeight(1, iconSize)
+            accountDrawable.setLayerGravity(1, Gravity.CENTER)
+        }
+        DrawableCompat.wrap(accountDrawable.getDrawable(1)).let {
+            DrawableCompat.setTint(it, ctx.getThemeColor(R.attr.colorAccent))
+            accountDrawable.setDrawableByLayerId(R.id.account, it)
+        }
+        return accountDrawable
+        //IconicsDrawable(ctx, MaterialDrawerFont.Icon.mdf_person).color(IconicsColor.colorInt(ctx.getThemeColor(R.attr.colorAccent))).backgroundColor(IconicsColor.colorInt(ctx.getThemeColor(R.attr.colorPrimary))).size(IconicsSize.dp(56)).padding(IconicsSize.dp(16))
     }
 
     /**

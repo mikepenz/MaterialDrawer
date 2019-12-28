@@ -3,16 +3,14 @@ package com.mikepenz.materialdrawer.model
 import android.content.Context
 import android.content.res.ColorStateList
 import android.graphics.drawable.Drawable
-import android.os.Build
 import androidx.annotation.DrawableRes
 import androidx.annotation.StringRes
 import androidx.recyclerview.widget.RecyclerView
-import com.mikepenz.iconics.typeface.IIcon
+import com.mikepenz.materialdrawer.holder.ImageHolder
 import com.mikepenz.materialdrawer.holder.StringHolder
 import com.mikepenz.materialdrawer.model.interfaces.Iconable
 import com.mikepenz.materialdrawer.model.interfaces.Nameable
 import com.mikepenz.materialdrawer.model.interfaces.Tagable
-import com.mikepenz.materialdrawer.holder.ImageHolder
 import com.mikepenz.materialdrawer.util.getPrimaryDrawerIconColor
 
 /**
@@ -55,19 +53,6 @@ abstract class BaseDrawerItem<T, VH : RecyclerView.ViewHolder> : AbstractDrawerI
 
     fun withSelectedIcon(@DrawableRes selectedIconRes: Int): T {
         this.selectedIcon = ImageHolder(selectedIconRes)
-        return this as T
-    }
-
-    override fun withIcon(iicon: IIcon): T {
-        this.icon = ImageHolder(iicon)
-        //if we are on api 21 or higher we use the IconicsDrawable for selection too and color it with the correct color
-        //else we use just the one drawable and enable tinting on press
-        if (Build.VERSION.SDK_INT >= 21) {
-            this.selectedIcon = ImageHolder(iicon)
-        } else {
-            this.withIconTintingEnabled(true)
-        }
-
         return this as T
     }
 

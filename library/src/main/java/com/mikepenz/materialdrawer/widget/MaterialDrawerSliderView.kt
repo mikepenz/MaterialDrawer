@@ -21,6 +21,7 @@ import androidx.appcompat.view.SupportMenuInflater
 import androidx.appcompat.view.menu.MenuBuilder
 import androidx.core.view.GravityCompat
 import androidx.core.view.ViewCompat
+import androidx.core.view.WindowInsetsCompat
 import androidx.core.view.updatePadding
 import androidx.drawerlayout.widget.DrawerLayout
 import androidx.recyclerview.widget.DefaultItemAnimator
@@ -49,7 +50,6 @@ import com.mikepenz.materialdrawer.util.DrawerUtils.handleFooterView
 import com.mikepenz.materialdrawer.util.DrawerUtils.handleHeaderView
 import com.mikepenz.materialdrawer.util.DrawerUtils.onFooterDrawerItemClick
 import com.mikepenz.materialdrawer.util.DrawerUtils.rebuildStickyFooterView
-import com.mikepenz.materialize.view.OnInsetsCallback
 import java.util.*
 
 /**
@@ -67,7 +67,7 @@ open class MaterialDrawerSliderView @JvmOverloads constructor(context: Context, 
     private var insets: Rect? = null
     private val tempRect = Rect()
 
-    var onInsetsCallback: OnInsetsCallback? = null
+    var onInsetsCallback: ((WindowInsetsCompat) -> Unit)? = null
 
     var tintStatusBar = false
         set(value) {
@@ -384,7 +384,7 @@ open class MaterialDrawerSliderView @JvmOverloads constructor(context: Context, 
 
             setWillNotDraw(insetForeground == null)
             ViewCompat.postInvalidateOnAnimation(this@MaterialDrawerSliderView)
-            onInsetsCallback?.onInsetsChanged(insets)
+            onInsetsCallback?.invoke(insets)
             insets
         }
     }
@@ -765,7 +765,7 @@ open class MaterialDrawerSliderView @JvmOverloads constructor(context: Context, 
             stickyFooterShadowView?.visibility = View.VISIBLE
 
             //if we currently show the accountHeader selection list make sure to reset this attr
-            accountHeader?.selectionListShown = false
+            accountHeader?._selectionListShown = false
         }
     }
 

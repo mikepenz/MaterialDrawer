@@ -13,6 +13,7 @@ import com.mikepenz.iconics.IconicsDrawable
 import com.mikepenz.iconics.IconicsSize.Companion.dp
 import com.mikepenz.iconics.typeface.library.fontawesome.FontAwesome
 import com.mikepenz.iconics.typeface.library.googlematerial.GoogleMaterial
+import com.mikepenz.materialdrawer.iconics.withIcon
 import com.mikepenz.materialdrawer.model.*
 import com.mikepenz.materialdrawer.model.interfaces.Nameable
 import com.mikepenz.materialdrawer.widget.AccountHeaderView

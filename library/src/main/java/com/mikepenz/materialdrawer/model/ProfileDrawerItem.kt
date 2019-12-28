@@ -10,7 +10,6 @@ import androidx.annotation.DrawableRes
 import androidx.annotation.LayoutRes
 import androidx.annotation.StringRes
 import androidx.recyclerview.widget.RecyclerView
-import com.mikepenz.iconics.typeface.IIcon
 import com.mikepenz.materialdrawer.R
 import com.mikepenz.materialdrawer.holder.ImageHolder
 import com.mikepenz.materialdrawer.holder.StringHolder
@@ -49,11 +48,6 @@ open class ProfileDrawerItem : AbstractDrawerItem<ProfileDrawerItem, ProfileDraw
 
     override fun withIcon(bitmap: Bitmap): ProfileDrawerItem {
         this.icon = ImageHolder(bitmap)
-        return this
-    }
-
-    override fun withIcon(icon: IIcon): ProfileDrawerItem {
-        this.icon = ImageHolder(icon)
         return this
     }
 

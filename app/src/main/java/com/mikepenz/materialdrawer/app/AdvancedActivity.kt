@@ -17,6 +17,7 @@ import com.mikepenz.materialdrawer.app.drawerItems.CustomPrimaryDrawerItem
 import com.mikepenz.materialdrawer.app.drawerItems.CustomUrlPrimaryDrawerItem
 import com.mikepenz.materialdrawer.app.drawerItems.OverflowMenuDrawerItem
 import com.mikepenz.materialdrawer.holder.ImageHolder
+import com.mikepenz.materialdrawer.iconics.withIcon
 import com.mikepenz.materialdrawer.model.*
 import com.mikepenz.materialdrawer.model.interfaces.IDrawerItem
 import com.mikepenz.materialdrawer.model.interfaces.IProfile

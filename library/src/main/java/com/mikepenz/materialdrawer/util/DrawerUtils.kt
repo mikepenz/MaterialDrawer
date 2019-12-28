@@ -14,7 +14,6 @@ import com.mikepenz.materialdrawer.model.AbstractDrawerItem
 import com.mikepenz.materialdrawer.model.interfaces.IDrawerItem
 import com.mikepenz.materialdrawer.model.interfaces.Selectable
 import com.mikepenz.materialdrawer.widget.MaterialDrawerSliderView
-import com.mikepenz.materialize.util.UIUtils
 
 /**
  * Created by mikepenz on 23.05.15.
@@ -220,11 +219,11 @@ internal object DrawerUtils {
             if (sliderView.stickyHeaderShadow) {
                 //add a shadow
                 if (Build.VERSION.SDK_INT >= 21) {
-                    it.elevation = UIUtils.convertDpToPixel(4f, sliderView.context)
+                    it.elevation = sliderView.context.resources.getDimensionPixelSize(R.dimen.material_drawer_sticky_header_elevation).toFloat()
                 } else {
                     val view = View(sliderView.context)
                     view.setBackgroundResource(R.drawable.material_drawer_shadow_bottom)
-                    sliderView.addView(view, RelativeLayout.LayoutParams.MATCH_PARENT, UIUtils.convertDpToPixel(4f, sliderView.context).toInt())
+                    sliderView.addView(view, RelativeLayout.LayoutParams.MATCH_PARENT, sliderView.context.resources.getDimensionPixelSize(R.dimen.material_drawer_sticky_header_elevation))
                     //now align the shadow below the stickyHeader ;)
                     val lps = view.layoutParams as RelativeLayout.LayoutParams
                     lps.addRule(RelativeLayout.BELOW, R.id.material_drawer_sticky_header)
@@ -351,7 +350,7 @@ internal object DrawerUtils {
     private fun addStickyFooterDivider(ctx: Context, footerView: ViewGroup) {
         val divider = LinearLayout(ctx)
         val dividerParams = LinearLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT)
-        divider.minimumHeight = UIUtils.convertDpToPixel(1f, ctx).toInt()
+        divider.minimumHeight = ctx.resources.getDimensionPixelSize(R.dimen.material_drawer_sticky_footer_divider)
         divider.orientation = LinearLayout.VERTICAL
         divider.setBackgroundColor(ctx.getDividerColor())
         footerView.addView(divider, dividerParams)

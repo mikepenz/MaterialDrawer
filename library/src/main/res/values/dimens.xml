@@ -12,6 +12,13 @@
     <dimen name="material_drawer_vertical_padding">16dp</dimen>
 
     <!-- Sticky footer elevation -->
+    <dimen name="material_drawer_container_divider">1dp</dimen>
+
+    <!-- Sticky footer elevation -->
+    <dimen name="material_drawer_sticky_header_elevation">4dp</dimen>
+
+    <!-- Sticky footer elevation -->
+    <dimen name="material_drawer_sticky_footer_divider">1dp</dimen>
     <dimen name="material_drawer_sticky_footer_elevation">4dp</dimen>
 
     <!-- General margins for the drawer account header -->
@@ -26,7 +33,7 @@
     <dimen name="material_drawer_account_header_subtext">13sp</dimen>
     <dimen name="material_drawer_account_header_dropdown_guideline">80dp</dimen>
     <dimen name="material_drawer_account_header_dropdown">22dp</dimen>
-    <dimen name="material_drawer_account_header_dropdown_padding">5dp</dimen>
+    <dimen name="material_drawer_account_header_dropdown_padding">1dp</dimen>
     <dimen name="material_drawer_account_header_dropdown_margin_bottom">18dp</dimen>
     <dimen name="material_drawer_account_header_non_compact_padding">56dp</dimen>
 
@@ -76,4 +83,8 @@
 
     <!-- Alpha for selected background -->
     <dimen name="material_drawer_selected_background_alpha">0.12</dimen>
+
+    <!-- Profile placeholder -->
+    <dimen name="material_drawer_profile_icon_placeholder">56dp</dimen>
+    <dimen name="material_drawer_profile_icon_placeholder_icon">24dp</dimen>
 </resources>

@@ -1,19 +1,18 @@
 package com.mikepenz.materialdrawer.model
 
-import android.graphics.Color
+import android.content.res.ColorStateList
+import android.os.Build
 import android.view.View
 import android.widget.ImageView
 import androidx.annotation.ColorInt
 import androidx.annotation.ColorRes
 import androidx.annotation.LayoutRes
+import androidx.appcompat.content.res.AppCompatResources
 import androidx.core.view.ViewCompat
-import com.mikepenz.iconics.IconicsColor
-import com.mikepenz.iconics.IconicsDrawable
-import com.mikepenz.iconics.IconicsSize
 import com.mikepenz.materialdrawer.R
 import com.mikepenz.materialdrawer.holder.ColorHolder
-import com.mikepenz.materialdrawer.icons.MaterialDrawerFont
 import com.mikepenz.materialdrawer.model.interfaces.IDrawerItem
+import com.mikepenz.materialdrawer.util.FixStateListDrawable
 
 /**
  * Created by mikepenz on 03.02.15.
@@ -84,10 +83,20 @@ open class ExpandableDrawerItem : BaseDescribeableDrawerItem<ExpandableDrawerIte
         //bind the basic view parts
         bindViewHelper(holder)
 
-        //make sure all animations are stopped
-        if (holder.arrow.drawable is IconicsDrawable) {
-            (holder.arrow.drawable as IconicsDrawable).color(this.arrowColor?.color(ctx)?.let { IconicsColor.colorInt(it) } ?: IconicsColor.colorList(getIconColor(ctx)))
+        val arrowColor = this.arrowColor?.color(ctx)?.let { ColorStateList.valueOf(it) } ?: getIconColor(ctx)
+        when {
+            Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP -> {
+                holder.arrow.imageTintList = arrowColor
+            }
+            holder.arrow.drawable is FixStateListDrawable -> {
+                (holder.arrow.drawable as FixStateListDrawable).color = arrowColor
+            }
+            else -> {
+                holder.arrow.setImageDrawable(FixStateListDrawable(holder.arrow.drawable, arrowColor))
+            }
         }
+
+        //make sure all animations are stopped
         holder.arrow.clearAnimation()
         if (!isExpanded) {
             holder.arrow.rotation = this.arrowRotationAngleStart.toFloat()
@@ -107,7 +116,7 @@ open class ExpandableDrawerItem : BaseDescribeableDrawerItem<ExpandableDrawerIte
         var arrow: ImageView = view.findViewById(R.id.material_drawer_arrow)
 
         init {
-            arrow.setImageDrawable(IconicsDrawable(view.context, MaterialDrawerFont.Icon.mdf_expand_more).size(IconicsSize.dp(16)).padding(IconicsSize.dp(2)).color(IconicsColor.colorInt(Color.BLACK)))
+            arrow.setImageDrawable(AppCompatResources.getDrawable(view.context, R.drawable.material_drawer_ico_chevron_down))
         }
     }
 }

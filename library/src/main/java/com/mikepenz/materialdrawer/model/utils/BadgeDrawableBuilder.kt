@@ -6,6 +6,7 @@ import android.graphics.drawable.StateListDrawable
 import android.util.StateSet
 import androidx.appcompat.content.res.AppCompatResources
 import com.mikepenz.materialdrawer.holder.BadgeStyle
+import com.mikepenz.materialdrawer.holder.ColorHolder
 
 /**
  * Created by mikepenz on 02.07.15.
@@ -17,11 +18,11 @@ class BadgeDrawableBuilder(private val mStyle: BadgeStyle) {
         val normal = AppCompatResources.getDrawable(ctx, mStyle.gradientDrawable) as GradientDrawable?
         val selected = normal?.constantState?.newDrawable()?.mutate() as GradientDrawable?
 
-        com.mikepenz.materialize.holder.ColorHolder.applyToOrTransparent(mStyle.color, ctx, normal)
+        ColorHolder.applyToOrTransparent(mStyle.color, ctx, normal)
         if (mStyle.colorPressed == null) {
-            com.mikepenz.materialize.holder.ColorHolder.applyToOrTransparent(mStyle.color, ctx, selected)
+            ColorHolder.applyToOrTransparent(mStyle.color, ctx, selected)
         } else {
-            com.mikepenz.materialize.holder.ColorHolder.applyToOrTransparent(mStyle.colorPressed, ctx, selected)
+            ColorHolder.applyToOrTransparent(mStyle.colorPressed, ctx, selected)
         }
 
         mStyle.corners?.let {

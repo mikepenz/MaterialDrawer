@@ -49,7 +49,7 @@ class CustomApplication : MultiDexApplication() {
                 //custom ones can be checked via string. see the CustomUrlBasePrimaryDrawerItem LINE 111
                 return when (tag) {
                     DrawerImageLoader.Tags.PROFILE.name -> DrawerUIUtils.getPlaceHolder(ctx)
-                    DrawerImageLoader.Tags.ACCOUNT_HEADER.name -> IconicsDrawable(ctx).iconText(" ").backgroundColor(colorRes(com.mikepenz.materialdrawer.R.color.primary)).size(dp(56))
+                    DrawerImageLoader.Tags.ACCOUNT_HEADER.name -> IconicsDrawable(ctx).iconText(" ").backgroundColor(colorRes(R.color.primary)).size(dp(56))
                     "customUrlItem" -> IconicsDrawable(ctx).iconText(" ").backgroundColor(colorRes(R.color.md_red_500)).size(dp(56))
                     //we use the default one for
                     //DrawerImageLoader.Tags.PROFILE_DRAWER_ITEM.name()

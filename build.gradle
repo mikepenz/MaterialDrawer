@@ -16,6 +16,7 @@ buildscript {
                 multiDex         : '2.0.1',
                 annotation       : '1.1.0',
                 recyclerView     : '1.1.0',
+                core             : '1.1.0',
                 material         : '1.1.0-rc01',
                 appcompat        : '1.1.0',
                 drawerlayout     : '1.1.0-alpha03',

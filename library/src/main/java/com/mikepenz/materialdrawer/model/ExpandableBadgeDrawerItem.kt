@@ -1,23 +1,21 @@
 package com.mikepenz.materialdrawer.model
 
-import android.graphics.Color
+import android.content.res.ColorStateList
+import android.os.Build
 import android.view.View
 import android.widget.ImageView
 import android.widget.TextView
 import androidx.annotation.LayoutRes
 import androidx.annotation.StringRes
+import androidx.appcompat.content.res.AppCompatResources
 import androidx.core.view.ViewCompat
-import com.mikepenz.iconics.IconicsColor.Companion.colorInt
-import com.mikepenz.iconics.IconicsColor.Companion.colorList
-import com.mikepenz.iconics.IconicsDrawable
-import com.mikepenz.iconics.IconicsSize.Companion.dp
 import com.mikepenz.materialdrawer.R
 import com.mikepenz.materialdrawer.holder.BadgeStyle
 import com.mikepenz.materialdrawer.holder.ColorHolder
 import com.mikepenz.materialdrawer.holder.StringHolder
-import com.mikepenz.materialdrawer.icons.MaterialDrawerFont
 import com.mikepenz.materialdrawer.model.interfaces.ColorfulBadgeable
 import com.mikepenz.materialdrawer.model.interfaces.IDrawerItem
+import com.mikepenz.materialdrawer.util.FixStateListDrawable
 
 /**
  * Created by mikepenz on 03.02.15.
@@ -81,10 +79,20 @@ open class ExpandableBadgeDrawerItem : BaseDescribeableDrawerItem<ExpandableBadg
             holder.badge.typeface = typeface
         }
 
-        //make sure all animations are stopped
-        if (holder.arrow.drawable is IconicsDrawable) {
-            (holder.arrow.drawable as IconicsDrawable).color(this.arrowColor?.color(ctx)?.let { colorInt(it) } ?: colorList(getIconColor(ctx)))
+        val arrowColor = this.arrowColor?.color(ctx)?.let { ColorStateList.valueOf(it) } ?: getIconColor(ctx)
+        when {
+            Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP -> {
+                holder.arrow.imageTintList = arrowColor
+            }
+            holder.arrow.drawable is FixStateListDrawable -> {
+                (holder.arrow.drawable as FixStateListDrawable).color = arrowColor
+            }
+            else -> {
+                holder.arrow.setImageDrawable(FixStateListDrawable(holder.arrow.drawable, arrowColor))
+            }
         }
+
+        //make sure all animations are stopped
         holder.arrow.clearAnimation()
         if (!isExpanded) {
             holder.arrow.rotation = this.arrowRotationAngleStart.toFloat()
@@ -131,7 +139,7 @@ open class ExpandableBadgeDrawerItem : BaseDescribeableDrawerItem<ExpandableBadg
         var badge: TextView = view.findViewById(R.id.material_drawer_badge)
 
         init {
-            arrow.setImageDrawable(IconicsDrawable(view.context, MaterialDrawerFont.Icon.mdf_expand_more).size(dp(16)).padding(dp(2)).color(colorInt(Color.BLACK)))
+            arrow.setImageDrawable(AppCompatResources.getDrawable(view.context, R.drawable.material_drawer_ico_chevron_down))
         }
     }
 }

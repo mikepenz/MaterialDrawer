@@ -3,12 +3,16 @@ package com.mikepenz.materialdrawer.util
 import android.content.Context
 import android.content.res.ColorStateList
 import android.content.res.TypedArray
+import android.graphics.drawable.ColorDrawable
+import android.graphics.drawable.Drawable
+import android.graphics.drawable.StateListDrawable
 import android.util.TypedValue
 import androidx.annotation.*
 import androidx.core.content.ContextCompat
 import androidx.core.content.res.ResourcesCompat
 import androidx.core.graphics.ColorUtils
 import com.mikepenz.materialdrawer.R
+
 
 private val CHECKED_STATE_SET = intArrayOf(android.R.attr.state_checked)
 internal val SELECTED_STATE_SET = intArrayOf(android.R.attr.state_selected)
@@ -125,4 +129,84 @@ fun Context.getThemeColorFromAttrOrRes(@AttrRes attr: Int, @ColorRes res: Int): 
         color = ResourcesCompat.getColor(resources, res, theme)
     }
     return color
+}
+
+/**
+ * helper to get the system default selectable background res
+ */
+internal fun Context.getSelectableBackgroundRes(): Int {
+    val outValue = TypedValue()
+    //it is important here to not use the android.R because this wouldn't add the latest drawable
+    this.theme.resolveAttribute(R.attr.selectableItemBackground, outValue, true)
+    return outValue.resourceId
+}
+
+
+/**
+ * helper to get the system default selectable background
+ */
+internal fun Context.getSelectableBackground(): Drawable? {
+    val selectableBackgroundRes = getSelectableBackgroundRes()
+    return ContextCompat.getDrawable(this, selectableBackgroundRes)
+}
+
+/**
+ * helper to get the system default selectable background inclusive an active state
+ *
+ * @param selected_color the selected color
+ * @param animate        true if you want to fade over the states (only animates if API newer than Build.VERSION_CODES.HONEYCOMB)
+ * @return the StateListDrawable
+ */
+internal fun Context.getSelectableBackground(selected_color: Int, animate: Boolean): StateListDrawable? {
+    val states = StateListDrawable()
+    val clrActive = ColorDrawable(selected_color)
+    states.addState(intArrayOf(android.R.attr.state_selected), clrActive)
+    states.addState(intArrayOf(), getSelectableBackground())
+    //if possible and wanted we enable animating across states
+    if (animate) {
+        val duration = resources.getInteger(android.R.integer.config_shortAnimTime)
+        states.setEnterFadeDuration(duration)
+        states.setExitFadeDuration(duration)
+    }
+    return states
+}
+
+/**
+ * Returns the screen width in pixels
+ *
+ * @return the screen width in pixels
+ */
+internal fun Context.getScreenWidth(): Int {
+    val metrics = resources.displayMetrics
+    return metrics.widthPixels
+}
+
+/**
+ * helper to calculate the actionBar height
+ *
+ * @param context
+ * @return
+ */
+fun Context.getActionBarHeight(): Int {
+    var actionBarHeight: Int = getThemeAttributeDimensionSize(R.attr.actionBarSize)
+    if (actionBarHeight == 0) {
+        actionBarHeight = resources.getDimensionPixelSize(R.dimen.abc_action_bar_default_height_material)
+    }
+    return actionBarHeight
+}
+
+/**
+ * Returns the size in pixels of an attribute dimension
+ *
+ * @param attr    is the attribute dimension we want to know the size from
+ * @return the size in pixels of an attribute dimension
+ */
+internal fun Context.getThemeAttributeDimensionSize(@AttrRes attr: Int): Int {
+    var a: TypedArray? = null
+    return try {
+        a = theme.obtainStyledAttributes(intArrayOf(attr))
+        a.getDimensionPixelSize(0, 0)
+    } finally {
+        a?.recycle()
+    }
 }

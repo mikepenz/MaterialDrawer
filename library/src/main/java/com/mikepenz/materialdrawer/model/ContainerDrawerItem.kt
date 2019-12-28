@@ -8,7 +8,6 @@ import androidx.recyclerview.widget.RecyclerView
 import com.mikepenz.materialdrawer.R
 import com.mikepenz.materialdrawer.holder.DimenHolder
 import com.mikepenz.materialdrawer.util.getDividerColor
-import com.mikepenz.materialize.util.UIUtils
 
 /**
  * Created by mikepenz on 03.02.15.
@@ -84,15 +83,15 @@ open class ContainerDrawerItem : AbstractDrawerItem<ContainerDrawerItem, Contain
 
         var dividerHeight = 0
         if (divider) {
-            dividerHeight = 1
+            dividerHeight = ctx.resources.getDimensionPixelSize(R.dimen.material_drawer_container_divider)
         }
 
         val divider = View(ctx)
         divider.minimumHeight = dividerHeight
         divider.setBackgroundColor(ctx.getDividerColor())
 
-        val dividerParams = LinearLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, UIUtils.convertDpToPixel(dividerHeight.toFloat(), ctx).toInt())
-        val viewParams = LinearLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, if (this.height != null) height - UIUtils.convertDpToPixel(dividerHeight.toFloat(), ctx).toInt() else height)
+        val dividerParams = LinearLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, dividerHeight)
+        val viewParams = LinearLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, if (this.height != null) height - dividerHeight else height)
 
         //depending on the position we add the view
         when (viewPosition) {

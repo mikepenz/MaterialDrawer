@@ -33,6 +33,7 @@
         android:clickable="true"
         android:elevation="2dp"
         android:focusable="true"
+        android:scaleType="fitCenter"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/material_drawer_statusbar_guideline" />
 
@@ -47,6 +48,7 @@
         android:clickable="true"
         android:elevation="2dp"
         android:focusable="true"
+        android:scaleType="fitCenter"
         android:visibility="visible"
         app:layout_constraintEnd_toStartOf="@id/material_drawer_account_header_small_second"
         app:layout_constraintTop_toBottomOf="@+id/material_drawer_statusbar_guideline" />
@@ -62,6 +64,7 @@
         android:clickable="true"
         android:elevation="2dp"
         android:focusable="true"
+        android:scaleType="fitCenter"
         android:visibility="visible"
         app:layout_constraintEnd_toStartOf="@id/material_drawer_account_header_small_third"
         app:layout_constraintTop_toBottomOf="@+id/material_drawer_statusbar_guideline" />
@@ -77,6 +80,7 @@
         android:clickable="true"
         android:elevation="2dp"
         android:focusable="true"
+        android:scaleType="fitCenter"
         android:visibility="visible"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/material_drawer_statusbar_guideline" />

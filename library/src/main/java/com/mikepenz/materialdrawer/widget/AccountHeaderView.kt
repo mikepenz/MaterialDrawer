@@ -17,19 +17,14 @@ import androidx.appcompat.content.res.AppCompatResources
 import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.constraintlayout.widget.Guideline
 import androidx.core.view.ViewCompat
-import com.mikepenz.iconics.IconicsColor
-import com.mikepenz.iconics.IconicsDrawable
-import com.mikepenz.iconics.IconicsSize
 import com.mikepenz.materialdrawer.R
 import com.mikepenz.materialdrawer.holder.DimenHolder
 import com.mikepenz.materialdrawer.holder.ImageHolder
 import com.mikepenz.materialdrawer.holder.StringHolder
-import com.mikepenz.materialdrawer.icons.MaterialDrawerFont
 import com.mikepenz.materialdrawer.model.interfaces.IDrawerItem
 import com.mikepenz.materialdrawer.model.interfaces.IProfile
 import com.mikepenz.materialdrawer.util.*
 import com.mikepenz.materialdrawer.view.BezelImageView
-import com.mikepenz.materialize.util.UIUtils
 import java.util.*
 
 /**
@@ -69,7 +64,7 @@ open class AccountHeaderView @JvmOverloads constructor(context: Context, attrs: 
     internal var profileThird: IProfile<*>? = null
 
     // global stuff
-    private var _selectionListShown = false
+    internal var _selectionListShown = false
     var selectionListShown: Boolean
         get() = _selectionListShown
         set(value) {
@@ -462,13 +457,20 @@ open class AccountHeaderView @JvmOverloads constructor(context: Context, attrs: 
         val subTextColor = context.getHeaderSelectionSubTextColor()  // this.textColor.applyColor(context, R.attr.materialDrawerHeaderSelectionSubtext, R.color.material_drawer_header_selection_subtext)
 
         if (accountHeaderTextSectionBackgroundResource == -1) {
-            accountHeaderTextSectionBackgroundResource = UIUtils.getSelectableBackgroundRes(context)
+            accountHeaderTextSectionBackgroundResource = context.getSelectableBackgroundRes()
         }
         handleSelectionView(currentProfile, true)
 
         // set the arrow
-        accountSwitcherArrow.setImageDrawable(IconicsDrawable(context, MaterialDrawerFont.Icon.mdf_arrow_drop_down).size(IconicsSize.res(R.dimen.material_drawer_account_header_dropdown)).padding(IconicsSize.res(R.dimen.material_drawer_account_header_dropdown_padding)).color(IconicsColor.colorList(subTextColor)))
+        val drawable = AppCompatResources.getDrawable(context, R.drawable.material_drawer_ico_menu_down)
+        if (drawable != null) {
+            val size = context.resources.getDimensionPixelSize(R.dimen.material_drawer_account_header_dropdown)
+            accountSwitcherArrow.setImageDrawable(FixStateListDrawable(drawable, subTextColor).apply {
+                setBounds(0, 0, size, size)
+            })
+        }
 
+        //IconicsDrawable(context, MaterialDrawerFont.Icon.mdf_arrow_drop_down).size(IconicsSize.res(R.dimen.material_drawer_account_header_dropdown)).padding(IconicsSize.res(R.dimen.material_drawer_account_header_dropdown_padding)).color(IconicsColor.colorList(subTextColor))
         //set the typeface for the AccountHeader
         if (nameTypeface != null) {
             currentProfileName.typeface = nameTypeface
@@ -817,7 +819,7 @@ open class AccountHeaderView @JvmOverloads constructor(context: Context, attrs: 
         val mProfiles = this.profiles
         if (mCurrentProfile != null) {
             if ((profileImagesVisible || onlyMainProfileImageVisible) && !onlySmallProfileImagesVisible) {
-                currentProfileView.contentDescription = mCurrentProfile.email?.text ?: mCurrentProfile.name?.text
+                currentProfileView.contentDescription = mCurrentProfile.email?.getText(context) ?: mCurrentProfile.name?.getText(context)
                         ?: currentProfileView.context.getString(R.string.material_drawer_profile_content_description)
                 setImageOrPlaceholder(currentProfileView, mCurrentProfile.icon)
                 if (profileImagesClickable) {
@@ -847,7 +849,7 @@ open class AccountHeaderView @JvmOverloads constructor(context: Context, attrs: 
                 this ?: return
                 setImageOrPlaceholder(imageView, this.icon)
                 imageView.setTag(R.id.material_drawer_profile_header, this)
-                imageView.contentDescription = this.email?.text ?: this.name?.text
+                imageView.contentDescription = this.email?.getText(context) ?: this.name?.getText(context)
                         ?: imageView.context.getString(R.string.material_drawer_profile_content_description)
                 if (profileImagesClickable) {
                     imageView.setOnClickListener(onProfileClickListener)

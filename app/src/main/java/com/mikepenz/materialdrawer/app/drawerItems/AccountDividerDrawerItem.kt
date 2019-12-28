@@ -8,7 +8,6 @@ import androidx.annotation.DrawableRes
 import androidx.annotation.LayoutRes
 import androidx.core.view.ViewCompat
 import androidx.recyclerview.widget.RecyclerView
-import com.mikepenz.iconics.typeface.IIcon
 import com.mikepenz.materialdrawer.app.R
 import com.mikepenz.materialdrawer.holder.ImageHolder
 import com.mikepenz.materialdrawer.holder.StringHolder
@@ -81,10 +80,6 @@ class AccountDividerDrawerItem : AbstractDrawerItem<AccountDividerDrawerItem, Ac
     }
 
     override fun withIcon(uri: Uri): AccountDividerDrawerItem {
-        return this
-    }
-
-    override fun withIcon(icon: IIcon): AccountDividerDrawerItem {
         return this
     }
 

@@ -55,6 +55,7 @@ android {
 
 dependencies {
     implementation project(':library')
+    implementation project(':library-iconics')
     implementation project(':library-nav')
 
     implementation "androidx.multidex:multidex:${versions.multiDex}"

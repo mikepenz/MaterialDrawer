@@ -6,7 +6,6 @@ import androidx.core.view.ViewCompat
 import androidx.recyclerview.widget.RecyclerView
 import com.mikepenz.materialdrawer.R
 import com.mikepenz.materialdrawer.util.getDividerColor
-import com.mikepenz.materialize.util.UIUtils
 
 /**
  * Created by mikepenz on 03.02.15.

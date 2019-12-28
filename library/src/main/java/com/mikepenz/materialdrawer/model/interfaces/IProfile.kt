@@ -5,9 +5,8 @@ import android.graphics.drawable.Drawable
 import android.net.Uri
 import androidx.annotation.DrawableRes
 import com.mikepenz.fastadapter.IIdentifyable
-import com.mikepenz.iconics.typeface.IIcon
-import com.mikepenz.materialdrawer.holder.StringHolder
 import com.mikepenz.materialdrawer.holder.ImageHolder
+import com.mikepenz.materialdrawer.holder.StringHolder
 
 /**
  * Created by mikepenz on 03.02.15.
@@ -35,6 +34,4 @@ interface IProfile<T> : IIdentifyable {
     fun withIcon(url: String): T
 
     fun withIcon(uri: Uri): T
-
-    fun withIcon(icon: IIcon): T
 }

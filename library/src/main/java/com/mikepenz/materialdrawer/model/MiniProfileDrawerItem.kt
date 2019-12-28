@@ -9,12 +9,11 @@ import androidx.annotation.DimenRes
 import androidx.annotation.DrawableRes
 import androidx.annotation.LayoutRes
 import androidx.recyclerview.widget.RecyclerView
-import com.mikepenz.iconics.typeface.IIcon
 import com.mikepenz.materialdrawer.R
 import com.mikepenz.materialdrawer.holder.DimenHolder
+import com.mikepenz.materialdrawer.holder.ImageHolder
 import com.mikepenz.materialdrawer.holder.StringHolder
 import com.mikepenz.materialdrawer.model.interfaces.IProfile
-import com.mikepenz.materialdrawer.holder.ImageHolder
 
 /**
  * Created by mikepenz on 03.02.15.
@@ -73,11 +72,6 @@ open class MiniProfileDrawerItem : AbstractDrawerItem<MiniProfileDrawerItem, Min
 
     override fun withIcon(uri: Uri): MiniProfileDrawerItem {
         this.icon = ImageHolder(uri)
-        return this
-    }
-
-    override fun withIcon(icon: IIcon): MiniProfileDrawerItem {
-        this.icon = ImageHolder(icon)
         return this
     }
 
