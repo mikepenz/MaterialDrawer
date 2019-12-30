@@ -23,7 +23,7 @@ jobs:
             - uses: actions/cache@v1
               with:
                   path: ~/.gradle/caches
-                  key: gradle-${{ runner.os }}-${{ hashFiles('**/build.gradle.kts') }}-${{ hashFiles('**/gradle/wrapper/gradle-wrapper.properties') }}-${{ hashFiles('**/buildSrc/src/main/kotlin/Library.kt') }}
+                  key: gradle-${{ runner.os }}-${{ hashFiles('**/build.gradle') }}-${{ hashFiles('**/gradle/wrapper/gradle-wrapper.properties') }} }}
 
             - name: Build
               run: ./gradlew clean build
