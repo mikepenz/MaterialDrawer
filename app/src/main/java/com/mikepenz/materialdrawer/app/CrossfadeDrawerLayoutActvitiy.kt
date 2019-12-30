@@ -13,8 +13,8 @@ import com.mikepenz.materialdrawer.interfaces.ICrossfader
 import com.mikepenz.materialdrawer.model.PrimaryDrawerItem
 import com.mikepenz.materialdrawer.model.ProfileDrawerItem
 import com.mikepenz.materialdrawer.model.SectionDrawerItem
-import com.mikepenz.materialdrawer.model.interfaces.Nameable
-import com.mikepenz.materialdrawer.util.DrawerUIUtils
+import com.mikepenz.materialdrawer.model.interfaces.*
+import com.mikepenz.materialdrawer.util.getOptimalDrawerWidth
 import com.mikepenz.materialdrawer.widget.AccountHeaderView
 import kotlinx.android.synthetic.main.activity_sample_crossfader.*
 
@@ -67,7 +67,7 @@ class CrossfadeDrawerLayoutActvitiy : AppCompatActivity() {
                     PrimaryDrawerItem().withName(R.string.drawer_item_contact).withIcon(FontAwesome.Icon.faw_bullhorn)
             )
             onDrawerItemClickListener = { v, drawerItem, position ->
-                if (drawerItem is Nameable<*>) {
+                if (drawerItem is Nameable) {
                     Toast.makeText(this@CrossfadeDrawerLayoutActvitiy, drawerItem.name?.getText(this@CrossfadeDrawerLayoutActvitiy), Toast.LENGTH_SHORT).show()
                 }
                 false
@@ -78,7 +78,7 @@ class CrossfadeDrawerLayoutActvitiy : AppCompatActivity() {
         crossFadeSmallView.drawer = crossFadeLargeView
 
         //define maxDrawerWidth
-        root.maxWidthPx = DrawerUIUtils.getOptimalDrawerWidth(this)
+        root.maxWidthPx = getOptimalDrawerWidth(this)
         crossFadeSmallView.background = crossFadeLargeView.background
 
         //define the crossfader to be used with the miniDrawer. This is required to be able to automatically toggle open / close

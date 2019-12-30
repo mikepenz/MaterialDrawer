@@ -2,14 +2,11 @@ package com.mikepenz.materialdrawer.util
 
 import com.mikepenz.materialdrawer.holder.ImageHolder
 import com.mikepenz.materialdrawer.holder.StringHolder
-import com.mikepenz.materialdrawer.model.interfaces.Badgeable
-import com.mikepenz.materialdrawer.model.interfaces.IDrawerItem
-import com.mikepenz.materialdrawer.model.interfaces.Iconable
-import com.mikepenz.materialdrawer.model.interfaces.Nameable
+import com.mikepenz.materialdrawer.model.interfaces.*
 import com.mikepenz.materialdrawer.widget.MaterialDrawerSliderView
 
 /**
- * calculates the position of an drawerItem. searching by it's identifier
+ * calculates the position of an drawerItem. searching by its identifier
  *
  * @param drawerItem
  * @return
@@ -19,13 +16,13 @@ fun MaterialDrawerSliderView.getPosition(drawerItem: IDrawerItem<*>): Int {
 }
 
 /**
- * calculates the position of an drawerItem. searching by it's identifier
+ * calculates the position of an drawerItem. searching by its identifier
  *
  * @param identifier
  * @return
  */
 fun MaterialDrawerSliderView.getPosition(identifier: Long): Int {
-    return DrawerUtils.getPositionByIdentifier(this, identifier)
+    return this.getPositionByIdentifier(identifier)
 }
 
 /**
@@ -46,7 +43,7 @@ fun MaterialDrawerSliderView.getDrawerItem(identifier: Long): IDrawerItem<*>? {
  * @return
  */
 fun MaterialDrawerSliderView.getDrawerItem(tag: Any): IDrawerItem<*>? {
-    return DrawerUtils.getDrawerItem(itemAdapter.adapterItems, tag)
+    return itemAdapter.adapterItems.getDrawerItem(tag)
 }
 
 /**
@@ -68,7 +65,7 @@ fun MaterialDrawerSliderView.updateItem(drawerItem: IDrawerItem<*>) {
  */
 fun MaterialDrawerSliderView.updateBadge(identifier: Long, badge: StringHolder) {
     val drawerItem = getDrawerItem(identifier)
-    if (drawerItem is Badgeable<*>) {
+    if (drawerItem is Badgeable) {
         drawerItem.withBadge(badge)
         updateItem(drawerItem)
     }
@@ -83,7 +80,7 @@ fun MaterialDrawerSliderView.updateBadge(identifier: Long, badge: StringHolder) 
  */
 fun MaterialDrawerSliderView.updateName(identifier: Long, name: StringHolder) {
     val drawerItem = getDrawerItem(identifier)
-    if (drawerItem is Nameable<*>) {
+    if (drawerItem is Nameable) {
         drawerItem.withName(name)
         updateItem(drawerItem)
     }
@@ -98,7 +95,7 @@ fun MaterialDrawerSliderView.updateName(identifier: Long, name: StringHolder) {
  */
 fun MaterialDrawerSliderView.updateIcon(identifier: Long, image: ImageHolder) {
     val drawerItem = getDrawerItem(identifier)
-    if (drawerItem is Iconable<*>) {
+    if (drawerItem is Iconable) {
         drawerItem.withIcon(image)
         updateItem(drawerItem)
     }

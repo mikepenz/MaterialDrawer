@@ -6,11 +6,12 @@ import androidx.annotation.ColorRes
 import androidx.annotation.StringRes
 import androidx.recyclerview.widget.RecyclerView
 import com.mikepenz.materialdrawer.holder.ColorHolder
+import com.mikepenz.materialdrawer.holder.ImageHolder
 import com.mikepenz.materialdrawer.holder.StringHolder
 import com.mikepenz.materialdrawer.model.BaseDrawerItem
 import com.mikepenz.materialdrawer.util.DrawerImageLoader
-import com.mikepenz.materialdrawer.util.DrawerUIUtils
-import com.mikepenz.materialdrawer.holder.ImageHolder
+import com.mikepenz.materialdrawer.util.DrawerUtils.setDrawerVerticalPadding
+import com.mikepenz.materialdrawer.util.themeDrawerItem
 
 /**
  * Created by mikepenz on 03.02.15.
@@ -73,7 +74,7 @@ abstract class CustomUrlBasePrimaryDrawerItem<T, VH : RecyclerView.ViewHolder> :
         val shapeAppearanceModel = getShapeAppearanceModel(ctx)
 
         //set the background for the item
-        DrawerUIUtils.themeDrawerItem(ctx, viewHolder.view, selectedColor, isSelectedBackgroundAnimated, shapeAppearanceModel)
+        themeDrawerItem(ctx, viewHolder.view, selectedColor, isSelectedBackgroundAnimated, shapeAppearanceModel)
         //set the text for the name
         StringHolder.applyTo(this.name, viewHolder.name)
         //set the text for the description or hide
@@ -97,6 +98,6 @@ abstract class CustomUrlBasePrimaryDrawerItem<T, VH : RecyclerView.ViewHolder> :
         icon?.applyTo(viewHolder.icon, "customUrlItem")
 
         //for android API 17 --> Padding not applied via xml
-        DrawerUIUtils.setDrawerVerticalPadding(viewHolder.view)
+        setDrawerVerticalPadding(viewHolder.view)
     }
 }

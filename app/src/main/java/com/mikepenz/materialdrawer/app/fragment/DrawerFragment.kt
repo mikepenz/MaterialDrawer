@@ -13,6 +13,9 @@ import com.mikepenz.materialdrawer.iconics.withIcon
 import com.mikepenz.materialdrawer.model.PrimaryDrawerItem
 import com.mikepenz.materialdrawer.model.SecondaryDrawerItem
 import com.mikepenz.materialdrawer.model.SectionDrawerItem
+import com.mikepenz.materialdrawer.model.interfaces.withEnabled
+import com.mikepenz.materialdrawer.model.interfaces.withIdentifier
+import com.mikepenz.materialdrawer.model.interfaces.withName
 import kotlinx.android.synthetic.main.activity_sample.*
 
 

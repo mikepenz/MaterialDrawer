@@ -6,32 +6,37 @@ import androidx.annotation.StringRes
 import com.mikepenz.materialdrawer.holder.ColorHolder
 import com.mikepenz.materialdrawer.holder.ImageHolder
 import com.mikepenz.materialdrawer.holder.StringHolder
-import com.mikepenz.materialdrawer.util.DrawerUIUtils
-import com.mikepenz.materialdrawer.util.DrawerUIUtils.themeDrawerItem
+import com.mikepenz.materialdrawer.model.interfaces.IDrawerItem
 import com.mikepenz.materialdrawer.util.getSecondaryDrawerTextColor
+import com.mikepenz.materialdrawer.util.setDrawerVerticalPadding
+import com.mikepenz.materialdrawer.util.themeDrawerItem
 
 /**
- * Created by mikepenz on 03.02.15.
+ * An abstract [IDrawerItem] implementation describing a drawerItem with support for a description
  */
 abstract class BaseDescribeableDrawerItem<T, VH : BaseViewHolder> : BaseDrawerItem<T, VH>() {
     var description: StringHolder? = null
     var descriptionTextColor: ColorHolder? = null
 
+    @Deprecated("Please consider to replace with the actual property setter")
     fun withDescription(description: String): T {
         this.description = StringHolder(description)
         return this as T
     }
 
+    @Deprecated("Please consider to replace with the actual property setter")
     fun withDescription(@StringRes descriptionRes: Int): T {
         this.description = StringHolder(descriptionRes)
         return this as T
     }
 
+    @Deprecated("Please consider to replace with the actual property setter")
     fun withDescriptionTextColor(@ColorInt color: Int): T {
         this.descriptionTextColor = ColorHolder.fromColor(color)
         return this as T
     }
 
+    @Deprecated("Please consider to replace with the actual property setter")
     fun withDescriptionTextColorRes(@ColorRes colorRes: Int): T {
         this.descriptionTextColor = ColorHolder.fromColorRes(colorRes)
         return this as T
@@ -94,6 +99,6 @@ abstract class BaseDescribeableDrawerItem<T, VH : BaseViewHolder> : BaseDrawerIt
         ImageHolder.applyMultiIconTo(icon, selectedIcon, iconColor, isIconTinted, viewHolder.icon)
 
         //for android API 17 --> Padding not applied via xml
-        DrawerUIUtils.setDrawerVerticalPadding(viewHolder.view, level)
+        viewHolder.view.setDrawerVerticalPadding(level)
     }
 }

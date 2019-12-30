@@ -1,5 +1,7 @@
 package com.mikepenz.materialdrawer.app.drawerItems
 
+import android.content.Context
+import android.content.res.ColorStateList
 import android.graphics.drawable.Drawable
 import android.view.View
 import android.widget.ImageView
@@ -13,7 +15,7 @@ import com.mikepenz.materialdrawer.app.R
 import com.mikepenz.materialdrawer.holder.ColorHolder
 import com.mikepenz.materialdrawer.holder.ImageHolder
 import com.mikepenz.materialdrawer.model.AbstractDrawerItem
-import com.mikepenz.materialdrawer.util.getPrimaryDrawerIconColor
+import com.mikepenz.materialdrawer.util.createDrawerItemColorStateList
 
 /**
  * Created by mikepenz on 03.02.15.
@@ -160,6 +162,9 @@ class IconDrawerItem : AbstractDrawerItem<IconDrawerItem, IconDrawerItem.ViewHol
 
     class ViewHolder internal constructor(private val view: View) : RecyclerView.ViewHolder(view) {
         var icon: ImageView = view.findViewById<ImageView>(R.id.material_drawer_icon)
-
     }
+}
+
+internal fun Context.getPrimaryDrawerIconColor(): ColorStateList {
+    return createDrawerItemColorStateList(this, com.mikepenz.materialdrawer.R.styleable.MaterialDrawerSliderView_materialDrawerPrimaryIcon)!!
 }

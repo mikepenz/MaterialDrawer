@@ -2,33 +2,35 @@ package com.mikepenz.materialdrawer.util
 
 import android.annotation.SuppressLint
 import android.content.Context
+import android.content.res.ColorStateList
+import android.graphics.Color
+import android.graphics.drawable.*
 import android.os.Build
 import android.view.Gravity
 import android.view.View
 import android.view.ViewGroup
 import android.widget.LinearLayout
 import android.widget.RelativeLayout
+import androidx.appcompat.content.res.AppCompatResources
+import androidx.core.graphics.drawable.DrawableCompat
+import androidx.core.view.ViewCompat
 import androidx.drawerlayout.widget.DrawerLayout
+import com.google.android.material.shape.MaterialShapeDrawable
+import com.google.android.material.shape.ShapeAppearanceModel
 import com.mikepenz.materialdrawer.R
 import com.mikepenz.materialdrawer.model.AbstractDrawerItem
 import com.mikepenz.materialdrawer.model.interfaces.IDrawerItem
-import com.mikepenz.materialdrawer.model.interfaces.Selectable
 import com.mikepenz.materialdrawer.widget.MaterialDrawerSliderView
 
 /**
- * Created by mikepenz on 23.05.15.
+ * A utils class providing helpful functions for working with the [MaterialDrawerSliderView]
  */
-internal object DrawerUtils {
+object DrawerUtils {
     /**
      * helper method to handle the onClick of the footer
-     *
-     * @param drawer
-     * @param drawerItem
-     * @param v
-     * @param fireOnClick true if we should call the listener, false if not, null to not call the listener and not close the drawer
      */
-    fun onFooterDrawerItemClick(sliderView: MaterialDrawerSliderView, drawerItem: IDrawerItem<*>, v: View, fireOnClick: Boolean?) {
-        val checkable = !(drawerItem is Selectable<*> && !drawerItem.isSelectable)
+    internal fun onFooterDrawerItemClick(sliderView: MaterialDrawerSliderView, drawerItem: IDrawerItem<*>, v: View, fireOnClick: Boolean?) {
+        val checkable = !drawerItem.isSelectable
         if (checkable) {
             sliderView.resetStickyFooterSelection()
 
@@ -73,118 +75,9 @@ internal object DrawerUtils {
     }
 
     /**
-     * helper method to set the selection of the footer
-     *
-     * @param drawer
-     * @param position
-     * @param fireOnClick
-     */
-    fun setStickyFooterSelection(sliderView: MaterialDrawerSliderView, _position: Int, fireOnClick: Boolean?) {
-        var position = _position
-        if (position > -1) {
-            if (sliderView.stickyFooterView != null && sliderView.stickyFooterView is LinearLayout) {
-                val footer = sliderView.stickyFooterView as LinearLayout
-                if (sliderView.stickyFooterDivider) {
-                    position += 1
-                }
-                if (footer.childCount > position && position >= 0) {
-                    val drawerItem = footer.getChildAt(position).getTag(R.id.material_drawer_item) as IDrawerItem<*>
-                    onFooterDrawerItemClick(sliderView, drawerItem, footer.getChildAt(position), fireOnClick)
-                }
-            }
-        }
-    }
-
-    /**
-     * calculates the position of an drawerItem. searching by it's identifier
-     *
-     * @param identifier
-     * @return
-     */
-    fun getPositionByIdentifier(sliderView: MaterialDrawerSliderView, identifier: Long): Int {
-        if (identifier != -1L) {
-            for (i in 0 until sliderView.adapter.itemCount) {
-                if (sliderView.adapter.getItem(i)?.identifier == identifier) {
-                    return i
-                }
-            }
-        }
-
-        return -1
-    }
-
-    /**
-     * gets the drawerItem with the specific identifier from a drawerItem list
-     *
-     * @param drawerItems
-     * @param identifier
-     * @return
-     */
-    fun getDrawerItem(drawerItems: List<IDrawerItem<*>>, identifier: Long): IDrawerItem<*>? {
-        if (identifier != -1L) {
-            for (drawerItem in drawerItems) {
-                if (drawerItem.identifier == identifier) {
-                    return drawerItem
-                }
-            }
-        }
-        return null
-    }
-
-    /**
-     * gets the drawerItem by a defined tag from a drawerItem list
-     *
-     * @param drawerItems
-     * @param tag
-     * @return
-     */
-    fun getDrawerItem(drawerItems: List<IDrawerItem<*>>, tag: Any?): IDrawerItem<*>? {
-        if (tag != null) {
-            for (drawerItem in drawerItems) {
-                if (tag == drawerItem.tag) {
-                    return drawerItem
-                }
-            }
-        }
-        return null
-    }
-
-    /**
-     * calculates the position of an drawerItem inside the footer. searching by it's identifier
-     *
-     * @param identifier
-     * @return
-     */
-    fun getStickyFooterPositionByIdentifier(drawer: MaterialDrawerSliderView, identifier: Long): Int {
-        if (identifier != -1L) {
-            if (drawer.stickyFooterView != null && drawer.stickyFooterView is LinearLayout) {
-                val footer = drawer.stickyFooterView as LinearLayout
-
-                var shadowOffset = 0
-                for (i in 0 until footer.childCount) {
-                    val o = footer.getChildAt(i).getTag(R.id.material_drawer_item)
-
-                    //count up the shadowOffset to return the correct position of the given item
-                    if (o == null && drawer.stickyFooterDivider) {
-                        shadowOffset += 1
-                    }
-
-                    if (o != null && o is IDrawerItem<*> && o.identifier == identifier) {
-                        return i - shadowOffset
-                    }
-                }
-            }
-        }
-
-        return -1
-    }
-
-    /**
      * helper method to handle the headerView
-     *
-     * @param drawer
      */
-    fun handleHeaderView(sliderView: MaterialDrawerSliderView) {
+    internal fun handleHeaderView(sliderView: MaterialDrawerSliderView) {
         //use the AccountHeader if set
         sliderView.accountHeader?.let {
             if (sliderView.accountHeaderSticky) {
@@ -238,10 +131,8 @@ internal object DrawerUtils {
 
     /**
      * small helper to rebuild the FooterView
-     *
-     * @param drawer
      */
-    fun rebuildStickyFooterView(sliderView: MaterialDrawerSliderView) {
+    internal fun rebuildStickyFooterView(sliderView: MaterialDrawerSliderView) {
         sliderView.stickyFooterView?.let {
             it.removeAllViews()
 
@@ -265,15 +156,13 @@ internal object DrawerUtils {
             })
         }
 
-        setStickyFooterSelection(sliderView, sliderView.currentStickyFooterSelection, false)
+        sliderView.setStickyFooterSelection(sliderView.currentStickyFooterSelection, false)
     }
 
     /**
      * helper method to handle the footerView
-     *
-     * @param drawer
      */
-    fun handleFooterView(sliderView: MaterialDrawerSliderView, onClickListener: View.OnClickListener) {
+    internal fun handleFooterView(sliderView: MaterialDrawerSliderView, onClickListener: View.OnClickListener) {
         val ctx = sliderView.context
 
         //use the StickyDrawerItems if set
@@ -320,10 +209,8 @@ internal object DrawerUtils {
 
     /**
      * build the sticky footer item view
-     *
-     * @return
      */
-    fun buildStickyDrawerItemFooter(sliderView: MaterialDrawerSliderView, onClickListener: View.OnClickListener): ViewGroup {
+    internal fun buildStickyDrawerItemFooter(sliderView: MaterialDrawerSliderView, onClickListener: View.OnClickListener): ViewGroup {
         //create the container view
         val linearLayout = LinearLayout(sliderView.context)
         linearLayout.layoutParams = LinearLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT)
@@ -357,13 +244,9 @@ internal object DrawerUtils {
     }
 
     /**
-     * helper method to fill the sticky footer with it's elements
-     *
-     * @param drawer
-     * @param container
-     * @param onClickListener
+     * helper method to fill the sticky footer with its elements
      */
-    fun fillStickyDrawerItemFooter(sliderView: MaterialDrawerSliderView, container: ViewGroup, onClickListener: View.OnClickListener) {
+    internal fun fillStickyDrawerItemFooter(sliderView: MaterialDrawerSliderView, container: ViewGroup, onClickListener: View.OnClickListener) {
         //add all drawer items
         for (drawerItem in sliderView.stickyDrawerItems) {
             val view = drawerItem.generateView(container.context, container)
@@ -377,7 +260,7 @@ internal object DrawerUtils {
             container.addView(view)
 
             //for android API 17 --> Padding not applied via xml
-            DrawerUIUtils.setDrawerVerticalPadding(view)
+            setDrawerVerticalPadding(view)
         }
         //and really. don't ask about this. it won't set the padding if i don't set the padding for the container
         container.setPadding(0, 0, 0, 0)
@@ -413,10 +296,138 @@ internal object DrawerUtils {
             if (customWidth > -1) {
                 params.width = customWidth
             } else {
-                params.width = DrawerUIUtils.getOptimalDrawerWidth(ctx)
+                params.width = getOptimalDrawerWidth(ctx)
             }
         }
 
         return params
     }
+
+    /**
+     * helper method to get a person placeHolder drawable
+     */
+    fun getPlaceHolder(context: Context): Drawable {
+        val accountDrawable = AppCompatResources.getDrawable(context, R.drawable.material_drawer_ico_account_layer) as LayerDrawable
+        val placeholderSize = context.resources.getDimensionPixelSize(R.dimen.material_drawer_profile_icon_placeholder)
+        if (Build.VERSION.SDK_INT >= 23) {
+            accountDrawable.setLayerWidth(0, placeholderSize)
+            accountDrawable.setLayerHeight(0, placeholderSize)
+        }
+        DrawableCompat.wrap(accountDrawable.getDrawable(0)).let {
+            DrawableCompat.setTint(it, context.getThemeColor(R.attr.colorPrimary))
+            accountDrawable.setDrawableByLayerId(R.id.background, it)
+        }
+        val iconSize = context.resources.getDimensionPixelSize(R.dimen.material_drawer_profile_icon_placeholder_icon)
+        if (Build.VERSION.SDK_INT >= 23) {
+            accountDrawable.setLayerWidth(1, iconSize)
+            accountDrawable.setLayerHeight(1, iconSize)
+            accountDrawable.setLayerGravity(1, Gravity.CENTER)
+        }
+        DrawableCompat.wrap(accountDrawable.getDrawable(1)).let {
+            DrawableCompat.setTint(it, context.getThemeColor(R.attr.colorAccent))
+            accountDrawable.setDrawableByLayerId(R.id.account, it)
+        }
+        return accountDrawable
+        //IconicsDrawable(ctx, MaterialDrawerFont.Icon.mdf_person).color(IconicsColor.colorInt(ctx.getThemeColor(R.attr.colorAccent))).backgroundColor(IconicsColor.colorInt(ctx.getThemeColor(R.attr.colorPrimary))).size(IconicsSize.dp(56)).padding(IconicsSize.dp(16))
+    }
+
+
+    /**
+     * helper to set the vertical padding to the DrawerItems
+     * this is required because on API Level 17 the padding is ignored which is set via the XML
+     */
+    fun setDrawerVerticalPadding(view: View) {
+        val verticalPadding = view.context.resources.getDimensionPixelSize(R.dimen.material_drawer_vertical_padding)
+        view.setPadding(verticalPadding, 0, verticalPadding, 0)
+    }
+
+}
+
+
+/**
+ * Util method to theme the drawer item view's background (and foreground if possible)
+ *
+ * @param ctx            the context to use
+ * @param view           the view to theme
+ * @param selected_color the selected color to use
+ * @param animate        true if we want to animate the StateListDrawable
+ */
+fun themeDrawerItem(ctx: Context, view: View, selected_color: Int, animate: Boolean, shapeAppearanceModel: ShapeAppearanceModel) {
+    val selected: Drawable
+    val unselected: Drawable
+
+    // Material 2.0 styling
+    val paddingTopBottom = ctx.resources.getDimensionPixelSize(R.dimen.material_drawer_item_background_padding_top_bottom)
+    val paddingStartEnd = ctx.resources.getDimensionPixelSize(R.dimen.material_drawer_item_background_padding_start_end)
+
+    // define normal selected background
+    val gradientDrawable = MaterialShapeDrawable(shapeAppearanceModel)
+    gradientDrawable.fillColor = ColorStateList.valueOf(selected_color)
+    selected = InsetDrawable(gradientDrawable, paddingStartEnd, paddingTopBottom, paddingStartEnd, paddingTopBottom)
+
+    if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+        // define mask for ripple
+        val gradientMask = MaterialShapeDrawable(shapeAppearanceModel)
+        gradientMask.fillColor = ColorStateList.valueOf(Color.BLACK)
+        val mask = InsetDrawable(gradientMask, paddingStartEnd, paddingTopBottom, paddingStartEnd, paddingTopBottom)
+
+        unselected = RippleDrawable(ColorStateList(arrayOf(intArrayOf()), intArrayOf(ctx.getThemeColor(R.attr.colorControlHighlight))), null, mask)
+    } else {
+        // define touch drawable
+        val touchDrawable = MaterialShapeDrawable(shapeAppearanceModel)
+        touchDrawable.fillColor = ColorStateList.valueOf(ctx.getThemeColor(R.attr.colorControlHighlight))
+        val touchInsetDrawable = InsetDrawable(touchDrawable, paddingStartEnd, paddingTopBottom, paddingStartEnd, paddingTopBottom)
+
+        val unselectedStates = StateListDrawable()
+        //if possible and wanted we enable animating across states
+        if (animate) {
+            val duration = ctx.resources.getInteger(android.R.integer.config_shortAnimTime)
+            unselectedStates.setEnterFadeDuration(duration)
+            unselectedStates.setExitFadeDuration(duration)
+        }
+        unselectedStates.addState(intArrayOf(android.R.attr.state_pressed), touchInsetDrawable)
+        unselectedStates.addState(intArrayOf(), ColorDrawable(Color.TRANSPARENT))
+        unselected = unselectedStates
+    }
+
+    val states = StateListDrawable()
+
+    //if possible and wanted we enable animating across states
+    if (animate) {
+        val duration = ctx.resources.getInteger(android.R.integer.config_shortAnimTime)
+        states.setEnterFadeDuration(duration)
+        states.setExitFadeDuration(duration)
+    }
+
+    if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
+        states.addState(intArrayOf(android.R.attr.state_selected), selected)
+        states.addState(intArrayOf(), ColorDrawable(Color.TRANSPARENT))
+
+        ViewCompat.setBackground(view, states)
+        view.foreground = unselected
+    } else {
+        states.addState(intArrayOf(android.R.attr.state_selected), selected)
+        states.addState(intArrayOf(), unselected)
+
+        ViewCompat.setBackground(view, states)
+    }
+}
+
+/**
+ * helper to create a stateListDrawable for the icon
+ */
+internal fun getIconStateList(icon: Drawable, selectedIcon: Drawable): StateListDrawable {
+    val iconStateListDrawable = StateListDrawable()
+    iconStateListDrawable.addState(intArrayOf(android.R.attr.state_selected), selectedIcon)
+    iconStateListDrawable.addState(intArrayOf(), icon)
+    return iconStateListDrawable
+}
+
+/**
+ * helper to calculate the optimal drawer width
+ */
+fun getOptimalDrawerWidth(context: Context): Int {
+    val possibleMinDrawerWidth = context.getScreenWidth() - context.getActionBarHeight()
+    val maxDrawerWidth = context.resources.getDimensionPixelSize(R.dimen.material_drawer_width)
+    return possibleMinDrawerWidth.coerceAtMost(maxDrawerWidth)
 }

@@ -9,13 +9,13 @@ import com.mikepenz.materialdrawer.model.interfaces.IDrawerItem
 import java.util.*
 
 /**
- * Created by mikepenz on 27.03.15.
+ * Custom helper class allowing to construct a view hierarchy just by using [IDrawerItem]s
  */
 open class DrawerItemViewHelper(private val context: Context) {
 
     val drawerItems = ArrayList<IDrawerItem<*>>()
     var divider = true
-    var onDrawerItemClickListener: OnDrawerItemClickListener? = null
+    var onDrawerItemClickListener: ((View, IDrawerItem<*>) -> Unit)? = null
 
     fun build(): View {
         //create the container view
@@ -41,7 +41,7 @@ open class DrawerItemViewHelper(private val context: Context) {
             if (drawerItem.isEnabled) {
                 view.setBackgroundResource(context.getSelectableBackgroundRes())
                 view.setOnClickListener { v ->
-                    onDrawerItemClickListener?.onItemClick(v, v.getTag(R.id.material_drawer_item) as IDrawerItem<*>)
+                    onDrawerItemClickListener?.invoke(v, v.getTag(R.id.material_drawer_item) as IDrawerItem<*>)
                 }
             }
 
@@ -49,10 +49,5 @@ open class DrawerItemViewHelper(private val context: Context) {
         }
 
         return linearLayout
-    }
-
-
-    interface OnDrawerItemClickListener {
-        fun onItemClick(view: View, drawerItem: IDrawerItem<*>)
     }
 }

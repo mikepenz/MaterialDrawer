@@ -6,14 +6,16 @@ import android.widget.ToggleButton
 import androidx.annotation.LayoutRes
 import com.mikepenz.materialdrawer.R
 import com.mikepenz.materialdrawer.interfaces.OnCheckedChangeListener
+import com.mikepenz.materialdrawer.model.interfaces.Checkable
+import com.mikepenz.materialdrawer.model.interfaces.IDrawerItem
 
 /**
- * Created by mikepenz on 03.02.15.
+ * An abstract [IDrawerItem] implementation describing a drawerItem with support for a toggle
  */
-open class AbstractToggleableDrawerItem<Item : AbstractToggleableDrawerItem<Item>> : BaseDescribeableDrawerItem<Item, AbstractToggleableDrawerItem.ViewHolder>() {
+open class AbstractToggleableDrawerItem<Item : AbstractToggleableDrawerItem<Item>> : Checkable, BaseDescribeableDrawerItem<Item, AbstractToggleableDrawerItem.ViewHolder>() {
 
     var isToggleEnabled = true
-    var isChecked = false
+    override var isChecked = false
     var onCheckedChangeListener: OnCheckedChangeListener? = null
 
     override val type: Int
@@ -36,16 +38,13 @@ open class AbstractToggleableDrawerItem<Item : AbstractToggleableDrawerItem<Item
         }
     }
 
-    fun withChecked(checked: Boolean): Item {
-        this.isChecked = checked
-        return this as Item
-    }
-
+    @Deprecated("Please consider to replace with the actual property setter")
     fun withToggleEnabled(toggleEnabled: Boolean): Item {
         this.isToggleEnabled = toggleEnabled
         return this as Item
     }
 
+    @Deprecated("Please consider to replace with the actual property setter")
     fun withOnCheckedChangeListener(onCheckedChangeListener: OnCheckedChangeListener): Item {
         this.onCheckedChangeListener = onCheckedChangeListener
         return this as Item

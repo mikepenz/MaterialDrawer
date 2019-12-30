@@ -1,37 +1,36 @@
 package com.mikepenz.materialdrawer.model.interfaces
 
-import android.graphics.Bitmap
-import android.graphics.drawable.Drawable
-import android.net.Uri
-import androidx.annotation.DrawableRes
+import androidx.annotation.StringRes
 import com.mikepenz.fastadapter.IIdentifyable
-import com.mikepenz.materialdrawer.holder.ImageHolder
 import com.mikepenz.materialdrawer.holder.StringHolder
 
 /**
- * Created by mikepenz on 03.02.15.
+ * Defines a general [IProfile] to be displayed in the [com.mikepenz.materialdrawer.widget.MaterialDrawerSliderView] with the [com.mikepenz.materialdrawer.widget.AccountHeaderView]
  */
-interface IProfile<T> : IIdentifyable {
+interface IProfile : IIdentifyable, Nameable, Iconable, Selectable, Tagable {
+    var description: StringHolder?
+}
 
-    val name: StringHolder?
+@Deprecated("Please consider to replace with the actual property setter")
+fun <T : IProfile> T.withEmail(@StringRes emailRes: Int): T {
+    this.description = StringHolder(emailRes)
+    return this
+}
 
-    val email: StringHolder?
+@Deprecated("Please consider to replace with the actual property setter")
+fun <T : IProfile> T.withEmail(email: String?): T {
+    this.description = StringHolder(email)
+    return this
+}
 
-    val icon: ImageHolder?
+@Deprecated("Please consider to replace with the actual property setter")
+fun <T : IProfile> T.withDescription(@StringRes emailRes: Int): T {
+    this.description = StringHolder(emailRes)
+    return this
+}
 
-    var isSelectable: Boolean
-
-    fun withName(name: CharSequence?): T
-
-    fun withEmail(email: String?): T
-
-    fun withIcon(icon: Drawable?): T
-
-    fun withIcon(bitmap: Bitmap): T
-
-    fun withIcon(@DrawableRes iconRes: Int): T
-
-    fun withIcon(url: String): T
-
-    fun withIcon(uri: Uri): T
+@Deprecated("Please consider to replace with the actual property setter")
+fun <T : IProfile> T.withDescription(email: String?): T {
+    this.description = StringHolder(email)
+    return this
 }

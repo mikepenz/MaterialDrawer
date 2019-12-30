@@ -1,17 +1,50 @@
 package com.mikepenz.materialdrawer.model.interfaces
 
+import android.graphics.Bitmap
 import android.graphics.drawable.Drawable
-
+import android.net.Uri
+import androidx.annotation.DrawableRes
 import com.mikepenz.materialdrawer.holder.ImageHolder
 
 /**
- * Created by mikepenz on 03.02.15.
+ * Defines a [IDrawerItem] with support for an icon
  */
-interface Iconable<T> {
+interface Iconable {
+    var icon: ImageHolder?
+}
 
-    val icon: ImageHolder?
+@Deprecated("Please consider to replace with the actual property setter")
+fun <T : Iconable> T.withIcon(icon: Drawable?): T {
+    this.icon = ImageHolder(icon)
+    return this
+}
 
-    fun withIcon(icon: Drawable?): T
+@Deprecated("Please consider to replace with the actual property setter")
+fun <T : Iconable> T.withIcon(icon: Bitmap): T {
+    this.icon = ImageHolder(icon)
+    return this
+}
 
-    fun withIcon(icon: ImageHolder?): T
+@Deprecated("Please consider to replace with the actual property setter")
+fun <T : Iconable> T.withIcon(@DrawableRes imageRes: Int): T {
+    this.icon = ImageHolder(imageRes)
+    return this
+}
+
+@Deprecated("Please consider to replace with the actual property setter")
+fun <T : Iconable> T.withIcon(url: String): T {
+    this.icon = ImageHolder(url)
+    return this
+}
+
+@Deprecated("Please consider to replace with the actual property setter")
+fun <T : Iconable> T.withIcon(uri: Uri): T {
+    this.icon = ImageHolder(uri)
+    return this
+}
+
+@Deprecated("Please consider to replace with the actual property setter")
+fun <T : Iconable> T.withIcon(icon: ImageHolder?): T {
+    this.icon = icon
+    return this
 }

@@ -15,7 +15,7 @@ import com.mikepenz.iconics.typeface.library.fontawesome.FontAwesome
 import com.mikepenz.iconics.typeface.library.googlematerial.GoogleMaterial
 import com.mikepenz.materialdrawer.iconics.withIcon
 import com.mikepenz.materialdrawer.model.*
-import com.mikepenz.materialdrawer.model.interfaces.Nameable
+import com.mikepenz.materialdrawer.model.interfaces.*
 import com.mikepenz.materialdrawer.widget.AccountHeaderView
 import com.mikepenz.materialize.util.UIUtils
 import kotlinx.android.synthetic.main.activity_sample.*
@@ -76,7 +76,7 @@ class CompactHeaderDrawerActivity : AppCompatActivity() {
                 if (drawerItem.identifier == 1L) {
                     startSupportActionMode(ActionBarCallBack())
                 }
-                if (drawerItem is Nameable<*>) {
+                if (drawerItem is Nameable) {
                     toolbar.title = drawerItem.name?.getText(this@CompactHeaderDrawerActivity)
                 }
                 false

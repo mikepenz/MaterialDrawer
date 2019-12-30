@@ -18,7 +18,7 @@ import com.mikepenz.materialdrawer.R
 import com.mikepenz.materialdrawer.interfaces.ICrossfader
 import com.mikepenz.materialdrawer.model.*
 import com.mikepenz.materialdrawer.model.interfaces.IDrawerItem
-import com.mikepenz.materialdrawer.util.DrawerUtils
+import com.mikepenz.materialdrawer.model.interfaces.withEnabled
 import com.mikepenz.materialdrawer.util.getDrawerItem
 
 /**
@@ -253,7 +253,7 @@ open class MiniDrawerSliderView @JvmOverloads constructor(context: Context, attr
      */
     fun updateItem(identifier: Long) {
         if (drawer != null && identifier != -1L) {
-            DrawerUtils.getDrawerItem(drawerItems, identifier)?.let { drawerItem ->
+            drawerItems.getDrawerItem(identifier)?.let { drawerItem ->
                 for (i in 0 until itemAdapter.adapterItems.size) {
                     if (itemAdapter.adapterItems[i].identifier == drawerItem.identifier) {
                         val miniDrawerItem = generateMiniDrawerItem(drawerItem)
@@ -332,7 +332,7 @@ open class MiniDrawerSliderView @JvmOverloads constructor(context: Context, attr
                                 drawer?.setSelection(item.identifier, true)
                             }
                         } else if (drawer?.onDrawerItemClickListener != null) {
-                            DrawerUtils.getDrawerItem(drawerItems, item.identifier)?.let {
+                            drawerItems.getDrawerItem(item.identifier)?.let {
                                 //get the original `DrawerItem` from the Drawer as this one will contain all information
                                 drawer?.onDrawerItemClickListener?.invoke(v, it, position)
                             }

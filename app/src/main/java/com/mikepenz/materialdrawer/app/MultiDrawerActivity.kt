@@ -9,8 +9,7 @@ import com.mikepenz.materialdrawer.iconics.withIcon
 import com.mikepenz.materialdrawer.model.PrimaryDrawerItem
 import com.mikepenz.materialdrawer.model.SecondaryDrawerItem
 import com.mikepenz.materialdrawer.model.SectionDrawerItem
-import com.mikepenz.materialdrawer.model.interfaces.Badgeable
-import com.mikepenz.materialdrawer.model.interfaces.Nameable
+import com.mikepenz.materialdrawer.model.interfaces.*
 import com.mikepenz.materialdrawer.util.updateItem
 import kotlinx.android.synthetic.main.activity_multi_sample.*
 
@@ -38,7 +37,7 @@ class MultiDrawerActivity : AppCompatActivity() {
                     SecondaryDrawerItem().withName(R.string.drawer_item_contact).withIcon(FontAwesome.Icon.faw_bullhorn)
             )
             adapter.onClickListener = { v, adapter, drawerItem, position ->
-                if (drawerItem is Badgeable<*>) {
+                if (drawerItem is Badgeable) {
                     if (drawerItem.badge != null) {
                         //note don't do this if your badge contains a "+"
                         //only use toString() if you set the test as String
@@ -49,7 +48,7 @@ class MultiDrawerActivity : AppCompatActivity() {
                         }
                     }
                 }
-                if (drawerItem is Nameable<*>) {
+                if (drawerItem is Nameable) {
                     Toast.makeText(this@MultiDrawerActivity, drawerItem.name?.getText(this@MultiDrawerActivity), Toast.LENGTH_SHORT).show()
                 }
                 false
@@ -70,7 +69,7 @@ class MultiDrawerActivity : AppCompatActivity() {
                     SecondaryDrawerItem().withName(R.string.drawer_item_contact).withIcon(FontAwesome.Icon.faw_bullhorn)
             )
             adapter.onClickListener = { v, adapter, drawerItem, position ->
-                if (drawerItem is Nameable<*>) {
+                if (drawerItem is Nameable) {
                     Toast.makeText(this@MultiDrawerActivity, drawerItem.name?.getText(this@MultiDrawerActivity), Toast.LENGTH_SHORT).show()
                 }
                 false

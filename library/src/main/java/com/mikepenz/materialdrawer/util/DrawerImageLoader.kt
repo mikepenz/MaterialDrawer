@@ -4,35 +4,30 @@ import android.content.Context
 import android.graphics.drawable.Drawable
 import android.net.Uri
 import android.widget.ImageView
+import com.mikepenz.materialdrawer.util.DrawerImageLoader.IDrawerImageLoader
 
 /**
- * Created by mikepenz on 24.03.15.
+ * The general management class for the [IDrawerImageLoader] support, to offer support for any image loading library.
  */
 open class DrawerImageLoader private constructor(var imageLoader: IDrawerImageLoader?) {
 
-    private var mHandleAllProtocols = false
-    private var mHandledProtocols = listOf<String?>("http", "https")
+    /**
+     * defines if we accept any protocol
+     */
+    var handleAllProtocols = false
 
+    /**
+     * supported protocols
+     */
+    var handledProtocols = listOf<String?>("http", "https")
+
+    /**
+     * The possible tags we currently support.
+     */
     enum class Tags {
         PROFILE,
         PROFILE_DRAWER_ITEM,
         ACCOUNT_HEADER
-    }
-
-    /**
-     * Makes this DrawerImageLoader handle all Uri protocols
-     */
-    fun withHandleAllProtocols(handleAllProtocols: Boolean): DrawerImageLoader {
-        this.mHandleAllProtocols = handleAllProtocols
-        return this
-    }
-
-    /**
-     * @param protocols The Uri protocols which this DrawerImageLoader will handle
-     */
-    fun withProtocols(vararg protocols: String): DrawerImageLoader {
-        this.mHandledProtocols = protocols.toList()
-        return this
     }
 
     /**
@@ -43,7 +38,7 @@ open class DrawerImageLoader private constructor(var imageLoader: IDrawerImageLo
      */
     open fun setImage(imageView: ImageView, uri: Uri, tag: String?): Boolean {
         // If we do not handle this protocol we keep the original behavior
-        return if (mHandleAllProtocols || uri.scheme in mHandledProtocols) {
+        return if (handleAllProtocols || uri.scheme in handledProtocols) {
             imageLoader?.let {
                 val placeHolder = it.placeholder(imageView.context, tag)
                 it[imageView, uri, placeHolder] = tag
@@ -52,24 +47,29 @@ open class DrawerImageLoader private constructor(var imageLoader: IDrawerImageLo
         } else false
     }
 
+    /**
+     * Cancel loading for the given [ImageView]
+     */
     fun cancelImage(imageView: ImageView) {
         imageLoader?.cancel(imageView)
     }
 
     interface IDrawerImageLoader {
-        @Deprecated("")
-        operator fun set(imageView: ImageView, uri: Uri, placeholder: Drawable)
-
+        /**
+         * Start loading the image [uri] for the given [imageView] providing the [placeholder], allowing to identify the location it is gonna be used via the [tag]
+         */
         operator fun set(imageView: ImageView, uri: Uri, placeholder: Drawable, tag: String?)
 
+        /**
+         * Cancel loading images for the imageView
+         */
         fun cancel(imageView: ImageView)
 
+        @Deprecated("Please use the placeholder method with the provided tag instead")
         fun placeholder(ctx: Context): Drawable
 
         /**
-         * @param ctx
-         * @param tag current possible tags: "profile", "profileDrawerItem", "accountHeader"
-         * @return
+         * Retrieve the placeholder to display, using the [tag] to identify the location it is gonna be used
          */
         fun placeholder(ctx: Context, tag: String?): Drawable
     }
@@ -86,9 +86,7 @@ open class DrawerImageLoader private constructor(var imageLoader: IDrawerImageLo
         val instance: DrawerImageLoader
             get() {
                 if (SINGLETON == null) {
-                    SINGLETON = DrawerImageLoader(object : AbstractDrawerImageLoader() {
-
-                    })
+                    SINGLETON = DrawerImageLoader(object : AbstractDrawerImageLoader() {})
                 }
                 return SINGLETON as DrawerImageLoader
             }

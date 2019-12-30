@@ -6,11 +6,13 @@ import android.widget.TextView
 import androidx.annotation.StringRes
 
 /**
- * Created by mikepenz on 13.07.15.
+ * Defines a custom holder class to support providing strings either as string or resource. Does not require a [Context] and will resolve the value when applying.
  */
 open class StringHolder {
+    /** Defines the string text */
     var textString: CharSequence? = null
         internal set
+    /** Defines the string resource */
     var textRes = -1
         internal set
 
@@ -22,6 +24,9 @@ open class StringHolder {
         this.textRes = textRes
     }
 
+    /**
+     * Applies the text to a [TextView]
+     */
     open fun applyTo(textView: TextView?) {
         when {
             textString != null -> textView?.text = textString
@@ -30,6 +35,9 @@ open class StringHolder {
         }
     }
 
+    /**
+     * Applies the [TextView] if no text given, hide the textView
+     */
     open fun applyToOrHide(textView: TextView?): Boolean {
         textView ?: return false
         return when {
@@ -50,6 +58,9 @@ open class StringHolder {
         }
     }
 
+    /**
+     * Returns the text as [String]
+     */
     open fun getText(ctx: Context): String? {
         if (textString != null) {
             return textString.toString()
@@ -60,10 +71,16 @@ open class StringHolder {
     }
 
     companion object {
+        /**
+         * Helper to apply the text to a [TextView]
+         */
         fun applyTo(text: StringHolder?, textView: TextView?) {
             text?.applyTo(textView)
         }
 
+        /**
+         * Helper to apply the text to a [TextView] or hide if null
+         */
         fun applyToOrHide(text: StringHolder?, textView: TextView?): Boolean {
             return if (text != null) {
                 text.applyToOrHide(textView)

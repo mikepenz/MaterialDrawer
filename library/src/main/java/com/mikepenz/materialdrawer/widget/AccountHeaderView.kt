@@ -51,17 +51,17 @@ open class AccountHeaderView @JvmOverloads constructor(context: Context, attrs: 
      *
      * @param profile
      */
-    var activeProfile: IProfile<*>?
+    var activeProfile: IProfile?
         get() = currentProfile
         set(profile) {
             profile?.also { setActiveProfile(it, false) }
         }
 
     // global references to the profiles
-    internal var currentProfile: IProfile<*>? = null
-    internal var profileFirst: IProfile<*>? = null
-    internal var profileSecond: IProfile<*>? = null
-    internal var profileThird: IProfile<*>? = null
+    internal var currentProfile: IProfile? = null
+    internal var profileFirst: IProfile? = null
+    internal var profileSecond: IProfile? = null
+    internal var profileThird: IProfile? = null
 
     // global stuff
     internal var _selectionListShown = false
@@ -215,10 +215,10 @@ open class AccountHeaderView @JvmOverloads constructor(context: Context, attrs: 
     var onProfileClickDrawerCloseDelay = 100
 
     // the onAccountHeaderProfileImageListener to set
-    var onAccountHeaderProfileImageListener: ((view: View, profile: IProfile<*>, current: Boolean) -> Boolean)? = null
+    var onAccountHeaderProfileImageListener: ((view: View, profile: IProfile, current: Boolean) -> Boolean)? = null
 
     // the onAccountHeaderSelectionListener to set
-    var onAccountHeaderSelectionViewClickListener: ((view: View, profile: IProfile<*>) -> Boolean)? = null
+    var onAccountHeaderSelectionViewClickListener: ((view: View, profile: IProfile) -> Boolean)? = null
 
     //set the selection list enabled if there is only a single profile
     var selectionListEnabledForSingleProfile = true
@@ -235,7 +235,7 @@ open class AccountHeaderView @JvmOverloads constructor(context: Context, attrs: 
         }
 
     // the profiles to display
-    var profiles: MutableList<IProfile<*>>? = null
+    var profiles: MutableList<IProfile>? = null
         set(value) {
             field = value
             value?.mapNotNull { it as? IDrawerItem<*> }?.forEach { item ->
@@ -245,10 +245,10 @@ open class AccountHeaderView @JvmOverloads constructor(context: Context, attrs: 
         }
 
     // the click listener to be fired on profile or selection click
-    var onAccountHeaderListener: ((view: View?, profile: IProfile<*>, current: Boolean) -> Boolean)? = null
+    var onAccountHeaderListener: ((view: View?, profile: IProfile, current: Boolean) -> Boolean)? = null
 
     //the on long click listener to be fired on profile longClick inside the list
-    var onAccountHeaderItemLongClickListener: ((view: View?, profile: IProfile<*>, current: Boolean) -> Boolean)? = null
+    var onAccountHeaderItemLongClickListener: ((view: View?, profile: IProfile, current: Boolean) -> Boolean)? = null
 
     // the drawer to set the AccountSwitcher for
     var sliderView: MaterialDrawerSliderView? = null
@@ -278,7 +278,7 @@ open class AccountHeaderView @JvmOverloads constructor(context: Context, attrs: 
      */
     private val onCurrentProfileLongClickListener = OnLongClickListener { v ->
         if (onAccountHeaderProfileImageListener != null) {
-            val profile = v.getTag(R.id.material_drawer_profile_header) as IProfile<*>
+            val profile = v.getTag(R.id.material_drawer_profile_header) as IProfile
             return@OnLongClickListener onAccountHeaderProfileImageListener?.invoke(v, profile, true)
                     ?: false
         }
@@ -290,7 +290,7 @@ open class AccountHeaderView @JvmOverloads constructor(context: Context, attrs: 
      */
     private val onProfileLongClickListener = OnLongClickListener { v ->
         if (onAccountHeaderProfileImageListener != null) {
-            val profile = v.getTag(R.id.material_drawer_profile_header) as IProfile<*>
+            val profile = v.getTag(R.id.material_drawer_profile_header) as IProfile
             return@OnLongClickListener onAccountHeaderProfileImageListener?.invoke(v, profile, false)
                     ?: false
         }
@@ -318,8 +318,8 @@ open class AccountHeaderView @JvmOverloads constructor(context: Context, attrs: 
      * onDrawerItemClickListener to catch the selection for the new profile!
      */
     private val onDrawerItemClickListener: ((View?, IDrawerItem<*>, Int) -> Boolean) = { view: View?, drawerItem: IDrawerItem<*>, position: Int ->
-        val isCurrentSelectedProfile: Boolean = if (drawerItem is IProfile<*> && drawerItem.isSelectable) {
-            switchProfiles(drawerItem as IProfile<*>)
+        val isCurrentSelectedProfile: Boolean = if (drawerItem is IProfile && drawerItem.isSelectable) {
+            switchProfiles(drawerItem as IProfile)
         } else {
             false
         }
@@ -337,8 +337,8 @@ open class AccountHeaderView @JvmOverloads constructor(context: Context, attrs: 
         miniDrawer?.onProfileClick()
 
         var consumed = false
-        if (drawerItem is IProfile<*>) {
-            consumed = onAccountHeaderListener?.invoke(view, drawerItem as IProfile<*>, isCurrentSelectedProfile) ?: false
+        if (drawerItem is IProfile) {
+            consumed = onAccountHeaderListener?.invoke(view, drawerItem as IProfile, isCurrentSelectedProfile) ?: false
         }
 
         //if a custom behavior was chosen via the CloseDrawerOnProfileListClick then use this. else react on the result of the onProfileChanged listener
@@ -364,8 +364,8 @@ open class AccountHeaderView @JvmOverloads constructor(context: Context, attrs: 
         if (onAccountHeaderItemLongClickListener != null) {
             val isCurrentSelectedProfile: Boolean = drawerItem.isSelected
 
-            if (drawerItem is IProfile<*>) {
-                onAccountHeaderItemLongClickListener?.invoke(view, drawerItem as IProfile<*>, isCurrentSelectedProfile) ?: false
+            if (drawerItem is IProfile) {
+                onAccountHeaderItemLongClickListener?.invoke(view, drawerItem as IProfile, isCurrentSelectedProfile) ?: false
             } else {
                 false
             }
@@ -439,7 +439,7 @@ open class AccountHeaderView @JvmOverloads constructor(context: Context, attrs: 
                 context.resources.getDimensionPixelSize(R.dimen.material_drawer_account_header_height_compact)
             } else {
                 //calculate the header height by getting the optimal drawer width and calculating it * 9 / 16
-                (DrawerUIUtils.getOptimalDrawerWidth(context) * NAVIGATION_DRAWER_ACCOUNT_ASPECT_RATIO).toInt()
+                (getOptimalDrawerWidth(context) * NAVIGATION_DRAWER_ACCOUNT_ASPECT_RATIO).toInt()
             }
         }
         return height
@@ -505,7 +505,7 @@ open class AccountHeaderView @JvmOverloads constructor(context: Context, attrs: 
      * onSelectionClickListener to notify the onClick on the checkbox
      */
     private val onSelectionClickListener = OnClickListener { v ->
-        val consumed = onAccountHeaderSelectionViewClickListener?.invoke(v, v.getTag(R.id.material_drawer_profile_header) as IProfile<*>)
+        val consumed = onAccountHeaderSelectionViewClickListener?.invoke(v, v.getTag(R.id.material_drawer_profile_header) as IProfile)
                 ?: false
         if (accountSwitcherArrow.visibility == View.VISIBLE && !consumed) {
             toggleSelectionList()
@@ -518,7 +518,7 @@ open class AccountHeaderView @JvmOverloads constructor(context: Context, attrs: 
      * @param profile
      * @param position
      */
-    fun addProfile(profile: IProfile<*>, position: Int) {
+    fun addProfile(profile: IProfile, position: Int) {
         if (profiles == null) {
             profiles = ArrayList()
         }
@@ -533,7 +533,7 @@ open class AccountHeaderView @JvmOverloads constructor(context: Context, attrs: 
      * @param profiles
      * @return
      */
-    fun addProfiles(vararg profiles: IProfile<*>) {
+    fun addProfiles(vararg profiles: IProfile) {
         if (this.profiles == null) {
             this.profiles = ArrayList()
         }
@@ -542,7 +542,7 @@ open class AccountHeaderView @JvmOverloads constructor(context: Context, attrs: 
             it.mapNotNull { di -> di as? IDrawerItem<*> }.forEach { item ->
                 sliderView?.idDistributor?.checkId(item)
             }
-            Collections.addAll<IProfile<*>>(it, *profiles)
+            Collections.addAll<IProfile>(it, *profiles)
         }
 
         updateHeaderAndList()
@@ -612,7 +612,7 @@ open class AccountHeaderView @JvmOverloads constructor(context: Context, attrs: 
      *
      * @param on
      */
-    private fun handleSelectionView(profile: IProfile<*>?, on: Boolean) {
+    private fun handleSelectionView(profile: IProfile?, on: Boolean) {
         if (on) {
             if (Build.VERSION.SDK_INT >= 23) {
                 this.foreground = AppCompatResources.getDrawable(this.context, accountHeaderTextSectionBackgroundResource)
@@ -663,8 +663,8 @@ open class AccountHeaderView @JvmOverloads constructor(context: Context, attrs: 
 
             val previousActiveProfiles = arrayOf(currentProfile, profileFirst, profileSecond, profileThird)
 
-            val newActiveProfiles = arrayOfNulls<IProfile<*>>(4)
-            val unusedProfiles = Stack<IProfile<*>>()
+            val newActiveProfiles = arrayOfNulls<IProfile>(4)
+            val unusedProfiles = Stack<IProfile>()
 
             // try to keep existing active profiles in the same positions
             for (i in mProfiles.indices) {
@@ -684,7 +684,7 @@ open class AccountHeaderView @JvmOverloads constructor(context: Context, attrs: 
                 }
             }
 
-            val activeProfiles = Stack<IProfile<*>>()
+            val activeProfiles = Stack<IProfile>()
             // try to fill the gaps with new available profiles
             for (i in 0..3) {
                 if (newActiveProfiles[i] != null) {
@@ -694,7 +694,7 @@ open class AccountHeaderView @JvmOverloads constructor(context: Context, attrs: 
                 }
             }
 
-            val reversedActiveProfiles = Stack<IProfile<*>>()
+            val reversedActiveProfiles = Stack<IProfile>()
             while (!activeProfiles.empty()) {
                 reversedActiveProfiles.push(activeProfiles.pop())
             }
@@ -729,7 +729,7 @@ open class AccountHeaderView @JvmOverloads constructor(context: Context, attrs: 
      * @param newSelection
      * @return true if the new selection was the current profile
      */
-    internal fun switchProfiles(newSelection: IProfile<*>?): Boolean {
+    internal fun switchProfiles(newSelection: IProfile?): Boolean {
         if (newSelection == null) {
             return false
         }
@@ -755,7 +755,7 @@ open class AccountHeaderView @JvmOverloads constructor(context: Context, attrs: 
             }
         } else {
             if (profiles != null) {
-                val previousActiveProfiles = ArrayList<IProfile<*>>(Arrays.asList<IProfile<*>>(currentProfile, profileFirst, profileSecond, profileThird))
+                val previousActiveProfiles = ArrayList<IProfile>(Arrays.asList<IProfile>(currentProfile, profileFirst, profileSecond, profileThird))
 
                 if (previousActiveProfiles.contains(newSelection)) {
                     var position = -1
@@ -819,7 +819,7 @@ open class AccountHeaderView @JvmOverloads constructor(context: Context, attrs: 
         val mProfiles = this.profiles
         if (mCurrentProfile != null) {
             if ((profileImagesVisible || onlyMainProfileImageVisible) && !onlySmallProfileImagesVisible) {
-                currentProfileView.contentDescription = mCurrentProfile.email?.getText(context) ?: mCurrentProfile.name?.getText(context)
+                currentProfileView.contentDescription = mCurrentProfile.description?.getText(context) ?: mCurrentProfile.name?.getText(context)
                         ?: currentProfileView.context.getString(R.string.material_drawer_profile_content_description)
                 setImageOrPlaceholder(currentProfileView, mCurrentProfile.icon)
                 if (profileImagesClickable) {
@@ -840,16 +840,16 @@ open class AccountHeaderView @JvmOverloads constructor(context: Context, attrs: 
             currentProfileView.setTag(R.id.material_drawer_profile_header, mCurrentProfile)
 
             StringHolder.applyTo(mCurrentProfile.name, currentProfileName)
-            StringHolder.applyTo(mCurrentProfile.email, currentProfileEmail)
+            StringHolder.applyTo(mCurrentProfile.description, currentProfileEmail)
 
             /**
              * Apply the profile information to the provided imageView
              */
-            fun IProfile<*>?.applyProfile(imageView: BezelImageView) {
+            fun IProfile?.applyProfile(imageView: BezelImageView) {
                 this ?: return
                 setImageOrPlaceholder(imageView, this.icon)
                 imageView.setTag(R.id.material_drawer_profile_header, this)
-                imageView.contentDescription = this.email?.getText(context) ?: this.name?.getText(context)
+                imageView.contentDescription = this.description?.getText(context) ?: this.name?.getText(context)
                         ?: imageView.context.getString(R.string.material_drawer_profile_content_description)
                 if (profileImagesClickable) {
                     imageView.setOnClickListener(onProfileClickListener)
@@ -924,7 +924,7 @@ open class AccountHeaderView @JvmOverloads constructor(context: Context, attrs: 
      * @param current
      */
     private fun onProfileImageClick(v: View, current: Boolean) {
-        val profile = v.getTag(R.id.material_drawer_profile_header) as IProfile<*>
+        val profile = v.getTag(R.id.material_drawer_profile_header) as IProfile
 
         val consumed = onAccountHeaderProfileImageListener?.invoke(v, profile, current)
                 ?: false
@@ -936,7 +936,7 @@ open class AccountHeaderView @JvmOverloads constructor(context: Context, attrs: 
     }
 
     internal fun onProfileClick(v: View, current: Boolean) {
-        val profile = v.getTag(R.id.material_drawer_profile_header) as IProfile<*>
+        val profile = v.getTag(R.id.material_drawer_profile_header) as IProfile
         switchProfiles(profile)
 
         //reset the drawer content
@@ -1045,7 +1045,7 @@ open class AccountHeaderView @JvmOverloads constructor(context: Context, attrs: 
      *
      * @param profile
      */
-    fun setActiveProfile(profile: IProfile<*>, fireOnProfileChanged: Boolean) {
+    fun setActiveProfile(profile: IProfile, fireOnProfileChanged: Boolean) {
         val isCurrentSelectedProfile = switchProfiles(profile)
         //if the selectionList is shown we should also update the current selected profile in the list
         if (sliderView != null && selectionListShown) {
@@ -1073,11 +1073,11 @@ open class AccountHeaderView @JvmOverloads constructor(context: Context, attrs: 
     }
 
     /**
-     * Helper method to update a profile using it's identifier
+     * Helper method to update a profile using its identifier
      *
      * @param newProfile
      */
-    fun updateProfile(newProfile: IProfile<*>) {
+    fun updateProfile(newProfile: IProfile) {
         val found = getPositionByIdentifier(newProfile.identifier)
         if (found > -1) {
             profiles?.set(found, newProfile)
@@ -1086,7 +1086,7 @@ open class AccountHeaderView @JvmOverloads constructor(context: Context, attrs: 
     }
 
     /**
-     * gets the position of a profile by it's identifier
+     * gets the position of a profile by its identifier
      *
      * @param identifier
      * @return

@@ -6,7 +6,6 @@ import android.view.View
 import android.widget.ImageView
 import android.widget.TextView
 import androidx.annotation.LayoutRes
-import androidx.annotation.StringRes
 import androidx.appcompat.content.res.AppCompatResources
 import androidx.core.view.ViewCompat
 import com.mikepenz.materialdrawer.R
@@ -18,10 +17,9 @@ import com.mikepenz.materialdrawer.model.interfaces.IDrawerItem
 import com.mikepenz.materialdrawer.util.FixStateListDrawable
 
 /**
- * Created by mikepenz on 03.02.15.
- * NOTE: The arrow will just animate (and rotate) on APIs higher than 11 as the ViewCompat will skip this on API 10
+ * Describes a [IDrawerItem] supporting child items (an expandable hierarchy) and badges.
  */
-open class ExpandableBadgeDrawerItem : BaseDescribeableDrawerItem<ExpandableBadgeDrawerItem, ExpandableBadgeDrawerItem.ViewHolder>(), ColorfulBadgeable<ExpandableBadgeDrawerItem> {
+open class ExpandableBadgeDrawerItem : BaseDescribeableDrawerItem<ExpandableBadgeDrawerItem, ExpandableBadgeDrawerItem.ViewHolder>(), ColorfulBadgeable {
 
     private var mOnDrawerItemClickListener: ((v: View?, item: IDrawerItem<*>, position: Int) -> Boolean)? = null
     var arrowColor: ColorHolder? = null
@@ -104,28 +102,9 @@ open class ExpandableBadgeDrawerItem : BaseDescribeableDrawerItem<ExpandableBadg
         onPostBindView(this, holder.itemView)
     }
 
+    @Deprecated("Please consider to replace with the actual property setter")
     override fun withOnDrawerItemClickListener(onDrawerItemClickListener: ((v: View?, item: IDrawerItem<*>, position: Int) -> Boolean)?): ExpandableBadgeDrawerItem {
         mOnDrawerItemClickListener = onDrawerItemClickListener
-        return this
-    }
-
-    override fun withBadge(badge: StringHolder?): ExpandableBadgeDrawerItem {
-        this.badge = badge
-        return this
-    }
-
-    override fun withBadge(badge: String): ExpandableBadgeDrawerItem {
-        this.badge = StringHolder(badge)
-        return this
-    }
-
-    override fun withBadge(@StringRes badgeRes: Int): ExpandableBadgeDrawerItem {
-        this.badge = StringHolder(badgeRes)
-        return this
-    }
-
-    override fun withBadgeStyle(badgeStyle: BadgeStyle?): ExpandableBadgeDrawerItem {
-        this.badgeStyle = badgeStyle
         return this
     }
 

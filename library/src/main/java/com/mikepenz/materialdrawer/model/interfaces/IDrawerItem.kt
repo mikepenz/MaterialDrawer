@@ -9,17 +9,13 @@ import com.mikepenz.fastadapter.IIdentifyable
 import com.mikepenz.fastadapter.IItem
 
 /**
- * Created by mikepenz on 03.02.15.
+ * Defines a general [IDrawerItem] to be displayed in the [com.mikepenz.materialdrawer.widget.MaterialDrawerSliderView]
  */
-interface IDrawerItem<VH : RecyclerView.ViewHolder> : IItem<VH>, IExpandable<VH>, IIdentifyable {
-
-    override var tag: Any?
+interface IDrawerItem<VH : RecyclerView.ViewHolder> : IItem<VH>, IExpandable<VH>, IIdentifyable, Selectable, Tagable {
 
     override var isEnabled: Boolean
 
     override var isSelected: Boolean
-
-    override var isSelectable: Boolean
 
     override val type: Int
 
@@ -42,4 +38,22 @@ interface IDrawerItem<VH : RecyclerView.ViewHolder> : IItem<VH>, IExpandable<VH>
     override fun bindView(holder: VH, payloads: MutableList<Any>)
 
     fun equals(id: Long): Boolean
+}
+
+@Deprecated("Please consider to replace with the actual property setter")
+fun <T : IDrawerItem<*>> T.withIdentifier(identifier: Long): T {
+    this.identifier = identifier
+    return this
+}
+
+@Deprecated("Please consider to replace with the actual property setter")
+fun <T : IDrawerItem<*>> T.withEnabled(enabled: Boolean): T {
+    this.isEnabled = enabled
+    return this
+}
+
+@Deprecated("Please consider to replace with the actual property setter")
+fun <T : IDrawerItem<*>> T.withSelected(selected: Boolean): T {
+    this.isSelected = selected
+    return this
 }

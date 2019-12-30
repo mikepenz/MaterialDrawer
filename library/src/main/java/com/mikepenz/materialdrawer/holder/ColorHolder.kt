@@ -14,11 +14,13 @@ import com.mikepenz.materialdrawer.util.getThemeColorFromAttrOrRes
 
 
 /**
- * Created by mikepenz on 13.07.15.
+ * Defines a custom holder class to support providing color either as colorRes or colorInt. Does not require a [Context] and will resolve the value when applying.
  */
 open class ColorHolder {
+    /** defines the color as an integer */
     var colorInt = 0
         internal set
+    /** defines the color as a ressource */
     var colorRes = -1
         internal set
 
@@ -52,9 +54,6 @@ open class ColorHolder {
 
     /**
      * a small helper to set the text color to a textView null save
-     *
-     * @param textView
-     * @param colorDefault
      */
     open fun applyToOr(textView: TextView, colorDefault: ColorStateList?) {
         when {
@@ -72,11 +71,6 @@ open class ColorHolder {
 
     /**
      * a small helper class to get the color from the colorHolder or from the theme or from the default color value
-     *
-     * @param ctx
-     * @param colorStyle
-     * @param colorDefaultRes
-     * @return
      */
     open fun color(ctx: Context, @AttrRes colorStyle: Int, @ColorRes colorDefaultRes: Int): Int { //get the color from the holder else from the theme
         val color = color(ctx)
@@ -89,9 +83,6 @@ open class ColorHolder {
 
     /**
      * a small helper to get the color from the colorHolder
-     *
-     * @param ctx
-     * @return
      */
     open fun color(ctx: Context): Int {
         if (colorInt == 0 && colorRes != -1) {
@@ -101,12 +92,18 @@ open class ColorHolder {
     }
 
     companion object {
+        /**
+         * Constructs a [ColorHolder] given a color resource
+         */
         fun fromColorRes(@ColorRes colorRes: Int): ColorHolder {
             val colorHolder = ColorHolder()
             colorHolder.colorRes = colorRes
             return colorHolder
         }
 
+        /**
+         * Constructs a [ColorHolder] given a color integer
+         */
         fun fromColor(@ColorInt colorInt: Int): ColorHolder {
             val colorHolder = ColorHolder()
             colorHolder.colorInt = colorInt
@@ -115,12 +112,6 @@ open class ColorHolder {
 
         /**
          * a small static helper class to get the color from the colorHolder or from the theme or from the default color value
-         *
-         * @param colorHolder
-         * @param ctx
-         * @param colorStyle
-         * @param colorDefault
-         * @return
          */
         fun color(colorHolder: ColorHolder?, ctx: Context, @AttrRes colorStyle: Int, @ColorRes colorDefault: Int): Int {
             return colorHolder?.color(ctx, colorStyle, colorDefault)
@@ -129,10 +120,6 @@ open class ColorHolder {
 
         /**
          * a small static helper class to get the color from the colorHolder
-         *
-         * @param colorHolder
-         * @param ctx
-         * @return
          */
         fun color(colorHolder: ColorHolder?, ctx: Context): Int {
             return colorHolder?.color(ctx) ?: 0
@@ -140,10 +127,6 @@ open class ColorHolder {
 
         /**
          * a small static helper to set the text color to a textView null save
-         *
-         * @param colorHolder
-         * @param textView
-         * @param colorDefault
          */
         fun applyToOr(colorHolder: ColorHolder?, textView: TextView?, colorDefault: ColorStateList?) {
             if (colorHolder != null && textView != null) {
@@ -153,10 +136,6 @@ open class ColorHolder {
 
         /**
          * a small static helper to set the color to a GradientDrawable null save
-         *
-         * @param colorHolder
-         * @param ctx
-         * @param gradientDrawable
          */
         fun applyToOrTransparent(colorHolder: ColorHolder?, ctx: Context, gradientDrawable: GradientDrawable?) {
             if (colorHolder != null && gradientDrawable != null) {
@@ -168,12 +147,6 @@ open class ColorHolder {
 
 /**
  * a small static helper class to get the color from the colorHolder or from the theme or from the default color value
- *
- * @param colorHolder
- * @param ctx
- * @param colorStyle
- * @param colorDefault
- * @return
  */
 fun ColorHolder?.applyColor(ctx: Context, @AttrRes colorStyle: Int, @ColorRes colorDefault: Int): Int {
     return ColorHolder.color(this, ctx, colorStyle, colorDefault)
@@ -181,10 +154,6 @@ fun ColorHolder?.applyColor(ctx: Context, @AttrRes colorStyle: Int, @ColorRes co
 
 /**
  * a small static helper class to get the color from the colorHolder
- *
- * @param colorHolder
- * @param ctx
- * @return
  */
 fun ColorHolder?.applyColor(ctx: Context): Int {
     return ColorHolder.color(this, ctx)
@@ -192,10 +161,6 @@ fun ColorHolder?.applyColor(ctx: Context): Int {
 
 /**
  * a small static helper to set the text color to a textView null save
- *
- * @param colorHolder
- * @param textView
- * @param colorDefault
  */
 fun ColorHolder?.applyToOrDefault(textView: TextView?, colorDefault: ColorStateList) {
     ColorHolder.applyToOr(this, textView, colorDefault)
@@ -203,10 +168,6 @@ fun ColorHolder?.applyToOrDefault(textView: TextView?, colorDefault: ColorStateL
 
 /**
  * a small static helper to set the color to a GradientDrawable null save
- *
- * @param colorHolder
- * @param ctx
- * @param gradientDrawable
  */
 fun ColorHolder?.applyToOrTransparent(ctx: Context, gradientDrawable: GradientDrawable?) {
     ColorHolder.applyToOrTransparent(this, ctx, gradientDrawable)

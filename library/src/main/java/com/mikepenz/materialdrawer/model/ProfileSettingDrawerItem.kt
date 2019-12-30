@@ -1,12 +1,12 @@
 package com.mikepenz.materialdrawer.model
 
-import android.graphics.Bitmap
-import android.graphics.drawable.Drawable
-import android.net.Uri
 import android.view.View
 import android.widget.ImageView
 import android.widget.TextView
-import androidx.annotation.*
+import androidx.annotation.ColorInt
+import androidx.annotation.ColorRes
+import androidx.annotation.LayoutRes
+import androidx.annotation.StringRes
 import androidx.core.view.ViewCompat
 import androidx.recyclerview.widget.RecyclerView
 import com.mikepenz.materialdrawer.R
@@ -16,17 +16,17 @@ import com.mikepenz.materialdrawer.holder.StringHolder
 import com.mikepenz.materialdrawer.model.interfaces.IProfile
 import com.mikepenz.materialdrawer.model.interfaces.Tagable
 import com.mikepenz.materialdrawer.model.interfaces.Typefaceable
-import com.mikepenz.materialdrawer.util.DrawerUIUtils
+import com.mikepenz.materialdrawer.util.DrawerUtils.setDrawerVerticalPadding
 import com.mikepenz.materialdrawer.util.getPrimaryDrawerIconColor
 import com.mikepenz.materialdrawer.util.getSelectableBackground
 
 /**
- * Created by mikepenz on 03.02.15.
+ * Describes a [IProfile] being used with the [com.mikepenz.materialdrawer.widget.AccountHeaderView]
  */
-open class ProfileSettingDrawerItem : AbstractDrawerItem<ProfileSettingDrawerItem, ProfileSettingDrawerItem.ViewHolder>(), IProfile<ProfileSettingDrawerItem>, Tagable<ProfileSettingDrawerItem>, Typefaceable<ProfileSettingDrawerItem> {
+open class ProfileSettingDrawerItem : AbstractDrawerItem<ProfileSettingDrawerItem, ProfileSettingDrawerItem.ViewHolder>(), IProfile, Tagable, Typefaceable {
     override var icon: ImageHolder? = null
     override var name: StringHolder? = null
-    override var email: StringHolder? = null
+    override var description: StringHolder? = null
 
     var isIconTinted = false
     var iconColor: ColorHolder? = null
@@ -41,92 +41,45 @@ open class ProfileSettingDrawerItem : AbstractDrawerItem<ProfileSettingDrawerIte
         @LayoutRes
         get() = R.layout.material_drawer_item_profile_setting
 
-    override fun withIcon(icon: Drawable?): ProfileSettingDrawerItem {
-        this.icon = ImageHolder(icon)
-        return this
-    }
-
-    override fun withIcon(@DrawableRes iconRes: Int): ProfileSettingDrawerItem {
-        this.icon = ImageHolder(iconRes)
-        return this
-    }
-
-    override fun withIcon(bitmap: Bitmap): ProfileSettingDrawerItem {
-        this.icon = ImageHolder(bitmap)
-        return this
-    }
-
-    override fun withIcon(url: String): ProfileSettingDrawerItem {
-        this.icon = ImageHolder(url)
-        return this
-    }
-
-    override fun withIcon(uri: Uri): ProfileSettingDrawerItem {
-        this.icon = ImageHolder(uri)
-        return this
-    }
-
-    override fun withName(name: CharSequence?): ProfileSettingDrawerItem {
-        this.name = StringHolder(name)
-        return this
-    }
-
-    fun withName(@StringRes nameRes: Int): ProfileSettingDrawerItem {
-        this.name = StringHolder(nameRes)
-        return this
-    }
-
+    @Deprecated("Please consider to replace with the actual property setter")
     fun withDescription(description: String): ProfileSettingDrawerItem {
-        this.email = StringHolder(description)
+        this.description = StringHolder(description)
         return this
     }
 
+    @Deprecated("Please consider to replace with the actual property setter")
     fun withDescription(@StringRes descriptionRes: Int): ProfileSettingDrawerItem {
-        this.email = StringHolder(descriptionRes)
+        this.description = StringHolder(descriptionRes)
         return this
     }
 
-    //NOTE we reuse the IProfile here to allow custom items within the AccountSwitcher. There is an alias method withDescription for this
-    override fun withEmail(email: String?): ProfileSettingDrawerItem {
-        this.email = StringHolder(email)
-        return this
-    }
-
+    @Deprecated("Please consider to replace with the actual property setter")
     fun withDescriptionTextColor(@ColorInt descriptionColor: Int): ProfileSettingDrawerItem {
         this.descriptionTextColor = ColorHolder.fromColor(descriptionColor)
         return this
     }
 
+    @Deprecated("Please consider to replace with the actual property setter")
     fun withDescriptionTextColorRes(@ColorRes descriptionColorRes: Int): ProfileSettingDrawerItem {
         this.descriptionTextColor = ColorHolder.fromColorRes(descriptionColorRes)
         return this
     }
 
+    @Deprecated("Please consider to replace with the actual property setter")
     fun withIconColor(@ColorInt iconColor: Int): ProfileSettingDrawerItem {
         this.iconColor = ColorHolder.fromColor(iconColor)
         return this
     }
 
+    @Deprecated("Please consider to replace with the actual property setter")
     fun withIconColorRes(@ColorRes iconColorRes: Int): ProfileSettingDrawerItem {
         this.iconColor = ColorHolder.fromColorRes(iconColorRes)
         return this
     }
 
+    @Deprecated("Please consider to replace with the actual property setter")
     fun withIconTinted(iconTinted: Boolean): ProfileSettingDrawerItem {
         this.isIconTinted = iconTinted
-        return this
-    }
-
-    fun getDescription(): StringHolder? {
-        return email
-    }
-
-    fun setDescription(description: String) {
-        this.email = StringHolder(description)
-    }
-
-    override fun withSelectable(selectable: Boolean): ProfileSettingDrawerItem {
-        this.isSelectable = selectable
         return this
     }
 
@@ -163,7 +116,7 @@ open class ProfileSettingDrawerItem : AbstractDrawerItem<ProfileSettingDrawerIte
         StringHolder.applyTo(this.name, holder.name)
         holder.name.setTextColor(color)
 
-        StringHolder.applyToOrHide(this.getDescription(), holder.description)
+        StringHolder.applyToOrHide(this.description, holder.description)
         holder.description.setTextColor(descriptionColor)
 
         if (typeface != null) {
@@ -175,7 +128,7 @@ open class ProfileSettingDrawerItem : AbstractDrawerItem<ProfileSettingDrawerIte
         ImageHolder.applyDecidedIconOrSetGone(icon, holder.icon, iconColor, isIconTinted, 2)
 
         //for android API 17 --> Padding not applied via xml
-        DrawerUIUtils.setDrawerVerticalPadding(holder.view)
+        setDrawerVerticalPadding(holder.view)
 
         //call the onPostBindView method to trigger post bind view actions (like the listener to modify the item if required)
         onPostBindView(this, holder.itemView)

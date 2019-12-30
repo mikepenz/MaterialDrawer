@@ -19,9 +19,7 @@ import com.mikepenz.materialdrawer.app.drawerItems.OverflowMenuDrawerItem
 import com.mikepenz.materialdrawer.holder.ImageHolder
 import com.mikepenz.materialdrawer.iconics.withIcon
 import com.mikepenz.materialdrawer.model.*
-import com.mikepenz.materialdrawer.model.interfaces.IDrawerItem
-import com.mikepenz.materialdrawer.model.interfaces.IProfile
-import com.mikepenz.materialdrawer.model.interfaces.Nameable
+import com.mikepenz.materialdrawer.model.interfaces.*
 import com.mikepenz.materialdrawer.widget.AccountHeaderView
 import kotlinx.android.synthetic.main.activity_sample.*
 
@@ -30,11 +28,11 @@ class AdvancedActivity : AppCompatActivity() {
     private lateinit var headerView: AccountHeaderView
     private lateinit var actionBarDrawerToggle: ActionBarDrawerToggle
 
-    private lateinit var profile: IProfile<*>
-    private lateinit var profile2: IProfile<*>
-    private lateinit var profile3: IProfile<*>
-    private lateinit var profile4: IProfile<*>
-    private lateinit var profile5: IProfile<*>
+    private lateinit var profile: IProfile
+    private lateinit var profile2: IProfile
+    private lateinit var profile3: IProfile
+    private lateinit var profile4: IProfile
+    private lateinit var profile5: IProfile
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -82,7 +80,7 @@ class AdvancedActivity : AppCompatActivity() {
                     SecondaryDrawerItem().withName(R.string.drawer_item_open_source).withIcon(FontAwesome.Icon.faw_github)
             )
             onDrawerItemClickListener = { v, drawerItem, position ->
-                if (drawerItem is Nameable<*>) {
+                if (drawerItem is Nameable) {
                     Toast.makeText(this@AdvancedActivity, drawerItem.name?.getText(this@AdvancedActivity), Toast.LENGTH_SHORT).show()
                 }
                 false

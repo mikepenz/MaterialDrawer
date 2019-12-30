@@ -3,7 +3,6 @@ package com.mikepenz.materialdrawer.app.drawerItems
 import android.view.View
 import android.widget.TextView
 import androidx.annotation.LayoutRes
-import androidx.annotation.StringRes
 import com.mikepenz.materialdrawer.app.R
 import com.mikepenz.materialdrawer.holder.BadgeStyle
 import com.mikepenz.materialdrawer.holder.StringHolder
@@ -12,7 +11,7 @@ import com.mikepenz.materialdrawer.model.interfaces.ColorfulBadgeable
 /**
  * Created by mikepenz on 03.02.15.
  */
-class CustomUrlPrimaryDrawerItem : CustomUrlBasePrimaryDrawerItem<CustomUrlPrimaryDrawerItem, CustomUrlPrimaryDrawerItem.ViewHolder>(), ColorfulBadgeable<CustomUrlPrimaryDrawerItem> {
+class CustomUrlPrimaryDrawerItem : CustomUrlBasePrimaryDrawerItem<CustomUrlPrimaryDrawerItem, CustomUrlPrimaryDrawerItem.ViewHolder>(), ColorfulBadgeable {
     override var badge: StringHolder? = null
     override var badgeStyle: BadgeStyle? = BadgeStyle()
 
@@ -22,26 +21,6 @@ class CustomUrlPrimaryDrawerItem : CustomUrlBasePrimaryDrawerItem<CustomUrlPrima
     override val layoutRes: Int
         @LayoutRes
         get() = R.layout.material_drawer_item_primary
-
-    override fun withBadge(badge: StringHolder?): CustomUrlPrimaryDrawerItem {
-        this.badge = badge
-        return this
-    }
-
-    override fun withBadge(badge: String): CustomUrlPrimaryDrawerItem {
-        this.badge = StringHolder(badge)
-        return this
-    }
-
-    override fun withBadge(@StringRes badgeRes: Int): CustomUrlPrimaryDrawerItem {
-        this.badge = StringHolder(badgeRes)
-        return this
-    }
-
-    override fun withBadgeStyle(badgeStyle: BadgeStyle?): CustomUrlPrimaryDrawerItem {
-        this.badgeStyle = badgeStyle
-        return this
-    }
 
     override fun bindView(holder: ViewHolder, payloads: MutableList<Any>) {
         super.bindView(holder, payloads)

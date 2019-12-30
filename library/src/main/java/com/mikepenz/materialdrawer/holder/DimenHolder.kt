@@ -10,16 +10,20 @@ import androidx.annotation.Dimension.PX
 
 
 /**
- * Created by mikepenz on 13.07.15.
+ * Defines a custom holder class to support providing dimension either as pixel, dp or dimensRes. Does not require a [Context] and will resolve the value when applying.
  */
 open class DimenHolder {
+    /** Defines the pixel dimension */
     var pixel = Int.MIN_VALUE
         internal set
+    /** Defines the dp dimension */
     var dp = Int.MIN_VALUE
         internal set
+    /** Defines the resource dimension */
     var resource = Int.MIN_VALUE
         internal set
 
+    /** Resturns this [DimenHolder]`s dimension as pixel value */
     open fun asPixel(ctx: Context): Int {
         return when {
             pixel != Int.MIN_VALUE -> pixel
@@ -30,18 +34,27 @@ open class DimenHolder {
     }
 
     companion object {
+        /**
+         * Constructs a [DimenHolder] given a pixel value
+         */
         fun fromPixel(@Dimension(unit = PX) pixel: Int): DimenHolder {
             val dimenHolder = DimenHolder()
             dimenHolder.pixel = pixel
             return dimenHolder
         }
 
+        /**
+         * Constructs a [DimenHolder] given a dp value
+         */
         fun fromDp(@Dimension(unit = DP) dp: Int): DimenHolder {
             val dimenHolder = DimenHolder()
             dimenHolder.dp = dp
             return dimenHolder
         }
 
+        /**
+         * Constructs a [DimenHolder] given a resource id
+         */
         fun fromResource(@DimenRes resource: Int): DimenHolder {
             val dimenHolder = DimenHolder()
             dimenHolder.resource = resource
@@ -53,9 +66,6 @@ open class DimenHolder {
 
 /**
  * This method converts dp unit to equivalent pixels, depending on device density.
- *
- * @param dp      A value in dp (density independent pixels) unit. Which we need to convert into pixels
- * @return A float value to represent px equivalent to dp depending on device density
  */
 private fun Context.convertDpToPixel(dp: Int): Int {
     val resources: Resources = resources

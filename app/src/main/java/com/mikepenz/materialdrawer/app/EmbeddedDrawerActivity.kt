@@ -17,8 +17,7 @@ import com.mikepenz.materialdrawer.holder.BadgeStyle
 import com.mikepenz.materialdrawer.iconics.withIcon
 import com.mikepenz.materialdrawer.interfaces.OnCheckedChangeListener
 import com.mikepenz.materialdrawer.model.*
-import com.mikepenz.materialdrawer.model.interfaces.IDrawerItem
-import com.mikepenz.materialdrawer.model.interfaces.Nameable
+import com.mikepenz.materialdrawer.model.interfaces.*
 import com.mikepenz.materialdrawer.widget.AccountHeaderView
 import kotlinx.android.synthetic.main.activity_embedded.*
 
@@ -28,8 +27,8 @@ class EmbeddedDrawerActivity : AppCompatActivity() {
 
     private val onCheckedChangeListener = object : OnCheckedChangeListener {
         override fun onCheckedChanged(drawerItem: IDrawerItem<*>, buttonView: CompoundButton, isChecked: Boolean) {
-            if (drawerItem is Nameable<*>) {
-                Log.i("material-drawer", "DrawerItem: " + (drawerItem as Nameable<*>).name + " - toggleChecked: " + isChecked)
+            if (drawerItem is Nameable) {
+                Log.i("material-drawer", "DrawerItem: " + (drawerItem as Nameable).name + " - toggleChecked: " + isChecked)
             } else {
                 Log.i("material-drawer", "toggleChecked: $isChecked")
             }
@@ -102,7 +101,7 @@ class EmbeddedDrawerActivity : AppCompatActivity() {
                     ToggleDrawerItem().withName("Toggle").withIcon(GoogleMaterial.Icon.gmd_pan_tool).withChecked(true).withOnCheckedChangeListener(onCheckedChangeListener)
             )
             onDrawerItemClickListener = { v, drawerItem, position ->
-                if (drawerItem is Nameable<*>) {
+                if (drawerItem is Nameable) {
                     Toast.makeText(this@EmbeddedDrawerActivity, drawerItem.name?.getText(this@EmbeddedDrawerActivity), Toast.LENGTH_SHORT).show()
                 }
                 false

@@ -7,6 +7,7 @@ import android.widget.Toast
 import androidx.appcompat.app.ActionBarDrawerToggle
 import androidx.appcompat.app.AppCompatActivity
 import com.mikepenz.materialdrawer.model.interfaces.Nameable
+import com.mikepenz.materialdrawer.util.inflateMenu
 import kotlinx.android.synthetic.main.activity_sample.*
 
 class MenuDrawerActivity : AppCompatActivity() {
@@ -28,8 +29,8 @@ class MenuDrawerActivity : AppCompatActivity() {
         slider.apply {
             inflateMenu(R.menu.example_menu)
             onDrawerItemClickListener = { v, drawerItem, position ->
-                if (drawerItem is Nameable<*>) {
-                    Toast.makeText(this@MenuDrawerActivity, (drawerItem as Nameable<*>).name!!.getText(this@MenuDrawerActivity), Toast.LENGTH_SHORT).show()
+                if (drawerItem is Nameable) {
+                    Toast.makeText(this@MenuDrawerActivity, (drawerItem as Nameable).name!!.getText(this@MenuDrawerActivity), Toast.LENGTH_SHORT).show()
                 }
                 false
             }

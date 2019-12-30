@@ -1,16 +1,14 @@
-package com.mikepenz.materialdrawer.model.interfaces
+package com.mikepenz.materialdrawer.interfaces
 
 import android.view.View
+import com.mikepenz.materialdrawer.model.interfaces.IDrawerItem
 
 /**
- * Created by mikepenz on 21.08.15.
+ * Defines the listener fired after binding a view
  */
 interface OnPostBindViewListener {
     /**
      * allows you to hook in the BindView method and modify the view after binding
-     *
-     * @param drawerItem the drawerItem used for this view
-     * @param view       the view which will be set
      */
     fun onBindView(drawerItem: IDrawerItem<*>, view: View)
 }

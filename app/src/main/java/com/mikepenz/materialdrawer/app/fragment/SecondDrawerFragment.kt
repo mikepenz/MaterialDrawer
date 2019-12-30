@@ -11,6 +11,8 @@ import com.mikepenz.iconics.typeface.library.fontawesome.FontAwesome
 import com.mikepenz.materialdrawer.app.R
 import com.mikepenz.materialdrawer.iconics.withIcon
 import com.mikepenz.materialdrawer.model.PrimaryDrawerItem
+import com.mikepenz.materialdrawer.model.interfaces.withIdentifier
+import com.mikepenz.materialdrawer.model.interfaces.withName
 import kotlinx.android.synthetic.main.activity_sample.*
 
 

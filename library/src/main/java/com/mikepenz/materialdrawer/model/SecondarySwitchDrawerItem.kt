@@ -4,11 +4,12 @@ import android.content.Context
 import android.content.res.ColorStateList
 import androidx.annotation.LayoutRes
 import com.mikepenz.materialdrawer.R
+import com.mikepenz.materialdrawer.model.interfaces.IDrawerItem
 import com.mikepenz.materialdrawer.util.getSecondaryDrawerIconColor
 import com.mikepenz.materialdrawer.util.getSecondaryDrawerTextColor
 
 /**
- * Created by mikepenz on 03.02.15.
+ * Describes a [IDrawerItem] bing used as secondary item, offering a switch.
  */
 open class SecondarySwitchDrawerItem : AbstractSwitchableDrawerItem<SecondarySwitchDrawerItem>() {
 

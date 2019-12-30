@@ -13,11 +13,16 @@ import com.mikepenz.materialdrawer.model.utils.BadgeDrawableBuilder
  * Class to allow defining a BadgeStyle for the `BadgeDrawerItem`
  */
 open class BadgeStyle {
+    /** defines the drawable to use to define the rounded corners */
     var gradientDrawable = R.drawable.material_drawer_badge
+    /** defines the background drawable */
     var badgeBackground: Drawable? = null
+    /** the default color */
     var color: ColorHolder? = null
+    /** the pressed color */
     var colorPressed: ColorHolder? = null
     private var _textColor: ColorHolder? = null
+    /** defines the default text color */
     var textColor: ColorHolder?
         get() = _textColor
         set(value) {
@@ -26,15 +31,20 @@ open class BadgeStyle {
         }
 
     private var _textColorStateList: ColorStateList? = null
+    /** defines the alternative text color state list */
     var textColorStateList: ColorStateList?
         get() = _textColorStateList
         set(value) {
             _textColor = null
             _textColorStateList = value
         }
+    /** the corner radious */
     var corners: DimenHolder? = null
+    /** dcustom padding to the bottom (default 2dp) */
     var paddingTopBottom = DimenHolder.fromDp(2)
+    /** custom padding to the right (default 3dp) */
     var paddingLeftRight = DimenHolder.fromDp(3)
+    /** the min width to set (default 20dp) */
     var minWidth = DimenHolder.fromDp(20)
 
     constructor() {}
@@ -51,6 +61,7 @@ open class BadgeStyle {
         this.textColor = ColorHolder.fromColor(textColor)
     }
 
+    /** styles theprovided textView with this style, and the provided colorStateList */
     @JvmOverloads
     open fun style(badgeTextView: TextView, colorStateList: ColorStateList? = null) {
         val ctx = badgeTextView.context

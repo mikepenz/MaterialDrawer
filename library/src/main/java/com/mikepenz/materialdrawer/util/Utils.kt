@@ -20,26 +20,26 @@ private val DISABLED_STATE_SET = intArrayOf(-android.R.attr.state_enabled)
 private val EMPTY_STATE_SET = intArrayOf()
 
 
-fun Context.getPrimaryDrawerTextColor(): ColorStateList {
-    return createDrawerItemColorStateList(R.styleable.MaterialDrawerSliderView_materialDrawerPrimaryText)!!
+internal fun Context.getPrimaryDrawerTextColor(): ColorStateList {
+    return createDrawerItemColorStateList(this, R.styleable.MaterialDrawerSliderView_materialDrawerPrimaryText)!!
 }
 
-fun Context.getPrimaryDrawerIconColor(): ColorStateList {
-    return createDrawerItemColorStateList(R.styleable.MaterialDrawerSliderView_materialDrawerPrimaryIcon)!!
+internal fun Context.getPrimaryDrawerIconColor(): ColorStateList {
+    return createDrawerItemColorStateList(this, R.styleable.MaterialDrawerSliderView_materialDrawerPrimaryIcon)!!
 }
 
-fun Context.getSecondaryDrawerTextColor(): ColorStateList {
-    return createDrawerItemColorStateList(R.styleable.MaterialDrawerSliderView_materialDrawerSecondaryText)!!
+internal fun Context.getSecondaryDrawerTextColor(): ColorStateList {
+    return createDrawerItemColorStateList(this, R.styleable.MaterialDrawerSliderView_materialDrawerSecondaryText)!!
 }
 
-fun Context.getSecondaryDrawerIconColor(): ColorStateList {
-    return createDrawerItemColorStateList(R.styleable.MaterialDrawerSliderView_materialDrawerSecondaryIcon)!!
+internal fun Context.getSecondaryDrawerIconColor(): ColorStateList {
+    return createDrawerItemColorStateList(this, R.styleable.MaterialDrawerSliderView_materialDrawerSecondaryIcon)!!
 }
 
-fun Context.createDrawerItemColorStateList(@StyleableRes styleableRes: Int, @StyleableRes selectedStyleable: Int = R.styleable.MaterialDrawerSliderView_materialDrawerSelectedBackgroundColor): ColorStateList? {
-    val a = obtainStyledAttributes(null, R.styleable.MaterialDrawerSliderView, R.attr.materialDrawerStyle, R.style.Widget_MaterialDrawerStyle)
+fun createDrawerItemColorStateList(ctx: Context, @StyleableRes styleableRes: Int, @StyleableRes selectedStyleable: Int = R.styleable.MaterialDrawerSliderView_materialDrawerSelectedBackgroundColor): ColorStateList? {
+    val a = ctx.obtainStyledAttributes(null, R.styleable.MaterialDrawerSliderView, R.attr.materialDrawerStyle, R.style.Widget_MaterialDrawerStyle)
     val baseColor = a.getColorStateList(styleableRes) ?: return null
-    val selectedColor = a.getColor(selectedStyleable, getThemeColor(R.attr.colorPrimary))
+    val selectedColor = a.getColor(selectedStyleable, ctx.getThemeColor(R.attr.colorPrimary))
     a.recycle()
 
     val defaultColor = baseColor.defaultColor
@@ -57,20 +57,20 @@ fun Context.getDividerColor(): Int {
 }
 
 @ColorInt
-fun Context.getSelectedColor(): Int {
+internal fun Context.getSelectedColor(): Int {
     val color = resolveStyledValue {
         it.getColor(R.styleable.MaterialDrawerSliderView_materialDrawerSelectedBackgroundColor, getThemeColor(R.attr.materialDrawerSelectedBackgroundColor, getSupportColor(R.color.material_drawer_selected)))
     }
     return ColorUtils.setAlphaComponent(color, (255 * getSupportFloat(R.dimen.material_drawer_selected_background_alpha)).toInt())
 }
 
-fun Context.getHeaderSelectionTextColor(): ColorStateList {
+internal fun Context.getHeaderSelectionTextColor(): ColorStateList {
     return resolveStyledHeaderValue {
         it.getColorStateList(R.styleable.AccountHeaderView_materialDrawerHeaderSelectionText)!!
     }
 }
 
-fun Context.getHeaderSelectionSubTextColor(): ColorStateList {
+internal fun Context.getHeaderSelectionSubTextColor(): ColorStateList {
     return resolveStyledHeaderValue {
         it.getColorStateList(R.styleable.AccountHeaderView_materialDrawerHeaderSelectionSubtext)!!
     }
@@ -92,7 +92,7 @@ internal fun <T> Context.resolveStyledValue(attrs: IntArray = R.styleable.Materi
  * @hide
  */
 @RestrictTo(RestrictTo.Scope.LIBRARY_GROUP)
-fun Context.getSupportColor(@ColorRes def: Int = 0): Int {
+internal fun Context.getSupportColor(@ColorRes def: Int = 0): Int {
     return ContextCompat.getColor(this, def)
 }
 
@@ -102,7 +102,7 @@ fun Context.getSupportColor(@ColorRes def: Int = 0): Int {
  * @hide
  */
 @RestrictTo(RestrictTo.Scope.LIBRARY_GROUP)
-fun Context.getSupportFloat(@DimenRes dimen: Int): Float {
+internal fun Context.getSupportFloat(@DimenRes dimen: Int): Float {
     return ResourcesCompat.getFloat(this.resources, dimen)
 }
 
@@ -111,7 +111,7 @@ fun Context.getSupportFloat(@DimenRes dimen: Int): Float {
  * @hide
  */
 @RestrictTo(RestrictTo.Scope.LIBRARY_GROUP)
-fun Context.getThemeColor(@AttrRes attr: Int, @ColorInt def: Int = 0): Int {
+internal fun Context.getThemeColor(@AttrRes attr: Int, @ColorInt def: Int = 0): Int {
     val tv = TypedValue()
     return if (theme.resolveAttribute(attr, tv, true)) {
         if (tv.resourceId != 0) ResourcesCompat.getColor(resources, tv.resourceId, theme) else tv.data
@@ -123,7 +123,7 @@ fun Context.getThemeColor(@AttrRes attr: Int, @ColorInt def: Int = 0): Int {
  * @hide
  */
 @RestrictTo(RestrictTo.Scope.LIBRARY_GROUP)
-fun Context.getThemeColorFromAttrOrRes(@AttrRes attr: Int, @ColorRes res: Int): Int {
+internal fun Context.getThemeColorFromAttrOrRes(@AttrRes attr: Int, @ColorRes res: Int): Int {
     var color = getThemeColor(attr)
     if (color == 0) {
         color = ResourcesCompat.getColor(resources, res, theme)
@@ -183,11 +183,8 @@ internal fun Context.getScreenWidth(): Int {
 
 /**
  * helper to calculate the actionBar height
- *
- * @param context
- * @return
  */
-fun Context.getActionBarHeight(): Int {
+internal fun Context.getActionBarHeight(): Int {
     var actionBarHeight: Int = getThemeAttributeDimensionSize(R.attr.actionBarSize)
     if (actionBarHeight == 0) {
         actionBarHeight = resources.getDimensionPixelSize(R.dimen.abc_action_bar_default_height_material)

@@ -9,6 +9,7 @@ import com.mikepenz.materialdrawer.iconics.withIcon
 import com.mikepenz.materialdrawer.model.PrimaryDrawerItem
 import com.mikepenz.materialdrawer.model.SecondaryDrawerItem
 import com.mikepenz.materialdrawer.model.interfaces.Nameable
+import com.mikepenz.materialdrawer.model.interfaces.withName
 import kotlinx.android.synthetic.main.activity_sample_actionbar.*
 
 class ActionBarActivity : AppCompatActivity() {
@@ -25,8 +26,8 @@ class ActionBarActivity : AppCompatActivity() {
                     SecondaryDrawerItem().withName(R.string.drawer_item_settings).withIcon(FontAwesome.Icon.faw_cog)
             )
             onDrawerItemClickListener = { v, drawerItem, position ->
-                if (drawerItem is Nameable<*>) {
-                    Toast.makeText(this@ActionBarActivity, (drawerItem as Nameable<*>).name!!.getText(this@ActionBarActivity), Toast.LENGTH_SHORT).show()
+                if (drawerItem is Nameable) {
+                    Toast.makeText(this@ActionBarActivity, (drawerItem as Nameable).name!!.getText(this@ActionBarActivity), Toast.LENGTH_SHORT).show()
                 }
                 false
             }

@@ -15,8 +15,7 @@ import com.mikepenz.materialdrawer.model.interfaces.IDrawerItem
 import com.mikepenz.materialdrawer.util.FixStateListDrawable
 
 /**
- * Created by mikepenz on 03.02.15.
- * NOTE: The arrow will just animate (and rotate) on APIs higher than 11 as the ViewCompat will skip this on API 10
+ * Describes a [IDrawerItem] supporting child items.
  */
 open class ExpandableDrawerItem : BaseDescribeableDrawerItem<ExpandableDrawerItem, ExpandableDrawerItem.ViewHolder>() {
 
@@ -51,26 +50,31 @@ open class ExpandableDrawerItem : BaseDescribeableDrawerItem<ExpandableDrawerIte
         mOnDrawerItemClickListener?.invoke(view, drawerItem, position) ?: false
     }
 
+    @Deprecated("Please consider to replace with the actual property setter")
     fun withArrowColor(@ColorInt arrowColor: Int): ExpandableDrawerItem {
         this.arrowColor = ColorHolder.fromColor(arrowColor)
         return this
     }
 
+    @Deprecated("Please consider to replace with the actual property setter")
     fun withArrowColorRes(@ColorRes arrowColorRes: Int): ExpandableDrawerItem {
         this.arrowColor = ColorHolder.fromColorRes(arrowColorRes)
         return this
     }
 
+    @Deprecated("Please consider to replace with the actual property setter")
     fun withArrowRotationAngleStart(angle: Int): ExpandableDrawerItem {
         this.arrowRotationAngleStart = angle
         return this
     }
 
+    @Deprecated("Please consider to replace with the actual property setter")
     fun withArrowRotationAngleEnd(angle: Int): ExpandableDrawerItem {
         this.arrowRotationAngleEnd = angle
         return this
     }
 
+    @Deprecated("Please consider to replace with the actual property setter")
     override fun withOnDrawerItemClickListener(onDrawerItemClickListener: ((v: View?, item: IDrawerItem<*>, position: Int) -> Boolean)?): ExpandableDrawerItem {
         mOnDrawerItemClickListener = onDrawerItemClickListener
         return this

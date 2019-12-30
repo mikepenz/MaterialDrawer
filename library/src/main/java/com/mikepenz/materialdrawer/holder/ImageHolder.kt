@@ -10,20 +10,24 @@ import android.view.View
 import android.widget.ImageView
 import androidx.annotation.DrawableRes
 import androidx.core.content.ContextCompat
-import com.mikepenz.materialdrawer.util.DrawerUIUtils.getIconStateList
 import com.mikepenz.materialdrawer.util.FixStateListDrawable
+import com.mikepenz.materialdrawer.util.getIconStateList
 import java.io.FileNotFoundException
 
 /**
- * Created by mikepenz on 13.07.15.
+ * Defines a custom holder class to support providing images either as uri, drawable, bitmap, or resource. Does not require a [Context] and will resolve the value when applying.
  */
 open class ImageHolder {
+    /** Defines the uri image */
     var uri: Uri? = null
         internal set
+    /** Defines the drawable image */
     var icon: Drawable? = null
         internal set
+    /** Defines the bitmap image */
     var bitmap: Bitmap? = null
         internal set
+    /** Defines the resource image */
     var iconRes = -1
         internal set
 
@@ -51,10 +55,6 @@ open class ImageHolder {
 
     /**
      * sets an existing image to the imageView
-     *
-     * @param imageView
-     * @param tag       used to identify imageViews and define different placeholders
-     * @return true if an image was set
      */
     @JvmOverloads
     open fun applyTo(imageView: ImageView, tag: String? = null): Boolean {
@@ -73,11 +73,6 @@ open class ImageHolder {
 
     /**
      * this only handles Drawables
-     *
-     * @param ctx
-     * @param iconColor
-     * @param tint
-     * @return
      */
     open fun decideIcon(ctx: Context, iconColor: ColorStateList, tint: Boolean, paddingDp: Int = 1): Drawable? {
         var icon = this.icon
@@ -90,9 +85,6 @@ open class ImageHolder {
                 //no need to handle this
             }
         }
-
-        //if we got an icon AND we have auto tinting enabled AND it is no IIcon, tint it ;)
-
         //if we got an icon AND we have auto tinting enabled AND it is no IIcon, tint it ;)
         if (icon != null && tint) {
             icon = icon.mutate()
@@ -106,11 +98,6 @@ open class ImageHolder {
 
         /**
          * a small static helper to set the image from the imageHolder nullSave to the imageView
-         *
-         * @param imageHolder
-         * @param imageView
-         * @param tag         used to identify imageViews and define different placeholders
-         * @return true if an image was set
          */
         @JvmOverloads
         fun applyTo(imageHolder: ImageHolder?, imageView: ImageView?, tag: String? = null): Boolean {
@@ -121,10 +108,6 @@ open class ImageHolder {
 
         /**
          * a small static helper to set the image from the imageHolder nullSave to the imageView and hide the view if no image was set
-         *
-         * @param imageHolder
-         * @param imageView
-         * @param tag         used to identify imageViews and define different placeholders
          */
         @JvmOverloads
         fun applyToOrSetInvisible(imageHolder: ImageHolder?, imageView: ImageView?, tag: String? = null) {
@@ -140,10 +123,6 @@ open class ImageHolder {
 
         /**
          * a small static helper to set the image from the imageHolder nullSave to the imageView and hide the view if no image was set
-         *
-         * @param imageHolder
-         * @param imageView
-         * @param tag         used to identify imageViews and define different placeholders
          */
         @JvmOverloads
         fun applyToOrSetGone(imageHolder: ImageHolder, imageView: ImageView?, tag: String? = null) {
@@ -159,12 +138,6 @@ open class ImageHolder {
 
         /**
          * a small static helper which catches nulls for us
-         *
-         * @param imageHolder
-         * @param ctx
-         * @param iconColor
-         * @param tint
-         * @return
          */
         fun decideIcon(imageHolder: ImageHolder?, ctx: Context, iconColor: ColorStateList, tint: Boolean, paddingDp: Int = 1): Drawable? {
             return imageHolder?.decideIcon(ctx, iconColor, tint, paddingDp)
@@ -172,11 +145,6 @@ open class ImageHolder {
 
         /**
          * decides which icon to apply or hide this view
-         *
-         * @param imageHolder
-         * @param imageView
-         * @param iconColor
-         * @param tint
          */
         fun applyDecidedIconOrSetGone(imageHolder: ImageHolder?, imageView: ImageView?, iconColor: ColorStateList, tint: Boolean, paddingDp: Int = 1) {
             if (imageHolder != null && imageView != null) {
@@ -199,13 +167,6 @@ open class ImageHolder {
 
         /**
          * a small static helper to set a multi state drawable on a view
-         *
-         * @param icon
-         * @param iconColor
-         * @param selectedIcon
-         * @param selectedIconColor
-         * @param tinted
-         * @param imageView
          */
         fun applyMultiIconTo(icon: Drawable?, selectedIcon: Drawable?, iconColor: ColorStateList, tinted: Boolean, imageView: ImageView) {
             //if we have an icon then we want to set it

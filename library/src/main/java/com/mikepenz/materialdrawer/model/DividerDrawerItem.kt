@@ -5,10 +5,11 @@ import androidx.annotation.LayoutRes
 import androidx.core.view.ViewCompat
 import androidx.recyclerview.widget.RecyclerView
 import com.mikepenz.materialdrawer.R
+import com.mikepenz.materialdrawer.model.interfaces.IDrawerItem
 import com.mikepenz.materialdrawer.util.getDividerColor
 
 /**
- * Created by mikepenz on 03.02.15.
+ * Describes a [IDrawerItem] acting as a divider in between items
  */
 open class DividerDrawerItem : AbstractDrawerItem<DividerDrawerItem, DividerDrawerItem.ViewHolder>() {
     override val type: Int

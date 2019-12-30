@@ -1,10 +1,6 @@
 package com.mikepenz.materialdrawer.app.drawerItems
 
-import android.graphics.Bitmap
-import android.graphics.drawable.Drawable
-import android.net.Uri
 import android.view.View
-import androidx.annotation.DrawableRes
 import androidx.annotation.LayoutRes
 import androidx.core.view.ViewCompat
 import androidx.recyclerview.widget.RecyclerView
@@ -15,7 +11,7 @@ import com.mikepenz.materialdrawer.model.AbstractDrawerItem
 import com.mikepenz.materialdrawer.model.interfaces.IProfile
 import com.mikepenz.materialdrawer.util.getDividerColor
 
-class AccountDividerDrawerItem : AbstractDrawerItem<AccountDividerDrawerItem, AccountDividerDrawerItem.ViewHolder>(), IProfile<AccountDividerDrawerItem> {
+class AccountDividerDrawerItem : AbstractDrawerItem<AccountDividerDrawerItem, AccountDividerDrawerItem.ViewHolder>(), IProfile {
     override val type: Int
         get() = R.id.material_drawer_profile_item_divider
 
@@ -23,14 +19,17 @@ class AccountDividerDrawerItem : AbstractDrawerItem<AccountDividerDrawerItem, Ac
         @LayoutRes
         get() = com.mikepenz.materialdrawer.R.layout.material_drawer_item_divider
 
-    override val name: StringHolder?
+    override var name: StringHolder?
         get() = null
+        set(value) {}
 
-    override val email: StringHolder?
+    override var description: StringHolder?
         get() = null
+        set(value) {}
 
-    override val icon: ImageHolder?
+    override var icon: ImageHolder?
         get() = null
+        set(value) {}
 
     override fun bindView(holder: ViewHolder, payloads: MutableList<Any>) {
         super.bindView(holder, payloads)
@@ -52,35 +51,6 @@ class AccountDividerDrawerItem : AbstractDrawerItem<AccountDividerDrawerItem, Ac
 
         //call the onPostBindView method to trigger post bind view actions (like the listener to modify the item if required)
         onPostBindView(this, holder.itemView)
-    }
-
-
-    override fun withName(name: CharSequence?): AccountDividerDrawerItem {
-        return this
-    }
-
-    override fun withEmail(email: String?): AccountDividerDrawerItem {
-        return this
-    }
-
-    override fun withIcon(icon: Drawable?): AccountDividerDrawerItem {
-        return this
-    }
-
-    override fun withIcon(bitmap: Bitmap): AccountDividerDrawerItem {
-        return this
-    }
-
-    override fun withIcon(@DrawableRes iconRes: Int): AccountDividerDrawerItem {
-        return this
-    }
-
-    override fun withIcon(url: String): AccountDividerDrawerItem {
-        return this
-    }
-
-    override fun withIcon(uri: Uri): AccountDividerDrawerItem {
-        return this
     }
 
     override fun getViewHolder(v: View): ViewHolder {

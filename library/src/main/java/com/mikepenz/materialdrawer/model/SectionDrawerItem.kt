@@ -3,20 +3,19 @@ package com.mikepenz.materialdrawer.model
 import android.view.View
 import android.widget.TextView
 import androidx.annotation.LayoutRes
-import androidx.annotation.StringRes
 import androidx.recyclerview.widget.RecyclerView
 import com.mikepenz.materialdrawer.R
 import com.mikepenz.materialdrawer.holder.StringHolder
+import com.mikepenz.materialdrawer.model.interfaces.IDrawerItem
 import com.mikepenz.materialdrawer.model.interfaces.Nameable
 import com.mikepenz.materialdrawer.model.interfaces.Typefaceable
 import com.mikepenz.materialdrawer.util.getDividerColor
 import com.mikepenz.materialdrawer.util.getSecondaryDrawerTextColor
 
 /**
- * Created by mikepenz on 03.02.15.
+ * Describes a [IDrawerItem] acting as a divider with description to describe a section.
  */
-open class SectionDrawerItem : AbstractDrawerItem<SectionDrawerItem, SectionDrawerItem.ViewHolder>(), Nameable<SectionDrawerItem>, Typefaceable<SectionDrawerItem> {
-
+open class SectionDrawerItem : AbstractDrawerItem<SectionDrawerItem, SectionDrawerItem.ViewHolder>(), Nameable, Typefaceable {
     var divider = true
     override var name: StringHolder? = null
     override var isEnabled: Boolean = false
@@ -29,28 +28,10 @@ open class SectionDrawerItem : AbstractDrawerItem<SectionDrawerItem, SectionDraw
         @LayoutRes
         get() = R.layout.material_drawer_item_section
 
-    override fun withName(name: StringHolder?): SectionDrawerItem {
-        this.name = name
-        return this
-    }
-
-    override fun withName(name: String): SectionDrawerItem {
-        this.name = StringHolder(name)
-        return this
-    }
-
-    override fun withName(@StringRes nameRes: Int): SectionDrawerItem {
-        this.name = StringHolder(nameRes)
-        return this
-    }
-
+    @Deprecated("Please consider to replace with the actual property setter")
     fun withDivider(divider: Boolean): SectionDrawerItem {
         this.divider = divider
         return this
-    }
-
-    fun hasDivider(): Boolean {
-        return divider
     }
 
     override fun bindView(holder: ViewHolder, payloads: MutableList<Any>) {
@@ -77,7 +58,7 @@ open class SectionDrawerItem : AbstractDrawerItem<SectionDrawerItem, SectionDraw
         }
 
         //hide the divider if we do not need one
-        if (this.hasDivider()) {
+        if (this.divider) {
             holder.divider.visibility = View.VISIBLE
         } else {
             holder.divider.visibility = View.GONE

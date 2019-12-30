@@ -7,6 +7,7 @@ import androidx.navigation.findNavController
 import com.mikepenz.materialdrawer.model.DividerDrawerItem
 import com.mikepenz.materialdrawer.model.NavigationDrawerItem
 import com.mikepenz.materialdrawer.model.PrimaryDrawerItem
+import com.mikepenz.materialdrawer.model.interfaces.withName
 import com.mikepenz.materialdrawer.util.ExperimentalNavController
 import com.mikepenz.materialdrawer.util.setupWithNavController
 import kotlinx.android.synthetic.main.activity_sample.*
