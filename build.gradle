@@ -8,7 +8,7 @@ buildscript {
         setup = [
                 compileSdk: 29,
                 buildTools: "29.0.2",
-                minSdk    : 16,
+                minSdk    : 14,
                 targetSdk : 29
         ]
 
