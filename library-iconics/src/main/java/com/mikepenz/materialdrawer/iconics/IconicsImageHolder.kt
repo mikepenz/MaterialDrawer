@@ -6,10 +6,11 @@ import android.graphics.PorterDuff
 import android.graphics.drawable.Drawable
 import android.widget.ImageView
 import androidx.appcompat.content.res.AppCompatResources
-import com.mikepenz.iconics.IconicsColor
 import com.mikepenz.iconics.IconicsDrawable
-import com.mikepenz.iconics.IconicsSize
 import com.mikepenz.iconics.typeface.IIcon
+import com.mikepenz.iconics.utils.actionBar
+import com.mikepenz.iconics.utils.paddingDp
+import com.mikepenz.iconics.utils.sizeDp
 import com.mikepenz.materialdrawer.holder.ImageHolder
 import com.mikepenz.materialdrawer.util.DrawerImageLoader
 import java.io.FileNotFoundException
@@ -65,7 +66,11 @@ class IconicsImageHolder(iicon: IIcon) : ImageHolder() {
         val uri = uri
 
         when {
-            ii != null -> icon = IconicsDrawable(ctx, ii).color(IconicsColor.colorList(iconColor)).size(IconicsSize.dp(24)).padding(IconicsSize.dp(paddingDp))
+            ii != null -> icon = IconicsDrawable(ctx, ii).apply {
+                colorList = iconColor
+                sizeDp = 24
+                this.paddingDp = paddingDp
+            }
             iconRes != -1 -> icon = AppCompatResources.getDrawable(ctx, iconRes)
             uri != null -> try {
                 val inputStream = ctx.contentResolver.openInputStream(uri)

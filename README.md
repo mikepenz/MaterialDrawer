@@ -16,7 +16,7 @@ There  is a Header with profiles (**AccountHeader**), a **MiniDrawer** for Table
 - **the easiest possible integration**
 - integrate in less than **5 minutes**
 - **uses the androidX support libraries**
-- compatible down to **API Level 14**
+- compatible down to **API Level 16**
 - includes an **AccountSwitcher**
 - quick and simple api
 - follows the **NEW Google Material Design Guidelines**
