@@ -51,7 +51,7 @@ class CollapsingToolbarActivity : AppCompatActivity() {
                     SecondaryDrawerItem().withName(R.string.drawer_item_open_source).withIcon(FontAwesome.Icon.faw_github),
                     SecondaryDrawerItem().withName(R.string.drawer_item_contact).withIcon(FontAwesome.Icon.faw_bullhorn)
             )
-            withSavedInstance(savedInstanceState)
+            setSavedInstance(savedInstanceState)
         }
 
         fillFab()

@@ -53,7 +53,7 @@ class MultiDrawerActivity : AppCompatActivity() {
                 }
                 false
             }
-            withSavedInstance(savedInstanceState)
+            setSavedInstance(savedInstanceState)
             setSelectionAtPosition(0)
         }
 
@@ -75,7 +75,7 @@ class MultiDrawerActivity : AppCompatActivity() {
                 false
             }
             savedInstanceKey = "end"
-            withSavedInstance(savedInstanceState)
+            setSavedInstance(savedInstanceState)
         }
 
         //set the back arrow in the toolbar

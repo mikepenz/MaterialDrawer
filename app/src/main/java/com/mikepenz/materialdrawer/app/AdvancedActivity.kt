@@ -87,7 +87,7 @@ class AdvancedActivity : AppCompatActivity() {
                 }
                 false
             }
-            withSavedInstance(savedInstanceState)
+            setSavedInstance(savedInstanceState)
         }
     }
 

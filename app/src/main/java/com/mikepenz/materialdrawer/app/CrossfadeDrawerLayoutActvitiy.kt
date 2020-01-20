@@ -72,7 +72,7 @@ class CrossfadeDrawerLayoutActvitiy : AppCompatActivity() {
                 }
                 false
             }
-            withSavedInstance(savedInstanceState)
+            setSavedInstance(savedInstanceState)
         }
 
         crossFadeSmallView.drawer = crossFadeLargeView

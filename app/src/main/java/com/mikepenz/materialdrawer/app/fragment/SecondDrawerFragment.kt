@@ -40,7 +40,7 @@ class SecondDrawerFragment : Fragment() {
                     PrimaryDrawerItem().withName(R.string.drawer_item_free_play).withIcon(FontAwesome.Icon.faw_gamepad),
                     PrimaryDrawerItem().withName(R.string.drawer_item_custom).withIcon(FontAwesome.Icon.faw_eye)
             )
-            withSavedInstance(savedInstanceState)
+            setSavedInstance(savedInstanceState)
             setSelection(1)
         }
     }

@@ -6,6 +6,69 @@ import com.mikepenz.materialdrawer.model.interfaces.*
 import com.mikepenz.materialdrawer.widget.MaterialDrawerSliderView
 
 /**
+ * Add a drawerItem at a specific position
+ *
+ * @param drawerItem
+ * @param position
+ */
+fun MaterialDrawerSliderView.addItemAtPosition(position: Int, drawerItem: IDrawerItem<*>) {
+    itemAdapter.add(position, drawerItem)
+}
+
+/**
+ * Set a drawerItem at a specific position
+ */
+fun MaterialDrawerSliderView.setItemAtPosition(position: Int, drawerItem: IDrawerItem<*>) {
+    itemAdapter[position] = drawerItem
+}
+
+/**
+ * Remove a drawerItem at a specific position
+ */
+fun MaterialDrawerSliderView.removeItemByPosition(position: Int) {
+    if (checkDrawerItem(position, false)) {
+        itemAdapter.remove(position)
+    }
+}
+
+/**
+ * remove a list of drawerItems by their identifiers
+ */
+fun MaterialDrawerSliderView.removeItems(vararg identifiers: Long) {
+    identifiers.forEach {
+        itemAdapter.removeByIdentifier(it)
+    }
+}
+
+/**
+ * add single ore more DrawerItems to the Drawer
+ */
+fun MaterialDrawerSliderView.removeAllItems(vararg drawerItems: IDrawerItem<*>) {
+    itemAdapter.clear()
+}
+
+/**
+ * add single ore more DrawerItems to the Drawer
+ */
+fun MaterialDrawerSliderView.setItems(vararg drawerItems: IDrawerItem<*>) {
+    itemAdapter.set(drawerItems.asList())
+}
+
+/**
+ * add single ore more DrawerItems to the Drawer
+ */
+fun MaterialDrawerSliderView.addItems(vararg drawerItems: IDrawerItem<*>) {
+    itemAdapter.add(*drawerItems)
+}
+
+/**
+ * add single ore more DrawerItems to the Drawer
+ */
+fun MaterialDrawerSliderView.addItemsAtPosition(position: Int, vararg drawerItems: IDrawerItem<*>) {
+    itemAdapter.add(position, *drawerItems)
+}
+
+/**
  * calculates the position of an drawerItem. searching by its identifier
  *
  * @param drawerItem

@@ -31,7 +31,7 @@ class ActionBarActivity : AppCompatActivity() {
                 }
                 false
             }
-            withSavedInstance(savedInstanceState)
+            setSavedInstance(savedInstanceState)
         }
 
         supportActionBar?.setDisplayHomeAsUpEnabled(true)

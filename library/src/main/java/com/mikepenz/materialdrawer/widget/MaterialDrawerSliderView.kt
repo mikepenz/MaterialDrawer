@@ -471,11 +471,21 @@ open class MaterialDrawerSliderView @JvmOverloads constructor(context: Context, 
         insetForeground?.callback = null
     }
 
+
     /**
      * Set the Bundle (savedInstance) which is passed by the activity.
      * No need to null-check everything is handled automatically
      */
+    @Deprecated("Replaced with setSavedInstance", ReplaceWith("setSavedInstance(savedInstance)"))
     fun withSavedInstance(savedInstance: Bundle?) {
+        setSavedInstance(savedInstance)
+    }
+
+    /**
+     * Set the Bundle (savedInstance) which is passed by the activity.
+     * No need to null-check everything is handled automatically
+     */
+    fun setSavedInstance(savedInstance: Bundle?) {
         savedInstance ?: return
         // try to restore all saved values again
         this.selectExtension.deselect()
@@ -651,7 +661,6 @@ open class MaterialDrawerSliderView @JvmOverloads constructor(context: Context, 
             }
         }
     }
-
 
     /**
      * information if the current drawer content is switched by alternative content (profileItems)

@@ -34,7 +34,7 @@ class MenuDrawerActivity : AppCompatActivity() {
                 }
                 false
             }
-            withSavedInstance(savedInstanceState)
+            setSavedInstance(savedInstanceState)
         }
 
         // set the selection to the item with the identifier 5

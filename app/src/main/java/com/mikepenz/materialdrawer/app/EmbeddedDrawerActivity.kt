@@ -107,7 +107,7 @@ class EmbeddedDrawerActivity : AppCompatActivity() {
                 }
                 false
             }
-            withSavedInstance(savedInstanceState)
+            setSavedInstance(savedInstanceState)
         }
     }
 

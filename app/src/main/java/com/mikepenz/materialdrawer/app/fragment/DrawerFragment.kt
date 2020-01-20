@@ -49,7 +49,7 @@ class DrawerFragment : Fragment() {
                     SecondaryDrawerItem().withName(R.string.drawer_item_contact).withIcon(FontAwesome.Icon.faw_bullhorn)
             )
             setSelection(1)
-            withSavedInstance(savedInstanceState)
+            setSavedInstance(savedInstanceState)
         }
     }
 

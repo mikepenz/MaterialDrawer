@@ -60,7 +60,7 @@ class FullscreenDrawerActivity : AppCompatActivity() {
                     PrimaryDrawerItem().withName(R.string.drawer_item_custom).withIcon(FontAwesome.Icon.faw_eye),
                     PrimaryDrawerItem().withName(R.string.drawer_item_custom).withIcon(FontAwesome.Icon.faw_eye)
             )
-            withSavedInstance(savedInstanceState)
+            setSavedInstance(savedInstanceState)
         }
 
         ViewCompat.setOnApplyWindowInsetsListener(root) { v, insets ->
