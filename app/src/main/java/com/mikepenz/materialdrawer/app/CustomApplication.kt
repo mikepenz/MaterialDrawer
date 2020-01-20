@@ -6,9 +6,9 @@ import android.net.Uri
 import android.widget.ImageView
 import androidx.multidex.MultiDexApplication
 import com.bumptech.glide.Glide
-import com.mikepenz.iconics.IconicsColor.Companion.colorRes
 import com.mikepenz.iconics.IconicsDrawable
-import com.mikepenz.iconics.IconicsSize.Companion.dp
+import com.mikepenz.iconics.utils.backgroundColorRes
+import com.mikepenz.iconics.utils.sizeDp
 import com.mikepenz.materialdrawer.util.AbstractDrawerImageLoader
 import com.mikepenz.materialdrawer.util.DrawerImageLoader
 import com.mikepenz.materialdrawer.util.DrawerUtils
@@ -49,8 +49,8 @@ class CustomApplication : MultiDexApplication() {
                 //custom ones can be checked via string. see the CustomUrlBasePrimaryDrawerItem LINE 111
                 return when (tag) {
                     DrawerImageLoader.Tags.PROFILE.name -> DrawerUtils.getPlaceHolder(ctx)
-                    DrawerImageLoader.Tags.ACCOUNT_HEADER.name -> IconicsDrawable(ctx).iconText(" ").backgroundColor(colorRes(R.color.primary)).size(dp(56))
-                    "customUrlItem" -> IconicsDrawable(ctx).iconText(" ").backgroundColor(colorRes(R.color.md_red_500)).size(dp(56))
+                    DrawerImageLoader.Tags.ACCOUNT_HEADER.name -> IconicsDrawable(ctx, " ").apply { backgroundColorRes = R.color.primary; sizeDp = 56 }
+                    "customUrlItem" -> IconicsDrawable(ctx, " ").apply { backgroundColorRes = R.color.md_red_500; sizeDp = 56 }
                     //we use the default one for
                     //DrawerImageLoader.Tags.PROFILE_DRAWER_ITEM.name()
                     else -> super.placeholder(ctx, tag)

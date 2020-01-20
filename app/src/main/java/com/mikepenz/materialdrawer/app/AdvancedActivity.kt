@@ -8,11 +8,13 @@ import android.widget.Toast
 import androidx.appcompat.app.ActionBarDrawerToggle
 import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.widget.PopupMenu
-import com.mikepenz.iconics.IconicsColor.Companion.colorRes
 import com.mikepenz.iconics.IconicsDrawable
-import com.mikepenz.iconics.IconicsSize.Companion.dp
 import com.mikepenz.iconics.typeface.library.fontawesome.FontAwesome
 import com.mikepenz.iconics.typeface.library.googlematerial.GoogleMaterial
+import com.mikepenz.iconics.utils.actionBar
+import com.mikepenz.iconics.utils.backgroundColorRes
+import com.mikepenz.iconics.utils.paddingDp
+import com.mikepenz.iconics.utils.sizeDp
 import com.mikepenz.materialdrawer.app.drawerItems.CustomPrimaryDrawerItem
 import com.mikepenz.materialdrawer.app.drawerItems.CustomUrlPrimaryDrawerItem
 import com.mikepenz.materialdrawer.app.drawerItems.OverflowMenuDrawerItem
@@ -72,7 +74,7 @@ class AdvancedActivity : AppCompatActivity() {
                     SecondaryDrawerItem().withName(R.string.drawer_item_settings).withIcon(FontAwesome.Icon.faw_cart_plus),
                     SecondaryDrawerItem().withName(R.string.drawer_item_help).withIcon(FontAwesome.Icon.faw_database).withEnabled(false),
                     SecondaryDrawerItem().withName(R.string.drawer_item_open_source).withIcon(FontAwesome.Icon.faw_github),
-                    SecondaryDrawerItem().withName(R.string.drawer_item_contact).withIconTintingEnabled(true).withIcon(IconicsDrawable(this@AdvancedActivity, GoogleMaterial.Icon.gmd_add).actionBar().padding(dp(5))).withTag("Bullhorn"),
+                    SecondaryDrawerItem().withName(R.string.drawer_item_contact).withIconTintingEnabled(true).withIcon(IconicsDrawable(this@AdvancedActivity, GoogleMaterial.Icon.gmd_add).apply { actionBar(); paddingDp = 5 }).withTag("Bullhorn"),
                     SecondaryDrawerItem().withName(R.string.drawer_item_help).withIcon(FontAwesome.Icon.faw_question).withEnabled(false)
             )
             addStickyDrawerItems(
@@ -109,7 +111,7 @@ class AdvancedActivity : AppCompatActivity() {
                     profile4,
                     profile5,
                     //don't ask but google uses 14dp for the add account icon in gmail but 20dp for the normal icons (like manage account)
-                    ProfileSettingDrawerItem().withName("Add Account").withDescription("Add new GitHub Account").withIcon(IconicsDrawable(this@AdvancedActivity, GoogleMaterial.Icon.gmd_add).actionBar().padding(dp(5))).withIdentifier(PROFILE_SETTING.toLong()),
+                    ProfileSettingDrawerItem().withName("Add Account").withDescription("Add new GitHub Account").withIcon(IconicsDrawable(this@AdvancedActivity, GoogleMaterial.Icon.gmd_add).apply { actionBar(); paddingDp = 5 }).withIdentifier(PROFILE_SETTING.toLong()),
                     ProfileSettingDrawerItem().withName("Manage Account").withIcon(GoogleMaterial.Icon.gmd_settings)
             )
             onAccountHeaderListener = { view, profile, current ->
@@ -155,7 +157,7 @@ class AdvancedActivity : AppCompatActivity() {
         when (item.itemId) {
             R.id.menu_1 -> {
                 //update the profile2 and set a new image.
-                profile2.withIcon(IconicsDrawable(this, GoogleMaterial.Icon.gmd_android).backgroundColor(colorRes(R.color.accent)).size(dp(48)).padding(dp(4)))
+                profile2.withIcon(IconicsDrawable(this, GoogleMaterial.Icon.gmd_android).apply { backgroundColorRes = R.color.accent; paddingDp = 4; sizeDp = 48 })
                 headerView.updateProfile(profile2)
                 return true
             }

@@ -5,10 +5,11 @@ import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
 import com.bumptech.glide.Glide
 import com.bumptech.glide.request.RequestOptions.centerCropTransform
-import com.mikepenz.iconics.IconicsColor.Companion.colorInt
 import com.mikepenz.iconics.IconicsDrawable
 import com.mikepenz.iconics.typeface.library.fontawesome.FontAwesome
 import com.mikepenz.iconics.typeface.library.googlematerial.GoogleMaterial
+import com.mikepenz.iconics.utils.actionBar
+import com.mikepenz.iconics.utils.colorInt
 import com.mikepenz.materialdrawer.holder.ImageHolder
 import com.mikepenz.materialdrawer.iconics.withIcon
 import com.mikepenz.materialdrawer.model.PrimaryDrawerItem
@@ -62,7 +63,7 @@ class CollapsingToolbarActivity : AppCompatActivity() {
     }
 
     private fun fillFab() {
-        floatingActionButton.setImageDrawable(IconicsDrawable(this, GoogleMaterial.Icon.gmd_favorite).actionBar().color(colorInt(Color.WHITE)))
+        floatingActionButton.setImageDrawable(IconicsDrawable(this, GoogleMaterial.Icon.gmd_favorite).apply { actionBar(); colorInt = Color.WHITE })
     }
 
     override fun onSaveInstanceState(_outState: Bundle) {

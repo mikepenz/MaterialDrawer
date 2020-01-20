@@ -13,11 +13,11 @@ import androidx.core.view.updatePadding
 import com.mikepenz.crossfader.Crossfader
 import com.mikepenz.crossfader.util.UIUtils
 import com.mikepenz.crossfader.view.CrossFadeSlidingPaneLayout
-import com.mikepenz.iconics.IconicsColor.Companion.colorInt
 import com.mikepenz.iconics.IconicsDrawable
-import com.mikepenz.iconics.IconicsSize.Companion.dp
 import com.mikepenz.iconics.typeface.library.fontawesome.FontAwesome
 import com.mikepenz.iconics.typeface.library.googlematerial.GoogleMaterial
+import com.mikepenz.iconics.utils.colorInt
+import com.mikepenz.iconics.utils.sizeDp
 import com.mikepenz.materialdrawer.app.utils.CrossfadeWrapper
 import com.mikepenz.materialdrawer.holder.ImageHolder
 import com.mikepenz.materialdrawer.iconics.withIcon
@@ -119,7 +119,7 @@ class PersistentDrawerActivity : AppCompatActivity() {
         //define and create the arrow ;)
         val toggle = headerView.findViewById<ImageView>(R.id.material_drawer_account_header_toggle)
         //for RTL you would have to define the other arrow
-        toggle.setImageDrawable(IconicsDrawable(this, GoogleMaterial.Icon.gmd_chevron_left).size(dp(16)).color(colorInt(Color.BLACK)))
+        toggle.setImageDrawable(IconicsDrawable(this, GoogleMaterial.Icon.gmd_chevron_left).apply { sizeDp = 16; colorInt = Color.BLACK })
         toggle.setOnClickListener { crossFader.crossFade() }
 
         ViewCompat.setOnApplyWindowInsetsListener(root) { v, insets ->

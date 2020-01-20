@@ -4,10 +4,9 @@ import android.view.View
 import android.widget.ImageButton
 import androidx.annotation.LayoutRes
 import androidx.appcompat.widget.PopupMenu
-import com.mikepenz.iconics.IconicsColor.Companion.colorList
 import com.mikepenz.iconics.IconicsDrawable
-import com.mikepenz.iconics.IconicsSize.Companion.dp
 import com.mikepenz.iconics.typeface.library.googlematerial.GoogleMaterial
+import com.mikepenz.iconics.utils.sizeDp
 import com.mikepenz.materialdrawer.app.R
 import com.mikepenz.materialdrawer.model.BaseDescribeableDrawerItem
 import com.mikepenz.materialdrawer.model.BaseViewHolder
@@ -69,7 +68,7 @@ class OverflowMenuDrawerItem : BaseDescribeableDrawerItem<OverflowMenuDrawerItem
         }
 
         //handle image
-        holder.menu.setImageDrawable(IconicsDrawable(ctx, GoogleMaterial.Icon.gmd_more_vert).size(dp(12)).color(colorList(getIconColor(ctx))))
+        holder.menu.setImageDrawable(IconicsDrawable(ctx, GoogleMaterial.Icon.gmd_more_vert).apply { sizeDp = 12; colorList = getIconColor(ctx) })
 
         //call the onPostBindView method to trigger post bind view actions (like the listener to modify the item if required)
         onPostBindView(this, holder.itemView)

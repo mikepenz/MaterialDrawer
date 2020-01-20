@@ -15,10 +15,11 @@ import androidx.appcompat.app.AppCompatActivity
 import com.mikepenz.crossfader.Crossfader
 import com.mikepenz.crossfader.util.UIUtils
 import com.mikepenz.crossfader.view.CrossFadeSlidingPaneLayout
-import com.mikepenz.iconics.IconicsColor.Companion.colorInt
 import com.mikepenz.iconics.IconicsDrawable
 import com.mikepenz.iconics.typeface.library.fontawesome.FontAwesome
 import com.mikepenz.iconics.typeface.library.googlematerial.GoogleMaterial
+import com.mikepenz.iconics.utils.actionBar
+import com.mikepenz.iconics.utils.colorInt
 import com.mikepenz.materialdrawer.app.utils.CrossfadeWrapper
 import com.mikepenz.materialdrawer.app.utils.SystemUtils
 import com.mikepenz.materialdrawer.holder.BadgeStyle
@@ -168,7 +169,7 @@ class MiniDrawerActivity : AppCompatActivity() {
         val inflater = menuInflater
         if (SystemUtils.screenOrientation == Configuration.ORIENTATION_LANDSCAPE) {
             inflater.inflate(R.menu.embedded, menu)
-            menu.findItem(R.id.menu_1).icon = IconicsDrawable(this, GoogleMaterial.Icon.gmd_sort).color(colorInt(Color.WHITE)).actionBar()
+            menu.findItem(R.id.menu_1).icon = IconicsDrawable(this, GoogleMaterial.Icon.gmd_sort).apply { actionBar(); colorInt = Color.WHITE }
         }
         return true
     }
