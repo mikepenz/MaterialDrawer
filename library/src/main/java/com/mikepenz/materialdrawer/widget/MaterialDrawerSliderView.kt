@@ -234,9 +234,6 @@ open class MaterialDrawerSliderView @JvmOverloads constructor(context: Context, 
             handleFooterView(this, footerClickListener)
         }
 
-    /** Defines if there shall be an initial onClick even being fired, for running custom logic. */
-    var fireInitialOnClick = false
-
     /** Defines if multi select is enabled in this drawer. */
     var multiSelect
         set(value) {
@@ -382,7 +379,7 @@ open class MaterialDrawerSliderView @JvmOverloads constructor(context: Context, 
         a.recycle()
         setWillNotDraw(true) // No need to draw until the insets are adjusted
 
-        adapter
+        adapter // call getter to setup
         createContent()
 
         ViewCompat.setOnApplyWindowInsetsListener(this) { v, insets ->
@@ -620,14 +617,6 @@ open class MaterialDrawerSliderView @JvmOverloads constructor(context: Context, 
         }
 
         recyclerView.scrollToPosition(0)
-
-        // call initial onClick event to allow the dev to init the first view
-        if (fireInitialOnClick && onDrawerItemClickListener != null) {
-            val selection = if (this.selectExtension.selections.isEmpty()) -1 else this.selectExtension.selections.iterator().next()
-            adapter.getItem(selection)?.let {
-                onDrawerItemClickListener?.invoke(null, it, selection)
-            }
-        }
     }
 
     /**
