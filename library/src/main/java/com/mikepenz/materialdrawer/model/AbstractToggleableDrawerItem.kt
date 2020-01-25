@@ -4,18 +4,18 @@ import android.view.View
 import android.widget.CompoundButton
 import android.widget.ToggleButton
 import androidx.annotation.LayoutRes
-import com.mikepenz.materialdrawer.Drawer
 import com.mikepenz.materialdrawer.R
 import com.mikepenz.materialdrawer.interfaces.OnCheckedChangeListener
+import com.mikepenz.materialdrawer.model.interfaces.Checkable
 import com.mikepenz.materialdrawer.model.interfaces.IDrawerItem
 
 /**
- * Created by mikepenz on 03.02.15.
+ * An abstract [IDrawerItem] implementation describing a drawerItem with support for a toggle
  */
-open class AbstractToggleableDrawerItem<Item : AbstractToggleableDrawerItem<Item>> : BaseDescribeableDrawerItem<Item, AbstractToggleableDrawerItem.ViewHolder>() {
+open class AbstractToggleableDrawerItem<Item : AbstractToggleableDrawerItem<Item>> : Checkable, BaseDescribeableDrawerItem<Item, AbstractToggleableDrawerItem.ViewHolder>() {
 
     var isToggleEnabled = true
-    var isChecked = false
+    override var isChecked = false
     var onCheckedChangeListener: OnCheckedChangeListener? = null
 
     override val type: Int
@@ -38,16 +38,13 @@ open class AbstractToggleableDrawerItem<Item : AbstractToggleableDrawerItem<Item
         }
     }
 
-    fun withChecked(checked: Boolean): Item {
-        this.isChecked = checked
-        return this as Item
-    }
-
+    @Deprecated("Please consider to replace with the actual property setter")
     fun withToggleEnabled(toggleEnabled: Boolean): Item {
         this.isToggleEnabled = toggleEnabled
         return this as Item
     }
 
+    @Deprecated("Please consider to replace with the actual property setter")
     fun withOnCheckedChangeListener(onCheckedChangeListener: OnCheckedChangeListener): Item {
         this.onCheckedChangeListener = onCheckedChangeListener
         return this as Item
@@ -66,16 +63,14 @@ open class AbstractToggleableDrawerItem<Item : AbstractToggleableDrawerItem<Item
         holder.toggle.isEnabled = isToggleEnabled
 
         //add a onDrawerItemClickListener here to be able to check / uncheck if the drawerItem can't be selected
-        withOnDrawerItemClickListener(object : Drawer.OnDrawerItemClickListener {
-            override fun onItemClick(view: View?, position: Int, drawerItem: IDrawerItem<*>): Boolean {
-                if (!isSelectable) {
-                    isChecked = !isChecked
-                    holder.toggle.isChecked = isChecked
-                }
-
-                return false
+        withOnDrawerItemClickListener { v, item, position ->
+            if (!isSelectable) {
+                isChecked = !isChecked
+                holder.toggle.isChecked = isChecked
             }
-        })
+
+            false
+        }
 
         //call the onPostBindView method to trigger post bind view actions (like the listener to modify the item if required)
         onPostBindView(this, holder.itemView)

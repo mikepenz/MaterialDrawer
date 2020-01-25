@@ -1,13 +1,12 @@
 package com.mikepenz.materialdrawer.util
 
 import android.os.Bundle
-import android.view.View
 import androidx.annotation.IdRes
 import androidx.navigation.NavController
 import androidx.navigation.NavDestination
-import com.mikepenz.materialdrawer.Drawer
 import com.mikepenz.materialdrawer.model.NavigationDrawerItem
 import com.mikepenz.materialdrawer.model.interfaces.IDrawerItem
+import com.mikepenz.materialdrawer.widget.MaterialDrawerSliderView
 import java.lang.ref.WeakReference
 
 // Notify user that the DSL is currently experimental
@@ -23,7 +22,7 @@ annotation class ExperimentalNavController
  * @return
  */
 @ExperimentalNavController
-fun Drawer.setupWithNavController(navController: NavController) {
+fun MaterialDrawerSliderView.setupWithNavController(navController: NavController) {
     DrawerNavigationUI.setupWithNavController(this, navController)
 }
 
@@ -45,31 +44,29 @@ object DrawerNavigationUI {
      * @param navController The NavController that allow to perform the navigation actions, relying on the item selected in the Drawer
      * @return
      */
-    fun setupWithNavController(drawer: Drawer, navController: NavController) {
-        drawer.onDrawerItemClickListener = object : Drawer.OnDrawerItemClickListener {
-            override fun onItemClick(view: View?, position: Int, drawerItem: IDrawerItem<*>): Boolean {
-                val success = performNavigation(drawerItem, navController)
-                if (success) {
-                    drawer.closeDrawer()
-                }
-                return success
+    fun setupWithNavController(drawer: MaterialDrawerSliderView, navController: NavController) {
+        drawer.onDrawerItemClickListener = { _, item, _ ->
+            val success = performNavigation(item, navController)
+            if (success) {
+                drawer.drawerLayout?.closeDrawer(drawer)
             }
+            success
         }
-        val weakReference: WeakReference<Drawer> = WeakReference(drawer)
+        val weakReference: WeakReference<MaterialDrawerSliderView> = WeakReference(drawer)
         navController.addOnDestinationChangedListener(object : NavController.OnDestinationChangedListener {
             override fun onDestinationChanged(controller: NavController, destination: NavDestination, arguments: Bundle?) {
-                val drawerWeak: Drawer? = weakReference.get()
+                val drawerWeak: MaterialDrawerSliderView? = weakReference.get()
                 if (drawerWeak == null) {
                     navController.removeOnDestinationChangedListener(this)
                 }
-                drawerWeak?.drawerItems?.filterIsInstance<NavigationDrawerItem<*>>()?.forEach {
+                drawerWeak?.itemAdapter?.adapterItems?.filterIsInstance<NavigationDrawerItem<*>>()?.forEach {
                     // A ResId may refers to 3 intents.
                     val destinationId = controller.graph.getAction(it.resId)?.let { action ->
                         if (action.destinationId != 0) action.destinationId // an action navigate to a destination
                         else action.navOptions?.popUpTo // an action pop to a destination
                     } ?: it.resId // a destination
 
-                    if (matchDestination(destination, destinationId)) drawerWeak.setSelection(it, false)
+                    if (matchDestination(destination, destinationId)) drawerWeak.setSelection(it.identifier, false)
                 }
             }
         })

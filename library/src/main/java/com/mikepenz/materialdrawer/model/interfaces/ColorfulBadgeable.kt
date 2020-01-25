@@ -3,12 +3,14 @@ package com.mikepenz.materialdrawer.model.interfaces
 import com.mikepenz.materialdrawer.holder.BadgeStyle
 
 /**
- * Created by mikepenz on 03.02.15.
+ * Defines a [IDrawerItem] which allows to have a colorful badge
  */
-interface ColorfulBadgeable<T: ColorfulBadgeable<T>> : Badgeable<T> {
+interface ColorfulBadgeable : Badgeable {
+    var badgeStyle: BadgeStyle?
+}
 
-    val badgeStyle: BadgeStyle?
-
-    fun withBadgeStyle(badgeStyle: BadgeStyle?): T
-
+@Deprecated("Please consider to replace with the actual property setter")
+fun <T : ColorfulBadgeable> T.withBadgeStyle(badgeStyle: BadgeStyle?): T {
+    this.badgeStyle = badgeStyle
+    return this
 }

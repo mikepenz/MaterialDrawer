@@ -1,17 +1,29 @@
 package com.mikepenz.materialdrawer.model.interfaces
 
+import androidx.annotation.StringRes
 import com.mikepenz.materialdrawer.holder.StringHolder
 
 /**
- * Created by mikepenz on 03.02.15.
+ * Defines a [IDrawerItem] with support for defining a name
  */
-interface Nameable<T> {
+interface Nameable {
+    var name: StringHolder?
+}
 
-    val name: StringHolder?
+@Deprecated("Please consider to replace with the actual property setter")
+fun <T : Nameable> T.withName(name: String?): T {
+    this.name = StringHolder(name)
+    return this
+}
 
-    fun withName(name: String): T
+@Deprecated("Please consider to replace with the actual property setter")
+fun <T : Nameable> T.withName(@StringRes name: Int): T {
+    this.name = StringHolder(name)
+    return this
+}
 
-    fun withName(nameRes: Int): T
-
-    fun withName(name: StringHolder?): T
+@Deprecated("Please consider to replace with the actual property setter")
+fun <T : Nameable> T.withName(name: StringHolder?): T {
+    this.name = name
+    return this
 }

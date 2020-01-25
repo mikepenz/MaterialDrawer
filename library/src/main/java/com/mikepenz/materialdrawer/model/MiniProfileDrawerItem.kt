@@ -1,15 +1,10 @@
 package com.mikepenz.materialdrawer.model
 
-import android.graphics.Bitmap
-import android.graphics.drawable.Drawable
-import android.net.Uri
 import android.view.View
 import android.widget.ImageView
 import androidx.annotation.DimenRes
-import androidx.annotation.DrawableRes
 import androidx.annotation.LayoutRes
 import androidx.recyclerview.widget.RecyclerView
-import com.mikepenz.iconics.typeface.IIcon
 import com.mikepenz.materialdrawer.R
 import com.mikepenz.materialdrawer.holder.DimenHolder
 import com.mikepenz.materialdrawer.holder.ImageHolder
@@ -17,12 +12,12 @@ import com.mikepenz.materialdrawer.holder.StringHolder
 import com.mikepenz.materialdrawer.model.interfaces.IProfile
 
 /**
- * Created by mikepenz on 03.02.15.
+ * Describes a [IProfile] being used for the [com.mikepenz.materialdrawer.widget.MiniDrawerSliderView]
  */
-open class MiniProfileDrawerItem : AbstractDrawerItem<MiniProfileDrawerItem, MiniProfileDrawerItem.ViewHolder>, IProfile<MiniProfileDrawerItem> {
+open class MiniProfileDrawerItem : AbstractDrawerItem<MiniProfileDrawerItem, MiniProfileDrawerItem.ViewHolder>, IProfile {
     override var icon: ImageHolder? = null
     override var name: StringHolder? = null
-    override var email: StringHolder? = null
+    override var description: StringHolder? = null
     var customHeight: DimenHolder? = null
 
     override val type: Int
@@ -33,69 +28,34 @@ open class MiniProfileDrawerItem : AbstractDrawerItem<MiniProfileDrawerItem, Min
         get() = R.layout.material_drawer_item_mini_profile
 
     constructor() {
-        withSelectable(false)
+        this.isSelectable = false
     }
 
     constructor(profile: ProfileDrawerItem) {
         this.icon = profile.icon
         this.isEnabled = profile.isEnabled
-        withSelectable(false)
+        this.isSelectable = false
     }
 
-    override fun withName(name: CharSequence?): MiniProfileDrawerItem {
-        this.name = name?.let { StringHolder(name) }
-        return this
-    }
-
-    override fun withEmail(email: String?): MiniProfileDrawerItem {
-        return this
-    }
-
-    override fun withIcon(icon: Drawable?): MiniProfileDrawerItem {
-        this.icon = icon?.let { ImageHolder(icon) }
-        return this
-    }
-
-    override fun withIcon(@DrawableRes iconRes: Int): MiniProfileDrawerItem {
-        this.icon = ImageHolder(iconRes)
-        return this
-    }
-
-    override fun withIcon(iconBitmap: Bitmap): MiniProfileDrawerItem {
-        this.icon = ImageHolder(iconBitmap)
-        return this
-    }
-
-    override fun withIcon(url: String): MiniProfileDrawerItem {
-        this.icon = ImageHolder(url)
-        return this
-    }
-
-    override fun withIcon(uri: Uri): MiniProfileDrawerItem {
-        this.icon = ImageHolder(uri)
-        return this
-    }
-
-    override fun withIcon(icon: IIcon): MiniProfileDrawerItem {
-        this.icon = ImageHolder(icon)
-        return this
-    }
-
+    @Deprecated("Please consider to replace with the actual property setter")
     fun withCustomHeightRes(@DimenRes customHeightRes: Int): MiniProfileDrawerItem {
         this.customHeight = DimenHolder.fromResource(customHeightRes)
         return this
     }
 
+    @Deprecated("Please consider to replace with the actual property setter")
     fun withCustomHeightDp(customHeightDp: Int): MiniProfileDrawerItem {
         this.customHeight = DimenHolder.fromDp(customHeightDp)
         return this
     }
 
+    @Deprecated("Please consider to replace with the actual property setter")
     fun withCustomHeightPx(customHeightPx: Int): MiniProfileDrawerItem {
         this.customHeight = DimenHolder.fromPixel(customHeightPx)
         return this
     }
 
+    @Deprecated("Please consider to replace with the actual property setter")
     fun withCustomHeight(customHeight: DimenHolder): MiniProfileDrawerItem {
         this.customHeight = customHeight
         return this

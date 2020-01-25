@@ -1,6 +1,7 @@
 package com.mikepenz.materialdrawer.holder
 
 import android.content.Context
+import android.content.res.ColorStateList
 import android.graphics.Bitmap
 import android.graphics.PorterDuff
 import android.graphics.drawable.Drawable
@@ -8,94 +9,86 @@ import android.net.Uri
 import android.view.View
 import android.widget.ImageView
 import androidx.annotation.DrawableRes
-import androidx.appcompat.content.res.AppCompatResources
-import com.mikepenz.iconics.IconicsColor
-import com.mikepenz.iconics.IconicsDrawable
-import com.mikepenz.iconics.IconicsSize
-import com.mikepenz.iconics.typeface.IIcon
-import com.mikepenz.materialdrawer.util.DrawerImageLoader
+import androidx.core.content.ContextCompat
+import com.mikepenz.materialdrawer.util.FixStateListDrawable
+import com.mikepenz.materialdrawer.util.getIconStateList
 import java.io.FileNotFoundException
 
 /**
- * Created by mikepenz on 13.07.15.
+ * Defines a custom holder class to support providing images either as uri, drawable, bitmap, or resource. Does not require a [Context] and will resolve the value when applying.
  */
+open class ImageHolder {
+    /** Defines the uri image */
+    var uri: Uri? = null
+        internal set
+    /** Defines the drawable image */
+    var icon: Drawable? = null
+        internal set
+    /** Defines the bitmap image */
+    var bitmap: Bitmap? = null
+        internal set
+    /** Defines the resource image */
+    var iconRes = -1
+        internal set
 
-open class ImageHolder : com.mikepenz.materialize.holder.ImageHolder {
-    var iIcon: IIcon? = null
+    protected constructor()
 
-    constructor(url: String) : super(url) {}
+    constructor(url: String) {
+        this.uri = Uri.parse(url)
+    }
 
-    constructor(uri: Uri) : super(uri) {}
+    constructor(uri: Uri) {
+        this.uri = uri
+    }
 
-    constructor(icon: Drawable?) : super(icon) {}
+    constructor(icon: Drawable?) {
+        this.icon = icon
+    }
 
-    constructor(bitmap: Bitmap?) : super(bitmap) {}
+    constructor(bitmap: Bitmap) {
+        this.bitmap = bitmap
+    }
 
-    constructor(@DrawableRes iconRes: Int) : super(iconRes) {}
-
-    constructor(iicon: IIcon) : super(null as Bitmap?) {
-        this.iIcon = iicon
+    constructor(@DrawableRes iconRes: Int) {
+        this.iconRes = iconRes
     }
 
     /**
      * sets an existing image to the imageView
-     *
-     * @param imageView
-     * @param tag       used to identify imageViews and define different placeholders
-     * @return true if an image was set
      */
-    override fun applyTo(imageView: ImageView, tag: String?): Boolean {
-        val ii = iIcon
-
-        if (uri != null) {
-            val consumed = DrawerImageLoader.instance.setImage(imageView, uri, tag)
-            if (!consumed) {
-                imageView.setImageURI(uri)
+    @JvmOverloads
+    open fun applyTo(imageView: ImageView, tag: String? = null): Boolean {
+        when {
+            uri != null -> imageView.setImageURI(uri)
+            icon != null -> imageView.setImageDrawable(icon)
+            bitmap != null -> imageView.setImageBitmap(bitmap)
+            iconRes != -1 -> imageView.setImageResource(iconRes)
+            else -> {
+                imageView.setImageBitmap(null)
+                return false
             }
-        } else if (icon != null) {
-            imageView.setImageDrawable(icon)
-        } else if (bitmap != null) {
-            imageView.setImageBitmap(bitmap)
-        } else if (iconRes != -1) {
-            imageView.setImageResource(iconRes)
-        } else if (ii != null) {
-            imageView.setImageDrawable(IconicsDrawable(imageView.context, ii).actionBar())
-        } else {
-            imageView.setImageBitmap(null)
-            return false
         }
         return true
     }
 
     /**
      * this only handles Drawables
-     *
-     * @param ctx
-     * @param iconColor
-     * @param tint
-     * @return
      */
-    fun decideIcon(ctx: Context, iconColor: Int, tint: Boolean, paddingDp: Int): Drawable? {
-        var icon: Drawable? = icon
-        val ii = iIcon
-
+    open fun decideIcon(ctx: Context, iconColor: ColorStateList, tint: Boolean, paddingDp: Int = 1): Drawable? {
+        var icon = this.icon
         when {
-            ii != null -> icon = IconicsDrawable(ctx, ii).color(IconicsColor.colorInt(iconColor)).size(IconicsSize.dp(24)).padding(IconicsSize.dp(paddingDp))
-            iconRes != -1 -> icon = AppCompatResources.getDrawable(ctx, iconRes)
+            iconRes != -1 -> icon = ContextCompat.getDrawable(ctx, iconRes)
             uri != null -> try {
-                val inputStream = ctx.contentResolver.openInputStream(uri)
-                icon = Drawable.createFromStream(inputStream, uri.toString())
+                val inputStream = ctx.contentResolver.openInputStream(uri!!)
+                icon = Drawable.createFromStream(inputStream, uri!!.toString())
             } catch (e: FileNotFoundException) {
                 //no need to handle this
             }
         }
-
         //if we got an icon AND we have auto tinting enabled AND it is no IIcon, tint it ;)
-
-        //if we got an icon AND we have auto tinting enabled AND it is no IIcon, tint it ;)
-        if (icon != null && tint && iIcon == null) {
+        if (icon != null && tint) {
             icon = icon.mutate()
-            icon?.setColorFilter(iconColor, PorterDuff.Mode.SRC_IN)
+            icon.setColorFilter(iconColor.defaultColor, PorterDuff.Mode.SRC_IN)
         }
 
         return icon
@@ -104,30 +97,58 @@ open class ImageHolder : com.mikepenz.materialize.holder.ImageHolder {
     companion object {
 
         /**
-         * a small static helper which catches nulls for us
-         *
-         * @param imageHolder
-         * @param ctx
-         * @param iconColor
-         * @param tint
-         * @return
+         * a small static helper to set the image from the imageHolder nullSave to the imageView
          */
-        fun decideIcon(imageHolder: ImageHolder?, ctx: Context, iconColor: Int, tint: Boolean, paddingDp: Int): Drawable? {
+        @JvmOverloads
+        fun applyTo(imageHolder: ImageHolder?, imageView: ImageView?, tag: String? = null): Boolean {
+            return if (imageHolder != null && imageView != null) {
+                imageHolder.applyTo(imageView, tag)
+            } else false
+        }
+
+        /**
+         * a small static helper to set the image from the imageHolder nullSave to the imageView and hide the view if no image was set
+         */
+        @JvmOverloads
+        fun applyToOrSetInvisible(imageHolder: ImageHolder?, imageView: ImageView?, tag: String? = null) {
+            val imageSet = applyTo(imageHolder, imageView, tag)
+            if (imageView != null) {
+                if (imageSet) {
+                    imageView.visibility = View.VISIBLE
+                } else {
+                    imageView.visibility = View.INVISIBLE
+                }
+            }
+        }
+
+        /**
+         * a small static helper to set the image from the imageHolder nullSave to the imageView and hide the view if no image was set
+         */
+        @JvmOverloads
+        fun applyToOrSetGone(imageHolder: ImageHolder, imageView: ImageView?, tag: String? = null) {
+            val imageSet = applyTo(imageHolder, imageView, tag)
+            if (imageView != null) {
+                if (imageSet) {
+                    imageView.visibility = View.VISIBLE
+                } else {
+                    imageView.visibility = View.GONE
+                }
+            }
+        }
+
+        /**
+         * a small static helper which catches nulls for us
+         */
+        fun decideIcon(imageHolder: ImageHolder?, ctx: Context, iconColor: ColorStateList, tint: Boolean, paddingDp: Int = 1): Drawable? {
             return imageHolder?.decideIcon(ctx, iconColor, tint, paddingDp)
         }
 
         /**
          * decides which icon to apply or hide this view
-         *
-         * @param imageHolder
-         * @param imageView
-         * @param iconColor
-         * @param tint
-         * @param paddingDp
          */
-        fun applyDecidedIconOrSetGone(imageHolder: ImageHolder?, imageView: ImageView?, iconColor: Int, tint: Boolean, paddingDp: Int) {
+        fun applyDecidedIconOrSetGone(imageHolder: ImageHolder?, imageView: ImageView?, iconColor: ColorStateList, tint: Boolean, paddingDp: Int = 1) {
             if (imageHolder != null && imageView != null) {
-                val drawable = ImageHolder.decideIcon(imageHolder, imageView.context, iconColor, tint, paddingDp)
+                val drawable = decideIcon(imageHolder, imageView.context, iconColor, tint, paddingDp)
                 when {
                     drawable != null -> {
                         imageView.setImageDrawable(drawable)
@@ -144,25 +165,30 @@ open class ImageHolder : com.mikepenz.materialize.holder.ImageHolder {
             }
         }
 
-
         /**
          * a small static helper to set a multi state drawable on a view
-         *
-         * @param icon
-         * @param iconColor
-         * @param selectedIcon
-         * @param selectedIconColor
-         * @param tinted
-         * @param imageView
          */
-        fun applyMultiIconTo(icon: Drawable?, iconColor: Int, selectedIcon: Drawable?, selectedIconColor: Int, tinted: Boolean, imageView: ImageView) {
-            com.mikepenz.materialize.holder.ImageHolder.applyMultiIconTo(icon, iconColor, selectedIcon, selectedIconColor, tinted, imageView)
-        }
-
-
-        fun applyToOrSetInvisible(imageHolder: ImageHolder?, imageView: ImageView?, tag: String? = null) {
-            com.mikepenz.materialize.holder.ImageHolder.applyToOrSetInvisible(imageHolder, imageView, tag)
+        fun applyMultiIconTo(icon: Drawable?, selectedIcon: Drawable?, iconColor: ColorStateList, tinted: Boolean, imageView: ImageView) {
+            //if we have an icon then we want to set it
+            if (icon != null) {
+                //if we got a different color for the selectedIcon we need a StateList
+                if (selectedIcon != null) {
+                    if (tinted) {
+                        imageView.setImageDrawable(FixStateListDrawable(icon, selectedIcon, iconColor))
+                    } else {
+                        imageView.setImageDrawable(getIconStateList(icon, selectedIcon))
+                    }
+                } else if (tinted) {
+                    imageView.setImageDrawable(FixStateListDrawable(icon, iconColor))
+                } else {
+                    imageView.setImageDrawable(icon)
+                }
+                //make sure we display the icon
+                imageView.visibility = View.VISIBLE
+            } else {
+                //hide the icon
+                imageView.visibility = View.GONE
+            }
         }
     }
-
 }

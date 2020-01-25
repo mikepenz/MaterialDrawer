@@ -14,21 +14,20 @@ import androidx.recyclerview.widget.RecyclerView
 import com.google.android.material.shape.ShapeAppearanceModel
 import com.mikepenz.fastadapter.IParentItem
 import com.mikepenz.fastadapter.ISubItem
-import com.mikepenz.materialdrawer.Drawer
 import com.mikepenz.materialdrawer.R
 import com.mikepenz.materialdrawer.holder.ColorHolder
-import com.mikepenz.materialdrawer.holder.applyColor
+import com.mikepenz.materialdrawer.interfaces.OnPostBindViewListener
 import com.mikepenz.materialdrawer.model.interfaces.IDrawerItem
-import com.mikepenz.materialdrawer.model.interfaces.OnPostBindViewListener
 import com.mikepenz.materialdrawer.model.interfaces.Selectable
 import com.mikepenz.materialdrawer.model.interfaces.Tagable
 import com.mikepenz.materialdrawer.model.interfaces.Typefaceable
-import com.mikepenz.materialdrawer.util.DrawerUIUtils
+import com.mikepenz.materialdrawer.util.getPrimaryDrawerTextColor
+import com.mikepenz.materialdrawer.util.getSelectedColor
 
 /**
- * Created by mikepenz on 14.07.15.
+ * The base abstract [IDrawerItem] implementation describing a drawerItem with the general functionality
  */
-abstract class AbstractDrawerItem<T, VH : RecyclerView.ViewHolder> : IDrawerItem<VH>, Selectable<T>, Tagable<T>, Typefaceable<T> {
+abstract class AbstractDrawerItem<T, VH : RecyclerView.ViewHolder> : IDrawerItem<VH>, Selectable, Tagable, Typefaceable {
     // the identifier for this item
     override var identifier: Long = -1
 
@@ -53,7 +52,7 @@ abstract class AbstractDrawerItem<T, VH : RecyclerView.ViewHolder> : IDrawerItem
     override var typeface: Typeface? = null
     var colorStateList: Pair<Int, ColorStateList>? = null
 
-    open var onDrawerItemClickListener: Drawer.OnDrawerItemClickListener? = null
+    open var onDrawerItemClickListener: ((v: View?, item: IDrawerItem<*>, position: Int) -> Boolean)? = null
 
     var onPostBindViewListener: OnPostBindViewListener? = null
         protected set
@@ -61,11 +60,11 @@ abstract class AbstractDrawerItem<T, VH : RecyclerView.ViewHolder> : IDrawerItem
     // the parent of this item
     override var parent: IParentItem<*>? = null
     // the subItems to expand for this item
-    private var mSubItems: MutableList<ISubItem<*>> = mutableListOf()
+    private var _subItems: MutableList<ISubItem<*>> = mutableListOf()
     override var subItems: MutableList<ISubItem<*>>
-        get() = mSubItems
+        get() = _subItems
         set(subItems) {
-            this.mSubItems = subItems
+            this._subItems = subItems
 
             subItems.let {
                 for (subItem in it) {
@@ -85,81 +84,57 @@ abstract class AbstractDrawerItem<T, VH : RecyclerView.ViewHolder> : IDrawerItem
     override val isAutoExpanding: Boolean
         get() = true
 
-    fun withIdentifier(identifier: Long): T {
-        this.identifier = identifier
-        return this as T
-    }
-
-    fun withTag(`object`: Any): T {
-        this.tag = `object`
-        return this as T
-    }
-
-    fun withEnabled(enabled: Boolean): T {
-        this.isEnabled = enabled
-        return this as T
-    }
-
-    fun withSelected(selected: Boolean): T {
-        this.isSelected = selected
-        return this as T
-    }
-
-    open fun withSelectable(selectable: Boolean): T {
-        this.isSelectable = selectable
-        return this as T
-    }
-
+    @Deprecated("Please consider to replace with the actual property setter")
     open fun withContentDescription(contentDescription: String?): T {
         this.contentDescription = contentDescription
         return this as T
     }
 
+    @Deprecated("Please consider to replace with the actual property setter")
     fun withSelectedColor(@ColorInt selectedColor: Int): T {
         this.selectedColor = ColorHolder.fromColor(selectedColor)
         return this as T
     }
 
+    @Deprecated("Please consider to replace with the actual property setter")
     fun withSelectedColorRes(@ColorRes selectedColorRes: Int): T {
         this.selectedColor = ColorHolder.fromColorRes(selectedColorRes)
         return this as T
     }
 
+    @Deprecated("Please consider to replace with the actual property setter")
     fun withTextColor(@ColorInt textColor: Int): T {
         this.textColor = ColorHolder.fromColor(textColor)
         return this as T
     }
 
+    @Deprecated("Please consider to replace with the actual property setter")
     fun withTextColorRes(@ColorRes textColorRes: Int): T {
         this.textColor = ColorHolder.fromColorRes(textColorRes)
         return this as T
     }
 
+    @Deprecated("Please consider to replace with the actual property setter")
     fun withSelectedTextColor(@ColorInt selectedTextColor: Int): T {
         this.selectedTextColor = ColorHolder.fromColor(selectedTextColor)
         return this as T
     }
 
+    @Deprecated("Please consider to replace with the actual property setter")
     fun withSelectedTextColorRes(@ColorRes selectedColorRes: Int): T {
         this.selectedTextColor = ColorHolder.fromColorRes(selectedColorRes)
         return this as T
     }
 
+    @Deprecated("Please consider to replace with the actual property setter")
     fun withDisabledTextColor(@ColorInt disabledTextColor: Int): T {
         this.disabledTextColor = ColorHolder.fromColor(disabledTextColor)
         return this as T
     }
 
+    @Deprecated("Please consider to replace with the actual property setter")
     fun withDisabledTextColorRes(@ColorRes disabledTextColorRes: Int): T {
         this.disabledTextColor = ColorHolder.fromColorRes(disabledTextColorRes)
-        return this as T
-    }
-
-    /**
-     * allows to set the typeface being useable for the item implementation
-     */
-    override fun withTypeface(typeface: Typeface?): T {
-        this.typeface = typeface
         return this as T
     }
 
@@ -169,6 +144,7 @@ abstract class AbstractDrawerItem<T, VH : RecyclerView.ViewHolder> : IDrawerItem
      * @param selectedBackgroundAnimated true if this item's background should fade when it is (de) selected
      * @return
      */
+    @Deprecated("Please consider to replace with the actual property setter")
     fun withSelectedBackgroundAnimated(selectedBackgroundAnimated: Boolean): T {
         this.isSelectedBackgroundAnimated = selectedBackgroundAnimated
         return this as T
@@ -182,7 +158,8 @@ abstract class AbstractDrawerItem<T, VH : RecyclerView.ViewHolder> : IDrawerItem
      * @param onDrawerItemClickListener
      * @return
      */
-    open fun withOnDrawerItemClickListener(onDrawerItemClickListener: Drawer.OnDrawerItemClickListener): T {
+    @Deprecated("Please consider to replace with the actual property setter")
+    open fun withOnDrawerItemClickListener(onDrawerItemClickListener: ((v: View?, item: IDrawerItem<*>, position: Int) -> Boolean)? = null): T {
         this.onDrawerItemClickListener = onDrawerItemClickListener
         return this as T
     }
@@ -193,6 +170,7 @@ abstract class AbstractDrawerItem<T, VH : RecyclerView.ViewHolder> : IDrawerItem
      * @param onPostBindViewListener
      * @return
      */
+    @Deprecated("Please consider to replace with the actual property setter")
     fun withPostOnBindViewListener(onPostBindViewListener: OnPostBindViewListener): T {
         this.onPostBindViewListener = onPostBindViewListener
         return this as T
@@ -208,13 +186,15 @@ abstract class AbstractDrawerItem<T, VH : RecyclerView.ViewHolder> : IDrawerItem
         onPostBindViewListener?.onBindView(drawerItem, view)
     }
 
+    @Deprecated("Please consider to replace with the actual property setter")
     fun withParent(parent: IParentItem<*>): T {
         this.parent = parent
         return this as T
     }
 
+    @Deprecated("Please consider to replace with the actual property setter")
     fun withSubItems(subItems: MutableList<ISubItem<*>>): T {
-        mSubItems = subItems
+        this.subItems = subItems
         return this as T
     }
 
@@ -226,19 +206,20 @@ abstract class AbstractDrawerItem<T, VH : RecyclerView.ViewHolder> : IDrawerItem
      * @return
      */
     fun <SubType : ISubItem<*>> setSubItems(vararg subItems: SubType) {
-        for (subItem in subItems) {
-            subItem.parent = this
+        val tempSubItems: MutableList<ISubItem<*>> = mutableListOf()
+        subItems.forEach {
+            tempSubItems.add(it)
         }
-
-        mSubItems.clear()
-        mSubItems.addAll(subItems)
+        this.subItems = tempSubItems
     }
 
+    @Deprecated("Please consider to replace with the actual property setter")
     fun withSubItems(vararg subItems: ISubItem<*>): T {
         setSubItems(*subItems)
         return this as T
     }
 
+    @Deprecated("Please consider to replace with the actual property setter")
     fun withSetExpanded(expanded: Boolean): T {
         isExpanded = expanded
         return this as T
@@ -274,7 +255,7 @@ abstract class AbstractDrawerItem<T, VH : RecyclerView.ViewHolder> : IDrawerItem
         contentDescription?.let {
             holder.itemView.contentDescription = it
         }
-        holder.itemView.setTag(R.id.material_drawer_item, this)
+        holder.itemView.setTag(com.mikepenz.materialdrawer.R.id.material_drawer_item, this)
     }
 
     /**
@@ -376,11 +357,7 @@ abstract class AbstractDrawerItem<T, VH : RecyclerView.ViewHolder> : IDrawerItem
      * @return
      */
     protected fun getSelectedColor(ctx: Context): Int {
-        return if (DrawerUIUtils.getBooleanStyleable(ctx, R.styleable.MaterialDrawer_material_drawer_legacy_style, false)) {
-            selectedColor.applyColor(ctx, R.attr.material_drawer_selected_legacy, R.color.material_drawer_selected_legacy)
-        } else {
-            selectedColor.applyColor(ctx, R.attr.material_drawer_selected, R.color.material_drawer_selected)
-        }
+        return ctx.getSelectedColor()
     }
 
     /**
@@ -389,22 +366,8 @@ abstract class AbstractDrawerItem<T, VH : RecyclerView.ViewHolder> : IDrawerItem
      * @param ctx
      * @return
      */
-    protected open fun getColor(ctx: Context): Int {
-        return if (isEnabled) {
-            textColor.applyColor(ctx, R.attr.material_drawer_primary_text, R.color.material_drawer_primary_text)
-        } else {
-            disabledTextColor.applyColor(ctx, R.attr.material_drawer_hint_text, R.color.material_drawer_hint_text)
-        }
-    }
-
-    /**
-     * helper method to decide for the correct color
-     *
-     * @param ctx
-     * @return
-     */
-    protected fun getSelectedTextColor(ctx: Context): Int {
-        return selectedTextColor.applyColor(ctx, R.attr.material_drawer_selected_text, R.color.material_drawer_selected_text)
+    protected open fun getColor(ctx: Context): ColorStateList {
+        return ctx.getPrimaryDrawerTextColor()
     }
 
     /**
@@ -416,19 +379,5 @@ abstract class AbstractDrawerItem<T, VH : RecyclerView.ViewHolder> : IDrawerItem
     protected fun getShapeAppearanceModel(ctx: Context): ShapeAppearanceModel {
         val cornerRadius = ctx.resources.getDimensionPixelSize(R.dimen.material_drawer_item_corner_radius)
         return ShapeAppearanceModel().withCornerSize(cornerRadius.toFloat())
-    }
-
-    /**
-     * helper to get the ColorStateList for the text and remembering it so we do not have to recreate it all the time
-     *
-     * @param color
-     * @param selectedTextColor
-     * @return
-     */
-    protected fun getTextColorStateList(@ColorInt color: Int, @ColorInt selectedTextColor: Int): ColorStateList? {
-        if (colorStateList == null || color + selectedTextColor != colorStateList?.first) {
-            colorStateList = Pair(color + selectedTextColor, DrawerUIUtils.getTextColorStateList(color, selectedTextColor))
-        }
-        return colorStateList?.second
     }
 }

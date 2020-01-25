@@ -1,6 +1,8 @@
 package com.mikepenz.materialdrawer.model
 
+import com.mikepenz.materialdrawer.model.interfaces.IDrawerItem
+
 /**
- * Created by mikepenz on 03.02.15.
+ * Describes the main [IDrawerItem] bing used as primary item, offering a toggle.
  */
 open class ToggleDrawerItem : AbstractToggleableDrawerItem<ToggleDrawerItem>()

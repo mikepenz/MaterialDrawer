@@ -1,32 +1,26 @@
 package com.mikepenz.materialdrawer.model
 
-import android.graphics.Bitmap
-import android.graphics.drawable.Drawable
-import android.net.Uri
 import android.view.View
 import android.widget.ImageView
 import android.widget.TextView
-import androidx.annotation.DrawableRes
 import androidx.annotation.LayoutRes
-import androidx.annotation.StringRes
 import androidx.recyclerview.widget.RecyclerView
-import com.mikepenz.iconics.typeface.IIcon
 import com.mikepenz.materialdrawer.R
 import com.mikepenz.materialdrawer.holder.ImageHolder
 import com.mikepenz.materialdrawer.holder.StringHolder
 import com.mikepenz.materialdrawer.model.interfaces.IProfile
 import com.mikepenz.materialdrawer.model.interfaces.Tagable
 import com.mikepenz.materialdrawer.util.DrawerImageLoader
-import com.mikepenz.materialdrawer.util.DrawerUIUtils
-import com.mikepenz.materialdrawer.util.DrawerUIUtils.themeDrawerItem
+import com.mikepenz.materialdrawer.util.DrawerUtils.setDrawerVerticalPadding
+import com.mikepenz.materialdrawer.util.themeDrawerItem
 
 /**
- * Created by mikepenz on 03.02.15.
+ * Describes a [IProfile] being used with the [com.mikepenz.materialdrawer.widget.AccountHeaderView]
  */
-open class ProfileDrawerItem : AbstractDrawerItem<ProfileDrawerItem, ProfileDrawerItem.ViewHolder>(), IProfile<ProfileDrawerItem>, Tagable<ProfileDrawerItem> {
+open class ProfileDrawerItem : AbstractDrawerItem<ProfileDrawerItem, ProfileDrawerItem.ViewHolder>(), IProfile, Tagable {
     override var icon: ImageHolder? = null
     override var name: StringHolder? = null
-    override var email: StringHolder? = null
+    override var description: StringHolder? = null
     var isNameShown = false
 
     override val type: Int
@@ -36,63 +30,13 @@ open class ProfileDrawerItem : AbstractDrawerItem<ProfileDrawerItem, ProfileDraw
         @LayoutRes
         get() = R.layout.material_drawer_item_profile
 
-
-    override fun withIcon(icon: Drawable?): ProfileDrawerItem {
-        this.icon = ImageHolder(icon)
-        return this
-    }
-
-    override fun withIcon(@DrawableRes iconRes: Int): ProfileDrawerItem {
-        this.icon = ImageHolder(iconRes)
-        return this
-    }
-
-    override fun withIcon(bitmap: Bitmap): ProfileDrawerItem {
-        this.icon = ImageHolder(bitmap)
-        return this
-    }
-
-    override fun withIcon(icon: IIcon): ProfileDrawerItem {
-        this.icon = ImageHolder(icon)
-        return this
-    }
-
-    override fun withIcon(url: String): ProfileDrawerItem {
-        this.icon = ImageHolder(url)
-        return this
-    }
-
-    override fun withIcon(uri: Uri): ProfileDrawerItem {
-        this.icon = ImageHolder(uri)
-        return this
-    }
-
-    override fun withName(name: CharSequence?): ProfileDrawerItem {
-        this.name = StringHolder(name)
-        return this
-    }
-
-    fun withName(@StringRes nameRes: Int): ProfileDrawerItem {
-        this.name = StringHolder(nameRes)
-        return this
-    }
-
-    override fun withEmail(email: String?): ProfileDrawerItem {
-        this.email = StringHolder(email)
-        return this
-    }
-
-    fun withEmail(@StringRes emailRes: Int): ProfileDrawerItem {
-        this.email = StringHolder(emailRes)
-        return this
-    }
-
     /**
      * Whether to show the profile name in the account switcher.
      *
      * @param nameShown show name in switcher
      * @return the [ProfileDrawerItem]
      */
+    @Deprecated("Please consider to replace with the actual property setter")
     fun withNameShown(nameShown: Boolean): ProfileDrawerItem {
         this.isNameShown = nameShown
         return this
@@ -108,15 +52,20 @@ open class ProfileDrawerItem : AbstractDrawerItem<ProfileDrawerItem, ProfileDraw
 
         //set the item enabled if it is
         holder.itemView.isEnabled = isEnabled
+        holder.name.isEnabled = isEnabled
+        holder.email.isEnabled = isEnabled
+        holder.profileIcon.isEnabled = isEnabled
 
         //set the item selected if it is
         holder.itemView.isSelected = isSelected
+        holder.name.isSelected = isSelected
+        holder.email.isSelected = isSelected
+        holder.profileIcon.isSelected = isSelected
 
         //get the correct color for the background
         val selectedColor = getSelectedColor(ctx)
         //get the correct color for the text
         val color = getColor(ctx)
-        val selectedTextColor = getSelectedTextColor(ctx)
         val shapeAppearanceModel = getShapeAppearanceModel(ctx)
 
         //set the background for the item
@@ -132,10 +81,10 @@ open class ProfileDrawerItem : AbstractDrawerItem<ProfileDrawerItem, ProfileDraw
         //within the profile switcher. The problem this causes some confusion for
         //some developers. And if you only set the name, the item would be empty
         //so here's a small fallback which will prevent this issue of empty items ;)
-        if (!isNameShown && this.email == null && this.name != null) {
+        if (!isNameShown && this.description == null && this.name != null) {
             StringHolder.applyTo(this.name, holder.email)
         } else {
-            StringHolder.applyTo(this.email, holder.email)
+            StringHolder.applyTo(this.description, holder.email)
         }
 
         if (typeface != null) {
@@ -144,9 +93,9 @@ open class ProfileDrawerItem : AbstractDrawerItem<ProfileDrawerItem, ProfileDraw
         }
 
         if (isNameShown) {
-            holder.name.setTextColor(getTextColorStateList(color, selectedTextColor))
+            holder.name.setTextColor(color)
         }
-        holder.email.setTextColor(getTextColorStateList(color, selectedTextColor))
+        holder.email.setTextColor(color)
 
         //cancel previous started image loading processes
         DrawerImageLoader.instance.cancelImage(holder.profileIcon)
@@ -154,7 +103,7 @@ open class ProfileDrawerItem : AbstractDrawerItem<ProfileDrawerItem, ProfileDraw
         ImageHolder.applyToOrSetInvisible(icon, holder.profileIcon, DrawerImageLoader.Tags.PROFILE_DRAWER_ITEM.name)
 
         //for android API 17 --> Padding not applied via xml
-        DrawerUIUtils.setDrawerVerticalPadding(holder.view)
+        setDrawerVerticalPadding(holder.view)
 
         //call the onPostBindView method to trigger post bind view actions (like the listener to modify the item if required)
         onPostBindView(this, holder.itemView)

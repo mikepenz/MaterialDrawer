@@ -10,7 +10,8 @@ import com.mikepenz.materialdrawer.holder.ImageHolder
 import com.mikepenz.materialdrawer.holder.StringHolder
 import com.mikepenz.materialdrawer.model.BaseDrawerItem
 import com.mikepenz.materialdrawer.util.DrawerImageLoader
-import com.mikepenz.materialdrawer.util.DrawerUIUtils
+import com.mikepenz.materialdrawer.util.DrawerUtils.setDrawerVerticalPadding
+import com.mikepenz.materialdrawer.util.themeDrawerItem
 
 /**
  * Created by mikepenz on 03.02.15.
@@ -70,20 +71,19 @@ abstract class CustomUrlBasePrimaryDrawerItem<T, VH : RecyclerView.ViewHolder> :
         val selectedColor = getSelectedColor(ctx)
         //get the correct color for the text
         val color = getColor(ctx)
-        val selectedTextColor = getSelectedTextColor(ctx)
         val shapeAppearanceModel = getShapeAppearanceModel(ctx)
 
         //set the background for the item
-        DrawerUIUtils.themeDrawerItem(ctx, viewHolder.view, selectedColor, isSelectedBackgroundAnimated, shapeAppearanceModel)
+        themeDrawerItem(ctx, viewHolder.view, selectedColor, isSelectedBackgroundAnimated, shapeAppearanceModel)
         //set the text for the name
         StringHolder.applyTo(this.name, viewHolder.name)
         //set the text for the description or hide
         StringHolder.applyToOrHide(this.description, viewHolder.description)
 
         //set the colors for textViews
-        viewHolder.name.setTextColor(getTextColorStateList(color, selectedTextColor))
+        viewHolder.name.setTextColor(color)
         //set the description text color
-        descriptionTextColor?.applyToOr(viewHolder.description, getTextColorStateList(color, selectedTextColor))
+        descriptionTextColor?.applyToOr(viewHolder.description, color)
 
         //define the typeface for our textViews
         if (typeface != null) {
@@ -98,6 +98,6 @@ abstract class CustomUrlBasePrimaryDrawerItem<T, VH : RecyclerView.ViewHolder> :
         icon?.applyTo(viewHolder.icon, "customUrlItem")
 
         //for android API 17 --> Padding not applied via xml
-        DrawerUIUtils.setDrawerVerticalPadding(viewHolder.view)
+        setDrawerVerticalPadding(viewHolder.view)
     }
 }

@@ -7,10 +7,11 @@ import androidx.annotation.LayoutRes
 import androidx.recyclerview.widget.RecyclerView
 import com.mikepenz.materialdrawer.R
 import com.mikepenz.materialdrawer.holder.DimenHolder
-import com.mikepenz.materialize.util.UIUtils
+import com.mikepenz.materialdrawer.model.interfaces.IDrawerItem
+import com.mikepenz.materialdrawer.util.getDividerColor
 
 /**
- * Created by mikepenz on 03.02.15.
+ * Describes a [IDrawerItem] acting as a container for generic views
  */
 open class ContainerDrawerItem : AbstractDrawerItem<ContainerDrawerItem, ContainerDrawerItem.ViewHolder>() {
 
@@ -26,27 +27,34 @@ open class ContainerDrawerItem : AbstractDrawerItem<ContainerDrawerItem, Contain
         @LayoutRes
         get() = R.layout.material_drawer_item_container
 
+    @Deprecated("Please consider to replace with the actual property setter")
     fun withHeight(height: DimenHolder?): ContainerDrawerItem {
         this.height = height
         return this
     }
 
+    @Deprecated("Please consider to replace with the actual property setter")
     fun withView(view: View): ContainerDrawerItem {
         this.view = view
         return this
     }
 
+    /**
+     * Defines the position for the divider
+     */
     enum class Position {
         TOP,
         BOTTOM,
         NONE
     }
 
+    @Deprecated("Please consider to replace with the actual property setter")
     fun withViewPosition(position: Position): ContainerDrawerItem {
         this.viewPosition = position
         return this
     }
 
+    @Deprecated("Please consider to replace with the actual property setter")
     fun withDivider(_divider: Boolean): ContainerDrawerItem {
         this.divider = _divider
         return this
@@ -83,15 +91,15 @@ open class ContainerDrawerItem : AbstractDrawerItem<ContainerDrawerItem, Contain
 
         var dividerHeight = 0
         if (divider) {
-            dividerHeight = 1
+            dividerHeight = ctx.resources.getDimensionPixelSize(R.dimen.material_drawer_container_divider)
         }
 
         val divider = View(ctx)
         divider.minimumHeight = dividerHeight
-        divider.setBackgroundColor(UIUtils.getThemeColorFromAttrOrRes(ctx, R.attr.material_drawer_divider, R.color.material_drawer_divider))
+        divider.setBackgroundColor(ctx.getDividerColor())
 
-        val dividerParams = LinearLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, UIUtils.convertDpToPixel(dividerHeight.toFloat(), ctx).toInt())
-        val viewParams = LinearLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, if (this.height != null) height - UIUtils.convertDpToPixel(dividerHeight.toFloat(), ctx).toInt() else height)
+        val dividerParams = LinearLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, dividerHeight)
+        val viewParams = LinearLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, if (this.height != null) height - dividerHeight else height)
 
         //depending on the position we add the view
         when (viewPosition) {

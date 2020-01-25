@@ -3,15 +3,26 @@ package com.mikepenz.materialdrawer.model.interfaces
 import com.mikepenz.materialdrawer.holder.StringHolder
 
 /**
- * Created by mikepenz on 03.02.15.
+ * Defines a [IDrawerItem] which allows to have a badge
  */
-interface Badgeable<T : Badgeable<T>> {
+interface Badgeable {
+    var badge: StringHolder?
+}
 
-    val badge: StringHolder?
+@Deprecated("Please consider to replace with the actual property setter")
+fun <T : Badgeable> T.withBadge(badge: String): T {
+    this.badge = StringHolder(badge)
+    return this
+}
 
-    fun withBadge(badge: String): T
+@Deprecated("Please consider to replace with the actual property setter")
+fun <T : Badgeable> T.withBadge(badgeRes: Int): T {
+    this.badge = StringHolder(badgeRes)
+    return this
+}
 
-    fun withBadge(badgeRes: Int): T
-
-    fun withBadge(badge: StringHolder?): T
+@Deprecated("Please consider to replace with the actual property setter")
+fun <T : Badgeable> T.withBadge(badge: StringHolder?): T {
+    this.badge = badge
+    return this
 }

@@ -1,4 +1,4 @@
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<merge xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:id="@+id/material_drawer_account_header"
     android:layout_width="match_parent"
@@ -33,6 +33,7 @@
         android:clickable="true"
         android:elevation="2dp"
         android:focusable="true"
+        android:scaleType="fitCenter"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/material_drawer_statusbar_guideline" />
 
@@ -47,6 +48,7 @@
         android:clickable="true"
         android:elevation="2dp"
         android:focusable="true"
+        android:scaleType="fitCenter"
         android:visibility="visible"
         app:layout_constraintEnd_toStartOf="@id/material_drawer_account_header_small_second"
         app:layout_constraintTop_toBottomOf="@+id/material_drawer_statusbar_guideline" />
@@ -62,6 +64,7 @@
         android:clickable="true"
         android:elevation="2dp"
         android:focusable="true"
+        android:scaleType="fitCenter"
         android:visibility="visible"
         app:layout_constraintEnd_toStartOf="@id/material_drawer_account_header_small_third"
         app:layout_constraintTop_toBottomOf="@+id/material_drawer_statusbar_guideline" />
@@ -77,6 +80,7 @@
         android:clickable="true"
         android:elevation="2dp"
         android:focusable="true"
+        android:scaleType="fitCenter"
         android:visibility="visible"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/material_drawer_statusbar_guideline" />
@@ -129,4 +133,4 @@
         android:layout_marginBottom="@dimen/material_drawer_account_header_dropdown_margin_bottom"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent" />
-</androidx.constraintlayout.widget.ConstraintLayout>
+</merge>

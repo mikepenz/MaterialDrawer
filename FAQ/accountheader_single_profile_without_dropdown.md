@@ -1,13 +1,13 @@
 # How can i use the AccountHeader with just one profile and disable the dropdown?
 
-This can be simply achieved by adding  `.withSelectionListEnabledForSingleProfile(false)` to the
+This can be simply achieved by adding  `headerView.selectionListEnabledForSingleProfile = false` to the
 `Builder` of the `AccountHeader`. This will then disable the dropdown and hide the arrow from the
 header.
 
 ## Sample code
 
-```java
-.withSelectionListEnabledForSingleProfile(false)
+```kotlin
+headerView.selectionListEnabledForSingleProfile = false
 ```
 
 ## Links

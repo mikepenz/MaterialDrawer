@@ -1,31 +1,37 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
+    <declare-styleable name="MaterialDrawerTheme">
+        <attr name="materialDrawerStyle" format="reference" />
+        <attr name="materialDrawerHeaderStyle" format="reference" />
+    </declare-styleable>
 
-    <declare-styleable name="MaterialDrawer">
-        <attr name="material_drawer_window_background" format="color|reference" />
-        <attr name="material_drawer_background" format="color|reference" />
+    <declare-styleable name="MaterialDrawerSliderView">
+        <attr name="materialDrawerInsetForeground" format="color|reference" />
 
-        <attr name="material_drawer_primary_text" format="color|reference" />
-        <attr name="material_drawer_primary_icon" format="color|reference" />
-        <attr name="material_drawer_secondary_text" format="color|reference" />
-        <attr name="material_drawer_hint_text" format="color|reference" />
-        <attr name="material_drawer_hint_icon" format="color|reference" />
-        <attr name="material_drawer_divider" format="color|reference" />
+        <attr name="materialDrawerBackground" format="color|reference" />
 
-        <attr name="material_drawer_selected" format="color|reference" />
-        <attr name="material_drawer_selected_legacy" format="color|reference" /> <!-- defines material design 1.0 color -->
-        <attr name="material_drawer_selected_text" format="color|reference" />
+        <attr name="materialDrawerPrimaryText" format="color|reference" />
+        <attr name="materialDrawerPrimaryIcon" format="color|reference" />
+        <attr name="materialDrawerSecondaryText" format="color|reference" />
+        <attr name="materialDrawerSecondaryIcon" format="color|reference" />
+
+        <attr name="materialDrawerDividerColor" format="color|reference" />
+
+        <attr name="materialDrawerSelectedBackgroundColor" format="color|reference" />
+    </declare-styleable>
+
+    <declare-styleable name="AccountHeaderView">
+        <attr name="materialDrawerHeaderLayout" format="reference" />
+        <attr name="materialDrawerCompactStyle" format="boolean" />
+
         <!-- material drawer header attrs-->
-        <attr name="material_drawer_header_selection_text" format="color|reference" />
-        <attr name="material_drawer_header_selection_subtext" format="color|reference" />
-
-        <!-- allows to enable / disable legacy style e.g. material 1 -->
-        <attr name="material_drawer_legacy_style" format="boolean|reference" />
+        <attr name="materialDrawerHeaderSelectionText" format="color|reference" />
+        <attr name="materialDrawerHeaderSelectionSubtext" format="color|reference" />
     </declare-styleable>
 
     <declare-styleable name="BezelImageView">
-        <attr name="biv_maskDrawable" format="reference" />
-        <attr name="biv_drawCircularShadow" format="boolean" />
-        <attr name="biv_selectorOnPress" format="color|reference" />
+        <attr name="materialDrawerMaskDrawable" format="reference" />
+        <attr name="materialDrawerDrawCircularShadow" format="boolean" />
+        <attr name="materialDrawerSelectorOnPress" format="color|reference" />
     </declare-styleable>
 </resources>

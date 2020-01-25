@@ -74,14 +74,14 @@ open class BezelImageView @JvmOverloads constructor(context: Context, attrs: Att
         // Attribute initialization
         val a = context.obtainStyledAttributes(attrs, R.styleable.BezelImageView, defStyle, R.style.BezelImageView)
 
-        mMaskDrawable = a.getDrawable(R.styleable.BezelImageView_biv_maskDrawable)
+        mMaskDrawable = a.getDrawable(R.styleable.BezelImageView_materialDrawerMaskDrawable)
         if (mMaskDrawable != null) {
             mMaskDrawable.callback = this
         }
 
-        mDrawCircularShadow = a.getBoolean(R.styleable.BezelImageView_biv_drawCircularShadow, true)
+        mDrawCircularShadow = a.getBoolean(R.styleable.BezelImageView_materialDrawerDrawCircularShadow, true)
 
-        mSelectorColor = a.getColor(R.styleable.BezelImageView_biv_selectorOnPress, 0)
+        mSelectorColor = a.getColor(R.styleable.BezelImageView_materialDrawerSelectorOnPress, 0)
 
         a.recycle()
 

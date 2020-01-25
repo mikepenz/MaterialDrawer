@@ -8,12 +8,15 @@ import android.view.ViewGroup
 import android.widget.TextView
 import androidx.fragment.app.Fragment
 import com.mikepenz.iconics.typeface.library.fontawesome.FontAwesome
-import com.mikepenz.materialdrawer.Drawer
-import com.mikepenz.materialdrawer.DrawerBuilder
 import com.mikepenz.materialdrawer.app.R
+import com.mikepenz.materialdrawer.iconics.withIcon
 import com.mikepenz.materialdrawer.model.PrimaryDrawerItem
 import com.mikepenz.materialdrawer.model.SecondaryDrawerItem
 import com.mikepenz.materialdrawer.model.SectionDrawerItem
+import com.mikepenz.materialdrawer.model.interfaces.withEnabled
+import com.mikepenz.materialdrawer.model.interfaces.withIdentifier
+import com.mikepenz.materialdrawer.model.interfaces.withName
+import kotlinx.android.synthetic.main.activity_sample.*
 
 
 /**
@@ -22,44 +25,39 @@ import com.mikepenz.materialdrawer.model.SectionDrawerItem
  */
 class DrawerFragment : Fragment() {
 
-    private var result: Drawer? = null
-
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         // Inflate the layout for this fragment
         // don't look at this layout it's just a listView to show how to handle the keyboard
         val view = inflater.inflate(R.layout.fragment_simple_sample, container, false)
-
-        result = DrawerBuilder()
-                .withActivity(activity!!)
-                .withRootView(view.findViewById<ViewGroup>(R.id.rootView))
-                .withDisplayBelowStatusBar(false)
-                .withSavedInstance(savedInstanceState)
-                .addDrawerItems(
-                        PrimaryDrawerItem().withName(R.string.drawer_item_home).withIcon(FontAwesome.Icon.faw_home).withIdentifier(1),
-                        PrimaryDrawerItem().withName(R.string.drawer_item_free_play).withIcon(FontAwesome.Icon.faw_gamepad),
-                        PrimaryDrawerItem().withName(R.string.drawer_item_custom).withIcon(FontAwesome.Icon.faw_eye),
-                        SectionDrawerItem().withName(R.string.drawer_item_section_header),
-                        SecondaryDrawerItem().withName(R.string.drawer_item_settings).withIcon(FontAwesome.Icon.faw_cog),
-                        SecondaryDrawerItem().withName(R.string.drawer_item_help).withIcon(FontAwesome.Icon.faw_question).withEnabled(false),
-                        SecondaryDrawerItem().withName(R.string.drawer_item_open_source).withIcon(FontAwesome.Icon.faw_github),
-                        SecondaryDrawerItem().withName(R.string.drawer_item_contact).withIcon(FontAwesome.Icon.faw_bullhorn)
-                )
-                .buildForFragment()
-
         val textView = view.findViewById<TextView>(R.id.title)
         textView.text = arguments?.getString(KEY_TITLE)
-
-        result?.apply {
-            drawerLayout.fitsSystemWindows = false
-            slider.fitsSystemWindows = false
-        }
-
         return view
     }
 
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+
+        slider.apply {
+            itemAdapter.add(
+                    PrimaryDrawerItem().withName(R.string.drawer_item_home).withIcon(FontAwesome.Icon.faw_home).withIdentifier(1),
+                    PrimaryDrawerItem().withName(R.string.drawer_item_free_play).withIcon(FontAwesome.Icon.faw_gamepad),
+                    PrimaryDrawerItem().withName(R.string.drawer_item_custom).withIcon(FontAwesome.Icon.faw_eye),
+                    SectionDrawerItem().withName(R.string.drawer_item_section_header),
+                    SecondaryDrawerItem().withName(R.string.drawer_item_settings).withIcon(FontAwesome.Icon.faw_cog),
+                    SecondaryDrawerItem().withName(R.string.drawer_item_help).withIcon(FontAwesome.Icon.faw_question).withEnabled(false),
+                    SecondaryDrawerItem().withName(R.string.drawer_item_open_source).withIcon(FontAwesome.Icon.faw_github),
+                    SecondaryDrawerItem().withName(R.string.drawer_item_contact).withIcon(FontAwesome.Icon.faw_bullhorn)
+            )
+            setSelection(1)
+            setSavedInstance(savedInstanceState)
+        }
+    }
+
     override fun onSaveInstanceState(_outState: Bundle) {
+        var outState = _outState
         //add the values which need to be saved from the drawer to the bundle
-        super.onSaveInstanceState(result?.saveInstanceState(_outState) ?: _outState)
+        outState = slider.saveInstanceState(outState)
+        super.onSaveInstanceState(outState)
     }
 
     companion object {

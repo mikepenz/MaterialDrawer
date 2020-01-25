@@ -1,0 +1,32 @@
+# Thanks to https://github.com/coil-kt/coil/blob/master/.github/workflows/ci.yml
+
+name: CI
+on:
+    push:
+        branches:
+            - master
+    pull_request:
+jobs:
+    ci:
+        name: Build + Test
+        runs-on: macOS-latest
+        steps:
+            - uses: actions/checkout@v2
+
+            # Ensure .gradle/caches is empty before writing to it.
+            # This helps us stay within Github's cache size limits.
+            - name: Clean Cache
+              run: rm -rf ~/.gradle/caches
+
+            # Restore the cache.
+            # Intentionally don't set 'restore-keys' so the cache never contains redundant dependencies.
+            - uses: actions/cache@v1
+              with:
+                  path: ~/.gradle/caches
+                  key: gradle-${{ runner.os }}-${{ hashFiles('**/build.gradle') }}-${{ hashFiles('**/gradle/wrapper/gradle-wrapper.properties') }} }}
+
+            - name: Build
+              run: ./gradlew clean build
+
+            # - name: Detekt
+            #   run: ./gradlew detekt

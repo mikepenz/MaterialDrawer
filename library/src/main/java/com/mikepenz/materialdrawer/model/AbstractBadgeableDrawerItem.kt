@@ -3,16 +3,16 @@ package com.mikepenz.materialdrawer.model
 import android.view.View
 import android.widget.TextView
 import androidx.annotation.LayoutRes
-import androidx.annotation.StringRes
 import com.mikepenz.materialdrawer.R
 import com.mikepenz.materialdrawer.holder.BadgeStyle
 import com.mikepenz.materialdrawer.holder.StringHolder
 import com.mikepenz.materialdrawer.model.interfaces.ColorfulBadgeable
+import com.mikepenz.materialdrawer.model.interfaces.IDrawerItem
 
 /**
- * Created by mikepenz on 03.02.15.
+ * An abstract [IDrawerItem] implementation describing an element which supports badges
  */
-abstract class AbstractBadgeableDrawerItem<Item : AbstractBadgeableDrawerItem<Item>> : BaseDescribeableDrawerItem<Item, AbstractBadgeableDrawerItem.ViewHolder>(), ColorfulBadgeable<Item> {
+abstract class AbstractBadgeableDrawerItem<Item : AbstractBadgeableDrawerItem<Item>> : BaseDescribeableDrawerItem<Item, AbstractBadgeableDrawerItem.ViewHolder>(), ColorfulBadgeable {
     override var badge: StringHolder? = null
     override var badgeStyle: BadgeStyle? = BadgeStyle()
 
@@ -22,26 +22,6 @@ abstract class AbstractBadgeableDrawerItem<Item : AbstractBadgeableDrawerItem<It
     override val layoutRes: Int
         @LayoutRes
         get() = R.layout.material_drawer_item_primary
-
-    override fun withBadge(badge: StringHolder?): Item {
-        this.badge = badge
-        return this as Item
-    }
-
-    override fun withBadge(badge: String): Item {
-        this.badge = StringHolder(badge)
-        return this as Item
-    }
-
-    override fun withBadge(@StringRes badgeRes: Int): Item {
-        this.badge = StringHolder(badgeRes)
-        return this as Item
-    }
-
-    override fun withBadgeStyle(badgeStyle: BadgeStyle?): Item {
-        this.badgeStyle = badgeStyle
-        return this as Item
-    }
 
     override fun bindView(holder: ViewHolder, payloads: MutableList<Any>) {
         super.bindView(holder, payloads)
@@ -54,7 +34,7 @@ abstract class AbstractBadgeableDrawerItem<Item : AbstractBadgeableDrawerItem<It
         val badgeVisible = StringHolder.applyToOrHide(badge, holder.badge)
         //style the badge if it is visible
         if (badgeVisible) {
-            badgeStyle?.style(holder.badge, getTextColorStateList(getColor(ctx), getSelectedTextColor(ctx)))
+            badgeStyle?.style(holder.badge, getColor(ctx))
             holder.badgeContainer.visibility = View.VISIBLE
         } else {
             holder.badgeContainer.visibility = View.GONE

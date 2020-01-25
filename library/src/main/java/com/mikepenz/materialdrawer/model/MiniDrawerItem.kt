@@ -11,16 +11,17 @@ import com.mikepenz.materialdrawer.holder.BadgeStyle
 import com.mikepenz.materialdrawer.holder.DimenHolder
 import com.mikepenz.materialdrawer.holder.ImageHolder
 import com.mikepenz.materialdrawer.holder.StringHolder
-import com.mikepenz.materialdrawer.util.DrawerUIUtils.themeDrawerItem
+import com.mikepenz.materialdrawer.model.interfaces.IDrawerItem
+import com.mikepenz.materialdrawer.util.themeDrawerItem
 
 /**
- * Created by mikepenz on 03.02.15.
+ * Describes a [IDrawerItem] being used for the [com.mikepenz.materialdrawer.widget.MiniDrawerSliderView]
  */
 open class MiniDrawerItem : BaseDrawerItem<MiniDrawerItem, MiniDrawerItem.ViewHolder> {
-    var mBadge: StringHolder? = null
-    var mBadgeStyle: BadgeStyle? = BadgeStyle()
-    var mEnableSelectedBackground = false
-    var mCustomHeight: DimenHolder? = null
+    var badge: StringHolder? = null
+    var badgeStyle: BadgeStyle? = BadgeStyle()
+    var enableSelectedBackground = false
+    var customHeight: DimenHolder? = null
 
     override val type: Int
         get() = R.id.material_drawer_item_mini
@@ -33,8 +34,8 @@ open class MiniDrawerItem : BaseDrawerItem<MiniDrawerItem, MiniDrawerItem.ViewHo
         this.identifier = primaryDrawerItem.identifier
         this.tag = primaryDrawerItem.tag
 
-        this.mBadge = primaryDrawerItem.badge
-        this.mBadgeStyle = primaryDrawerItem.badgeStyle
+        this.badge = primaryDrawerItem.badge
+        this.badgeStyle = primaryDrawerItem.badgeStyle
 
         this.isEnabled = primaryDrawerItem.isEnabled
         this.isSelectable = primaryDrawerItem.isSelectable
@@ -47,16 +48,14 @@ open class MiniDrawerItem : BaseDrawerItem<MiniDrawerItem, MiniDrawerItem.ViewHo
         this.selectedColor = primaryDrawerItem.selectedColor
 
         this.iconColor = primaryDrawerItem.iconColor
-        this.selectedIconColor = primaryDrawerItem.selectedIconColor
-        this.disabledIconColor = primaryDrawerItem.disabledIconColor
     }
 
     constructor(secondaryDrawerItem: SecondaryDrawerItem) {
         this.identifier = secondaryDrawerItem.identifier
         this.tag = secondaryDrawerItem.tag
 
-        this.mBadge = secondaryDrawerItem.badge
-        this.mBadgeStyle = secondaryDrawerItem.badgeStyle
+        this.badge = secondaryDrawerItem.badge
+        this.badgeStyle = secondaryDrawerItem.badgeStyle
 
         this.isEnabled = secondaryDrawerItem.isEnabled
         this.isSelectable = secondaryDrawerItem.isSelectable
@@ -69,33 +68,35 @@ open class MiniDrawerItem : BaseDrawerItem<MiniDrawerItem, MiniDrawerItem.ViewHo
         this.selectedColor = secondaryDrawerItem.selectedColor
 
         this.iconColor = secondaryDrawerItem.iconColor
-        this.selectedIconColor = secondaryDrawerItem.selectedIconColor
-        this.disabledIconColor = secondaryDrawerItem.disabledIconColor
     }
 
-
+    @Deprecated("Please consider to replace with the actual property setter")
     fun withCustomHeightRes(@DimenRes customHeightRes: Int): MiniDrawerItem {
-        this.mCustomHeight = DimenHolder.fromResource(customHeightRes)
+        this.customHeight = DimenHolder.fromResource(customHeightRes)
         return this
     }
 
+    @Deprecated("Please consider to replace with the actual property setter")
     fun withCustomHeightDp(customHeightDp: Int): MiniDrawerItem {
-        this.mCustomHeight = DimenHolder.fromDp(customHeightDp)
+        this.customHeight = DimenHolder.fromDp(customHeightDp)
         return this
     }
 
+    @Deprecated("Please consider to replace with the actual property setter")
     fun withCustomHeightPx(customHeightPx: Int): MiniDrawerItem {
-        this.mCustomHeight = DimenHolder.fromPixel(customHeightPx)
+        this.customHeight = DimenHolder.fromPixel(customHeightPx)
         return this
     }
 
+    @Deprecated("Please consider to replace with the actual property setter")
     fun withCustomHeight(customHeight: DimenHolder): MiniDrawerItem {
-        this.mCustomHeight = customHeight
+        this.customHeight = customHeight
         return this
     }
 
+    @Deprecated("Please consider to replace with the actual property setter")
     fun withEnableSelectedBackground(enableSelectedBackground: Boolean): MiniDrawerItem {
-        this.mEnableSelectedBackground = enableSelectedBackground
+        this.enableSelectedBackground = enableSelectedBackground
         return this
     }
 
@@ -105,7 +106,7 @@ open class MiniDrawerItem : BaseDrawerItem<MiniDrawerItem, MiniDrawerItem.ViewHo
         val ctx = holder.itemView.context
 
         //set a different height for this item
-        mCustomHeight?.let {
+        customHeight?.let {
             val lp = holder.itemView.layoutParams as RecyclerView.LayoutParams
             lp.height = it.asPixel(ctx)
             holder.itemView.layoutParams = lp
@@ -116,19 +117,20 @@ open class MiniDrawerItem : BaseDrawerItem<MiniDrawerItem, MiniDrawerItem.ViewHo
 
         //set the item enabled if it is
         holder.itemView.isEnabled = isEnabled
+        holder.icon.isEnabled = isEnabled
 
         //set the item selected if it is
         holder.itemView.isSelected = isSelected
+        holder.icon.isSelected = isSelected
 
         //
         holder.itemView.tag = this
 
         //get the correct color for the icon
         val iconColor = getIconColor(ctx)
-        val selectedIconColor = getSelectedIconColor(ctx)
         val shapeAppearanceModel = getShapeAppearanceModel(ctx)
 
-        if (mEnableSelectedBackground) {
+        if (enableSelectedBackground) {
             //get the correct color for the background
             val selectedColor = getSelectedColor(ctx)
             //set the background for the item
@@ -136,16 +138,16 @@ open class MiniDrawerItem : BaseDrawerItem<MiniDrawerItem, MiniDrawerItem.ViewHo
         }
 
         //set the text for the badge or hide
-        val badgeVisible = StringHolder.applyToOrHide(mBadge, holder.badge)
+        val badgeVisible = StringHolder.applyToOrHide(badge, holder.badge)
         //style the badge if it is visible
         if (badgeVisible) {
-            mBadgeStyle?.style(holder.badge)
+            badgeStyle?.style(holder.badge)
         }
 
         //get the drawables for our icon and set it
         val icon = ImageHolder.decideIcon(icon, ctx, iconColor, isIconTinted, 1)
-        val selectedIcon = ImageHolder.decideIcon(selectedIcon, ctx, selectedIconColor, isIconTinted, 1)
-        ImageHolder.applyMultiIconTo(icon, iconColor, selectedIcon, selectedIconColor, isIconTinted, holder.icon)
+        val selectedIcon = ImageHolder.decideIcon(selectedIcon, ctx, iconColor, isIconTinted, 1)
+        ImageHolder.applyMultiIconTo(icon, selectedIcon, iconColor, isIconTinted, holder.icon)
 
         //for android API 17 --> Padding not applied via xml
         val verticalPadding = ctx.resources.getDimensionPixelSize(R.dimen.material_drawer_padding)

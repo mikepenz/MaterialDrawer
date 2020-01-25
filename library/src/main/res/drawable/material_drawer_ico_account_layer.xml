@@ -1,0 +1,11 @@
+<layer-list xmlns:android="http://schemas.android.com/apk/res/android">
+    <item android:id="@+id/background">
+        <shape android:shape="rectangle">
+            <solid android:color="#000" />
+        </shape>
+    </item>
+    <item
+        android:id="@+id/account"
+        android:drawable="@drawable/material_drawer_ico_account"
+        android:gravity="center" />
+</layer-list>

@@ -1,28 +1,13 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
 
-    <style name="CustomTheme" parent="MaterialDrawerTheme.TranslucentStatus">
-        <!-- ...and here we setting appcompat’s color theme attrs -->
-        <item name="colorPrimary">#F1433C</item>
-        <item name="colorPrimaryDark">#D03033</item>
-        <item name="colorAccent">#02A8F3</item>
-
+    <style name="Widget.MaterialDrawerStyleCustom" parent="Widget.MaterialDrawerStyle">
         <!-- MaterialDrawer specific values -->
-        <item name="material_drawer_background">@color/material_drawer_dark_background</item>
-        <item name="material_drawer_primary_text">@color/material_drawer_dark_primary_text</item>
-        <item name="material_drawer_secondary_text">@color/material_drawer_dark_secondary_text
-        </item>
-        <item name="material_drawer_hint_text">@color/material_drawer_dark_hint_text</item>
-        <item name="material_drawer_divider">@color/material_drawer_dark_divider</item>
-        <item name="material_drawer_selected">#1FF1433C</item>
-        <item name="material_drawer_selected_legacy">@color/material_drawer_dark_selected_legacy</item>
-        <item name="material_drawer_selected_text">#F1433C</item>
-        <item name="material_drawer_header_selection_text">
-            @color/material_drawer_dark_primary_text
-        </item>
-
-        <!-- CAB :D -->
-        <item name="windowActionModeOverlay">true</item>
+        <item name="materialDrawerBackground">#303030</item>
+        <item name="materialDrawerPrimaryText">?android:textColorPrimary</item>
+        <item name="materialDrawerSecondaryText">?android:textColorSecondary</item>
+        <item name="materialDrawerDividerColor">#1FFFFFFF</item>
+        <item name="materialDrawerSelectedBackgroundColor">#1FF1433C</item>
     </style>
 
     <!--
@@ -35,5 +20,17 @@
     </style>
     -->
 
-    <style name="FullscreenTheme" parent="MaterialDrawerTheme.Light.DarkToolbar.TranslucentStatus"></style>
+    <style name="Widget.MaterialDrawerHeaderStyleCustom" parent="">
+        <item name="materialDrawerCompactStyle">true</item>
+        <item name="materialDrawerHeaderSelectionText">?colorOnSurface</item>
+        <item name="materialDrawerHeaderSelectionSubtext">?colorOnSurface</item>
+    </style>
+
+    <style name="Widget.MaterialDrawerHeaderStylePersistent" parent="">
+        <item name="materialDrawerCompactStyle">true</item>
+        <item name="materialDrawerHeaderLayout">@layout/material_drawer_compact_persistent_header
+        </item>
+        <item name="materialDrawerHeaderSelectionText">?colorOnSurface</item>
+        <item name="materialDrawerHeaderSelectionSubtext">?colorOnSurface</item>
+    </style>
 </resources>

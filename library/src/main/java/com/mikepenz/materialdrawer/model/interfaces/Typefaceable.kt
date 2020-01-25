@@ -3,11 +3,14 @@ package com.mikepenz.materialdrawer.model.interfaces
 import android.graphics.Typeface
 
 /**
- * Created by mikepenz on 03.02.15.
+ * Defines a [IDrawerItem] with support for defining the [Typeface]
  */
-interface Typefaceable<T> {
+interface Typefaceable {
+    var typeface: Typeface?
+}
 
-    val typeface: Typeface?
-
-    fun withTypeface(typeface: Typeface?): T
+@Deprecated("Please consider to replace with the actual property setter")
+fun <T : Typefaceable> T.withTypeface(typeface: Typeface?): T {
+    this.typeface = typeface
+    return this
 }

@@ -3,9 +3,8 @@ package com.mikepenz.materialdrawer.holder
 import android.content.res.ColorStateList
 import android.graphics.drawable.Drawable
 import android.widget.TextView
-import androidx.annotation.*
-import androidx.annotation.Dimension.DP
-import androidx.annotation.Dimension.PX
+import androidx.annotation.ColorInt
+import androidx.annotation.DrawableRes
 import androidx.core.view.ViewCompat
 import com.mikepenz.materialdrawer.R
 import com.mikepenz.materialdrawer.model.utils.BadgeDrawableBuilder
@@ -14,131 +13,39 @@ import com.mikepenz.materialdrawer.model.utils.BadgeDrawableBuilder
  * Class to allow defining a BadgeStyle for the `BadgeDrawerItem`
  */
 open class BadgeStyle {
+    /** defines the drawable to use to define the rounded corners */
     var gradientDrawable = R.drawable.material_drawer_badge
+    /** defines the background drawable */
     var badgeBackground: Drawable? = null
+    /** the default color */
     var color: ColorHolder? = null
+    /** the pressed color */
     var colorPressed: ColorHolder? = null
-    var textColor: ColorHolder? = null
-    private var mTextColorStateList: ColorStateList? = null
+    private var _textColor: ColorHolder? = null
+    /** defines the default text color */
+    var textColor: ColorHolder?
+        get() = _textColor
+        set(value) {
+            _textColorStateList = null
+            _textColor = value
+        }
+
+    private var _textColorStateList: ColorStateList? = null
+    /** defines the alternative text color state list */
+    var textColorStateList: ColorStateList?
+        get() = _textColorStateList
+        set(value) {
+            _textColor = null
+            _textColorStateList = value
+        }
+    /** the corner radious */
     var corners: DimenHolder? = null
+    /** dcustom padding to the bottom (default 2dp) */
     var paddingTopBottom = DimenHolder.fromDp(2)
+    /** custom padding to the right (default 3dp) */
     var paddingLeftRight = DimenHolder.fromDp(3)
+    /** the min width to set (default 20dp) */
     var minWidth = DimenHolder.fromDp(20)
-
-    fun withGradientDrawable(@DrawableRes gradientDrawable: Int): BadgeStyle {
-        this.gradientDrawable = gradientDrawable
-        this.badgeBackground = null
-        return this
-    }
-
-    fun withBadgeBackground(badgeBackground: Drawable): BadgeStyle {
-        this.badgeBackground = badgeBackground
-        this.gradientDrawable = -1
-        return this
-    }
-
-    fun withColor(@ColorInt color: Int): BadgeStyle {
-        this.color = ColorHolder.fromColor(color)
-        return this
-    }
-
-    fun withColorRes(@ColorRes color: Int): BadgeStyle {
-        this.color = ColorHolder.fromColorRes(color)
-        return this
-    }
-
-    fun withColorPressed(@ColorInt colorPressed: Int): BadgeStyle {
-        this.colorPressed = ColorHolder.fromColor(colorPressed)
-        return this
-    }
-
-    fun withColorPressedRes(@ColorRes colorPressed: Int): BadgeStyle {
-        this.colorPressed = ColorHolder.fromColorRes(colorPressed)
-        return this
-    }
-
-    fun withTextColor(@ColorInt textColor: Int): BadgeStyle {
-        this.textColor = ColorHolder.fromColor(textColor)
-        return this
-    }
-
-    fun withTextColorRes(@ColorRes textColor: Int): BadgeStyle {
-        this.textColor = ColorHolder.fromColorRes(textColor)
-        return this
-    }
-
-    fun withTextColorStateList(textColorStateList: ColorStateList): BadgeStyle {
-        this.textColor = null
-        this.mTextColorStateList = textColorStateList
-        return this
-    }
-
-    fun withCorners(@Dimension(unit = PX) cornersPx: Int): BadgeStyle {
-        this.corners = DimenHolder.fromPixel(cornersPx)
-        return this
-    }
-
-    fun withCornersDp(@Dimension(unit = DP) corners: Int): BadgeStyle {
-        this.corners = DimenHolder.fromDp(corners)
-        return this
-    }
-
-    fun withCorners(corners: DimenHolder): BadgeStyle {
-        this.corners = corners
-        return this
-    }
-
-    fun withPaddingLeftRightPx(@Dimension(unit = PX) paddingLeftRight: Int): BadgeStyle {
-        this.paddingLeftRight = DimenHolder.fromPixel(paddingLeftRight)
-        return this
-    }
-
-    fun withPaddingLeftRightDp(@Dimension(unit = DP) paddingLeftRight: Int): BadgeStyle {
-        this.paddingLeftRight = DimenHolder.fromDp(paddingLeftRight)
-        return this
-    }
-
-    fun withPaddingLeftRightRes(@DimenRes paddingLeftRight: Int): BadgeStyle {
-        this.paddingLeftRight = DimenHolder.fromResource(paddingLeftRight)
-        return this
-    }
-
-    fun withPaddingTopBottomPx(@Dimension(unit = PX) paddingTopBottom: Int): BadgeStyle {
-        this.paddingTopBottom = DimenHolder.fromPixel(paddingTopBottom)
-        return this
-    }
-
-    fun withPaddingTopBottomDp(@Dimension(unit = DP) paddingTopBottom: Int): BadgeStyle {
-        this.paddingTopBottom = DimenHolder.fromDp(paddingTopBottom)
-        return this
-    }
-
-    fun withPaddingTopBottomRes(@DimenRes paddingTopBottom: Int): BadgeStyle {
-        this.paddingTopBottom = DimenHolder.fromResource(paddingTopBottom)
-        return this
-    }
-
-    fun withPadding(@Dimension(unit = PX) padding: Int): BadgeStyle {
-        this.paddingLeftRight = DimenHolder.fromPixel(padding)
-        this.paddingTopBottom = DimenHolder.fromPixel(padding)
-        return this
-    }
-
-    fun withPadding(padding: DimenHolder): BadgeStyle {
-        this.paddingLeftRight = padding
-        this.paddingTopBottom = padding
-        return this
-    }
-
-    fun withMinWidth(@Dimension(unit = PX) minWidth: Int): BadgeStyle {
-        this.minWidth = DimenHolder.fromPixel(minWidth)
-        return this
-    }
-
-    fun withMinWidth(minWidth: DimenHolder): BadgeStyle {
-        this.minWidth = minWidth
-        return this
-    }
 
     constructor() {}
 
@@ -154,6 +61,7 @@ open class BadgeStyle {
         this.textColor = ColorHolder.fromColor(textColor)
     }
 
+    /** styles theprovided textView with this style, and the provided colorStateList */
     @JvmOverloads
     open fun style(badgeTextView: TextView, colorStateList: ColorStateList? = null) {
         val ctx = badgeTextView.context
@@ -167,7 +75,7 @@ open class BadgeStyle {
         //set the badge text color
         when {
             textColor != null -> textColor?.applyToOr(badgeTextView, null)
-            mTextColorStateList != null -> badgeTextView.setTextColor(mTextColorStateList)
+            textColorStateList != null -> badgeTextView.setTextColor(textColorStateList)
             colorStateList != null -> badgeTextView.setTextColor(colorStateList)
         }
 
