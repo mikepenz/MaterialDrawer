@@ -79,7 +79,7 @@ implementation "com.mikepenz:materialdrawer-iconics:${lastestMaterialDrawerRelea
 ```
 
 ## v8.x.y
-> Major release, migrates to use the FastAdapter v4 which was fully migrated to Kotlin. Check out the changelog or the [MIGRATION GUIDE](https://github.com/mikepenz/FastAdapter/blob/develop/MIGRATION.md) for more details
+> Major release, migrates to use the FastAdapter v5. Check out the changelog or the [MIGRATION GUIDE](https://github.com/mikepenz/FastAdapter/blob/develop/MIGRATION.md) for more details
 
 ## 2. Add the `Drawer` into the XML
 
