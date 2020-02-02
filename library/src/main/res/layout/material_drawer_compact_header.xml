@@ -27,6 +27,13 @@
         android:visibility="gone"
         tools:ignore="MissingConstraints" />
 
+    <androidx.appcompat.widget.AppCompatTextView
+        android:id="@+id/material_drawer_account_header_small_first_badge"
+        android:layout_width="1dp"
+        android:layout_height="1dp"
+        android:visibility="gone"
+        tools:ignore="MissingConstraints" />
+
     <com.mikepenz.materialdrawer.view.BezelImageView
         android:id="@+id/material_drawer_account_header_small_second"
         android:layout_width="1dp"
@@ -34,8 +41,22 @@
         android:visibility="gone"
         tools:ignore="MissingConstraints" />
 
+    <androidx.appcompat.widget.AppCompatTextView
+        android:id="@+id/material_drawer_account_header_small_second_badge"
+        android:layout_width="1dp"
+        android:layout_height="1dp"
+        android:visibility="gone"
+        tools:ignore="MissingConstraints" />
+
     <com.mikepenz.materialdrawer.view.BezelImageView
         android:id="@+id/material_drawer_account_header_small_third"
+        android:layout_width="1dp"
+        android:layout_height="1dp"
+        android:visibility="gone"
+        tools:ignore="MissingConstraints" />
+
+    <androidx.appcompat.widget.AppCompatTextView
+        android:id="@+id/material_drawer_account_header_small_third_badge"
         android:layout_width="1dp"
         android:layout_height="1dp"
         android:visibility="gone"
@@ -55,6 +76,23 @@
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/material_drawer_statusbar_guideline" />
+
+    <androidx.appcompat.widget.AppCompatTextView
+        android:id="@+id/material_drawer_account_header_current_badge"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:elevation="4dp"
+        android:fontFamily="sans-serif"
+        android:gravity="center"
+        android:lines="1"
+        android:minWidth="20dp"
+        android:paddingLeft="1dp"
+        android:paddingRight="1dp"
+        android:singleLine="true"
+        android:textSize="@dimen/material_drawer_item_badge_text"
+        app:layout_constraintBottom_toBottomOf="@id/material_drawer_account_header_current"
+        app:layout_constraintStart_toStartOf="@id/material_drawer_account_header_current"
+        tools:text="99" />
 
     <androidx.appcompat.widget.AppCompatTextView
         android:id="@+id/material_drawer_account_header_name"

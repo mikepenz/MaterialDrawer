@@ -30,6 +30,6 @@
         android:padding="1dp"
         android:paddingLeft="1dp"
         android:paddingRight="1dp"
-        android:textSize="@dimen/material_mini_drawer_item_badge_text"
+        android:textSize="@dimen/material_drawer_item_badge_text"
         tools:text="99" />
 </FrameLayout>

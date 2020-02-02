@@ -21,6 +21,7 @@ import com.mikepenz.materialdrawer.R
 import com.mikepenz.materialdrawer.holder.DimenHolder
 import com.mikepenz.materialdrawer.holder.ImageHolder
 import com.mikepenz.materialdrawer.holder.StringHolder
+import com.mikepenz.materialdrawer.model.interfaces.ColorfulBadgeable
 import com.mikepenz.materialdrawer.model.interfaces.IDrawerItem
 import com.mikepenz.materialdrawer.model.interfaces.IProfile
 import com.mikepenz.materialdrawer.util.*
@@ -39,12 +40,16 @@ open class AccountHeaderView @JvmOverloads constructor(context: Context, attrs: 
     val statusBarGuideline: Guideline
     val accountHeaderBackground: ImageView
     val currentProfileView: BezelImageView
+    val currentProfileBadgeView: TextView
     val accountSwitcherArrow: ImageView
     val currentProfileName: TextView
     val currentProfileEmail: TextView
     val profileFirstView: BezelImageView
+    val profileFirstBadgeView: TextView
     val profileSecondView: BezelImageView
+    val profileSecondBadgeView: TextView
     val profileThirdView: BezelImageView
+    val profileThirdBadgeView: TextView
 
     /**
      * Selects the given profile and sets it to the new active profile
@@ -206,6 +211,13 @@ open class AccountHeaderView @JvmOverloads constructor(context: Context, attrs: 
 
     // enable 3 small header previews
     var threeSmallProfileImages = false
+        set(value) {
+            field = value
+            buildProfiles()
+        }
+
+    // enable to show badges on small profile images
+    var displayBadgesOnSmallProfileImages = false
         set(value) {
             field = value
             buildProfiles()
@@ -394,12 +406,16 @@ open class AccountHeaderView @JvmOverloads constructor(context: Context, attrs: 
 
         //get the fields for the name
         currentProfileView = findViewById(R.id.material_drawer_account_header_current)
+        currentProfileBadgeView = findViewById(R.id.material_drawer_account_header_current_badge)
         currentProfileName = findViewById(R.id.material_drawer_account_header_name)
         currentProfileEmail = findViewById(R.id.material_drawer_account_header_email)
 
         profileFirstView = findViewById(R.id.material_drawer_account_header_small_first)
+        profileFirstBadgeView = findViewById(R.id.material_drawer_account_header_small_first_badge)
         profileSecondView = findViewById(R.id.material_drawer_account_header_small_second)
+        profileSecondBadgeView = findViewById(R.id.material_drawer_account_header_small_second_badge)
         profileThirdView = findViewById(R.id.material_drawer_account_header_small_third)
+        profileThirdBadgeView = findViewById(R.id.material_drawer_account_header_small_third_badge)
 
         reconstructHeader()
 
@@ -803,13 +819,17 @@ open class AccountHeaderView @JvmOverloads constructor(context: Context, attrs: 
      */
     internal fun buildProfiles() {
         currentProfileView.visibility = View.GONE
+        currentProfileBadgeView.visibility = View.GONE
         accountSwitcherArrow.visibility = View.GONE
         profileFirstView.visibility = View.GONE
         profileFirstView.setOnClickListener(null)
+        profileFirstBadgeView.visibility = View.GONE
         profileSecondView.visibility = View.GONE
         profileSecondView.setOnClickListener(null)
+        profileSecondBadgeView.visibility = View.GONE
         profileThirdView.visibility = View.GONE
         profileThirdView.setOnClickListener(null)
+        profileThirdBadgeView.visibility = View.GONE
         currentProfileName.text = ""
         currentProfileEmail.text = ""
 
@@ -831,8 +851,19 @@ open class AccountHeaderView @JvmOverloads constructor(context: Context, attrs: 
                 }
                 currentProfileView.visibility = View.VISIBLE
                 currentProfileView.invalidate()
+
+                var badgeVisible = false
+                (mCurrentProfile as? ColorfulBadgeable)?.let { badgeable ->
+                    badgeVisible = StringHolder.applyToOrHide(badgeable.badge, currentProfileBadgeView)
+                    if (badgeVisible) {
+                        badgeable.badgeStyle?.style(currentProfileBadgeView, context.getPrimaryDrawerTextColor())
+                        typeface?.let { typeface -> currentProfileBadgeView.typeface = typeface }
+                    }
+                }
+                currentProfileBadgeView.visibility = if (badgeVisible) View.VISIBLE else View.GONE
             } else if (compactStyle) {
                 currentProfileView.visibility = View.GONE
+                currentProfileBadgeView.visibility = View.GONE
             }
 
             handleSelectionView(mCurrentProfile, true)
@@ -845,7 +876,7 @@ open class AccountHeaderView @JvmOverloads constructor(context: Context, attrs: 
             /**
              * Apply the profile information to the provided imageView
              */
-            fun IProfile?.applyProfile(imageView: BezelImageView) {
+            fun IProfile?.applyProfile(imageView: BezelImageView, badgeView: TextView) {
                 this ?: return
                 setImageOrPlaceholder(imageView, this.icon)
                 imageView.setTag(R.id.material_drawer_profile_header, this)
@@ -860,14 +891,26 @@ open class AccountHeaderView @JvmOverloads constructor(context: Context, attrs: 
                 }
                 imageView.visibility = View.VISIBLE
                 imageView.invalidate()
+
+                var badgeVisible = false
+                if (displayBadgesOnSmallProfileImages) {
+                    (this as? ColorfulBadgeable)?.let { badgeable ->
+                        badgeVisible = StringHolder.applyToOrHide(badgeable.badge, badgeView)
+                        if (badgeVisible) {
+                            badgeable.badgeStyle?.style(badgeView, context.getPrimaryDrawerTextColor())
+                            typeface?.let { typeface -> badgeView.typeface = typeface }
+                        }
+                    }
+                }
+                badgeView.visibility = if (badgeVisible) View.VISIBLE else View.GONE
             }
 
             if (profileImagesVisible && !onlyMainProfileImageVisible) {
-                profileFirst.applyProfile(profileFirstView)
-                profileSecond.applyProfile(profileSecondView)
+                profileFirst.applyProfile(profileFirstView, profileFirstBadgeView)
+                profileSecond.applyProfile(profileSecondView, profileSecondBadgeView)
 
                 if (threeSmallProfileImages) {
-                    profileThird.applyProfile(profileThirdView)
+                    profileThird.applyProfile(profileThirdView, profileThirdBadgeView)
                 }
             }
         } else if (mProfiles != null && mProfiles.size > 0) {

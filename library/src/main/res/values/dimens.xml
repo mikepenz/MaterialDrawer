@@ -74,9 +74,11 @@
     <dimen name="material_mini_drawer_item_padding_sides">8dp</dimen>
     <dimen name="material_mini_drawer_item_icon">56dp</dimen>
     <dimen name="material_mini_drawer_item_icon_padding">16dp</dimen>
-    <dimen name="material_mini_drawer_item_badge_text">12sp</dimen>
     <dimen name="material_mini_drawer_item_profile_icon">40dp</dimen>
     <dimen name="material_mini_drawer_item_profile_icon_padding">16dp</dimen>
+    <!-- Definition for the default badge item -->
+    <dimen name="material_drawer_item_badge_text">12sp</dimen>
+    <dimen name="material_drawer_item_badge_small_text">10sp</dimen>
 
     <!-- Definition for the section item -->
     <dimen name="material_drawer_item_section_text">14sp</dimen>

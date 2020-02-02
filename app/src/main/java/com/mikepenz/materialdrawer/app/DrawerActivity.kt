@@ -50,8 +50,8 @@ class DrawerActivity : AppCompatActivity() {
         val profile4 = ProfileDrawerItem().withName("Felix House").withEmail("felix.house@gmail.com").withIcon(R.drawable.profile3).withIdentifier(103)
         val profile5 = ProfileDrawerItem().withName("Mr. X").withEmail("mister.x.super@gmail.com").withIcon(R.drawable.profile4).withIdentifier(104)
         val profile6 = ProfileDrawerItem().withName("Batman").withEmail("batman@gmail.com").withIcon(R.drawable.profile5).withIdentifier(105).withBadge("123").withBadgeStyle(BadgeStyle().apply {
-            textColor = ColorHolder.fromColor(Color.WHITE)
-            color = ColorHolder.fromColorRes(R.color.md_red_700)
+            textColor = ColorHolder.fromColor(Color.BLACK)
+            color = ColorHolder.fromColor(Color.WHITE)
         })
 
         // Create the AccountHeader

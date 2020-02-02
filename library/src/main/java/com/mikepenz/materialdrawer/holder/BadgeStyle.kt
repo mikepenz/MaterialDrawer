@@ -21,6 +21,11 @@ open class BadgeStyle {
     var color: ColorHolder? = null
     /** the pressed color */
     var colorPressed: ColorHolder? = null
+    /**
+     * the text size
+     * NOTE: Will only apply on 21+, also if applying, ensure to apply to all views
+     */
+    var textSizeSp: Float? = null
     private var _textColor: ColorHolder? = null
     /** defines the default text color */
     var textColor: ColorHolder?
@@ -46,6 +51,11 @@ open class BadgeStyle {
     var paddingLeftRight = DimenHolder.fromDp(3)
     /** the min width to set (default 20dp) */
     var minWidth = DimenHolder.fromDp(20)
+    /**
+     * elevation to apply on the view
+     * NOTE: Will only apply on 21+, also if applying, ensure to apply to all views
+     */
+    var elevation: DimenHolder? = null
 
     constructor() {}
 
@@ -72,6 +82,13 @@ open class BadgeStyle {
             ViewCompat.setBackground(badgeTextView, badgeBackground)
         }
 
+        val textSizeSp = textSizeSp
+        if (textSizeSp != null) {
+            badgeTextView.textSize = textSizeSp
+        } else {
+            // keep the size it is defined in the layout
+        }
+
         //set the badge text color
         when {
             textColor != null -> textColor?.applyToOr(badgeTextView, null)
@@ -86,5 +103,10 @@ open class BadgeStyle {
 
         //set the min width
         badgeTextView.minWidth = minWidth.asPixel(ctx)
+
+        // set elevation if expected
+        elevation?.let { elev ->
+            ViewCompat.setElevation(badgeTextView, elev.asPixel(ctx).toFloat())
+        }
     }
 }
