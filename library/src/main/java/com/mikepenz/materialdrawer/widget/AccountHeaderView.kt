@@ -51,6 +51,11 @@ open class AccountHeaderView @JvmOverloads constructor(context: Context, attrs: 
     val profileThirdView: BezelImageView
     val profileThirdBadgeView: TextView
 
+    /** Temporarily disable invalidation for optimizations */
+    private var invalidationEnabled: Boolean = true
+    private var invalidateHeader: Boolean = true
+    private var invalidateList: Boolean = true
+
     /**
      * Selects the given profile and sets it to the new active profile
      *
@@ -462,6 +467,11 @@ open class AccountHeaderView @JvmOverloads constructor(context: Context, attrs: 
     }
 
     private fun reconstructHeader() {
+        if (!invalidationEnabled) {
+            invalidateHeader = true
+            return
+        }
+
         //set the height for the header
         setHeaderHeight(resolveHeight())
 
@@ -818,6 +828,11 @@ open class AccountHeaderView @JvmOverloads constructor(context: Context, attrs: 
      * helper method to build the views for the ui
      */
     internal fun buildProfiles() {
+        if (!invalidationEnabled) {
+            invalidateList = true
+            return
+        }
+
         currentProfileView.visibility = View.GONE
         currentProfileBadgeView.visibility = View.GONE
         accountSwitcherArrow.visibility = View.GONE
@@ -1062,6 +1077,11 @@ open class AccountHeaderView @JvmOverloads constructor(context: Context, attrs: 
      * small helper class to update the header and the list
      */
     internal fun updateHeaderAndList() {
+        if (!invalidationEnabled) {
+            invalidateList = true
+            return
+        }
+
         //recalculate the profiles
         calculateProfiles()
         //update the profiles in the header
@@ -1143,6 +1163,20 @@ open class AccountHeaderView @JvmOverloads constructor(context: Context, attrs: 
             }
         }
         return -1
+    }
+
+    /** Applies properties in an optimized form. Will disable invalidation of the AccountHeaderView for the inner property set operations */
+    fun apply(block: AccountHeaderView.() -> Unit): AccountHeaderView {
+        invalidationEnabled = false
+        block()
+        invalidationEnabled = true
+        if (invalidateList) {
+            updateHeaderAndList()
+        }
+        if (invalidateHeader) {
+            reconstructHeader()
+        }
+        return this
     }
 
     companion object {
