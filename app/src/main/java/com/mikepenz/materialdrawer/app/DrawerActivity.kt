@@ -49,7 +49,10 @@ class DrawerActivity : AppCompatActivity() {
         val profile3 = ProfileDrawerItem().withName("Max Muster").withEmail("max.mustermann@gmail.com").withIcon(R.drawable.profile2).withIdentifier(102)
         val profile4 = ProfileDrawerItem().withName("Felix House").withEmail("felix.house@gmail.com").withIcon(R.drawable.profile3).withIdentifier(103)
         val profile5 = ProfileDrawerItem().withName("Mr. X").withEmail("mister.x.super@gmail.com").withIcon(R.drawable.profile4).withIdentifier(104)
-        val profile6 = ProfileDrawerItem().withName("Batman").withEmail("batman@gmail.com").withIcon(R.drawable.profile5).withIdentifier(105)
+        val profile6 = ProfileDrawerItem().withName("Batman").withEmail("batman@gmail.com").withIcon(R.drawable.profile5).withIdentifier(105).withBadge("123").withBadgeStyle(BadgeStyle().apply {
+            textColor = ColorHolder.fromColor(Color.WHITE)
+            color = ColorHolder.fromColorRes(R.color.md_red_700)
+        })
 
         // Create the AccountHeader
         headerView = AccountHeaderView(this).apply {
@@ -62,7 +65,7 @@ class DrawerActivity : AppCompatActivity() {
                     profile5,
                     profile6,
                     //don't ask but google uses 14dp for the add account icon in gmail but 20dp for the normal icons (like manage account)
-                    ProfileSettingDrawerItem().withName("Add Account").withDescription("Add new GitHub Account").withIcon(IconicsDrawable(context, GoogleMaterial.Icon.gmd_add).apply { actionBar(); paddingDp = 5 }).withIconTinted(true).withIdentifier(PROFILE_SETTING.toLong()),
+                    ProfileSettingDrawerItem().withName("Add Account").withDescription("Add new GitHub Account").withIcon(IconicsDrawable(context, GoogleMaterial.Icon.gmd_add).apply { actionBar(); paddingDp = 5 }.mutate()).withIconTinted(true).withIdentifier(PROFILE_SETTING.toLong()),
                     ProfileSettingDrawerItem().withName("Manage Account").withIcon(GoogleMaterial.Icon.gmd_settings).withIdentifier(100001)
             )
             onAccountHeaderListener = { view, profile, current ->

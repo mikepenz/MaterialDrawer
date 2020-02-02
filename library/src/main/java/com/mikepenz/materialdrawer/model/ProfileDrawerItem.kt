@@ -6,8 +6,10 @@ import android.widget.TextView
 import androidx.annotation.LayoutRes
 import androidx.recyclerview.widget.RecyclerView
 import com.mikepenz.materialdrawer.R
+import com.mikepenz.materialdrawer.holder.BadgeStyle
 import com.mikepenz.materialdrawer.holder.ImageHolder
 import com.mikepenz.materialdrawer.holder.StringHolder
+import com.mikepenz.materialdrawer.model.interfaces.ColorfulBadgeable
 import com.mikepenz.materialdrawer.model.interfaces.IProfile
 import com.mikepenz.materialdrawer.model.interfaces.Tagable
 import com.mikepenz.materialdrawer.util.DrawerImageLoader
@@ -17,11 +19,14 @@ import com.mikepenz.materialdrawer.util.themeDrawerItem
 /**
  * Describes a [IProfile] being used with the [com.mikepenz.materialdrawer.widget.AccountHeaderView]
  */
-open class ProfileDrawerItem : AbstractDrawerItem<ProfileDrawerItem, ProfileDrawerItem.ViewHolder>(), IProfile, Tagable {
+open class ProfileDrawerItem : AbstractDrawerItem<ProfileDrawerItem, ProfileDrawerItem.ViewHolder>(), IProfile, Tagable, ColorfulBadgeable {
     override var icon: ImageHolder? = null
     override var name: StringHolder? = null
     override var description: StringHolder? = null
     var isNameShown = false
+
+    override var badge: StringHolder? = null
+    override var badgeStyle: BadgeStyle? = BadgeStyle()
 
     override val type: Int
         get() = R.id.material_drawer_item_profile
@@ -97,6 +102,21 @@ open class ProfileDrawerItem : AbstractDrawerItem<ProfileDrawerItem, ProfileDraw
         }
         holder.email.setTextColor(color)
 
+        //set the text for the badge or hide
+        val badgeVisible = StringHolder.applyToOrHide(badge, holder.badge)
+        //style the badge if it is visible
+        if (badgeVisible) {
+            badgeStyle?.style(holder.badge, getColor(ctx))
+            holder.badgeContainer.visibility = View.VISIBLE
+        } else {
+            holder.badgeContainer.visibility = View.GONE
+        }
+
+        //define the typeface for our textViews
+        if (typeface != null) {
+            holder.badge.typeface = typeface
+        }
+
         //cancel previous started image loading processes
         DrawerImageLoader.instance.cancelImage(holder.profileIcon)
         //set the icon
@@ -117,5 +137,7 @@ open class ProfileDrawerItem : AbstractDrawerItem<ProfileDrawerItem, ProfileDraw
         internal val profileIcon: ImageView = view.findViewById(R.id.material_drawer_profileIcon)
         internal val name: TextView = view.findViewById(R.id.material_drawer_name)
         internal val email: TextView = view.findViewById(R.id.material_drawer_email)
+        internal val badgeContainer: View = view.findViewById(R.id.material_drawer_badge_container)
+        internal val badge: TextView = view.findViewById(R.id.material_drawer_badge)
     }
 }
