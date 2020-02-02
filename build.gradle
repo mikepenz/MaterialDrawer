@@ -24,7 +24,7 @@ buildscript {
                 cardview         : '1.0.0',
                 kotlin           : "1.3.61",
                 fastadapter      : "5.0.0-a01",
-                iconics          : "5.0.0-a01",
+                iconics          : "5.0.0-a03",
                 navigation       : "2.2.0-rc04",
                 slidingpaneLayout: "1.0.0"
         ]

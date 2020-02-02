@@ -6,6 +6,7 @@ import android.net.Uri
 import android.widget.ImageView
 import androidx.multidex.MultiDexApplication
 import com.bumptech.glide.Glide
+import com.mikepenz.iconics.Iconics
 import com.mikepenz.iconics.IconicsDrawable
 import com.mikepenz.iconics.utils.backgroundColorRes
 import com.mikepenz.iconics.utils.sizeDp
@@ -19,6 +20,8 @@ import com.mikepenz.materialdrawer.util.DrawerUtils
 class CustomApplication : MultiDexApplication() {
     override fun onCreate() {
         super.onCreate()
+
+        Iconics.init(this)
 
         //initialize and create the image loader logic
         /*
