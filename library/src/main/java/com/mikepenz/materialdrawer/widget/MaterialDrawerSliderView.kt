@@ -54,11 +54,18 @@ import java.util.*
  */
 open class MaterialDrawerSliderView @JvmOverloads constructor(context: Context, attrs: AttributeSet? = null, defStyleAttr: Int = R.attr.materialDrawerStyle) : RelativeLayout(context, attrs, defStyleAttr) {
 
+    /** Temporarily disable invalidation for optimizations */
+    private var invalidationEnabled: Boolean = true
+    private var invalidateContent: Boolean = false
+    private var invalidateHeader: Boolean = false
+    private var invalidateFooter: Boolean = false
+    private var invalidateStickyFooter: Boolean = false
+
     /** Specify the foreground color for the insets */
     var insetForeground: Drawable? = null
         set(value) {
             field = value
-            invalidate()
+            invalidateThis()
         }
 
     private var insets: Rect? = null
@@ -71,19 +78,19 @@ open class MaterialDrawerSliderView @JvmOverloads constructor(context: Context, 
     var tintStatusBar = false
         set(value) {
             field = value
-            invalidate()
+            invalidateThis()
         }
     /** Specify if the navigationbar should be tinted. */
     var tintNavigationBar = true
         set(value) {
             field = value
-            invalidate()
+            invalidateThis()
         }
     /** Specify if the systemUI should be visible. */
     var systemUIVisible = true
         set(value) {
             field = value
-            invalidate()
+            invalidateThis()
         }
 
     /** Defines the current sticky footer selection */
@@ -120,7 +127,7 @@ open class MaterialDrawerSliderView @JvmOverloads constructor(context: Context, 
     var accountHeaderSticky = false
         set(value) {
             field = value
-            handleHeaderView(this)
+            handleHeaderView()
         }
 
     /** Defines the [MiniDrawerSliderView] bound to this [MaterialDrawerSliderView] */
@@ -156,7 +163,7 @@ open class MaterialDrawerSliderView @JvmOverloads constructor(context: Context, 
         get() = _headerDivider
         set(value) {
             _headerDivider = value
-            headerView = headerView
+            headerView = headerView // udpate the header view
         }
     internal var _headerPadding = true
     /** Defines the apdding for the header divider. */
@@ -164,26 +171,26 @@ open class MaterialDrawerSliderView @JvmOverloads constructor(context: Context, 
         get() = _headerPadding
         set(value) {
             _headerPadding = value
-            headerView = headerView
+            headerView = headerView // udpate the header view
         }
     /** Defines the height of the header. */
     var headerHeight: DimenHolder? = null
         set(value) {
             field = value
-            handleHeaderView(this)
+            handleHeaderView()
         }
 
     /** Defines the [View] to be displayed as sticky header. Note this is not possible if a sticky [AccountHeaderView] is uesed. */
     var stickyHeaderView: View? = null
         set(value) {
             field = value
-            handleHeaderView(this)
+            handleHeaderView()
         }
     /** Defines if a shadow shown on the top of the sticky header. */
     var stickyHeaderShadow = true
         set(value) {
             field = value
-            handleHeaderView(this)
+            handleHeaderView()
         }
 
     /** Defines the footer we want to display with the [MaterialDrawerSliderView]. */
@@ -203,7 +210,7 @@ open class MaterialDrawerSliderView @JvmOverloads constructor(context: Context, 
     var footerDivider = true
         set(value) {
             field = value
-            footerView = footerView
+            footerView = footerView // udpate the footer view
         }
     private val footerClickListener = OnClickListener { v ->
         val drawerItem = v.getTag(R.id.material_drawer_item) as IDrawerItem<*>
@@ -219,19 +226,19 @@ open class MaterialDrawerSliderView @JvmOverloads constructor(context: Context, 
     var stickyFooterDivider = false
         set(value) {
             field = value
-            rebuildStickyFooterView(this)
+            handleStickyFooterView()
         }
     /** Defines the shadow [View] to provide for the sticky footer. */
     var stickyFooterShadowView: View? = null
         set(value) {
             field = value
-            rebuildStickyFooterView(this)
+            handleStickyFooterView()
         }
     /** Defines if the sticky footer should display a shadow above. */
     var stickyFooterShadow = true
         set(value) {
             field = value
-            handleFooterView(this, footerClickListener)
+            handleFooterView()
         }
 
     /** Defines if multi select is enabled in this drawer. */
@@ -510,6 +517,12 @@ open class MaterialDrawerSliderView @JvmOverloads constructor(context: Context, 
      * the helper method to create the content for the drawer
      */
     private fun createContent() {
+        if (!invalidationEnabled) {
+            invalidateContent = true
+            return
+        }
+        invalidateContent = false
+
         // if we have an adapter (either by defining a custom one or the included one add a list :D
         val contentView: View
         if (!::recyclerView.isInitialized) {
@@ -555,10 +568,10 @@ open class MaterialDrawerSliderView @JvmOverloads constructor(context: Context, 
         }
 
         //handle the header
-        handleHeaderView(this)
+        handleHeaderView()
 
         //handle the footer
-        handleFooterView(this, footerClickListener)
+        handleFooterView()
 
         //set the adapter on the listView
         if (adapterWrapper == null) {
@@ -772,7 +785,7 @@ open class MaterialDrawerSliderView @JvmOverloads constructor(context: Context, 
      */
     fun addStickyDrawerItems(vararg stickyDrawerItems: IDrawerItem<*>) {
         Collections.addAll(this.stickyDrawerItems, *stickyDrawerItems)
-        rebuildStickyFooterView(this)
+        handleStickyFooterView()
     }
 
     /**
@@ -786,6 +799,73 @@ open class MaterialDrawerSliderView @JvmOverloads constructor(context: Context, 
         return _savedInstanceState
     }
 
+
+    /**
+     * Invalidates the `IconicsDrawable` if invalidation is currently enabled
+     */
+    private fun invalidateThis() {
+        if (invalidationEnabled) {
+            invalidate()
+        }
+    }
+
+    /**
+     * Invalidates the header view in an optimized form
+     */
+    private fun handleHeaderView() {
+        if (!invalidationEnabled) {
+            invalidateHeader = true
+            return
+        }
+        invalidateHeader = false
+        handleHeaderView(this)
+    }
+
+    /**
+     * Invalidates the footer view in an optimized form
+     */
+    private fun handleFooterView() {
+        if (!invalidationEnabled) {
+            invalidateFooter = true
+            return
+        }
+        invalidateFooter = false
+        handleFooterView(this, footerClickListener)
+    }
+
+    /**
+     * Invalidates the sticky footer view in an optimized form
+     */
+    private fun handleStickyFooterView() {
+        if (!invalidationEnabled) {
+            invalidateStickyFooter = true
+            return
+        }
+        invalidateStickyFooter = false
+        rebuildStickyFooterView(this)
+    }
+
+    /** Applies properties in an optimized form. Will disable invalidation of the MaterialDrawerSliderView for the inner property set operations */
+    fun apply(block: MaterialDrawerSliderView.() -> Unit): MaterialDrawerSliderView {
+        invalidationEnabled = false
+        block()
+        invalidationEnabled = true
+        if (invalidateContent) {
+            createContent()
+        }
+        if (invalidateHeader) {
+            handleHeaderView()
+        }
+        if (invalidateFooter) {
+            handleFooterView()
+        }
+        if (invalidateStickyFooter) {
+            handleStickyFooterView()
+        }
+        invalidate()
+        return this
+    }
+
     companion object {
         /**
          * BUNDLE param to store the selection
@@ -793,17 +873,5 @@ open class MaterialDrawerSliderView @JvmOverloads constructor(context: Context, 
         const val BUNDLE_SELECTION = "_selection"
         const val BUNDLE_STICKY_FOOTER_SELECTION = "bundle_sticky_footer_selection"
         const val BUNDLE_DRAWER_CONTENT_SWITCHED = "bundle_drawer_content_switched"
-
-        /**
-         * Per the design guidelines, you should show the drawer on launch until the user manually
-         * expands it. This shared preference tracks this.
-         */
-        const val PREF_USER_LEARNED_DRAWER = "navigation_drawer_learned"
-
-        /**
-         * Per the design guidelines, you should show the drawer on launch until the user manually
-         * expands it. This shared preference tracks this.
-         */
-        const val PREF_USER_OPENED_DRAWER_BY_DRAGGING = "navigation_drawer_dragged_open"
     }
 }

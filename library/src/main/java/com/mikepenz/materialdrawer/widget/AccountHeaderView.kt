@@ -53,8 +53,8 @@ open class AccountHeaderView @JvmOverloads constructor(context: Context, attrs: 
 
     /** Temporarily disable invalidation for optimizations */
     private var invalidationEnabled: Boolean = true
-    private var invalidateHeader: Boolean = true
-    private var invalidateList: Boolean = true
+    private var invalidateHeader: Boolean = false
+    private var invalidateList: Boolean = false
 
     /**
      * Selects the given profile and sets it to the new active profile
@@ -471,6 +471,7 @@ open class AccountHeaderView @JvmOverloads constructor(context: Context, attrs: 
             invalidateHeader = true
             return
         }
+        invalidateHeader = false
 
         //set the height for the header
         setHeaderHeight(resolveHeight())
@@ -832,6 +833,7 @@ open class AccountHeaderView @JvmOverloads constructor(context: Context, attrs: 
             invalidateList = true
             return
         }
+        invalidateList = false
 
         currentProfileView.visibility = View.GONE
         currentProfileBadgeView.visibility = View.GONE
@@ -1081,6 +1083,7 @@ open class AccountHeaderView @JvmOverloads constructor(context: Context, attrs: 
             invalidateList = true
             return
         }
+        invalidateList = false
 
         //recalculate the profiles
         calculateProfiles()
