@@ -4,14 +4,12 @@ import android.content.Context
 import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
-import com.mikepenz.fastadapter.IExpandable
-import com.mikepenz.fastadapter.IIdentifyable
-import com.mikepenz.fastadapter.IItem
+import com.mikepenz.fastadapter.*
 
 /**
  * Defines a general [IDrawerItem] to be displayed in the [com.mikepenz.materialdrawer.widget.MaterialDrawerSliderView]
  */
-interface IDrawerItem<VH : RecyclerView.ViewHolder> : IItem<VH>, IExpandable<VH>, IIdentifyable, Selectable, Tagable {
+interface IDrawerItem<VH : RecyclerView.ViewHolder> : IItem<VH>, IItemVHFactory<VH>, IItemViewGenerator, IExpandable<VH>, IIdentifyable, Selectable, Tagable {
 
     override var isEnabled: Boolean
 

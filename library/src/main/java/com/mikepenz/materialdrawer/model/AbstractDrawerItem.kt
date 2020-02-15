@@ -12,6 +12,7 @@ import androidx.annotation.ColorInt
 import androidx.annotation.ColorRes
 import androidx.recyclerview.widget.RecyclerView
 import com.google.android.material.shape.ShapeAppearanceModel
+import com.mikepenz.fastadapter.IItemVHFactory
 import com.mikepenz.fastadapter.IParentItem
 import com.mikepenz.fastadapter.ISubItem
 import com.mikepenz.materialdrawer.R
@@ -35,7 +36,8 @@ abstract class AbstractDrawerItem<T, VH : RecyclerView.ViewHolder> : IDrawerItem
     override var tag: Any? = null
     // defines if this item is enabled
     override var isEnabled = true
-
+    /** The factory to use for creating this item, this does not have to be provided if the IItemFactory is implemented by this item too */
+    override val factory: IItemVHFactory<VH>? = null
     // defines if the item is selected
     override var isSelected = false
     // defines if this item is selectable
