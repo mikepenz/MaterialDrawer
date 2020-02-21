@@ -556,9 +556,6 @@ open class AccountHeaderView @JvmOverloads constructor(context: Context, attrs: 
 
     /**
      * add single ore more DrawerItems to the Drawer
-     *
-     * @param profiles
-     * @return
      */
     fun addProfiles(vararg profiles: IProfile) {
         if (this.profiles == null) {
@@ -571,10 +568,47 @@ open class AccountHeaderView @JvmOverloads constructor(context: Context, attrs: 
             }
             Collections.addAll<IProfile>(it, *profiles)
         }
-
         updateHeaderAndList()
     }
 
+    /**
+     * remove a profile from the given position
+     */
+    fun removeProfile(position: Int) {
+        if (this.profiles != null && this.profiles?.size ?: 0 > position) {
+            this.profiles?.removeAt(position)
+        }
+        updateHeaderAndList()
+    }
+
+    /**
+     * remove the profile with the given identifier
+     */
+    fun removeProfileByIdentifier(identifier: Long) {
+        val found = getPositionByIdentifier(identifier)
+        if (found > -1) {
+            this.profiles?.removeAt(found)
+        }
+        this.updateHeaderAndList()
+    }
+
+    /**
+     * try to remove the given profile
+     */
+    fun removeProfile(profile: IProfile) {
+        removeProfileByIdentifier(profile.identifier)
+    }
+
+    /**
+     * Clear the header
+     */
+    fun clear() {
+        this.profiles = null
+        //calculate the profiles to set
+        calculateProfiles()
+        //process and build the profiles
+        buildProfiles()
+    }
 
     /**
      * @param drawer
@@ -1076,9 +1110,10 @@ open class AccountHeaderView @JvmOverloads constructor(context: Context, attrs: 
     }
 
     /**
-     * small helper class to update the header and the list
+     * Updates the header and also rebuids the list.
+     * This is called after modifications to the items were made
      */
-    internal fun updateHeaderAndList() {
+    fun updateHeaderAndList() {
         if (!invalidationEnabled) {
             invalidateList = true
             return
