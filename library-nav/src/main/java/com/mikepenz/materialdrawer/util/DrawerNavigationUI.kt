@@ -59,14 +59,35 @@ object DrawerNavigationUI {
                 if (drawerWeak == null) {
                     navController.removeOnDestinationChangedListener(this)
                 }
-                drawerWeak?.itemAdapter?.adapterItems?.filterIsInstance<NavigationDrawerItem<*>>()?.forEach {
-                    // A ResId may refers to 3 intents.
-                    val destinationId = controller.graph.getAction(it.resId)?.let { action ->
-                        if (action.destinationId != 0) action.destinationId // an action navigate to a destination
-                        else action.navOptions?.popUpTo // an action pop to a destination
-                    } ?: it.resId // a destination
 
-                    if (matchDestination(destination, destinationId)) drawerWeak.setSelection(it.identifier, false)
+                fun Iterable<NavigationDrawerItem<*>>.handleSelection(): Boolean {
+                    var matched = false
+                    for (element in this) {
+                        // A ResId may refers to 3 intents.
+                        val destinationId = controller.graph.getAction(element.resId)?.let { action ->
+                            if (action.destinationId != 0) action.destinationId // an action navigate to a destination
+                            else action.navOptions?.popUpTo // an action pop to a destination
+                        } ?: element.resId // a destination
+
+                        if (matchDestination(destination, destinationId)) {
+                            drawerWeak?.setSelection(element.identifier, false)
+
+                            drawerWeak?.getStickyFooterPosition(element)?.let {
+                                drawerWeak.setStickyFooterSelection(it, false)
+                            }
+
+                            matched = true
+                        }
+                    }
+                    return matched
+                }
+
+                if (drawerWeak?.itemAdapter?.adapterItems?.filterIsInstance<NavigationDrawerItem<*>>()?.handleSelection() != true) {
+                    // if we did not match the normal items, also check the footer
+                    if (drawerWeak?.footerAdapter?.adapterItems?.filterIsInstance<NavigationDrawerItem<*>>()?.handleSelection() != true) {
+                        // if footer also did not match, go to sticky
+                        drawerWeak?.stickyDrawerItems?.filterIsInstance<NavigationDrawerItem<*>>()?.handleSelection()
+                    }
                 }
             }
         })

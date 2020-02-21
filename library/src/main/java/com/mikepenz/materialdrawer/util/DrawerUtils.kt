@@ -30,7 +30,7 @@ object DrawerUtils {
      * helper method to handle the onClick of the footer
      */
     internal fun onFooterDrawerItemClick(sliderView: MaterialDrawerSliderView, drawerItem: IDrawerItem<*>, v: View, fireOnClick: Boolean?) {
-        val checkable = !drawerItem.isSelectable
+        val checkable = drawerItem.isSelectable
         if (checkable) {
             sliderView.resetStickyFooterSelection()
 

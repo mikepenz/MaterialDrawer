@@ -9,6 +9,8 @@ import com.mikepenz.materialdrawer.model.NavigationDrawerItem
 import com.mikepenz.materialdrawer.model.PrimaryDrawerItem
 import com.mikepenz.materialdrawer.model.interfaces.withName
 import com.mikepenz.materialdrawer.util.ExperimentalNavController
+import com.mikepenz.materialdrawer.util.addItems
+import com.mikepenz.materialdrawer.util.addStickyDrawerItems
 import com.mikepenz.materialdrawer.util.setupWithNavController
 import kotlinx.android.synthetic.main.activity_sample.*
 
@@ -24,14 +26,17 @@ class NavControllerActivity : AppCompatActivity() {
         val navController = findNavController(R.id.nav_host_fragment)
 
         slider.apply {
-            itemAdapter.add(
+            addItems(
                     NavigationDrawerItem(R.id.action_global_fragmentHome, PrimaryDrawerItem().withName("Home"), null, null),
                     DividerDrawerItem(),
                     NavigationDrawerItem(R.id.messageFragment1, PrimaryDrawerItem().withName("Fragment1")),
-                    NavigationDrawerItem(R.id.messageFragment2, PrimaryDrawerItem().withName("Fragment2")),
+                    NavigationDrawerItem(R.id.messageFragment2, PrimaryDrawerItem().withName("Fragment2"))
+            )
+            addStickyDrawerItems(
                     NavigationDrawerItem(R.id.messageFragment3, PrimaryDrawerItem().withName("Fragment3"))
             )
         }
+
 
         // setup the drawer with navigation controller
         slider.setupWithNavController(navController)
