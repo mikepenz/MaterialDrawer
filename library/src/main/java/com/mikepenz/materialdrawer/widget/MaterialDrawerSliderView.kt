@@ -781,14 +781,6 @@ open class MaterialDrawerSliderView @JvmOverloads constructor(context: Context, 
     }
 
     /**
-     * Add an initial DrawerItem or a DrawerItem Array for the StickyDrawerFooter
-     */
-    fun addStickyDrawerItems(vararg stickyDrawerItems: IDrawerItem<*>) {
-        Collections.addAll(this.stickyDrawerItems, *stickyDrawerItems)
-        handleStickyFooterView()
-    }
-
-    /**
      * add the values to the bundle for saveInstanceState
      */
     fun saveInstanceState(_savedInstanceState: Bundle): Bundle {
@@ -836,7 +828,7 @@ open class MaterialDrawerSliderView @JvmOverloads constructor(context: Context, 
     /**
      * Invalidates the sticky footer view in an optimized form
      */
-    private fun handleStickyFooterView() {
+    internal fun handleStickyFooterView() {
         if (!invalidationEnabled) {
             invalidateStickyFooter = true
             return

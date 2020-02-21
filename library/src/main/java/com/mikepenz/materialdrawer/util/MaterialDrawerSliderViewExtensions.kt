@@ -4,6 +4,7 @@ import com.mikepenz.materialdrawer.holder.ImageHolder
 import com.mikepenz.materialdrawer.holder.StringHolder
 import com.mikepenz.materialdrawer.model.interfaces.*
 import com.mikepenz.materialdrawer.widget.MaterialDrawerSliderView
+import java.util.*
 
 /**
  * Add a drawerItem at a specific position
@@ -185,4 +186,101 @@ fun MaterialDrawerSliderView.updateItemAtPosition(drawerItem: IDrawerItem<*>, po
  */
 internal fun MaterialDrawerSliderView.checkDrawerItem(position: Int, includeOffset: Boolean): Boolean {
     return adapter.getItem(position) != null
+}
+
+/**
+ * calculates the position of an drawerItem. searching by it's identifier
+ *
+ * @param drawerItem
+ * @return
+ */
+fun MaterialDrawerSliderView.getStickyFooterPosition(drawerItem: IDrawerItem<*>): Int {
+    return getStickyFooterPositionByIdentifier(drawerItem.identifier)
+}
+
+/**
+ * update a specific footerDrawerItem :D
+ * automatically identified by its id
+ *
+ * @param drawerItem
+ */
+fun MaterialDrawerSliderView.updateStickyFooterItem(drawerItem: IDrawerItem<*>) {
+    updateStickyFooterItemAtPosition(drawerItem, getStickyFooterPosition(drawerItem))
+}
+
+/**
+ * update a footerDrawerItem at a specific position
+ *
+ * @param drawerItem
+ * @param position
+ */
+fun MaterialDrawerSliderView.updateStickyFooterItemAtPosition(drawerItem: IDrawerItem<*>, position: Int) {
+    if (stickyDrawerItems.size > position) {
+        stickyDrawerItems[position] = drawerItem
+    }
+    handleStickyFooterView()
+}
+
+
+/**
+ * Add a footerDrawerItem at the end
+ *
+ * @param drawerItem
+ */
+fun MaterialDrawerSliderView.addStickyFooterItem(drawerItem: IDrawerItem<*>) {
+    stickyDrawerItems.add(drawerItem)
+    handleStickyFooterView()
+}
+
+/**
+ * Add an initial DrawerItem or a DrawerItem Array for the StickyDrawerFooter
+ */
+fun MaterialDrawerSliderView.addStickyDrawerItems(vararg stickyDrawerItems: IDrawerItem<*>) {
+    Collections.addAll(this.stickyDrawerItems, *stickyDrawerItems)
+    handleStickyFooterView()
+}
+
+/**
+ * Add a footerDrawerItem at a specific position
+ *
+ * @param drawerItem
+ * @param position
+ */
+fun MaterialDrawerSliderView.addStickyFooterItemAtPosition(drawerItem: IDrawerItem<*>, position: Int) {
+    stickyDrawerItems.add(position, drawerItem)
+    handleStickyFooterView()
+}
+
+/**
+ * Set a footerDrawerItem at a specific position
+ *
+ * @param drawerItem
+ * @param position
+ */
+fun MaterialDrawerSliderView.setStickyFooterItemAtPosition(drawerItem: IDrawerItem<*>, position: Int) {
+    if (stickyDrawerItems.size > position) {
+        stickyDrawerItems[position] = drawerItem
+    }
+    handleStickyFooterView()
+}
+
+
+/**
+ * Remove a footerDrawerItem at a specific position
+ *
+ * @param position
+ */
+fun MaterialDrawerSliderView.removeStickyFooterItemAtPosition(position: Int) {
+    if (stickyDrawerItems.size > position) {
+        stickyDrawerItems.removeAt(position)
+    }
+    handleStickyFooterView()
+}
+
+/**
+ * Removes all footerItems from drawer
+ */
+fun MaterialDrawerSliderView.removeAllStickyFooterItems() {
+    stickyDrawerItems.clear()
+    handleStickyFooterView()
 }
