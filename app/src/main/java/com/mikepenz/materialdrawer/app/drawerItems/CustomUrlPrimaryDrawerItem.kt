@@ -22,7 +22,7 @@ class CustomUrlPrimaryDrawerItem : CustomUrlBasePrimaryDrawerItem<CustomUrlPrima
         @LayoutRes
         get() = R.layout.material_drawer_item_primary
 
-    override fun bindView(holder: ViewHolder, payloads: MutableList<Any>) {
+    override fun bindView(holder: ViewHolder, payloads: List<Any>) {
         super.bindView(holder, payloads)
 
         val ctx = holder.itemView.context

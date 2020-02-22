@@ -17,7 +17,7 @@ class CustomPrimaryDrawerItem : AbstractBadgeableDrawerItem<CustomPrimaryDrawerI
         return this
     }
 
-    override fun bindView(holder: AbstractBadgeableDrawerItem.ViewHolder, payloads: MutableList<Any>) {
+    override fun bindView(holder: AbstractBadgeableDrawerItem.ViewHolder, payloads: List<Any>) {
         super.bindView(holder, payloads)
         background?.applyToBackground(holder.itemView)
     }

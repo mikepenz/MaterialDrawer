@@ -31,7 +31,7 @@ class AccountDividerDrawerItem : AbstractDrawerItem<AccountDividerDrawerItem, Ac
         get() = null
         set(value) {}
 
-    override fun bindView(holder: ViewHolder, payloads: MutableList<Any>) {
+    override fun bindView(holder: ViewHolder, payloads: List<Any>) {
         super.bindView(holder, payloads)
 
         val ctx = holder.itemView.context

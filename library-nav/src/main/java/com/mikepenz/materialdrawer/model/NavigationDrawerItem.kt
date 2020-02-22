@@ -44,7 +44,7 @@ class NavigationDrawerItem<VH : RecyclerView.ViewHolder>(
     }
 
     @CallSuper
-    override fun bindView(holder: VH, payloads: MutableList<Any>) {
+    override fun bindView(holder: VH, payloads: List<Any>) {
         item.bindView(holder, payloads)
         holder.itemView.setTag(R.id.material_drawer_item, this)
     }

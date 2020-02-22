@@ -23,7 +23,7 @@ buildscript {
                 constraintLayout : '2.0.0-beta4',
                 cardview         : '1.0.0',
                 kotlin           : "1.3.61",
-                fastadapter      : "5.0.0-a06",
+                fastadapter      : "5.0.0-a08",
                 iconics          : "5.0.0-a04",
                 navigation       : "2.2.0",
                 slidingpaneLayout: "1.0.0"

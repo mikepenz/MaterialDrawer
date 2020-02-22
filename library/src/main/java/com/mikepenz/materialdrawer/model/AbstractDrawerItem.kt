@@ -253,7 +253,7 @@ abstract class AbstractDrawerItem<T, VH : RecyclerView.ViewHolder> : IDrawerItem
     }
 
     @CallSuper
-    override fun bindView(holder: VH, payloads: MutableList<Any>) {
+    override fun bindView(holder: VH, payloads: List<Any>) {
         contentDescription?.let {
             holder.itemView.contentDescription = it
         }

@@ -34,7 +34,7 @@ open class SectionDrawerItem : AbstractDrawerItem<SectionDrawerItem, SectionDraw
         return this
     }
 
-    override fun bindView(holder: ViewHolder, payloads: MutableList<Any>) {
+    override fun bindView(holder: ViewHolder, payloads: List<Any>) {
         super.bindView(holder, payloads)
 
         val ctx = holder.itemView.context

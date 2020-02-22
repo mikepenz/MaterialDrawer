@@ -50,7 +50,7 @@ open class AbstractToggleableDrawerItem<Item : AbstractToggleableDrawerItem<Item
         return this as Item
     }
 
-    override fun bindView(holder: ViewHolder, payloads: MutableList<Any>) {
+    override fun bindView(holder: ViewHolder, payloads: List<Any>) {
         super.bindView(holder, payloads)
 
         //bind the basic view parts

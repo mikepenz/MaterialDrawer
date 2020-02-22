@@ -55,7 +55,7 @@ open class ExpandableBadgeDrawerItem : BaseDescribeableDrawerItem<ExpandableBadg
         mOnDrawerItemClickListener?.invoke(view, drawerItem, position) ?: false
     }
 
-    override fun bindView(holder: ExpandableBadgeDrawerItem.ViewHolder, payloads: MutableList<Any>) {
+    override fun bindView(holder: ExpandableBadgeDrawerItem.ViewHolder, payloads: List<Any>) {
         super.bindView(holder, payloads)
 
         val ctx = holder.itemView.context

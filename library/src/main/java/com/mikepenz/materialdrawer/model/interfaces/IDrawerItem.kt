@@ -17,7 +17,7 @@ interface IDrawerItem<VH : RecyclerView.ViewHolder> : IItem<VH>, IItemVHFactory<
 
     override val type: Int
 
-    override val layoutRes: Int
+    val layoutRes: Int
 
     override var identifier: Long
 
@@ -33,7 +33,7 @@ interface IDrawerItem<VH : RecyclerView.ViewHolder> : IItem<VH>, IItemVHFactory<
 
     override fun unbindView(holder: VH)
 
-    override fun bindView(holder: VH, payloads: MutableList<Any>)
+    override fun bindView(holder: VH, payloads: List<Any>)
 
     fun equals(id: Long): Boolean
 }

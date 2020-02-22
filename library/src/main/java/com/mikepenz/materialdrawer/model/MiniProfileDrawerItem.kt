@@ -61,7 +61,7 @@ open class MiniProfileDrawerItem : AbstractDrawerItem<MiniProfileDrawerItem, Min
         return this
     }
 
-    override fun bindView(holder: ViewHolder, payloads: MutableList<Any>) {
+    override fun bindView(holder: ViewHolder, payloads: List<Any>) {
         super.bindView(holder, payloads)
 
         customHeight?.let {
