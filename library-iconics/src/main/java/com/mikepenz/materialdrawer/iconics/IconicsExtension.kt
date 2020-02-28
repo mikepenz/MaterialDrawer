@@ -7,7 +7,14 @@ import com.mikepenz.materialdrawer.model.MiniProfileDrawerItem
 import com.mikepenz.materialdrawer.model.ProfileDrawerItem
 import com.mikepenz.materialdrawer.model.ProfileSettingDrawerItem
 
-var <T : BaseDrawerItem<*, *>> T.iconicsIcon: IconicsImageHolder?
+var <T : BaseDrawerItem<*, *>> T.iconicsIcon: IIcon
+    @Deprecated(level = DeprecationLevel.ERROR, message = "Not readable")
+    get() = throw UnsupportedOperationException("Please use the direct property")
+    set(value) {
+        this.iconicsIconHolder = IconicsImageHolder(value)
+    }
+
+var <T : BaseDrawerItem<*, *>> T.iconicsIconHolder: IconicsImageHolder?
     get() = icon as? IconicsImageHolder
     set(value) {
         this.icon = value
@@ -22,26 +29,28 @@ var <T : BaseDrawerItem<*, *>> T.iconicsIcon: IconicsImageHolder?
 
 @Deprecated("Please consider to replace with the actual property setter")
 fun <T : BaseDrawerItem<*, *>> T.withIcon(icon: IIcon): T {
-    this.iconicsIcon = IconicsImageHolder(icon)
+    this.iconicsIconHolder = IconicsImageHolder(icon)
     return this
 }
 
-var <T : ProfileDrawerItem> T.iconicsIcon: IconicsImageHolder?
-    get() = icon as? IconicsImageHolder
+var <T : ProfileDrawerItem> T.iconicsIcon: IIcon
+    @Deprecated(level = DeprecationLevel.ERROR, message = "Not readable")
+    get() = throw UnsupportedOperationException("Please use the direct property")
     set(value) {
-        this.icon = value
+        this.icon = IconicsImageHolder(value)
     }
 
 @Deprecated("Please consider to replace with the actual property setter")
 fun ProfileDrawerItem.withIcon(icon: IIcon): ProfileDrawerItem {
-    this.iconicsIcon = IconicsImageHolder(icon)
+    this.icon = IconicsImageHolder(icon)
     return this
 }
 
-var <T : ProfileSettingDrawerItem> T.iconicsIcon: IconicsImageHolder?
-    get() = icon as? IconicsImageHolder
+var <T : ProfileSettingDrawerItem> T.iconicsIcon: IIcon
+    @Deprecated(level = DeprecationLevel.ERROR, message = "Not readable")
+    get() = throw UnsupportedOperationException("Please use the direct property")
     set(value) {
-        this.icon = value
+        this.icon = IconicsImageHolder(value)
     }
 
 @Deprecated("Please consider to replace with the actual property setter")
@@ -50,10 +59,11 @@ fun ProfileSettingDrawerItem.withIcon(icon: IIcon): ProfileSettingDrawerItem {
     return this
 }
 
-var <T : MiniProfileDrawerItem> T.iconicsIcon: IconicsImageHolder?
-    get() = icon as? IconicsImageHolder
+var <T : MiniProfileDrawerItem> T.iconicsIcon: IIcon
+    @Deprecated(level = DeprecationLevel.ERROR, message = "Not readable")
+    get() = throw UnsupportedOperationException("Please use the direct property")
     set(value) {
-        this.icon = value
+        this.icon = IconicsImageHolder(value)
     }
 
 @Deprecated("Please consider to replace with the actual property setter")

@@ -1,9 +1,7 @@
 package com.mikepenz.materialdrawer.model
 
-import androidx.annotation.ColorInt
-import androidx.annotation.ColorRes
+import android.content.res.ColorStateList
 import androidx.annotation.StringRes
-import com.mikepenz.materialdrawer.holder.ColorHolder
 import com.mikepenz.materialdrawer.holder.ImageHolder
 import com.mikepenz.materialdrawer.holder.StringHolder
 import com.mikepenz.materialdrawer.model.interfaces.IDrawerItem
@@ -16,7 +14,7 @@ import com.mikepenz.materialdrawer.util.themeDrawerItem
  */
 abstract class BaseDescribeableDrawerItem<T, VH : BaseViewHolder> : BaseDrawerItem<T, VH>() {
     var description: StringHolder? = null
-    var descriptionTextColor: ColorHolder? = null
+    var descriptionTextColor: ColorStateList? = null
 
     @Deprecated("Please consider to replace with the actual property setter")
     fun withDescription(description: String): T {
@@ -27,18 +25,6 @@ abstract class BaseDescribeableDrawerItem<T, VH : BaseViewHolder> : BaseDrawerIt
     @Deprecated("Please consider to replace with the actual property setter")
     fun withDescription(@StringRes descriptionRes: Int): T {
         this.description = StringHolder(descriptionRes)
-        return this as T
-    }
-
-    @Deprecated("Please consider to replace with the actual property setter")
-    fun withDescriptionTextColor(@ColorInt color: Int): T {
-        this.descriptionTextColor = ColorHolder.fromColor(color)
-        return this as T
-    }
-
-    @Deprecated("Please consider to replace with the actual property setter")
-    fun withDescriptionTextColorRes(@ColorRes colorRes: Int): T {
-        this.descriptionTextColor = ColorHolder.fromColorRes(colorRes)
         return this as T
     }
 
@@ -66,13 +52,13 @@ abstract class BaseDescribeableDrawerItem<T, VH : BaseViewHolder> : BaseDrawerIt
         viewHolder.icon.isEnabled = isEnabled
 
         //get the correct color for the background
-        val selectedColor = getSelectedColor(ctx)
+        val selectedColor = this.selectedColor?.color(ctx) ?: getSelectedColor(ctx)
         //get the correct color for the text
 
-        val textColor = getColor(ctx)
-        val textColorSecondary = ctx.getSecondaryDrawerTextColor()
+        val textColor = this.textColor ?: getColor(ctx)
+        val textColorSecondary = this.descriptionTextColor ?: ctx.getSecondaryDrawerTextColor()
         //get the correct color for the icon
-        val iconColor = getIconColor(ctx)
+        val iconColor = this.iconColor ?: getIconColor(ctx)
         val shapeAppearanceModel = getShapeAppearanceModel(ctx)
 
         //set the background for the item

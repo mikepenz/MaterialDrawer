@@ -16,9 +16,13 @@ import com.mikepenz.iconics.utils.paddingDp
 import com.mikepenz.materialdrawer.holder.BadgeStyle
 import com.mikepenz.materialdrawer.holder.ColorHolder
 import com.mikepenz.materialdrawer.holder.StringHolder
+import com.mikepenz.materialdrawer.iconics.iconicsIcon
 import com.mikepenz.materialdrawer.iconics.withIcon
 import com.mikepenz.materialdrawer.model.*
 import com.mikepenz.materialdrawer.model.interfaces.*
+import com.mikepenz.materialdrawer.model.utils.descriptionRes
+import com.mikepenz.materialdrawer.model.utils.nameRes
+import com.mikepenz.materialdrawer.model.utils.nameText
 import com.mikepenz.materialdrawer.util.addItems
 import com.mikepenz.materialdrawer.util.updateBadge
 import com.mikepenz.materialdrawer.widget.AccountHeaderView
@@ -87,26 +91,27 @@ class DrawerActivity : AppCompatActivity() {
 
         slider.apply {
             addItems(
-                    PrimaryDrawerItem().withName(R.string.drawer_item_compact_header).withDescription(R.string.drawer_item_compact_header_desc).withIcon(GoogleMaterial.Icon.gmd_brightness_5).withIdentifier(1).withSelectable(false),
-                    PrimaryDrawerItem().withName(R.string.drawer_item_action_bar_drawer).withDescription(R.string.drawer_item_action_bar_drawer_desc).withIcon(FontAwesome.Icon.faw_home).withIdentifier(2).withSelectable(false),
-                    PrimaryDrawerItem().withName(R.string.drawer_item_multi_drawer).withDescription(R.string.drawer_item_multi_drawer_desc).withIcon(FontAwesome.Icon.faw_gamepad).withIdentifier(3).withSelectable(false),
-                    PrimaryDrawerItem().withName(R.string.drawer_item_advanced_drawer).withDescription(R.string.drawer_item_advanced_drawer_desc).withIcon(GoogleMaterial.Icon.gmd_adb).withIdentifier(5).withSelectable(false),
-                    PrimaryDrawerItem().withName(R.string.drawer_item_embedded_drawer).withDescription(R.string.drawer_item_embedded_drawer_desc).withIcon(GoogleMaterial.Icon.gmd_battery_full).withIdentifier(7).withSelectable(false),
-                    PrimaryDrawerItem().withName(R.string.drawer_item_fullscreen_drawer).withDescription(R.string.drawer_item_fullscreen_drawer_desc).withIcon(GoogleMaterial.Icon.gmd_label).withIdentifier(8).withSelectable(false),
-                    PrimaryDrawerItem().withName(R.string.drawer_item_menu_drawer).withDescription(R.string.drawer_item_menu_drawer_desc).withIcon(GoogleMaterial.Icon.gmd_filter_list).withIdentifier(10).withSelectable(false),
-                    PrimaryDrawerItem().withName(R.string.drawer_item_mini_drawer).withDescription(R.string.drawer_item_mini_drawer_desc).withIcon(GoogleMaterial.Icon.gmd_battery_charging_full).withIdentifier(11).withSelectable(false),
-                    PrimaryDrawerItem().withName(R.string.drawer_item_fragment_drawer).withDescription(R.string.drawer_item_fragment_drawer_desc).withIcon(GoogleMaterial.Icon.gmd_disc_full).withIdentifier(12).withSelectable(false),
-                    PrimaryDrawerItem().withName(R.string.drawer_item_collapsing_toolbar_drawer).withDescription(R.string.drawer_item_collapsing_toolbar_drawer_desc).withIcon(GoogleMaterial.Icon.gmd_camera_rear).withIdentifier(13).withSelectable(false),
-                    PrimaryDrawerItem().withName(R.string.drawer_item_persistent_compact_header).withDescription(R.string.drawer_item_persistent_compact_header_desc).withIcon(GoogleMaterial.Icon.gmd_brightness_5).withIdentifier(14).withSelectable(false),
-                    PrimaryDrawerItem().withName(R.string.drawer_item_crossfade_drawer_layout_drawer).withDescription(R.string.drawer_item_crossfade_drawer_layout_drawer_desc).withIcon(GoogleMaterial.Icon.gmd_format_bold).withIdentifier(15).withSelectable(false),
-                    PrimaryDrawerItem().withName(R.string.drawer_item_navigation_drawer).withDescription(R.string.drawer_item_navigation_drawer_desc).withIcon(GoogleMaterial.Icon.gmd_navigation).withIdentifier(1305).withSelectable(false),
-                    ExpandableBadgeDrawerItem().withName("Collapsable Badge").withIcon(GoogleMaterial.Icon.gmd_format_bold).withIdentifier(18).withSelectable(false).withBadgeStyle(BadgeStyle().apply {
-                        textColor = ColorHolder.fromColor(Color.WHITE)
-                        color = ColorHolder.fromColorRes(R.color.md_red_700)
-                    }).withBadge("100").withSubItems(
-                            SecondaryDrawerItem().withName("CollapsableItem").withLevel(2).withIcon(GoogleMaterial.Icon.gmd_format_bold).withIdentifier(2000),
-                            SecondaryDrawerItem().withName("CollapsableItem 2").withLevel(2).withIcon(GoogleMaterial.Icon.gmd_format_bold).withIdentifier(2001)
-                    ),
+                    PrimaryDrawerItem().apply { nameRes = R.string.drawer_item_compact_header; descriptionRes = R.string.drawer_item_compact_header_desc; iconicsIcon = GoogleMaterial.Icon.gmd_brightness_5; isSelectable = false; identifier = 1 },
+                    PrimaryDrawerItem().apply { nameRes = R.string.drawer_item_action_bar_drawer; descriptionRes = R.string.drawer_item_action_bar_drawer_desc; iconicsIcon = FontAwesome.Icon.faw_home; isSelectable = false; identifier = 2 },
+                    PrimaryDrawerItem().apply { nameRes = R.string.drawer_item_multi_drawer; descriptionRes = R.string.drawer_item_multi_drawer_desc; iconicsIcon = FontAwesome.Icon.faw_gamepad; isSelectable = false; identifier = 3 },
+                    PrimaryDrawerItem().apply { nameRes = R.string.drawer_item_advanced_drawer; descriptionRes = R.string.drawer_item_advanced_drawer_desc; iconicsIcon = GoogleMaterial.Icon.gmd_adb; isSelectable = false; identifier = 5 },
+                    PrimaryDrawerItem().apply { nameRes = R.string.drawer_item_embedded_drawer; descriptionRes = R.string.drawer_item_embedded_drawer_desc; iconicsIcon = GoogleMaterial.Icon.gmd_battery_full; isSelectable = false; identifier = 7 },
+                    PrimaryDrawerItem().apply { nameRes = R.string.drawer_item_fullscreen_drawer; descriptionRes = R.string.drawer_item_fullscreen_drawer_desc; iconicsIcon = GoogleMaterial.Icon.gmd_label; isSelectable = false; identifier = 8 },
+                    PrimaryDrawerItem().apply { nameRes = R.string.drawer_item_menu_drawer; descriptionRes = R.string.drawer_item_menu_drawer_desc; iconicsIcon = GoogleMaterial.Icon.gmd_filter_list; isSelectable = false; identifier = 10 },
+                    PrimaryDrawerItem().apply { nameRes = R.string.drawer_item_mini_drawer; descriptionRes = R.string.drawer_item_mini_drawer_desc; iconicsIcon = GoogleMaterial.Icon.gmd_battery_charging_full; isSelectable = false; identifier = 11 },
+                    PrimaryDrawerItem().apply { nameRes = R.string.drawer_item_fragment_drawer; descriptionRes = R.string.drawer_item_fragment_drawer_desc; iconicsIcon = GoogleMaterial.Icon.gmd_disc_full; isSelectable = false; identifier = 12 },
+                    PrimaryDrawerItem().apply { nameRes = R.string.drawer_item_collapsing_toolbar_drawer; descriptionRes = R.string.drawer_item_collapsing_toolbar_drawer_desc; iconicsIcon = GoogleMaterial.Icon.gmd_camera_rear; isSelectable = false; identifier = 13 },
+                    PrimaryDrawerItem().apply { nameRes = R.string.drawer_item_persistent_compact_header; descriptionRes = R.string.drawer_item_persistent_compact_header_desc; iconicsIcon = GoogleMaterial.Icon.gmd_brightness_5; isSelectable = false; identifier = 14 },
+                    PrimaryDrawerItem().apply { nameRes = R.string.drawer_item_crossfade_drawer_layout_drawer; descriptionRes = R.string.drawer_item_crossfade_drawer_layout_drawer_desc; iconicsIcon = GoogleMaterial.Icon.gmd_format_bold; isSelectable = false; identifier = 15 },
+                    PrimaryDrawerItem().apply { nameRes = R.string.drawer_item_navigation_drawer; descriptionRes = R.string.drawer_item_navigation_drawer_desc; iconicsIcon = GoogleMaterial.Icon.gmd_navigation; isSelectable = false; identifier = 1305 },
+                    ExpandableBadgeDrawerItem().apply {
+                        nameText = "Collapsable Badge"; iconicsIcon = GoogleMaterial.Icon.gmd_format_bold; identifier = 18; isSelectable = false; badge = StringHolder("100")
+                        badgeStyle = BadgeStyle().apply { textColor = ColorHolder.fromColor(Color.WHITE); color = ColorHolder.fromColorRes(R.color.md_red_700) }
+                        withSubItems(
+                                SecondaryDrawerItem().withName("CollapsableItem").withLevel(2).withIcon(GoogleMaterial.Icon.gmd_format_bold).withIdentifier(2000),
+                                SecondaryDrawerItem().withName("CollapsableItem 2").withLevel(2).withIcon(GoogleMaterial.Icon.gmd_format_bold).withIdentifier(2001)
+                        )
+                    },
                     ExpandableDrawerItem().withName("Collapsable").withIcon(GoogleMaterial.Icon.gmd_filter_list).withIdentifier(19).withSelectable(false).withSubItems(
                             SecondaryDrawerItem().withName("CollapsableItem").withLevel(2).withIcon(GoogleMaterial.Icon.gmd_filter_list).withIdentifier(2002),
                             SecondaryDrawerItem().withName("CollapsableItem 2").withLevel(2).withIcon(GoogleMaterial.Icon.gmd_filter_list).withIdentifier(2003)

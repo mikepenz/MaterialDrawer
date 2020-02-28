@@ -3,7 +3,6 @@ package com.mikepenz.materialdrawer.model
 import android.content.Context
 import android.content.res.ColorStateList
 import android.graphics.Typeface
-import android.util.Pair
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -48,11 +47,9 @@ abstract class AbstractDrawerItem<T, VH : RecyclerView.ViewHolder> : IDrawerItem
     var contentDescription: String? = null
 
     var selectedColor: ColorHolder? = null
-    var textColor: ColorHolder? = null
-    var selectedTextColor: ColorHolder? = null
-    var disabledTextColor: ColorHolder? = null
+    var textColor: ColorStateList? = null
+    var iconColor: ColorStateList? = null
     override var typeface: Typeface? = null
-    var colorStateList: Pair<Int, ColorStateList>? = null
 
     open var onDrawerItemClickListener: ((v: View?, item: IDrawerItem<*>, position: Int) -> Boolean)? = null
 
@@ -101,42 +98,6 @@ abstract class AbstractDrawerItem<T, VH : RecyclerView.ViewHolder> : IDrawerItem
     @Deprecated("Please consider to replace with the actual property setter")
     fun withSelectedColorRes(@ColorRes selectedColorRes: Int): T {
         this.selectedColor = ColorHolder.fromColorRes(selectedColorRes)
-        return this as T
-    }
-
-    @Deprecated("Please consider to replace with the actual property setter")
-    fun withTextColor(@ColorInt textColor: Int): T {
-        this.textColor = ColorHolder.fromColor(textColor)
-        return this as T
-    }
-
-    @Deprecated("Please consider to replace with the actual property setter")
-    fun withTextColorRes(@ColorRes textColorRes: Int): T {
-        this.textColor = ColorHolder.fromColorRes(textColorRes)
-        return this as T
-    }
-
-    @Deprecated("Please consider to replace with the actual property setter")
-    fun withSelectedTextColor(@ColorInt selectedTextColor: Int): T {
-        this.selectedTextColor = ColorHolder.fromColor(selectedTextColor)
-        return this as T
-    }
-
-    @Deprecated("Please consider to replace with the actual property setter")
-    fun withSelectedTextColorRes(@ColorRes selectedColorRes: Int): T {
-        this.selectedTextColor = ColorHolder.fromColorRes(selectedColorRes)
-        return this as T
-    }
-
-    @Deprecated("Please consider to replace with the actual property setter")
-    fun withDisabledTextColor(@ColorInt disabledTextColor: Int): T {
-        this.disabledTextColor = ColorHolder.fromColor(disabledTextColor)
-        return this as T
-    }
-
-    @Deprecated("Please consider to replace with the actual property setter")
-    fun withDisabledTextColorRes(@ColorRes disabledTextColorRes: Int): T {
-        this.disabledTextColor = ColorHolder.fromColorRes(disabledTextColorRes)
         return this as T
     }
 
@@ -224,6 +185,12 @@ abstract class AbstractDrawerItem<T, VH : RecyclerView.ViewHolder> : IDrawerItem
     @Deprecated("Please consider to replace with the actual property setter")
     fun withSetExpanded(expanded: Boolean): T {
         isExpanded = expanded
+        return this as T
+    }
+
+    @Deprecated("Please consider to replace with the actual property setter")
+    fun withIconColor(iconColor: ColorStateList): T {
+        this.iconColor = iconColor
         return this as T
     }
 

@@ -68,9 +68,9 @@ open class ProfileDrawerItem : AbstractDrawerItem<ProfileDrawerItem, ProfileDraw
         holder.profileIcon.isSelected = isSelected
 
         //get the correct color for the background
-        val selectedColor = getSelectedColor(ctx)
+        val selectedColor = this.selectedColor?.color(ctx) ?: getSelectedColor(ctx)
         //get the correct color for the text
-        val color = getColor(ctx)
+        val color = this.textColor ?: getColor(ctx)
         val shapeAppearanceModel = getShapeAppearanceModel(ctx)
 
         //set the background for the item

@@ -1,17 +1,15 @@
 package com.mikepenz.materialdrawer.model
 
+import android.content.res.ColorStateList
 import android.view.View
 import android.widget.ImageView
 import android.widget.TextView
-import androidx.annotation.ColorInt
-import androidx.annotation.ColorRes
 import androidx.annotation.LayoutRes
 import androidx.annotation.StringRes
 import androidx.core.view.ViewCompat
 import androidx.recyclerview.widget.RecyclerView
 import com.mikepenz.materialdrawer.R
 import com.mikepenz.materialdrawer.holder.BadgeStyle
-import com.mikepenz.materialdrawer.holder.ColorHolder
 import com.mikepenz.materialdrawer.holder.ImageHolder
 import com.mikepenz.materialdrawer.holder.StringHolder
 import com.mikepenz.materialdrawer.model.interfaces.ColorfulBadgeable
@@ -31,8 +29,7 @@ open class ProfileSettingDrawerItem : AbstractDrawerItem<ProfileSettingDrawerIte
     override var description: StringHolder? = null
 
     var isIconTinted = false
-    var iconColor: ColorHolder? = null
-    var descriptionTextColor: ColorHolder? = null
+    var descriptionTextColor: ColorStateList? = null
 
     override var badge: StringHolder? = null
     override var badgeStyle: BadgeStyle? = BadgeStyle()
@@ -55,30 +52,6 @@ open class ProfileSettingDrawerItem : AbstractDrawerItem<ProfileSettingDrawerIte
     @Deprecated("Please consider to replace with the actual property setter")
     fun withDescription(@StringRes descriptionRes: Int): ProfileSettingDrawerItem {
         this.description = StringHolder(descriptionRes)
-        return this
-    }
-
-    @Deprecated("Please consider to replace with the actual property setter")
-    fun withDescriptionTextColor(@ColorInt descriptionColor: Int): ProfileSettingDrawerItem {
-        this.descriptionTextColor = ColorHolder.fromColor(descriptionColor)
-        return this
-    }
-
-    @Deprecated("Please consider to replace with the actual property setter")
-    fun withDescriptionTextColorRes(@ColorRes descriptionColorRes: Int): ProfileSettingDrawerItem {
-        this.descriptionTextColor = ColorHolder.fromColorRes(descriptionColorRes)
-        return this
-    }
-
-    @Deprecated("Please consider to replace with the actual property setter")
-    fun withIconColor(@ColorInt iconColor: Int): ProfileSettingDrawerItem {
-        this.iconColor = ColorHolder.fromColor(iconColor)
-        return this
-    }
-
-    @Deprecated("Please consider to replace with the actual property setter")
-    fun withIconColorRes(@ColorRes iconColorRes: Int): ProfileSettingDrawerItem {
-        this.iconColor = ColorHolder.fromColorRes(iconColorRes)
         return this
     }
 
@@ -110,11 +83,11 @@ open class ProfileSettingDrawerItem : AbstractDrawerItem<ProfileSettingDrawerIte
         holder.icon.isSelected = isSelected
 
         //get the correct color for the background
-        val selectedColor = getSelectedColor(ctx)
+        val selectedColor = this.selectedColor?.color(ctx) ?: getSelectedColor(ctx)
         //get the correct color for the text
-        val color = getColor(ctx)
-        val iconColor = ctx.getPrimaryDrawerIconColor()
-        val descriptionColor = getColor(ctx)
+        val color = this.textColor ?: getColor(ctx)
+        val iconColor = this.iconColor ?: ctx.getPrimaryDrawerIconColor()
+        val descriptionColor = this.descriptionTextColor ?: getColor(ctx)
 
         ViewCompat.setBackground(holder.view, ctx.getSelectableBackground(selectedColor, isSelectedBackgroundAnimated))
 

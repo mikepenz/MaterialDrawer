@@ -21,7 +21,6 @@ abstract class BaseDrawerItem<T, VH : RecyclerView.ViewHolder> : AbstractDrawerI
     var selectedIcon: ImageHolder? = null
     override var name: StringHolder? = null
     var isIconTinted = false
-    var iconColor: ColorStateList? = null
 
     var level = 1
         protected set
@@ -35,12 +34,6 @@ abstract class BaseDrawerItem<T, VH : RecyclerView.ViewHolder> : AbstractDrawerI
     @Deprecated("Please consider to replace with the actual property setter")
     fun withSelectedIcon(@DrawableRes selectedIconRes: Int): T {
         this.selectedIcon = ImageHolder(selectedIconRes)
-        return this as T
-    }
-
-    @Deprecated("Please consider to replace with the actual property setter")
-    fun withIconColor(iconColor: ColorStateList): T {
-        this.iconColor = iconColor
         return this as T
     }
 
