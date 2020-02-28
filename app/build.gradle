@@ -3,6 +3,7 @@ apply plugin: 'kotlin-android'
 apply plugin: 'kotlin-android-extensions'
 apply plugin: 'kotlin-kapt'
 apply plugin: "androidx.navigation.safeargs.kotlin"
+apply plugin: 'com.mikepenz.aboutlibraries.plugin'
 
 //wrap with try and catch so the build is working even if the signing stuff is missing
 try {
@@ -81,7 +82,7 @@ dependencies {
     implementation "com.mikepenz:fastadapter-extensions-utils:${versions.fastadapter}"
     // used to generate the Open Source section
     // https://github.com/mikepenz/AboutLibraries
-    implementation "com.mikepenz:aboutlibraries:7.1.0"
+    implementation "com.mikepenz:aboutlibraries:${versions.aboutLibs}"
 
     //used to provide different itemAnimators for the RecyclerView
     //https://github.com/mikepenz/ItemAnimators

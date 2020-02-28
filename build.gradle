@@ -23,9 +23,10 @@ buildscript {
                 constraintLayout : '2.0.0-beta4',
                 cardview         : '1.0.0',
                 kotlin           : "1.3.61",
-                fastadapter      : "5.0.0-a08",
+                fastadapter      : "5.0.0-b01",
                 iconics          : "5.0.0-a04",
-                navigation       : "2.2.0",
+                aboutLibs        : "8.0.0-rc02",
+                navigation       : "2.2.1",
                 slidingpaneLayout: "1.0.0"
         ]
     }
@@ -41,6 +42,7 @@ buildscript {
         classpath 'com.jfrog.bintray.gradle:gradle-bintray-plugin:1.8.4'
         classpath "org.jetbrains.kotlin:kotlin-gradle-plugin:${versions.kotlin}"
         classpath "androidx.navigation:navigation-safe-args-gradle-plugin:${versions.navigation}"
+        classpath "com.mikepenz.aboutlibraries.plugin:aboutlibraries-plugin:${versions.aboutLibs}"
     }
 }
 
