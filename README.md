@@ -1,18 +1,21 @@
 # MaterialDrawer   [![Download](https://api.bintray.com/packages/mikepenz/maven/com.mikepenz%3Amaterialdrawer/images/download.svg) ](https://bintray.com/mikepenz/maven/com.mikepenz%3Amaterialdrawer/_latestVersion)
 
-![MaterialDrawer the flexible, easy to use, all in one drawer library for your android project.](./DEV/github/banner.png)
+... the flexbile, easy to use, all in one drawer library for your Android project.
 
-> Does your application **contain a Drawer**? Do you want to have it **up and running in less than 5 minutes**? Do you want your drawer to follow the **Android Design Guidelines**?
-Do you have **profiles**? Do you need **flexibility**? Is Google's navigation Drawer of the **design support** not enough for you? Do you want a **simple and easy** to understand api?
+-------
 
-If any (or all) of these questions seem familiar, the **MaterialDrawer** is the perfect library for you all.
+<p align="center">
+    <a href="#whats-included-">What's included 🚀</a> &bull;
+    <a href="#setup">Setup 🛠️</a> &bull;
+    <a href="MIGRATION.md">Migration Guide 🧬</a> &bull;
+    <a href="FAQ.md">WIKI / FAQ 📖</a> &bull;
+    <a href="#used-by">Used by</a> &bull;
+    <a href="https://play.google.com/store/apps/details?id=com.mikepenz.materialdrawer.app">Sample App</a>
+</p>
 
-**Never** waste your time again.
-It provides you with the easiest possible implementation of a navigation drawer for your application.
-There  is a Header with profiles (**AccountHeader**), a **MiniDrawer** for Tablets (like Gmail), provide
-**custom DrawerItems**, **custom colors**, **custom themes**, ... **No limits** for customizations.
+-------
 
-### A quick overview of what's in it 
+### What's included 🚀
 - **the easiest possible integration**
 - integrate in less than **5 minutes**
 - **uses the androidX support libraries**
@@ -39,19 +42,13 @@ There  is a Header with profiles (**AccountHeader**), a **MiniDrawer** for Table
 > If you upgrade from < 8.0.0 follow the [MIGRATION GUIDE](https://github.com/mikepenz/MaterialDrawer/blob/develop/MIGRATION.md)
 
 # Preview
-## Demo
-You can try it out here [Sample Application](https://play.google.com/store/apps/details?id=com.mikepenz.materialdrawer.app)
 
-## Screenshots
-![Image](DEV/github/screenshots1.png)
-![Image](DEV/github/screenshots2.png)
-
-# WIKI / FAQ
-You can find some frequently asked questions and other resources in the [WIKI / FAQ](FAQ.md) site.
+## Screenshots 🎉
+![Image](DEV/github/screenshots_combined.jpg)
 
 # Setup
 
-## Latest releases
+## Latest releases 🛠
 
 - Kotlin && New | [v8.0.0-b04](https://github.com/mikepenz/MaterialDrawer/tree/v8.0.0-b04)
 - Kotlin | [v7.0.0](https://github.com/mikepenz/MaterialDrawer/tree/v7.0.0)
@@ -59,7 +56,7 @@ You can find some frequently asked questions and other resources in the [WIKI / 
 - Java && AppCompat | [v6.0.9](https://github.com/mikepenz/MaterialDrawer/tree/v6.0.9)
 
 
-## 1. Provide the gradle dependency
+### 1. Provide the gradle dependency
 
 ```gradle
 implementation "com.mikepenz:materialdrawer:${lastestMaterialDrawerRelease}"
@@ -78,10 +75,7 @@ implementation "com.mikepenz:materialdrawer-nav:${lastestMaterialDrawerRelease}"
 implementation "com.mikepenz:materialdrawer-iconics:${lastestMaterialDrawerRelease}"
 ```
 
-## v8.x.y
-> Major release, migrates to use the FastAdapter v5. Check out the changelog or the [MIGRATION GUIDE](https://github.com/mikepenz/FastAdapter/blob/develop/MIGRATION.md) for more details
-
-## 2. Add the `Drawer` into the XML
+### 2. Add the `Drawer` into the XML
 
 The `MaterialDrawerSliderView` has to be provided as child of the `DrawerLayout` and will as such act as the slider
 
@@ -103,9 +97,9 @@ The `MaterialDrawerSliderView` has to be provided as child of the `DrawerLayout`
         android:fitsSystemWindows="true" />
 </androidx.drawerlayout.widget.DrawerLayout>
 ```
-## 3. Add the `DrawerStyle` to your theme
+### 3. Add the `DrawerStyle` to your theme
 
-```
+```xml
 <style name="SampleApp.DayNight" parent="Theme.MaterialComponents.DayNight.NoActionBar">
     ...
     <item name="materialDrawerStyle">@style/Widget.MaterialDrawerStyle</item>
@@ -117,7 +111,7 @@ The `MaterialDrawerSliderView` has to be provided as child of the `DrawerLayout`
 Great. Your drawer is now ready to use.
 
 # Additional Setup
-## Add items and adding some functionality
+### Add items and adding some functionality
 
 ```kotlin
 //if you want to update the items at a later time it is recommended to keep it in a variable
@@ -139,7 +133,7 @@ slider.onDrawerItemClickListener = { v, drawerItem, position ->
 }
 ```
 
-## Selecting an item
+### Selecting an item
 ```kotlin
 //set the selection to the item with the identifier 1
 slider.setSelection(1)
@@ -155,7 +149,7 @@ you can disable it for this item using `withSelectable(false)`:
 SecondaryDrawerItem().withName(R.string.drawer_item_dialog).withSelectable(false)
 ```
 
-## Modify items or the drawer
+### Modify items or the drawer
 
 ```kotlin
 //modify an item of the drawer
@@ -181,7 +175,7 @@ slider.drawerLayout?.closeDrawer(slider)
 slider.drawerLayout
 ```
 
-## Add profiles and an AccountHeader
+### Add profiles and an AccountHeader
 ```kotlin
 // Create the AccountHeader
 headerView = AccountHeaderView(this).apply {
@@ -197,11 +191,11 @@ headerView = AccountHeaderView(this).apply {
 }
 ```
 
-## Use the included icon font
-The MaterialDrawer provieds an extesions for the [Android-Iconics](https://github.com/mikepenz/Android-Iconics) library. This allows you to create your `DrawerItems` with an icon from any font.
+### Android-Iconics support
+The MaterialDrawer provides an extension for the [Android-Iconics](https://github.com/mikepenz/Android-Iconics) library. This allows you to create your `DrawerItems` with an icon from any font.
 
 Choose the fonts you need. [Available Fonts](https://github.com/mikepenz/Android-Iconics#2-choose-your-desired-fonts)
-**build.gradle**
+
 ```gradle
 // Add for Android-Iconics support
 implementation "com.mikepenz:materialdrawer-iconics:${lastestMaterialDrawerRelease}"
@@ -210,8 +204,6 @@ implementation "com.mikepenz:materialdrawer-iconics:${lastestMaterialDrawerRelea
 implementation 'com.mikepenz:google-material-typeface:x.y.z@aar' //Google Material Icons
 implementation 'com.mikepenz:fontawesome-typeface:x.y.z@aar'     //FontAwesome
 ```
-
-**kotlin**
 
 ```kotlin
 //now you can simply use any icon of the Google Material Icons font
@@ -230,7 +222,6 @@ the dev can choose his own implementation (Picasso, Glide, ...). This has to be 
 * SAMPLE using [PICASSO](https://github.com/square/picasso)
 * [SAMPLE](https://github.com/mikepenz/MaterialDrawer/blob/develop/app/src/main/java/com/mikepenz/materialdrawer/app/CustomApplication.java) using [GLIDE](https://github.com/bumptech/glide)
 
-### Code:
 ```kotlin
 //initialize and create the image loader logic
 DrawerImageLoader.init(object : AbstractDrawerImageLoader() {
@@ -260,7 +251,7 @@ DrawerImageLoader.init(object : AbstractDrawerImageLoader() {
 
 An implementation with [GLIDE v4](https://github.com/mikepenz/MaterialDrawer/blob/develop/app/src/main/java/com/mikepenz/materialdrawer/app/CustomApplication.java#L42) (See tag v6.1.1 for glide v3 sample) can be found in the sample application
 
-## Style the drawer
+## Style the drawer 🖌️
 
 ### Custom style - styles.xml
 Create your custom style. If you don't need a custom theme see the next section, how you can set the colors just by overwriting the original colors.
@@ -308,25 +299,11 @@ Overwrite the Style of the BezelImageView for the whole MaterialDrawer
 </style>
 ```
 
-# FAQ
-### How can i create a drawer without a default selection
-```java
-//just set the selection to -1
-slider.setSelectionAtPosition(-1)
-```
-
-### Can I lock the Drawer
-As the MaterialDrawer will just create a normal DrawerLayout (with some magic around it) everything a normal
-DrawerLayout can do is also available in the MaterialDrawer.
-```java
-drawerLayout.setDrawerLockMode(int lockMode); //or (int lockMode, int edgeGravity)
-```
-
 ### Prefer a Kotlin DSL?
 > Note this is currently not compatible with v8.
 Thanks to @zsmb13 there's now an (in)official Kotlin DSL wrapper for the MaterialDrawer https://github.com/zsmb13/MaterialDrawerKt
 
-# Apps using the MaterialDrawer
+# Used by
 (feel free to send me new projects)
 
 * [wall:splash](https://play.google.com/store/apps/details?id=com.mikepenz.unsplash)

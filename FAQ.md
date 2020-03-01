@@ -24,3 +24,18 @@ Each question and it's answer is hosted in a separate file within the FAQ folder
 ## CustomDrawerItem's
 
 * [A custom SecondaryDrawerItem that takes different name when its on disabled state](https://gist.github.com/AngleV/400377184386193c985d905bd97f2d40)
+
+## Asked super frequently
+
+### How can i create a drawer without a default selection
+```kotlin
+//just set the selection to -1
+slider.setSelectionAtPosition(-1)
+```
+
+### Can I lock the Drawer
+As the MaterialDrawer will just create a normal DrawerLayout (with some magic around it) everything a normal
+DrawerLayout can do is also available in the MaterialDrawer.
+```kotlin
+drawerLayout.setDrawerLockMode(int lockMode); //or (int lockMode, int edgeGravity)
+```
