@@ -1,5 +1,6 @@
 package com.mikepenz.materialdrawer.model
 
+import android.content.res.ColorStateList
 import android.view.View
 import android.widget.TextView
 import androidx.annotation.LayoutRes
@@ -8,6 +9,7 @@ import com.mikepenz.materialdrawer.R
 import com.mikepenz.materialdrawer.holder.StringHolder
 import com.mikepenz.materialdrawer.model.interfaces.IDrawerItem
 import com.mikepenz.materialdrawer.model.interfaces.Nameable
+import com.mikepenz.materialdrawer.model.interfaces.NameableColor
 import com.mikepenz.materialdrawer.model.interfaces.Typefaceable
 import com.mikepenz.materialdrawer.util.getDividerColor
 import com.mikepenz.materialdrawer.util.getSecondaryDrawerTextColor
@@ -15,9 +17,10 @@ import com.mikepenz.materialdrawer.util.getSecondaryDrawerTextColor
 /**
  * Describes a [IDrawerItem] acting as a divider with description to describe a section.
  */
-open class SectionDrawerItem : AbstractDrawerItem<SectionDrawerItem, SectionDrawerItem.ViewHolder>(), Nameable, Typefaceable {
+open class SectionDrawerItem : AbstractDrawerItem<SectionDrawerItem, SectionDrawerItem.ViewHolder>(), Nameable, NameableColor, Typefaceable {
     var divider = true
     override var name: StringHolder? = null
+    override var textColor: ColorStateList? = null
     override var isEnabled: Boolean = false
     override var isSelected: Boolean = false
 
@@ -46,8 +49,10 @@ open class SectionDrawerItem : AbstractDrawerItem<SectionDrawerItem, SectionDraw
         holder.view.isClickable = false
         holder.view.isEnabled = false
 
+        val color = textColor ?: ctx.getSecondaryDrawerTextColor()
+
         //define the text color
-        holder.name.setTextColor(ctx.getSecondaryDrawerTextColor())
+        holder.name.setTextColor(color)
 
         //set the text for the name
         StringHolder.applyTo(this.name, holder.name)

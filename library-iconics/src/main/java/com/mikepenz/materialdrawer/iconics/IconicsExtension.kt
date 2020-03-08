@@ -3,9 +3,8 @@ package com.mikepenz.materialdrawer.iconics
 import android.os.Build
 import com.mikepenz.iconics.typeface.IIcon
 import com.mikepenz.materialdrawer.model.BaseDrawerItem
-import com.mikepenz.materialdrawer.model.MiniProfileDrawerItem
-import com.mikepenz.materialdrawer.model.ProfileDrawerItem
-import com.mikepenz.materialdrawer.model.ProfileSettingDrawerItem
+import com.mikepenz.materialdrawer.model.interfaces.Iconable
+import com.mikepenz.materialdrawer.model.interfaces.withIconTintingEnabled
 
 var <T : BaseDrawerItem<*, *>> T.iconicsIcon: IIcon
     @Deprecated(level = DeprecationLevel.ERROR, message = "Not readable")
@@ -33,7 +32,7 @@ fun <T : BaseDrawerItem<*, *>> T.withIcon(icon: IIcon): T {
     return this
 }
 
-var <T : ProfileDrawerItem> T.iconicsIcon: IIcon
+var <T : Iconable> T.iconicsIcon: IIcon
     @Deprecated(level = DeprecationLevel.ERROR, message = "Not readable")
     get() = throw UnsupportedOperationException("Please use the direct property")
     set(value) {
@@ -41,33 +40,7 @@ var <T : ProfileDrawerItem> T.iconicsIcon: IIcon
     }
 
 @Deprecated("Please consider to replace with the actual property setter")
-fun ProfileDrawerItem.withIcon(icon: IIcon): ProfileDrawerItem {
-    this.icon = IconicsImageHolder(icon)
-    return this
-}
-
-var <T : ProfileSettingDrawerItem> T.iconicsIcon: IIcon
-    @Deprecated(level = DeprecationLevel.ERROR, message = "Not readable")
-    get() = throw UnsupportedOperationException("Please use the direct property")
-    set(value) {
-        this.icon = IconicsImageHolder(value)
-    }
-
-@Deprecated("Please consider to replace with the actual property setter")
-fun ProfileSettingDrawerItem.withIcon(icon: IIcon): ProfileSettingDrawerItem {
-    this.icon = IconicsImageHolder(icon)
-    return this
-}
-
-var <T : MiniProfileDrawerItem> T.iconicsIcon: IIcon
-    @Deprecated(level = DeprecationLevel.ERROR, message = "Not readable")
-    get() = throw UnsupportedOperationException("Please use the direct property")
-    set(value) {
-        this.icon = IconicsImageHolder(value)
-    }
-
-@Deprecated("Please consider to replace with the actual property setter")
-fun MiniProfileDrawerItem.withIcon(icon: IIcon): MiniProfileDrawerItem {
+fun <T : Iconable> T.withIcon(icon: IIcon): T {
     this.icon = IconicsImageHolder(icon)
     return this
 }

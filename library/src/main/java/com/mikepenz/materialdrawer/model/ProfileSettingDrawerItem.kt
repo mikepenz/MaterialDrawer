@@ -5,17 +5,13 @@ import android.view.View
 import android.widget.ImageView
 import android.widget.TextView
 import androidx.annotation.LayoutRes
-import androidx.annotation.StringRes
 import androidx.core.view.ViewCompat
 import androidx.recyclerview.widget.RecyclerView
 import com.mikepenz.materialdrawer.R
 import com.mikepenz.materialdrawer.holder.BadgeStyle
 import com.mikepenz.materialdrawer.holder.ImageHolder
 import com.mikepenz.materialdrawer.holder.StringHolder
-import com.mikepenz.materialdrawer.model.interfaces.ColorfulBadgeable
-import com.mikepenz.materialdrawer.model.interfaces.IProfile
-import com.mikepenz.materialdrawer.model.interfaces.Tagable
-import com.mikepenz.materialdrawer.model.interfaces.Typefaceable
+import com.mikepenz.materialdrawer.model.interfaces.*
 import com.mikepenz.materialdrawer.util.DrawerUtils.setDrawerVerticalPadding
 import com.mikepenz.materialdrawer.util.getPrimaryDrawerIconColor
 import com.mikepenz.materialdrawer.util.getSelectableBackground
@@ -23,13 +19,15 @@ import com.mikepenz.materialdrawer.util.getSelectableBackground
 /**
  * Describes a [IProfile] being used with the [com.mikepenz.materialdrawer.widget.AccountHeaderView]
  */
-open class ProfileSettingDrawerItem : AbstractDrawerItem<ProfileSettingDrawerItem, ProfileSettingDrawerItem.ViewHolder>(), IProfile, Tagable, Typefaceable, ColorfulBadgeable {
+open class ProfileSettingDrawerItem : AbstractDrawerItem<ProfileSettingDrawerItem, ProfileSettingDrawerItem.ViewHolder>(), IProfile, Tagable, Typefaceable, ColorfulBadgeable, NameableColor, DescribableColor, SelectIconable {
     override var icon: ImageHolder? = null
+    override var iconColor: ColorStateList? = null
+    override var selectedIcon: ImageHolder? = null
     override var name: StringHolder? = null
+    override var textColor: ColorStateList? = null
     override var description: StringHolder? = null
-
-    var isIconTinted = false
-    var descriptionTextColor: ColorStateList? = null
+    override var descriptionTextColor: ColorStateList? = null
+    override var isIconTinted = false
 
     override var badge: StringHolder? = null
     override var badgeStyle: BadgeStyle? = BadgeStyle()
@@ -42,24 +40,6 @@ open class ProfileSettingDrawerItem : AbstractDrawerItem<ProfileSettingDrawerIte
     override val layoutRes: Int
         @LayoutRes
         get() = R.layout.material_drawer_item_profile_setting
-
-    @Deprecated("Please consider to replace with the actual property setter")
-    fun withDescription(description: String): ProfileSettingDrawerItem {
-        this.description = StringHolder(description)
-        return this
-    }
-
-    @Deprecated("Please consider to replace with the actual property setter")
-    fun withDescription(@StringRes descriptionRes: Int): ProfileSettingDrawerItem {
-        this.description = StringHolder(descriptionRes)
-        return this
-    }
-
-    @Deprecated("Please consider to replace with the actual property setter")
-    fun withIconTinted(iconTinted: Boolean): ProfileSettingDrawerItem {
-        this.isIconTinted = iconTinted
-        return this
-    }
 
     override fun bindView(holder: ViewHolder, payloads: List<Any>) {
         super.bindView(holder, payloads)
@@ -118,7 +98,9 @@ open class ProfileSettingDrawerItem : AbstractDrawerItem<ProfileSettingDrawerIte
         }
 
         //set the correct icon
-        ImageHolder.applyDecidedIconOrSetGone(icon, holder.icon, iconColor, isIconTinted, 2)
+        val icon = ImageHolder.decideIcon(icon, ctx, iconColor, isIconTinted, 2)
+        val selectedIcon = ImageHolder.decideIcon(selectedIcon, ctx, iconColor, isIconTinted, 2)
+        ImageHolder.applyMultiIconTo(icon, selectedIcon, iconColor, isIconTinted, holder.icon)
 
         //for android API 17 --> Padding not applied via xml
         setDrawerVerticalPadding(holder.view)

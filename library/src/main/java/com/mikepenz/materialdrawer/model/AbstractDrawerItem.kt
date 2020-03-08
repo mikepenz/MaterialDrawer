@@ -7,8 +7,6 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.annotation.CallSuper
-import androidx.annotation.ColorInt
-import androidx.annotation.ColorRes
 import androidx.recyclerview.widget.RecyclerView
 import com.google.android.material.shape.ShapeAppearanceModel
 import com.mikepenz.fastadapter.IItemVHFactory
@@ -17,38 +15,39 @@ import com.mikepenz.fastadapter.ISubItem
 import com.mikepenz.materialdrawer.R
 import com.mikepenz.materialdrawer.holder.ColorHolder
 import com.mikepenz.materialdrawer.interfaces.OnPostBindViewListener
-import com.mikepenz.materialdrawer.model.interfaces.IDrawerItem
-import com.mikepenz.materialdrawer.model.interfaces.Selectable
-import com.mikepenz.materialdrawer.model.interfaces.Tagable
-import com.mikepenz.materialdrawer.model.interfaces.Typefaceable
+import com.mikepenz.materialdrawer.model.interfaces.*
 import com.mikepenz.materialdrawer.util.getPrimaryDrawerTextColor
 import com.mikepenz.materialdrawer.util.getSelectedColor
 
 /**
  * The base abstract [IDrawerItem] implementation describing a drawerItem with the general functionality
  */
-abstract class AbstractDrawerItem<T, VH : RecyclerView.ViewHolder> : IDrawerItem<VH>, Selectable, Tagable, Typefaceable {
+abstract class AbstractDrawerItem<T, VH : RecyclerView.ViewHolder> : IDrawerItem<VH>, Selectable, SelectableColor, Tagable, Typefaceable {
     // the identifier for this item
     override var identifier: Long = -1
 
     // the tag for this item
     override var tag: Any? = null
+
     // defines if this item is enabled
     override var isEnabled = true
+
     /** The factory to use for creating this item, this does not have to be provided if the IItemFactory is implemented by this item too */
     override val factory: IItemVHFactory<VH>? = null
+
     // defines if the item is selected
     override var isSelected = false
+
     // defines if this item is selectable
     override var isSelectable = true
+
     // defines if the item's background' change should be animated when it is (de)selected
     var isSelectedBackgroundAnimated = true
+
     // defines the content descripton of items
     var contentDescription: String? = null
 
-    var selectedColor: ColorHolder? = null
-    var textColor: ColorStateList? = null
-    var iconColor: ColorStateList? = null
+    override var selectedColor: ColorHolder? = null
     override var typeface: Typeface? = null
 
     open var onDrawerItemClickListener: ((v: View?, item: IDrawerItem<*>, position: Int) -> Boolean)? = null
@@ -58,6 +57,7 @@ abstract class AbstractDrawerItem<T, VH : RecyclerView.ViewHolder> : IDrawerItem
 
     // the parent of this item
     override var parent: IParentItem<*>? = null
+
     // the subItems to expand for this item
     private var _subItems: MutableList<ISubItem<*>> = mutableListOf()
     override var subItems: MutableList<ISubItem<*>>
@@ -86,18 +86,6 @@ abstract class AbstractDrawerItem<T, VH : RecyclerView.ViewHolder> : IDrawerItem
     @Deprecated("Please consider to replace with the actual property setter")
     open fun withContentDescription(contentDescription: String?): T {
         this.contentDescription = contentDescription
-        return this as T
-    }
-
-    @Deprecated("Please consider to replace with the actual property setter")
-    fun withSelectedColor(@ColorInt selectedColor: Int): T {
-        this.selectedColor = ColorHolder.fromColor(selectedColor)
-        return this as T
-    }
-
-    @Deprecated("Please consider to replace with the actual property setter")
-    fun withSelectedColorRes(@ColorRes selectedColorRes: Int): T {
-        this.selectedColor = ColorHolder.fromColorRes(selectedColorRes)
         return this as T
     }
 
@@ -185,12 +173,6 @@ abstract class AbstractDrawerItem<T, VH : RecyclerView.ViewHolder> : IDrawerItem
     @Deprecated("Please consider to replace with the actual property setter")
     fun withSetExpanded(expanded: Boolean): T {
         isExpanded = expanded
-        return this as T
-    }
-
-    @Deprecated("Please consider to replace with the actual property setter")
-    fun withIconColor(iconColor: ColorStateList): T {
-        this.iconColor = iconColor
         return this as T
     }
 

@@ -1,5 +1,6 @@
 package com.mikepenz.materialdrawer.app.drawerItems
 
+import android.content.res.ColorStateList
 import android.view.View
 import androidx.annotation.LayoutRes
 import androidx.core.view.ViewCompat
@@ -19,17 +20,10 @@ class AccountDividerDrawerItem : AbstractDrawerItem<AccountDividerDrawerItem, Ac
         @LayoutRes
         get() = com.mikepenz.materialdrawer.R.layout.material_drawer_item_divider
 
-    override var name: StringHolder?
-        get() = null
-        set(value) {}
-
-    override var description: StringHolder?
-        get() = null
-        set(value) {}
-
-    override var icon: ImageHolder?
-        get() = null
-        set(value) {}
+    override var name: StringHolder? = null
+    override var description: StringHolder? = null
+    override var icon: ImageHolder? = null
+    override var iconColor: ColorStateList? = null
 
     override fun bindView(holder: ViewHolder, payloads: List<Any>) {
         super.bindView(holder, payloads)

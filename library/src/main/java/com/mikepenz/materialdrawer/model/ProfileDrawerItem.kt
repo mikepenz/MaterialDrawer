@@ -1,5 +1,6 @@
 package com.mikepenz.materialdrawer.model
 
+import android.content.res.ColorStateList
 import android.view.View
 import android.widget.ImageView
 import android.widget.TextView
@@ -9,9 +10,7 @@ import com.mikepenz.materialdrawer.R
 import com.mikepenz.materialdrawer.holder.BadgeStyle
 import com.mikepenz.materialdrawer.holder.ImageHolder
 import com.mikepenz.materialdrawer.holder.StringHolder
-import com.mikepenz.materialdrawer.model.interfaces.ColorfulBadgeable
-import com.mikepenz.materialdrawer.model.interfaces.IProfile
-import com.mikepenz.materialdrawer.model.interfaces.Tagable
+import com.mikepenz.materialdrawer.model.interfaces.*
 import com.mikepenz.materialdrawer.util.DrawerImageLoader
 import com.mikepenz.materialdrawer.util.DrawerUtils.setDrawerVerticalPadding
 import com.mikepenz.materialdrawer.util.themeDrawerItem
@@ -19,10 +18,13 @@ import com.mikepenz.materialdrawer.util.themeDrawerItem
 /**
  * Describes a [IProfile] being used with the [com.mikepenz.materialdrawer.widget.AccountHeaderView]
  */
-open class ProfileDrawerItem : AbstractDrawerItem<ProfileDrawerItem, ProfileDrawerItem.ViewHolder>(), IProfile, Tagable, ColorfulBadgeable {
+open class ProfileDrawerItem : AbstractDrawerItem<ProfileDrawerItem, ProfileDrawerItem.ViewHolder>(), IProfile, Tagable, ColorfulBadgeable, NameableColor, DescribableColor {
     override var icon: ImageHolder? = null
+    override var iconColor: ColorStateList? = null // not supported for this item
     override var name: StringHolder? = null
+    override var textColor: ColorStateList? = null
     override var description: StringHolder? = null
+    override var descriptionTextColor: ColorStateList? = null
     var isNameShown = false
 
     override var badge: StringHolder? = null
@@ -71,6 +73,7 @@ open class ProfileDrawerItem : AbstractDrawerItem<ProfileDrawerItem, ProfileDraw
         val selectedColor = this.selectedColor?.color(ctx) ?: getSelectedColor(ctx)
         //get the correct color for the text
         val color = this.textColor ?: getColor(ctx)
+        val descriptionColor = this.descriptionTextColor ?: getColor(ctx)
         val shapeAppearanceModel = getShapeAppearanceModel(ctx)
 
         //set the background for the item
@@ -100,7 +103,7 @@ open class ProfileDrawerItem : AbstractDrawerItem<ProfileDrawerItem, ProfileDraw
         if (isNameShown) {
             holder.name.setTextColor(color)
         }
-        holder.email.setTextColor(color)
+        holder.email.setTextColor(descriptionColor)
 
         //set the text for the badge or hide
         val badgeVisible = StringHolder.applyToOrHide(badge, holder.badge)

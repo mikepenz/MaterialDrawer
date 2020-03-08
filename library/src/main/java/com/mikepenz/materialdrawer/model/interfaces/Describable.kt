@@ -4,43 +4,37 @@ import androidx.annotation.StringRes
 import com.mikepenz.materialdrawer.holder.StringHolder
 
 /**
- * Defines a [IDrawerItem] with support for defining a name
+ * Defines a [IDrawerItem] with support for defining a description
  */
-interface Nameable {
-    /** the name to show for the item */
-    var name: StringHolder?
+interface Describable {
+    /** The text to show as description */
+    var description: StringHolder?
 }
 
 @Deprecated("Please consider to replace with the actual property setter")
-fun <T : Nameable> T.withName(name: String?): T {
-    this.name = StringHolder(name)
+fun <T : Describable> T.withDescription(description: String): T {
+    this.description = StringHolder(description)
     return this
 }
 
 @Deprecated("Please consider to replace with the actual property setter")
-fun <T : Nameable> T.withName(@StringRes name: Int): T {
-    this.name = StringHolder(name)
+fun <T : Describable> T.withDescription(@StringRes descriptionRes: Int): T {
+    this.description = StringHolder(descriptionRes)
     return this
 }
 
-@Deprecated("Please consider to replace with the actual property setter")
-fun <T : Nameable> T.withName(name: StringHolder?): T {
-    this.name = name
-    return this
-}
-
-/** Set the name */
-var Nameable.nameRes: Int
+/** Set the description */
+var Describable.descriptionRes: Int
     @Deprecated(level = DeprecationLevel.ERROR, message = "Not readable")
     get() = throw UnsupportedOperationException("Please use the direct property")
     set(value) {
-        name = StringHolder(value)
+        description = StringHolder(value)
     }
 
-/** Set the name */
-var Nameable.nameText: CharSequence
+/** Set the description */
+var Describable.descriptionText: CharSequence
     @Deprecated(level = DeprecationLevel.ERROR, message = "Not readable")
     get() = throw UnsupportedOperationException("Please use the direct property")
     set(value) {
-        name = StringHolder(value)
+        description = StringHolder(value)
     }

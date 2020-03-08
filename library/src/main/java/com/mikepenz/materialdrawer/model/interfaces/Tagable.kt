@@ -4,6 +4,7 @@ package com.mikepenz.materialdrawer.model.interfaces
  * Defines a [IDrawerItem] with support for being tagged
  */
 interface Tagable {
+    /** specify a tag attached to the item to use for different situations */
     var tag: Any?
 }
 

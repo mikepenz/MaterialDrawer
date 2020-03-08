@@ -20,9 +20,6 @@ import com.mikepenz.materialdrawer.iconics.iconicsIcon
 import com.mikepenz.materialdrawer.iconics.withIcon
 import com.mikepenz.materialdrawer.model.*
 import com.mikepenz.materialdrawer.model.interfaces.*
-import com.mikepenz.materialdrawer.model.utils.descriptionRes
-import com.mikepenz.materialdrawer.model.utils.nameRes
-import com.mikepenz.materialdrawer.model.utils.nameText
 import com.mikepenz.materialdrawer.util.addItems
 import com.mikepenz.materialdrawer.util.updateBadge
 import com.mikepenz.materialdrawer.widget.AccountHeaderView
@@ -47,15 +44,18 @@ class DrawerActivity : AppCompatActivity() {
 
         // Create a few sample profile
         // NOTE you have to define the loader logic too. See the CustomApplication for more details
-        val profile = ProfileDrawerItem().withName("Mike Penz").withEmail("mikepenz@gmail.com").withIcon("https://avatars3.githubusercontent.com/u/1476232?v=3&s=460").withIdentifier(100)
-        val profile2 = ProfileDrawerItem().withName("Demo User").withEmail("demo@github.com").withIcon("https://avatars2.githubusercontent.com/u/3597376?v=3&s=460").withIdentifier(101)
-        val profile3 = ProfileDrawerItem().withName("Max Muster").withEmail("max.mustermann@gmail.com").withIcon(R.drawable.profile2).withIdentifier(102)
-        val profile4 = ProfileDrawerItem().withName("Felix House").withEmail("felix.house@gmail.com").withIcon(R.drawable.profile3).withIdentifier(103)
-        val profile5 = ProfileDrawerItem().withName("Mr. X").withEmail("mister.x.super@gmail.com").withIcon(R.drawable.profile4).withIdentifier(104)
-        val profile6 = ProfileDrawerItem().withName("Batman").withEmail("batman@gmail.com").withIcon(R.drawable.profile5).withIdentifier(105).withBadge("123").withBadgeStyle(BadgeStyle().apply {
-            textColor = ColorHolder.fromColor(Color.BLACK)
-            color = ColorHolder.fromColor(Color.WHITE)
-        })
+        val profile = ProfileDrawerItem().apply { nameText = "Mike Penz"; descriptionText = "mikepenz@gmail.com"; iconUrl = "https://avatars3.githubusercontent.com/u/1476232?v=3&s=460"; identifier = 100 }
+        val profile2 = ProfileDrawerItem().apply { nameText = "Demo User"; descriptionText = "demo@github.com"; iconUrl = "https://avatars2.githubusercontent.com/u/3597376?v=3&s=460"; identifier = 101 }
+        val profile3 = ProfileDrawerItem().apply { nameText = "Max Muster"; descriptionText = "max.mustermann@gmail.com"; iconRes = R.drawable.profile2; identifier = 102 }
+        val profile4 = ProfileDrawerItem().apply { nameText = "Felix House"; descriptionText = "felix.house@gmail.com"; iconRes = R.drawable.profile3; identifier = 103 }
+        val profile5 = ProfileDrawerItem().apply { nameText = "Mr. X"; descriptionText = "mister.x.super@gmail.com"; iconRes = R.drawable.profile4; identifier = 104 }
+        val profile6 = ProfileDrawerItem().apply {
+            nameText = "Batman"; descriptionText = "batman@gmail.com"; iconRes = R.drawable.profile5; identifier = 105; badgeText = "123";
+            badgeStyle = BadgeStyle().apply {
+                textColor = ColorHolder.fromColor(Color.BLACK)
+                color = ColorHolder.fromColor(Color.WHITE)
+            }
+        }
 
         // Create the AccountHeader
         headerView = AccountHeaderView(this).apply {
@@ -68,8 +68,8 @@ class DrawerActivity : AppCompatActivity() {
                     profile5,
                     profile6,
                     //don't ask but google uses 14dp for the add account icon in gmail but 20dp for the normal icons (like manage account)
-                    ProfileSettingDrawerItem().withName("Add Account").withDescription("Add new GitHub Account").withIcon(IconicsDrawable(context, GoogleMaterial.Icon.gmd_add).apply { actionBar(); paddingDp = 5 }.mutate()).withIconTinted(true).withIdentifier(PROFILE_SETTING.toLong()),
-                    ProfileSettingDrawerItem().withName("Manage Account").withIcon(GoogleMaterial.Icon.gmd_settings).withIdentifier(100001)
+                    ProfileSettingDrawerItem().apply { nameText = "Add Account"; descriptionText = "Add new GitHub Account"; iconDrawable = IconicsDrawable(context, GoogleMaterial.Icon.gmd_add).apply { actionBar(); paddingDp = 5 }.mutate(); isIconTinted = true; identifier = PROFILE_SETTING.toLong() },
+                    ProfileSettingDrawerItem().apply { nameText = "Manage Account"; iconicsIcon = GoogleMaterial.Icon.gmd_settings; identifier = 100001 }
             )
             onAccountHeaderListener = { view, profile, current ->
                 //sample usage of the onProfileChanged listener

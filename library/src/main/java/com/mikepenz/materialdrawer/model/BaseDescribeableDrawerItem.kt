@@ -1,9 +1,10 @@
 package com.mikepenz.materialdrawer.model
 
 import android.content.res.ColorStateList
-import androidx.annotation.StringRes
 import com.mikepenz.materialdrawer.holder.ImageHolder
 import com.mikepenz.materialdrawer.holder.StringHolder
+import com.mikepenz.materialdrawer.model.interfaces.Describable
+import com.mikepenz.materialdrawer.model.interfaces.DescribableColor
 import com.mikepenz.materialdrawer.model.interfaces.IDrawerItem
 import com.mikepenz.materialdrawer.util.getSecondaryDrawerTextColor
 import com.mikepenz.materialdrawer.util.setDrawerVerticalPadding
@@ -12,21 +13,9 @@ import com.mikepenz.materialdrawer.util.themeDrawerItem
 /**
  * An abstract [IDrawerItem] implementation describing a drawerItem with support for a description
  */
-abstract class BaseDescribeableDrawerItem<T, VH : BaseViewHolder> : BaseDrawerItem<T, VH>() {
-    var description: StringHolder? = null
-    var descriptionTextColor: ColorStateList? = null
-
-    @Deprecated("Please consider to replace with the actual property setter")
-    fun withDescription(description: String): T {
-        this.description = StringHolder(description)
-        return this as T
-    }
-
-    @Deprecated("Please consider to replace with the actual property setter")
-    fun withDescription(@StringRes descriptionRes: Int): T {
-        this.description = StringHolder(descriptionRes)
-        return this as T
-    }
+abstract class BaseDescribeableDrawerItem<T, VH : BaseViewHolder> : BaseDrawerItem<T, VH>(), Describable, DescribableColor {
+    override var description: StringHolder? = null
+    override var descriptionTextColor: ColorStateList? = null
 
     /**
      * a helper method to have the logic for all secondaryDrawerItems only once

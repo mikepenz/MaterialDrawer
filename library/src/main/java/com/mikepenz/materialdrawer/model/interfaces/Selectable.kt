@@ -4,7 +4,6 @@ package com.mikepenz.materialdrawer.model.interfaces
  * Defines a [IDrawerItem] with support for being selected
  */
 interface Selectable {
-
     /** If the item is selectable */
     var isSelectable: Boolean
 }

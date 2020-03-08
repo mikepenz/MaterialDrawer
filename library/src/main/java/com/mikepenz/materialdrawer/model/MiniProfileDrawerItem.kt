@@ -1,5 +1,6 @@
 package com.mikepenz.materialdrawer.model
 
+import android.content.res.ColorStateList
 import android.view.View
 import android.widget.ImageView
 import androidx.annotation.DimenRes
@@ -16,6 +17,7 @@ import com.mikepenz.materialdrawer.model.interfaces.IProfile
  */
 open class MiniProfileDrawerItem : AbstractDrawerItem<MiniProfileDrawerItem, MiniProfileDrawerItem.ViewHolder>, IProfile {
     override var icon: ImageHolder? = null
+    override var iconColor: ColorStateList? = null // not supported for this item
     override var name: StringHolder? = null
     override var description: StringHolder? = null
     var customHeight: DimenHolder? = null

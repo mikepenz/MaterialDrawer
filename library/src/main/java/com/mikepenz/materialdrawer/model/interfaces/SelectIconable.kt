@@ -1,51 +1,43 @@
 package com.mikepenz.materialdrawer.model.interfaces
 
-import android.content.res.ColorStateList
 import android.graphics.Bitmap
 import android.graphics.drawable.Drawable
-import android.net.Uri
 import androidx.annotation.DrawableRes
 import com.mikepenz.materialdrawer.holder.ImageHolder
 
 /**
  * Defines a [IDrawerItem] with support for an icon
  */
-interface Iconable {
-    /** the icon to show in the drawer */
-    var icon: ImageHolder?
+interface SelectIconable {
+    /** the icon to show when this item gets selected */
+    var selectedIcon: ImageHolder?
 
-    /** the color of the icon */
-    var iconColor: ColorStateList?
+    /** defines if the icon should get proper tinting with the defined color */
+    var isIconTinted: Boolean
 }
 
-@Deprecated("Please consider to replace with the actual property setter")
-fun <T : Iconable> T.withIconColor(iconColor: ColorStateList): T {
-    this.iconColor = iconColor
-    return this
-}
-
-var <T : Iconable> T.iconDrawable: Drawable
+var <T : Iconable> T.selectedIconDrawable: Drawable
     @Deprecated(level = DeprecationLevel.ERROR, message = "Not readable")
     get() = throw UnsupportedOperationException("Please use the direct property")
     set(value) {
         this.icon = ImageHolder(value)
     }
 
-var <T : Iconable> T.iconBitmap: Bitmap
+var <T : Iconable> T.selectedIconBitmap: Bitmap
     @Deprecated(level = DeprecationLevel.ERROR, message = "Not readable")
     get() = throw UnsupportedOperationException("Please use the direct property")
     set(value) {
         this.icon = ImageHolder(value)
     }
 
-var <T : Iconable> T.iconRes: Int
+var <T : Iconable> T.selectedIconRes: Int
     @Deprecated(level = DeprecationLevel.ERROR, message = "Not readable")
     get() = throw UnsupportedOperationException("Please use the direct property")
     set(@DrawableRes value) {
         this.icon = ImageHolder(value)
     }
 
-var <T : Iconable> T.iconUrl: String
+var <T : Iconable> T.selectedIconUrl: String
     @Deprecated(level = DeprecationLevel.ERROR, message = "Not readable")
     get() = throw UnsupportedOperationException("Please use the direct property")
     set(value) {
@@ -53,37 +45,27 @@ var <T : Iconable> T.iconUrl: String
     }
 
 @Deprecated("Please consider to replace with the actual property setter")
-fun <T : Iconable> T.withIcon(icon: Drawable?): T {
-    this.icon = ImageHolder(icon)
-    return this
+fun <T : SelectIconable> T.withSelectedIcon(selectedIcon: Drawable): T {
+    this.selectedIcon = ImageHolder(selectedIcon)
+    return this as T
 }
 
 @Deprecated("Please consider to replace with the actual property setter")
-fun <T : Iconable> T.withIcon(icon: Bitmap): T {
-    this.icon = ImageHolder(icon)
-    return this
+fun <T : SelectIconable> T.withSelectedIcon(@DrawableRes selectedIconRes: Int): T {
+    this.selectedIcon = ImageHolder(selectedIconRes)
+    return this as T
 }
 
+/** will tint the icon with the default (or set) colors (default and selected state) */
 @Deprecated("Please consider to replace with the actual property setter")
-fun <T : Iconable> T.withIcon(@DrawableRes imageRes: Int): T {
-    this.icon = ImageHolder(imageRes)
-    return this
+fun <T : SelectIconable> T.withIconTintingEnabled(iconTintingEnabled: Boolean): T {
+    this.isIconTinted = iconTintingEnabled
+    return this as T
 }
 
+/** will tint the icon with the default (or set) colors (default and selected state) */
 @Deprecated("Please consider to replace with the actual property setter")
-fun <T : Iconable> T.withIcon(url: String): T {
-    this.icon = ImageHolder(url)
-    return this
-}
-
-@Deprecated("Please consider to replace with the actual property setter")
-fun <T : Iconable> T.withIcon(uri: Uri): T {
-    this.icon = ImageHolder(uri)
-    return this
-}
-
-@Deprecated("Please consider to replace with the actual property setter")
-fun <T : Iconable> T.withIcon(icon: ImageHolder?): T {
-    this.icon = icon
-    return this
+fun <T : SelectIconable> T.withIconTinted(iconTintingEnabled: Boolean): T {
+    this.isIconTinted = iconTintingEnabled
+    return this as T
 }

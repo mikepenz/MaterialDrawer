@@ -6,6 +6,7 @@ import android.graphics.Typeface
  * Defines a [IDrawerItem] with support for defining the [Typeface]
  */
 interface Typefaceable {
+    /** the typeface used for texts */
     var typeface: Typeface?
 }
 

@@ -9,15 +9,18 @@ import androidx.recyclerview.widget.RecyclerView
 import com.mikepenz.materialdrawer.app.R
 import com.mikepenz.materialdrawer.holder.ImageHolder
 import com.mikepenz.materialdrawer.model.AbstractDrawerItem
+import com.mikepenz.materialdrawer.model.interfaces.Iconable
+import com.mikepenz.materialdrawer.model.interfaces.SelectIconable
 import com.mikepenz.materialdrawer.util.createDrawerItemColorStateList
 
 /**
  * Created by mikepenz on 03.02.15.
  */
-class IconDrawerItem : AbstractDrawerItem<IconDrawerItem, IconDrawerItem.ViewHolder>() {
-    var icon: ImageHolder? = null
-    var selectedIcon: ImageHolder? = null
-    var isIconTinted = false
+class IconDrawerItem : AbstractDrawerItem<IconDrawerItem, IconDrawerItem.ViewHolder>(), Iconable, SelectIconable {
+    override var icon: ImageHolder? = null
+    override var iconColor: ColorStateList? = null
+    override var selectedIcon: ImageHolder? = null
+    override var isIconTinted = false
 
     override val type: Int
         get() = R.id.material_drawer_item_icon_only
