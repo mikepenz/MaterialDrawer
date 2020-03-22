@@ -19,6 +19,7 @@ import com.mikepenz.materialdrawer.interfaces.ICrossfader
 import com.mikepenz.materialdrawer.model.*
 import com.mikepenz.materialdrawer.model.interfaces.IDrawerItem
 import com.mikepenz.materialdrawer.model.interfaces.withEnabled
+import com.mikepenz.materialdrawer.model.utils.hiddenInMiniDrawer
 import com.mikepenz.materialdrawer.util.getDrawerItem
 
 /**
@@ -219,10 +220,11 @@ open class MiniDrawerSliderView @JvmOverloads constructor(context: Context, attr
                 }
             }
             //update everything
-            if (selectedDrawerItem.isHiddenInMiniDrawer)
+            if (selectedDrawerItem.hiddenInMiniDrawer) {
                 selectExtension.deselect()
-            else
+            } else {
                 setSelection(selectedDrawerItem.identifier)
+            }
 
             false
         } else {
@@ -365,8 +367,8 @@ open class MiniDrawerSliderView @JvmOverloads constructor(context: Context, attr
      */
     open fun generateMiniDrawerItem(drawerItem: IDrawerItem<*>): IDrawerItem<*>? {
         return when (drawerItem) {
-            is SecondaryDrawerItem -> if (includeSecondaryDrawerItems && !drawerItem.isHiddenInMiniDrawer) MiniDrawerItem(drawerItem).withEnableSelectedBackground(enableSelectedMiniDrawerItemBackground).withSelectedBackgroundAnimated(false) else null
-            is PrimaryDrawerItem -> if (!drawerItem.isHiddenInMiniDrawer) MiniDrawerItem(drawerItem).withEnableSelectedBackground(enableSelectedMiniDrawerItemBackground).withSelectedBackgroundAnimated(false) else null
+            is SecondaryDrawerItem -> if (includeSecondaryDrawerItems && !drawerItem.hiddenInMiniDrawer) MiniDrawerItem(drawerItem).withEnableSelectedBackground(enableSelectedMiniDrawerItemBackground).withSelectedBackgroundAnimated(false) else null
+            is PrimaryDrawerItem -> if (!drawerItem.hiddenInMiniDrawer) MiniDrawerItem(drawerItem).withEnableSelectedBackground(enableSelectedMiniDrawerItemBackground).withSelectedBackgroundAnimated(false) else null
             is ProfileDrawerItem -> MiniProfileDrawerItem(drawerItem).apply { withEnabled(enableProfileClick) }
             else -> null
         }

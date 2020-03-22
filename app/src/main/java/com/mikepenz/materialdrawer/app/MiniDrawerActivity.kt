@@ -27,6 +27,7 @@ import com.mikepenz.materialdrawer.iconics.withIcon
 import com.mikepenz.materialdrawer.interfaces.OnCheckedChangeListener
 import com.mikepenz.materialdrawer.model.*
 import com.mikepenz.materialdrawer.model.interfaces.*
+import com.mikepenz.materialdrawer.model.utils.withIsHiddenInMiniDrawer
 import com.mikepenz.materialdrawer.widget.AccountHeaderView
 import com.mikepenz.materialdrawer.widget.MaterialDrawerSliderView
 import com.mikepenz.materialdrawer.widget.MiniDrawerSliderView

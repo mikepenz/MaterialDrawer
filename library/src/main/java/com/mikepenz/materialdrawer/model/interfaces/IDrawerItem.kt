@@ -15,8 +15,6 @@ interface IDrawerItem<VH : RecyclerView.ViewHolder> : IItem<VH>, IItemVHFactory<
 
     override var isSelected: Boolean
 
-    var isHiddenInMiniDrawer: Boolean
-
     override val type: Int
 
     val layoutRes: Int
@@ -55,11 +53,5 @@ fun <T : IDrawerItem<*>> T.withEnabled(enabled: Boolean): T {
 @Deprecated("Please consider to replace with the actual property setter")
 fun <T : IDrawerItem<*>> T.withSelected(selected: Boolean): T {
     this.isSelected = selected
-    return this
-}
-
-@Deprecated("Please consider to replace with the actual property setter")
-fun <T : IDrawerItem<*>> T.withIsHiddenInMiniDrawer(hidden: Boolean): T {
-    this.isHiddenInMiniDrawer = hidden
     return this
 }
