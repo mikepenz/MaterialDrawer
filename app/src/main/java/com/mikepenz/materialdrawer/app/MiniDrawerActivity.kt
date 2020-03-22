@@ -104,6 +104,7 @@ class MiniDrawerActivity : AppCompatActivity() {
             customWidth = MATCH_PARENT
             itemAdapter.add(
                     PrimaryDrawerItem().withName(R.string.drawer_item_compact_header).withIcon(GoogleMaterial.Icon.gmd_brightness_5).withIdentifier(1),
+                    PrimaryDrawerItem().withName("Item NOT in mini drawer").withIcon(GoogleMaterial.Icon.gmd_bluetooth).withIdentifier(100).withIsHiddenInMiniDrawer(true),
                     PrimaryDrawerItem().withName(R.string.drawer_item_action_bar_drawer).withIcon(FontAwesome.Icon.faw_home).withBadge("22").withBadgeStyle(BadgeStyle(Color.RED, Color.RED)).withIdentifier(2).withSelectable(false),
                     PrimaryDrawerItem().withName(R.string.drawer_item_multi_drawer).withIcon(FontAwesome.Icon.faw_gamepad).withIdentifier(3),
                     PrimaryDrawerItem().withName(R.string.drawer_item_non_translucent_status_drawer).withIcon(FontAwesome.Icon.faw_eye).withIdentifier(4),
