@@ -219,7 +219,10 @@ open class MiniDrawerSliderView @JvmOverloads constructor(context: Context, attr
                 }
             }
             //update everything
-            setSelection(selectedDrawerItem.identifier)
+            if (selectedDrawerItem.isHiddenInMiniDrawer)
+                selectExtension.deselect()
+            else
+                setSelection(selectedDrawerItem.identifier)
 
             false
         } else {
@@ -362,8 +365,8 @@ open class MiniDrawerSliderView @JvmOverloads constructor(context: Context, attr
      */
     open fun generateMiniDrawerItem(drawerItem: IDrawerItem<*>): IDrawerItem<*>? {
         return when (drawerItem) {
-            is SecondaryDrawerItem -> if (includeSecondaryDrawerItems) MiniDrawerItem(drawerItem).withEnableSelectedBackground(enableSelectedMiniDrawerItemBackground).withSelectedBackgroundAnimated(false) else null
-            is PrimaryDrawerItem -> MiniDrawerItem(drawerItem).withEnableSelectedBackground(enableSelectedMiniDrawerItemBackground).withSelectedBackgroundAnimated(false)
+            is SecondaryDrawerItem -> if (includeSecondaryDrawerItems && !drawerItem.isHiddenInMiniDrawer) MiniDrawerItem(drawerItem).withEnableSelectedBackground(enableSelectedMiniDrawerItemBackground).withSelectedBackgroundAnimated(false) else null
+            is PrimaryDrawerItem -> if (!drawerItem.isHiddenInMiniDrawer) MiniDrawerItem(drawerItem).withEnableSelectedBackground(enableSelectedMiniDrawerItemBackground).withSelectedBackgroundAnimated(false) else null
             is ProfileDrawerItem -> MiniProfileDrawerItem(drawerItem).apply { withEnabled(enableProfileClick) }
             else -> null
         }

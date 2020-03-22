@@ -41,6 +41,9 @@ abstract class AbstractDrawerItem<T, VH : RecyclerView.ViewHolder> : IDrawerItem
     // defines if this item is selectable
     override var isSelectable = true
 
+    // defines if this item should be excluded from the mini drawer
+    override var isHiddenInMiniDrawer = false
+
     // defines if the item's background' change should be animated when it is (de)selected
     var isSelectedBackgroundAnimated = true
 
