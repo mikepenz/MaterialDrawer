@@ -22,10 +22,10 @@ buildscript {
                 drawerlayout     : '1.1.0-alpha04',
                 constraintLayout : '2.0.0-beta4',
                 cardview         : '1.0.0',
-                kotlin           : "1.3.70",
+                kotlin           : "1.3.71",
                 fastadapter      : "5.0.0",
-                iconics          : "5.0.0-a04",
-                aboutLibs        : "8.0.0",
+                iconics          : "5.0.0",
+                aboutLibs        : "8.0.2",
                 navigation       : "2.2.1",
                 slidingpaneLayout: "1.0.0"
         ]
@@ -37,7 +37,7 @@ buildscript {
         mavenCentral()
     }
     dependencies {
-        classpath 'com.android.tools.build:gradle:3.5.3'
+        classpath 'com.android.tools.build:gradle:3.6.1'
         classpath 'com.github.dcendents:android-maven-gradle-plugin:2.1'
         classpath 'com.jfrog.bintray.gradle:gradle-bintray-plugin:1.8.4'
         classpath "org.jetbrains.kotlin:kotlin-gradle-plugin:${versions.kotlin}"
