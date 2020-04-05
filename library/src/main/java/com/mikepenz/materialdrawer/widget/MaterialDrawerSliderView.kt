@@ -80,12 +80,14 @@ open class MaterialDrawerSliderView @JvmOverloads constructor(context: Context, 
             field = value
             invalidateThis()
         }
+
     /** Specify if the navigationbar should be tinted. */
     var tintNavigationBar = true
         set(value) {
             field = value
             invalidateThis()
         }
+
     /** Specify if the systemUI should be visible. */
     var systemUIVisible = true
         set(value) {
@@ -105,6 +107,7 @@ open class MaterialDrawerSliderView @JvmOverloads constructor(context: Context, 
             field = value
             createContent()
         }
+
     /** Specify if the [com.mikepenz.fastadapter.IIdDistributor] for the [FastAdapter] */
     val idDistributor: DefaultIdDistributor<IDrawerItem<*>> = DefaultIdDistributorImpl()
 
@@ -123,6 +126,7 @@ open class MaterialDrawerSliderView @JvmOverloads constructor(context: Context, 
                 field?.attachToSliderView(this)
             }
         }
+
     /** Defines if the account header shall be displayed as a sticky header. */
     var accountHeaderSticky = false
         set(value) {
@@ -158,6 +162,7 @@ open class MaterialDrawerSliderView @JvmOverloads constructor(context: Context, 
             }
         }
     internal var _headerDivider = true
+
     /** Defines if there should be a divider below the header. */
     var headerDivider: Boolean
         get() = _headerDivider
@@ -166,6 +171,7 @@ open class MaterialDrawerSliderView @JvmOverloads constructor(context: Context, 
             headerView = headerView // udpate the header view
         }
     internal var _headerPadding = true
+
     /** Defines the apdding for the header divider. */
     var headerPadding: Boolean
         get() = _headerPadding
@@ -173,6 +179,7 @@ open class MaterialDrawerSliderView @JvmOverloads constructor(context: Context, 
             _headerPadding = value
             headerView = headerView // udpate the header view
         }
+
     /** Defines the height of the header. */
     var headerHeight: DimenHolder? = null
         set(value) {
@@ -186,6 +193,7 @@ open class MaterialDrawerSliderView @JvmOverloads constructor(context: Context, 
             field = value
             handleHeaderView()
         }
+
     /** Defines if a shadow shown on the top of the sticky header. */
     var stickyHeaderShadow = true
         set(value) {
@@ -206,6 +214,7 @@ open class MaterialDrawerSliderView @JvmOverloads constructor(context: Context, 
                 }
             }
         }
+
     /** Defines if the footer should show with a divider. */
     var footerDivider = true
         set(value) {
@@ -218,6 +227,7 @@ open class MaterialDrawerSliderView @JvmOverloads constructor(context: Context, 
     }
 
     internal var _stickyFooterView: ViewGroup? = null
+
     /** Defines the [ViewGroup] to display as sticky footer. */
     val stickyFooterView: ViewGroup?
         get() = _stickyFooterView
@@ -228,12 +238,14 @@ open class MaterialDrawerSliderView @JvmOverloads constructor(context: Context, 
             field = value
             handleStickyFooterView()
         }
+
     /** Defines the shadow [View] to provide for the sticky footer. */
     var stickyFooterShadowView: View? = null
         set(value) {
             field = value
             handleStickyFooterView()
         }
+
     /** Defines if the sticky footer should display a shadow above. */
     var stickyFooterShadow = true
         set(value) {
@@ -252,6 +264,7 @@ open class MaterialDrawerSliderView @JvmOverloads constructor(context: Context, 
 
     // item to select
     private var _selectedItemPosition: Int = 0
+
     /** Defines the currently selected item position. */
     var selectedItemPosition: Int
         get() = _selectedItemPosition
@@ -270,6 +283,7 @@ open class MaterialDrawerSliderView @JvmOverloads constructor(context: Context, 
 
     // the _drawerLayout owning this slider
     internal var _drawerLayout: DrawerLayout? = null
+
     /** Defines the [DrawerLayout] bound to this [MaterialDrawerSliderView]. */
     val drawerLayout: DrawerLayout?
         get() = _drawerLayout
@@ -288,20 +302,26 @@ open class MaterialDrawerSliderView @JvmOverloads constructor(context: Context, 
     var hasStableIds = true
         set(value) {
             field = value
+            recyclerView.adapter = null // disconnect the RV
             adapter.setHasStableIds(hasStableIds)
+            attachAdapter() // reattach the RV
         }
 
     // an adapter to use for the list
     internal lateinit var _adapter: FastAdapter<IDrawerItem<*>>
+
     /** Defines the adapter for the header items */
     var headerAdapter: ModelAdapter<IDrawerItem<*>, IDrawerItem<*>> = ItemAdapter()
         internal set
+
     /** Defines the adapter for the normal items */
     var itemAdapter: ModelAdapter<IDrawerItem<*>, IDrawerItem<*>> = ItemAdapter()
         internal set
+
     /** Defines the adapter for the account items (if we switch the set of elements) */
     var secondaryItemAdapter: ModelAdapter<IDrawerItem<*>, IDrawerItem<*>> = ItemAdapter()
         internal set
+
     /** Defines the adapter for the footer items */
     var footerAdapter: ModelAdapter<IDrawerItem<*>, IDrawerItem<*>> = ItemAdapter()
         internal set
@@ -574,11 +594,7 @@ open class MaterialDrawerSliderView @JvmOverloads constructor(context: Context, 
         handleFooterView()
 
         //set the adapter on the listView
-        if (adapterWrapper == null) {
-            recyclerView.adapter = adapter
-        } else {
-            recyclerView.adapter = adapterWrapper
-        }
+        attachAdapter()
 
         //predefine selection (should be the first element)
         selectedItemPosition = _selectedItemPosition
@@ -630,6 +646,18 @@ open class MaterialDrawerSliderView @JvmOverloads constructor(context: Context, 
         }
 
         recyclerView.scrollToPosition(0)
+    }
+
+    /**
+     * Attaches the adapter to the recyclerView
+     */
+    private fun attachAdapter() {
+        //set the adapter on the listView
+        if (adapterWrapper == null) {
+            recyclerView.adapter = adapter
+        } else {
+            recyclerView.adapter = adapterWrapper
+        }
     }
 
     /**
