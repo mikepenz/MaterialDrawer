@@ -269,7 +269,7 @@ open class BezelImageView @JvmOverloads constructor(context: Context, attrs: Att
         super.setImageResource(resId)
     }
 
-    override fun setImageBitmap(bm: Bitmap) {
+    override fun setImageBitmap(bm: Bitmap?) {
         super.setImageBitmap(bm)
     }
 
