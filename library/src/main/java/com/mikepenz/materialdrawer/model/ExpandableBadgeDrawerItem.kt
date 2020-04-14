@@ -67,9 +67,9 @@ open class ExpandableBadgeDrawerItem : BaseDescribeableDrawerItem<ExpandableBadg
         //style the badge if it is visible
         if (badgeVisible) {
             badgeStyle?.style(holder.badge, getColor(ctx))
-            holder.badgeContainer.visibility = View.VISIBLE
+            holder.badge.visibility = View.VISIBLE
         } else {
-            holder.badgeContainer.visibility = View.GONE
+            holder.badge.visibility = View.GONE
         }
 
         //define the typeface for our textViews
@@ -113,9 +113,8 @@ open class ExpandableBadgeDrawerItem : BaseDescribeableDrawerItem<ExpandableBadg
     }
 
     class ViewHolder(view: View) : BaseViewHolder(view) {
-        var arrow: ImageView = view.findViewById(R.id.material_drawer_arrow)
-        var badgeContainer: View = view.findViewById(R.id.material_drawer_badge_container)
-        var badge: TextView = view.findViewById(R.id.material_drawer_badge)
+        val arrow: ImageView = view.findViewById(R.id.material_drawer_arrow)
+        val badge: TextView = view.findViewById(R.id.material_drawer_badge)
 
         init {
             arrow.setImageDrawable(AppCompatResources.getDrawable(view.context, R.drawable.material_drawer_ico_chevron_down))

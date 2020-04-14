@@ -45,7 +45,7 @@
         android:textDirection="anyRtl"
         android:textSize="@dimen/material_drawer_item_profile_text"
         app:layout_constraintBottom_toTopOf="@id/material_drawer_email"
-        app:layout_constraintEnd_toStartOf="@+id/material_drawer_badge_container"
+        app:layout_constraintEnd_toStartOf="@+id/material_drawer_badge"
         app:layout_constraintStart_toEndOf="@id/material_drawer_profileIcon"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintVertical_chainStyle="packed"
@@ -70,37 +70,29 @@
         android:textDirection="anyRtl"
         android:textSize="@dimen/material_drawer_item_profile_description"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toStartOf="@+id/material_drawer_badge_container"
+        app:layout_constraintEnd_toStartOf="@+id/material_drawer_badge"
         app:layout_constraintStart_toEndOf="@id/material_drawer_profileIcon"
         app:layout_constraintTop_toBottomOf="@id/material_drawer_name"
         tools:text="Some drawer text" />
 
-    <LinearLayout
-        android:id="@+id/material_drawer_badge_container"
+    <androidx.appcompat.widget.AppCompatTextView
+        android:id="@+id/material_drawer_badge"
         android:layout_width="wrap_content"
-        android:layout_height="match_parent"
-        android:clipToPadding="false"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="@dimen/material_drawer_padding"
+        android:layout_marginLeft="@dimen/material_drawer_padding"
+        android:layout_marginEnd="0dp"
+        android:layout_marginRight="0dp"
+        android:fontFamily="sans-serif"
         android:gravity="center"
-        android:paddingStart="@dimen/material_drawer_padding"
-        android:paddingLeft="@dimen/material_drawer_padding"
-        android:paddingEnd="0dp"
-        android:paddingRight="0dp"
+        android:lines="1"
+        android:minWidth="20dp"
+        android:paddingLeft="1dp"
+        android:paddingRight="1dp"
+        android:singleLine="true"
+        android:textSize="@dimen/material_drawer_item_primary_text"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toTopOf="parent">
-
-        <androidx.appcompat.widget.AppCompatTextView
-            android:id="@+id/material_drawer_badge"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:fontFamily="sans-serif"
-            android:gravity="center"
-            android:lines="1"
-            android:minWidth="20dp"
-            android:paddingLeft="1dp"
-            android:paddingRight="1dp"
-            android:singleLine="true"
-            android:textSize="@dimen/material_drawer_item_primary_text"
-            tools:text="99" />
-    </LinearLayout>
+        app:layout_constraintTop_toTopOf="parent"
+        tools:text="99" />
 </androidx.constraintlayout.widget.ConstraintLayout>

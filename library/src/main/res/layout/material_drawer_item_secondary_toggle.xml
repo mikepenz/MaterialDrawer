@@ -33,7 +33,7 @@
         android:textDirection="anyRtl"
         android:textSize="@dimen/material_drawer_item_secondary_text"
         app:layout_constraintBottom_toTopOf="@id/material_drawer_description"
-        app:layout_constraintEnd_toStartOf="@+id/material_drawer_badge_container"
+        app:layout_constraintEnd_toStartOf="@+id/material_drawer_badge"
         app:layout_constraintStart_toEndOf="@id/material_drawer_icon"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintVertical_chainStyle="packed"
@@ -50,29 +50,23 @@
         android:textDirection="anyRtl"
         android:textSize="@dimen/material_drawer_item_secondary_description"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toStartOf="@+id/material_drawer_badge_container"
+        app:layout_constraintEnd_toStartOf="@+id/material_drawer_badge"
         app:layout_constraintStart_toEndOf="@id/material_drawer_icon"
         app:layout_constraintTop_toBottomOf="@id/material_drawer_name"
         tools:text="Some drawer text" />
 
-    <LinearLayout
-        android:id="@+id/material_drawer_badge_container"
+    <ToggleButton
+        android:id="@+id/material_drawer_toggle"
         android:layout_width="wrap_content"
         android:layout_height="match_parent"
-        android:gravity="center"
-        android:paddingStart="@dimen/material_drawer_padding"
-        android:paddingLeft="@dimen/material_drawer_padding"
-        android:paddingEnd="0dp"
-        android:paddingRight="0dp"
+        android:layout_marginStart="@dimen/material_drawer_padding"
+        android:layout_marginLeft="@dimen/material_drawer_padding"
+        android:layout_marginEnd="0dp"
+        android:layout_marginRight="0dp"
+        android:gravity="center_vertical|end"
+        android:textSize="@dimen/material_drawer_item_secondary_extra_text"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toTopOf="parent">
+        app:layout_constraintTop_toTopOf="parent" />
 
-        <ToggleButton
-            android:id="@+id/material_drawer_toggle"
-            android:layout_width="wrap_content"
-            android:layout_height="match_parent"
-            android:gravity="center_vertical|end"
-            android:textSize="@dimen/material_drawer_item_secondary_extra_text" />
-    </LinearLayout>
 </androidx.constraintlayout.widget.ConstraintLayout>

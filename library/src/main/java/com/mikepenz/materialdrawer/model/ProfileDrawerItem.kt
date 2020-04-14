@@ -110,9 +110,9 @@ open class ProfileDrawerItem : AbstractDrawerItem<ProfileDrawerItem, ProfileDraw
         //style the badge if it is visible
         if (badgeVisible) {
             badgeStyle?.style(holder.badge, getColor(ctx))
-            holder.badgeContainer.visibility = View.VISIBLE
+            holder.badge.visibility = View.VISIBLE
         } else {
-            holder.badgeContainer.visibility = View.GONE
+            holder.badge.visibility = View.GONE
         }
 
         //define the typeface for our textViews
@@ -140,7 +140,6 @@ open class ProfileDrawerItem : AbstractDrawerItem<ProfileDrawerItem, ProfileDraw
         internal val profileIcon: ImageView = view.findViewById(R.id.material_drawer_profileIcon)
         internal val name: TextView = view.findViewById(R.id.material_drawer_name)
         internal val email: TextView = view.findViewById(R.id.material_drawer_email)
-        internal val badgeContainer: View = view.findViewById(R.id.material_drawer_badge_container)
         internal val badge: TextView = view.findViewById(R.id.material_drawer_badge)
     }
 }
