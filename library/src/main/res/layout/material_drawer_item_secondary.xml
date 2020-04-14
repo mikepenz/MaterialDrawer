@@ -13,7 +13,6 @@
         android:id="@+id/material_drawer_icon"
         android:layout_width="@dimen/material_drawer_item_secondary_icon"
         android:layout_height="@dimen/material_drawer_item_secondary"
-        android:layout_gravity="center_vertical"
         android:paddingStart="0dp"
         android:paddingLeft="0dp"
         android:paddingTop="@dimen/material_drawer_item_secondary_icon_padding"
@@ -35,10 +34,9 @@
         android:textDirection="anyRtl"
         android:textSize="@dimen/material_drawer_item_secondary_text"
         app:layout_constraintBottom_toTopOf="@id/material_drawer_description"
-        app:layout_constraintEnd_toStartOf="@+id/material_drawer_badge"
+        app:layout_constraintEnd_toStartOf="@+id/material_drawer_barrier"
         app:layout_constraintStart_toEndOf="@id/material_drawer_icon"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_chainStyle="packed"
         tools:text="Some secondary text" />
 
     <androidx.appcompat.widget.AppCompatTextView
@@ -51,11 +49,18 @@
         android:singleLine="true"
         android:textDirection="anyRtl"
         android:textSize="@dimen/material_drawer_item_secondary_description"
+        android:visibility="gone"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toStartOf="@+id/material_drawer_badge"
         app:layout_constraintStart_toEndOf="@id/material_drawer_icon"
         app:layout_constraintTop_toBottomOf="@id/material_drawer_name"
         tools:text="Some drawer text" />
+
+    <androidx.constraintlayout.widget.Barrier
+        android:id="@+id/material_drawer_barrier"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:barrierDirection="start"
+        app:constraint_referenced_ids="material_drawer_badge" />
 
     <androidx.appcompat.widget.AppCompatTextView
         android:id="@+id/material_drawer_badge"
@@ -75,6 +80,8 @@
         android:textSize="@dimen/material_drawer_item_primary_text"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@id/material_drawer_barrier"
         app:layout_constraintTop_toTopOf="parent"
         tools:text="99" />
+
 </androidx.constraintlayout.widget.ConstraintLayout>
