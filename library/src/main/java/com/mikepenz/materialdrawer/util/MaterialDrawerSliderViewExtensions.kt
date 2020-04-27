@@ -42,14 +42,16 @@ fun MaterialDrawerSliderView.removeItems(vararg identifiers: Long) {
 }
 
 /**
- * add single ore more DrawerItems to the Drawer
+ * remove single ore more drawerItems via their identifier
  */
 fun MaterialDrawerSliderView.removeAllItems(vararg drawerItems: IDrawerItem<*>) {
-    itemAdapter.clear()
+    drawerItems.forEach {
+        itemAdapter.removeByIdentifier(it.identifier)
+    }
 }
 
 /**
- * add single ore more DrawerItems to the Drawer
+ * set single ore more DrawerItems to the Drawer
  */
 fun MaterialDrawerSliderView.setItems(vararg drawerItems: IDrawerItem<*>) {
     itemAdapter.set(drawerItems.asList())
