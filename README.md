@@ -351,6 +351,7 @@ Thanks to @zsmb13 there's now an (in)official Kotlin DSL wrapper for the Materia
 * [MyFuelLog2](https://play.google.com/store/apps/details?id=com.acty.myfuellog2)
 * [MECSol](https://play.google.com/store/apps/details?id=tk.rlta.mecsol)
 * [3D Geeks: Thingiverse Browser for 3D Printing](https://play.google.com/store/apps/details?id=work.twob.threed)
+* [Tusky: Mastodon Client for Android](https://github.com/tuskyapp/Tusky)
 
 # Articles about the MaterialDrawer
 * [java-help.ru - MaterialDrawer tutorial](http://java-help.ru/material-navigationdrawer/)
