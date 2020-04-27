@@ -34,7 +34,7 @@ fun MaterialDrawerSliderView.setStickyFooterSelection(position: Int, fireOnClick
             }
             if (footer.childCount > position && position >= 0) {
                 val drawerItem = footer.getChildAt(position).getTag(R.id.material_drawer_item) as IDrawerItem<*>
-                DrawerUtils.onFooterDrawerItemClick(this, drawerItem, footer.getChildAt(position), fireOnClick)
+                onFooterDrawerItemClick(this, drawerItem, footer.getChildAt(position), fireOnClick)
             }
         }
     }

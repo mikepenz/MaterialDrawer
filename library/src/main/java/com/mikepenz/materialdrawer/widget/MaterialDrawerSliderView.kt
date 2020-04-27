@@ -39,13 +39,8 @@ import com.mikepenz.materialdrawer.holder.DimenHolder
 import com.mikepenz.materialdrawer.model.AbstractDrawerItem
 import com.mikepenz.materialdrawer.model.ContainerDrawerItem
 import com.mikepenz.materialdrawer.model.interfaces.IDrawerItem
-import com.mikepenz.materialdrawer.util.DrawerUtils.handleFooterView
-import com.mikepenz.materialdrawer.util.DrawerUtils.handleHeaderView
-import com.mikepenz.materialdrawer.util.DrawerUtils.onFooterDrawerItemClick
-import com.mikepenz.materialdrawer.util.DrawerUtils.rebuildStickyFooterView
-import com.mikepenz.materialdrawer.util.getOptimalDrawerWidth
-import com.mikepenz.materialdrawer.util.getPosition
-import com.mikepenz.materialdrawer.util.setStickyFooterSelection
+import com.mikepenz.materialdrawer.util.*
+import com.mikepenz.materialdrawer.util.handleHeaderView
 import java.util.*
 
 /**
