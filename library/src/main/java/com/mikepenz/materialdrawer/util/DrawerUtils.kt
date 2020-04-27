@@ -1,3 +1,4 @@
+@file:JvmName("DrawerUtils")
 package com.mikepenz.materialdrawer.util
 
 import android.annotation.SuppressLint
@@ -25,6 +26,7 @@ import com.mikepenz.materialdrawer.widget.MaterialDrawerSliderView
 /**
  * helpful functions for working with the [MaterialDrawerSliderView]
  */
+
 
 /**
  * helper function to handle the onClick of the footer
