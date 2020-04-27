@@ -27,7 +27,7 @@ abstract class AbstractDrawerImageLoader : DrawerImageLoader.IDrawerImageLoader 
      * Retrieve the placeholder to display
      */
     override fun placeholder(ctx: Context): Drawable {
-        return DrawerUtils.getPlaceHolder(ctx)
+        return getPlaceHolder(ctx)
     }
 
     /**

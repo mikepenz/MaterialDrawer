@@ -10,7 +10,7 @@ import com.mikepenz.materialdrawer.holder.ImageHolder
 import com.mikepenz.materialdrawer.holder.StringHolder
 import com.mikepenz.materialdrawer.model.BaseDrawerItem
 import com.mikepenz.materialdrawer.util.DrawerImageLoader
-import com.mikepenz.materialdrawer.util.DrawerUtils.setDrawerVerticalPadding
+import com.mikepenz.materialdrawer.util.setDrawerVerticalPadding
 import com.mikepenz.materialdrawer.util.themeDrawerItem
 
 /**
