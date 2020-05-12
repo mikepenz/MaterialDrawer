@@ -19,8 +19,8 @@ abstract class BaseDrawerItem<T, VH : RecyclerView.ViewHolder> : AbstractDrawerI
     override var textColor: ColorStateList? = null
     override var isIconTinted = false
 
+    /** Allows to set the 'level' of this item */
     var level = 1
-        protected set
 
     @Deprecated("Please consider to replace with the actual property setter")
     fun withLevel(level: Int): T {
