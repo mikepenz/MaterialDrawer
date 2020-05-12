@@ -9,6 +9,7 @@ import android.view.MenuItem
 import androidx.appcompat.app.ActionBarDrawerToggle
 import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.view.ActionMode
+import com.mikepenz.aboutlibraries.util.getThemeColor
 import com.mikepenz.iconics.IconicsDrawable
 import com.mikepenz.iconics.typeface.library.fontawesome.FontAwesome
 import com.mikepenz.iconics.typeface.library.googlematerial.GoogleMaterial
@@ -20,7 +21,6 @@ import com.mikepenz.materialdrawer.iconics.withIcon
 import com.mikepenz.materialdrawer.model.*
 import com.mikepenz.materialdrawer.model.interfaces.*
 import com.mikepenz.materialdrawer.widget.AccountHeaderView
-import com.mikepenz.materialize.util.UIUtils
 import kotlinx.android.synthetic.main.activity_sample.*
 
 class CompactHeaderDrawerActivity : AppCompatActivity() {
@@ -139,7 +139,7 @@ class CompactHeaderDrawerActivity : AppCompatActivity() {
 
         override fun onCreateActionMode(mode: ActionMode, menu: Menu): Boolean {
             if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
-                window.statusBarColor = UIUtils.getThemeColorFromAttrOrRes(this@CompactHeaderDrawerActivity, R.attr.colorPrimaryDark, R.color.colorPrimaryDark)
+                window.statusBarColor = getThemeColor(R.attr.colorPrimaryDark, getColor(R.color.colorPrimaryDark))
             }
 
             mode.menuInflater.inflate(R.menu.cab, menu)

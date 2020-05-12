@@ -11,7 +11,7 @@ import androidx.drawerlayout.widget.DrawerLayout
 import com.mikepenz.crossfadedrawerlayout.ApplyTransformationListener
 import com.mikepenz.crossfadedrawerlayout.animation.ResizeWidthAnimation
 import com.mikepenz.materialdrawer.app.R
-import com.mikepenz.materialize.util.UIUtils
+import com.mikepenz.materialdrawer.app.utils.convertDpToPixel
 
 /**
  * Created by mikepenz on 20.10.15.
@@ -22,6 +22,7 @@ open class CrossfadeDrawerLayout : DrawerLayout {
 
     private var touchDown = -1f
     private var prevTouch = -1f
+
     //remember the previous width to optimize performance
     private var prevWidth = -1
 
@@ -53,11 +54,11 @@ open class CrossfadeDrawerLayout : DrawerLayout {
         init(context)
     }
 
-    private fun init(ctx: Context?) {
+    private fun init(ctx: Context) {
         super.addDrawerListener(innerDrawerListener)
         //define default valuse for min and max
-        minWidthPx = UIUtils.convertDpToPixel(72f, ctx).toInt()
-        maxWidthPx = UIUtils.convertDpToPixel(200f, ctx).toInt()
+        minWidthPx = convertDpToPixel(72f, ctx).toInt()
+        maxWidthPx = convertDpToPixel(200f, ctx).toInt()
     }
 
     override fun addView(child: View, index: Int) {
