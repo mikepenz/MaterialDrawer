@@ -4,6 +4,7 @@ import android.content.Context
 import android.content.res.ColorStateList
 import android.graphics.Bitmap
 import android.graphics.PorterDuff
+import android.graphics.drawable.BitmapDrawable
 import android.graphics.drawable.Drawable
 import android.net.Uri
 import android.view.View
@@ -84,6 +85,7 @@ open class ImageHolder {
             } catch (e: FileNotFoundException) {
                 //no need to handle this
             }
+            bitmap != null -> icon = BitmapDrawable(ctx.resources, bitmap)
         }
         //if we got an icon AND we have auto tinting enabled AND it is no IIcon, tint it ;)
         if (icon != null && tint) {
