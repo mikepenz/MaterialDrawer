@@ -1,6 +1,6 @@
 # MaterialDrawer [![Status](https://travis-ci.org/mikepenz/MaterialDrawer.svg?branch=develop)](https://travis-ci.org/mikepenz/MaterialDrawer) [![Download](https://api.bintray.com/packages/mikepenz/maven/com.mikepenz%3Amaterialdrawer/images/download.svg) ](https://bintray.com/mikepenz/maven/com.mikepenz%3Amaterialdrawer/_latestVersion)
 
-... the flexbile, easy to use, all in one drawer library for your Android project.
+... the flexible, easy to use, all in one drawer library for your Android project.
 
 -------
 
