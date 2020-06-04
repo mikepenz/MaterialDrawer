@@ -38,6 +38,12 @@ android {
     kotlinOptions.freeCompilerArgs += ["-module-name", POM_ARTIFACT_ID]
 }
 
+project.tasks.withType(org.jetbrains.kotlin.gradle.tasks.KotlinCompile).all {
+    kotlinOptions {
+        jvmTarget = "1.8"
+    }
+}
+
 dependencies {
     implementation "androidx.core:core-ktx:${versions.core}"
     implementation "androidx.drawerlayout:drawerlayout:${versions.drawerlayout}"
