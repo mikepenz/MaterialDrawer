@@ -42,9 +42,16 @@ fun MaterialDrawerSliderView.removeItems(vararg identifiers: Long) {
 }
 
 /**
+ * remove all items from this drawer
+ */
+fun MaterialDrawerSliderView.removeAllItems() {
+    itemAdapter.clear()
+}
+
+/**
  * remove single ore more drawerItems via their identifier
  */
-fun MaterialDrawerSliderView.removeAllItems(vararg drawerItems: IDrawerItem<*>) {
+fun MaterialDrawerSliderView.removeItems(vararg drawerItems: IDrawerItem<*>) {
     drawerItems.forEach {
         itemAdapter.removeByIdentifier(it.identifier)
     }
