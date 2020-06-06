@@ -40,7 +40,6 @@ import com.mikepenz.materialdrawer.model.AbstractDrawerItem
 import com.mikepenz.materialdrawer.model.ContainerDrawerItem
 import com.mikepenz.materialdrawer.model.interfaces.IDrawerItem
 import com.mikepenz.materialdrawer.util.*
-import com.mikepenz.materialdrawer.util.handleHeaderView
 import java.util.*
 
 /**
@@ -792,7 +791,6 @@ open class MaterialDrawerSliderView @JvmOverloads constructor(context: Context, 
     @JvmOverloads
     fun setSelection(identifier: Long, fireOnClick: Boolean = true) {
         val select = adapter.getSelectExtension()
-        select.deselect()
         select.selectByIdentifier(identifier, false, true)
 
         //we also have to call the general notify
