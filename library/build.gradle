@@ -34,12 +34,9 @@ android {
         targetCompatibility JavaVersion.VERSION_1_8
     }
 
-    // specify the artifactId as module-name for kotlin
-    kotlinOptions.freeCompilerArgs += ["-module-name", POM_ARTIFACT_ID]
-}
-
-project.tasks.withType(org.jetbrains.kotlin.gradle.tasks.KotlinCompile).all {
     kotlinOptions {
+        // specify the artifactId as module-name for kotlin
+        freeCompilerArgs += ["-module-name", POM_ARTIFACT_ID]
         jvmTarget = "1.8"
     }
 }

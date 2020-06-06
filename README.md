@@ -17,7 +17,6 @@
 
 ### What's included 🚀
 - **the easiest possible integration**
-- integrate in less than **5 minutes**
 - **uses the androidX support libraries**
 - compatible down to **API Level 16**
 - includes an **AccountSwitcher**
@@ -251,6 +250,14 @@ DrawerImageLoader.init(object : AbstractDrawerImageLoader() {
 
 An implementation with [GLIDE v4](https://github.com/mikepenz/MaterialDrawer/blob/develop/app/src/main/java/com/mikepenz/materialdrawer/app/CustomApplication.java#L42) (See tag v6.1.1 for glide v3 sample) can be found in the sample application
 
+## JVM Target 1.8
+
+```
+// Since 8.1.0 the drawer includes core ktx 1.3.0 which requires jvm 1.8
+kotlinOptions {
+    jvmTarget = "1.8"
+}
+```
 ## Style the drawer 🖌️
 
 ### Custom style - styles.xml
