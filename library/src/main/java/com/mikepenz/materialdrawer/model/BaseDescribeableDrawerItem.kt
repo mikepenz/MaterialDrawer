@@ -1,6 +1,9 @@
 package com.mikepenz.materialdrawer.model
 
+import android.content.Context
 import android.content.res.ColorStateList
+import android.view.View
+import com.google.android.material.shape.ShapeAppearanceModel
 import com.mikepenz.materialdrawer.holder.ImageHolder
 import com.mikepenz.materialdrawer.holder.StringHolder
 import com.mikepenz.materialdrawer.model.interfaces.Describable
@@ -51,7 +54,7 @@ abstract class BaseDescribeableDrawerItem<T, VH : BaseViewHolder> : BaseDrawerIt
         val shapeAppearanceModel = getShapeAppearanceModel(ctx)
 
         //set the background for the item
-        themeDrawerItem(ctx, viewHolder.view, selectedColor, isSelectedBackgroundAnimated, shapeAppearanceModel)
+        applyDrawerItemTheme(ctx, viewHolder.view, selectedColor, isSelectedBackgroundAnimated, shapeAppearanceModel)
         //set the text for the name
         StringHolder.applyTo(this.name, viewHolder.name)
         //set the text for the description or hide
@@ -75,5 +78,12 @@ abstract class BaseDescribeableDrawerItem<T, VH : BaseViewHolder> : BaseDrawerIt
 
         //for android API 17 --> Padding not applied via xml
         viewHolder.view.setDrawerVerticalPadding(level)
+    }
+
+    /**
+     * will apply and theme the drawer item using the standard logic, overwrite this in your custom item to redefine the algorithm to do so
+     */
+    protected fun applyDrawerItemTheme(ctx: Context, view: View, selected_color: Int, animate: Boolean, shapeAppearanceModel: ShapeAppearanceModel) {
+        themeDrawerItem(ctx, view, selected_color, animate, shapeAppearanceModel)
     }
 }

@@ -1,4 +1,5 @@
 @file:JvmName("DrawerUtils")
+
 package com.mikepenz.materialdrawer.util
 
 import android.annotation.SuppressLint
@@ -12,6 +13,8 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.LinearLayout
 import android.widget.RelativeLayout
+import androidx.annotation.AttrRes
+import androidx.annotation.DimenRes
 import androidx.appcompat.content.res.AppCompatResources
 import androidx.core.graphics.drawable.DrawableCompat
 import androidx.core.view.ViewCompat
@@ -348,21 +351,36 @@ fun setDrawerVerticalPadding(view: View) {
  *
  * @param ctx            the context to use
  * @param view           the view to theme
- * @param selected_color the selected color to use
+ * @param selectedColor the selected color to use
  * @param animate        true if we want to animate the StateListDrawable
+ * @param shapeAppearanceModel defines the shape appearance to use for items starting API 21
+ * @param paddingTopBottomRes padding on top and bottom of the drawable for selection drawable
+ * @param paddingStartRes padding to the beginning of the selection drawable
+ * @param paddingEndRes padding to the end of the selection drawable
+ * @param highlightColorRes the color for the highlight to use (e.g. touch the item, when it get's filled)
  */
-fun themeDrawerItem(ctx: Context, view: View, selected_color: Int, animate: Boolean, shapeAppearanceModel: ShapeAppearanceModel) {
+fun themeDrawerItem(
+        ctx: Context,
+        view: View,
+        selectedColor: Int,
+        animate: Boolean,
+        shapeAppearanceModel: ShapeAppearanceModel,
+        @DimenRes paddingTopBottomRes: Int = R.dimen.material_drawer_item_background_padding_top_bottom,
+        @DimenRes paddingStartRes: Int = R.dimen.material_drawer_item_background_padding_start,
+        @DimenRes paddingEndRes: Int = R.dimen.material_drawer_item_background_padding_end,
+        @AttrRes highlightColorRes: Int = R.attr.colorControlHighlight
+) {
     val selected: Drawable
     val unselected: Drawable
 
     // Material 2.0 styling
-    val paddingTopBottom = ctx.resources.getDimensionPixelSize(R.dimen.material_drawer_item_background_padding_top_bottom)
-    val paddingStart = ctx.resources.getDimensionPixelSize(R.dimen.material_drawer_item_background_padding_start)
-    val paddingEnd = ctx.resources.getDimensionPixelSize(R.dimen.material_drawer_item_background_padding_end)
+    val paddingTopBottom = ctx.resources.getDimensionPixelSize(paddingTopBottomRes)
+    val paddingStart = ctx.resources.getDimensionPixelSize(paddingStartRes)
+    val paddingEnd = ctx.resources.getDimensionPixelSize(paddingEndRes)
 
     // define normal selected background
     val gradientDrawable = MaterialShapeDrawable(shapeAppearanceModel)
-    gradientDrawable.fillColor = ColorStateList.valueOf(selected_color)
+    gradientDrawable.fillColor = ColorStateList.valueOf(selectedColor)
     selected = InsetDrawable(gradientDrawable, paddingStart, paddingTopBottom, paddingEnd, paddingTopBottom)
 
     if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
@@ -371,11 +389,11 @@ fun themeDrawerItem(ctx: Context, view: View, selected_color: Int, animate: Bool
         gradientMask.fillColor = ColorStateList.valueOf(Color.BLACK)
         val mask = InsetDrawable(gradientMask, paddingStart, paddingTopBottom, paddingEnd, paddingTopBottom)
 
-        unselected = RippleDrawable(ColorStateList(arrayOf(intArrayOf()), intArrayOf(ctx.getThemeColor(R.attr.colorControlHighlight))), null, mask)
+        unselected = RippleDrawable(ColorStateList(arrayOf(intArrayOf()), intArrayOf(ctx.getThemeColor(highlightColorRes))), null, mask)
     } else {
         // define touch drawable
         val touchDrawable = MaterialShapeDrawable(shapeAppearanceModel)
-        touchDrawable.fillColor = ColorStateList.valueOf(ctx.getThemeColor(R.attr.colorControlHighlight))
+        touchDrawable.fillColor = ColorStateList.valueOf(ctx.getThemeColor(highlightColorRes))
         val touchInsetDrawable = InsetDrawable(touchDrawable, paddingStart, paddingTopBottom, paddingEnd, paddingTopBottom)
 
         val unselectedStates = StateListDrawable()
