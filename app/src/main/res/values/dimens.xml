@@ -3,4 +3,9 @@
     <dimen name="material_drawer_padding_half">4dp</dimen>
     <dimen name="material_drawer_persistent_height">48dp</dimen>
     <dimen name="material_drawer_persistent_height_icon">32dp</dimen>
+
+    <dimen name="gmail_material_drawer_item_corner_radius">20dp</dimen>
+    <dimen name="gmail_material_drawer_item_background_padding_start">0dp</dimen>
+    <dimen name="gmail_material_drawer_item_background_padding_end">8dp</dimen>
+    <dimen name="gmail_material_drawer_item_background_padding_top_bottom">4dp</dimen>
 </resources>
