@@ -357,25 +357,26 @@ fun themeDrawerItem(ctx: Context, view: View, selected_color: Int, animate: Bool
 
     // Material 2.0 styling
     val paddingTopBottom = ctx.resources.getDimensionPixelSize(R.dimen.material_drawer_item_background_padding_top_bottom)
-    val paddingStartEnd = ctx.resources.getDimensionPixelSize(R.dimen.material_drawer_item_background_padding_start_end)
+    val paddingStart = ctx.resources.getDimensionPixelSize(R.dimen.material_drawer_item_background_padding_start)
+    val paddingEnd = ctx.resources.getDimensionPixelSize(R.dimen.material_drawer_item_background_padding_end)
 
     // define normal selected background
     val gradientDrawable = MaterialShapeDrawable(shapeAppearanceModel)
     gradientDrawable.fillColor = ColorStateList.valueOf(selected_color)
-    selected = InsetDrawable(gradientDrawable, paddingStartEnd, paddingTopBottom, paddingStartEnd, paddingTopBottom)
+    selected = InsetDrawable(gradientDrawable, paddingStart, paddingTopBottom, paddingEnd, paddingTopBottom)
 
     if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
         // define mask for ripple
         val gradientMask = MaterialShapeDrawable(shapeAppearanceModel)
         gradientMask.fillColor = ColorStateList.valueOf(Color.BLACK)
-        val mask = InsetDrawable(gradientMask, paddingStartEnd, paddingTopBottom, paddingStartEnd, paddingTopBottom)
+        val mask = InsetDrawable(gradientMask, paddingStart, paddingTopBottom, paddingEnd, paddingTopBottom)
 
         unselected = RippleDrawable(ColorStateList(arrayOf(intArrayOf()), intArrayOf(ctx.getThemeColor(R.attr.colorControlHighlight))), null, mask)
     } else {
         // define touch drawable
         val touchDrawable = MaterialShapeDrawable(shapeAppearanceModel)
         touchDrawable.fillColor = ColorStateList.valueOf(ctx.getThemeColor(R.attr.colorControlHighlight))
-        val touchInsetDrawable = InsetDrawable(touchDrawable, paddingStartEnd, paddingTopBottom, paddingStartEnd, paddingTopBottom)
+        val touchInsetDrawable = InsetDrawable(touchDrawable, paddingStart, paddingTopBottom, paddingEnd, paddingTopBottom)
 
         val unselectedStates = StateListDrawable()
         //if possible and wanted we enable animating across states

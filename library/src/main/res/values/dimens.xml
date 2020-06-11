@@ -41,6 +41,8 @@
     <dimen name="material_drawer_item_padding">8dp</dimen>
     <dimen name="material_drawer_item_corner_radius">4dp</dimen>
     <dimen name="material_drawer_item_background_padding_start_end">8dp</dimen>
+    <dimen name="material_drawer_item_background_padding_start">@dimen/material_drawer_item_background_padding_start_end</dimen>
+    <dimen name="material_drawer_item_background_padding_end">@dimen/material_drawer_item_background_padding_start_end</dimen>
     <dimen name="material_drawer_item_background_padding_top_bottom">4dp</dimen>
 
     <!-- Definition for the primary item -->
