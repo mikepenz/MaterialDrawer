@@ -83,7 +83,7 @@ abstract class BaseDescribeableDrawerItem<T, VH : BaseViewHolder> : BaseDrawerIt
     /**
      * will apply and theme the drawer item using the standard logic, overwrite this in your custom item to redefine the algorithm to do so
      */
-    protected fun applyDrawerItemTheme(ctx: Context, view: View, selected_color: Int, animate: Boolean, shapeAppearanceModel: ShapeAppearanceModel) {
+    protected open fun applyDrawerItemTheme(ctx: Context, view: View, selected_color: Int, animate: Boolean, shapeAppearanceModel: ShapeAppearanceModel) {
         themeDrawerItem(ctx, view, selected_color, animate, shapeAppearanceModel)
     }
 }
