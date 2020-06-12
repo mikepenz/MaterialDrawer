@@ -1,11 +1,12 @@
 <merge xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools">
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/material_drawer_account_header">
 
     <androidx.appcompat.widget.AppCompatImageView
         android:id="@+id/material_drawer_account_header_background"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
+        android:layout_height="@dimen/material_drawer_account_header_height_compact"
         android:scaleType="fitXY"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
@@ -26,8 +27,22 @@
         android:visibility="gone"
         tools:ignore="MissingConstraints" />
 
+    <androidx.appcompat.widget.AppCompatTextView
+        android:id="@+id/material_drawer_account_header_small_first_badge"
+        android:layout_width="1dp"
+        android:layout_height="1dp"
+        android:visibility="gone"
+        tools:ignore="MissingConstraints" />
+
     <com.mikepenz.materialdrawer.view.BezelImageView
         android:id="@+id/material_drawer_account_header_small_second"
+        android:layout_width="1dp"
+        android:layout_height="1dp"
+        android:visibility="gone"
+        tools:ignore="MissingConstraints" />
+
+    <androidx.appcompat.widget.AppCompatTextView
+        android:id="@+id/material_drawer_account_header_small_second_badge"
         android:layout_width="1dp"
         android:layout_height="1dp"
         android:visibility="gone"
@@ -41,41 +56,69 @@
         tools:ignore="MissingConstraints" />
 
     <androidx.appcompat.widget.AppCompatTextView
-        android:id="@+id/material_drawer_account_header_email"
-        android:layout_width="1px"
-        android:layout_height="1px"
+        android:id="@+id/material_drawer_account_header_small_third_badge"
+        android:layout_width="1dp"
+        android:layout_height="1dp"
         android:visibility="gone"
         tools:ignore="MissingConstraints" />
 
     <com.mikepenz.materialdrawer.view.BezelImageView
         android:id="@+id/material_drawer_account_header_current"
-        android:layout_width="@dimen/material_drawer_persistent_height_icon"
-        android:layout_height="@dimen/material_drawer_persistent_height_icon"
+        style="@style/BezelImageView"
+        android:layout_width="@dimen/material_drawer_account_header_compact"
+        android:layout_height="@dimen/material_drawer_account_header_compact"
+        android:layout_gravity="bottom"
         android:layout_marginStart="@dimen/material_drawer_vertical_padding"
         android:layout_marginLeft="@dimen/material_drawer_vertical_padding"
-        android:layout_marginEnd="0dp"
-        android:layout_marginRight="0dp"
         android:clickable="true"
         android:elevation="2dp"
+        android:focusable="true"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/material_drawer_statusbar_guideline" />
+        app:layout_constraintTop_toBottomOf="@+id/material_drawer_statusbar_guideline" />
+
+    <androidx.appcompat.widget.AppCompatTextView
+        android:id="@+id/material_drawer_account_header_current_badge"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:elevation="4dp"
+        android:fontFamily="sans-serif"
+        android:gravity="center"
+        android:lines="1"
+        android:minWidth="20dp"
+        android:paddingLeft="1dp"
+        android:paddingRight="1dp"
+        android:singleLine="true"
+        android:textSize="@dimen/material_drawer_item_badge_text"
+        app:layout_constraintBottom_toBottomOf="@id/material_drawer_account_header_current"
+        app:layout_constraintStart_toStartOf="@id/material_drawer_account_header_current"
+        tools:text="99" />
 
     <androidx.appcompat.widget.AppCompatTextView
         android:id="@+id/material_drawer_account_header_name"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="@dimen/material_drawer_vertical_padding"
-        android:layout_marginLeft="@dimen/material_drawer_vertical_padding"
-        android:layout_marginEnd="0dp"
-        android:layout_marginRight="0dp"
+        android:ellipsize="end"
         android:fontFamily="sans-serif-medium"
         android:lines="1"
-        android:singleLine="true"
+        android:maxLines="1"
+        android:paddingStart="@dimen/material_drawer_vertical_padding"
+        android:paddingLeft="@dimen/material_drawer_vertical_padding"
+        android:paddingEnd="@dimen/material_drawer_vertical_padding"
+        android:paddingRight="@dimen/material_drawer_vertical_padding"
         android:textSize="@dimen/material_drawer_account_header_title"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toEndOf="@id/material_drawer_account_header_current"
-        app:layout_constraintTop_toBottomOf="@id/material_drawer_statusbar_guideline" />
+        app:layout_constraintTop_toBottomOf="@+id/material_drawer_statusbar_guideline"
+        app:layout_constraintVertical_chainStyle="packed"
+        app:layout_goneMarginStart="0dp" />
+
+    <androidx.appcompat.widget.AppCompatTextView
+        android:id="@+id/material_drawer_account_header_email"
+        android:layout_width="1dp"
+        android:layout_height="1dp"
+        android:visibility="gone"
+        tools:ignore="MissingConstraints" />
 
     <androidx.appcompat.widget.AppCompatImageView
         android:id="@+id/material_drawer_account_header_text_switcher"
