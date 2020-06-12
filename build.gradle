@@ -6,10 +6,10 @@ buildscript {
         ]
 
         setup = [
-                compileSdk: 29,
-                buildTools: "29.0.2",
+                compileSdk: 30,
+                buildTools: "30.0.0",
                 minSdk    : 16,
-                targetSdk : 29
+                targetSdk : 30
         ]
 
         versions = [
@@ -37,7 +37,7 @@ buildscript {
         mavenCentral()
     }
     dependencies {
-        classpath 'com.android.tools.build:gradle:3.6.3'
+        classpath 'com.android.tools.build:gradle:4.0.0'
         classpath 'com.github.dcendents:android-maven-gradle-plugin:2.1'
         classpath 'com.jfrog.bintray.gradle:gradle-bintray-plugin:1.8.5'
         classpath "org.jetbrains.kotlin:kotlin-gradle-plugin:${versions.kotlin}"
