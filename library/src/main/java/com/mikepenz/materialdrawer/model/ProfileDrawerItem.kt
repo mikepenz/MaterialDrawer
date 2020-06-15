@@ -120,8 +120,6 @@ open class ProfileDrawerItem : AbstractDrawerItem<ProfileDrawerItem, ProfileDraw
             holder.badge.typeface = typeface
         }
 
-        //cancel previous started image loading processes
-        DrawerImageLoader.instance.cancelImage(holder.profileIcon)
         //set the icon
         ImageHolder.applyToOrSetInvisible(icon, holder.profileIcon, DrawerImageLoader.Tags.PROFILE_DRAWER_ITEM.name)
 
@@ -130,6 +128,14 @@ open class ProfileDrawerItem : AbstractDrawerItem<ProfileDrawerItem, ProfileDraw
 
         //call the onPostBindView method to trigger post bind view actions (like the listener to modify the item if required)
         onPostBindView(this, holder.itemView)
+    }
+
+    override fun unbindView(holder: ViewHolder) {
+        super.unbindView(holder)
+
+        // reset image loading for the item
+        DrawerImageLoader.instance.cancelImage(holder.profileIcon)
+        holder.profileIcon.setImageBitmap(null)
     }
 
     override fun getViewHolder(v: View): ViewHolder {

@@ -9,6 +9,7 @@ import com.mikepenz.materialdrawer.holder.StringHolder
 import com.mikepenz.materialdrawer.model.interfaces.Describable
 import com.mikepenz.materialdrawer.model.interfaces.DescribableColor
 import com.mikepenz.materialdrawer.model.interfaces.IDrawerItem
+import com.mikepenz.materialdrawer.util.DrawerImageLoader
 import com.mikepenz.materialdrawer.util.getSecondaryDrawerTextColor
 import com.mikepenz.materialdrawer.util.setDrawerVerticalPadding
 import com.mikepenz.materialdrawer.util.themeDrawerItem
@@ -71,13 +72,28 @@ abstract class BaseDescribeableDrawerItem<T, VH : BaseViewHolder> : BaseDrawerIt
             viewHolder.description.typeface = typeface
         }
 
-        //get the drawables for our icon and set it)
-        val icon = ImageHolder.decideIcon(icon, ctx, iconColor, isIconTinted, 1)
-        val selectedIcon = ImageHolder.decideIcon(selectedIcon, ctx, iconColor, isIconTinted, 1)
-        ImageHolder.applyMultiIconTo(icon, selectedIcon, iconColor, isIconTinted, viewHolder.icon)
+        // check if we should load from a url, false if normal icon
+        val loaded = icon?.uri?.let {
+            DrawerImageLoader.instance.setImage(viewHolder.icon, it, DrawerImageLoader.Tags.PRIMARY_ITEM.name)
+        } ?: false
+
+        if (!loaded) {
+            // get the drawables for our icon and set it
+            val icon = ImageHolder.decideIcon(icon, ctx, iconColor, isIconTinted, 1)
+            val selectedIcon = ImageHolder.decideIcon(selectedIcon, ctx, iconColor, isIconTinted, 1)
+            ImageHolder.applyMultiIconTo(icon, selectedIcon, iconColor, isIconTinted, viewHolder.icon)
+        }
 
         //for android API 17 --> Padding not applied via xml
         viewHolder.view.setDrawerVerticalPadding(level)
+    }
+
+    override fun unbindView(holder: VH) {
+        super.unbindView(holder)
+
+        // reset image loading for the item
+        DrawerImageLoader.instance.cancelImage(holder.icon)
+        holder.icon.setImageBitmap(null)
     }
 
     /**

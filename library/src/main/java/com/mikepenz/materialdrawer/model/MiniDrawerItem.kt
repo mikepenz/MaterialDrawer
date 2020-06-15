@@ -12,6 +12,7 @@ import com.mikepenz.materialdrawer.holder.DimenHolder
 import com.mikepenz.materialdrawer.holder.ImageHolder
 import com.mikepenz.materialdrawer.holder.StringHolder
 import com.mikepenz.materialdrawer.model.interfaces.IDrawerItem
+import com.mikepenz.materialdrawer.util.DrawerImageLoader
 import com.mikepenz.materialdrawer.util.themeDrawerItem
 
 /**
@@ -144,10 +145,17 @@ open class MiniDrawerItem : BaseDrawerItem<MiniDrawerItem, MiniDrawerItem.ViewHo
             badgeStyle?.style(holder.badge)
         }
 
-        //get the drawables for our icon and set it
-        val icon = ImageHolder.decideIcon(icon, ctx, iconColor, isIconTinted, 1)
-        val selectedIcon = ImageHolder.decideIcon(selectedIcon, ctx, iconColor, isIconTinted, 1)
-        ImageHolder.applyMultiIconTo(icon, selectedIcon, iconColor, isIconTinted, holder.icon)
+        // check if we should load from a url, false if normal icon
+        val loaded = icon?.uri?.let {
+            DrawerImageLoader.instance.setImage(holder.icon, it, DrawerImageLoader.Tags.MINI_ITEM.name)
+        } ?: false
+
+        if (!loaded) {
+            // get the drawables for our icon and set it
+            val icon = ImageHolder.decideIcon(icon, ctx, iconColor, isIconTinted, 1)
+            val selectedIcon = ImageHolder.decideIcon(selectedIcon, ctx, iconColor, isIconTinted, 1)
+            ImageHolder.applyMultiIconTo(icon, selectedIcon, iconColor, isIconTinted, holder.icon)
+        }
 
         //for android API 17 --> Padding not applied via xml
         val verticalPadding = ctx.resources.getDimensionPixelSize(R.dimen.material_drawer_padding)
@@ -156,6 +164,14 @@ open class MiniDrawerItem : BaseDrawerItem<MiniDrawerItem, MiniDrawerItem.ViewHo
 
         //call the onPostBindView method to trigger post bind view actions (like the listener to modify the item if required)
         onPostBindView(this, holder.itemView)
+    }
+
+    override fun unbindView(holder: ViewHolder) {
+        super.unbindView(holder)
+
+        // reset image loading for the item
+        DrawerImageLoader.instance.cancelImage(holder.icon)
+        holder.icon.setImageBitmap(null)
     }
 
     override fun getViewHolder(v: View): ViewHolder {

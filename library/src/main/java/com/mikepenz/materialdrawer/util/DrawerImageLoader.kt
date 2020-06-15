@@ -25,6 +25,8 @@ open class DrawerImageLoader private constructor(var imageLoader: IDrawerImageLo
      * The possible tags we currently support.
      */
     enum class Tags {
+        PRIMARY_ITEM,
+        MINI_ITEM,
         PROFILE,
         PROFILE_DRAWER_ITEM,
         ACCOUNT_HEADER

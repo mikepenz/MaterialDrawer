@@ -11,6 +11,7 @@ import com.mikepenz.materialdrawer.holder.DimenHolder
 import com.mikepenz.materialdrawer.holder.ImageHolder
 import com.mikepenz.materialdrawer.holder.StringHolder
 import com.mikepenz.materialdrawer.model.interfaces.IProfile
+import com.mikepenz.materialdrawer.util.DrawerImageLoader
 
 /**
  * Describes a [IProfile] being used for the [com.mikepenz.materialdrawer.widget.MiniDrawerSliderView]
@@ -83,6 +84,14 @@ open class MiniProfileDrawerItem : AbstractDrawerItem<MiniProfileDrawerItem, Min
 
         //call the onPostBindView method to trigger post bind view actions (like the listener to modify the item if required)
         onPostBindView(this, holder.itemView)
+    }
+
+    override fun unbindView(holder: ViewHolder) {
+        super.unbindView(holder)
+
+        // reset image loading for the item
+        DrawerImageLoader.instance.cancelImage(holder.icon)
+        holder.icon.setImageBitmap(null)
     }
 
     override fun getViewHolder(v: View): ViewHolder {
