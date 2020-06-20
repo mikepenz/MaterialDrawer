@@ -20,7 +20,7 @@ buildscript {
                 material          : '1.1.0',
                 appcompat         : '1.1.0',
                 drawerlayout      : '1.1.0-rc01',
-                constraintLayout  : '2.0.0-beta6',
+                constraintLayout  : '2.0.0-beta7',
                 cardview          : '1.0.0',
                 kotlin            : "1.3.72",
                 fastadapter       : "5.1.0",
