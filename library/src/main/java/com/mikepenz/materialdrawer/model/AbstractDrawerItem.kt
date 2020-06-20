@@ -18,6 +18,7 @@ import com.mikepenz.materialdrawer.interfaces.OnPostBindViewListener
 import com.mikepenz.materialdrawer.model.interfaces.*
 import com.mikepenz.materialdrawer.util.getPrimaryDrawerTextColor
 import com.mikepenz.materialdrawer.util.getSelectedColor
+import com.mikepenz.materialdrawer.widget.MaterialDrawerSliderView.Companion.DEFAULT_SELECTED_BACKGROUND_ANIMATED
 
 /**
  * The base abstract [IDrawerItem] implementation describing a drawerItem with the general functionality
@@ -42,7 +43,7 @@ abstract class AbstractDrawerItem<T, VH : RecyclerView.ViewHolder> : IDrawerItem
     override var isSelectable = true
 
     // defines if the item's background' change should be animated when it is (de)selected
-    var isSelectedBackgroundAnimated = true
+    var isSelectedBackgroundAnimated = DEFAULT_SELECTED_BACKGROUND_ANIMATED
 
     // defines the content descripton of items
     var contentDescription: String? = null

@@ -368,7 +368,9 @@ fun themeDrawerItem(
         @DimenRes paddingTopBottomRes: Int = R.dimen.material_drawer_item_background_padding_top_bottom,
         @DimenRes paddingStartRes: Int = R.dimen.material_drawer_item_background_padding_start,
         @DimenRes paddingEndRes: Int = R.dimen.material_drawer_item_background_padding_end,
-        @AttrRes highlightColorRes: Int = R.attr.colorControlHighlight
+        @AttrRes highlightColorRes: Int = R.attr.colorControlHighlight,
+        /* a hint for the drawable if it should already be selected at the very moment */
+        isSelected: Boolean = false
 ) {
     val selected: Drawable
     val unselected: Drawable
@@ -428,6 +430,11 @@ fun themeDrawerItem(
         states.addState(intArrayOf(), unselected)
 
         ViewCompat.setBackground(view, states)
+    }
+
+    if (isSelected && animate) {
+        states.state = intArrayOf(android.R.attr.state_selected)
+        states.jumpToCurrentState()
     }
 }
 

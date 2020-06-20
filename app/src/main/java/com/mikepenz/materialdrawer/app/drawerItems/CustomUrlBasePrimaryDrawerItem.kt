@@ -71,7 +71,7 @@ abstract class CustomUrlBasePrimaryDrawerItem<T, VH : RecyclerView.ViewHolder> :
         val shapeAppearanceModel = getShapeAppearanceModel(ctx)
 
         //set the background for the item
-        themeDrawerItem(ctx, viewHolder.view, selectedColor, isSelectedBackgroundAnimated, shapeAppearanceModel)
+        themeDrawerItem(ctx, viewHolder.view, selectedColor, isSelectedBackgroundAnimated, shapeAppearanceModel, isSelected = isSelected)
         //set the text for the name
         StringHolder.applyTo(this.name, viewHolder.name)
         //set the text for the description or hide

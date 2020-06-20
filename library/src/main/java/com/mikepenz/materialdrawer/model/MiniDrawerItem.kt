@@ -135,7 +135,7 @@ open class MiniDrawerItem : BaseDrawerItem<MiniDrawerItem, MiniDrawerItem.ViewHo
             //get the correct color for the background
             val selectedColor = getSelectedColor(ctx)
             //set the background for the item
-            themeDrawerItem(ctx, holder.view, selectedColor, isSelectedBackgroundAnimated, shapeAppearanceModel)
+            themeDrawerItem(ctx, holder.view, selectedColor, isSelectedBackgroundAnimated, shapeAppearanceModel, isSelected = isSelected)
         }
 
         //set the text for the badge or hide

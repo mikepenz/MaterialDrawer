@@ -887,5 +887,10 @@ open class MaterialDrawerSliderView @JvmOverloads constructor(context: Context, 
         const val BUNDLE_SELECTION = "_selection"
         const val BUNDLE_STICKY_FOOTER_SELECTION = "bundle_sticky_footer_selection"
         const val BUNDLE_DRAWER_CONTENT_SWITCHED = "bundle_drawer_content_switched"
+
+        /**
+         * Defines globally if we should animat selection state changes of the background
+         */
+        var DEFAULT_SELECTED_BACKGROUND_ANIMATED = true
     }
 }

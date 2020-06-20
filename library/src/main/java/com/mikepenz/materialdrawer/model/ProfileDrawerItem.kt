@@ -77,7 +77,7 @@ open class ProfileDrawerItem : AbstractDrawerItem<ProfileDrawerItem, ProfileDraw
         val shapeAppearanceModel = getShapeAppearanceModel(ctx)
 
         //set the background for the item
-        themeDrawerItem(ctx, holder.view, selectedColor, isSelectedBackgroundAnimated, shapeAppearanceModel)
+        themeDrawerItem(ctx, holder.view, selectedColor, isSelectedBackgroundAnimated, shapeAppearanceModel, isSelected = isSelected)
 
         if (isNameShown) {
             holder.name.visibility = View.VISIBLE
