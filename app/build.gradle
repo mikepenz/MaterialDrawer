@@ -70,6 +70,7 @@ dependencies {
     implementation "androidx.cardview:cardview:${versions.cardview}"
     implementation "androidx.constraintlayout:constraintlayout:${versions.constraintLayout}"
     implementation "androidx.slidingpanelayout:slidingpanelayout:${versions.slidingpaneLayout}"
+    implementation "androidx.swiperefreshlayout:swiperefreshlayout:${versions.swiperefreshLayout}"
 
     // used to showcase how to load images
     implementation 'com.squareup.picasso:picasso:2.71828'
