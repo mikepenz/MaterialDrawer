@@ -475,7 +475,8 @@ open class MaterialDrawerSliderView @JvmOverloads constructor(context: Context, 
         insetForeground?.callback = this
 
         if (parent != null) {
-            _drawerLayout = parent as? DrawerLayout
+            _drawerLayout = parent as? DrawerLayout ?: parent.parent as? DrawerLayout
+                    ?: parent.parent.parent as? DrawerLayout // give it 3 parents chance to find the parent
             layoutParams?.also {
                 // if this is a drawer from the right, change the margins :D &  set the new params
                 it.width = customWidth ?: getOptimalDrawerWidth(context)
