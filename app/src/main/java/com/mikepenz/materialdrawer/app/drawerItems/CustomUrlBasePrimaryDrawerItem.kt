@@ -64,9 +64,6 @@ abstract class CustomUrlBasePrimaryDrawerItem<T, VH : RecyclerView.ViewHolder> :
         //set the identifier from the drawerItem here. It can be used to run tests
         viewHolder.itemView.id = hashCode()
 
-        //set the item selected if it is
-        viewHolder.itemView.isSelected = isSelected
-
         //get the correct color for the background
         val selectedColor = getSelectedColor(ctx)
         //get the correct color for the text
@@ -99,5 +96,8 @@ abstract class CustomUrlBasePrimaryDrawerItem<T, VH : RecyclerView.ViewHolder> :
 
         //for android API 17 --> Padding not applied via xml
         setDrawerVerticalPadding(viewHolder.view)
+
+        //set the item selected if it is
+        viewHolder.itemView.isSelected = isSelected
     }
 }

@@ -32,18 +32,6 @@ abstract class BaseDescribeableDrawerItem<T, VH : BaseViewHolder> : BaseDrawerIt
         //set the identifier from the drawerItem here. It can be used to run tests
         viewHolder.itemView.id = hashCode()
 
-        //set the item selected if it is
-        viewHolder.itemView.isSelected = isSelected
-        viewHolder.name.isSelected = isSelected
-        viewHolder.description.isSelected = isSelected
-        viewHolder.icon.isSelected = isSelected
-
-        //set the item enabled if it is
-        viewHolder.itemView.isEnabled = isEnabled
-        viewHolder.name.isEnabled = isEnabled
-        viewHolder.description.isEnabled = isEnabled
-        viewHolder.icon.isEnabled = isEnabled
-
         //get the correct color for the background
         val selectedColor = this.selectedColor?.color(ctx) ?: getSelectedColor(ctx)
         //get the correct color for the text
@@ -86,6 +74,18 @@ abstract class BaseDescribeableDrawerItem<T, VH : BaseViewHolder> : BaseDrawerIt
 
         //for android API 17 --> Padding not applied via xml
         viewHolder.view.setDrawerVerticalPadding(level)
+
+        //set the item selected if it is
+        viewHolder.itemView.isSelected = isSelected
+        viewHolder.name.isSelected = isSelected
+        viewHolder.description.isSelected = isSelected
+        viewHolder.icon.isSelected = isSelected
+
+        //set the item enabled if it is
+        viewHolder.itemView.isEnabled = isEnabled
+        viewHolder.name.isEnabled = isEnabled
+        viewHolder.description.isEnabled = isEnabled
+        viewHolder.icon.isEnabled = isEnabled
     }
 
     override fun unbindView(holder: VH) {
