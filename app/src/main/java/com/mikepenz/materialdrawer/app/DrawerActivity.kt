@@ -21,6 +21,7 @@ import com.mikepenz.materialdrawer.iconics.withIcon
 import com.mikepenz.materialdrawer.model.*
 import com.mikepenz.materialdrawer.model.interfaces.*
 import com.mikepenz.materialdrawer.util.addItems
+import com.mikepenz.materialdrawer.util.addStickyDrawerItems
 import com.mikepenz.materialdrawer.util.updateBadge
 import com.mikepenz.materialdrawer.widget.AccountHeaderView
 import kotlinx.android.synthetic.main.activity_sample.*
@@ -165,6 +166,13 @@ class DrawerActivity : AppCompatActivity() {
                 false
 
             }
+            addStickyDrawerItems(ProfileDrawerItem().apply {
+                nameText = "Hello"
+                descriptionText = "Description"
+                isNameShown = true
+                isSelectable = false
+                iconUrl = "https://avatars3.githubusercontent.com/u/1476232?v=3&s=460"
+            })
             setSavedInstance(savedInstanceState)
         }
 
