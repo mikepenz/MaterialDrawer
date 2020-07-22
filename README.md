@@ -73,6 +73,7 @@ implementation "com.mikepenz:materialdrawer-nav:${lastestMaterialDrawerRelease}"
 // Add for Android-Iconics support
 implementation "com.mikepenz:materialdrawer-iconics:${lastestMaterialDrawerRelease}"
 ```
+Visit [Google's Maven Repository](https://maven.google.com/web/index.html) or [MVN Repository](https://mvnrepository.com/artifact/com.mikepenz/materialdrawer) to find the latest version of the libraries.
 
 ### 2. Add the `Drawer` into the XML
 
