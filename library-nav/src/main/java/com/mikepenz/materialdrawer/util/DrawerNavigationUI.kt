@@ -70,6 +70,7 @@ object DrawerNavigationUI {
                         } ?: element.resId // a destination
 
                         if (matchDestination(destination, destinationId)) {
+                            drawerWeak?.selectExtension?.deselect()
                             drawerWeak?.setSelection(element.identifier, false)
 
                             drawerWeak?.getStickyFooterPosition(element)?.let {
