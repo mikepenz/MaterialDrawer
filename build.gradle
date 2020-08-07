@@ -17,18 +17,18 @@ buildscript {
                 annotation        : '1.1.0',
                 recyclerView      : '1.1.0',
                 core              : '1.3.0',
-                material          : '1.1.0',
+                material          : '1.2.0',
                 appcompat         : '1.1.0',
-                drawerlayout      : '1.1.0-rc01',
-                constraintLayout  : '2.0.0-beta7',
+                drawerlayout      : '1.1.0',
+                constraintLayout  : '2.0.0-rc01',
                 cardview          : '1.0.0',
                 kotlin            : "1.3.72",
-                fastadapter       : "5.1.0",
+                fastadapter       : "5.2.2",
                 iconics           : "5.0.3",
-                aboutLibs         : "8.1.6",
-                navigation        : "2.2.2",
-                slidingpaneLayout : "1.1.0-rc01",
-                swiperefreshLayout: "1.0.0"
+                aboutLibs         : "8.3.0",
+                navigation        : "2.3.0",
+                slidingpaneLayout : "1.1.0",
+                swiperefreshLayout: "1.1.0"
         ]
     }
 
@@ -38,7 +38,7 @@ buildscript {
         mavenCentral()
     }
     dependencies {
-        classpath 'com.android.tools.build:gradle:4.0.0'
+        classpath 'com.android.tools.build:gradle:4.0.1'
         classpath 'com.github.dcendents:android-maven-gradle-plugin:2.1'
         classpath 'com.jfrog.bintray.gradle:gradle-bintray-plugin:1.8.5'
         classpath "org.jetbrains.kotlin:kotlin-gradle-plugin:${versions.kotlin}"
