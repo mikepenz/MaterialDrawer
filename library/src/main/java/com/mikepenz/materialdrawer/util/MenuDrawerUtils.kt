@@ -39,27 +39,30 @@ private fun MaterialDrawerSliderView.addMenuItems(mMenu: Menu, subMenu: Boolean)
             itemAdapter.add(iDrawerItem)
         }
         if (mMenuItem.hasSubMenu()) {
-            iDrawerItem = PrimaryDrawerItem()
-                    .withName(mMenuItem.title.toString())
-                    .withIcon(mMenuItem.icon)
-                    .withIdentifier(mMenuItem.itemId.toLong())
-                    .withEnabled(mMenuItem.isEnabled)
-                    .withSelectable(false)
+            iDrawerItem = PrimaryDrawerItem().apply {
+                nameText = mMenuItem.title
+                iconDrawable = mMenuItem.icon
+                identifier = mMenuItem.itemId.toLong()
+                isEnabled = mMenuItem.isEnabled
+                isSelectable = false
+            }
             itemAdapter.add(iDrawerItem)
             addMenuItems(mMenuItem.subMenu, true)
         } else if (mMenuItem.groupId != 0 || subMenu) {
-            iDrawerItem = SecondaryDrawerItem()
-                    .withName(mMenuItem.title.toString())
-                    .withIcon(mMenuItem.icon)
-                    .withIdentifier(mMenuItem.itemId.toLong())
-                    .withEnabled(mMenuItem.isEnabled)
+            iDrawerItem = SecondaryDrawerItem().apply {
+                nameText = mMenuItem.title
+                iconDrawable = mMenuItem.icon
+                identifier = mMenuItem.itemId.toLong()
+                isEnabled = mMenuItem.isEnabled
+            }
             itemAdapter.add(iDrawerItem)
         } else {
-            iDrawerItem = PrimaryDrawerItem()
-                    .withName(mMenuItem.title.toString())
-                    .withIcon(mMenuItem.icon)
-                    .withIdentifier(mMenuItem.itemId.toLong())
-                    .withEnabled(mMenuItem.isEnabled)
+            iDrawerItem = PrimaryDrawerItem().apply {
+                nameText = mMenuItem.title
+                iconDrawable = mMenuItem.icon
+                identifier = mMenuItem.itemId.toLong()
+                isEnabled = mMenuItem.isEnabled
+            }
             itemAdapter.add(iDrawerItem)
         }
     }
