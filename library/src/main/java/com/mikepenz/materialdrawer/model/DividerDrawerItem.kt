@@ -28,13 +28,13 @@ open class DividerDrawerItem : AbstractDrawerItem<DividerDrawerItem, DividerDraw
         holder.itemView.id = hashCode()
 
         //define how the divider should look like
-        holder.view.isClickable = false
-        holder.view.isEnabled = false
-        holder.view.minimumHeight = 1
-        ViewCompat.setImportantForAccessibility(holder.view, ViewCompat.IMPORTANT_FOR_ACCESSIBILITY_NO)
+        holder.itemView.isClickable = false
+        holder.itemView.isEnabled = false
+        holder.itemView.minimumHeight = 1
+        ViewCompat.setImportantForAccessibility(holder.itemView, ViewCompat.IMPORTANT_FOR_ACCESSIBILITY_NO)
 
         //set the color for the divider
-        holder.divider.setBackgroundColor(ctx.getDividerColor())
+        holder.itemView.setBackgroundColor(ctx.getDividerColor())
 
         //call the onPostBindView method to trigger post bind view actions (like the listener to modify the item if required)
         onPostBindView(this, holder.itemView)
@@ -44,7 +44,5 @@ open class DividerDrawerItem : AbstractDrawerItem<DividerDrawerItem, DividerDraw
         return ViewHolder(v)
     }
 
-    class ViewHolder internal constructor(internal val view: View) : RecyclerView.ViewHolder(view) {
-        internal val divider: View = view.findViewById(R.id.material_drawer_divider)
-    }
+    class ViewHolder internal constructor(view: View) : RecyclerView.ViewHolder(view)
 }
