@@ -1,32 +1,76 @@
-# Thanks to https://github.com/coil-kt/coil/blob/master/.github/workflows/ci.yml
-
 name: CI
 on:
-    push:
-        branches:
-            - master
-    pull_request:
+  pull_request:
 jobs:
-    ci:
-        name: Build + Test
-        runs-on: macOS-latest
-        steps:
-            - uses: actions/checkout@v2
+  cancel:
+    name: 'Cancel Previous Runs'
+    runs-on: ubuntu-latest
+    timeout-minutes: 3
+    steps:
+      - uses: styfle/cancel-workflow-action@43da6c68d1f8edfdd25e3a96440e733723d533f6
+        with:
+          access_token: ${{ github.token }}
 
-            # Ensure .gradle/caches is empty before writing to it.
-            # This helps us stay within Github's cache size limits.
-            - name: Clean Cache
-              run: rm -rf ~/.gradle/caches
+  validation:
+    name: "Validation"
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+      - uses: gradle/wrapper-validation-action@v1
 
-            # Restore the cache.
-            # Intentionally don't set 'restore-keys' so the cache never contains redundant dependencies.
-            - uses: actions/cache@v1
-              with:
-                  path: ~/.gradle/caches
-                  key: gradle-${{ runner.os }}-${{ hashFiles('**/build.gradle') }}-${{ hashFiles('**/gradle/wrapper/gradle-wrapper.properties') }} }}
+  ci:
+    name: "Build"
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v2
 
-            - name: Build
-              run: ./gradlew clean build
+      - name: Install Java
+        uses: actions/setup-java@v1
+        with:
+          java-version: 1.8
 
-            # - name: Detekt
-            #   run: ./gradlew detekt
+      - name: Copy CI gradle.properties
+        run: mkdir -p ~/.gradle ; cp .github/ci-gradle.properties ~/.gradle/gradle.properties
+
+      - name: Permission Gradle Script
+        run: chmod +x ./gradlew
+
+      - name: Permission Checksum script
+        run: chmod +x ./.github/scripts/checksum.sh
+
+      - name: Generate Cache Key
+        run: ./.github/scripts/checksum.sh checksum.txt
+
+      - name: Checkout Gradle Build Cache
+        uses: actions/cache@v2
+        with:
+          path: |
+            ~/.gradle/caches
+            ~/.gradle/wrapper
+            !~/.gradle/wrapper/dists/**/gradle*.zip
+          key: gradle-${{ runner.os }}-${{ hashFiles('checksum.txt') }}-v1
+          restore-keys: |
+            gradle-${{ runner.os }}-
+
+      - name: Build
+        run: ./gradlew clean build
+
+      - name: Prepare Tag Environment
+        if: startsWith(github.ref, 'refs/tags/')
+        id: tag_version
+        run: echo ::set-output name=VERSION::$(echo ${GITHUB_REF:10})
+
+      - name: Publish Release
+        if: startsWith(github.ref, 'refs/tags/')
+        run: |
+          ./release.sh release
+
+      - name: Release
+        uses: softprops/action-gh-release@91409e712cf565ce9eff10c87a8d1b11b81757ae
+        if: startsWith(github.ref, 'refs/tags/')
+        with:
+          prerelease: ${{ contains(github.ref, '-rc') || contains(github.ref, '-b') || contains(github.ref, '-a') }}
+          files: app/build/outputs/apk/release/*.apk
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
