@@ -1,12 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<View xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/material_drawer_divider"
     android:layout_width="match_parent"
-    android:layout_height="wrap_content"
-    android:paddingTop="@dimen/material_drawer_padding"
-    android:paddingBottom="@dimen/material_drawer_padding">
-
-    <View
-        android:id="@+id/material_drawer_divider"
-        android:layout_width="match_parent"
-        android:layout_height="1dp" />
-</RelativeLayout>
+    android:layout_height="1dp"
+    android:layout_marginTop="@dimen/material_drawer_padding"
+    android:layout_marginBottom="@dimen/material_drawer_padding" />
