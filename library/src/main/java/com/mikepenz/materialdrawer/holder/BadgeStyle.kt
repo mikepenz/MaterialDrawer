@@ -15,18 +15,23 @@ import com.mikepenz.materialdrawer.model.utils.BadgeDrawableBuilder
 open class BadgeStyle {
     /** defines the drawable to use to define the rounded corners */
     var gradientDrawable = R.drawable.material_drawer_badge
+
     /** defines the background drawable */
     var badgeBackground: Drawable? = null
+
     /** the default color */
     var color: ColorHolder? = null
+
     /** the pressed color */
     var colorPressed: ColorHolder? = null
+
     /**
      * the text size
      * NOTE: Will only apply on 21+, also if applying, ensure to apply to all views
      */
     var textSizeSp: Float? = null
     private var _textColor: ColorHolder? = null
+
     /** defines the default text color */
     var textColor: ColorHolder?
         get() = _textColor
@@ -36,6 +41,7 @@ open class BadgeStyle {
         }
 
     private var _textColorStateList: ColorStateList? = null
+
     /** defines the alternative text color state list */
     var textColorStateList: ColorStateList?
         get() = _textColorStateList
@@ -43,21 +49,26 @@ open class BadgeStyle {
             _textColor = null
             _textColorStateList = value
         }
+
     /** the corner radious */
     var corners: DimenHolder? = null
+
     /** dcustom padding to the bottom (default 2dp) */
     var paddingTopBottom = DimenHolder.fromDp(2)
+
     /** custom padding to the right (default 3dp) */
     var paddingLeftRight = DimenHolder.fromDp(3)
+
     /** the min width to set (default 20dp) */
     var minWidth = DimenHolder.fromDp(20)
+
     /**
      * elevation to apply on the view
      * NOTE: Will only apply on 21+, also if applying, ensure to apply to all views
      */
     var elevation: DimenHolder? = null
 
-    constructor() {}
+    constructor()
 
     constructor(@ColorInt color: Int, @ColorInt colorPressed: Int) {
         this.color = ColorHolder.fromColor(color)

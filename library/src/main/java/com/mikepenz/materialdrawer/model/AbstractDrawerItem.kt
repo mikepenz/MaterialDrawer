@@ -225,7 +225,6 @@ abstract class AbstractDrawerItem<T, VH : RecyclerView.ViewHolder> : IDrawerItem
      * @param holder
      */
     override fun attachToWindow(holder: VH) {
-
     }
 
     /**
@@ -234,7 +233,6 @@ abstract class AbstractDrawerItem<T, VH : RecyclerView.ViewHolder> : IDrawerItem
      * @param holder
      */
     override fun detachFromWindow(holder: VH) {
-
     }
 
     /**

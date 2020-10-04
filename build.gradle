@@ -29,6 +29,7 @@ buildscript {
                 iconics           : "5.0.3",
                 aboutLibs         : "8.3.0",
                 navigation        : "2.3.0",
+                detekt            : '1.12.0',
                 slidingpaneLayout : "1.1.0",
                 swiperefreshLayout: "1.1.0"
         ]
@@ -45,6 +46,7 @@ buildscript {
         classpath 'com.jfrog.bintray.gradle:gradle-bintray-plugin:1.8.5'
         classpath "org.jetbrains.kotlin:kotlin-gradle-plugin:${versions.kotlin}"
         classpath "androidx.navigation:navigation-safe-args-gradle-plugin:${versions.navigation}"
+        classpath "io.gitlab.arturbosch.detekt:detekt-gradle-plugin:${versions.detekt}"
         classpath "com.mikepenz.aboutlibraries.plugin:aboutlibraries-plugin:${versions.aboutLibs}"
     }
 }
@@ -55,5 +57,13 @@ allprojects {
         jcenter()
         mavenCentral()
         maven { url "https://oss.sonatype.org/content/repositories/snapshots/" }
+    }
+}
+
+subprojects {
+    apply from: '../detekt.gradle'
+
+    dependencies {
+        detektPlugins "io.gitlab.arturbosch.detekt:detekt-formatting:${versions.detekt}"
     }
 }
