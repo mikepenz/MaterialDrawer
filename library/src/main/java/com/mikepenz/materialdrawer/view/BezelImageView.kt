@@ -174,7 +174,6 @@ open class BezelImageView @JvmOverloads constructor(context: Context, attrs: Att
                             mMaskedPaint.colorFilter = mSelectorFilter
                         } else {
                             mMaskedPaint.colorFilter = mDesaturateColorFilter
-
                         }
                     } else {
                         mMaskedPaint.colorFilter = null

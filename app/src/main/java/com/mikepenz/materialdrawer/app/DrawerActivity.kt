@@ -51,7 +51,7 @@ class DrawerActivity : AppCompatActivity() {
         val profile4 = ProfileDrawerItem().apply { nameText = "Felix House"; descriptionText = "felix.house@gmail.com"; iconRes = R.drawable.profile3; identifier = 103 }
         val profile5 = ProfileDrawerItem().apply { nameText = "Mr. X"; descriptionText = "mister.x.super@gmail.com"; iconRes = R.drawable.profile4; identifier = 104 }
         val profile6 = ProfileDrawerItem().apply {
-            nameText = "Batman"; descriptionText = "batman@gmail.com"; iconRes = R.drawable.profile5; identifier = 105; badgeText = "123";
+            nameText = "Batman"; descriptionText = "batman@gmail.com"; iconRes = R.drawable.profile5; identifier = 105; badgeText = "123"
             badgeStyle = BadgeStyle().apply {
                 textColor = ColorHolder.fromColor(Color.BLACK)
                 color = ColorHolder.fromColor(Color.WHITE)
@@ -163,7 +163,6 @@ class DrawerActivity : AppCompatActivity() {
                 }
 
                 false
-
             }
             setSavedInstance(savedInstanceState)
         }

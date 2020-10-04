@@ -5,12 +5,12 @@ def isReleaseBuild() {
 
 @SuppressWarnings("GroovyUnusedDeclaration")
 def getRepositoryUsername() {
-    return hasProperty('NEXUS_USERNAME') ? NEXUS_USERNAME : ""
+    return hasProperty('NEXUS_USERNAME') ? NEXUS_USERNAME : System.getenv('NEXUS_USERNAME')
 }
 
 @SuppressWarnings("GroovyUnusedDeclaration")
 def getRepositoryPassword() {
-    return hasProperty('NEXUS_PASSWORD') ? NEXUS_PASSWORD : ""
+    return hasProperty('NEXUS_PASSWORD') ? NEXUS_PASSWORD : System.getenv('NEXUS_PASSWORD')
 }
 
 apply plugin: "com.jfrog.bintray"
