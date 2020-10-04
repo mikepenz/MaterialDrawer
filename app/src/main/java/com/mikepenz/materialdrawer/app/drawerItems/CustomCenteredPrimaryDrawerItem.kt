@@ -10,5 +10,4 @@ class CustomCenteredPrimaryDrawerItem : PrimaryDrawerItem() {
 
     override val type: Int
         get() = R.id.material_drawer_item_centered_primary
-
 }

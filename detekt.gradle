@@ -1,0 +1,7 @@
+apply plugin: "io.gitlab.arturbosch.detekt"
+
+detekt {
+    toolVersion = "${versions.detekt}"
+    //input = files("src/main/kotlin")
+    config = files(buildscript.sourceFile.getParent().toString() + "/DEV/default-detekt-config.yml")
+}

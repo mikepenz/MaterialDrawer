@@ -10,5 +10,4 @@ open class CustomBaseViewHolder(var view: View) : RecyclerView.ViewHolder(view) 
     var icon: ImageView = view.findViewById<ImageView>(R.id.material_drawer_icon)
     var name: TextView = view.findViewById<TextView>(R.id.material_drawer_name)
     var description: TextView = view.findViewById<TextView>(R.id.material_drawer_description)
-
 }
