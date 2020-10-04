@@ -1,4 +1,6 @@
 buildscript {
+    apply from: 'configurations.gradle'
+
     ext {
         release = [
                 versionName: "8.1.5",

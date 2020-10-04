@@ -1,76 +1,109 @@
+# Thanks to https://github.com/coil-kt/coil/blob/master/.github/workflows/ci.yml
 name: CI
+
 on:
+  push:
+    tags:
+      - '*'
   pull_request:
+
 jobs:
-  cancel:
-    name: 'Cancel Previous Runs'
-    runs-on: ubuntu-latest
-    timeout-minutes: 3
-    steps:
-      - uses: styfle/cancel-workflow-action@43da6c68d1f8edfdd25e3a96440e733723d533f6
-        with:
-          access_token: ${{ github.token }}
-
-  validation:
-    name: "Validation"
-    runs-on: ubuntu-latest
-    steps:
-      - uses: actions/checkout@v2
-      - uses: gradle/wrapper-validation-action@v1
-
-  ci:
-    name: "Build"
+  build:
+    name: Build
     runs-on: ubuntu-latest
     steps:
       - name: Checkout
         uses: actions/checkout@v2
 
-      - name: Install Java
-        uses: actions/setup-java@v1
-        with:
-          java-version: 1.8
+      - name: Validate gradle wrapper
+        uses: gradle/wrapper-validation-action@v1
 
       - name: Copy CI gradle.properties
         run: mkdir -p ~/.gradle ; cp .github/ci-gradle.properties ~/.gradle/gradle.properties
 
-      - name: Permission Gradle Script
-        run: chmod +x ./gradlew
-
-      - name: Permission Checksum script
-        run: chmod +x ./.github/scripts/checksum.sh
-
-      - name: Generate Cache Key
-        run: ./.github/scripts/checksum.sh checksum.txt
-
       - name: Checkout Gradle Build Cache
+        if: ${{ steps.self_hosted.outputs.FLAG != 'self-hosted' }}
         uses: actions/cache@v2
         with:
           path: |
             ~/.gradle/caches
             ~/.gradle/wrapper
             !~/.gradle/wrapper/dists/**/gradle*.zip
-          key: gradle-${{ runner.os }}-${{ hashFiles('checksum.txt') }}-v1
+          key: ${{ runner.os }}-gradle-${{ hashFiles('**/*.gradle*') }}
           restore-keys: |
             gradle-${{ runner.os }}-
 
-      - name: Build
-        run: ./gradlew clean build
+      - name: Build Debug
+        run: ./gradlew clean app:assembleDebug
 
-      - name: Prepare Tag Environment
-        if: startsWith(github.ref, 'refs/tags/')
-        id: tag_version
-        run: echo ::set-output name=VERSION::$(echo ${GITHUB_REF:10})
+      - name: Run Lint
+        if: github.event_name  == 'pull_request'
+        run: ./gradlew lintDebug
 
-      - name: Publish Release
+      - name: Detekt
+        if: github.event_name  == 'pull_request'
+        run: ./gradlew detekt
+
+      - name: Setup Ruby
+        if: github.event_name  == 'pull_request'
+        uses: ruby/setup-ruby@v1
+        with:
+          ruby-version: '2.6.3'
+          bundler-cache: true
+
+      - name: Run Danger
+        if: github.event_name  == 'pull_request'
+        run: |
+          gem install danger
+          bundle exec danger --dangerfile=Dangerfile --danger_id=danger-pr
+        env:
+          DANGER_GITHUB_API_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: Prepare Keystore and Local.
         if: startsWith(github.ref, 'refs/tags/')
         run: |
-          ./release.sh release
+          echo "${{ secrets.KEYSTORE }}" > opensource.jks.asc
+          gpg -d --passphrase "${{ secrets.KEYSTORE_PASSPHRASE }}" --batch "opensource.jks.asc" > "app/opensource.jks"
+          echo "${{ secrets.SIGNING_GRADLE }}" > signing.gradle.asc
+          gpg -d --passphrase "${{ secrets.KEYSTORE_PASSPHRASE }}" --batch "signing.gradle.asc" > "app/signing.gradle"
+          echo "openSource.signing.file=signing.gradle" >> local.properties
+
+      - name: Build Release App
+        if: startsWith(github.ref, 'refs/tags/')
+        run: ./gradlew app:assembleRelease app:bundleRelease
+
+      - name: Relase bintray
+        if: startsWith(github.ref, 'refs/tags/')
+        run: |
+          ./gradlew build
+          ./gradlew library:bintrayUpload -Plibrary_only
+          ./gradlew library-nav:bintrayUpload -x test -x lint -Plibrary_nav_only
+          ./gradlew library-iconics:bintrayUpload -x test -x lint -Plibrary_iconics_only
+        env:
+          BINTRAY_USER: ${{ secrets.BINTRAY_USER }}
+          BINTRAY_API_KEY: ${{ secrets.BINTRAY_API_KEY }}
+          BINTRAY_GPG_PASS: ${{ secrets.BINTRAY_GPG_PASS }}
+          NEXUS_USERNAME: ${{ secrets.NEXUS_USERNAME }}
+          NEXUS_PASSWORD: ${{ secrets.NEXUS_PASSWORD }}
+
+      - name: Collect artifacts
+        run: |
+          COLLECT_PWD=${PWD}
+          mkdir -p "artifacts"
+          find . -name "*.apk" -type f -exec cp {} "artifacts" \;
+          find . -name "*.aab" -type f -exec cp {} "artifacts" \;
+
+      - name: Archive Artifacts
+        uses: actions/upload-artifact@v2
+        with:
+          name: "App-Artifacts"
+          path: artifacts/*
 
       - name: Release
         uses: softprops/action-gh-release@91409e712cf565ce9eff10c87a8d1b11b81757ae
         if: startsWith(github.ref, 'refs/tags/')
         with:
           prerelease: ${{ contains(github.ref, '-rc') || contains(github.ref, '-b') || contains(github.ref, '-a') }}
-          files: app/build/outputs/apk/release/*.apk
+          files: artifacts/*
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
