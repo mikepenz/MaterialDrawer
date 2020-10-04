@@ -72,12 +72,6 @@ jobs:
         if: startsWith(github.ref, 'refs/tags/')
         run: ./gradlew app:assembleRelease app:bundleRelease
 
-      - name: Prepare Gradle Publish properties
-        if: startsWith(github.ref, 'refs/tags/')
-        run: |
-          echo "NEXUS_USERNAME=${{ secrets.NEXUS_USERNAME }}" >> ~/.gradle/gradle.properties
-          echo "NEXUS_PASSWORD=${{ secrets.NEXUS_PASSWORD }}" >> ~/.gradle/gradle.properties
-
       - name: Relase bintray
         if: startsWith(github.ref, 'refs/tags/')
         run: |
@@ -89,6 +83,8 @@ jobs:
           BINTRAY_USER: ${{ secrets.BINTRAY_USER }}
           BINTRAY_API_KEY: ${{ secrets.BINTRAY_API_KEY }}
           BINTRAY_GPG_PASS: ${{ secrets.BINTRAY_GPG_PASS }}
+          NEXUS_USERNAME: ${{ secrets.NEXUS_USERNAME }}
+          NEXUS_PASSWORD: ${{ secrets.NEXUS_PASSWORD }}
 
       - name: Collect artifacts
         run: |
