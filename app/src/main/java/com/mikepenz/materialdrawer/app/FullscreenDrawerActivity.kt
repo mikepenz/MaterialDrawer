@@ -1,8 +1,10 @@
 package com.mikepenz.materialdrawer.app
 
+import android.content.Context
 import android.content.res.Configuration
 import android.graphics.Color
 import android.os.Bundle
+import android.os.PowerManager
 import android.view.MenuItem
 import androidx.appcompat.app.ActionBarDrawerToggle
 import androidx.appcompat.app.AppCompatActivity
@@ -62,6 +64,8 @@ class FullscreenDrawerActivity : AppCompatActivity() {
             )
             setSavedInstance(savedInstanceState)
         }
+
+        (getSystemService(Context.POWER_SERVICE) as? PowerManager)?.addThermalStatusListener { }
 
         ViewCompat.setOnApplyWindowInsetsListener(root) { v, insets ->
             toolbar.updatePadding(top = insets.systemWindowInsetTop)
