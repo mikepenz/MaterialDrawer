@@ -23,7 +23,6 @@ File.open("settings.gradle", "r") do |file_handle|
         androidLintFile = String.new(gradleModule + "/build/reports/lint-results.xml")
         androidLintDebugFile = String.new(gradleModule + "/build/reports/lint-results-debug.xml")
         if File.file?(androidLintFile) || File.file?(androidLintDebugFile)
-            message(androidLintFile + " exists")
             android_lint.skip_gradle_task = true
             android_lint.severity = "Warning"
             if File.file?(androidLintFile)
