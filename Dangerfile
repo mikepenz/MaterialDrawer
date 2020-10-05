@@ -21,11 +21,16 @@ File.open("settings.gradle", "r") do |file_handle|
 
         # AndroidLint
         androidLintFile = String.new(gradleModule + "/build/reports/lint-results.xml")
-
-        if File.file?(androidLintFile)
+        androidLintDebugFile = String.new(gradleModule + "/build/reports/lint-results-debug.xml")
+        if File.file?(androidLintFile) || File.file?(androidLintDebugFile)
+            message(androidLintFile + " exists")
             android_lint.skip_gradle_task = true
             android_lint.severity = "Warning"
-            android_lint.report_file = androidLintFile
+            if File.file?(androidLintFile)
+                android_lint.report_file = androidLintFile
+            else
+                android_lint.report_file = androidLintDebugFile
+            end
             android_lint.filtering = true
             android_lint.lint(inline_mode: true)
         end
