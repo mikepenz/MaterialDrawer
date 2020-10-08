@@ -4,9 +4,9 @@
 
 - Ground up refactor of the way the `MaterialDrawer` is used and integrated into the app.
 - Please consider carefully before upgrading to this version.
-- Prior to v8 the `Drawer` would automatically inject the `DrawerLayout` into the layout hierarchy, apply window flags, and take over control of the `ActionbarDrawerToggle`.
-  - This may seemed convenient for easy usecases, but created big problems for more advanced implementations where taking over window insets is expected
-  - v8 will no longer do any of this, and gives back all the control to the developer, no more unexpected layout flags, chagnes to the layout hierarchy or anything similar.
+- Prior to v8 the `Drawer` would automatically inject the `DrawerLayout` into the layout hierarchy, apply window flags, and take over control of the `ActionBarDrawerToggle`.
+  - This may seem convenient for easy usecases, but created big problems for more advanced implementations where taking over window insets is expected
+  - v8 will no longer do any of this, and gives back all the control to the developer, no more unexpected layout flags, changes to the layout hierarchy or anything similar.
 - The core principle behind v8 is to offer just the UI and give back all control to developers.
 - Additionally v8 eliminates dependencies on `Materialize`, `Android-Iconics`
 - v8 also now comes with better theming support and better dark mode support
@@ -14,10 +14,10 @@
 - Basic upgrade procedure:
   - Add `DrawerLayout` into your layout
   - Add `MaterialDrawerSliderView` as child to the `DrawerLayout`
-  - Find the reference to the `MaterialDrawerSliderView` in your `Activit` / `Fragment`
+  - Find the reference to the `MaterialDrawerSliderView` in your `Activity` / `Fragment`
   - Use the `MaterialDrawerSliderView` to fill the list / do updates
 - Basic upgrade prodedure for the `AccountHeader`:
-  - Create a instance of the `AccountHeaderView`
+  - Create an instance of the `AccountHeaderView`
   - Attach to the slider via `attachToSliderView(slider)`
 - Additionally v8 is more optimized for Kotlin meaning all legacy `with(*)` methods were replaced (kept as extension functions as legacy support) with properties
 
