@@ -14,6 +14,8 @@ jobs:
     steps:
       - name: Checkout
         uses: actions/checkout@v2
+        with:
+          fetch-depth: 100
 
       - name: Validate gradle wrapper
         uses: gradle/wrapper-validation-action@v1
