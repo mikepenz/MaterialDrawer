@@ -307,10 +307,6 @@ Overwrite the Style of the BezelImageView for the whole MaterialDrawer
 </style>
 ```
 
-### Prefer a Kotlin DSL?
-> Note this is currently not compatible with v8.
-Thanks to @zsmb13 there's now an (in)official Kotlin DSL wrapper for the MaterialDrawer https://github.com/zsmb13/MaterialDrawerKt
-
 # Used by
 (feel free to send me new projects)
 
@@ -376,10 +372,10 @@ Thanks to @zsmb13 there's now an (in)official Kotlin DSL wrapper for the Materia
 
 # Developed By
 
-* Mike Penz
- * [mikepenz.com](http://mikepenz.com) - <mikepenz@gmail.com>
- * [paypal.me/mikepenz](http://paypal.me/mikepenz)
-
+- Mike Penz
+  - [mikepenz.dev](https://mikepenz.dev) - [blog.mikepenz.dev](https://blog.mikepenz.dev) - <mikepenz@gmail.com>
+  - [paypal.me/mikepenz](http://paypal.me/mikepenz)
+  - [Automatic changelog generation action](https://github.com/marketplace/actions/release-changelog-builder)
 
 # License
 
