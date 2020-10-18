@@ -101,10 +101,21 @@ jobs:
           name: "App-Artifacts"
           path: artifacts/*
 
+      - name: Build Changelog
+        id: github_release
+        uses: mikepenz/release-changelog-builder-action@v1
+        if: startsWith(github.ref, 'refs/tags/')
+        with:
+          configuration: ".github/config/configuration.json"
+          ignorePreReleases: ${{ !contains(github.ref, '-') }}
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
       - name: Release
         uses: softprops/action-gh-release@91409e712cf565ce9eff10c87a8d1b11b81757ae
         if: startsWith(github.ref, 'refs/tags/')
         with:
+          body: ${{steps.github_release.outputs.changelog}}
           prerelease: ${{ contains(github.ref, '-rc') || contains(github.ref, '-b') || contains(github.ref, '-a') }}
           files: artifacts/*
         env:
