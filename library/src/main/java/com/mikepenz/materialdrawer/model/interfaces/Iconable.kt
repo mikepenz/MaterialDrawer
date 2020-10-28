@@ -24,11 +24,15 @@ fun <T : Iconable> T.withIconColor(iconColor: ColorStateList): T {
     return this
 }
 
-var <T : Iconable> T.iconDrawable: Drawable
+var <T : Iconable> T.iconDrawable: Drawable?
     @Deprecated(level = DeprecationLevel.ERROR, message = "Not readable")
     get() = throw UnsupportedOperationException("Please use the direct property")
     set(value) {
-        this.icon = ImageHolder(value)
+        if (value != null) {
+            this.icon = ImageHolder(value)
+        } else {
+            this.icon = null
+        }
     }
 
 var <T : Iconable> T.iconBitmap: Bitmap
