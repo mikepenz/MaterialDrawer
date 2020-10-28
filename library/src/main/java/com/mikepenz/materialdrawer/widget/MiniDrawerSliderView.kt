@@ -334,6 +334,7 @@ open class MiniDrawerSliderView @JvmOverloads constructor(context: Context, attr
                             val drawerItem = drawer?.getDrawerItem(item.identifier)
                             if (drawerItem != null && !drawerItem.isSelected) {
                                 //set the selection
+                                drawer?.selectExtension?.deselect()
                                 drawer?.setSelection(item.identifier, true)
                             }
                         } else if (drawer?.onDrawerItemClickListener != null) {
