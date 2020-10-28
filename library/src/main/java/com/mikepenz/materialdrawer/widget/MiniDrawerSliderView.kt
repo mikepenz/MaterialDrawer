@@ -97,13 +97,13 @@ open class MiniDrawerSliderView @JvmOverloads constructor(context: Context, attr
             createItems()
         }
 
-    private var enableSelectedMiniDrawerItemBackground = false
+    var enableSelectedMiniDrawerItemBackground = false
         set(value) {
             field = value
             createItems()
         }
 
-    private var enableProfileClick = true
+    var enableProfileClick = true
         set(value) {
             field = value
             createItems()
@@ -334,6 +334,7 @@ open class MiniDrawerSliderView @JvmOverloads constructor(context: Context, attr
                             val drawerItem = drawer?.getDrawerItem(item.identifier)
                             if (drawerItem != null && !drawerItem.isSelected) {
                                 //set the selection
+                                drawer?.selectExtension?.deselect()
                                 drawer?.setSelection(item.identifier, true)
                             }
                         } else if (drawer?.onDrawerItemClickListener != null) {
