@@ -97,13 +97,13 @@ open class MiniDrawerSliderView @JvmOverloads constructor(context: Context, attr
             createItems()
         }
 
-    private var enableSelectedMiniDrawerItemBackground = false
+    var enableSelectedMiniDrawerItemBackground = false
         set(value) {
             field = value
             createItems()
         }
 
-    private var enableProfileClick = true
+    var enableProfileClick = true
         set(value) {
             field = value
             createItems()
