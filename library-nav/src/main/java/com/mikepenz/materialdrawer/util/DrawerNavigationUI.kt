@@ -19,10 +19,12 @@ import java.lang.ref.WeakReference
  * @param fallBackListener the listener to handle no navigationDrawerItems
  * @return
  */
-fun MaterialDrawerSliderView.setupWithNavController(navController: NavController,
-                                                    fallBackListener: ((v: View?, item: IDrawerItem<*>, position: Int) -> Boolean)?
+fun MaterialDrawerSliderView.setupWithNavController(
+        navController: NavController,
+        fallBackListener: ((v: View?, item: IDrawerItem<*>, position: Int) -> Boolean)? = null
 ) {
     DrawerNavigationUI.setupWithNavController(this, navController, fallBackListener)
+}
 
 /**
  * Created by petretiandrea on 19.07.19.
@@ -42,9 +44,10 @@ object DrawerNavigationUI {
      * @param fallBackListener A listener called when perform navigation fails
      * @return
      */
-    fun setupWithNavController(drawer: MaterialDrawerSliderView,
-                               navController: NavController,
-                               fallBackListener: ((v: View?, item: IDrawerItem<*>, position: Int) -> Boolean)?
+    fun setupWithNavController(
+            drawer: MaterialDrawerSliderView,
+            navController: NavController,
+            fallBackListener: ((v: View?, item: IDrawerItem<*>, position: Int) -> Boolean)? = null
     ) {
         drawer.onDrawerItemClickListener = { v, item, position ->
             val success = performNavigation(item, navController)
