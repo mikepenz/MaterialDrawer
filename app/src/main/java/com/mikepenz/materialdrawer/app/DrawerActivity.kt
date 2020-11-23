@@ -13,35 +13,36 @@ import com.mikepenz.iconics.typeface.library.fontawesome.FontAwesome
 import com.mikepenz.iconics.typeface.library.googlematerial.GoogleMaterial
 import com.mikepenz.iconics.utils.actionBar
 import com.mikepenz.iconics.utils.paddingDp
+import com.mikepenz.materialdrawer.app.databinding.ActivitySampleBinding
 import com.mikepenz.materialdrawer.holder.BadgeStyle
 import com.mikepenz.materialdrawer.holder.ColorHolder
 import com.mikepenz.materialdrawer.holder.StringHolder
 import com.mikepenz.materialdrawer.iconics.iconicsIcon
-import com.mikepenz.materialdrawer.iconics.withIcon
 import com.mikepenz.materialdrawer.model.*
 import com.mikepenz.materialdrawer.model.interfaces.*
 import com.mikepenz.materialdrawer.util.addItems
 import com.mikepenz.materialdrawer.util.updateBadge
 import com.mikepenz.materialdrawer.widget.AccountHeaderView
-import kotlinx.android.synthetic.main.activity_sample.*
 
 
 class DrawerActivity : AppCompatActivity() {
-
+    private lateinit var binding: ActivitySampleBinding
     private lateinit var headerView: AccountHeaderView
     private lateinit var actionBarDrawerToggle: ActionBarDrawerToggle
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_sample)
+        binding = ActivitySampleBinding.inflate(layoutInflater).also {
+            setContentView(it.root)
+        }
 
         // Handle Toolbar
-        setSupportActionBar(toolbar)
+        setSupportActionBar(binding.toolbar)
         supportActionBar?.setDisplayHomeAsUpEnabled(false)
         supportActionBar?.setHomeButtonEnabled(true)
 
-        actionBarDrawerToggle = ActionBarDrawerToggle(this, root, toolbar, com.mikepenz.materialdrawer.R.string.material_drawer_open, com.mikepenz.materialdrawer.R.string.material_drawer_close)
-        root.addDrawerListener(actionBarDrawerToggle)
+        actionBarDrawerToggle = ActionBarDrawerToggle(this, binding.root, binding.toolbar, com.mikepenz.materialdrawer.R.string.material_drawer_open, com.mikepenz.materialdrawer.R.string.material_drawer_close)
+        binding.root.addDrawerListener(actionBarDrawerToggle)
 
         // Create a few sample profile
         // NOTE you have to define the loader logic too. See the CustomApplication for more details
@@ -60,7 +61,7 @@ class DrawerActivity : AppCompatActivity() {
 
         // Create the AccountHeader
         headerView = AccountHeaderView(this).apply {
-            attachToSliderView(slider)
+            attachToSliderView(binding.slider)
             addProfiles(
                     profile,
                     profile2,
@@ -90,7 +91,7 @@ class DrawerActivity : AppCompatActivity() {
             withSavedInstance(savedInstanceState)
         }
 
-        slider.apply {
+        binding.slider.apply {
             addItems(
                     PrimaryDrawerItem().apply { nameRes = R.string.drawer_item_compact_header; descriptionRes = R.string.drawer_item_compact_header_desc; iconicsIcon = GoogleMaterial.Icon.gmd_brightness_5; isSelectable = false; identifier = 1 },
                     PrimaryDrawerItem().apply { nameRes = R.string.drawer_item_action_bar_drawer; descriptionRes = R.string.drawer_item_action_bar_drawer_desc; iconicsIcon = FontAwesome.Icon.faw_home; isSelectable = false; identifier = 2 },
@@ -108,18 +109,21 @@ class DrawerActivity : AppCompatActivity() {
                     ExpandableBadgeDrawerItem().apply {
                         nameText = "Collapsable Badge"; iconicsIcon = GoogleMaterial.Icon.gmd_format_bold; identifier = 18; isSelectable = false; badge = StringHolder("100")
                         badgeStyle = BadgeStyle().apply { textColor = ColorHolder.fromColor(Color.WHITE); color = ColorHolder.fromColorRes(R.color.md_red_700) }
-                        withSubItems(
-                                SecondaryDrawerItem().withName("CollapsableItem").withLevel(2).withIcon(GoogleMaterial.Icon.gmd_format_bold).withIdentifier(2000),
-                                SecondaryDrawerItem().withName("CollapsableItem 2").withLevel(2).withIcon(GoogleMaterial.Icon.gmd_format_bold).withIdentifier(2001)
+                        subItems = mutableListOf(
+                                SecondaryDrawerItem().apply { nameText = "CollapsableItem"; level = 2; iconicsIcon = GoogleMaterial.Icon.gmd_format_bold; identifier = 2000 },
+                                SecondaryDrawerItem().apply { nameText = "CollapsableItem 2"; level = 2; iconicsIcon = GoogleMaterial.Icon.gmd_format_bold; identifier = 2001 }
                         )
                     },
-                    ExpandableDrawerItem().withName("Collapsable").withIcon(GoogleMaterial.Icon.gmd_filter_list).withIdentifier(19).withSelectable(false).withSubItems(
-                            SecondaryDrawerItem().withName("CollapsableItem").withLevel(2).withIcon(GoogleMaterial.Icon.gmd_filter_list).withIdentifier(2002),
-                            SecondaryDrawerItem().withName("CollapsableItem 2").withLevel(2).withIcon(GoogleMaterial.Icon.gmd_filter_list).withIdentifier(2003)
-                    ),
-                    SectionDrawerItem().withName(R.string.drawer_item_section_header),
-                    SecondaryDrawerItem().withName(R.string.drawer_item_open_source).withIcon(FontAwesome.Icon.faw_github).withIdentifier(20).withSelectable(false),
-                    SecondaryDrawerItem().withName(R.string.drawer_item_contact).withIcon(GoogleMaterial.Icon.gmd_format_color_fill).withIdentifier(21).withTag("Bullhorn")
+                    ExpandableDrawerItem().apply {
+                        nameText = "Collapsable"; iconicsIcon = GoogleMaterial.Icon.gmd_filter_list; identifier = 19; isSelectable = false
+                        subItems = mutableListOf(
+                                SecondaryDrawerItem().apply { nameText = "CollapsableItem"; level = 2; iconicsIcon = GoogleMaterial.Icon.gmd_filter_list; identifier = 2002 },
+                                SecondaryDrawerItem().apply { nameText = "CollapsableItem 2"; level = 2; iconicsIcon = GoogleMaterial.Icon.gmd_filter_list; identifier = 2003 }
+                        )
+                    },
+                    SectionDrawerItem().apply { nameRes = R.string.drawer_item_section_header },
+                    SecondaryDrawerItem().apply { nameRes = R.string.drawer_item_open_source; iconicsIcon = FontAwesome.Icon.faw_github; identifier = 20; isSelectable = false },
+                    SecondaryDrawerItem().apply { nameRes = R.string.drawer_item_contact; iconicsIcon = GoogleMaterial.Icon.gmd_format_color_fill; identifier = 21; isSelectable = false }
                     /*,
                     DividerDrawerItem ()
                     SwitchDrawerItem ().withName("Switch").withIcon(Octicons.Icon.oct_tools).withChecked(true).withOnCheckedChangeListener(onCheckedChangeListener)
@@ -131,7 +135,7 @@ class DrawerActivity : AppCompatActivity() {
                     SecondaryToggleDrawerItem ().withName("Secondary toggle").withIcon(Octicons.Icon.oct_tools).withChecked(true).withOnCheckedChangeListener(onCheckedChangeListener)
                     */
             )
-            onDrawerItemClickListener = { v, drawerItem, position ->
+            onDrawerItemClickListener = { _, drawerItem, _ ->
                 //check if the drawerItem is set.
                 //there are different reasons for the drawerItem to be null
                 //--> click on the header
@@ -177,13 +181,13 @@ class DrawerActivity : AppCompatActivity() {
         //only set the active selection or active profile if we do not recreate the activity
         if (savedInstanceState == null) {
             // set the selection to the item with the identifier 11
-            slider.setSelection(21, false)
+            binding.slider.setSelection(21, false)
 
             //set the active profile
             headerView.activeProfile = profile3
         }
 
-        slider.updateBadge(4, StringHolder(10.toString() + ""))
+        binding.slider.updateBadge(4, StringHolder(10.toString() + ""))
     }
 
     override fun onConfigurationChanged(newConfig: Configuration) {
@@ -206,7 +210,7 @@ class DrawerActivity : AppCompatActivity() {
     override fun onSaveInstanceState(_outState: Bundle) {
         var outState = _outState
         //add the values which need to be saved from the drawer to the bundle
-        outState = slider.saveInstanceState(outState)
+        outState = binding.slider.saveInstanceState(outState)
 
         //add the values which need to be saved from the accountHeader to the bundle
         outState = headerView.saveInstanceState(outState)
@@ -216,8 +220,8 @@ class DrawerActivity : AppCompatActivity() {
 
     override fun onBackPressed() {
         //handle the back press :D close the drawer first and if the drawer is closed close the activity
-        if (root.isDrawerOpen(slider)) {
-            root.closeDrawer(slider)
+        if (binding.root.isDrawerOpen(binding.slider)) {
+            binding.root.closeDrawer(binding.slider)
         } else {
             super.onBackPressed()
         }

@@ -9,21 +9,24 @@ import android.view.MenuItem
 import androidx.appcompat.app.ActionBarDrawerToggle
 import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.view.ActionMode
+import androidx.core.content.ContextCompat
 import com.mikepenz.aboutlibraries.util.getThemeColor
 import com.mikepenz.iconics.IconicsDrawable
 import com.mikepenz.iconics.typeface.library.fontawesome.FontAwesome
 import com.mikepenz.iconics.typeface.library.googlematerial.GoogleMaterial
 import com.mikepenz.iconics.utils.actionBar
 import com.mikepenz.iconics.utils.paddingDp
+import com.mikepenz.materialdrawer.app.databinding.ActivitySampleBinding
 import com.mikepenz.materialdrawer.holder.BadgeStyle
 import com.mikepenz.materialdrawer.holder.ColorHolder
+import com.mikepenz.materialdrawer.iconics.iconicsIcon
 import com.mikepenz.materialdrawer.iconics.withIcon
 import com.mikepenz.materialdrawer.model.*
 import com.mikepenz.materialdrawer.model.interfaces.*
 import com.mikepenz.materialdrawer.widget.AccountHeaderView
-import kotlinx.android.synthetic.main.activity_sample.*
 
 class CompactHeaderDrawerActivity : AppCompatActivity() {
+    private lateinit var binding: ActivitySampleBinding
 
     //save our header or result
     private lateinit var headerView: AccountHeaderView
@@ -31,29 +34,34 @@ class CompactHeaderDrawerActivity : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_sample)
+        binding = ActivitySampleBinding.inflate(layoutInflater).also {
+            setContentView(it.root)
+        }
 
         // Handle Toolbar
-        setSupportActionBar(toolbar)
+        setSupportActionBar(binding.toolbar)
         supportActionBar?.setTitle(R.string.drawer_item_compact_header)
         supportActionBar?.setDisplayHomeAsUpEnabled(true)
         supportActionBar?.setHomeButtonEnabled(true)
 
-        actionBarDrawerToggle = ActionBarDrawerToggle(this, root, toolbar, com.mikepenz.materialdrawer.R.string.material_drawer_open, com.mikepenz.materialdrawer.R.string.material_drawer_close)
+        actionBarDrawerToggle = ActionBarDrawerToggle(this, binding.root, binding.toolbar, com.mikepenz.materialdrawer.R.string.material_drawer_open, com.mikepenz.materialdrawer.R.string.material_drawer_close)
 
         // Create a few sample profile
-        val profile = ProfileDrawerItem().withName("Mike Penz").withEmail("mikepenz@gmail.com").withIcon(R.drawable.profile).withBadge("123").withBadgeStyle(BadgeStyle().apply {
-            textColor = ColorHolder.fromColor(Color.WHITE)
-            color = ColorHolder.fromColorRes(R.color.md_red_700)
-        })
-        val profile2 = ProfileDrawerItem().withName("Max Muster").withEmail("max.mustermann@gmail.com").withIcon(R.drawable.profile2)
-        val profile3 = ProfileDrawerItem().withName("Felix House").withEmail("felix.house@gmail.com").withIcon(R.drawable.profile3)
-        val profile4 = ProfileDrawerItem().withName("Mr. X").withEmail("mister.x.super@gmail.com").withIcon(R.drawable.profile4)
-        val profile5 = ProfileDrawerItem().withName("Batman").withEmail("batman@gmail.com").withIcon(R.drawable.profile5)
+        val profile = ProfileDrawerItem().apply {
+            nameText = "Mike Penz"; descriptionText = "mikepenz@gmail.com"; iconRes = R.drawable.profile; badgeText = "123"
+            badgeStyle = BadgeStyle().apply {
+                textColor = ColorHolder.fromColor(Color.WHITE)
+                color = ColorHolder.fromColorRes(R.color.md_red_700)
+            }
+        }
+        val profile2 = ProfileDrawerItem().apply { nameText = "Max Muster"; descriptionText = "max.mustermann@gmail.com"; iconRes = R.drawable.profile2 }
+        val profile3 = ProfileDrawerItem().apply { nameText = "Felix House"; descriptionText = "felix.house@gmail.com"; iconRes = R.drawable.profile3 }
+        val profile4 = ProfileDrawerItem().apply { nameText = "Mr. X"; descriptionText = "mister.x.super@gmail.com"; iconRes = R.drawable.profile4 }
+        val profile5 = ProfileDrawerItem().apply { nameText = "Batman"; descriptionText = "batman@gmail.com"; iconRes = R.drawable.profile5 }
 
         // Create the AccountHeader
         headerView = AccountHeaderView(this).apply {
-            attachToSliderView(slider)
+            attachToSliderView(binding.slider)
             addProfiles(
                     profile,
                     profile2,
@@ -67,23 +75,23 @@ class CompactHeaderDrawerActivity : AppCompatActivity() {
             withSavedInstance(savedInstanceState)
         }
 
-        slider.apply {
+        binding.slider.apply {
             itemAdapter.add(
-                    PrimaryDrawerItem().withName(R.string.drawer_item_home).withIcon(FontAwesome.Icon.faw_home).withIdentifier(1),
-                    PrimaryDrawerItem().withName(R.string.drawer_item_free_play).withIcon(FontAwesome.Icon.faw_gamepad),
-                    PrimaryDrawerItem().withName(R.string.drawer_item_custom).withIcon(FontAwesome.Icon.faw_eye).withIdentifier(5),
-                    SectionDrawerItem().withName(R.string.drawer_item_section_header),
-                    SecondaryDrawerItem().withName(R.string.drawer_item_settings).withIcon(FontAwesome.Icon.faw_cog),
-                    SecondaryDrawerItem().withName(R.string.drawer_item_help).withIcon(FontAwesome.Icon.faw_question).withEnabled(false),
-                    SecondaryDrawerItem().withName(R.string.drawer_item_open_source).withIcon(FontAwesome.Icon.faw_github),
-                    SecondaryDrawerItem().withName(R.string.drawer_item_contact).withIcon(FontAwesome.Icon.faw_bullhorn)
+                    PrimaryDrawerItem().apply { nameRes = R.string.drawer_item_home; iconicsIcon = FontAwesome.Icon.faw_home; identifier = 1 },
+                    PrimaryDrawerItem().apply { nameRes = R.string.drawer_item_free_play; iconicsIcon = FontAwesome.Icon.faw_gamepad },
+                    PrimaryDrawerItem().apply { nameRes = R.string.drawer_item_custom; iconicsIcon = FontAwesome.Icon.faw_eye; identifier = 5 },
+                    SectionDrawerItem().apply { nameRes = R.string.drawer_item_section_header },
+                    SecondaryDrawerItem().apply { nameRes = R.string.drawer_item_settings; iconicsIcon = FontAwesome.Icon.faw_cog },
+                    SecondaryDrawerItem().apply { nameRes = R.string.drawer_item_help; iconicsIcon = FontAwesome.Icon.faw_question; isEnabled = false },
+                    SecondaryDrawerItem().apply { nameRes = R.string.drawer_item_open_source; iconicsIcon = FontAwesome.Icon.faw_github },
+                    SecondaryDrawerItem().apply { nameRes = R.string.drawer_item_contact; iconicsIcon = FontAwesome.Icon.faw_bullhorn }
             )
-            onDrawerItemClickListener = { v, drawerItem, position ->
+            onDrawerItemClickListener = { _, drawerItem, _ ->
                 if (drawerItem.identifier == 1L) {
                     startSupportActionMode(ActionBarCallBack())
                 }
                 if (drawerItem is Nameable) {
-                    toolbar.title = drawerItem.name?.getText(this@CompactHeaderDrawerActivity)
+                    binding.toolbar.title = drawerItem.name?.getText(this@CompactHeaderDrawerActivity)
                 }
                 false
             }
@@ -92,7 +100,7 @@ class CompactHeaderDrawerActivity : AppCompatActivity() {
 
         // set the selection to the item with the identifier 5
         if (savedInstanceState == null) {
-            slider.setSelection(5, false)
+            binding.slider.setSelection(5, false)
         }
     }
 
@@ -116,7 +124,7 @@ class CompactHeaderDrawerActivity : AppCompatActivity() {
     override fun onSaveInstanceState(_outState: Bundle) {
         var outState = _outState
         //add the values which need to be saved from the drawer to the bundle
-        outState = slider.saveInstanceState(outState)
+        outState = binding.slider.saveInstanceState(outState)
         //add the values which need to be saved from the accountHeader to the bundle
         outState = headerView.saveInstanceState(outState)
         super.onSaveInstanceState(outState)
@@ -124,8 +132,8 @@ class CompactHeaderDrawerActivity : AppCompatActivity() {
 
     override fun onBackPressed() {
         //handle the back press :D close the drawer first and if the drawer is closed close the activity
-        if (root.isDrawerOpen(slider)) {
-            root.closeDrawer(slider)
+        if (binding.root.isDrawerOpen(binding.slider)) {
+            binding.root.closeDrawer(binding.slider)
         } else {
             super.onBackPressed()
         }
@@ -139,7 +147,7 @@ class CompactHeaderDrawerActivity : AppCompatActivity() {
 
         override fun onCreateActionMode(mode: ActionMode, menu: Menu): Boolean {
             if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
-                window.statusBarColor = getThemeColor(R.attr.colorPrimaryDark, getColor(R.color.colorPrimaryDark))
+                window.statusBarColor = getThemeColor(R.attr.colorPrimaryDark, ContextCompat.getColor(this@CompactHeaderDrawerActivity, R.color.colorPrimaryDark))
             }
 
             mode.menuInflater.inflate(R.menu.cab, menu)
