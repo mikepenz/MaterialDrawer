@@ -1,16 +1,20 @@
 package com.mikepenz.materialdrawer.app
 
+import android.content.Context
 import android.content.res.Configuration
 import android.graphics.Color
 import android.os.Build
 import android.os.Bundle
+import android.util.TypedValue
 import android.view.Menu
 import android.view.MenuItem
+import androidx.annotation.AttrRes
+import androidx.annotation.ColorInt
 import androidx.appcompat.app.ActionBarDrawerToggle
 import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.view.ActionMode
 import androidx.core.content.ContextCompat
-import com.mikepenz.aboutlibraries.util.getThemeColor
+import androidx.core.content.res.ResourcesCompat
 import com.mikepenz.iconics.IconicsDrawable
 import com.mikepenz.iconics.typeface.library.fontawesome.FontAwesome
 import com.mikepenz.iconics.typeface.library.googlematerial.GoogleMaterial
@@ -163,6 +167,14 @@ class CompactHeaderDrawerActivity : AppCompatActivity() {
         override fun onPrepareActionMode(mode: ActionMode, menu: Menu): Boolean {
             return false
         }
+
+        private fun Context.getThemeColor(@AttrRes attr: Int, @ColorInt def: Int = 0): Int {
+            val tv = TypedValue()
+            return if (theme.resolveAttribute(attr, tv, true)) {
+                if (tv.resourceId != 0) ResourcesCompat.getColor(resources, tv.resourceId, theme) else tv.data
+            } else def
+        }
+
     }
 
     companion object {
