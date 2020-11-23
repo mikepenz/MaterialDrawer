@@ -11,9 +11,7 @@ import androidx.navigation.NavOptions
 import androidx.recyclerview.widget.RecyclerView
 import com.mikepenz.materialdrawer.R
 import com.mikepenz.materialdrawer.model.interfaces.IDrawerItem
-import com.mikepenz.materialdrawer.util.ExperimentalNavController
 
-@ExperimentalNavController
 class NavigationDrawerItem<VH : RecyclerView.ViewHolder>(
         @IdRes val resId: Int,
         val item: IDrawerItem<VH>,

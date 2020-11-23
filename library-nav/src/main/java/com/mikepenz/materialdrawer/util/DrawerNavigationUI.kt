@@ -9,10 +9,6 @@ import com.mikepenz.materialdrawer.model.interfaces.IDrawerItem
 import com.mikepenz.materialdrawer.widget.MaterialDrawerSliderView
 import java.lang.ref.WeakReference
 
-// Notify user that the DSL is currently experimental
-@Experimental(level = Experimental.Level.WARNING)
-annotation class ExperimentalNavController
-
 /**
  * Sets up a {@link Drawer} for use with a {@link NavController}.
  * The selected item in the Drawer will automatically be updated when the destination
@@ -21,7 +17,6 @@ annotation class ExperimentalNavController
  * @param navController The NavController that hosts the destination.
  * @return
  */
-@ExperimentalNavController
 fun MaterialDrawerSliderView.setupWithNavController(navController: NavController) {
     DrawerNavigationUI.setupWithNavController(this, navController)
 }
@@ -29,7 +24,6 @@ fun MaterialDrawerSliderView.setupWithNavController(navController: NavController
 /**
  * Created by petretiandrea on 19.07.19.
  */
-@ExperimentalNavController
 object DrawerNavigationUI {
 
     /**
