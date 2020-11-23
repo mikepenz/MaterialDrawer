@@ -174,7 +174,6 @@ class CompactHeaderDrawerActivity : AppCompatActivity() {
                 if (tv.resourceId != 0) ResourcesCompat.getColor(resources, tv.resourceId, theme) else tv.data
             } else def
         }
-
     }
 
     companion object {
