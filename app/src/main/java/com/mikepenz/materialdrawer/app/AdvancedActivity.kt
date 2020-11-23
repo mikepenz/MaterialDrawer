@@ -15,18 +15,21 @@ import com.mikepenz.iconics.utils.actionBar
 import com.mikepenz.iconics.utils.backgroundColorRes
 import com.mikepenz.iconics.utils.paddingDp
 import com.mikepenz.iconics.utils.sizeDp
+import com.mikepenz.materialdrawer.app.databinding.ActivitySampleBinding
 import com.mikepenz.materialdrawer.app.drawerItems.CustomPrimaryDrawerItem
 import com.mikepenz.materialdrawer.app.drawerItems.CustomUrlPrimaryDrawerItem
 import com.mikepenz.materialdrawer.app.drawerItems.OverflowMenuDrawerItem
+import com.mikepenz.materialdrawer.holder.ColorHolder
 import com.mikepenz.materialdrawer.holder.ImageHolder
-import com.mikepenz.materialdrawer.iconics.withIcon
+import com.mikepenz.materialdrawer.holder.StringHolder
+import com.mikepenz.materialdrawer.iconics.iconicsIcon
 import com.mikepenz.materialdrawer.model.*
 import com.mikepenz.materialdrawer.model.interfaces.*
 import com.mikepenz.materialdrawer.util.addStickyDrawerItems
 import com.mikepenz.materialdrawer.widget.AccountHeaderView
-import kotlinx.android.synthetic.main.activity_sample.*
 
 class AdvancedActivity : AppCompatActivity() {
+    private lateinit var binding: ActivitySampleBinding
 
     private lateinit var headerView: AccountHeaderView
     private lateinit var actionBarDrawerToggle: ActionBarDrawerToggle
@@ -39,50 +42,56 @@ class AdvancedActivity : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_sample)
+        binding = ActivitySampleBinding.inflate(layoutInflater).also {
+            setContentView(it.root)
+        }
 
         // Handle Toolbar
-        setSupportActionBar(toolbar)
+        setSupportActionBar(binding.toolbar)
         supportActionBar?.setDisplayHomeAsUpEnabled(true)
         supportActionBar?.setHomeButtonEnabled(true)
         supportActionBar?.setTitle(R.string.drawer_item_advanced_drawer)
 
-        actionBarDrawerToggle = ActionBarDrawerToggle(this, root, toolbar, com.mikepenz.materialdrawer.R.string.material_drawer_open, com.mikepenz.materialdrawer.R.string.material_drawer_close)
+        actionBarDrawerToggle = ActionBarDrawerToggle(this, binding.root, binding.toolbar, com.mikepenz.materialdrawer.R.string.material_drawer_open, com.mikepenz.materialdrawer.R.string.material_drawer_close)
 
         // Create a few sample profile
-        profile = ProfileDrawerItem().withName("Mike Penz").withEmail("mikepenz@gmail.com").withIcon(resources.getDrawable(R.drawable.profile))
-        profile2 = ProfileDrawerItem().withName("Max Muster").withEmail("max.mustermann@gmail.com").withIcon(resources.getDrawable(R.drawable.profile2)).withIdentifier(2)
-        profile3 = ProfileDrawerItem().withName("Felix House").withEmail("felix.house@gmail.com").withIcon(resources.getDrawable(R.drawable.profile3))
-        profile4 = ProfileDrawerItem().withName("Mr. X").withEmail("mister.x.super@gmail.com").withIcon(resources.getDrawable(R.drawable.profile4)).withIdentifier(4)
-        profile5 = ProfileDrawerItem().withName("Batman").withEmail("batman@gmail.com").withIcon(resources.getDrawable(R.drawable.profile5))
+        profile = ProfileDrawerItem().apply { nameText = "Mike Penz"; descriptionText = "mikepenz@gmail.com"; iconRes = R.drawable.profile }
+        profile2 = ProfileDrawerItem().apply { nameText = "Max Muster"; descriptionText = "max.mustermann@gmail.com"; iconRes = R.drawable.profile2; identifier = 2 }
+        profile3 = ProfileDrawerItem().apply { nameText = "Felix House"; descriptionText = "felix.house@gmail.com"; iconRes = R.drawable.profile3 }
+        profile4 = ProfileDrawerItem().apply { nameText = "Mr. X"; descriptionText = "mister.x.super@gmail.com"; iconRes = R.drawable.profile4; identifier = 4 }
+        profile5 = ProfileDrawerItem().apply { nameText = "Batman"; descriptionText = "batman@gmail.com"; iconRes = R.drawable.profile5 }
 
         // Create the AccountHeader
         buildHeader(false, savedInstanceState)
 
-        slider.apply {
+        binding.slider.apply {
             itemAdapter.add(
-                    PrimaryDrawerItem().withName(R.string.drawer_item_home).withIcon(FontAwesome.Icon.faw_home),
+                    PrimaryDrawerItem().apply { nameRes = R.string.drawer_item_home; iconicsIcon = FontAwesome.Icon.faw_home },
                     //here we use a customPrimaryDrawerItem we defined in our sample app
                     //this custom DrawerItem extends the PrimaryDrawerItem so it just overwrites some methods
-                    OverflowMenuDrawerItem().withName(R.string.drawer_item_menu_drawer_item).withDescription(R.string.drawer_item_menu_drawer_item_desc).withMenu(R.menu.fragment_menu).withOnMenuItemClickListener(PopupMenu.OnMenuItemClickListener { item ->
-                        Toast.makeText(this@AdvancedActivity, item.title, Toast.LENGTH_SHORT).show()
-                        false
-                    }).withIcon(GoogleMaterial.Icon.gmd_filter_center_focus),
-                    CustomPrimaryDrawerItem().withBackgroundRes(R.color.accent).withName(R.string.drawer_item_free_play).withIcon(FontAwesome.Icon.faw_gamepad),
-                    PrimaryDrawerItem().withName(R.string.drawer_item_custom).withDescription("This is a description").withIcon(FontAwesome.Icon.faw_eye),
-                    CustomUrlPrimaryDrawerItem().withName(R.string.drawer_item_fragment_drawer).withDescription(R.string.drawer_item_fragment_drawer_desc).withIcon("https://avatars3.githubusercontent.com/u/1476232?v=3&s=460"),
-                    SectionDrawerItem().withName(R.string.drawer_item_section_header),
-                    SecondaryDrawerItem().withName(R.string.drawer_item_settings).withIcon(FontAwesome.Icon.faw_cart_plus),
-                    SecondaryDrawerItem().withName(R.string.drawer_item_help).withIcon(FontAwesome.Icon.faw_database).withEnabled(false),
-                    SecondaryDrawerItem().withName(R.string.drawer_item_open_source).withIcon(FontAwesome.Icon.faw_github),
-                    SecondaryDrawerItem().withName(R.string.drawer_item_contact).withIconTintingEnabled(true).withIcon(IconicsDrawable(this@AdvancedActivity, GoogleMaterial.Icon.gmd_add).apply { actionBar(); paddingDp = 5 }).withTag("Bullhorn"),
-                    SecondaryDrawerItem().withName(R.string.drawer_item_help).withIcon(FontAwesome.Icon.faw_question).withEnabled(false)
+                    OverflowMenuDrawerItem().apply {
+                        nameRes = R.string.drawer_item_menu_drawer_item; descriptionRes = R.string.drawer_item_menu_drawer_item_desc; menu = R.menu.fragment_menu
+                        onMenuItemClickListener = PopupMenu.OnMenuItemClickListener { item ->
+                            Toast.makeText(this@AdvancedActivity, item.title, Toast.LENGTH_SHORT).show()
+                            false
+                        }
+                        iconicsIcon = GoogleMaterial.Icon.gmd_filter_center_focus
+                    },
+                    CustomPrimaryDrawerItem().apply { nameRes = R.string.drawer_item_free_play; iconicsIcon = FontAwesome.Icon.faw_gamepad; background = ColorHolder.fromColorRes(R.color.accent) },
+                    PrimaryDrawerItem().apply { nameRes = R.string.drawer_item_custom; descriptionText = "This is a description"; iconicsIcon = FontAwesome.Icon.faw_eye },
+                    CustomUrlPrimaryDrawerItem().apply { nameRes = R.string.drawer_item_fragment_drawer; description = StringHolder(R.string.drawer_item_fragment_drawer_desc); iconUrl = "https://avatars3.githubusercontent.com/u/1476232?v=3&s=460" },
+                    SectionDrawerItem().apply { nameRes = R.string.drawer_item_section_header },
+                    SecondaryDrawerItem().apply { nameRes = R.string.drawer_item_settings; iconicsIcon = FontAwesome.Icon.faw_cart_plus },
+                    SecondaryDrawerItem().apply { nameRes = R.string.drawer_item_help; iconicsIcon = FontAwesome.Icon.faw_database; isEnabled = false },
+                    SecondaryDrawerItem().apply { nameRes = R.string.drawer_item_open_source; iconicsIcon = FontAwesome.Icon.faw_github },
+                    SecondaryDrawerItem().apply { nameRes = R.string.drawer_item_contact; tag = "Bullhorn"; iconDrawable = IconicsDrawable(this@AdvancedActivity, GoogleMaterial.Icon.gmd_add).apply { actionBar(); paddingDp = 5 }; isIconTinted = true },
+                    SecondaryDrawerItem().apply { nameRes = R.string.drawer_item_help; iconicsIcon = FontAwesome.Icon.faw_question; isEnabled = false }
             )
             addStickyDrawerItems(
-                    SecondaryDrawerItem().withName(R.string.drawer_item_settings).withIcon(FontAwesome.Icon.faw_cog).withIdentifier(10),
-                    SecondaryDrawerItem().withName(R.string.drawer_item_open_source).withIcon(FontAwesome.Icon.faw_github)
+                    SecondaryDrawerItem().apply { nameRes = R.string.drawer_item_settings; iconicsIcon = FontAwesome.Icon.faw_cog; identifier = 10 },
+                    SecondaryDrawerItem().apply { nameRes = R.string.drawer_item_open_source; iconicsIcon = FontAwesome.Icon.faw_github }
             )
-            onDrawerItemClickListener = { v, drawerItem, position ->
+            onDrawerItemClickListener = { _, drawerItem, _ ->
                 if (drawerItem is Nameable) {
                     Toast.makeText(this@AdvancedActivity, drawerItem.name?.getText(this@AdvancedActivity), Toast.LENGTH_SHORT).show()
                 }
@@ -102,9 +111,8 @@ class AdvancedActivity : AppCompatActivity() {
     private fun buildHeader(compact: Boolean, savedInstanceState: Bundle?) {
         // Create the AccountHeader
         headerView = AccountHeaderView(this, compact = compact).apply {
-            attachToSliderView(slider)
+            attachToSliderView(binding.slider)
             headerBackground = ImageHolder(R.drawable.header)
-            // TODO withCompactStyle(compact)
             addProfiles(
                     profile,
                     profile2,
@@ -112,15 +120,14 @@ class AdvancedActivity : AppCompatActivity() {
                     profile4,
                     profile5,
                     //don't ask but google uses 14dp for the add account icon in gmail but 20dp for the normal icons (like manage account)
-                    ProfileSettingDrawerItem().withName("Add Account").withDescription("Add new GitHub Account").withIcon(IconicsDrawable(this@AdvancedActivity, GoogleMaterial.Icon.gmd_add).apply { actionBar(); paddingDp = 5 }).withIdentifier(PROFILE_SETTING.toLong()),
-                    ProfileSettingDrawerItem().withName("Manage Account").withIcon(GoogleMaterial.Icon.gmd_settings)
+                    ProfileSettingDrawerItem().apply { nameText = "Add Account"; descriptionText = "Add new GitHub Account"; iconDrawable = IconicsDrawable(this@AdvancedActivity, GoogleMaterial.Icon.gmd_add).apply { actionBar(); paddingDp = 5 }; identifier = PROFILE_SETTING.toLong() },
+                    ProfileSettingDrawerItem().apply { nameText = "Manage Account"; iconicsIcon = GoogleMaterial.Icon.gmd_settings }
             )
-            onAccountHeaderListener = { view, profile, current ->
+            onAccountHeaderListener = { _, profile, _ ->
                 //sample usage of the onProfileChanged listener
                 //if the clicked item has the identifier 1 add a new profile ;)
                 if (profile is IDrawerItem<*> && (profile as IDrawerItem<*>).identifier == PROFILE_SETTING.toLong()) {
-                    val newProfile = ProfileDrawerItem().withNameShown(true).withName("Batman").withEmail("batman@gmail.com").withIcon(resources.getDrawable(R.drawable.profile5))
-
+                    val newProfile = ProfileDrawerItem().apply { nameText = "Batman"; descriptionText = "batman@gmail.com"; iconRes = R.drawable.profile5; isNameShown = true }
                     val profiles = headerView.profiles
                     if (profiles != null) {
                         //we know that there are 2 setting elements. set the new profile above them ;)
@@ -158,7 +165,7 @@ class AdvancedActivity : AppCompatActivity() {
         when (item.itemId) {
             R.id.menu_1 -> {
                 //update the profile2 and set a new image.
-                profile2.withIcon(IconicsDrawable(this, GoogleMaterial.Icon.gmd_android).apply { backgroundColorRes = R.color.accent; paddingDp = 4; sizeDp = 48 })
+                profile2.iconDrawable = IconicsDrawable(this, GoogleMaterial.Icon.gmd_android).apply { backgroundColorRes = R.color.accent; paddingDp = 4; sizeDp = 48 }
                 headerView.updateProfile(profile2)
                 return true
             }
@@ -166,21 +173,13 @@ class AdvancedActivity : AppCompatActivity() {
                 //we want to replace our current header with a compact header
                 //build the new compact header
                 buildHeader(true, null)
-                //set the view to the result
-                //result.header = headerResult.view
-                //set the drawer to the header (so it will manage the profile list correctly)
-                // TODO headerResult.setDrawer(result)
                 return true
             }
             R.id.menu_5 -> {
                 //we want to replace our current header with a normal header
                 //build the new compact header
                 buildHeader(false, null)
-                slider.invalidate()
-                //set the view to the result
-                //result.header = headerResult.view
-                //set the drawer to the header (so it will manage the profile list correctly)
-                //TODO headerResult.setDrawer(result)
+                binding.slider.invalidate()
                 return true
             }
             else -> {
@@ -192,7 +191,7 @@ class AdvancedActivity : AppCompatActivity() {
     override fun onSaveInstanceState(_outState: Bundle) {
         var outState = _outState
         //add the values which need to be saved from the drawer to the bundle
-        outState = slider.saveInstanceState(outState)
+        outState = binding.slider.saveInstanceState(outState)
 
         //add the values which need to be saved from the accountHeader to the bundle
         outState = headerView.saveInstanceState(outState)
@@ -201,8 +200,8 @@ class AdvancedActivity : AppCompatActivity() {
 
     override fun onBackPressed() {
         //handle the back press :D close the drawer first and if the drawer is closed close the activity
-        if (root.isDrawerOpen(slider)) {
-            root.closeDrawer(slider)
+        if (binding.root.isDrawerOpen(binding.slider)) {
+            binding.root.closeDrawer(binding.slider)
         } else {
             super.onBackPressed()
         }

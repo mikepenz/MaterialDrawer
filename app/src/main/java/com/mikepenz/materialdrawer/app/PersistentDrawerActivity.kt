@@ -18,6 +18,7 @@ import com.mikepenz.iconics.typeface.library.fontawesome.FontAwesome
 import com.mikepenz.iconics.typeface.library.googlematerial.GoogleMaterial
 import com.mikepenz.iconics.utils.colorInt
 import com.mikepenz.iconics.utils.sizeDp
+import com.mikepenz.materialdrawer.app.databinding.ActivityPersistentDrawerBinding
 import com.mikepenz.materialdrawer.app.utils.CrossfadeWrapper
 import com.mikepenz.materialdrawer.holder.ImageHolder
 import com.mikepenz.materialdrawer.iconics.withIcon
@@ -29,9 +30,9 @@ import com.mikepenz.materialdrawer.model.interfaces.*
 import com.mikepenz.materialdrawer.widget.AccountHeaderView
 import com.mikepenz.materialdrawer.widget.MaterialDrawerSliderView
 import com.mikepenz.materialdrawer.widget.MiniDrawerSliderView
-import kotlinx.android.synthetic.main.activity_persistent_drawer.*
 
 class PersistentDrawerActivity : AppCompatActivity() {
+    private lateinit var binding: ActivityPersistentDrawerBinding
 
     //save our header or result
     private lateinit var headerView: AccountHeaderView
@@ -41,7 +42,9 @@ class PersistentDrawerActivity : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_persistent_drawer)
+        binding = ActivityPersistentDrawerBinding.inflate(layoutInflater).also {
+            setContentView(it.root)
+        }
 
         //Remove line to test RTL support
         // getWindow().getDecorView().setLayoutDirection(View.LAYOUT_DIRECTION_RTL);
@@ -51,7 +54,7 @@ class PersistentDrawerActivity : AppCompatActivity() {
         //https://www.google.com/design/spec/patterns/navigation-drawer.html#navigation-drawer-behavior
 
         // Handle Toolbar
-        setSupportActionBar(toolbar)
+        setSupportActionBar(binding.toolbar)
         supportActionBar?.setTitle(R.string.drawer_item_persistent_compact_header)
 
         // Create a few sample profile
@@ -122,8 +125,8 @@ class PersistentDrawerActivity : AppCompatActivity() {
         toggle.setImageDrawable(IconicsDrawable(this, GoogleMaterial.Icon.gmd_chevron_left).apply { sizeDp = 16; colorInt = Color.BLACK })
         toggle.setOnClickListener { crossFader.crossFade() }
 
-        ViewCompat.setOnApplyWindowInsetsListener(root) { v, insets ->
-            toolbar.updatePadding(top = insets.systemWindowInsetTop)
+        ViewCompat.setOnApplyWindowInsetsListener(binding.root) { v, insets ->
+            binding.toolbar.updatePadding(top = insets.systemWindowInsetTop)
             insets
         }
     }
@@ -158,7 +161,7 @@ class PersistentDrawerActivity : AppCompatActivity() {
 
     override fun onBackPressed() {
         //handle the back press :D close the drawer first and if the drawer is closed close the activity
-        if (crossFader.isCrossFaded()) {
+        if (crossFader.isCrossFaded) {
             crossFader.crossFade()
         } else {
             super.onBackPressed()

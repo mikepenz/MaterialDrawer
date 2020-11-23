@@ -1,6 +1,7 @@
 package com.mikepenz.materialdrawer.util
 
 import android.os.Bundle
+import android.view.View
 import androidx.annotation.IdRes
 import androidx.navigation.NavController
 import androidx.navigation.NavDestination
@@ -9,27 +10,25 @@ import com.mikepenz.materialdrawer.model.interfaces.IDrawerItem
 import com.mikepenz.materialdrawer.widget.MaterialDrawerSliderView
 import java.lang.ref.WeakReference
 
-// Notify user that the DSL is currently experimental
-@Experimental(level = Experimental.Level.WARNING)
-annotation class ExperimentalNavController
-
 /**
  * Sets up a {@link Drawer} for use with a {@link NavController}.
  * The selected item in the Drawer will automatically be updated when the destination
  * changes.
  *
- * @param navController The NavController that hosts the destination.
+ * @param navController The NavController that hosts the destination
+ * @param fallBackListener the listener to handle no navigationDrawerItems
  * @return
  */
-@ExperimentalNavController
-fun MaterialDrawerSliderView.setupWithNavController(navController: NavController) {
-    DrawerNavigationUI.setupWithNavController(this, navController)
+fun MaterialDrawerSliderView.setupWithNavController(
+        navController: NavController,
+        fallBackListener: ((v: View?, item: IDrawerItem<*>, position: Int) -> Boolean)? = null
+) {
+    DrawerNavigationUI.setupWithNavController(this, navController, fallBackListener)
 }
 
 /**
  * Created by petretiandrea on 19.07.19.
  */
-@ExperimentalNavController
 object DrawerNavigationUI {
 
     /**
@@ -42,13 +41,20 @@ object DrawerNavigationUI {
      *
      * @param drawer The drawer that should be kept in sync with changes to the NavController.
      * @param navController The NavController that allow to perform the navigation actions, relying on the item selected in the Drawer
+     * @param fallBackListener A listener called when perform navigation fails
      * @return
      */
-    fun setupWithNavController(drawer: MaterialDrawerSliderView, navController: NavController) {
-        drawer.onDrawerItemClickListener = { _, item, _ ->
+    fun setupWithNavController(
+            drawer: MaterialDrawerSliderView,
+            navController: NavController,
+            fallBackListener: ((v: View?, item: IDrawerItem<*>, position: Int) -> Boolean)? = null
+    ) {
+        drawer.onDrawerItemClickListener = { v, item, position ->
             val success = performNavigation(item, navController)
             if (success) {
                 drawer.drawerLayout?.closeDrawer(drawer)
+            } else {
+                fallBackListener?.invoke(v, item, position)
             }
             success
         }

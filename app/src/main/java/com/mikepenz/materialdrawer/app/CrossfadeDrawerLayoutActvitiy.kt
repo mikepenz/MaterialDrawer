@@ -8,43 +8,47 @@ import androidx.appcompat.app.ActionBarDrawerToggle
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.GravityCompat
 import com.mikepenz.iconics.typeface.library.fontawesome.FontAwesome
-import com.mikepenz.materialdrawer.iconics.withIcon
+import com.mikepenz.materialdrawer.app.databinding.ActivitySampleCrossfaderBinding
+import com.mikepenz.materialdrawer.iconics.iconicsIcon
 import com.mikepenz.materialdrawer.interfaces.ICrossfader
 import com.mikepenz.materialdrawer.model.PrimaryDrawerItem
 import com.mikepenz.materialdrawer.model.ProfileDrawerItem
+import com.mikepenz.materialdrawer.model.SecondaryDrawerItem
 import com.mikepenz.materialdrawer.model.SectionDrawerItem
 import com.mikepenz.materialdrawer.model.interfaces.*
 import com.mikepenz.materialdrawer.util.getOptimalDrawerWidth
 import com.mikepenz.materialdrawer.widget.AccountHeaderView
-import kotlinx.android.synthetic.main.activity_sample_crossfader.*
 
 class CrossfadeDrawerLayoutActvitiy : AppCompatActivity() {
+    private lateinit var binding: ActivitySampleCrossfaderBinding
     private lateinit var headerView: AccountHeaderView
     private lateinit var actionBarDrawerToggle: ActionBarDrawerToggle
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_sample_crossfader)
+        binding = ActivitySampleCrossfaderBinding.inflate(layoutInflater).also {
+            setContentView(it.root)
+        }
 
         // Handle Toolbar
-        setSupportActionBar(toolbar)
+        setSupportActionBar(binding.toolbar)
         //set the back arrow in the toolbars
         supportActionBar?.setDisplayHomeAsUpEnabled(true)
         supportActionBar?.setHomeButtonEnabled(true)
         supportActionBar?.setTitle(R.string.drawer_item_crossfade_drawer_layout_drawer)
 
-        actionBarDrawerToggle = ActionBarDrawerToggle(this, root, toolbar, com.mikepenz.materialdrawer.R.string.material_drawer_open, com.mikepenz.materialdrawer.R.string.material_drawer_close)
+        actionBarDrawerToggle = ActionBarDrawerToggle(this, binding.root, binding.toolbar, com.mikepenz.materialdrawer.R.string.material_drawer_open, com.mikepenz.materialdrawer.R.string.material_drawer_close)
 
         // Create a few sample profile
-        val profile = ProfileDrawerItem().withName("Mike Penz").withEmail("mikepenz@gmail.com").withIcon(R.drawable.profile)
-        val profile2 = ProfileDrawerItem().withName("Max Muster").withEmail("max.mustermann@gmail.com").withIcon(R.drawable.profile2)
-        val profile3 = ProfileDrawerItem().withName("Felix House").withEmail("felix.house@gmail.com").withIcon(R.drawable.profile3)
-        val profile4 = ProfileDrawerItem().withName("Mr. X").withEmail("mister.x.super@gmail.com").withIcon(R.drawable.profile4)
-        val profile5 = ProfileDrawerItem().withName("Batman").withEmail("batman@gmail.com").withIcon(R.drawable.profile5)
+        val profile = ProfileDrawerItem().apply { nameText = "Mike Penz"; descriptionText = "mikepenz@gmail.com"; iconRes = R.drawable.profile }
+        val profile2 = ProfileDrawerItem().apply { nameText = "Max Muster"; descriptionText = "max.mustermann@gmail.com"; iconRes = R.drawable.profile2 }
+        val profile3 = ProfileDrawerItem().apply { nameText = "Felix House"; descriptionText = "felix.house@gmail.com"; iconRes = R.drawable.profile3 }
+        val profile4 = ProfileDrawerItem().apply { nameText = "Mr. X"; descriptionText = "mister.x.super@gmail.com"; iconRes = R.drawable.profile4 }
+        val profile5 = ProfileDrawerItem().apply { nameText = "Batman"; descriptionText = "batman@gmail.com"; iconRes = R.drawable.profile5 }
 
         // Create the AccountHeader
         headerView = AccountHeaderView(this).apply {
-            attachToSliderView(crossFadeLargeView)
+            attachToSliderView(binding.crossFadeLargeView)
             addProfiles(
                     profile,
                     profile2,
@@ -55,16 +59,16 @@ class CrossfadeDrawerLayoutActvitiy : AppCompatActivity() {
             withSavedInstance(savedInstanceState)
         }
 
-        crossFadeLargeView.apply {
+        binding.crossFadeLargeView.apply {
             itemAdapter.add(
-                    PrimaryDrawerItem().withName(R.string.drawer_item_home).withIcon(FontAwesome.Icon.faw_home).withIdentifier(1),
-                    PrimaryDrawerItem().withName(R.string.drawer_item_free_play).withIcon(FontAwesome.Icon.faw_gamepad),
-                    PrimaryDrawerItem().withName(R.string.drawer_item_custom).withIcon(FontAwesome.Icon.faw_eye).withIdentifier(5),
-                    SectionDrawerItem().withName(R.string.drawer_item_section_header),
-                    PrimaryDrawerItem().withName(R.string.drawer_item_settings).withIcon(FontAwesome.Icon.faw_cog),
-                    PrimaryDrawerItem().withName(R.string.drawer_item_help).withIcon(FontAwesome.Icon.faw_question).withEnabled(false),
-                    PrimaryDrawerItem().withName(R.string.drawer_item_open_source).withIcon(FontAwesome.Icon.faw_github),
-                    PrimaryDrawerItem().withName(R.string.drawer_item_contact).withIcon(FontAwesome.Icon.faw_bullhorn)
+                    PrimaryDrawerItem().apply { nameRes = R.string.drawer_item_home; iconicsIcon = FontAwesome.Icon.faw_home; identifier = 1 },
+                    PrimaryDrawerItem().apply { nameRes = R.string.drawer_item_free_play; iconicsIcon = FontAwesome.Icon.faw_gamepad },
+                    PrimaryDrawerItem().apply { nameRes = R.string.drawer_item_custom; iconicsIcon = FontAwesome.Icon.faw_eye; identifier = 5 },
+                    SectionDrawerItem().apply { nameRes = R.string.drawer_item_section_header },
+                    SecondaryDrawerItem().apply { nameRes = R.string.drawer_item_settings; iconicsIcon = FontAwesome.Icon.faw_cog },
+                    SecondaryDrawerItem().apply { nameRes = R.string.drawer_item_help; iconicsIcon = FontAwesome.Icon.faw_question; isEnabled = false },
+                    SecondaryDrawerItem().apply { nameRes = R.string.drawer_item_open_source; iconicsIcon = FontAwesome.Icon.faw_github },
+                    SecondaryDrawerItem().apply { nameRes = R.string.drawer_item_contact; iconicsIcon = FontAwesome.Icon.faw_bullhorn }
             )
             onDrawerItemClickListener = { v, drawerItem, position ->
                 if (drawerItem is Nameable) {
@@ -75,32 +79,31 @@ class CrossfadeDrawerLayoutActvitiy : AppCompatActivity() {
             setSavedInstance(savedInstanceState)
         }
 
-        crossFadeSmallView.drawer = crossFadeLargeView
+        binding.crossFadeSmallView.drawer = binding.crossFadeLargeView
 
         //define maxDrawerWidth
-        root.maxWidthPx = getOptimalDrawerWidth(this)
-        crossFadeSmallView.background = crossFadeLargeView.background
+        binding.root.maxWidthPx = getOptimalDrawerWidth(this)
+        binding.crossFadeSmallView.background = binding.crossFadeLargeView.background
 
         //define the crossfader to be used with the miniDrawer. This is required to be able to automatically toggle open / close
-        crossFadeSmallView.crossFader = object : ICrossfader {
-
+        binding.crossFadeSmallView.crossFader = object : ICrossfader {
             override val isCrossfaded: Boolean
-                get() = root.isCrossfaded
+                get() = binding.root.isCrossfaded
 
             override fun crossfade() {
                 val isFaded = isCrossfaded
-                root.crossfade(400)
+                binding.root.crossfade(400)
 
                 //only close the drawer if we were already faded and want to close it now
                 if (isFaded) {
-                    root.closeDrawer(GravityCompat.START)
+                    binding.root.closeDrawer(GravityCompat.START)
                 }
             }
         }
 
         // set the selection to the item with the identifier 5
         if (savedInstanceState == null) {
-            crossFadeLargeView.setSelection(5, false)
+            binding.crossFadeLargeView.setSelection(5, false)
         }
     }
 
@@ -124,7 +127,7 @@ class CrossfadeDrawerLayoutActvitiy : AppCompatActivity() {
     override fun onSaveInstanceState(_outState: Bundle) {
         var outState = _outState
         //add the values which need to be saved from the drawer to the bundle
-        outState = crossFadeLargeView.saveInstanceState(outState)
+        outState = binding.crossFadeLargeView.saveInstanceState(outState)
 
         //add the values which need to be saved from the accountHeader to the bundle
         outState = headerView.saveInstanceState(outState)
@@ -134,8 +137,8 @@ class CrossfadeDrawerLayoutActvitiy : AppCompatActivity() {
 
     override fun onBackPressed() {
         //handle the back press :D close the drawer first and if the drawer is closed close the activity
-        if (root.isDrawerOpen(crossFadeSlider)) {
-            root.closeDrawer(crossFadeSlider)
+        if (binding.root.isDrawerOpen(binding.crossFadeSlider)) {
+            binding.root.closeDrawer(binding.crossFadeSlider)
         } else {
             super.onBackPressed()
         }

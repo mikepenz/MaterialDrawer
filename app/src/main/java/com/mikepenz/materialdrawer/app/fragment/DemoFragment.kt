@@ -6,8 +6,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
-import com.mikepenz.materialdrawer.app.R
-import kotlinx.android.synthetic.main.fragment_sample.*
+import com.mikepenz.materialdrawer.app.databinding.FragmentSampleBinding
 
 
 /**
@@ -15,13 +14,15 @@ import kotlinx.android.synthetic.main.fragment_sample.*
  * This is just a demo fragment with a long scrollable view of editTexts. Don't see this as a reference for anything
  */
 class DemoFragment : Fragment() {
+    private var _binding: FragmentSampleBinding? = null
+    private val binding get() = _binding!!
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         // Inflate the layout for this fragment
         // don't look at this layout it's just a listView to show how to handle the keyboard
-        val view = inflater.inflate(R.layout.fragment_sample, container, false)
-        title.text = arguments?.getString(KEY_TITLE)
-        return view
+        _binding = FragmentSampleBinding.inflate(inflater, container, false)
+        binding.title.text = arguments?.getString(KEY_TITLE)
+        return binding.root
     }
 
     companion object {
