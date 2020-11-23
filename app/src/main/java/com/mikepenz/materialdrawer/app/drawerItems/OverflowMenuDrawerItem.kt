@@ -16,13 +16,8 @@ import com.mikepenz.materialdrawer.model.BaseViewHolder
  */
 class OverflowMenuDrawerItem : BaseDescribeableDrawerItem<OverflowMenuDrawerItem, OverflowMenuDrawerItem.ViewHolder>() {
     var menu: Int = 0
-        private set
-
     var onMenuItemClickListener: PopupMenu.OnMenuItemClickListener? = null
-        private set
-
     var onDismissListener: PopupMenu.OnDismissListener? = null
-        private set
 
     override val type: Int
         get() = R.id.material_drawer_item_overflow_menu
@@ -31,17 +26,19 @@ class OverflowMenuDrawerItem : BaseDescribeableDrawerItem<OverflowMenuDrawerItem
         @LayoutRes
         get() = R.layout.material_drawer_item_overflow_menu_primary
 
+    @Deprecated("Use property setter instead")
     fun withMenu(menu: Int): OverflowMenuDrawerItem {
         this.menu = menu
         return this
     }
 
+    @Deprecated("Use property setter instead")
     fun withOnMenuItemClickListener(onMenuItemClickListener: PopupMenu.OnMenuItemClickListener): OverflowMenuDrawerItem {
         this.onMenuItemClickListener = onMenuItemClickListener
         return this
     }
 
-
+    @Deprecated("Use property setter instead")
     fun withOnDismissListener(onDismissListener: PopupMenu.OnDismissListener): OverflowMenuDrawerItem {
         this.onDismissListener = onDismissListener
         return this

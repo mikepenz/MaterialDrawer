@@ -5,10 +5,10 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.TextView
 import androidx.fragment.app.Fragment
 import com.mikepenz.iconics.typeface.library.fontawesome.FontAwesome
 import com.mikepenz.materialdrawer.app.R
+import com.mikepenz.materialdrawer.app.databinding.FragmentSimpleSampleBinding
 import com.mikepenz.materialdrawer.iconics.withIcon
 import com.mikepenz.materialdrawer.model.PrimaryDrawerItem
 import com.mikepenz.materialdrawer.model.SecondaryDrawerItem
@@ -16,7 +16,6 @@ import com.mikepenz.materialdrawer.model.SectionDrawerItem
 import com.mikepenz.materialdrawer.model.interfaces.withEnabled
 import com.mikepenz.materialdrawer.model.interfaces.withIdentifier
 import com.mikepenz.materialdrawer.model.interfaces.withName
-import kotlinx.android.synthetic.main.activity_sample.*
 
 
 /**
@@ -24,20 +23,22 @@ import kotlinx.android.synthetic.main.activity_sample.*
  * This is just a demo fragment with a long scrollable view of editTexts. Don't see this as a reference for anything
  */
 class DrawerFragment : Fragment() {
+    private var _binding: FragmentSimpleSampleBinding? = null
+    private val binding get() = _binding!!
+
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         // Inflate the layout for this fragment
         // don't look at this layout it's just a listView to show how to handle the keyboard
-        val view = inflater.inflate(R.layout.fragment_simple_sample, container, false)
-        val textView = view.findViewById<TextView>(R.id.title)
-        textView.text = arguments?.getString(KEY_TITLE)
-        return view
+        _binding = FragmentSimpleSampleBinding.inflate(inflater, container, false)
+        binding.title.text = arguments?.getString(KEY_TITLE)
+        return binding.root
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        slider.apply {
+        binding.slider.apply {
             itemAdapter.add(
                     PrimaryDrawerItem().withName(R.string.drawer_item_home).withIcon(FontAwesome.Icon.faw_home).withIdentifier(1),
                     PrimaryDrawerItem().withName(R.string.drawer_item_free_play).withIcon(FontAwesome.Icon.faw_gamepad),
@@ -56,7 +57,7 @@ class DrawerFragment : Fragment() {
     override fun onSaveInstanceState(_outState: Bundle) {
         var outState = _outState
         //add the values which need to be saved from the drawer to the bundle
-        outState = slider.saveInstanceState(outState)
+        outState = binding.slider.saveInstanceState(outState)
         super.onSaveInstanceState(outState)
     }
 

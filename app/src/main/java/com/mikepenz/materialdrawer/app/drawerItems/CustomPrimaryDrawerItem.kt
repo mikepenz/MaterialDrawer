@@ -5,7 +5,7 @@ import com.mikepenz.materialdrawer.model.AbstractBadgeableDrawerItem
 
 class CustomPrimaryDrawerItem : AbstractBadgeableDrawerItem<CustomPrimaryDrawerItem>() {
 
-    private var background: ColorHolder? = null
+    var background: ColorHolder? = null
 
     fun withBackgroundColor(backgroundColor: Int): CustomPrimaryDrawerItem {
         this.background = ColorHolder.fromColor(backgroundColor)

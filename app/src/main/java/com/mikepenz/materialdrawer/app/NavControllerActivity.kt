@@ -4,28 +4,29 @@ import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.widget.Toolbar
 import androidx.navigation.findNavController
+import com.mikepenz.materialdrawer.app.databinding.ActivitySampleNavBinding
 import com.mikepenz.materialdrawer.model.DividerDrawerItem
 import com.mikepenz.materialdrawer.model.NavigationDrawerItem
 import com.mikepenz.materialdrawer.model.PrimaryDrawerItem
 import com.mikepenz.materialdrawer.model.interfaces.withName
-import com.mikepenz.materialdrawer.util.ExperimentalNavController
 import com.mikepenz.materialdrawer.util.addItems
 import com.mikepenz.materialdrawer.util.addStickyDrawerItems
 import com.mikepenz.materialdrawer.util.setupWithNavController
-import kotlinx.android.synthetic.main.activity_sample.*
 
-@UseExperimental(ExperimentalNavController::class)
 class NavControllerActivity : AppCompatActivity() {
+    private lateinit var binding: ActivitySampleNavBinding
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_sample_nav)
+        binding = ActivitySampleNavBinding.inflate(layoutInflater).also {
+            setContentView(it.root)
+        }
         val toolbar = findViewById<Toolbar>(R.id.toolbar)
         setSupportActionBar(toolbar)
 
         val navController = findNavController(R.id.nav_host_fragment)
 
-        slider.apply {
+        binding.slider.apply {
             addItems(
                     NavigationDrawerItem(R.id.action_global_fragmentHome, PrimaryDrawerItem().withName("Home"), null, null),
                     DividerDrawerItem(),
@@ -39,6 +40,6 @@ class NavControllerActivity : AppCompatActivity() {
 
 
         // setup the drawer with navigation controller
-        slider.setupWithNavController(navController)
+        binding.slider.setupWithNavController(navController)
     }
 }

@@ -19,9 +19,7 @@ import com.mikepenz.materialdrawer.util.themeDrawerItem
 abstract class CustomUrlBasePrimaryDrawerItem<T, VH : RecyclerView.ViewHolder> : BaseDrawerItem<T, VH>() {
 
     var description: StringHolder? = null
-        private set
     var descriptionTextColor: ColorHolder? = null
-        private set
 
     fun withIcon(url: String): T {
         this.icon = ImageHolder(url)

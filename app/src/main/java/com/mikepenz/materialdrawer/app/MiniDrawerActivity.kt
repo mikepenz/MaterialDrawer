@@ -20,6 +20,7 @@ import com.mikepenz.iconics.typeface.library.fontawesome.FontAwesome
 import com.mikepenz.iconics.typeface.library.googlematerial.GoogleMaterial
 import com.mikepenz.iconics.utils.actionBar
 import com.mikepenz.iconics.utils.colorInt
+import com.mikepenz.materialdrawer.app.databinding.ActivityMiniDrawerBinding
 import com.mikepenz.materialdrawer.app.utils.CrossfadeWrapper
 import com.mikepenz.materialdrawer.app.utils.SystemUtils
 import com.mikepenz.materialdrawer.holder.BadgeStyle
@@ -31,9 +32,9 @@ import com.mikepenz.materialdrawer.model.utils.withIsHiddenInMiniDrawer
 import com.mikepenz.materialdrawer.widget.AccountHeaderView
 import com.mikepenz.materialdrawer.widget.MaterialDrawerSliderView
 import com.mikepenz.materialdrawer.widget.MiniDrawerSliderView
-import kotlinx.android.synthetic.main.activity_mini_drawer.*
 
 class MiniDrawerActivity : AppCompatActivity() {
+    private lateinit var binding: ActivityMiniDrawerBinding
 
     //save our header or result
     private lateinit var headerView: AccountHeaderView
@@ -53,10 +54,12 @@ class MiniDrawerActivity : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_mini_drawer)
+        binding = ActivityMiniDrawerBinding.inflate(layoutInflater).also {
+            setContentView(it.root)
+        }
 
         // Handle Toolbar
-        setSupportActionBar(toolbar)
+        setSupportActionBar(binding.toolbar)
         //set the back arrow in the toolbar
         supportActionBar?.setDisplayHomeAsUpEnabled(true)
         supportActionBar?.setTitle(R.string.drawer_item_mini_drawer)
@@ -178,7 +181,7 @@ class MiniDrawerActivity : AppCompatActivity() {
 
     override fun onBackPressed() {
         //handle the back press :D close the drawer first and if the drawer is closed close the activity
-        if (crossFader.isCrossFaded()) {
+        if (crossFader.isCrossFaded) {
             crossFader.crossFade()
         } else {
             super.onBackPressed()
