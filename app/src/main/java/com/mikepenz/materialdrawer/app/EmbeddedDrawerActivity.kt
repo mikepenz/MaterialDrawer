@@ -14,16 +14,16 @@ import com.mikepenz.iconics.typeface.library.fontawesome.FontAwesome
 import com.mikepenz.iconics.typeface.library.googlematerial.GoogleMaterial
 import com.mikepenz.iconics.utils.actionBar
 import com.mikepenz.iconics.utils.paddingDp
+import com.mikepenz.materialdrawer.app.databinding.ActivityEmbeddedBinding
 import com.mikepenz.materialdrawer.holder.BadgeStyle
 import com.mikepenz.materialdrawer.iconics.withIcon
 import com.mikepenz.materialdrawer.interfaces.OnCheckedChangeListener
 import com.mikepenz.materialdrawer.model.*
 import com.mikepenz.materialdrawer.model.interfaces.*
 import com.mikepenz.materialdrawer.widget.AccountHeaderView
-import kotlinx.android.synthetic.main.activity_embedded.*
 
 class EmbeddedDrawerActivity : AppCompatActivity() {
-
+    private lateinit var binding: ActivityEmbeddedBinding
     private lateinit var headerView: AccountHeaderView
 
     private val onCheckedChangeListener = object : OnCheckedChangeListener {
@@ -38,10 +38,12 @@ class EmbeddedDrawerActivity : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_embedded)
+        binding = ActivityEmbeddedBinding.inflate(layoutInflater).also {
+            setContentView(it.root)
+        }
 
         // Handle Toolbar
-        setSupportActionBar(toolbar)
+        setSupportActionBar(binding.toolbar)
         //set the back arrow in the toolbar
         supportActionBar?.setDisplayHomeAsUpEnabled(true)
         supportActionBar?.setTitle(R.string.drawer_item_embedded_drawer)
@@ -57,7 +59,7 @@ class EmbeddedDrawerActivity : AppCompatActivity() {
 
         // Create the AccountHeader
         headerView = AccountHeaderView(this).apply {
-            attachToSliderView(slider)
+            attachToSliderView(binding.slider)
             addProfiles(
                     profile,
                     profile2,
@@ -86,7 +88,7 @@ class EmbeddedDrawerActivity : AppCompatActivity() {
             withSavedInstance(savedInstanceState)
         }
 
-        slider.apply {
+        binding.slider.apply {
             customWidth = ViewGroup.LayoutParams.MATCH_PARENT
             itemAdapter.add(
                     PrimaryDrawerItem().withName(R.string.drawer_item_compact_header).withIcon(GoogleMaterial.Icon.gmd_brightness_5).withIdentifier(1),
@@ -114,7 +116,7 @@ class EmbeddedDrawerActivity : AppCompatActivity() {
     override fun onSaveInstanceState(_outState: Bundle) {
         var outState = _outState
         //add the values which need to be saved from the drawer to the bundle
-        outState = slider.saveInstanceState(outState)
+        outState = binding.slider.saveInstanceState(outState)
 
         //add the values which need to be saved from the accountHeader to the bundle
         outState = headerView.saveInstanceState(outState)

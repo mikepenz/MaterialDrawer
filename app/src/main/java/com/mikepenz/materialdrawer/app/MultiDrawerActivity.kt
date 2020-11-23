@@ -5,6 +5,7 @@ import android.view.MenuItem
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import com.mikepenz.iconics.typeface.library.fontawesome.FontAwesome
+import com.mikepenz.materialdrawer.app.databinding.ActivityMultiSampleBinding
 import com.mikepenz.materialdrawer.app.drawerItems.GmailDrawerItem
 import com.mikepenz.materialdrawer.iconics.withIcon
 import com.mikepenz.materialdrawer.model.PrimaryDrawerItem
@@ -12,21 +13,23 @@ import com.mikepenz.materialdrawer.model.SecondaryDrawerItem
 import com.mikepenz.materialdrawer.model.SectionDrawerItem
 import com.mikepenz.materialdrawer.model.interfaces.*
 import com.mikepenz.materialdrawer.util.updateItem
-import kotlinx.android.synthetic.main.activity_multi_sample.*
 
 class MultiDrawerActivity : AppCompatActivity() {
+    private lateinit var binding: ActivityMultiSampleBinding
 
     override fun onCreate(savedInstanceState: Bundle?) {
         //supportRequestWindowFeature(Window.FEATURE_INDETERMINATE_PROGRESS);
 
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_multi_sample)
+        binding = ActivityMultiSampleBinding.inflate(layoutInflater).also {
+            setContentView(it.root)
+        }
 
         // Handle Toolbar
-        setSupportActionBar(toolbar)
+        setSupportActionBar(binding.toolbar)
         supportActionBar?.setTitle(R.string.drawer_item_multi_drawer)
 
-        slider.apply {
+        binding.slider.apply {
             itemAdapter.add(
                     GmailDrawerItem().withName(R.string.drawer_item_home).withIcon(FontAwesome.Icon.faw_home).withIdentifier(1),
                     GmailDrawerItem().withName(R.string.drawer_item_free_play).withIcon(FontAwesome.Icon.faw_gamepad),
@@ -45,7 +48,7 @@ class MultiDrawerActivity : AppCompatActivity() {
                         val badge = Integer.valueOf(drawerItem.badge?.toString() ?: "0")
                         if (badge > 0) {
                             drawerItem.withBadge((badge - 1).toString())
-                            slider.updateItem(drawerItem)
+                            binding.slider.updateItem(drawerItem)
                         }
                     }
                 }
@@ -58,7 +61,7 @@ class MultiDrawerActivity : AppCompatActivity() {
             setSelectionAtPosition(0)
         }
 
-        slider_end.apply {
+        binding.sliderEnd.apply {
             itemAdapter.add(
                     PrimaryDrawerItem().withName(R.string.drawer_item_home).withIcon(FontAwesome.Icon.faw_home).withIdentifier(1),
                     PrimaryDrawerItem().withName(R.string.drawer_item_free_play).withIcon(FontAwesome.Icon.faw_gamepad),
@@ -88,17 +91,17 @@ class MultiDrawerActivity : AppCompatActivity() {
     override fun onSaveInstanceState(_outState: Bundle) {
         var outState = _outState
         //add the values which need to be saved from the drawer to the bundle
-        outState = slider.saveInstanceState(outState)
+        outState = binding.slider.saveInstanceState(outState)
         //add the values which need to be saved from the drawer to the bundle
-        outState = slider_end.saveInstanceState(outState)
+        outState = binding.sliderEnd.saveInstanceState(outState)
         super.onSaveInstanceState(outState)
     }
 
     override fun onBackPressed() {
         //handle the back press :D close the drawer first and if the drawer is closed close the activity
         when {
-            root.isDrawerOpen(slider) -> root.closeDrawer(slider)
-            root.isDrawerOpen(slider_end) -> root.closeDrawer(slider_end)
+            binding.root.isDrawerOpen(binding.slider) -> binding.root.closeDrawer(binding.slider)
+            binding.root.isDrawerOpen(binding.sliderEnd) -> binding.root.closeDrawer(binding.sliderEnd)
             else -> super.onBackPressed()
         }
     }

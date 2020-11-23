@@ -5,27 +5,36 @@ import android.view.MenuItem
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import com.mikepenz.iconics.typeface.library.fontawesome.FontAwesome
-import com.mikepenz.materialdrawer.iconics.withIcon
+import com.mikepenz.materialdrawer.app.databinding.ActivitySampleActionbarBinding
+import com.mikepenz.materialdrawer.iconics.iconicsIcon
 import com.mikepenz.materialdrawer.model.PrimaryDrawerItem
 import com.mikepenz.materialdrawer.model.SecondaryDrawerItem
 import com.mikepenz.materialdrawer.model.interfaces.Nameable
-import com.mikepenz.materialdrawer.model.interfaces.withName
-import kotlinx.android.synthetic.main.activity_sample_actionbar.*
+import com.mikepenz.materialdrawer.model.interfaces.nameRes
 
 class ActionBarActivity : AppCompatActivity() {
+    private lateinit var binding: ActivitySampleActionbarBinding
 
     override fun onCreate(savedInstanceState: Bundle?) {
         //supportRequestWindowFeature(Window.FEATURE_INDETERMINATE_PROGRESS);
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_sample_actionbar)
+        binding = ActivitySampleActionbarBinding.inflate(layoutInflater).also {
+            setContentView(it.root)
+        }
         setTitle(R.string.drawer_item_action_bar_drawer)
 
-        slider.apply {
+        binding.slider.apply {
             itemAdapter.add(
-                    PrimaryDrawerItem().withName(R.string.drawer_item_home).withIcon(FontAwesome.Icon.faw_home),
-                    SecondaryDrawerItem().withName(R.string.drawer_item_settings).withIcon(FontAwesome.Icon.faw_cog)
+                    PrimaryDrawerItem().apply {
+                        nameRes = R.string.drawer_item_home
+                        iconicsIcon = FontAwesome.Icon.faw_home
+                    },
+                    SecondaryDrawerItem().apply {
+                        nameRes = R.string.drawer_item_settings
+                        iconicsIcon = FontAwesome.Icon.faw_cog
+                    }
             )
-            onDrawerItemClickListener = { v, drawerItem, position ->
+            onDrawerItemClickListener = { _, drawerItem, _ ->
                 if (drawerItem is Nameable) {
                     Toast.makeText(this@ActionBarActivity, (drawerItem as Nameable).name!!.getText(this@ActionBarActivity), Toast.LENGTH_SHORT).show()
                 }
@@ -40,7 +49,7 @@ class ActionBarActivity : AppCompatActivity() {
 
     override fun onSaveInstanceState(_outState: Bundle) {
         //add the values which need to be saved from the drawer to the bundle
-        super.onSaveInstanceState(slider?.saveInstanceState(_outState) ?: _outState)
+        super.onSaveInstanceState(binding.slider.saveInstanceState(_outState))
     }
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
@@ -55,8 +64,8 @@ class ActionBarActivity : AppCompatActivity() {
 
     override fun onBackPressed() {
         //handle the back press :D close the drawer first and if the drawer is closed close the activity
-        if (root?.isDrawerOpen(slider) == true) {
-            root?.closeDrawer(slider)
+        if (binding.root.isDrawerOpen(binding.slider)) {
+            binding.root.closeDrawer(binding.slider)
         } else {
             super.onBackPressed()
         }

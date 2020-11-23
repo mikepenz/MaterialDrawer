@@ -4,18 +4,21 @@ import android.os.Bundle
 import android.view.Menu
 import android.view.MenuItem
 import androidx.appcompat.app.AppCompatActivity
+import com.mikepenz.materialdrawer.app.databinding.ActivitySampleFragmentBinding
 import com.mikepenz.materialdrawer.app.fragment.DrawerFragment
 import com.mikepenz.materialdrawer.app.fragment.SecondDrawerFragment
-import kotlinx.android.synthetic.main.activity_sample_fragment.*
 
 class FragmentActivity : AppCompatActivity() {
+    private lateinit var binding: ActivitySampleFragmentBinding
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_sample_fragment)
+        binding = ActivitySampleFragmentBinding.inflate(layoutInflater).also {
+            setContentView(it.root)
+        }
 
         // Handle Toolbar
-        setSupportActionBar(toolbar)
+        setSupportActionBar(binding.toolbar)
         supportActionBar?.setTitle(R.string.drawer_item_fragment_drawer)
 
         //ignore the DemoFragment and it's layout it's just to showcase the handle with an keyboard
