@@ -1,6 +1,25 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
 
+    <style name="SampleApp.Showcase.DayNight" parent="Theme.MaterialComponents.DayNight.NoActionBar">
+        <!-- ...and here we setting appcompat’s color theming attrs -->
+        <item name="colorPrimary">@color/colorPrimary</item>
+        <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
+        <item name="colorAccent">@color/colorAccent</item>
+
+        <item name="materialDrawerStyle">@style/Widget.MaterialDrawerStyle</item>
+        <item name="materialDrawerHeaderStyle">@style/Widget.MaterialDrawerHeaderStyleShowcase</item>
+
+        <item name="android:windowTranslucentStatus">true</item>
+    </style>
+
+    <style name="Widget.MaterialDrawerHeaderStyleShowcase" parent="">
+        <item name="materialDrawerCompactStyle">true</item>
+        <item name="materialDrawerHeaderSelectionText">#FF0000</item>
+        <item name="materialDrawerHeaderSelectionSubtext">#FF0000</item>
+    </style>
+
+
     <!-- LIGHT -->
     <style name="SampleApp.DayNight" parent="Theme.MaterialComponents.DayNight.NoActionBar">
         <!-- ...and here we setting appcompat’s color theming attrs -->
