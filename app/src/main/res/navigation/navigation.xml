@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <navigation xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/navigation"
     app:startDestination="@id/fragmentHome">
 
@@ -23,6 +23,9 @@
         <action
             android:id="@+id/action_fragmentHome_to_messageFragment3"
             app:destination="@id/messageFragment3" />
+        <action
+            android:id="@+id/action_fragmentHome_to_aboutLibsFragment"
+            app:destination="@id/about_libraries" />
     </fragment>
     <fragment
         android:id="@+id/messageFragment1"
@@ -58,4 +61,5 @@
         android:id="@+id/action_global_fragmentHome"
         app:popUpTo="@id/fragmentHome" />
 
+    <include app:graph="@navigation/aboutlibs_navigation" />
 </navigation>
