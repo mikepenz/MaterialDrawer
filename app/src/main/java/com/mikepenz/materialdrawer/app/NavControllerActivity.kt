@@ -13,6 +13,7 @@ import com.mikepenz.materialdrawer.model.PrimaryDrawerItem
 import com.mikepenz.materialdrawer.model.interfaces.withName
 import com.mikepenz.materialdrawer.util.addItems
 import com.mikepenz.materialdrawer.util.addStickyDrawerItems
+import com.mikepenz.materialdrawer.util.setupWithNavController
 import java.io.Serializable
 
 class NavControllerActivity : AppCompatActivity() {
