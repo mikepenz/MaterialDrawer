@@ -249,7 +249,7 @@ DrawerImageLoader.init(object : AbstractDrawerImageLoader() {
 })
 ```
 
-An implementation with [GLIDE v4](https://github.com/mikepenz/MaterialDrawer/blob/develop/app/src/main/java/com/mikepenz/materialdrawer/app/CustomApplication.java#L42) (See tag v6.1.1 for glide v3 sample) can be found in the sample application
+An implementation with [GLIDE v4](https://github.com/mikepenz/MaterialDrawer/blob/develop/app/src/main/java/com/mikepenz/materialdrawer/app/CustomApplication.kt) (See tag v6.1.1 for glide v3 sample) can be found in the sample application
 
 ## JVM Target 1.8
 
