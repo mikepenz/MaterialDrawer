@@ -609,6 +609,11 @@ open class MaterialDrawerSliderView @JvmOverloads constructor(context: Context, 
                 consumed = item.onDrawerItemClickListener?.invoke(v, item, position) ?: false
             }
 
+            //we have to notify the miniDrawer if existing, and if the event was not consumed yet
+            if (!consumed) {
+                consumed = miniDrawer?.onItemClick(item) ?: false
+            }
+
             //call the drawer listener
             onDrawerItemClickListener?.let { mOnDrawerItemClickListener ->
                 if (delayDrawerClickEvent > 0) {
@@ -616,11 +621,6 @@ open class MaterialDrawerSliderView @JvmOverloads constructor(context: Context, 
                 } else {
                     consumed = mOnDrawerItemClickListener.invoke(v, item, position)
                 }
-            }
-
-            //we have to notify the miniDrawer if existing, and if the event was not consumed yet
-            if (!consumed) {
-                consumed = miniDrawer?.onItemClick(item) ?: false
             }
 
             //if we were a expandable item we consume the event closing makes no sense

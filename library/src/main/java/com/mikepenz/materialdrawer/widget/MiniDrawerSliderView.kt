@@ -240,6 +240,7 @@ open class MiniDrawerSliderView @JvmOverloads constructor(context: Context, attr
     fun setSelection(identifier: Long) {
         if (identifier == -1L) {
             selectExtension.deselect()
+            return
         }
         val count = adapter.itemCount
         for (i in 0 until count) {
