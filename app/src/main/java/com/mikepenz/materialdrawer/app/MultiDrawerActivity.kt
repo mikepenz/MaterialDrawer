@@ -62,6 +62,7 @@ class MultiDrawerActivity : AppCompatActivity() {
         }
 
         binding.sliderEnd.apply {
+            stickyHeaderView = layoutInflater.inflate(R.layout.header, null)
             itemAdapter.add(
                     PrimaryDrawerItem().withName(R.string.drawer_item_home).withIcon(FontAwesome.Icon.faw_home).withIdentifier(1),
                     PrimaryDrawerItem().withName(R.string.drawer_item_free_play).withIcon(FontAwesome.Icon.faw_gamepad),

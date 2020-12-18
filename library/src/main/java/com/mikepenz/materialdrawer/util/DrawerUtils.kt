@@ -128,7 +128,9 @@ internal fun handleHeaderView(sliderView: MaterialDrawerSliderView) {
                 view.layoutParams = lps
             }
         }
-
+        if (Build.VERSION.SDK_INT >= 21) {
+            sliderView.elevation = 0f
+        }
         //remove the padding of the recyclerView again we have the header on top of it
         sliderView.recyclerView.setPadding(0, 0, 0, 0)
     }
@@ -147,18 +149,18 @@ internal fun rebuildStickyFooterView(sliderView: MaterialDrawerSliderView) {
         }
 
         //fill the footer with items
-        fillStickyDrawerItemFooter(sliderView, it, View.OnClickListener { v ->
+        fillStickyDrawerItemFooter(sliderView, it) { v ->
             val drawerItem = v.getTag(R.id.material_drawer_item) as IDrawerItem<*>
             onFooterDrawerItemClick(sliderView, drawerItem, v, true)
-        })
+        }
 
         it.visibility = View.VISIBLE
     } ?: run {
         //there was no footer yet. now just create one
-        handleFooterView(sliderView, View.OnClickListener { v ->
+        handleFooterView(sliderView) { v ->
             val drawerItem = v.getTag(R.id.material_drawer_item) as IDrawerItem<*>
             onFooterDrawerItemClick(sliderView, drawerItem, v, true)
-        })
+        }
     }
 
     sliderView.setStickyFooterSelection(sliderView.currentStickyFooterSelection, false)
