@@ -5,7 +5,8 @@ import android.graphics.drawable.Drawable
 import android.net.Uri
 import android.widget.ImageView
 import androidx.multidex.MultiDexApplication
-import com.bumptech.glide.Glide
+import coil.clear
+import coil.load
 import com.mikepenz.iconics.Iconics
 import com.mikepenz.iconics.IconicsDrawable
 import com.mikepenz.iconics.utils.backgroundColorRes
@@ -39,11 +40,14 @@ class CustomApplication : MultiDexApplication() {
         //initialize and create the image loader logic
         DrawerImageLoader.init(object : AbstractDrawerImageLoader() {
             override fun set(imageView: ImageView, uri: Uri, placeholder: Drawable, tag: String?) {
-                GlideApp.with(imageView.context).load(uri).placeholder(placeholder).into(imageView)
+                imageView.load(uri) {
+                    allowHardware(false)
+                    placeholder(placeholder)
+                }
             }
 
             override fun cancel(imageView: ImageView) {
-                Glide.with(imageView.context).clear(imageView)
+                imageView.clear()
             }
 
             override fun placeholder(ctx: Context, tag: String?): Drawable {

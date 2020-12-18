@@ -49,7 +49,7 @@
 
 ## Latest releases 🛠
 
-- Kotlin && New | [v8.2.0](https://github.com/mikepenz/MaterialDrawer/tree/v8.2.0)
+- Kotlin && New | [v8.3.0](https://github.com/mikepenz/MaterialDrawer/tree/v8.3.0)
 - Kotlin | [v7.0.0](https://github.com/mikepenz/MaterialDrawer/tree/v7.0.0) | (Builder approach like v6.x)
 - Java && AndroidX | [v6.1.2](https://github.com/mikepenz/MaterialDrawer/tree/v6.1.2)
 - Java && AppCompat | [v6.0.9](https://github.com/mikepenz/MaterialDrawer/tree/v6.0.9)
@@ -220,7 +220,7 @@ For advanced usecases. Please have a look at the provided sample activities.
 The MaterialDrawer supports fetching images from URLs and setting them for the Profile icons. As the MaterialDrawer does not contain an ImageLoading library
 the dev can choose his own implementation (Picasso, Glide, ...). This has to be done, before the first image should be loaded via URL. (Should be done in the Application, but any other spot before loading the first image is working too)
 * SAMPLE using [PICASSO](https://github.com/square/picasso)
-* [SAMPLE](https://github.com/mikepenz/MaterialDrawer/blob/develop/app/src/main/java/com/mikepenz/materialdrawer/app/CustomApplication.java) using [GLIDE](https://github.com/bumptech/glide)
+* [SAMPLE](https://github.com/mikepenz/MaterialDrawer/blob/develop/app/src/main/java/com/mikepenz/materialdrawer/app/CustomApplication.kt) using [GLIDE](https://github.com/bumptech/glide)
 
 ```kotlin
 //initialize and create the image loader logic
@@ -249,7 +249,7 @@ DrawerImageLoader.init(object : AbstractDrawerImageLoader() {
 })
 ```
 
-An implementation with [GLIDE v4](https://github.com/mikepenz/MaterialDrawer/blob/develop/app/src/main/java/com/mikepenz/materialdrawer/app/CustomApplication.java#L42) (See tag v6.1.1 for glide v3 sample) can be found in the sample application
+An implementation with [GLIDE v4](https://github.com/mikepenz/MaterialDrawer/blob/develop/app/src/main/java/com/mikepenz/materialdrawer/app/CustomApplication.kt) (See tag v6.1.1 for glide v3 sample) can be found in the sample application
 
 ## JVM Target 1.8
 
@@ -310,42 +310,25 @@ Overwrite the Style of the BezelImageView for the whole MaterialDrawer
 # Used by
 (feel free to send me new projects)
 
-* [wall:splash](https://play.google.com/store/apps/details?id=com.mikepenz.unsplash)
-* [GitSkarios](https://play.google.com/store/apps/details?id=com.alorma.github)
 * [Screener](https://play.google.com/store/apps/details?id=de.toastcode.screener)
 * [Meldmail](https://play.google.com/store/apps/details?id=com.meldmail)
 * [Academic Schedule](https://play.google.com/store/apps/details?id=com.auebcsschedule.ppt)
-* [Strength](https://play.google.com/store/apps/details?id=com.e13engineering.strength)
 * [Sprit Club](https://play.google.com/store/apps/details?id=at.idev.spritpreise)
-* [FitHub](https://play.google.com/store/apps/details?id=com.gabilheri.fithub)
 * [StickyNotes](https://play.google.com/store/apps/details?id=com.jsvmsoft.stickynotes)
-* [Smartphone Italia](https://play.google.com/store/apps/details?id=rebus.smartphone.italia)
 * [MLManager](https://github.com/javiersantos/MLManager)
-* [Hold'Em Poker Manager](https://play.google.com/store/apps/details?id=pt.massena.holdemtracker.free)
 * [Fimpl](https://play.google.com/store/apps/details?id=com.danielZET.fimpl)
-* [+UEA](https://play.google.com/store/apps/details?id=br.edu.uea.app)
-* [PixCell8](https://play.google.com/store/apps/details?id=com.pixcell8.prod)
-* [TS3 Viewer for TeamSpeak 3](https://play.google.com/store/apps/details?id=com.game_state.ts3viewer)
 * [Teacher Gradebook](https://play.google.com/store/apps/details?id=com.apolosoft.cuadernoprofesor)
-* [Tabe3 News Reader](https://play.google.com/store/apps/details?id=com.tabe3.news)
-* [Facepunch Droid](https://play.google.com/store/apps/details?id=com.apps.anker.facepunchdroid)
-* [World Tourist Attractions](https://play.google.com/store/apps/details?id=indian.fig.whatsaround)
-* [HipCar](https://play.google.com/store/apps/details?id=com.hipcar.android)
 * [AS Sales Management](https://play.google.com/store/apps/details?id=com.armsoft.mtrade)
 * [Sporza Voetbal](http://play.google.com/store/apps/details?id=be.vrt.mobile.android.sporza.voetbal)
 * [Atmosphere](https://play.google.com/store/apps/details?id=com.peakpocketstudios.atmosphere)
-* [Slidechat](https://play.google.com/store/apps/details?id=com.taddu.adfree.slidechat)
 * [Fitness Challenge](https://play.google.com/store/apps/details?id=com.isidroid.fitchallenge)
-* [European Capital of Culture - Pafos2017 official app](https://play.google.com/store/apps/details?id=com.trackandtalk.pafos17)
 * [I'm Reading Quran - Kur'an Okuyorum](https://play.google.com/store/apps/details?id=com.homemade.kuranokuma)
 * [Makota Money Manager](https://play.google.com/store/apps/details?id=be.jatra.makota)
 * [Companion for Band](https://github.com/adithya321/Companion-for-Band)
-* [Chisme for Sensu](https://play.google.com/store/apps/details?id=com.antonionicolaspina.sensu)
 * [Recipedia](https://play.google.com/store/apps/details?id=com.md.recipedia)
 * [Right Сourse - ruble course](https://play.google.com/store/apps/details?id=com.currency.work.currencychecker)
 * [Gameru](https://play.google.com/store/apps/details?id=net.gameru)
 * [Boost for reddit](https://play.google.com/store/apps/details?id=com.rubenmayayo.reddit)
-* [Touch for Facebook](https://play.google.com/store/apps/details?id=com.fa.touch.free)
 * [Calendula](https://github.com/citiususc/calendula)
 * [MyTimes](https://github.com/debo1994/MyTimes)
 * [VoIP By Antisip](https://play.google.com/store/apps/details?id=com.antisip.vbyantisip)

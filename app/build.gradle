@@ -73,10 +73,7 @@ dependencies {
     implementation "androidx.swiperefreshlayout:swiperefreshlayout:${versions.swiperefreshLayout}"
 
     // used to showcase how to load images
-    implementation 'com.squareup.picasso:picasso:2.71828'
-    implementation 'com.github.bumptech.glide:glide:4.10.0'
-    kapt 'com.github.bumptech.glide:compiler:4.10.0'
-    implementation "androidx.constraintlayout:constraintlayout:${versions.constraintLayout}"
+    implementation("io.coil-kt:coil:1.1.0")
 
     // needed to fix glide androidX support
     implementation "com.android.support:support-annotations:28.0.0"
@@ -103,9 +100,9 @@ dependencies {
 
     // icon fonts used inside the sample
     // https://github.com/mikepenz/Android-Iconics
-    implementation 'com.mikepenz:google-material-typeface:3.0.1.4.original-kotlin@aar'
-    implementation 'com.mikepenz:fontawesome-typeface:5.3.1.2-kotlin@aar'
-    implementation 'com.mikepenz:octicons-typeface:3.2.0.6-kotlin@aar'
+    implementation 'com.mikepenz:google-material-typeface:3.0.1.6.original-kotlin@aar'
+    implementation 'com.mikepenz:fontawesome-typeface:5.9.0.2-kotlin@aar'
+    implementation 'com.mikepenz:octicons-typeface:11.1.0.0-kotlin@aar'
 
     // kotlin
     implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk7:${versions.kotlin}"
