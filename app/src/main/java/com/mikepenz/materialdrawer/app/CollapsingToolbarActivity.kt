@@ -3,8 +3,7 @@ package com.mikepenz.materialdrawer.app
 import android.graphics.Color
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
-import com.bumptech.glide.Glide
-import com.bumptech.glide.request.RequestOptions.centerCropTransform
+import coil.load
 import com.mikepenz.iconics.IconicsDrawable
 import com.mikepenz.iconics.typeface.library.fontawesome.FontAwesome
 import com.mikepenz.iconics.typeface.library.googlematerial.GoogleMaterial
@@ -77,7 +76,7 @@ class CollapsingToolbarActivity : AppCompatActivity() {
     }
 
     private fun loadBackdrop() {
-        Glide.with(this).load("https://unsplash.it/600/300/?random").apply(centerCropTransform()).into(binding.backdrop)
+        binding.backdrop.load("https://unsplash.it/600/300/?random")
     }
 
     private fun fillFab() {
