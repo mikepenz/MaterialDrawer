@@ -202,9 +202,9 @@ open class MaterialDrawerSliderView @JvmOverloads constructor(context: Context, 
             // set the footer (do this before the setAdapter because some devices will crash else
             if (value != null) {
                 if (footerDivider) {
-                    footerAdapter.add(ContainerDrawerItem().withView(value).withViewPosition(ContainerDrawerItem.Position.BOTTOM))
+                    footerAdapter.add(ContainerDrawerItem().apply { view = value; viewPosition = ContainerDrawerItem.Position.BOTTOM })
                 } else {
-                    footerAdapter.add(ContainerDrawerItem().withView(value).withViewPosition(ContainerDrawerItem.Position.NONE))
+                    footerAdapter.add(ContainerDrawerItem().apply { view = value; viewPosition = ContainerDrawerItem.Position.NONE })
                 }
             }
         }
@@ -411,7 +411,12 @@ open class MaterialDrawerSliderView @JvmOverloads constructor(context: Context, 
             this.insets?.set(insets.systemWindowInsetLeft, insets.systemWindowInsetTop, insets.systemWindowInsetRight, insets.systemWindowInsetBottom)
 
             if (headerView == null && accountHeader == null) {
-                recyclerView.updatePadding(top = insets.systemWindowInsetTop, bottom = insets.systemWindowInsetBottom)
+                if (stickyHeaderView == null) {
+                    recyclerView.updatePadding(top = insets.systemWindowInsetTop)
+                }
+                if (stickyFooterView == null) {
+                    recyclerView.updatePadding(bottom = insets.systemWindowInsetBottom)
+                }
             }
 
             setWillNotDraw(insetForeground == null)
