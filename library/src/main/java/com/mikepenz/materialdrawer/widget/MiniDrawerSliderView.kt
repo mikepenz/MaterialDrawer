@@ -213,13 +213,13 @@ open class MiniDrawerSliderView @JvmOverloads constructor(context: Context, attr
     fun onItemClick(selectedDrawerItem: IDrawerItem<*>): Boolean {
         //We only need to clear if the new item is selectable
         return if (selectedDrawerItem.isSelectable) {
-            //crossfade if we are cross faded
+            // crossfade if we are cross faded
             crossFader?.let {
-                if (it.isCrossfaded) {
+                if (drawer?.closeOnClick == true && it.isCrossfaded) {
                     it.crossfade()
                 }
             }
-            //update everything
+            // update everything
             if (selectedDrawerItem.hiddenInMiniDrawer) {
                 selectExtension.deselect()
             } else {
