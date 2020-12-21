@@ -111,12 +111,10 @@ internal fun handleHeaderView(sliderView: MaterialDrawerSliderView) {
         layoutParamsListView.addRule(RelativeLayout.BELOW, R.id.material_drawer_sticky_header)
         sliderView.recyclerView.layoutParams = layoutParamsListView
 
-        //set a background color or the elevation will not work
-        it.background = sliderView.background
-
         if (sliderView.stickyHeaderShadow) {
             //add a shadow
             if (Build.VERSION.SDK_INT >= 21) {
+                it.background = ColorDrawable(Color.WHITE) // set a background color or the elevation will not work, this is meant to be
                 it.elevation = sliderView.context.resources.getDimensionPixelSize(R.dimen.material_drawer_sticky_header_elevation).toFloat()
             } else {
                 val view = View(sliderView.context)
