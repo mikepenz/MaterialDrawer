@@ -128,7 +128,6 @@ internal fun handleHeaderView(sliderView: MaterialDrawerSliderView) {
         }
         if (Build.VERSION.SDK_INT >= 21) {
             sliderView.elevation = 0f
-            sliderView.recyclerView.elevation = 0f
         }
         //remove the padding of the recyclerView again we have the header on top of it
         sliderView.recyclerView.setPadding(0, 0, 0, 0)
