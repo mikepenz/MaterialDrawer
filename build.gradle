@@ -43,8 +43,6 @@ buildscript {
     }
     dependencies {
         classpath 'com.android.tools.build:gradle:4.1.1'
-        classpath 'com.github.dcendents:android-maven-gradle-plugin:2.1'
-        classpath 'com.jfrog.bintray.gradle:gradle-bintray-plugin:1.8.5'
         classpath "org.jetbrains.kotlin:kotlin-gradle-plugin:${versions.kotlin}"
         classpath "androidx.navigation:navigation-safe-args-gradle-plugin:${versions.navigation}"
         classpath "io.gitlab.arturbosch.detekt:detekt-gradle-plugin:${versions.detekt}"
@@ -53,6 +51,8 @@ buildscript {
 }
 
 allprojects {
+    group "com.mikepenz"
+
     repositories {
         google()
         jcenter()
@@ -62,7 +62,7 @@ allprojects {
 }
 
 subprojects {
-    apply from: '../detekt.gradle'
+    apply from: "$rootDir/detekt.gradle"
 
     dependencies {
         detektPlugins "io.gitlab.arturbosch.detekt:detekt-formatting:${versions.detekt}"

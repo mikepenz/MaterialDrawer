@@ -1,4 +1,4 @@
 include ':app'
-include ':library'
-include ':library-iconics'
-include ':library-nav'
+include ':materialdrawer'
+include ':materialdrawer-iconics'
+include ':materialdrawer-nav'

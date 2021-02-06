@@ -1,7 +1,9 @@
-@SuppressWarnings(["GroovyUnusedDeclaration", "GrMethodMayBeStatic"])
-def isReleaseBuild() {
-    return !VERSION_NAME.contains("SNAPSHOT")
-}
+apply plugin: 'maven-publish'
+apply plugin: 'signing'
+
+ext["signing.keyId"] = project.hasProperty('sonatype.gpg.key') ? project.property('sonatype.gpg.key') : System.getenv('SONATYPE_GPG_KEY')
+ext["signing.password"] = project.hasProperty('sonatype.gpg.password') ? project.property('sonatype.gpg.password') : System.getenv('SONATYPE_GPG_PASS')
+ext["signing.secretKeyRingFile"] = project.hasProperty('sonatype.gpg.secretKeyRingFile') ? project.property('sonatype.gpg.secretKeyRingFile') : System.getenv('SONATYPE_GPG_FILE')
 
 @SuppressWarnings("GroovyUnusedDeclaration")
 def getRepositoryUsername() {
@@ -13,12 +15,7 @@ def getRepositoryPassword() {
     return project.hasProperty('NEXUS_PASSWORD') ? project.property('NEXUS_PASSWORD') : System.getenv('NEXUS_PASSWORD')
 }
 
-apply plugin: "com.jfrog.bintray"
-
 afterEvaluate { project ->
-    apply plugin: 'maven-publish'
-    apply plugin: 'com.github.dcendents.android-maven'
-
     if (JavaVersion.current().isJava8Compatible()) {
         allprojects {
             tasks.withType(Javadoc) {
@@ -41,60 +38,6 @@ afterEvaluate { project ->
     task androidSourcesJar(type: Jar) {
         classifier = 'sources'
         from android.sourceSets.main.java.source
-    }
-
-    bintray {
-        dryRun = false
-        publish = true
-        override = true
-        user = project.hasProperty('bintray.user') ? project.property('bintray.user') : System.getenv('BINTRAY_USER')
-        key = project.hasProperty('bintray.apikey') ? project.property('bintray.apikey') : System.getenv('BINTRAY_API_KEY')
-        def gpgkey = project.hasProperty('bintray.gpg.key') ? project.property('bintray.gpg.key') : System.getenv('BINTRAY_GPG_KEY')
-        def gpgpass = project.hasProperty('bintray.gpg.password') ? project.property('bintray.gpg.password') : System.getenv('BINTRAY_GPG_PASS')
-        def versionName = project.release.versionName
-
-        publications('release')
-
-        pkg {
-            publish = true
-
-            repo = "maven"
-            name = GROUP + ":" + POM_ARTIFACT_ID //the name (= identifier) on bintray
-            desc = POM_DESCRIPTION
-
-            websiteUrl = POM_URL
-            issueTrackerUrl = POM_SCM_URL_ISSUES
-            vcsUrl = POM_SCM_URL
-
-            githubRepo = POM_GITHUB_REPO
-            githubReleaseNotesFile = POM_GITHUB_README
-
-            publicDownloadNumbers = true
-            licenses = ["Apache-2.0"]
-            version {
-                name = versionName
-                vcsTag = versionName
-                released = new Date()
-
-                mavenCentralSync {
-                    sync = true
-                    user = getRepositoryUsername()
-                    password = getRepositoryPassword()
-                    close = '1'
-                }
-                gpg {
-                    sign = true
-                    passphrase = gpgpass
-                }
-            }
-        }
-    }
-
-    ext.addDependency = { dependencyNode, group, name, version ->
-        dependencyNode.appendNode('groupId', group)
-        dependencyNode.appendNode('artifactId', name)
-        dependencyNode.appendNode('version', version)
-        dependencyNode.appendNode('scope', "compile")
     }
 
     def pomConfig = {
@@ -122,32 +65,40 @@ afterEvaluate { project ->
     publishing {
         publications {
             release(MavenPublication) {
+                from components.release
+
                 groupId GROUP
                 artifactId POM_ARTIFACT_ID
-                version project.release.versionName
-                artifact("$buildDir/outputs/aar/${project.getName()}-release.aar")
+                version android.defaultConfig.versionName
+
                 artifact androidSourcesJar
                 artifact androidJavadocsJar
 
                 pom.withXml {
-                    asNode().appendNode('name', POM_NAME);
-                    asNode().appendNode('description', POM_DESCRIPTION);
-                    asNode().appendNode('url', POM_SCM_URL);
-                    def dependenciesNode = asNode().appendNode('dependencies');
-                    configurations.implementation.allDependencies.each {
-                        // Ensure dependencies such as fileTree are not included.
-                        if (it.name != 'unspecified') {
-                            def dependencyNode = dependenciesNode.appendNode('dependency')
-                            if (it.version != "unspecified") {
-                                addDependency(dependencyNode, it.group, it.name, it.version)
-                            } else {
-                                addDependency(dependencyNode, it.getDependencyProject().findProperty("GROUP"), it.getDependencyProject().findProperty("POM_ARTIFACT_ID"), project.release.versionName)
-                            }
-                        }
-                    }
+                    asNode().appendNode('name', POM_NAME)
+                    asNode().appendNode('description', POM_DESCRIPTION)
+                    asNode().appendNode('url', POM_SCM_URL)
                     asNode().children().last() + pomConfig
                 }
             }
         }
+
+        repositories {
+            maven {
+                name = "sonatype"
+                def releasesRepoUrl = "https://s01.oss.sonatype.org/service/local/staging/deploy/maven2/"
+                def snapshotsRepoUrl = "https://s01.oss.sonatype.org/content/repositories/snapshots/"
+                url = version.endsWith('SNAPSHOT') ? snapshotsRepoUrl : releasesRepoUrl
+
+                credentials {
+                    username getRepositoryUsername()
+                    password getRepositoryPassword()
+                }
+            }
+        }
     }
+}
+
+signing {
+    sign publishing.publications
 }
