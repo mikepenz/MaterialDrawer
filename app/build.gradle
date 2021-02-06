@@ -59,9 +59,9 @@ android {
 }
 
 dependencies {
-    implementation project(':library')
-    implementation project(':library-iconics')
-    implementation project(':library-nav')
+    implementation project(':materialdrawer')
+    implementation project(':materialdrawer-iconics')
+    implementation project(':materialdrawer-nav')
 
     implementation "androidx.multidex:multidex:${versions.multiDex}"
     implementation "com.google.android.material:material:${versions.material}"

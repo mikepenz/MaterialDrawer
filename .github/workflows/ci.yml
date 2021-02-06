@@ -74,17 +74,23 @@ jobs:
         if: startsWith(github.ref, 'refs/tags/')
         run: ./gradlew app:assembleRelease app:bundleRelease
 
-      - name: Relase bintray
+      - name: Prepare Sonatype Gradle properties
+        if: startsWith(github.ref, 'refs/tags/')
+        run: |
+          echo "${{ secrets.SONATYPE_GPG_FILE }}" > opensource.gpg.asc
+          gpg -d --passphrase "${{ secrets.KEYSTORE_PASSPHRASE }}" --batch "opensource.gpg.asc" > "$HOME/.gradle/opensource.gpg"
+          echo "sonatype.gpg.key=${{ secrets.SONATYPE_GPG_KEY }}" >> ~/.gradle/gradle.properties
+          echo "sonatype.gpg.password=${{ secrets.SONATYPE_GPG_PASS }}" >> ~/.gradle/gradle.properties
+          echo "sonatype.gpg.secretKeyRingFile=$HOME/.gradle/opensource.gpg" >> ~/.gradle/gradle.properties
+
+      - name: Relase Sonatype
         if: startsWith(github.ref, 'refs/tags/')
         run: |
           ./gradlew build -x test -x lint
-          ./gradlew library:bintrayUpload -x test -x lint -Plibrary_only --no-configure-on-demand --no-parallel
-          ./gradlew library-nav:bintrayUpload -x test -x lint -Plibrary_nav_only  --no-configure-on-demand --no-parallel
-          ./gradlew library-iconics:bintrayUpload -x test -x lint -Plibrary_iconics_only --no-configure-on-demand --no-parallel
+          ./gradlew materialdrawer:publishReleasePublicationToSonatypeRepository -x test -x lint -Plibrary_only --no-configure-on-demand --no-parallel
+          ./gradlew materialdrawer-nav:publishReleasePublicationToSonatypeRepository -x test -x lint -Plibrary_nav_only  --no-configure-on-demand --no-parallel
+          ./gradlew materialdrawer-iconics:publishReleasePublicationToSonatypeRepository -x test -x lint -Plibrary_iconics_only --no-configure-on-demand --no-parallel
         env:
-          BINTRAY_USER: ${{ secrets.BINTRAY_USER }}
-          BINTRAY_API_KEY: ${{ secrets.BINTRAY_API_KEY }}
-          BINTRAY_GPG_PASS: ${{ secrets.BINTRAY_GPG_PASS }}
           NEXUS_USERNAME: ${{ secrets.NEXUS_USERNAME }}
           NEXUS_PASSWORD: ${{ secrets.NEXUS_PASSWORD }}
 

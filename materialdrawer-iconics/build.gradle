@@ -1,6 +1,8 @@
 apply plugin: 'com.android.library'
 apply plugin: 'kotlin-android'
 
+version release.versionName
+
 android {
     compileSdkVersion setup.compileSdk
     buildToolsVersion setup.buildTools
@@ -36,16 +38,17 @@ android {
 }
 
 dependencies {
-    implementation project(':library')
+    implementation project(':materialdrawer')
 
     // kotlin
     implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk7:${versions.kotlin}"
 
-    // navigation
-    implementation "androidx.navigation:navigation-runtime:${versions.navigation}"
-    implementation "androidx.navigation:navigation-ui-ktx:${versions.navigation}"
+    // used to provide out of the box icon font support. simplifies development,
+    // and provides scalable icons. the core is very very light
+    // https://github.com/mikepenz/Android-Iconics
+    api "com.mikepenz:iconics-core:${versions.iconics}"
 }
 
-if (project.hasProperty('pushall') || project.hasProperty('library_nav_only')) {
+if (project.hasProperty('pushall') || project.hasProperty('library_iconics_only')) {
     apply from: '../gradle-release.gradle'
 }

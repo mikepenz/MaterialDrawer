@@ -12,9 +12,9 @@ import com.mikepenz.materialdrawer.holder.BadgeStyle
 import com.mikepenz.materialdrawer.holder.ImageHolder
 import com.mikepenz.materialdrawer.holder.StringHolder
 import com.mikepenz.materialdrawer.model.interfaces.*
-import com.mikepenz.materialdrawer.util.setDrawerVerticalPadding
 import com.mikepenz.materialdrawer.util.getPrimaryDrawerIconColor
 import com.mikepenz.materialdrawer.util.getSelectableBackground
+import com.mikepenz.materialdrawer.util.setDrawerVerticalPadding
 
 /**
  * Describes a [IProfile] being used with the [com.mikepenz.materialdrawer.widget.AccountHeaderView]
