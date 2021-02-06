@@ -56,8 +56,8 @@ class CustomApplication : MultiDexApplication() {
                 //custom ones can be checked via string. see the CustomUrlBasePrimaryDrawerItem LINE 111
                 return when (tag) {
                     DrawerImageLoader.Tags.PROFILE.name -> getPlaceHolder(ctx)
-                    DrawerImageLoader.Tags.ACCOUNT_HEADER.name -> IconicsDrawable(ctx, " ").apply { backgroundColorRes = R.color.primary; sizeDp = 56 }
-                    "customUrlItem" -> IconicsDrawable(ctx, " ").apply { backgroundColorRes = R.color.md_red_500; sizeDp = 56 }
+                    DrawerImageLoader.Tags.ACCOUNT_HEADER.name -> IconicsDrawable(ctx, " ").apply { backgroundColorRes = R.color.colorPrimary; sizeDp = 56 }
+                    "customUrlItem" -> IconicsDrawable(ctx, " ").apply { backgroundColorRes = R.color.colorAccent; sizeDp = 56 }
                     //we use the default one for
                     //DrawerImageLoader.Tags.PROFILE_DRAWER_ITEM.name()
                     else -> super.placeholder(ctx, tag)
