@@ -49,7 +49,7 @@
 
 ## Latest releases 🛠
 
-- Kotlin && New | [v8.3.1](https://github.com/mikepenz/MaterialDrawer/tree/v8.3.1)
+- Kotlin && New | [v8.3.2](https://github.com/mikepenz/MaterialDrawer/tree/v8.3.2)
 - Kotlin | [v7.0.0](https://github.com/mikepenz/MaterialDrawer/tree/v7.0.0) | (Builder approach like v6.x)
 - Java && AndroidX | [v6.1.2](https://github.com/mikepenz/MaterialDrawer/tree/v6.1.2)
 - Java && AppCompat | [v6.0.9](https://github.com/mikepenz/MaterialDrawer/tree/v6.0.9)
@@ -362,7 +362,7 @@ Overwrite the Style of the BezelImageView for the whole MaterialDrawer
 
 # License
 
-    Copyright 2020 Mike Penz
+    Copyright 2021 Mike Penz
 
     Licensed under the Apache License, Version 2.0 (the "License");
     you may not use this file except in compliance with the License.

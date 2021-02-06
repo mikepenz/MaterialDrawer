@@ -9,7 +9,9 @@ import com.mikepenz.materialdrawer.R
 import com.mikepenz.materialdrawer.model.DividerDrawerItem
 import com.mikepenz.materialdrawer.model.PrimaryDrawerItem
 import com.mikepenz.materialdrawer.model.SecondaryDrawerItem
-import com.mikepenz.materialdrawer.model.interfaces.*
+import com.mikepenz.materialdrawer.model.interfaces.IDrawerItem
+import com.mikepenz.materialdrawer.model.interfaces.iconDrawable
+import com.mikepenz.materialdrawer.model.interfaces.nameText
 import com.mikepenz.materialdrawer.widget.MaterialDrawerSliderView
 
 /**
