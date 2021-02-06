@@ -1,4 +1,4 @@
-# MaterialDrawer [![Download](https://api.bintray.com/packages/mikepenz/maven/com.mikepenz%3Amaterialdrawer/images/download.svg) ](https://bintray.com/mikepenz/maven/com.mikepenz%3Amaterialdrawer/_latestVersion)
+# MaterialDrawer
 
 ... the flexible, easy to use, all in one drawer library for your Android project.
 
