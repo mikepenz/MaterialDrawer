@@ -1,4 +1,4 @@
-# MaterialDrawer [![Download](https://api.bintray.com/packages/mikepenz/maven/com.mikepenz%3Amaterialdrawer/images/download.svg) ](https://bintray.com/mikepenz/maven/com.mikepenz%3Amaterialdrawer/_latestVersion)
+# MaterialDrawer
 
 ... the flexible, easy to use, all in one drawer library for your Android project.
 
@@ -49,7 +49,7 @@
 
 ## Latest releases 🛠
 
-- Kotlin && New | [v8.3.2](https://github.com/mikepenz/MaterialDrawer/tree/v8.3.2)
+- Kotlin && New | [v8.3.3](https://github.com/mikepenz/MaterialDrawer/tree/v8.3.3)
 - Kotlin | [v7.0.0](https://github.com/mikepenz/MaterialDrawer/tree/v7.0.0) | (Builder approach like v6.x)
 - Java && AndroidX | [v6.1.2](https://github.com/mikepenz/MaterialDrawer/tree/v6.1.2)
 - Java && AppCompat | [v6.0.9](https://github.com/mikepenz/MaterialDrawer/tree/v6.0.9)
