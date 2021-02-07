@@ -79,6 +79,9 @@ afterEvaluate { project ->
                     asNode().appendNode('description', POM_DESCRIPTION)
                     asNode().appendNode('url', POM_SCM_URL)
                     asNode().children().last() + pomConfig
+
+                    // we want dependencies as compile, to ensure they are transitively resolved
+                    asNode().dependencies.'*'.findAll() { it.scope.text() == 'runtime' }.each { it.scope*.value = 'compile' }
                 }
             }
         }
