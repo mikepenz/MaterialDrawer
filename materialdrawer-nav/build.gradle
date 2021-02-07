@@ -40,11 +40,8 @@ android {
 dependencies {
     implementation project(':materialdrawer')
 
-    // kotlin
-    implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk7:${versions.kotlin}"
-
     // navigation
-    implementation "androidx.navigation:navigation-runtime:${versions.navigation}"
+    implementation "androidx.navigation:navigation-runtime-ktx:${versions.navigation}"
     implementation "androidx.navigation:navigation-ui-ktx:${versions.navigation}"
 }
 

@@ -44,10 +44,12 @@ android {
 
 dependencies {
     implementation "androidx.core:core-ktx:${versions.core}"
-    implementation "androidx.drawerlayout:drawerlayout:${versions.drawerlayout}"
+
+    api "androidx.drawerlayout:drawerlayout:${versions.drawerlayout}"
+    api "androidx.recyclerview:recyclerview:${versions.recyclerView}"
+
     implementation "androidx.appcompat:appcompat:${versions.appcompat}"
-    implementation "androidx.recyclerview:recyclerview:${versions.recyclerView}"
-    implementation "androidx.annotation:annotation:${versions.annotation}"
+
     implementation "com.google.android.material:material:${versions.material}"
 
     // add the constraintLayout used to create the items and headers
@@ -60,7 +62,7 @@ dependencies {
     api "com.mikepenz:fastadapter-extensions-expandable:${versions.fastadapter}"
 
     // kotlin
-    implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk7:${versions.kotlin}"
+    api "org.jetbrains.kotlin:kotlin-stdlib-jdk8:${versions.kotlin}"
 }
 
 if (project.hasProperty('pushall') || project.hasProperty('library_only')) {
