@@ -115,15 +115,15 @@ Great. Your drawer is now ready to use.
 
 ```kotlin
 //if you want to update the items at a later time it is recommended to keep it in a variable
-val item1 = PrimaryDrawerItem().withIdentifier(1).withName(R.string.drawer_item_home)
-val item2 = SecondaryDrawerItem().withIdentifier(2).withName(R.string.drawer_item_settings)
+val item1 = PrimaryDrawerItem().apply { nameRes = R.string.drawer_item_home; identifier = 1 }
+val item2 = SecondaryDrawerItem().apply { nameRes = R.string.drawer_item_settings; identifier = 2 }
 
 // get the reference to the slider and add the items
 slider.itemAdapter.add(
 	    item1,
 	    DividerDrawerItem(),
 	    item2,
-	    SecondaryDrawerItem().withName(R.string.drawer_item_settings)
+	    SecondaryDrawerItem().apply { nameRes = R.string.drawer_item_settings }
 )
 
 // specify a click listener
@@ -144,16 +144,19 @@ slider.setSelection(1, true)
 ```
 
 By default, when a drawer item is clicked, it becomes the new selected item. If this isn't the expected behavior,
-you can disable it for this item using `withSelectable(false)`:
+you can disable it for this item using `isSelectable = false`:
 ```kotlin
-SecondaryDrawerItem().withName(R.string.drawer_item_dialog).withSelectable(false)
+SecondaryDrawerItem().apply { nameRes = R.string.drawer_item_dialog; isSelectable = false }
 ```
 
 ### Modify items or the drawer
 
 ```kotlin
 //modify an item of the drawer
-item1.withName("A new name for this drawerItem").withBadge("19").withBadgeStyle(new BadgeStyle().withTextColor(Color.WHITE).withColorRes(R.color.md_red_700))
+item1.apply {
+  nameText = "A new name for this drawerItem"; badge = StringHolder("19")
+  badgeStyle = BadgeStyle().apply { textColor = ColorHolder.fromColor(Color.WHITE); color = ColorHolder.fromColorRes(R.color.md_red_700) }
+}
 //notify the drawer about the updated element. it will take care about everything else
 slider.updateItem(item1)
 
@@ -162,7 +165,7 @@ slider.updateName(1, "A new name")
 
 //the result object also allows you to add new items, remove items, add footer, sticky footer, ..
 slider.addItem(DividerDrawerItem())
-slider.addStickyFooterItem(PrimaryDrawerItem().withName("StickyFooterItem"))
+slider.addStickyFooterItem(PrimaryDrawerItem().apply { nameTest = "StickyFooter" })
 
 //remove items with an identifier
 slider.removeItem(2)
@@ -181,7 +184,7 @@ slider.drawerLayout
 headerView = AccountHeaderView(this).apply {
     attachToSliderView(slider) // attach to the slider
     addProfiles(
-		ProfileDrawerItem().withName("Mike Penz").withEmail("mikepenz@gmail.com").withIcon(getResources().getDrawable(R.drawable.profile))
+        ProfileDrawerItem().apply { nameText = "Mike Penz"; descriptionText = "mikepenz@gmail.com"; iconRes = R.drawable.profile; identifier = 102 }
     )
     onAccountHeaderListener = { view, profile, current ->
         // react to profile changes
@@ -207,9 +210,9 @@ implementation 'com.mikepenz:fontawesome-typeface:x.y.z@aar'     //FontAwesome
 
 ```kotlin
 //now you can simply use any icon of the Google Material Icons font
-PrimaryDrawerItem().withIcon(GoogleMaterial.Icon.gmd_wb_sunny)
+PrimaryDrawerItem().apply { iconicsIcon = GoogleMaterial.Icon.gmd_wb_sunny }
 //Or an icon from FontAwesome
-SecondaryDrawerItem().withIcon(FontAwesome.Icon.faw_github)
+SecondaryDrawerItem().apply { iconicsIcon = FontAwesome.Icon.faw_github }
 ```
 
 # Advanced Setup
