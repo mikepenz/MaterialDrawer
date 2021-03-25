@@ -25,7 +25,6 @@ import android.annotation.TargetApi
 import android.content.Context
 import android.graphics.*
 import android.graphics.drawable.Drawable
-import android.net.Uri
 import android.os.Build
 import android.util.AttributeSet
 import android.view.MotionEvent
@@ -34,7 +33,6 @@ import android.view.ViewOutlineProvider
 import androidx.appcompat.widget.AppCompatImageView
 import androidx.core.view.ViewCompat
 import com.mikepenz.materialdrawer.R
-import com.mikepenz.materialdrawer.util.DrawerImageLoader
 
 
 /**
@@ -257,27 +255,6 @@ open class BezelImageView @JvmOverloads constructor(context: Context, attrs: Att
         this.mSelectorColor = selectorColor
         this.mSelectorFilter = PorterDuffColorFilter(Color.argb(mSelectorAlpha, Color.red(mSelectorColor), Color.green(mSelectorColor), Color.blue(mSelectorColor)), PorterDuff.Mode.SRC_ATOP)
         this.invalidate()
-    }
-
-
-    override fun setImageDrawable(drawable: Drawable?) {
-        super.setImageDrawable(drawable)
-    }
-
-    override fun setImageResource(resId: Int) {
-        super.setImageResource(resId)
-    }
-
-    override fun setImageBitmap(bm: Bitmap?) {
-        super.setImageBitmap(bm)
-    }
-
-    override fun setImageURI(uri: Uri?) {
-        if ("http" == uri?.scheme || "https" == uri?.scheme) {
-            DrawerImageLoader.instance.setImage(this, uri, null)
-        } else {
-            super.setImageURI(uri)
-        }
     }
 
     fun disableTouchFeedback(disable: Boolean) {
