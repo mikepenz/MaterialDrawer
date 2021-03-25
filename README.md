@@ -343,6 +343,7 @@ Overwrite the Style of the BezelImageView for the whole MaterialDrawer
 * [3D Geeks: Thingiverse Browser for 3D Printing](https://play.google.com/store/apps/details?id=work.twob.threed)
 * [Tusky: Mastodon Client for Android](https://github.com/tuskyapp/Tusky)
 * [Tibia Live](https://tibia.space/)
+* [Walkaholic](https://play.google.com/store/apps/details?id=com.walkaholic.hikeapp)
 
 # Articles about the MaterialDrawer
 * [java-help.ru - MaterialDrawer tutorial](http://java-help.ru/material-navigationdrawer/)
