@@ -11,6 +11,7 @@ import android.view.View
 import android.widget.ImageView
 import androidx.annotation.DrawableRes
 import androidx.core.content.ContextCompat
+import com.mikepenz.materialdrawer.util.DrawerImageLoader
 import com.mikepenz.materialdrawer.util.FixStateListDrawable
 import com.mikepenz.materialdrawer.util.getIconStateList
 import java.io.FileNotFoundException
@@ -59,8 +60,14 @@ open class ImageHolder {
      */
     @JvmOverloads
     open fun applyTo(imageView: ImageView, tag: String? = null): Boolean {
+        val uri = uri
         when {
-            uri != null -> imageView.setImageURI(uri)
+            uri != null -> {
+                val consumed = DrawerImageLoader.instance.setImage(imageView, uri, tag)
+                if (!consumed) {
+                    imageView.setImageURI(uri)
+                }
+            }
             icon != null -> imageView.setImageDrawable(icon)
             bitmap != null -> imageView.setImageBitmap(bitmap)
             iconRes != -1 -> imageView.setImageResource(iconRes)
