@@ -32,7 +32,8 @@ import java.util.*
  * This view offers support to add an account switcher to the [MaterialDrawerSliderView]
  * It will hook onto the [MaterialDrawerSliderView] and coordinate updating and showing the proper set of elements
  */
-open class AccountHeaderView @JvmOverloads constructor(context: Context, attrs: AttributeSet? = null, defStyleAttr: Int = 0, compact: Boolean? = null) : ConstraintLayout(context, attrs, defStyleAttr) {
+open class AccountHeaderView @JvmOverloads constructor(context: Context, attrs: AttributeSet? = null, defStyleAttr: Int = 0, compact: Boolean? = null) :
+    ConstraintLayout(context, attrs, defStyleAttr) {
     var savedInstanceKey: String = ""
 
     // global references to views we need later
@@ -221,6 +222,13 @@ open class AccountHeaderView @JvmOverloads constructor(context: Context, attrs: 
             buildProfiles()
         }
 
+    // enable to show badges on current profile images
+    var displayBadgesOnCurrentProfileImage = true
+        set(value) {
+            field = value
+            buildProfiles()
+        }
+
     // enable to show badges on small profile images
     var displayBadgesOnSmallProfileImages = false
         set(value) {
@@ -297,7 +305,7 @@ open class AccountHeaderView @JvmOverloads constructor(context: Context, attrs: 
         if (onAccountHeaderProfileImageListener != null) {
             val profile = v.getTag(R.id.material_drawer_profile_header) as IProfile
             return@OnLongClickListener onAccountHeaderProfileImageListener?.invoke(v, profile, true)
-                    ?: false
+                ?: false
         }
         false
     }
@@ -309,7 +317,7 @@ open class AccountHeaderView @JvmOverloads constructor(context: Context, attrs: 
         if (onAccountHeaderProfileImageListener != null) {
             val profile = v.getTag(R.id.material_drawer_profile_header) as IProfile
             return@OnLongClickListener onAccountHeaderProfileImageListener?.invoke(v, profile, false)
-                    ?: false
+                ?: false
         }
         false
     }
@@ -394,7 +402,10 @@ open class AccountHeaderView @JvmOverloads constructor(context: Context, attrs: 
     init {
         val headerLayout = context.resolveStyledHeaderValue {
             compactStyle = compact ?: it.getBoolean(R.styleable.AccountHeaderView_materialDrawerCompactStyle, false)
-            it.getResourceId(R.styleable.AccountHeaderView_materialDrawerHeaderLayout, if (compactStyle) R.layout.material_drawer_compact_header else R.layout.material_drawer_header)
+            it.getResourceId(
+                R.styleable.AccountHeaderView_materialDrawerHeaderLayout,
+                if (compactStyle) R.layout.material_drawer_compact_header else R.layout.material_drawer_header
+            )
         }
 
         // the account header
@@ -480,8 +491,10 @@ open class AccountHeaderView @JvmOverloads constructor(context: Context, attrs: 
         headerBackground?.applyTo(accountHeaderBackground, DrawerImageLoader.Tags.ACCOUNT_HEADER.name)
 
         // get the text color to use for the text section
-        val textColor = context.getHeaderSelectionTextColor() // textColor.applyColor(context, R.attr.materialDrawerHeaderSelectionText, R.color.material_drawer_header_selection_text)
-        val subTextColor = context.getHeaderSelectionSubTextColor()  // this.textColor.applyColor(context, R.attr.materialDrawerHeaderSelectionSubtext, R.color.material_drawer_header_selection_subtext)
+        val textColor =
+            context.getHeaderSelectionTextColor() // textColor.applyColor(context, R.attr.materialDrawerHeaderSelectionText, R.color.material_drawer_header_selection_text)
+        val subTextColor =
+            context.getHeaderSelectionSubTextColor()  // this.textColor.applyColor(context, R.attr.materialDrawerHeaderSelectionSubtext, R.color.material_drawer_header_selection_subtext)
 
         if (accountHeaderTextSectionBackgroundResource == -1) {
             accountHeaderTextSectionBackgroundResource = context.getSelectableBackgroundRes()
@@ -533,7 +546,7 @@ open class AccountHeaderView @JvmOverloads constructor(context: Context, attrs: 
      */
     private val onSelectionClickListener = OnClickListener { v ->
         val consumed = onAccountHeaderSelectionViewClickListener?.invoke(v, v.getTag(R.id.material_drawer_profile_header) as IProfile)
-                ?: false
+            ?: false
         if (accountSwitcherArrow.visibility == View.VISIBLE && !consumed) {
             toggleSelectionList()
         }
@@ -904,11 +917,13 @@ open class AccountHeaderView @JvmOverloads constructor(context: Context, attrs: 
                 currentProfileView.invalidate()
 
                 var badgeVisible = false
-                (mCurrentProfile as? ColorfulBadgeable)?.let { badgeable ->
-                    badgeVisible = StringHolder.applyToOrHide(badgeable.badge, currentProfileBadgeView)
-                    if (badgeVisible) {
-                        badgeable.badgeStyle?.style(currentProfileBadgeView, context.getPrimaryDrawerTextColor())
-                        typeface?.let { typeface -> currentProfileBadgeView.typeface = typeface }
+                if (displayBadgesOnCurrentProfileImage) {
+                    (mCurrentProfile as? ColorfulBadgeable)?.let { badgeable ->
+                        badgeVisible = StringHolder.applyToOrHide(badgeable.badge, currentProfileBadgeView)
+                        if (badgeVisible) {
+                            badgeable.badgeStyle?.style(currentProfileBadgeView, context.getPrimaryDrawerTextColor())
+                            typeface?.let { typeface -> currentProfileBadgeView.typeface = typeface }
+                        }
                     }
                 }
                 currentProfileBadgeView.visibility = if (badgeVisible) View.VISIBLE else View.GONE
@@ -1021,7 +1036,7 @@ open class AccountHeaderView @JvmOverloads constructor(context: Context, attrs: 
         val profile = v.getTag(R.id.material_drawer_profile_header) as IProfile
 
         val consumed = onAccountHeaderProfileImageListener?.invoke(v, profile, current)
-                ?: false
+            ?: false
 
         //if the event was already consumed by the click don't continue. note that this will also stop the profile change event
         if (!consumed) {
@@ -1086,7 +1101,7 @@ open class AccountHeaderView @JvmOverloads constructor(context: Context, attrs: 
                         continue
                     } else {
                         selectedPosition = sliderView?.itemAdapter?.getGlobalPosition(position)
-                                ?: 0
+                            ?: 0
                     }
                 }
                 if (profile is IDrawerItem<*>) {
