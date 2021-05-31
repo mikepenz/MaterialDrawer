@@ -74,7 +74,7 @@ dependencies {
     implementation "androidx.swiperefreshlayout:swiperefreshlayout:${versions.swiperefreshLayout}"
 
     // used to showcase how to load images
-    implementation("io.coil-kt:coil:1.1.1")
+    implementation("io.coil-kt:coil:1.2.1")
 
     // the sample uses more advanced functions of the fastadapter
     // https://github.com/mikepenz/FastAdapter/
@@ -85,15 +85,15 @@ dependencies {
 
     //used to provide different itemAnimators for the RecyclerView
     //https://github.com/mikepenz/ItemAnimators
-    implementation 'com.mikepenz:itemanimators:1.1.0'
+    implementation 'com.mikepenz:itemanimators:1.1.0@aar'
     // used to provide the MiniDrawer to normal Drawer crossfade effect via a SlidingPane layout
     // --> https://github.com/mikepenz/MaterialDrawer/blob/develop/app/src/main/java/com/mikepenz/materialdrawer/app/MiniDrawerActivity.java
     // https://github.com/mikepenz/Crossfader
-    implementation 'com.mikepenz:crossfader:1.6.0'
+    implementation 'com.mikepenz:crossfader:1.6.0@aar'
     // used to provide the two step crossfade DrawerLayout. Which allows to have a mini layout which transforms to a normal layout within the drawer
     // --> https://github.com/mikepenz/MaterialDrawer/blob/develop/app/src/main/java/com/mikepenz/materialdrawer/app/CrossfadeDrawerLayoutActvitiy.java
     // https://github.com/mikepenz/CrossfadeDrawerLayout
-    implementation('com.mikepenz:crossfadedrawerlayout:1.1.0')
+    implementation('com.mikepenz:crossfadedrawerlayout:1.1.0@aar')
 
     // icon fonts used inside the sample
     // https://github.com/mikepenz/Android-Iconics

@@ -108,7 +108,7 @@ class DrawerActivity : AppCompatActivity() {
                     PrimaryDrawerItem().apply { nameRes = R.string.drawer_item_navigation_drawer; descriptionRes = R.string.drawer_item_navigation_drawer_desc; iconicsIcon = GoogleMaterial.Icon.gmd_navigation; isSelectable = false; identifier = 1305 },
                     ExpandableBadgeDrawerItem().apply {
                         nameText = "Collapsable Badge"; iconicsIcon = GoogleMaterial.Icon.gmd_format_bold; identifier = 18; isSelectable = false; badge = StringHolder("100")
-                        badgeStyle = BadgeStyle().apply { textColor = ColorHolder.fromColor(Color.WHITE); color = ColorHolder.fromColorRes(R.color.md_red_700) }
+                        badgeStyle = BadgeStyle().apply { textColor = ColorHolder.fromColor(Color.WHITE); color = ColorHolder.fromColorRes(R.color.colorAccent) }
                         subItems = mutableListOf(
                                 SecondaryDrawerItem().apply { nameText = "CollapsableItem"; level = 2; iconicsIcon = GoogleMaterial.Icon.gmd_format_bold; identifier = 2000 },
                                 SecondaryDrawerItem().apply { nameText = "CollapsableItem 2"; level = 2; iconicsIcon = GoogleMaterial.Icon.gmd_format_bold; identifier = 2001 }
