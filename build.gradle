@@ -29,7 +29,7 @@ buildscript {
                 iconics           : "5.2.8",
                 aboutLibs         : "8.9.1",
                 navigation        : "2.3.5",
-                detekt            : '1.16.0',
+                detekt            : '1.17.1',
                 slidingpaneLayout : "1.1.0",
                 swiperefreshLayout: "1.1.0"
         ]
