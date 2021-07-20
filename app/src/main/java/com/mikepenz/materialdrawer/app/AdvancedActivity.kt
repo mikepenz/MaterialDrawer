@@ -77,7 +77,7 @@ class AdvancedActivity : AppCompatActivity() {
                         }
                         iconicsIcon = GoogleMaterial.Icon.gmd_filter_center_focus
                     },
-                    CustomPrimaryDrawerItem().apply { nameRes = R.string.drawer_item_free_play; iconicsIcon = FontAwesome.Icon.faw_gamepad; background = ColorHolder.fromColorRes(R.color.accent) },
+                    CustomPrimaryDrawerItem().apply { nameRes = R.string.drawer_item_free_play; iconicsIcon = FontAwesome.Icon.faw_gamepad; background = ColorHolder.fromColorRes(R.color.colorAccent) },
                     PrimaryDrawerItem().apply { nameRes = R.string.drawer_item_custom; descriptionText = "This is a description"; iconicsIcon = FontAwesome.Icon.faw_eye },
                     CustomUrlPrimaryDrawerItem().apply { nameRes = R.string.drawer_item_fragment_drawer; description = StringHolder(R.string.drawer_item_fragment_drawer_desc); iconUrl = "https://avatars3.githubusercontent.com/u/1476232?v=3&s=460" },
                     SectionDrawerItem().apply { nameRes = R.string.drawer_item_section_header },
@@ -165,7 +165,7 @@ class AdvancedActivity : AppCompatActivity() {
         when (item.itemId) {
             R.id.menu_1 -> {
                 //update the profile2 and set a new image.
-                profile2.iconDrawable = IconicsDrawable(this, GoogleMaterial.Icon.gmd_android).apply { backgroundColorRes = R.color.accent; paddingDp = 4; sizeDp = 48 }
+                profile2.iconDrawable = IconicsDrawable(this, GoogleMaterial.Icon.gmd_android).apply { backgroundColorRes = R.color.colorAccent; paddingDp = 4; sizeDp = 48 }
                 headerView.updateProfile(profile2)
                 return true
             }

@@ -55,7 +55,7 @@ class CompactHeaderDrawerActivity : AppCompatActivity() {
             nameText = "Mike Penz"; descriptionText = "mikepenz@gmail.com"; iconRes = R.drawable.profile; badgeText = "123"
             badgeStyle = BadgeStyle().apply {
                 textColor = ColorHolder.fromColor(Color.WHITE)
-                color = ColorHolder.fromColorRes(R.color.md_red_700)
+                color = ColorHolder.fromColorRes(R.color.colorAccent)
             }
         }
         val profile2 = ProfileDrawerItem().apply { nameText = "Max Muster"; descriptionText = "max.mustermann@gmail.com"; iconRes = R.drawable.profile2 }
