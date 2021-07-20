@@ -74,7 +74,7 @@ dependencies {
     implementation "androidx.swiperefreshlayout:swiperefreshlayout:${versions.swiperefreshLayout}"
 
     // used to showcase how to load images
-    implementation("io.coil-kt:coil:1.2.1")
+    implementation("io.coil-kt:coil:1.3.0")
 
     // the sample uses more advanced functions of the fastadapter
     // https://github.com/mikepenz/FastAdapter/
