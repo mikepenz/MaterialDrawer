@@ -17,19 +17,19 @@ buildscript {
         versions = [
                 multiDex          : '2.0.1',
                 annotation        : '1.1.0',
-                recyclerView      : '1.2.0',
-                core              : '1.5.0',
-                material          : '1.3.0',
+                recyclerView      : '1.2.1',
+                core              : '1.6.0',
+                material          : '1.4.0',
                 appcompat         : '1.3.0',
                 drawerlayout      : '1.1.1',
                 constraintLayout  : '2.0.4',
                 cardview          : '1.0.0',
-                kotlin            : "1.5.10",
+                kotlin            : "1.5.21",
                 fastadapter       : "5.4.1",
                 iconics           : "5.2.8",
-                aboutLibs         : "8.9.0",
+                aboutLibs         : "8.9.1",
                 navigation        : "2.3.5",
-                detekt            : '1.17.1',
+                detekt            : '1.16.0',
                 slidingpaneLayout : "1.1.0",
                 swiperefreshLayout: "1.1.0"
         ]
@@ -41,7 +41,7 @@ buildscript {
         mavenCentral()
     }
     dependencies {
-        classpath 'com.android.tools.build:gradle:7.1.0-alpha01'
+        classpath 'com.android.tools.build:gradle:7.1.0-alpha03'
         classpath "org.jetbrains.kotlin:kotlin-gradle-plugin:${versions.kotlin}"
         classpath "androidx.navigation:navigation-safe-args-gradle-plugin:${versions.navigation}"
         classpath "io.gitlab.arturbosch.detekt:detekt-gradle-plugin:${versions.detekt}"
