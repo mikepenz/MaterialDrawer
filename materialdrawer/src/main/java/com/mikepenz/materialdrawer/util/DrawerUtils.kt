@@ -148,16 +148,18 @@ internal fun rebuildStickyFooterView(sliderView: MaterialDrawerSliderView) {
 
         //fill the footer with items
         fillStickyDrawerItemFooter(sliderView, it) { v ->
-            val drawerItem = v.getTag(R.id.material_drawer_item) as IDrawerItem<*>
-            onFooterDrawerItemClick(sliderView, drawerItem, v, true)
+            (v.getTag(R.id.material_drawer_item) as? IDrawerItem<*>)?.let { drawerItem ->
+                onFooterDrawerItemClick(sliderView, drawerItem, v, true)
+            }
         }
 
         it.visibility = View.VISIBLE
     } ?: run {
         //there was no footer yet. now just create one
         handleFooterView(sliderView) { v ->
-            val drawerItem = v.getTag(R.id.material_drawer_item) as IDrawerItem<*>
-            onFooterDrawerItemClick(sliderView, drawerItem, v, true)
+            (v.getTag(R.id.material_drawer_item) as? IDrawerItem<*>)?.let { drawerItem ->
+                onFooterDrawerItemClick(sliderView, drawerItem, v, true)
+            }
         }
     }
 
