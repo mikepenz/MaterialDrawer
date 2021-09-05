@@ -10,7 +10,6 @@ if (getSigningFile() != null) {
 
 android {
     compileSdkVersion setup.compileSdk
-    buildToolsVersion setup.buildTools
 
     defaultConfig {
         minSdkVersion setup.minSdk
