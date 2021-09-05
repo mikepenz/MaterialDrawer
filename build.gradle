@@ -3,13 +3,12 @@ buildscript {
 
     ext {
         release = [
-                versionName: "8.4.2",
-                versionCode: 8042
+                versionName: "8.4.3",
+                versionCode: 8043
         ]
 
         setup = [
                 compileSdk: 30,
-                buildTools: "30.0.2",
                 minSdk    : 16,
                 targetSdk : 30
         ]
@@ -24,7 +23,7 @@ buildscript {
                 drawerlayout      : '1.1.1',
                 constraintLayout  : '2.0.4',
                 cardview          : '1.0.0',
-                kotlin            : "1.5.21",
+                kotlin            : "1.5.30",
                 fastadapter       : "5.4.1",
                 iconics           : "5.2.8",
                 aboutLibs         : "8.9.1",
@@ -41,7 +40,7 @@ buildscript {
         mavenCentral()
     }
     dependencies {
-        classpath 'com.android.tools.build:gradle:7.1.0-alpha03'
+        classpath 'com.android.tools.build:gradle:7.1.0-alpha11'
         classpath "org.jetbrains.kotlin:kotlin-gradle-plugin:${versions.kotlin}"
         classpath "androidx.navigation:navigation-safe-args-gradle-plugin:${versions.navigation}"
         classpath "io.gitlab.arturbosch.detekt:detekt-gradle-plugin:${versions.detekt}"
