@@ -1,8 +1,6 @@
 package com.mikepenz.materialdrawer.app.drawerItems
 
 import android.net.Uri
-import androidx.annotation.ColorInt
-import androidx.annotation.ColorRes
 import androidx.annotation.StringRes
 import androidx.recyclerview.widget.RecyclerView
 import com.mikepenz.materialdrawer.holder.ColorHolder
@@ -38,16 +36,6 @@ abstract class CustomUrlBasePrimaryDrawerItem<T, VH : RecyclerView.ViewHolder> :
 
     fun withDescription(@StringRes descriptionRes: Int): T {
         this.description = StringHolder(descriptionRes)
-        return this as T
-    }
-
-    fun withDescriptionTextColor(@ColorInt color: Int): T {
-        this.descriptionTextColor = ColorHolder.fromColor(color)
-        return this as T
-    }
-
-    fun withDescriptionTextColorRes(@ColorRes colorRes: Int): T {
-        this.descriptionTextColor = ColorHolder.fromColorRes(colorRes)
         return this as T
     }
 
