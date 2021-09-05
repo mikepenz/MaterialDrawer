@@ -3,7 +3,6 @@ package com.mikepenz.materialdrawer.model.interfaces
 import android.content.res.ColorStateList
 import androidx.annotation.ColorInt
 import androidx.annotation.ColorRes
-import com.mikepenz.materialdrawer.holder.ColorHolder
 
 /**
  * Defines a [IDrawerItem] with support for defining a name
@@ -13,18 +12,29 @@ interface NameableColor {
     var textColor: ColorStateList?
 }
 
-/** Set the selected text color as color resource */
-var SelectableColor.textColorRes: Int
+/**
+ * Set the selected text color as color resource.
+ *
+ * This method is deprecated and no-op.
+ *
+ * @deprecated
+ */
+var NameableColor.textColorRes: Int
     @Deprecated(level = DeprecationLevel.ERROR, message = "Not readable")
     get() = throw UnsupportedOperationException("Please use the direct property")
+    @Deprecated(
+        "Please use `textColor` directly, as [ColorStateList] can't be resolved without [Context].",
+        level = DeprecationLevel.WARNING,
+        replaceWith = ReplaceWith("descriptionTextColor")
+    )
     set(@ColorRes value) {
-        selectedColor = ColorHolder.fromColorRes(value)
+        // no-op
     }
 
 /** Set the selected text color as color int */
-var SelectableColor.textColorInt: Int
+var NameableColor.textColorInt: Int
     @Deprecated(level = DeprecationLevel.ERROR, message = "Not readable")
     get() = throw UnsupportedOperationException("Please use the direct property")
     set(@ColorInt value) {
-        selectedColor = ColorHolder.fromColor(value)
+        textColor = ColorStateList.valueOf(value)
     }
