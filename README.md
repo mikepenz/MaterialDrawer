@@ -212,7 +212,7 @@ implementation 'com.mikepenz:fontawesome-typeface:x.y.z@aar'     //FontAwesome
 //now you can simply use any icon of the Google Material Icons font
 PrimaryDrawerItem().apply { iconicsIcon = GoogleMaterial.Icon.gmd_wb_sunny }
 //Or an icon from FontAwesome
-SecondaryDrawerItem().apply { iconicsIcon = FontAwesome.Icon.faw_github }
+SecondaryDrawerItem().apply { iconicsIcon = FontAwesomeBrand.Icon.fab_github }
 ```
 
 # Advanced Setup

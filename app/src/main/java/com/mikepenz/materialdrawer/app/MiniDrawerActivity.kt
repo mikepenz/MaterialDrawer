@@ -17,6 +17,7 @@ import com.mikepenz.crossfader.util.UIUtils
 import com.mikepenz.crossfader.view.CrossFadeSlidingPaneLayout
 import com.mikepenz.iconics.IconicsDrawable
 import com.mikepenz.iconics.typeface.library.fontawesome.FontAwesome
+import com.mikepenz.iconics.typeface.library.fontawesome.FontAwesomeBrand
 import com.mikepenz.iconics.typeface.library.googlematerial.GoogleMaterial
 import com.mikepenz.iconics.utils.actionBar
 import com.mikepenz.iconics.utils.colorInt
@@ -107,18 +108,23 @@ class MiniDrawerActivity : AppCompatActivity() {
             accountHeader = this@MiniDrawerActivity.headerView
             customWidth = MATCH_PARENT
             itemAdapter.add(
-                    PrimaryDrawerItem().withName(R.string.drawer_item_compact_header).withIcon(GoogleMaterial.Icon.gmd_brightness_5).withIdentifier(1),
-                    PrimaryDrawerItem().withName("Item NOT in mini drawer").withIcon(GoogleMaterial.Icon.gmd_bluetooth).withIdentifier(100).withIsHiddenInMiniDrawer(true),
-                    PrimaryDrawerItem().withName(R.string.drawer_item_action_bar_drawer).withIcon(FontAwesome.Icon.faw_home).withBadge("22").withBadgeStyle(BadgeStyle(Color.RED, Color.RED)).withIdentifier(2).withSelectable(false),
-                    PrimaryDrawerItem().withName(R.string.drawer_item_multi_drawer).withIcon(FontAwesome.Icon.faw_gamepad).withIdentifier(3),
-                    PrimaryDrawerItem().withName(R.string.drawer_item_non_translucent_status_drawer).withIcon(FontAwesome.Icon.faw_eye).withIdentifier(4),
-                    PrimaryDrawerItem().withDescription("A more complex sample").withName(R.string.drawer_item_advanced_drawer).withIcon(GoogleMaterial.Icon.gmd_adb).withIdentifier(5),
-                    SectionDrawerItem().withName(R.string.drawer_item_section_header),
-                    SecondaryDrawerItem().withName(R.string.drawer_item_open_source).withIcon(FontAwesome.Icon.faw_github),
-                    SecondaryDrawerItem().withName(R.string.drawer_item_contact).withIcon(GoogleMaterial.Icon.gmd_format_color_fill).withTag("Bullhorn"),
-                    DividerDrawerItem(),
-                    SwitchDrawerItem().withName("Switch").withIcon(GoogleMaterial.Icon.gmd_pan_tool).withChecked(true).withOnCheckedChangeListener(onCheckedChangeListener),
-                    ToggleDrawerItem().withName("Toggle").withIcon(GoogleMaterial.Icon.gmd_pan_tool).withChecked(true).withOnCheckedChangeListener(onCheckedChangeListener)
+                PrimaryDrawerItem().withName(R.string.drawer_item_compact_header).withIcon(GoogleMaterial.Icon.gmd_brightness_5).withIdentifier(1),
+                PrimaryDrawerItem().withName("Item NOT in mini drawer").withIcon(GoogleMaterial.Icon.gmd_bluetooth).withIdentifier(100)
+                    .withIsHiddenInMiniDrawer(true),
+                PrimaryDrawerItem().withName(R.string.drawer_item_action_bar_drawer).withIcon(FontAwesome.Icon.faw_home).withBadge("22")
+                    .withBadgeStyle(BadgeStyle(Color.RED, Color.RED)).withIdentifier(2).withSelectable(false),
+                PrimaryDrawerItem().withName(R.string.drawer_item_multi_drawer).withIcon(FontAwesome.Icon.faw_gamepad).withIdentifier(3),
+                PrimaryDrawerItem().withName(R.string.drawer_item_non_translucent_status_drawer).withIcon(FontAwesome.Icon.faw_eye).withIdentifier(4),
+                PrimaryDrawerItem().withDescription("A more complex sample").withName(R.string.drawer_item_advanced_drawer)
+                    .withIcon(GoogleMaterial.Icon.gmd_adb).withIdentifier(5),
+                SectionDrawerItem().withName(R.string.drawer_item_section_header),
+                SecondaryDrawerItem().withName(R.string.drawer_item_open_source).withIcon(FontAwesomeBrand.Icon.fab_github),
+                SecondaryDrawerItem().withName(R.string.drawer_item_contact).withIcon(GoogleMaterial.Icon.gmd_format_color_fill).withTag("Bullhorn"),
+                DividerDrawerItem(),
+                SwitchDrawerItem().withName("Switch").withIcon(GoogleMaterial.Icon.gmd_pan_tool).withChecked(true)
+                    .withOnCheckedChangeListener(onCheckedChangeListener),
+                ToggleDrawerItem().withName("Toggle").withIcon(GoogleMaterial.Icon.gmd_pan_tool).withChecked(true)
+                    .withOnCheckedChangeListener(onCheckedChangeListener)
             )
             onDrawerItemClickListener = { v, item, position ->
                 if (item is Nameable) {

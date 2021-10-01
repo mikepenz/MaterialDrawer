@@ -10,6 +10,7 @@ import androidx.appcompat.app.AppCompatActivity
 import com.mikepenz.aboutlibraries.LibsBuilder
 import com.mikepenz.iconics.IconicsDrawable
 import com.mikepenz.iconics.typeface.library.fontawesome.FontAwesome
+import com.mikepenz.iconics.typeface.library.fontawesome.FontAwesomeBrand
 import com.mikepenz.iconics.typeface.library.googlematerial.GoogleMaterial
 import com.mikepenz.iconics.utils.actionBar
 import com.mikepenz.iconics.utils.paddingDp
@@ -114,26 +115,34 @@ class DrawerActivity : AppCompatActivity() {
                                 SecondaryDrawerItem().apply { nameText = "CollapsableItem 2"; level = 2; iconicsIcon = GoogleMaterial.Icon.gmd_format_bold; identifier = 2001 }
                         )
                     },
-                    ExpandableDrawerItem().apply {
-                        nameText = "Collapsable"; iconicsIcon = GoogleMaterial.Icon.gmd_filter_list; identifier = 19; isSelectable = false
-                        subItems = mutableListOf(
-                                SecondaryDrawerItem().apply { nameText = "CollapsableItem"; level = 2; iconicsIcon = GoogleMaterial.Icon.gmd_filter_list; identifier = 2002 },
-                                SecondaryDrawerItem().apply { nameText = "CollapsableItem 2"; level = 2; iconicsIcon = GoogleMaterial.Icon.gmd_filter_list; identifier = 2003 }
-                        )
-                    },
-                    SectionDrawerItem().apply { nameRes = R.string.drawer_item_section_header },
-                    SecondaryDrawerItem().apply { nameRes = R.string.drawer_item_open_source; iconicsIcon = FontAwesome.Icon.faw_github; identifier = 20; isSelectable = false },
-                    SecondaryDrawerItem().apply { nameRes = R.string.drawer_item_contact; iconicsIcon = GoogleMaterial.Icon.gmd_format_color_fill; identifier = 21; isSelectable = false }
-                    /*,
-                    DividerDrawerItem ()
-                    SwitchDrawerItem ().withName("Switch").withIcon(Octicons.Icon.oct_tools).withChecked(true).withOnCheckedChangeListener(onCheckedChangeListener)
-                    SwitchDrawerItem ().withName("Switch2").withIcon(Octicons.Icon.oct_tools).withChecked(true).withOnCheckedChangeListener(onCheckedChangeListener).withSelectable(false)
-                    ToggleDrawerItem ().withName("Toggle").withIcon(Octicons.Icon.oct_tools).withChecked(true).withOnCheckedChangeListener(onCheckedChangeListener)
-                    DividerDrawerItem ()
-                    SecondarySwitchDrawerItem ().withName("Secondary switch").withIcon(Octicons.Icon.oct_tools).withChecked(true).withOnCheckedChangeListener(onCheckedChangeListener)
-                    SecondarySwitchDrawerItem ().withName("Secondary Switch2").withIcon(Octicons.Icon.oct_tools).withChecked(true).withOnCheckedChangeListener(onCheckedChangeListener).withSelectable(false)
-                    SecondaryToggleDrawerItem ().withName("Secondary toggle").withIcon(Octicons.Icon.oct_tools).withChecked(true).withOnCheckedChangeListener(onCheckedChangeListener)
-                    */
+                ExpandableDrawerItem().apply {
+                    nameText = "Collapsable"; iconicsIcon = GoogleMaterial.Icon.gmd_filter_list; identifier = 19; isSelectable = false
+                    subItems = mutableListOf(
+                        SecondaryDrawerItem().apply {
+                            nameText = "CollapsableItem"; level = 2; iconicsIcon = GoogleMaterial.Icon.gmd_filter_list; identifier = 2002
+                        },
+                        SecondaryDrawerItem().apply {
+                            nameText = "CollapsableItem 2"; level = 2; iconicsIcon = GoogleMaterial.Icon.gmd_filter_list; identifier = 2003
+                        }
+                    )
+                },
+                SectionDrawerItem().apply { nameRes = R.string.drawer_item_section_header },
+                SecondaryDrawerItem().apply {
+                    nameRes = R.string.drawer_item_open_source; iconicsIcon = FontAwesomeBrand.Icon.fab_github; identifier = 20; isSelectable = false
+                },
+                SecondaryDrawerItem().apply {
+                    nameRes = R.string.drawer_item_contact; iconicsIcon = GoogleMaterial.Icon.gmd_format_color_fill; identifier = 21; isSelectable = false
+                }
+                /*,
+                DividerDrawerItem ()
+                SwitchDrawerItem ().withName("Switch").withIcon(Octicons.Icon.oct_tools).withChecked(true).withOnCheckedChangeListener(onCheckedChangeListener)
+                SwitchDrawerItem ().withName("Switch2").withIcon(Octicons.Icon.oct_tools).withChecked(true).withOnCheckedChangeListener(onCheckedChangeListener).withSelectable(false)
+                ToggleDrawerItem ().withName("Toggle").withIcon(Octicons.Icon.oct_tools).withChecked(true).withOnCheckedChangeListener(onCheckedChangeListener)
+                DividerDrawerItem ()
+                SecondarySwitchDrawerItem ().withName("Secondary switch").withIcon(Octicons.Icon.oct_tools).withChecked(true).withOnCheckedChangeListener(onCheckedChangeListener)
+                SecondarySwitchDrawerItem ().withName("Secondary Switch2").withIcon(Octicons.Icon.oct_tools).withChecked(true).withOnCheckedChangeListener(onCheckedChangeListener).withSelectable(false)
+                SecondaryToggleDrawerItem ().withName("Secondary toggle").withIcon(Octicons.Icon.oct_tools).withChecked(true).withOnCheckedChangeListener(onCheckedChangeListener)
+                */
             )
             onDrawerItemClickListener = { _, drawerItem, _ ->
                 //check if the drawerItem is set.
@@ -175,7 +184,7 @@ class DrawerActivity : AppCompatActivity() {
 
         //slider.addStickyDrawerItems(
         //        SecondaryDrawerItem().withName(R.string.drawer_item_settings).withIcon(FontAwesome.Icon.faw_cog).withIdentifier(10),
-        //        SecondaryDrawerItem().withName(R.string.drawer_item_open_source).withIcon(FontAwesome.Icon.faw_github)
+        //        SecondaryDrawerItem().withName(R.string.drawer_item_open_source).withIcon(FontAwesomeBrand.Icon.fab_github)
         //)
 
         //only set the active selection or active profile if we do not recreate the activity

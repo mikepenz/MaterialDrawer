@@ -8,7 +8,7 @@ buildscript {
         ]
 
         setup = [
-                compileSdk: 30,
+                compileSdk: 31,
                 minSdk    : 16,
                 targetSdk : 30
         ]
@@ -19,16 +19,16 @@ buildscript {
                 recyclerView      : '1.2.1',
                 core              : '1.6.0',
                 material          : '1.4.0',
-                appcompat         : '1.3.0',
+                appcompat         : '1.3.1',
                 drawerlayout      : '1.1.1',
-                constraintLayout  : '2.0.4',
+                constraintLayout  : '2.1.1',
                 cardview          : '1.0.0',
-                kotlin            : "1.5.30",
-                fastadapter       : "5.4.1",
-                iconics           : "5.2.8",
+                kotlin            : "1.5.31",
+                fastadapter       : "5.5.1",
+                iconics           : "5.3.1",
                 aboutLibs         : "8.9.1",
                 navigation        : "2.3.5",
-                detekt            : '1.17.1',
+                detekt            : '1.18.1',
                 slidingpaneLayout : "1.1.0",
                 swiperefreshLayout: "1.1.0"
         ]
@@ -40,7 +40,7 @@ buildscript {
         mavenCentral()
     }
     dependencies {
-        classpath 'com.android.tools.build:gradle:7.1.0-alpha11'
+        classpath 'com.android.tools.build:gradle:7.1.0-alpha13'
         classpath "org.jetbrains.kotlin:kotlin-gradle-plugin:${versions.kotlin}"
         classpath "androidx.navigation:navigation-safe-args-gradle-plugin:${versions.navigation}"
         classpath "io.gitlab.arturbosch.detekt:detekt-gradle-plugin:${versions.detekt}"
