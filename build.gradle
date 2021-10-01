@@ -3,8 +3,8 @@ buildscript {
 
     ext {
         release = [
-                versionName: "8.4.3",
-                versionCode: 8043
+                versionName: "8.4.4",
+                versionCode: 8044
         ]
 
         setup = [
