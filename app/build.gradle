@@ -73,7 +73,7 @@ dependencies {
     implementation "androidx.swiperefreshlayout:swiperefreshlayout:${versions.swiperefreshLayout}"
 
     // used to showcase how to load images
-    implementation("io.coil-kt:coil:1.3.0")
+    implementation("io.coil-kt:coil:1.3.2")
 
     // the sample uses more advanced functions of the fastadapter
     // https://github.com/mikepenz/FastAdapter/
@@ -96,8 +96,8 @@ dependencies {
 
     // icon fonts used inside the sample
     // https://github.com/mikepenz/Android-Iconics
-    implementation 'com.mikepenz:google-material-typeface:4.0.0.1-kotlin@aar'
-    implementation 'com.mikepenz:fontawesome-typeface:5.9.0.2-kotlin@aar'
+    implementation 'com.mikepenz:google-material-typeface:4.0.0.2-kotlin@aar'
+    implementation 'com.mikepenz:fontawesome-typeface:5.13.3.0-kotlin@aar'
     implementation 'com.mikepenz:octicons-typeface:11.1.0.0-kotlin@aar'
 
     // navigation

@@ -10,6 +10,7 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.widget.PopupMenu
 import com.mikepenz.iconics.IconicsDrawable
 import com.mikepenz.iconics.typeface.library.fontawesome.FontAwesome
+import com.mikepenz.iconics.typeface.library.fontawesome.FontAwesomeBrand
 import com.mikepenz.iconics.typeface.library.googlematerial.GoogleMaterial
 import com.mikepenz.iconics.utils.actionBar
 import com.mikepenz.iconics.utils.backgroundColorRes
@@ -77,19 +78,30 @@ class AdvancedActivity : AppCompatActivity() {
                         }
                         iconicsIcon = GoogleMaterial.Icon.gmd_filter_center_focus
                     },
-                    CustomPrimaryDrawerItem().apply { nameRes = R.string.drawer_item_free_play; iconicsIcon = FontAwesome.Icon.faw_gamepad; background = ColorHolder.fromColorRes(R.color.colorAccent) },
-                    PrimaryDrawerItem().apply { nameRes = R.string.drawer_item_custom; descriptionText = "This is a description"; iconicsIcon = FontAwesome.Icon.faw_eye },
-                    CustomUrlPrimaryDrawerItem().apply { nameRes = R.string.drawer_item_fragment_drawer; description = StringHolder(R.string.drawer_item_fragment_drawer_desc); iconUrl = "https://avatars3.githubusercontent.com/u/1476232?v=3&s=460" },
-                    SectionDrawerItem().apply { nameRes = R.string.drawer_item_section_header },
-                    SecondaryDrawerItem().apply { nameRes = R.string.drawer_item_settings; iconicsIcon = FontAwesome.Icon.faw_cart_plus },
-                    SecondaryDrawerItem().apply { nameRes = R.string.drawer_item_help; iconicsIcon = FontAwesome.Icon.faw_database; isEnabled = false },
-                    SecondaryDrawerItem().apply { nameRes = R.string.drawer_item_open_source; iconicsIcon = FontAwesome.Icon.faw_github },
-                    SecondaryDrawerItem().apply { nameRes = R.string.drawer_item_contact; tag = "Bullhorn"; iconDrawable = IconicsDrawable(this@AdvancedActivity, GoogleMaterial.Icon.gmd_add).apply { actionBar(); paddingDp = 5 }; isIconTinted = true },
-                    SecondaryDrawerItem().apply { nameRes = R.string.drawer_item_help; iconicsIcon = FontAwesome.Icon.faw_question; isEnabled = false }
+                CustomPrimaryDrawerItem().apply {
+                    nameRes = R.string.drawer_item_free_play; iconicsIcon = FontAwesome.Icon.faw_gamepad; background =
+                    ColorHolder.fromColorRes(R.color.colorAccent)
+                },
+                PrimaryDrawerItem().apply {
+                    nameRes = R.string.drawer_item_custom; descriptionText = "This is a description"; iconicsIcon = FontAwesome.Icon.faw_eye
+                },
+                CustomUrlPrimaryDrawerItem().apply {
+                    nameRes = R.string.drawer_item_fragment_drawer; description = StringHolder(R.string.drawer_item_fragment_drawer_desc); iconUrl =
+                    "https://avatars3.githubusercontent.com/u/1476232?v=3&s=460"
+                },
+                SectionDrawerItem().apply { nameRes = R.string.drawer_item_section_header },
+                SecondaryDrawerItem().apply { nameRes = R.string.drawer_item_settings; iconicsIcon = FontAwesome.Icon.faw_cart_plus },
+                SecondaryDrawerItem().apply { nameRes = R.string.drawer_item_help; iconicsIcon = FontAwesome.Icon.faw_database; isEnabled = false },
+                SecondaryDrawerItem().apply { nameRes = R.string.drawer_item_open_source; iconicsIcon = FontAwesomeBrand.Icon.fab_github },
+                SecondaryDrawerItem().apply {
+                    nameRes = R.string.drawer_item_contact; tag = "Bullhorn"; iconDrawable =
+                    IconicsDrawable(this@AdvancedActivity, GoogleMaterial.Icon.gmd_add).apply { actionBar(); paddingDp = 5 }; isIconTinted = true
+                },
+                SecondaryDrawerItem().apply { nameRes = R.string.drawer_item_help; iconicsIcon = FontAwesome.Icon.faw_question; isEnabled = false }
             )
             addStickyDrawerItems(
                     SecondaryDrawerItem().apply { nameRes = R.string.drawer_item_settings; iconicsIcon = FontAwesome.Icon.faw_cog; identifier = 10 },
-                    SecondaryDrawerItem().apply { nameRes = R.string.drawer_item_open_source; iconicsIcon = FontAwesome.Icon.faw_github }
+                SecondaryDrawerItem().apply { nameRes = R.string.drawer_item_open_source; iconicsIcon = FontAwesomeBrand.Icon.fab_github }
             )
             onDrawerItemClickListener = { _, drawerItem, _ ->
                 if (drawerItem is Nameable) {

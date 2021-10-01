@@ -49,7 +49,7 @@
 
 ## Latest releases 🛠
 
-- Kotlin && New | [v8.4.3](https://github.com/mikepenz/MaterialDrawer/tree/v8.4.3)
+- Kotlin && New | [v8.4.4](https://github.com/mikepenz/MaterialDrawer/tree/v8.4.4)
 - Kotlin | [v7.0.0](https://github.com/mikepenz/MaterialDrawer/tree/v7.0.0) | (Builder approach like v6.x)
 - Java && AndroidX | [v6.1.2](https://github.com/mikepenz/MaterialDrawer/tree/v6.1.2)
 - Java && AppCompat | [v6.0.9](https://github.com/mikepenz/MaterialDrawer/tree/v6.0.9)
@@ -212,7 +212,7 @@ implementation 'com.mikepenz:fontawesome-typeface:x.y.z@aar'     //FontAwesome
 //now you can simply use any icon of the Google Material Icons font
 PrimaryDrawerItem().apply { iconicsIcon = GoogleMaterial.Icon.gmd_wb_sunny }
 //Or an icon from FontAwesome
-SecondaryDrawerItem().apply { iconicsIcon = FontAwesome.Icon.faw_github }
+SecondaryDrawerItem().apply { iconicsIcon = FontAwesomeBrand.Icon.fab_github }
 ```
 
 # Advanced Setup
