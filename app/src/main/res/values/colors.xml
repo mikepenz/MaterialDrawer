@@ -13,4 +13,6 @@
     <!-- overwrite the selected colors because the primary color is to dark -->
     <color name="material_drawer_selected_text">#039be5</color>
     <color name="material_drawer_dark_selected_text">#039be5</color>
+
+    <color name="teal_200">#80CBC4</color>
 </resources>
