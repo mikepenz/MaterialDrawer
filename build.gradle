@@ -25,8 +25,8 @@ buildscript {
                 cardview          : '1.0.0',
                 kotlin            : "1.5.31",
                 fastadapter       : "5.5.1",
-                iconics           : "5.3.1",
-                aboutLibs         : "8.9.1",
+                iconics           : "5.3.2",
+                aboutLibs         : "8.9.4",
                 navigation        : "2.3.5",
                 detekt            : '1.18.1',
                 slidingpaneLayout : "1.1.0",
@@ -40,7 +40,7 @@ buildscript {
         mavenCentral()
     }
     dependencies {
-        classpath 'com.android.tools.build:gradle:7.1.0-alpha13'
+        classpath 'com.android.tools.build:gradle:7.2.0-alpha02'
         classpath "org.jetbrains.kotlin:kotlin-gradle-plugin:${versions.kotlin}"
         classpath "androidx.navigation:navigation-safe-args-gradle-plugin:${versions.navigation}"
         classpath "io.gitlab.arturbosch.detekt:detekt-gradle-plugin:${versions.detekt}"
