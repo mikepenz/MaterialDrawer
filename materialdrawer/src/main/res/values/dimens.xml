@@ -36,6 +36,9 @@
     <dimen name="material_drawer_account_header_dropdown_padding">1dp</dimen>
     <dimen name="material_drawer_account_header_dropdown_margin_bottom">18dp</dimen>
     <dimen name="material_drawer_account_header_non_compact_padding">56dp</dimen>
+    <dimen name="material_drawer_account_header_profile_elevation">2dp</dimen>
+    <dimen name="material_drawer_account_header_profile_small_elevation">2dp</dimen>
+    <dimen name="material_drawer_account_header_profile_badge_elevation">4dp</dimen>
 
     <!-- General profileIcon margins for the drawer item -->
     <dimen name="material_drawer_item_padding">8dp</dimen>
