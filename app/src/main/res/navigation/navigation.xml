@@ -23,9 +23,6 @@
         <action
             android:id="@+id/action_fragmentHome_to_messageFragment3"
             app:destination="@id/messageFragment3" />
-        <action
-            android:id="@+id/action_fragmentHome_to_aboutLibsFragment"
-            app:destination="@id/about_libraries" />
     </fragment>
     <fragment
         android:id="@+id/messageFragment1"
@@ -60,6 +57,4 @@
     <action
         android:id="@+id/action_global_fragmentHome"
         app:popUpTo="@id/fragmentHome" />
-
-    <include app:graph="@navigation/aboutlibs_navigation" />
 </navigation>
