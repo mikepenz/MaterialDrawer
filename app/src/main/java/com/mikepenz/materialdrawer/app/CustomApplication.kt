@@ -25,7 +25,7 @@ class CustomApplication : MultiDexApplication() {
 
         Iconics.init(this)
 
-        DynamicColors.applyToActivitiesIfAvailable(this);
+        DynamicColors.applyToActivitiesIfAvailable(this)
 
         //initialize and create the image loader logic
         /*
