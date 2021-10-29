@@ -5,7 +5,6 @@ import android.view.View
 import android.widget.ImageView
 import android.widget.TextView
 import androidx.annotation.LayoutRes
-import androidx.core.view.ViewCompat
 import androidx.recyclerview.widget.RecyclerView
 import com.mikepenz.materialdrawer.R
 import com.mikepenz.materialdrawer.holder.BadgeStyle
@@ -13,8 +12,8 @@ import com.mikepenz.materialdrawer.holder.ImageHolder
 import com.mikepenz.materialdrawer.holder.StringHolder
 import com.mikepenz.materialdrawer.model.interfaces.*
 import com.mikepenz.materialdrawer.util.getPrimaryDrawerIconColor
-import com.mikepenz.materialdrawer.util.getSelectableBackground
 import com.mikepenz.materialdrawer.util.setDrawerVerticalPadding
+import com.mikepenz.materialdrawer.util.themeDrawerItem
 
 /**
  * Describes a [IProfile] being used with the [com.mikepenz.materialdrawer.widget.AccountHeaderView]
@@ -68,8 +67,10 @@ open class ProfileSettingDrawerItem : AbstractDrawerItem<ProfileSettingDrawerIte
         val color = this.textColor ?: getColor(ctx)
         val iconColor = this.iconColor ?: ctx.getPrimaryDrawerIconColor()
         val descriptionColor = this.descriptionTextColor ?: getColor(ctx)
+        val shapeAppearanceModel = getShapeAppearanceModel(ctx)
 
-        ViewCompat.setBackground(holder.view, ctx.getSelectableBackground(selectedColor, isSelectedBackgroundAnimated))
+        //set the background for the item
+        themeDrawerItem(ctx, holder.view, selectedColor, isSelectedBackgroundAnimated, shapeAppearanceModel, isSelected = isSelected)
 
         StringHolder.applyTo(this.name, holder.name)
         holder.name.setTextColor(color)

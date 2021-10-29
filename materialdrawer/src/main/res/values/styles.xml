@@ -5,37 +5,25 @@
         <item name="materialDrawerInsetForeground">#4000</item>
         <!-- MaterialDrawer specific values -->
         <item name="materialDrawerBackground">?colorSurface</item>
-        <item name="materialDrawerPrimaryText">?android:textColorPrimary</item>
-        <item name="materialDrawerPrimaryIcon">?android:textColorSecondary</item>
-        <item name="materialDrawerSecondaryText">?android:textColorSecondary</item>
-        <item name="materialDrawerSecondaryIcon">?android:textColorSecondary</item>
-        <item name="materialDrawerDividerColor">?android:textColorHint</item>
-        <item name="materialDrawerSelectedBackgroundColor">?colorPrimary</item>
+        <item name="materialDrawerPrimaryText">@color/color_drawer_item_text</item>
+        <item name="materialDrawerPrimaryIcon">@color/color_drawer_item_text</item>
+        <item name="materialDrawerSecondaryText">@color/color_drawer_item_text</item>
+        <item name="materialDrawerSecondaryIcon">@color/color_drawer_item_text</item>
+        <item name="materialDrawerDividerColor">?colorOutline</item>
+        <item name="materialDrawerSelectedBackgroundColor">?colorSecondaryContainer</item>
     </style>
 
     <style name="Widget.MaterialDrawerHeaderStyle" parent="">
         <item name="materialDrawerCompactStyle">false</item>
-        <item name="materialDrawerHeaderSelectionText">?android:textColorPrimary</item>
-        <item name="materialDrawerHeaderSelectionSubtext">?android:textColorSecondary</item>
+        <item name="materialDrawerHeaderSelectionText">@color/color_drawer_item_text</item>
+        <item name="materialDrawerHeaderSelectionSubtext">@color/color_drawer_item_text</item>
     </style>
-
-    <!-- DrawerArrowStyles -->
-    <style name="MaterialDrawer.DrawerArrowStyle" parent="Widget.AppCompat.DrawerArrowToggle">
-        <item name="spinBars">false</item>
-        <item name="color">@android:color/white</item>
-    </style>
-
-    <style name="MaterialDrawer.Light.DrawerArrowStyle" parent="Widget.AppCompat.DrawerArrowToggle">
-        <item name="spinBars">false</item>
-        <item name="color">@android:color/black</item>
-    </style>
-
 
     <!-- BezelImageView -->
     <style name="BezelImageView">
         <item name="materialDrawerMaskDrawable">@drawable/material_drawer_circle_mask</item>
         <item name="materialDrawerDrawCircularShadow">true</item>
-        <item name="materialDrawerSelectorOnPress">?colorPrimary</item>
+        <item name="materialDrawerSelectorOnPress">?colorOnSurfaceVariant</item>
         <item name="android:scaleType">centerInside</item>
     </style>
 </resources>

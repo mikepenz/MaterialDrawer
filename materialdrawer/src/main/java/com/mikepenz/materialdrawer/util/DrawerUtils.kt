@@ -377,7 +377,7 @@ fun themeDrawerItem(
     val selected: Drawable
     val unselected: Drawable
 
-    // Material 2.0 styling
+    // Material 3.0 styling
     val paddingTopBottom = ctx.resources.getDimensionPixelSize(paddingTopBottomRes)
     val paddingStart = ctx.resources.getDimensionPixelSize(paddingStartRes)
     val paddingEnd = ctx.resources.getDimensionPixelSize(paddingEndRes)
