@@ -7,6 +7,7 @@ import android.widget.ImageView
 import androidx.multidex.MultiDexApplication
 import coil.clear
 import coil.load
+import com.google.android.material.color.DynamicColors
 import com.mikepenz.iconics.Iconics
 import com.mikepenz.iconics.IconicsDrawable
 import com.mikepenz.iconics.utils.backgroundColorRes
@@ -23,6 +24,8 @@ class CustomApplication : MultiDexApplication() {
         super.onCreate()
 
         Iconics.init(this)
+
+        DynamicColors.applyToActivitiesIfAvailable(this)
 
         //initialize and create the image loader logic
         /*

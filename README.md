@@ -49,8 +49,8 @@
 
 ## Latest releases 🛠
 
-- Kotlin && New | [v8.4.5](https://github.com/mikepenz/MaterialDrawer/tree/v8.4.5)
-- Kotlin | [v7.0.0](https://github.com/mikepenz/MaterialDrawer/tree/v7.0.0) | (Builder approach like v6.x)
+- Kotlin && Material 3 | [v9.0.0-a01](https://github.com/mikepenz/MaterialDrawer/tree/v9.0.0-a01)
+- Kotlin | [v8.4.5](https://github.com/mikepenz/MaterialDrawer/tree/v8.4.5)
 - Java && AndroidX | [v6.1.2](https://github.com/mikepenz/MaterialDrawer/tree/v6.1.2)
 - Java && AppCompat | [v6.0.9](https://github.com/mikepenz/MaterialDrawer/tree/v6.0.9)
 
@@ -64,7 +64,7 @@ implementation "com.mikepenz:materialdrawer:${lastestMaterialDrawerRelease}"
 implementation "androidx.appcompat:appcompat:${versions.appcompat}"
 implementation "androidx.recyclerview:recyclerview:${versions.recyclerView}"
 implementation "androidx.annotation:annotation:${versions.annotation}"
-implementation "com.google.android.material:material:${versions.material}"
+implementation "com.google.android.material:material:1.5.0-alpha05" // requires at least 1.5.0-x
 implementation "androidx.constraintlayout:constraintlayout:${versions.constraintLayout}"
 
 // Add for NavController support
@@ -100,7 +100,7 @@ The `MaterialDrawerSliderView` has to be provided as child of the `DrawerLayout`
 ### 3. Add the `DrawerStyle` to your theme
 
 ```xml
-<style name="SampleApp.DayNight" parent="Theme.MaterialComponents.DayNight.NoActionBar">
+<style name="SampleApp.DayNight" parent="Theme.Material3.DayNight.NoActionBar">
     ...
     <item name="materialDrawerStyle">@style/Widget.MaterialDrawerStyle</item>
     <item name="materialDrawerHeaderStyle">@style/Widget.MaterialDrawerHeaderStyle</item>
@@ -273,12 +273,12 @@ Create your custom style. If you don't need a custom theme see the next section,
     <item name="materialDrawerInsetForeground">#4000</item>
     <!-- MaterialDrawer specific values -->
     <item name="materialDrawerBackground">?colorSurface</item>
-    <item name="materialDrawerPrimaryText">?android:textColorPrimary</item>
-    <item name="materialDrawerPrimaryIcon">?android:textColorSecondary</item>
-    <item name="materialDrawerSecondaryText">?android:textColorSecondary</item>
-    <item name="materialDrawerSecondaryIcon">?android:textColorSecondary</item>
-    <item name="materialDrawerDividerColor">?android:textColorHint</item>
-    <item name="materialDrawerSelectedBackgroundColor">?colorPrimary</item>
+    <item name="materialDrawerPrimaryText">@color/color_drawer_item_text</item>
+    <item name="materialDrawerPrimaryIcon">@color/color_drawer_item_text</item>
+    <item name="materialDrawerSecondaryText">@color/color_drawer_item_text</item>
+    <item name="materialDrawerSecondaryIcon">@color/color_drawer_item_text</item>
+    <item name="materialDrawerDividerColor">?colorOutline</item>
+    <item name="materialDrawerSelectedBackgroundColor">?colorSecondaryContainer</item>
 </style>
 
 // define a custom header style
@@ -289,7 +289,7 @@ Create your custom style. If you don't need a custom theme see the next section,
 </style>
 
 // define the custom styles for the theme
-<style name="SampleApp" parent="Theme.MaterialComponents.Light.NoActionBar">
+<style name="SampleApp" parent="Theme.Material3.Light.NoActionBar">
     ...
     <item name="materialDrawerStyle">@style/Widget.MaterialDrawerStyleCustom</item>
     <item name="materialDrawerHeaderStyle">@style/Widget.MaterialDrawerHeaderStyleCustom</item>

@@ -3,7 +3,10 @@ package com.mikepenz.materialdrawer.model
 import android.content.Context
 import android.content.res.ColorStateList
 import android.view.View
+import androidx.core.view.isVisible
+import androidx.core.view.updatePadding
 import com.google.android.material.shape.ShapeAppearanceModel
+import com.mikepenz.materialdrawer.R
 import com.mikepenz.materialdrawer.holder.ImageHolder
 import com.mikepenz.materialdrawer.holder.StringHolder
 import com.mikepenz.materialdrawer.model.interfaces.Describable
@@ -70,6 +73,14 @@ abstract class BaseDescribeableDrawerItem<T, VH : BaseViewHolder> : BaseDrawerIt
             val icon = ImageHolder.decideIcon(icon, ctx, iconColor, isIconTinted, 1)
             val selectedIcon = ImageHolder.decideIcon(selectedIcon, ctx, iconColor, isIconTinted, 1)
             ImageHolder.applyMultiIconTo(icon, selectedIcon, iconColor, isIconTinted, viewHolder.icon)
+        }
+
+        if (viewHolder.icon.isVisible) {
+            viewHolder.name.updatePadding(left = 0)
+            viewHolder.description.updatePadding(left = 0)
+        } else {
+            viewHolder.name.updatePadding(left = ctx.resources.getDimensionPixelSize(R.dimen.material_drawer_item_primary_icon_padding_left))
+            viewHolder.description.updatePadding(left = ctx.resources.getDimensionPixelSize(R.dimen.material_drawer_item_primary_icon_padding_left))
         }
 
         //for android API 17 --> Padding not applied via xml

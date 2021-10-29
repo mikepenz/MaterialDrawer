@@ -9,7 +9,8 @@
     <!-- General padding value -->
     <dimen name="material_drawer_padding">8dp</dimen>
     <!-- General vertical padding values / 24dp for tablets -->
-    <dimen name="material_drawer_vertical_padding">16dp</dimen>
+    <dimen name="material_drawer_vertical_padding">12dp</dimen>
+    <dimen name="material_drawer_vertical_item_padding">28dp</dimen>
 
     <!-- Sticky footer elevation -->
     <dimen name="material_drawer_container_divider">1dp</dimen>
@@ -42,33 +43,37 @@
 
     <!-- General profileIcon margins for the drawer item -->
     <dimen name="material_drawer_item_padding">8dp</dimen>
-    <dimen name="material_drawer_item_corner_radius">4dp</dimen>
-    <dimen name="material_drawer_item_background_padding_start_end">8dp</dimen>
+    <dimen name="material_drawer_item_corner_radius">28dp</dimen>
+    <dimen name="material_drawer_item_background_padding_start_end">12dp</dimen>
     <dimen name="material_drawer_item_background_padding_start">@dimen/material_drawer_item_background_padding_start_end</dimen>
     <dimen name="material_drawer_item_background_padding_end">@dimen/material_drawer_item_background_padding_start_end</dimen>
-    <dimen name="material_drawer_item_background_padding_top_bottom">4dp</dimen>
+    <dimen name="material_drawer_item_background_padding_top_bottom">0dp</dimen>
 
     <!-- Definition for the primary item -->
-    <dimen name="material_drawer_item_primary">48dp</dimen>
-    <dimen name="material_drawer_item_primary_icon">56dp</dimen>
-    <dimen name="material_drawer_item_primary_icon_padding">12dp</dimen>
-    <dimen name="material_drawer_item_primary_icon_padding_right">32dp</dimen>
+    <dimen name="material_drawer_item_primary">56dp</dimen>
+    <dimen name="material_drawer_item_primary_icon">52dp</dimen>
+    <dimen name="material_drawer_item_primary_icon_padding">16dp</dimen>
+    <dimen name="material_drawer_item_primary_icon_padding_left">16dp</dimen>
+    <dimen name="material_drawer_item_primary_icon_padding_right">12dp</dimen>
     <dimen name="material_drawer_item_primary_text">14sp</dimen>
     <dimen name="material_drawer_item_primary_description">14sp</dimen>
     <dimen name="material_drawer_item_secondary_description">12sp</dimen>
     <!-- Definition for the secondary item -->
-    <dimen name="material_drawer_item_secondary">42dp</dimen>
-    <dimen name="material_drawer_item_secondary_icon">56dp</dimen>
+    <dimen name="material_drawer_item_secondary">48dp</dimen>
+    <dimen name="material_drawer_item_secondary_icon">52dp</dimen>
     <dimen name="material_drawer_item_secondary_icon_padding">12dp</dimen>
-    <dimen name="material_drawer_item_secondary_icon_padding_right">36dp</dimen>
+    <dimen name="material_drawer_item_secondary_icon_padding_left">18dp</dimen>
+    <dimen name="material_drawer_item_secondary_icon_padding_right">14dp</dimen>
     <dimen name="material_drawer_item_secondary_text">14sp</dimen>
     <dimen name="material_drawer_item_secondary_extra_text">12sp</dimen>
     <!-- Definition for the profile item -->
-    <dimen name="material_drawer_item_profile">72dp</dimen>
+    <dimen name="material_drawer_item_profile">56dp</dimen>
+    <dimen name="material_drawer_item_profile_item_margin">8dp</dimen>
     <dimen name="material_drawer_item_profile_icon">40dp</dimen>
-    <dimen name="material_drawer_item_profile_icon_width">48dp</dimen>
     <dimen name="material_drawer_item_profile_icon_padding">16dp</dimen>
-    <dimen name="material_drawer_item_profile_icon_padding_right">8dp</dimen>
+    <dimen name="material_drawer_item_profile_icon_padding_left">6dp</dimen>
+    <dimen name="material_drawer_item_profile_icon_padding_right">6dp</dimen>
+    <dimen name="material_drawer_item_profile_badge_padding_right">16dp</dimen>
     <dimen name="material_drawer_item_profile_text">14sp</dimen>
     <dimen name="material_drawer_item_profile_description">14sp</dimen>
     <!-- Definition for the profile setting item -->
@@ -87,9 +92,6 @@
 
     <!-- Definition for the section item -->
     <dimen name="material_drawer_item_section_text">14sp</dimen>
-
-    <!-- Alpha for selected background -->
-    <dimen name="material_drawer_selected_background_alpha">0.12</dimen>
 
     <!-- Profile placeholder -->
     <dimen name="material_drawer_profile_icon_placeholder">56dp</dimen>

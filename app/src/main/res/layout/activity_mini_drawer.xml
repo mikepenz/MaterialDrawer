@@ -8,9 +8,8 @@
         android:id="@+id/toolbar"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:background="?attr/colorPrimary"
         android:elevation="4dp"
-        android:theme="@style/ThemeOverlay.MaterialComponents.Dark" />
+        android:theme="@style/ThemeOverlay.Material3.Dark" />
 
     <FrameLayout
         android:layout_width="match_parent"

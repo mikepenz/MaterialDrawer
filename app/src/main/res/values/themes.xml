@@ -2,12 +2,8 @@
 <resources>
 
     <!-- LIGHT -->
-    <style name="SampleApp.DayNight" parent="Theme.MaterialComponents.DayNight.NoActionBar">
+    <style name="SampleApp.DayNight" parent="Theme.Material3.DayNight.NoActionBar">
         <!-- ...and here we setting appcompat’s color theming attrs -->
-        <item name="colorPrimary">@color/colorPrimary</item>
-        <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
-        <item name="colorAccent">@color/colorAccent</item>
-
         <item name="materialDrawerStyle">@style/Widget.MaterialDrawerStyle</item>
         <item name="materialDrawerHeaderStyle">@style/Widget.MaterialDrawerHeaderStyle</item>
 
@@ -17,12 +13,7 @@
         <item name="windowActionModeOverlay">true</item>
     </style>
 
-    <style name="SampleApp.DayNight.Compact" parent="Theme.MaterialComponents.Light.NoActionBar">
-        <!-- ...and here we setting appcompat’s color theming attrs -->
-        <item name="colorPrimary">@color/colorPrimary</item>
-        <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
-        <item name="colorAccent">@color/colorAccent</item>
-
+    <style name="SampleApp.DayNight.Compact" parent="Theme.Material3.Light.NoActionBar">
         <item name="materialDrawerStyle">@style/Widget.MaterialDrawerStyle</item>
         <item name="materialDrawerHeaderStyle">@style/Widget.MaterialDrawerHeaderStyleCustom</item>
 
@@ -32,12 +23,7 @@
         <item name="windowActionModeOverlay">true</item>
     </style>
 
-    <style name="SampleApp.DayNight.Persistent" parent="Theme.MaterialComponents.Light.NoActionBar">
-        <!-- ...and here we setting appcompat’s color theming attrs -->
-        <item name="colorPrimary">@color/colorPrimary</item>
-        <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
-        <item name="colorAccent">@color/colorAccent</item>
-
+    <style name="SampleApp.DayNight.Persistent" parent="Theme.Material3.Light.NoActionBar">
         <item name="materialDrawerStyle">@style/Widget.MaterialDrawerStyle</item>
         <item name="materialDrawerHeaderStyle">@style/Widget.MaterialDrawerHeaderStylePersistent</item>
 
@@ -48,10 +34,5 @@
     </style>
 
 
-    <style name="SampleApp.DayNight.DarkActionBar" parent="Theme.MaterialComponents.DayNight.DarkActionBar">
-        <!-- ...and here we setting appcompat’s color theming attrs -->
-        <item name="colorPrimary">@color/colorPrimary</item>
-        <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
-        <item name="colorAccent">@color/colorAccent</item>
-    </style>
+    <style name="SampleApp.DayNight.DarkActionBar" parent="Theme.Material3.DayNight" />
 </resources>
