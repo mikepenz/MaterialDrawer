@@ -110,6 +110,10 @@ The `MaterialDrawerSliderView` has to be provided as child of the `DrawerLayout`
 
 Great. Your drawer is now ready to use.
 
+### Note
+
+> Using v9.x with Material 3 theming requires a `Material3` theme as base for the activity.
+
 # Additional Setup
 ### Add items and adding some functionality
 

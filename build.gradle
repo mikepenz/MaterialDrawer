@@ -9,7 +9,7 @@ buildscript {
 
         setup = [
                 compileSdk: 31,
-                minSdk    : 16,
+                minSdk    : 21,
                 targetSdk : 30
         ]
 
@@ -26,7 +26,7 @@ buildscript {
                 kotlin            : "1.5.31",
                 fastadapter       : "5.5.1",
                 iconics           : "5.3.2",
-                aboutLibs         : "8.9.4",
+                aboutLibs         : "10.0.0-a01",
                 navigation        : "2.3.5",
                 detekt            : '1.18.1',
                 slidingpaneLayout : "1.1.0",
@@ -38,13 +38,14 @@ buildscript {
         maven { url "https://plugins.gradle.org/m2/" }
         google()
         mavenCentral()
+        mavenLocal()
     }
     dependencies {
         classpath 'com.android.tools.build:gradle:7.2.0-alpha03'
         classpath "org.jetbrains.kotlin:kotlin-gradle-plugin:${versions.kotlin}"
         classpath "androidx.navigation:navigation-safe-args-gradle-plugin:${versions.navigation}"
         classpath "io.gitlab.arturbosch.detekt:detekt-gradle-plugin:${versions.detekt}"
-        classpath "com.mikepenz.aboutlibraries.plugin:aboutlibraries-plugin:${versions.aboutLibs}"
+        classpath "com.mikepenz.aboutlibraries.plugin:plugin:${versions.aboutLibs}"
     }
 }
 
@@ -54,6 +55,7 @@ allprojects {
     repositories {
         google()
         mavenCentral()
+        mavenLocal()
         maven { url "https://oss.sonatype.org/content/repositories/snapshots/" }
     }
 }
