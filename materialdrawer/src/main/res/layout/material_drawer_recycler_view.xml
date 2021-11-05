@@ -4,5 +4,8 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:clickable="true"
+    android:clipToPadding="false"
     android:focusable="true"
+    android:paddingTop="@dimen/material_drawer_padding_top_bottom"
+    android:paddingBottom="@dimen/material_drawer_padding_top_bottom"
     android:scrollbars="vertical" />

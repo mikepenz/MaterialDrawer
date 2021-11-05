@@ -40,7 +40,6 @@ import com.mikepenz.materialdrawer.model.AbstractDrawerItem
 import com.mikepenz.materialdrawer.model.ContainerDrawerItem
 import com.mikepenz.materialdrawer.model.interfaces.IDrawerItem
 import com.mikepenz.materialdrawer.util.*
-import java.util.*
 
 /**
  * This view is a simple drop in view for the [DrawerLayout] offering a convenient API to provide a nice and flexible slider view following
@@ -584,7 +583,7 @@ open class MaterialDrawerSliderView @JvmOverloads constructor(context: Context, 
                 innerShadow.setBackgroundResource(R.drawable.material_drawer_shadow_left)
             }
         } else {
-            removeView(this.findViewById<View?>(R.id.material_drawer_inner_shadow))
+            removeView(this.findViewById(R.id.material_drawer_inner_shadow))
         }
 
         //handle the header

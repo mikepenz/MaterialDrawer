@@ -3,7 +3,6 @@
 
     <!-- LIGHT -->
     <style name="SampleApp.DayNight" parent="Theme.Material3.DayNight.NoActionBar">
-        <!-- ...and here we setting appcompat’s color theming attrs -->
         <item name="materialDrawerStyle">@style/Widget.MaterialDrawerStyle</item>
         <item name="materialDrawerHeaderStyle">@style/Widget.MaterialDrawerHeaderStyle</item>
 

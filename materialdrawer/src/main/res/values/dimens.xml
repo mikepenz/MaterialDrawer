@@ -8,6 +8,7 @@
     <dimen name="material_drawer_margin">0dp</dimen>
     <!-- General padding value -->
     <dimen name="material_drawer_padding">8dp</dimen>
+    <dimen name="material_drawer_padding_top_bottom">8dp</dimen>
     <!-- General vertical padding values / 24dp for tablets -->
     <dimen name="material_drawer_vertical_padding">12dp</dimen>
     <dimen name="material_drawer_vertical_item_padding">28dp</dimen>
