@@ -411,10 +411,10 @@ open class MaterialDrawerSliderView @JvmOverloads constructor(context: Context, 
 
             if (headerView == null && accountHeader == null) {
                 if (stickyHeaderView == null) {
-                    recyclerView.updatePadding(top = insets.systemWindowInsetTop)
+                    recyclerView.updatePadding(top = insets.systemWindowInsetTop + context.resources.getDimensionPixelSize(R.dimen.material_drawer_padding_top_bottom))
                 }
                 if (stickyFooterView == null) {
-                    recyclerView.updatePadding(bottom = insets.systemWindowInsetBottom)
+                    recyclerView.updatePadding(bottom = insets.systemWindowInsetBottom + context.resources.getDimensionPixelSize(R.dimen.material_drawer_padding_top_bottom))
                 }
             }
 
