@@ -250,7 +250,6 @@ open class MaterialDrawerSliderView @JvmOverloads constructor(context: Context, 
     var multiSelect
         set(value) {
             this.selectExtension.multiSelect = value
-            this.selectExtension.selectOnLongClick = !value
             this.selectExtension.allowDeselection = value
         }
         get() = this.selectExtension.multiSelect
