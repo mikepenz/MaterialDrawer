@@ -26,8 +26,8 @@ buildscript {
                 kotlin            : "1.6.10",
                 fastadapter       : "5.6.0",
                 iconics           : "5.3.3",
-                aboutLibs         : "10.0.0-b07",
-                navigation        : "2.3.5",
+                aboutLibs         : "10.0.0",
+                navigation        : "2.4.1",
                 detekt            : '1.18.1',
                 slidingpaneLayout : "1.1.0",
                 swiperefreshLayout: "1.1.0"
@@ -41,7 +41,7 @@ buildscript {
         mavenLocal()
     }
     dependencies {
-        classpath 'com.android.tools.build:gradle:7.0.4'
+        classpath 'com.android.tools.build:gradle:7.1.2'
         classpath "org.jetbrains.kotlin:kotlin-gradle-plugin:${versions.kotlin}"
         classpath "androidx.navigation:navigation-safe-args-gradle-plugin:${versions.navigation}"
         classpath "io.gitlab.arturbosch.detekt:detekt-gradle-plugin:${versions.detekt}"

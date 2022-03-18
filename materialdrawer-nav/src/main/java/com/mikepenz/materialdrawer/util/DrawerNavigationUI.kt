@@ -72,7 +72,7 @@ object DrawerNavigationUI {
                         // A ResId may refers to 3 intents.
                         val destinationId = controller.graph.getAction(element.resId)?.let { action ->
                             if (action.destinationId != 0) action.destinationId // an action navigate to a destination
-                            else action.navOptions?.popUpTo // an action pop to a destination
+                            else action.navOptions?.popUpToId // an action pop to a destination
                         } ?: element.resId // a destination
 
                         if (matchDestination(destination, destinationId)) {
