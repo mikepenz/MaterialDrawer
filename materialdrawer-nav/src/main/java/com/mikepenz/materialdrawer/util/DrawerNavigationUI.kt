@@ -26,7 +26,7 @@ fun MaterialDrawerSliderView.setupWithNavController(
 ) {
     DrawerNavigationUI.setupWithNavController(this, navController, successListener, fallBackListener)
 }
-
+fun MaterialDrawerSliderView.justForTesting(){}
 /**
  * Created by petretiandrea on 19.07.19.
  */
