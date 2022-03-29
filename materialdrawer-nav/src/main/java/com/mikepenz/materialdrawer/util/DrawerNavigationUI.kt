@@ -21,9 +21,10 @@ import java.lang.ref.WeakReference
  */
 fun MaterialDrawerSliderView.setupWithNavController(
         navController: NavController,
-        fallBackListener: ((v: View?, item: IDrawerItem<*>, position: Int) -> Boolean)? = null
+        successListener: ((v: View?, item: IDrawerItem<*>, position: Int) -> Boolean)? = null,
+        fallBackListener: ((v: View?, item: IDrawerItem<*>, position: Int) -> Boolean)? = null,
 ) {
-    DrawerNavigationUI.setupWithNavController(this, navController, fallBackListener)
+    DrawerNavigationUI.setupWithNavController(this, navController, successListener, fallBackListener)
 }
 
 /**
@@ -47,11 +48,13 @@ object DrawerNavigationUI {
     fun setupWithNavController(
             drawer: MaterialDrawerSliderView,
             navController: NavController,
+            successListener: ((v: View?, item: IDrawerItem<*>, position: Int) -> Boolean)? = null,
             fallBackListener: ((v: View?, item: IDrawerItem<*>, position: Int) -> Boolean)? = null
     ) {
         drawer.onDrawerItemClickListener = { v, item, position ->
             val success = performNavigation(item, navController)
             if (success) {
+                successListener?.invoke(v, item, position)
                 drawer.drawerLayout?.closeDrawer(drawer)
             } else {
                 fallBackListener?.invoke(v, item, position)
