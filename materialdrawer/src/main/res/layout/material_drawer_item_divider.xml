@@ -3,5 +3,7 @@
     android:id="@+id/material_drawer_divider"
     android:layout_width="match_parent"
     android:layout_height="1dp"
+    android:layout_marginLeft="@dimen/material_drawer_vertical_item_padding"
     android:layout_marginTop="@dimen/material_drawer_padding"
+    android:layout_marginRight="@dimen/material_drawer_vertical_item_padding"
     android:layout_marginBottom="@dimen/material_drawer_padding" />

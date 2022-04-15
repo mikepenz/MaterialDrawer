@@ -8,7 +8,9 @@
         android:id="@+id/material_drawer_divider"
         android:layout_width="match_parent"
         android:layout_height="1dp"
-        android:layout_marginTop="@dimen/material_drawer_padding" />
+        android:layout_marginTop="@dimen/material_drawer_padding"
+        android:layout_marginLeft="@dimen/material_drawer_vertical_item_padding"
+        android:layout_marginRight="@dimen/material_drawer_vertical_item_padding" />
 
     <androidx.appcompat.widget.AppCompatTextView
         android:id="@+id/material_drawer_name"
@@ -17,8 +19,8 @@
         android:fontFamily="sans-serif-medium"
         android:gravity="center_vertical|start"
         android:lines="1"
-        android:paddingLeft="@dimen/material_drawer_vertical_padding"
-        android:paddingRight="@dimen/material_drawer_vertical_padding"
+        android:paddingLeft="@dimen/material_drawer_vertical_item_padding"
+        android:paddingRight="@dimen/material_drawer_vertical_item_padding"
         android:singleLine="true"
         android:textSize="@dimen/material_drawer_item_section_text" />
 </LinearLayout>

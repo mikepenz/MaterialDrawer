@@ -10,7 +10,6 @@ import android.util.TypedValue
 import androidx.annotation.*
 import androidx.core.content.ContextCompat
 import androidx.core.content.res.ResourcesCompat
-import androidx.core.graphics.ColorUtils
 import com.mikepenz.materialdrawer.R
 
 
@@ -36,32 +35,33 @@ internal fun Context.getSecondaryDrawerIconColor(): ColorStateList {
     return createDrawerItemColorStateList(this, R.styleable.MaterialDrawerSliderView_materialDrawerSecondaryIcon)!!
 }
 
-fun createDrawerItemColorStateList(ctx: Context, @StyleableRes styleableRes: Int, @StyleableRes selectedStyleable: Int = R.styleable.MaterialDrawerSliderView_materialDrawerSelectedBackgroundColor): ColorStateList? {
+fun createDrawerItemColorStateList(ctx: Context, @StyleableRes styleableRes: Int): ColorStateList? {
     val a = ctx.obtainStyledAttributes(null, R.styleable.MaterialDrawerSliderView, R.attr.materialDrawerStyle, R.style.Widget_MaterialDrawerStyle)
-    val baseColor = a.getColorStateList(styleableRes) ?: return null
-    val selectedColor = a.getColor(selectedStyleable, ctx.getThemeColor(R.attr.colorPrimary))
+    val baseColor = a.getColorStateList(styleableRes)
     a.recycle()
 
-    val defaultColor = baseColor.defaultColor
-    return ColorStateList(
-            arrayOf(DISABLED_STATE_SET, CHECKED_STATE_SET, SELECTED_STATE_SET, EMPTY_STATE_SET),
-            intArrayOf(baseColor.getColorForState(DISABLED_STATE_SET, defaultColor), selectedColor, selectedColor, defaultColor)
-    )
+    return baseColor
 }
 
 @ColorInt
 fun Context.getDividerColor(): Int {
     return resolveStyledValue {
-        it.getColor(R.styleable.MaterialDrawerSliderView_materialDrawerDividerColor, getThemeColor(R.attr.materialDrawerDividerColor, getSupportColor(R.color.material_drawer_divider)))
+        it.getColor(
+            R.styleable.MaterialDrawerSliderView_materialDrawerDividerColor,
+            getThemeColor(R.attr.materialDrawerDividerColor, getSupportColor(R.color.material_drawer_divider))
+        )
     }
 }
 
 @ColorInt
 internal fun Context.getSelectedColor(): Int {
     val color = resolveStyledValue {
-        it.getColor(R.styleable.MaterialDrawerSliderView_materialDrawerSelectedBackgroundColor, getThemeColor(R.attr.materialDrawerSelectedBackgroundColor, getSupportColor(R.color.material_drawer_selected)))
+        it.getColor(
+            R.styleable.MaterialDrawerSliderView_materialDrawerSelectedBackgroundColor,
+            getThemeColor(R.attr.materialDrawerSelectedBackgroundColor, getSupportColor(R.color.material_drawer_selected))
+        )
     }
-    return ColorUtils.setAlphaComponent(color, (255 * getSupportFloat(R.dimen.material_drawer_selected_background_alpha)).toInt())
+    return color
 }
 
 internal fun Context.getHeaderSelectionTextColor(): ColorStateList {
@@ -80,7 +80,12 @@ internal fun <T> Context.resolveStyledHeaderValue(resolver: (typedArray: TypedAr
     return resolveStyledValue(R.styleable.AccountHeaderView, R.attr.materialDrawerHeaderStyle, R.style.Widget_MaterialDrawerHeaderStyle, resolver)
 }
 
-internal fun <T> Context.resolveStyledValue(attrs: IntArray = R.styleable.MaterialDrawerSliderView, defStyleAttr: Int = R.attr.materialDrawerStyle, defStyleRes: Int = R.style.Widget_MaterialDrawerStyle, resolver: (typedArray: TypedArray) -> T): T {
+internal fun <T> Context.resolveStyledValue(
+    attrs: IntArray = R.styleable.MaterialDrawerSliderView,
+    defStyleAttr: Int = R.attr.materialDrawerStyle,
+    defStyleRes: Int = R.style.Widget_MaterialDrawerStyle,
+    resolver: (typedArray: TypedArray) -> T
+): T {
     val a = obtainStyledAttributes(null, attrs, defStyleAttr, defStyleRes)
     val value = resolver.invoke(a)
     a.recycle()
