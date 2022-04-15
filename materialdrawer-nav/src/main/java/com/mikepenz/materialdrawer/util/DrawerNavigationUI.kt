@@ -19,6 +19,24 @@ import java.lang.ref.WeakReference
  * @param fallBackListener the listener to handle no navigationDrawerItems
  * @return
  */
+@Deprecated("Added new successListener", ReplaceWith("setupWithNavController(navController, null, fallBackListener)"))
+fun MaterialDrawerSliderView.setupWithNavController(
+    navController: NavController,
+    fallBackListener: ((v: View?, item: IDrawerItem<*>, position: Int) -> Boolean)? = null,
+) {
+    setupWithNavController(navController, null, fallBackListener)
+}
+
+/**
+ * Sets up a {@link Drawer} for use with a {@link NavController}.
+ * The selected item in the Drawer will automatically be updated when the destination
+ * changes.
+ *
+ * @param navController The NavController that hosts the destination
+ * @param successListener listener to retrieve a notification on successful navigation
+ * @param fallBackListener the listener to handle no navigationDrawerItems
+ * @return
+ */
 fun MaterialDrawerSliderView.setupWithNavController(
         navController: NavController,
         successListener: ((v: View?, item: IDrawerItem<*>, position: Int) -> Boolean)? = null,
