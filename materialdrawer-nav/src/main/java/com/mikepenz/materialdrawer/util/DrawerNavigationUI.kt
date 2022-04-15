@@ -19,11 +19,30 @@ import java.lang.ref.WeakReference
  * @param fallBackListener the listener to handle no navigationDrawerItems
  * @return
  */
+@Deprecated("Added new successListener", ReplaceWith("setupWithNavController(navController, null, fallBackListener)"))
+fun MaterialDrawerSliderView.setupWithNavController(
+    navController: NavController,
+    fallBackListener: ((v: View?, item: IDrawerItem<*>, position: Int) -> Boolean)? = null,
+) {
+    setupWithNavController(navController, null, fallBackListener)
+}
+
+/**
+ * Sets up a {@link Drawer} for use with a {@link NavController}.
+ * The selected item in the Drawer will automatically be updated when the destination
+ * changes.
+ *
+ * @param navController The NavController that hosts the destination
+ * @param successListener listener to retrieve a notification on successful navigation
+ * @param fallBackListener the listener to handle no navigationDrawerItems
+ * @return
+ */
 fun MaterialDrawerSliderView.setupWithNavController(
         navController: NavController,
-        fallBackListener: ((v: View?, item: IDrawerItem<*>, position: Int) -> Boolean)? = null
+        successListener: ((v: View?, item: IDrawerItem<*>, position: Int) -> Boolean)? = null,
+        fallBackListener: ((v: View?, item: IDrawerItem<*>, position: Int) -> Boolean)? = null,
 ) {
-    DrawerNavigationUI.setupWithNavController(this, navController, fallBackListener)
+    DrawerNavigationUI.setupWithNavController(this, navController, successListener, fallBackListener)
 }
 
 /**
@@ -47,11 +66,13 @@ object DrawerNavigationUI {
     fun setupWithNavController(
             drawer: MaterialDrawerSliderView,
             navController: NavController,
+            successListener: ((v: View?, item: IDrawerItem<*>, position: Int) -> Boolean)? = null,
             fallBackListener: ((v: View?, item: IDrawerItem<*>, position: Int) -> Boolean)? = null
     ) {
         drawer.onDrawerItemClickListener = { v, item, position ->
             val success = performNavigation(item, navController)
             if (success) {
+                successListener?.invoke(v, item, position)
                 drawer.drawerLayout?.closeDrawer(drawer)
             } else {
                 fallBackListener?.invoke(v, item, position)
