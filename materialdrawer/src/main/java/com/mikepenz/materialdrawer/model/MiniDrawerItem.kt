@@ -133,7 +133,7 @@ open class MiniDrawerItem : BaseDrawerItem<MiniDrawerItem, MiniDrawerItem.ViewHo
 
         if (enableSelectedBackground) {
             //get the correct color for the background
-            val selectedColor = getSelectedColor(ctx)
+            val selectedColor = this.selectedColor?.color(ctx) ?: getSelectedColor(ctx)
             //set the background for the item
             themeDrawerItem(ctx, holder.view, selectedColor, isSelectedBackgroundAnimated, shapeAppearanceModel, isSelected = isSelected)
         }

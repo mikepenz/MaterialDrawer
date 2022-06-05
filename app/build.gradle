@@ -69,7 +69,9 @@ dependencies {
     implementation "androidx.recyclerview:recyclerview:${versions.recyclerView}"
     implementation "androidx.cardview:cardview:${versions.cardview}"
     implementation "androidx.constraintlayout:constraintlayout:${versions.constraintLayout}"
-    implementation "androidx.slidingpanelayout:slidingpanelayout:${versions.slidingpaneLayout}"
+    implementation ("androidx.slidingpanelayout:slidingpanelayout:${versions.slidingpaneLayout}"){
+        force true
+    }
     implementation "androidx.swiperefreshlayout:swiperefreshlayout:${versions.swiperefreshLayout}"
 
     // used to showcase how to load images
