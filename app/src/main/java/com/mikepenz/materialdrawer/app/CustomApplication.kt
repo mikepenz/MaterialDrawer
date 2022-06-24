@@ -5,7 +5,7 @@ import android.graphics.drawable.Drawable
 import android.net.Uri
 import android.widget.ImageView
 import androidx.multidex.MultiDexApplication
-import coil.clear
+import coil.dispose
 import coil.load
 import com.google.android.material.color.DynamicColors
 import com.mikepenz.iconics.Iconics
@@ -50,7 +50,7 @@ class CustomApplication : MultiDexApplication() {
             }
 
             override fun cancel(imageView: ImageView) {
-                imageView.clear()
+                imageView.dispose()
             }
 
             override fun placeholder(ctx: Context, tag: String?): Drawable {
