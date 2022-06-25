@@ -51,6 +51,14 @@ jobs:
         if: github.event_name  == 'pull_request'
         run: ./gradlew detekt
 
+      - name: Run snapshot action
+        uses: mikepenz/gradle-dependency-submission@v0.0.1
+        with:
+          gradle-project-path: ""
+          gradle-dependency-path: "app/build.gradle"
+          gradle-build-module: ":app"
+          gradle-build-configuration: "debugCompileClasspath"
+
       - name: Setup Ruby
         if: github.event_name  == 'pull_request'
         uses: ruby/setup-ruby@v1
