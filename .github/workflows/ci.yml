@@ -52,7 +52,7 @@ jobs:
         run: ./gradlew detekt
 
       - name: Run snapshot action
-        uses: mikepenz/gradle-dependency-submission@v0.0.1
+        uses: mikepenz/gradle-dependency-submission@v0.0.2
         with:
           gradle-project-path: ""
           gradle-dependency-path: "app/build.gradle"
