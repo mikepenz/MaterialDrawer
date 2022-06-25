@@ -54,35 +54,47 @@
 - Java && AndroidX | [v6.1.2](https://github.com/mikepenz/MaterialDrawer/tree/v6.1.2)
 - Java && AppCompat | [v6.0.9](https://github.com/mikepenz/MaterialDrawer/tree/v6.0.9)
 
-
 ### 1. Provide the gradle dependency
 
-```gradle
-implementation "com.mikepenz:materialdrawer:${lastestMaterialDrawerRelease}"
+The latest release is available
+on [Maven Central](https://search.maven.org/artifact/com.mikepenz/materialdrawer/9.0.1/aar).
 
+```gradle
+implementation("com.mikepenz:materialdrawer:9.0.1")
+```
+
+```gradle
 //required support lib modules
 implementation "androidx.appcompat:appcompat:${versions.appcompat}"
 implementation "androidx.recyclerview:recyclerview:${versions.recyclerView}"
 implementation "androidx.annotation:annotation:${versions.annotation}"
 implementation "com.google.android.material:material:1.5.0-alpha05" // requires at least 1.5.0-x
 implementation "androidx.constraintlayout:constraintlayout:${versions.constraintLayout}"
+```
 
+[NavController Support @ Maven Central](https://search.maven.org/artifact/com.mikepenz/materialdrawer-nav/9.0.1/aar).
+
+```gradle
 // Add for NavController support
 implementation "com.mikepenz:materialdrawer-nav:${lastestMaterialDrawerRelease}"
+```
 
+[Android-Iconics Support @ Maven Central](https://search.maven.org/artifact/com.mikepenz/materialdrawer-iconics/9.0.1/aar)
+.
+
+```gradle
 // Add for Android-Iconics support
 implementation "com.mikepenz:materialdrawer-iconics:${lastestMaterialDrawerRelease}"
 ```
-You can find dependency versions and all library releases on [MVN Repository](https://mvnrepository.com/artifact/com.mikepenz/materialdrawer).
 
 ### 2. Add the `Drawer` into the XML
 
 The `MaterialDrawerSliderView` has to be provided as child of the `DrawerLayout` and will as such act as the slider
 
 ```kotlin
-<androidx.drawerlayout.widget.DrawerLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:id="@+id/root"
+<androidx.drawerlayout.widget.DrawerLayout xmlns : android ="http://schemas.android.com/apk/res/android"
+xmlns:app = "http://schemas.android.com/apk/res-auto"
+android:id = "@+id/root"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:fitsSystemWindows="true">
