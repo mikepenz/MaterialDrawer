@@ -20,7 +20,7 @@ jobs:
       - uses: actions/setup-java@v3
         with:
           java-version: '11'
-          java-package: jdk
+          distribution: 'temurin'
 
       - name: Validate gradle wrapper
         uses: gradle/wrapper-validation-action@v1

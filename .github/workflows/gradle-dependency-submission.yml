@@ -5,7 +5,7 @@ on:
       - develop
 
 jobs:
-  gradle-action-detection:
+  gradle-dependency-detection:
     runs-on: ubuntu-latest
     # The Dependency Submission API requires write permission
     permissions:
@@ -17,7 +17,7 @@ jobs:
       - uses: actions/setup-java@v3
         with:
           java-version: '11'
-          java-package: jdk
+          distribution: 'temurin'
 
       - name: Copy CI gradle.properties
         run: mkdir -p ~/.gradle ; cp .github/ci-gradle.properties ~/.gradle/gradle.properties
@@ -34,9 +34,9 @@ jobs:
             gradle-${{ runner.os }}-
 
       - name: Run snapshot action
-        uses: mikepenz/gradle-dependency-submission@main
+        uses: mikepenz/gradle-dependency-submission@v0.0.3
         with:
-          gradle-project-path: "gradle-example"
+          gradle-project-path: ""
           gradle-dependency-path: "app/build.gradle"
           gradle-build-module: ":app"
           gradle-build-configuration: "debugCompileClasspath"
