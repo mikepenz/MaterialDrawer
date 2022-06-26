@@ -17,7 +17,7 @@ jobs:
       - uses: actions/setup-java@v3
         with:
           java-version: '11'
-          java-package: jdk
+          distribution: 'temurin'
 
       - name: Copy CI gradle.properties
         run: mkdir -p ~/.gradle ; cp .github/ci-gradle.properties ~/.gradle/gradle.properties
