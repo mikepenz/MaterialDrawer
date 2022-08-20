@@ -33,10 +33,9 @@ jobs:
           restore-keys: |
             gradle-${{ runner.os }}-
 
-      - name: Run snapshot action
-        uses: mikepenz/gradle-dependency-submission@v0.0.3
+      - name: Submit Dependency Graph
+        uses: mikepenz/gradle-dependency-submission@v0.6.0
         with:
-          gradle-project-path: ""
-          gradle-dependency-path: "app/build.gradle"
-          gradle-build-module: ":app"
-          gradle-build-configuration: "debugCompileClasspath"
+          gradle-build-module: :app
+          gradle-build-configuration: debugCompileClasspath
+          sub-module-mode: INDIVIDUAL
