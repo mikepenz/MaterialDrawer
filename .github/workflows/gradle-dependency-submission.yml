@@ -34,8 +34,8 @@ jobs:
             gradle-${{ runner.os }}-
 
       - name: Submit Dependency Graph
-        uses: mikepenz/gradle-dependency-submission@v0.6.0
+        uses: mikepenz/gradle-dependency-submission@main
         with:
           gradle-build-module: :app
           gradle-build-configuration: debugCompileClasspath
-          sub-module-mode: INDIVIDUAL
+          sub-module-mode: INDIVIDUAL_DEEP
