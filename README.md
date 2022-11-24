@@ -50,9 +50,9 @@
 ## Latest releases 🛠
 
 - Kotlin && Material 3 | [v9.0.1](https://github.com/mikepenz/MaterialDrawer/tree/v9.0.1)
-- Kotlin | [v8.4.5](https://github.com/mikepenz/MaterialDrawer/tree/v8.4.5)
-- Java && AndroidX | [v6.1.2](https://github.com/mikepenz/MaterialDrawer/tree/v6.1.2)
-- Java && AppCompat | [v6.0.9](https://github.com/mikepenz/MaterialDrawer/tree/v6.0.9)
+- Kotlin | [v8.4.5](https://github.com/mikepenz/MaterialDrawer/tree/v8.4.5) (Provided as-is only)
+- Java && AndroidX | [v6.1.2](https://github.com/mikepenz/MaterialDrawer/tree/v6.1.2) (Provided as-is only)
+- Java && AppCompat | [v6.0.9](https://github.com/mikepenz/MaterialDrawer/tree/v6.0.9) (Provided as-is only)
 
 ### 1. Provide the gradle dependency
 
