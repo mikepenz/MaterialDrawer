@@ -37,7 +37,8 @@ GEM
       multipart-post (>= 1.2, < 3)
     faraday-http-cache (2.2.0)
       faraday (>= 0.8)
-    git (1.11.0)
+    git (1.13.0)
+      addressable (~> 2.8)
       rchardet (~> 1.8)
     kramdown (2.3.1)
       rexml
