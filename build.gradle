@@ -25,7 +25,7 @@ buildscript {
                 cardview          : '1.0.0',
                 kotlin      : "1.8.22",
                 fastadapter : "5.7.0",
-                iconics     : "5.5.0",
+                iconics: "5.4.0",
                 aboutLibs   : "10.8.3",
                 navigation  : "2.7.0",
                 detekt            : '1.18.1',
