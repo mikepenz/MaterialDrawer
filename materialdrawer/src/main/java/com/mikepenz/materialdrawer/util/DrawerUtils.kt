@@ -321,7 +321,7 @@ fun getPlaceHolder(context: Context): Drawable {
         accountDrawable.setLayerHeight(0, placeholderSize)
     }
     DrawableCompat.wrap(accountDrawable.getDrawable(0)).let {
-        DrawableCompat.setTint(it, context.getThemeColor(R.attr.colorPrimary))
+        DrawableCompat.setTint(it, context.getThemeColor(android.R.attr.colorPrimary))
         accountDrawable.setDrawableByLayerId(R.id.background, it)
     }
     val iconSize = context.resources.getDimensionPixelSize(R.dimen.material_drawer_profile_icon_placeholder_icon)
@@ -331,7 +331,7 @@ fun getPlaceHolder(context: Context): Drawable {
         accountDrawable.setLayerGravity(1, Gravity.CENTER)
     }
     DrawableCompat.wrap(accountDrawable.getDrawable(1)).let {
-        DrawableCompat.setTint(it, context.getThemeColor(R.attr.colorAccent))
+        DrawableCompat.setTint(it, context.getThemeColor(android.R.attr.colorAccent))
         accountDrawable.setDrawableByLayerId(R.id.account, it)
     }
     return accountDrawable
@@ -370,7 +370,7 @@ fun themeDrawerItem(
         @DimenRes paddingTopBottomRes: Int = R.dimen.material_drawer_item_background_padding_top_bottom,
         @DimenRes paddingStartRes: Int = R.dimen.material_drawer_item_background_padding_start,
         @DimenRes paddingEndRes: Int = R.dimen.material_drawer_item_background_padding_end,
-        @AttrRes highlightColorRes: Int = R.attr.colorControlHighlight,
+        @AttrRes highlightColorRes: Int = android.R.attr.colorControlHighlight,
         /* a hint for the drawable if it should already be selected at the very moment */
         isSelected: Boolean = false
 ) {

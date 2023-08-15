@@ -152,7 +152,8 @@ class CompactHeaderDrawerActivity : AppCompatActivity() {
 
         override fun onCreateActionMode(mode: ActionMode, menu: Menu): Boolean {
             if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
-                window.statusBarColor = getThemeColor(R.attr.colorPrimaryDark, ContextCompat.getColor(this@CompactHeaderDrawerActivity, R.color.colorPrimaryDark))
+                window.statusBarColor =
+                    getThemeColor(android.R.attr.colorPrimaryDark, ContextCompat.getColor(this@CompactHeaderDrawerActivity, R.color.colorPrimaryDark))
             }
 
             mode.menuInflater.inflate(R.menu.cab, menu)

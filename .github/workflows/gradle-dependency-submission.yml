@@ -1,0 +1,44 @@
+name: Gradle Dependency Submission
+on:
+  push:
+    branches:
+      - develop
+
+jobs:
+  gradle-dependency-detection:
+    runs-on: ubuntu-latest
+    # The Dependency Submission API requires write permission
+    permissions:
+      contents: write
+    steps:
+      - name: 'Checkout Repository'
+        uses: actions/checkout@v3
+
+      - uses: actions/setup-java@v3
+        with:
+          distribution: 'zulu'
+          java-version: |
+            11
+            15
+            17
+
+      - name: Copy CI gradle.properties
+        run: mkdir -p ~/.gradle ; cp .github/ci-gradle.properties ~/.gradle/gradle.properties
+
+      - name: Checkout Gradle Build Cache
+        uses: actions/cache@v3
+        with:
+          path: |
+            ~/.gradle/caches
+            ~/.gradle/wrapper
+            !~/.gradle/wrapper/dists/**/gradle*.zip
+          key: ${{ runner.os }}-gradle-${{ hashFiles('**/*.gradle*') }}
+          restore-keys: |
+            gradle-${{ runner.os }}-
+
+      - name: Submit Dependency Graph
+        uses: mikepenz/gradle-dependency-submission@main
+        with:
+          gradle-build-module: :app
+          gradle-build-configuration: debugCompileClasspath
+          sub-module-mode: INDIVIDUAL_DEEP

@@ -9,6 +9,7 @@ if (getSigningFile() != null) {
 }
 
 android {
+    namespace = "com.mikepenz.materialdrawer.app"
     compileSdkVersion setup.compileSdk
 
     defaultConfig {
@@ -48,12 +49,12 @@ android {
     }
 
     compileOptions {
-        sourceCompatibility JavaVersion.VERSION_1_8
-        targetCompatibility JavaVersion.VERSION_1_8
+        sourceCompatibility JavaVersion.VERSION_11
+        targetCompatibility JavaVersion.VERSION_11
     }
 
     kotlinOptions {
-        jvmTarget = "1.8"
+        jvmTarget = "11"
     }
 }
 
@@ -70,12 +71,14 @@ dependencies {
     implementation "androidx.cardview:cardview:${versions.cardview}"
     implementation "androidx.constraintlayout:constraintlayout:${versions.constraintLayout}"
     implementation("androidx.slidingpanelayout:slidingpanelayout:${versions.slidingpaneLayout}") {
-        force true
+        version {
+            strictly "${versions.slidingpaneLayout}"
+        }
     }
     implementation "androidx.swiperefreshlayout:swiperefreshlayout:${versions.swiperefreshLayout}"
 
     // used to showcase how to load images
-    implementation("io.coil-kt:coil:2.1.0")
+    implementation("io.coil-kt:coil:2.4.0")
 
     // the sample uses more advanced functions of the fastadapter
     // https://github.com/mikepenz/FastAdapter/
