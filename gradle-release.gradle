@@ -15,31 +15,15 @@ def getRepositoryPassword() {
     return project.hasProperty('NEXUS_PASSWORD') ? project.property('NEXUS_PASSWORD') : System.getenv('NEXUS_PASSWORD')
 }
 
-afterEvaluate { project ->
-    if (JavaVersion.current().isJava8Compatible()) {
-        allprojects {
-            tasks.withType(Javadoc) {
-                options.addStringOption('Xdoclint:none', '-quiet')
-            }
+if (JavaVersion.current().isJava8Compatible()) {
+    allprojects {
+        tasks.withType(Javadoc) {
+            options.addStringOption('Xdoclint:none', '-quiet')
         }
     }
+}
 
-    task androidJavadocs(type: Javadoc) {
-        failOnError = false
-        source = android.sourceSets.main.java.source
-        classpath += project.files(android.getBootClasspath().join(File.pathSeparator))
-    }
-
-    task androidJavadocsJar(type: Jar, dependsOn: androidJavadocs) {
-        archiveClassifier = 'javadoc'
-        from androidJavadocs.destinationDir
-    }
-
-    task androidSourcesJar(type: Jar) {
-        archiveClassifier = 'sources'
-        from android.sourceSets.main.java.source
-    }
-
+afterEvaluate { project ->
     def pomConfig = {
         licenses {
             license {
@@ -70,9 +54,6 @@ afterEvaluate { project ->
                 groupId GROUP
                 artifactId POM_ARTIFACT_ID
                 version android.defaultConfig.versionName
-
-                artifact androidSourcesJar
-                artifact androidJavadocsJar
 
                 pom.withXml {
                     asNode().appendNode('name', POM_NAME)

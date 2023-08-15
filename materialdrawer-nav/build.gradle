@@ -37,6 +37,13 @@ android {
         freeCompilerArgs += ["-module-name", POM_ARTIFACT_ID] // specify the artifactId as module-name for kotlin
         jvmTarget = "11"
     }
+
+    publishing {
+        singleVariant("release") {
+            withJavadocJar()
+            withSourcesJar()
+        }
+    }
 }
 
 dependencies {
