@@ -8,6 +8,7 @@ import android.graphics.drawable.Drawable
 import android.graphics.drawable.StateListDrawable
 import android.util.TypedValue
 import androidx.annotation.*
+import androidx.appcompat.content.res.AppCompatResources
 import androidx.core.content.ContextCompat
 import androidx.core.content.res.ResourcesCompat
 import com.mikepenz.materialdrawer.R
@@ -37,10 +38,14 @@ internal fun Context.getSecondaryDrawerIconColor(): ColorStateList {
 
 fun createDrawerItemColorStateList(ctx: Context, @StyleableRes styleableRes: Int): ColorStateList? {
     val a = ctx.obtainStyledAttributes(null, R.styleable.MaterialDrawerSliderView, R.attr.materialDrawerStyle, R.style.Widget_MaterialDrawerStyle)
-    val baseColor = a.getColorStateList(styleableRes)
+    val baseColorResId = a.getResourceId(styleableRes, -1)
     a.recycle()
 
-    return baseColor
+    return if (baseColorResId != -1) {
+        AppCompatResources.getColorStateList(ctx, baseColorResId)
+    } else {
+        null
+    }
 }
 
 @ColorInt
@@ -66,13 +71,15 @@ internal fun Context.getSelectedColor(): Int {
 
 internal fun Context.getHeaderSelectionTextColor(): ColorStateList {
     return resolveStyledHeaderValue {
-        it.getColorStateList(R.styleable.AccountHeaderView_materialDrawerHeaderSelectionText)!!
+        val resId = it.getResourceId(R.styleable.AccountHeaderView_materialDrawerHeaderSelectionText, -1)
+        AppCompatResources.getColorStateList(this, resId)
     }
 }
 
 internal fun Context.getHeaderSelectionSubTextColor(): ColorStateList {
     return resolveStyledHeaderValue {
-        it.getColorStateList(R.styleable.AccountHeaderView_materialDrawerHeaderSelectionSubtext)!!
+        val resId = it.getResourceId(R.styleable.AccountHeaderView_materialDrawerHeaderSelectionSubtext, -1)
+        AppCompatResources.getColorStateList(this, resId)
     }
 }
 
