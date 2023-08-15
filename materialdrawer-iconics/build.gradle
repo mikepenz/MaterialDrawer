@@ -4,6 +4,7 @@ apply plugin: 'kotlin-android'
 version release.versionName
 
 android {
+    namespace = "com.mikepenz.materialdrawer.iconics"
     compileSdkVersion setup.compileSdk
 
     defaultConfig {
@@ -28,12 +29,14 @@ android {
     }
 
     compileOptions {
-        sourceCompatibility JavaVersion.VERSION_1_8
-        targetCompatibility JavaVersion.VERSION_1_8
+        sourceCompatibility JavaVersion.VERSION_11
+        targetCompatibility JavaVersion.VERSION_11
     }
 
-    // specify the artifactId as module-name for kotlin
-    kotlinOptions.freeCompilerArgs += ["-module-name", POM_ARTIFACT_ID]
+    kotlinOptions {
+        freeCompilerArgs += ["-module-name", POM_ARTIFACT_ID] // specify the artifactId as module-name for kotlin
+        jvmTarget = "11"
+    }
 }
 
 dependencies {

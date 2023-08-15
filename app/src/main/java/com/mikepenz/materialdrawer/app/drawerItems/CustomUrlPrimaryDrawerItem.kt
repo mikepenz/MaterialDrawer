@@ -20,7 +20,7 @@ class CustomUrlPrimaryDrawerItem : CustomUrlBasePrimaryDrawerItem<CustomUrlPrima
 
     override val layoutRes: Int
         @LayoutRes
-        get() = R.layout.material_drawer_item_primary
+        get() = com.mikepenz.materialdrawer.R.layout.material_drawer_item_primary
 
     override fun bindView(holder: ViewHolder, payloads: List<Any>) {
         super.bindView(holder, payloads)
