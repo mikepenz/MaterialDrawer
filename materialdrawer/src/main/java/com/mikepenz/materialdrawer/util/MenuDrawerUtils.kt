@@ -30,7 +30,8 @@ fun MaterialDrawerSliderView.inflateMenu(@MenuRes menuRes: Int) {
 /**
  * helper method to init the drawerItems from a menu
  */
-private fun MaterialDrawerSliderView.addMenuItems(mMenu: Menu, subMenu: Boolean) {
+private fun MaterialDrawerSliderView.addMenuItems(mMenu: Menu?, subMenu: Boolean) {
+    mMenu ?: return
     var groupId = R.id.material_drawer_menu_default_group
     for (i in 0 until mMenu.size()) {
         val mMenuItem = mMenu.getItem(i)
@@ -42,7 +43,7 @@ private fun MaterialDrawerSliderView.addMenuItems(mMenu: Menu, subMenu: Boolean)
         }
         if (mMenuItem.hasSubMenu()) {
             iDrawerItem = PrimaryDrawerItem().apply {
-                nameText = mMenuItem.title
+                nameText = mMenuItem.title ?: ""
                 iconDrawable = mMenuItem.icon
                 identifier = mMenuItem.itemId.toLong()
                 isEnabled = mMenuItem.isEnabled
@@ -52,7 +53,7 @@ private fun MaterialDrawerSliderView.addMenuItems(mMenu: Menu, subMenu: Boolean)
             addMenuItems(mMenuItem.subMenu, true)
         } else if (mMenuItem.groupId != 0 || subMenu) {
             iDrawerItem = SecondaryDrawerItem().apply {
-                nameText = mMenuItem.title
+                nameText = mMenuItem.title ?: ""
                 iconDrawable = mMenuItem.icon
                 identifier = mMenuItem.itemId.toLong()
                 isEnabled = mMenuItem.isEnabled
@@ -60,7 +61,7 @@ private fun MaterialDrawerSliderView.addMenuItems(mMenu: Menu, subMenu: Boolean)
             itemAdapter.add(iDrawerItem)
         } else {
             iDrawerItem = PrimaryDrawerItem().apply {
-                nameText = mMenuItem.title
+                nameText = mMenuItem.title ?: ""
                 iconDrawable = mMenuItem.icon
                 identifier = mMenuItem.itemId.toLong()
                 isEnabled = mMenuItem.isEnabled

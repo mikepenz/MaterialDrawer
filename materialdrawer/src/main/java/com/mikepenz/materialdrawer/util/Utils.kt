@@ -149,7 +149,7 @@ internal fun Context.getThemeColorFromAttrOrRes(@AttrRes attr: Int, @ColorRes re
 internal fun Context.getSelectableBackgroundRes(): Int {
     val outValue = TypedValue()
     //it is important here to not use the android.R because this wouldn't add the latest drawable
-    this.theme.resolveAttribute(R.attr.selectableItemBackground, outValue, true)
+    this.theme.resolveAttribute(android.R.attr.selectableItemBackground, outValue, true)
     return outValue.resourceId
 }
 
@@ -197,9 +197,9 @@ internal fun Context.getScreenWidth(): Int {
  * helper to calculate the actionBar height
  */
 internal fun Context.getActionBarHeight(): Int {
-    var actionBarHeight: Int = getThemeAttributeDimensionSize(R.attr.actionBarSize)
+    var actionBarHeight: Int = getThemeAttributeDimensionSize(android.R.attr.actionBarSize)
     if (actionBarHeight == 0) {
-        actionBarHeight = resources.getDimensionPixelSize(R.dimen.abc_action_bar_default_height_material)
+        actionBarHeight = resources.getDimensionPixelSize(androidx.appcompat.R.dimen.abc_action_bar_default_height_material)
     }
     return actionBarHeight
 }

@@ -155,7 +155,7 @@ class MiniDrawerActivity : AppCompatActivity() {
         miniSliderView.crossFader = CrossfadeWrapper(crossFader)
 
         //define a shadow (this is only for normal LTR layouts if you have a RTL app you need to define the other one
-        crossFader.getCrossFadeSlidingPaneLayout().setShadowResourceLeft(R.drawable.material_drawer_shadow_left)
+        crossFader.getCrossFadeSlidingPaneLayout().setShadowResourceLeft(com.mikepenz.materialdrawer.R.drawable.material_drawer_shadow_left)
     }
 
     override fun onSaveInstanceState(_outState: Bundle) {

@@ -11,4 +11,6 @@
     <item name="crossFadeSlider" type="id" />
     <item name="crossFadeSmallView" type="id" />
     <item name="crossFadeLargeView" type="id" />
+
+    <item name="about_libraries" type="id"/>
 </resources>
