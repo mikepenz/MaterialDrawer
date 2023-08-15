@@ -13,14 +13,17 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: Checkout
-        uses: actions/checkout@v2
+        uses: actions/checkout@v3
         with:
           fetch-depth: 100
 
       - uses: actions/setup-java@v3
         with:
-          java-version: '11'
-          distribution: 'temurin'
+          distribution: 'zulu'
+          java-version: |
+            11
+            15
+            17
 
       - name: Validate gradle wrapper
         uses: gradle/wrapper-validation-action@v1
@@ -30,7 +33,7 @@ jobs:
 
       - name: Checkout Gradle Build Cache
         if: ${{ steps.self_hosted.outputs.FLAG != 'self-hosted' }}
-        uses: actions/cache@v2
+        uses: actions/cache@v3
         with:
           path: |
             ~/.gradle/caches
@@ -107,14 +110,14 @@ jobs:
           find . -name "*.aab" -type f -exec cp {} "artifacts" \;
 
       - name: Archive Artifacts
-        uses: actions/upload-artifact@v2
+        uses: actions/upload-artifact@v3
         with:
           name: "App-Artifacts"
           path: artifacts/*
 
       - name: Build Changelog
         id: github_release
-        uses: mikepenz/release-changelog-builder-action@v1
+        uses: mikepenz/release-changelog-builder-action@v4
         if: startsWith(github.ref, 'refs/tags/')
         with:
           configuration: ".github/config/configuration.json"
@@ -123,7 +126,7 @@ jobs:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
       - name: Release
-        uses: softprops/action-gh-release@91409e712cf565ce9eff10c87a8d1b11b81757ae
+        uses: mikepenz/action-gh-release@v1
         if: startsWith(github.ref, 'refs/tags/')
         with:
           body: ${{steps.github_release.outputs.changelog}}
