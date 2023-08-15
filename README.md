@@ -49,7 +49,7 @@
 
 ## Latest releases 🛠
 
-- Kotlin && Material 3 | [v9.0.1](https://github.com/mikepenz/MaterialDrawer/tree/v9.0.1)
+- Kotlin && Material 3 | [v9.0.2](https://github.com/mikepenz/MaterialDrawer/tree/v9.0.2)
 - Kotlin | [v8.4.5](https://github.com/mikepenz/MaterialDrawer/tree/v8.4.5) (Provided as-is only)
 - Java && AndroidX | [v6.1.2](https://github.com/mikepenz/MaterialDrawer/tree/v6.1.2) (Provided as-is only)
 - Java && AppCompat | [v6.0.9](https://github.com/mikepenz/MaterialDrawer/tree/v6.0.9) (Provided as-is only)
