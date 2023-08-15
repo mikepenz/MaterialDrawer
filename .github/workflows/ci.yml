@@ -58,7 +58,7 @@ jobs:
         if: github.event_name  == 'pull_request'
         uses: ruby/setup-ruby@v1
         with:
-          ruby-version: '2.6.3'
+          ruby-version: '3.0'
           bundler-cache: true
 
       - name: Run Danger
