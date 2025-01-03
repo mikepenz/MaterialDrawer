@@ -360,6 +360,7 @@ Overwrite the Style of the BezelImageView for the whole MaterialDrawer
 * [Tusky: Mastodon Client for Android](https://github.com/tuskyapp/Tusky)
 * [Tibia Live](https://tibia.space/)
 * [Walkaholic](https://play.google.com/store/apps/details?id=com.walkaholic.hikeapp)
+* [Pachli: Mastodon Client](https://pachli.app)
 
 # Articles about the MaterialDrawer
 * [java-help.ru - MaterialDrawer tutorial](http://java-help.ru/material-navigationdrawer/)
