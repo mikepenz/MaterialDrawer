@@ -1,16 +1,11 @@
 [versions]
 conventionPlugin = "0.1.0"
-# kotlin
-kotlinxSerialization = "1.7.3"
-kotlinxCollections = "0.3.8"
 # androidx
 appcompat = "1.7.0"
-activity = "1.9.3"
 cardview = "1.0.0"
 constraintLayout = "2.2.0"
 core = "1.15.0"
 drawerlayout = "1.2.0"
-lifecycle = { require = "2.8.7" }
 navigation = "2.8.5"
 recyclerView = "1.3.2"
 # google
@@ -19,25 +14,18 @@ material = "1.12.0"
 fastAdapter = "5.7.0"
 iconics = "5.4.0"
 itemAnimators = "1.1.0"
-okhttp = "4.12.0"
 
 [plugins]
 conventionPlugin = { id = "com.mikepenz.convention.root", version.ref = "conventionPlugin" }
 navSafeArgs = { id = "androidx.navigation.safeargs", version.ref = "navigation" }
 
 [libraries]
-# kotlin
-kotlinx-serialization = { module = "org.jetbrains.kotlinx:kotlinx-serialization-json", version.ref = "kotlinxSerialization" }
-kotlinx-collections = { module = "org.jetbrains.kotlinx:kotlinx-collections-immutable", version.ref = "kotlinxCollections" }
 # androidx
 androidx-appcompat = { module = "androidx.appcompat:appcompat", version.ref = "appcompat" }
 androidx-cardView = { module = "androidx.cardview:cardview", version.ref = "cardview" }
 androidx-constraintLayout = { module = "androidx.constraintlayout:constraintlayout", version.ref = "constraintLayout" }
 androidx-core-ktx = { module = "androidx.core:core-ktx", version.ref = "core" }
 androidx-drawerlayout = { module = "androidx.drawerlayout:drawerlayout", version.ref = "drawerlayout" }
-androidx-lifecycle-livedata-ktx = { module = "androidx.lifecycle:lifecycle-livedata-ktx", version.ref = "lifecycle" }
-androidx-lifecycle-viewmodel-ktx = { module = "androidx.lifecycle:lifecycle-viewmodel-ktx", version.ref = "lifecycle" }
-androidx-navigation-plug = { module = "androidx.navigation:navigation-safe-args-gradle-plugin", version.ref = "navigation" }
 androidx-navigation-fragment = { module = "androidx.navigation:navigation-fragment", version.ref = "navigation" }
 androidx-navigation-runtime = { module = "androidx.navigation:navigation-runtime-ktx", version.ref = "navigation" }
 androidx-navigation-ui = { module = "androidx.navigation:navigation-ui-ktx", version.ref = "navigation" }
@@ -49,4 +37,3 @@ fastAdapter-core = { module = "com.mikepenz:fastadapter", version.ref = "fastAda
 fastAdapter-expandable = { module = "com.mikepenz:fastadapter-extensions-expandable", version.ref = "fastAdapter" }
 iconics-core = { module = "com.mikepenz:iconics-core", version.ref = "iconics" }
 itemAnimators-core = { module = "com.mikepenz:itemanimators", version.ref = "itemAnimators" }
-okhttp-core = { module = "com.squareup.okhttp3:okhttp", version.ref = "okhttp" }
