@@ -1,0 +1,39 @@
+[versions]
+conventionPlugin = "0.1.0"
+# androidx
+appcompat = "1.7.0"
+cardview = "1.0.0"
+constraintLayout = "2.2.0"
+core = "1.15.0"
+drawerlayout = "1.2.0"
+navigation = "2.8.5"
+recyclerView = "1.3.2"
+# google
+material = "1.12.0"
+# other
+fastAdapter = "5.7.0"
+iconics = "5.4.0"
+itemAnimators = "1.1.0"
+
+[plugins]
+conventionPlugin = { id = "com.mikepenz.convention.root", version.ref = "conventionPlugin" }
+navSafeArgs = { id = "androidx.navigation.safeargs", version.ref = "navigation" }
+
+[libraries]
+# androidx
+androidx-appcompat = { module = "androidx.appcompat:appcompat", version.ref = "appcompat" }
+androidx-cardView = { module = "androidx.cardview:cardview", version.ref = "cardview" }
+androidx-constraintLayout = { module = "androidx.constraintlayout:constraintlayout", version.ref = "constraintLayout" }
+androidx-core-ktx = { module = "androidx.core:core-ktx", version.ref = "core" }
+androidx-drawerlayout = { module = "androidx.drawerlayout:drawerlayout", version.ref = "drawerlayout" }
+androidx-navigation-fragment = { module = "androidx.navigation:navigation-fragment", version.ref = "navigation" }
+androidx-navigation-runtime = { module = "androidx.navigation:navigation-runtime-ktx", version.ref = "navigation" }
+androidx-navigation-ui = { module = "androidx.navigation:navigation-ui-ktx", version.ref = "navigation" }
+androidx-recyclerView = { module = "androidx.recyclerview:recyclerview", version.ref = "recyclerView" }
+# google
+google-material = { module = "com.google.android.material:material", version.ref = "material" }
+# other
+fastAdapter-core = { module = "com.mikepenz:fastadapter", version.ref = "fastAdapter" }
+fastAdapter-expandable = { module = "com.mikepenz:fastadapter-extensions-expandable", version.ref = "fastAdapter" }
+iconics-core = { module = "com.mikepenz:iconics-core", version.ref = "iconics" }
+itemAnimators-core = { module = "com.mikepenz:itemanimators", version.ref = "itemAnimators" }

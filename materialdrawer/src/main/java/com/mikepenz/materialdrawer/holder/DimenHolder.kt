@@ -5,8 +5,8 @@ import android.content.res.Resources
 import android.util.DisplayMetrics
 import androidx.annotation.DimenRes
 import androidx.annotation.Dimension
-import androidx.annotation.Dimension.DP
-import androidx.annotation.Dimension.PX
+import androidx.annotation.Dimension.Companion.DP
+import androidx.annotation.Dimension.Companion.PX
 
 
 /**
