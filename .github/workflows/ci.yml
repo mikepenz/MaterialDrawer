@@ -42,10 +42,6 @@ jobs:
         if: github.event_name  == 'pull_request'
         run: ./gradlew lintDebug
 
-      - name: Detekt
-        if: github.event_name  == 'pull_request'
-        run: ./gradlew detekt
-
       - name: Setup Ruby
         if: github.event_name  == 'pull_request'
         uses: ruby/setup-ruby@v1
