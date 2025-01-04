@@ -25,23 +25,15 @@ jobs:
             15
             17
 
+      - name: Setup Gradle
+        uses: gradle/actions/setup-gradle@v4
+
       - name: Validate gradle wrapper
-        uses: gradle/wrapper-validation-action@v1
+        uses: gradle/actions/wrapper-validation@v4
 
       - name: Copy CI gradle.properties
         run: mkdir -p ~/.gradle ; cp .github/ci-gradle.properties ~/.gradle/gradle.properties
 
-      - name: Checkout Gradle Build Cache
-        if: ${{ steps.self_hosted.outputs.FLAG != 'self-hosted' }}
-        uses: actions/cache@v3
-        with:
-          path: |
-            ~/.gradle/caches
-            ~/.gradle/wrapper
-            !~/.gradle/wrapper/dists/**/gradle*.zip
-          key: ${{ runner.os }}-gradle-${{ hashFiles('**/*.gradle*') }}
-          restore-keys: |
-            gradle-${{ runner.os }}-
 
       - name: Build Debug
         run: ./gradlew clean app:assembleDebug
@@ -82,25 +74,19 @@ jobs:
         if: startsWith(github.ref, 'refs/tags/')
         run: ./gradlew app:assembleRelease app:bundleRelease
 
-      - name: Prepare Sonatype Gradle properties
-        if: startsWith(github.ref, 'refs/tags/')
-        run: |
-          echo "${{ secrets.SONATYPE_GPG_FILE }}" > opensource.gpg.asc
-          gpg -d --passphrase "${{ secrets.KEYSTORE_PASSPHRASE }}" --batch "opensource.gpg.asc" > "$HOME/.gradle/opensource.gpg"
-          echo "sonatype.gpg.key=${{ secrets.SONATYPE_GPG_KEY }}" >> ~/.gradle/gradle.properties
-          echo "sonatype.gpg.password=${{ secrets.SONATYPE_GPG_PASS }}" >> ~/.gradle/gradle.properties
-          echo "sonatype.gpg.secretKeyRingFile=$HOME/.gradle/opensource.gpg" >> ~/.gradle/gradle.properties
-
       - name: Relase Sonatype
         if: startsWith(github.ref, 'refs/tags/')
         run: |
           ./gradlew build -x test -x lint
-          ./gradlew materialdrawer:publishReleasePublicationToSonatypeRepository -x test -x lint -Plibrary_only --no-configure-on-demand --no-parallel
-          ./gradlew materialdrawer-nav:publishReleasePublicationToSonatypeRepository -x test -x lint -Plibrary_nav_only  --no-configure-on-demand --no-parallel
-          ./gradlew materialdrawer-iconics:publishReleasePublicationToSonatypeRepository -x test -x lint -Plibrary_iconics_only --no-configure-on-demand --no-parallel
+          ./gradlew materialdrawer:publishAllPublicationsToMavenCentralRepository -x test -x lint -Plibrary_only --no-configure-on-demand --no-parallel
+          ./gradlew materialdrawer-nav:publishAllPublicationsToMavenCentralRepository -x test -x lint -Plibrary_nav_only  --no-configure-on-demand --no-parallel
+          ./gradlew materialdrawer-iconics:publishAllPublicationsToMavenCentralRepository -x test -x lint -Plibrary_iconics_only --no-configure-on-demand --no-parallel
         env:
-          NEXUS_USERNAME: ${{ secrets.NEXUS_USERNAME }}
-          NEXUS_PASSWORD: ${{ secrets.NEXUS_PASSWORD }}
+          ORG_GRADLE_PROJECT_mavenCentralUsername: ${{ secrets.NEXUS_USERNAME }}
+          ORG_GRADLE_PROJECT_mavenCentralPassword: ${{ secrets.NEXUS_PASSWORD }}
+          ORG_GRADLE_PROJECT_signingInMemoryKeyId: ${{ secrets.SIGNING_KEY_ID }}
+          ORG_GRADLE_PROJECT_signingInMemoryKey: ${{ secrets.SIGNING_PRIVATE_KEY }}
+          ORG_GRADLE_PROJECT_signingInMemoryKeyPassword: ${{ secrets.SIGNING_PASSWORD }}
 
       - name: Collect artifacts
         run: |

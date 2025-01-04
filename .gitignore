@@ -30,3 +30,5 @@ proguard/
 *.iml
 .idea/
 functiongraphic.psd
+
+/.kotlin
