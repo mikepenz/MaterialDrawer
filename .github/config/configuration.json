@@ -21,7 +21,8 @@
     {
       "title": "## 💬 Other",
       "labels": [
-        "other"
+        "other",
+        "dependencies"
       ]
     }
   ]
