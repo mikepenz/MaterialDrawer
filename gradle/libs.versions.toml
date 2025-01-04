@@ -1,5 +1,5 @@
 [versions]
-conventionPlugin = "0.1.0"
+conventionPlugin = "0.1.1"
 # androidx
 appcompat = "1.7.0"
 cardview = "1.0.0"

@@ -1,4 +1,4 @@
-import org.jetbrains.kotlin.konan.properties.Properties
+import com.mikepenz.gradle.utils.readPropertyOrElse
 
 plugins {
     id("com.mikepenz.convention.android-application")
@@ -7,6 +7,7 @@ plugins {
     id("androidx.navigation.safeargs.kotlin")
 }
 
+val openSourceSigningFile: String? = readPropertyOrElse("openSource.signing.file")
 if (openSourceSigningFile != null) {
     apply(from = openSourceSigningFile)
 }
@@ -94,14 +95,3 @@ configurations.configureEach {
     resolutionStrategy.force(libs.fastAdapter.core)
     resolutionStrategy.force(libs.iconics.core)
 }
-
-private val openSourceSigningFile: String?
-    get() {
-        val k = "openSource.signing.file"
-        return Properties().also { prop ->
-            rootProject.file("local.properties").takeIf { it.exists() }?.let {
-                prop.load(it.inputStream())
-            }
-        }.getProperty(k, null) ?: if (project.hasProperty(k)) project.property(k)
-            ?.toString() else null
-    }
