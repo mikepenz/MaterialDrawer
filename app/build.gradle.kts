@@ -1,15 +1,8 @@
-import com.mikepenz.gradle.utils.readPropertyOrElse
-
 plugins {
     id("com.mikepenz.convention.android-application")
     id("com.mikepenz.convention.kotlin")
     id("com.mikepenz.aboutlibraries.plugin")
     id("androidx.navigation.safeargs.kotlin")
-}
-
-val openSourceSigningFile: String? = readPropertyOrElse("openSource.signing.file")
-if (openSourceSigningFile != null) {
-    apply(from = openSourceSigningFile)
 }
 
 android {
