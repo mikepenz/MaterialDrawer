@@ -1,5 +1,5 @@
 plugins {
-    alias(libs.plugins.conventionPlugin)
+    alias(baseLibs.plugins.conventionPlugin)
 
     alias(baseLibs.plugins.kotlinAndroid) apply false
     alias(baseLibs.plugins.androidApplication) apply false
