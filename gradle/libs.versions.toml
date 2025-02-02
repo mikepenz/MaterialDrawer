@@ -1,13 +1,12 @@
 [versions]
-conventionPlugin = "0.1.3"
 # androidx
 appcompat = "1.7.0"
 cardview = "1.0.0"
 constraintLayout = "2.2.0"
 core = "1.15.0"
 drawerlayout = "1.2.0"
-navigation = "2.8.5"
-recyclerView = "1.3.2"
+navigation = "2.8.6"
+recyclerView = "1.4.0"
 # google
 material = "1.12.0"
 # other
@@ -16,7 +15,6 @@ iconics = "5.4.0"
 itemAnimators = "1.1.0"
 
 [plugins]
-conventionPlugin = { id = "com.mikepenz.convention.root", version.ref = "conventionPlugin" }
 navSafeArgs = { id = "androidx.navigation.safeargs", version.ref = "navigation" }
 
 [libraries]
