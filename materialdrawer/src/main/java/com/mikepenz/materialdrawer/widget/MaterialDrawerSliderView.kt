@@ -10,7 +10,6 @@ import android.os.Handler
 import android.util.AttributeSet
 import android.view.LayoutInflater
 import android.view.View
-import android.view.View.OnClickListener
 import android.view.ViewGroup
 import android.widget.LinearLayout
 import android.widget.RelativeLayout
@@ -45,7 +44,8 @@ import com.mikepenz.materialdrawer.util.*
  * This view is a simple drop in view for the [DrawerLayout] offering a convenient API to provide a nice and flexible slider view following
  * the material design guidelines v2.
  */
-open class MaterialDrawerSliderView @JvmOverloads constructor(context: Context, attrs: AttributeSet? = null, defStyleAttr: Int = R.attr.materialDrawerStyle) : RelativeLayout(context, attrs, defStyleAttr) {
+open class MaterialDrawerSliderView @JvmOverloads constructor(context: Context, attrs: AttributeSet? = null, defStyleAttr: Int = R.attr.materialDrawerStyle) :
+    RelativeLayout(context, attrs, defStyleAttr) {
 
     /** Temporarily disable invalidation for optimizations */
     private var invalidationEnabled: Boolean = true
@@ -412,9 +412,11 @@ open class MaterialDrawerSliderView @JvmOverloads constructor(context: Context, 
                 if (stickyHeaderView == null) {
                     recyclerView.updatePadding(top = insets.systemWindowInsetTop + context.resources.getDimensionPixelSize(R.dimen.material_drawer_padding_top_bottom))
                 }
-                if (stickyFooterView == null) {
-                    recyclerView.updatePadding(bottom = insets.systemWindowInsetBottom + context.resources.getDimensionPixelSize(R.dimen.material_drawer_padding_top_bottom))
-                }
+            }
+            if (stickyFooterView == null) {
+                recyclerView.updatePadding(bottom = insets.systemWindowInsetBottom + context.resources.getDimensionPixelSize(R.dimen.material_drawer_padding_top_bottom))
+            } else {
+                stickyFooterView?.updatePadding(bottom = insets.systemWindowInsetBottom + context.resources.getDimensionPixelSize(R.dimen.material_drawer_padding_top_bottom))
             }
 
             setWillNotDraw(insetForeground == null)
@@ -559,8 +561,8 @@ open class MaterialDrawerSliderView @JvmOverloads constructor(context: Context, 
         recyclerView.layoutManager = layoutManager
 
         val params = LinearLayout.LayoutParams(
-                ViewGroup.LayoutParams.MATCH_PARENT,
-                ViewGroup.LayoutParams.MATCH_PARENT
+            ViewGroup.LayoutParams.MATCH_PARENT,
+            ViewGroup.LayoutParams.MATCH_PARENT
         )
         params.weight = 1f
 
@@ -700,7 +702,12 @@ open class MaterialDrawerSliderView @JvmOverloads constructor(context: Context, 
     /**
      * method to switch the drawer content to new elements
      */
-    fun switchDrawerContent(onDrawerItemClickListenerInner: ((v: View?, item: IDrawerItem<*>, position: Int) -> Boolean)?, onDrawerItemLongClickListenerInner: ((v: View?, item: IDrawerItem<*>, position: Int) -> Boolean)?, drawerItemsInner: List<IDrawerItem<*>>, drawerSelection: Int) {
+    fun switchDrawerContent(
+        onDrawerItemClickListenerInner: ((v: View?, item: IDrawerItem<*>, position: Int) -> Boolean)?,
+        onDrawerItemLongClickListenerInner: ((v: View?, item: IDrawerItem<*>, position: Int) -> Boolean)?,
+        drawerItemsInner: List<IDrawerItem<*>>,
+        drawerSelection: Int,
+    ) {
         //just allow a single switched drawer
         if (!switchedDrawerContent()) {
             //save out previous values
