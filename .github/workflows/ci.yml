@@ -96,7 +96,7 @@ jobs:
 
       - name: Build Changelog
         id: github_release
-        uses: mikepenz/release-changelog-builder-action@v5
+        uses: mikepenz/release-changelog-builder-action@v6
         if: startsWith(github.ref, 'refs/tags/')
         with:
           configuration: ".github/config/configuration.json"
