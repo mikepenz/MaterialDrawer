@@ -89,7 +89,7 @@ jobs:
           find . -name "*.aab" -type f -exec cp {} "artifacts" \;
 
       - name: Archive Artifacts
-        uses: actions/upload-artifact@v5
+        uses: actions/upload-artifact@v7
         with:
           name: "App-Artifacts"
           path: artifacts/*
