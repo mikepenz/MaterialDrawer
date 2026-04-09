@@ -1,0 +1,29 @@
+name: PR Checks
+
+on:
+  pull_request:
+
+permissions:
+  pull-requests: read
+
+jobs:
+  quality-gates:
+    name: Quality Gates
+    runs-on: ubuntu-latest
+    steps:
+      - name: PR Quality Gates
+        uses: actions/github-script@v8
+        with:
+          script: |
+            const { data: pr } = await github.rest.pulls.get({
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              pull_number: context.issue.number
+            });
+            const labels = pr.labels.map(l => l.name);
+            if (labels.some(l => l.includes('DO NOT MERGE')))
+              core.setFailed('PR specifies label DO NOT MERGE');
+            if (labels.some(l => l.includes('Engineers at work')) || pr.title.includes('[WIP]'))
+              core.warning('PR is marked as Work in Progress');
+            if (pr.additions + pr.deletions > 5000)
+              core.warning('Big PR');

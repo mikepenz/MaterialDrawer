@@ -11,6 +11,9 @@ jobs:
   build:
     name: Build
     runs-on: ubuntu-latest
+    permissions:
+      contents: read
+      security-events: write
     steps:
       - name: Checkout
         uses: actions/checkout@v6
@@ -21,9 +24,8 @@ jobs:
         with:
           distribution: 'zulu'
           java-version: |
-            11
-            15
             17
+            21
 
       - name: Setup Gradle
         uses: gradle/actions/setup-gradle@v6
@@ -42,20 +44,21 @@ jobs:
         if: github.event_name  == 'pull_request'
         run: ./gradlew lintDebug
 
-      - name: Setup Ruby
-        if: github.event_name  == 'pull_request'
-        uses: ruby/setup-ruby@v1
-        with:
-          ruby-version: '3.3'
-          bundler-cache: true
-
-      - name: Run Danger
-        if: github.event_name  == 'pull_request'
+      - name: Collect Lint SARIF reports
+        if: github.event_name == 'pull_request'
         run: |
-          gem install danger
-          bundle exec danger --dangerfile=Dangerfile --danger_id=danger-pr
-        env:
-          DANGER_GITHUB_API_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          mkdir -p sarif-reports
+          find . -name "lint-results-debug.sarif" | while read f; do
+            module=$(echo "$f" | sed 's|^\./||' | sed 's|/build/reports/.*||' | sed 's|/|-|g')
+            cp "$f" "sarif-reports/${module}-lint.sarif"
+          done
+
+      - name: Upload Lint SARIF
+        if: always() && github.event_name == 'pull_request'
+        uses: github/codeql-action/upload-sarif@v4
+        with:
+          sarif_file: 'sarif-reports'
+          category: android-lint
 
       - name: Prepare Keystore and Local.
         if: startsWith(github.ref, 'refs/tags/')
