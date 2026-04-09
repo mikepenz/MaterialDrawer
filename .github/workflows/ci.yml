@@ -46,7 +46,7 @@ jobs:
 
       - name: Collect Lint SARIF reports
         id: collect_sarif
-        if: success() && github.event_name == 'pull_request'
+        if: (success() || failure()) && github.event_name == 'pull_request'
         run: |
           mkdir -p sarif-reports
           find . -path '*/build/reports/lint-results*.sarif' | while read f; do
@@ -58,7 +58,7 @@ jobs:
           echo "count=${count}" >> "$GITHUB_OUTPUT"
 
       - name: Upload Lint SARIF
-        if: success() && github.event_name == 'pull_request' && steps.collect_sarif.outputs.count != '0'
+        if: (success() || failure()) && github.event_name == 'pull_request' && steps.collect_sarif.outputs.count != '0' && github.event.pull_request.head.repo.fork == false
         uses: github/codeql-action/upload-sarif@v4
         with:
           sarif_file: 'sarif-reports'
