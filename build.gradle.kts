@@ -11,3 +11,20 @@ plugins {
 
     alias(libs.plugins.navSafeArgs) apply false
 }
+
+subprojects {
+    plugins.withId("com.android.library") {
+        extensions.configure<com.android.build.gradle.LibraryExtension>("android") {
+            lint {
+                sarifReport = true
+            }
+        }
+    }
+    plugins.withId("com.android.application") {
+        extensions.configure<com.android.build.gradle.internal.dsl.BaseAppModuleExtension>("android") {
+            lint {
+                sarifReport = true
+            }
+        }
+    }
+}

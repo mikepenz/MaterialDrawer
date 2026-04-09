@@ -11,6 +11,9 @@ jobs:
   build:
     name: Build
     runs-on: ubuntu-latest
+    permissions:
+      contents: read
+      security-events: write
     steps:
       - name: Checkout
         uses: actions/checkout@v6
@@ -21,9 +24,8 @@ jobs:
         with:
           distribution: 'zulu'
           java-version: |
-            11
-            15
             17
+            21
 
       - name: Setup Gradle
         uses: gradle/actions/setup-gradle@v6
@@ -42,20 +44,33 @@ jobs:
         if: github.event_name  == 'pull_request'
         run: ./gradlew lintDebug
 
-      - name: Setup Ruby
-        if: github.event_name  == 'pull_request'
-        uses: ruby/setup-ruby@v1
+      - name: Upload Lint SARIF (materialdrawer)
+        if: (success() || failure()) && github.event_name == 'pull_request' && github.event.pull_request.head.repo.fork == false && hashFiles('materialdrawer/build/reports/lint-results-debug.sarif') != ''
+        uses: github/codeql-action/upload-sarif@v4
         with:
-          ruby-version: '3.3'
-          bundler-cache: true
+          sarif_file: 'materialdrawer/build/reports/lint-results-debug.sarif'
+          category: android-lint-materialdrawer
 
-      - name: Run Danger
-        if: github.event_name  == 'pull_request'
-        run: |
-          gem install danger
-          bundle exec danger --dangerfile=Dangerfile --danger_id=danger-pr
-        env:
-          DANGER_GITHUB_API_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+      - name: Upload Lint SARIF (materialdrawer-iconics)
+        if: (success() || failure()) && github.event_name == 'pull_request' && github.event.pull_request.head.repo.fork == false && hashFiles('materialdrawer-iconics/build/reports/lint-results-debug.sarif') != ''
+        uses: github/codeql-action/upload-sarif@v4
+        with:
+          sarif_file: 'materialdrawer-iconics/build/reports/lint-results-debug.sarif'
+          category: android-lint-materialdrawer-iconics
+
+      - name: Upload Lint SARIF (materialdrawer-nav)
+        if: (success() || failure()) && github.event_name == 'pull_request' && github.event.pull_request.head.repo.fork == false && hashFiles('materialdrawer-nav/build/reports/lint-results-debug.sarif') != ''
+        uses: github/codeql-action/upload-sarif@v4
+        with:
+          sarif_file: 'materialdrawer-nav/build/reports/lint-results-debug.sarif'
+          category: android-lint-materialdrawer-nav
+
+      - name: Upload Lint SARIF (app)
+        if: (success() || failure()) && github.event_name == 'pull_request' && github.event.pull_request.head.repo.fork == false && hashFiles('app/build/reports/lint-results-debug.sarif') != ''
+        uses: github/codeql-action/upload-sarif@v4
+        with:
+          sarif_file: 'app/build/reports/lint-results-debug.sarif'
+          category: android-lint-app
 
       - name: Prepare Keystore and Local.
         if: startsWith(github.ref, 'refs/tags/')
