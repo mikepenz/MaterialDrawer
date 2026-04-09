@@ -45,16 +45,20 @@ jobs:
         run: ./gradlew lintDebug
 
       - name: Collect Lint SARIF reports
-        if: github.event_name == 'pull_request'
+        id: collect_sarif
+        if: success() && github.event_name == 'pull_request'
         run: |
           mkdir -p sarif-reports
-          find . -name "lint-results-debug.sarif" | while read f; do
+          find . -path '*/build/reports/lint-results*.sarif' | while read f; do
             module=$(echo "$f" | sed 's|^\./||' | sed 's|/build/reports/.*||' | sed 's|/|-|g')
-            cp "$f" "sarif-reports/${module}-lint.sarif"
+            base=$(basename "$f" .sarif)
+            cp "$f" "sarif-reports/${module}-${base}.sarif"
           done
+          count=$(find sarif-reports -name '*.sarif' | wc -l)
+          echo "count=${count}" >> "$GITHUB_OUTPUT"
 
       - name: Upload Lint SARIF
-        if: always() && github.event_name == 'pull_request'
+        if: success() && github.event_name == 'pull_request' && steps.collect_sarif.outputs.count != '0'
         uses: github/codeql-action/upload-sarif@v4
         with:
           sarif_file: 'sarif-reports'
