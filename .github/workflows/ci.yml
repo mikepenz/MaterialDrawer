@@ -46,28 +46,28 @@ jobs:
 
       - name: Upload Lint SARIF (materialdrawer)
         if: (success() || failure()) && github.event_name == 'pull_request' && github.event.pull_request.head.repo.fork == false && hashFiles('materialdrawer/build/reports/lint-results-debug.sarif') != ''
-        uses: github/codeql-action/upload-sarif@v4.37.8
+        uses: github/codeql-action/upload-sarif@v4.37.9
         with:
           sarif_file: 'materialdrawer/build/reports/lint-results-debug.sarif'
           category: android-lint-materialdrawer
 
       - name: Upload Lint SARIF (materialdrawer-iconics)
         if: (success() || failure()) && github.event_name == 'pull_request' && github.event.pull_request.head.repo.fork == false && hashFiles('materialdrawer-iconics/build/reports/lint-results-debug.sarif') != ''
-        uses: github/codeql-action/upload-sarif@v4.37.8
+        uses: github/codeql-action/upload-sarif@v4.37.9
         with:
           sarif_file: 'materialdrawer-iconics/build/reports/lint-results-debug.sarif'
           category: android-lint-materialdrawer-iconics
 
       - name: Upload Lint SARIF (materialdrawer-nav)
         if: (success() || failure()) && github.event_name == 'pull_request' && github.event.pull_request.head.repo.fork == false && hashFiles('materialdrawer-nav/build/reports/lint-results-debug.sarif') != ''
-        uses: github/codeql-action/upload-sarif@v4.37.8
+        uses: github/codeql-action/upload-sarif@v4.37.9
         with:
           sarif_file: 'materialdrawer-nav/build/reports/lint-results-debug.sarif'
           category: android-lint-materialdrawer-nav
 
       - name: Upload Lint SARIF (app)
         if: (success() || failure()) && github.event_name == 'pull_request' && github.event.pull_request.head.repo.fork == false && hashFiles('app/build/reports/lint-results-debug.sarif') != ''
-        uses: github/codeql-action/upload-sarif@v4.37.8
+        uses: github/codeql-action/upload-sarif@v4.37.9
         with:
           sarif_file: 'app/build/reports/lint-results-debug.sarif'
           category: android-lint-app
