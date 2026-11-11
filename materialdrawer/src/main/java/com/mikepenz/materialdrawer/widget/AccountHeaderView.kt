@@ -1,6 +1,7 @@
 package com.mikepenz.materialdrawer.widget
 
 import android.content.Context
+import android.content.res.ColorStateList
 import android.graphics.Typeface
 import android.os.Build
 import android.os.Bundle
@@ -108,6 +109,27 @@ open class AccountHeaderView @JvmOverloads constructor(context: Context, attrs: 
 
     // the typeface used for email textView only. overrides typeface
     var emailTypeface: Typeface? = null
+        set(value) {
+            field = value
+            reconstructHeader()
+        }
+
+    // custom color used for the name textView within the account header. overrides the style/theme color
+    var currentProfileNameColor: ColorStateList? = null
+        set(value) {
+            field = value
+            reconstructHeader()
+        }
+
+    // custom color used for the email textView within the account header. overrides the style/theme color
+    var currentProfileEmailColor: ColorStateList? = null
+        set(value) {
+            field = value
+            reconstructHeader()
+        }
+
+    // custom color used for the account switcher arrow within the account header. overrides the style/theme color
+    var accountSwitcherArrowColor: ColorStateList? = null
         set(value) {
             field = value
             reconstructHeader()
@@ -505,7 +527,7 @@ open class AccountHeaderView @JvmOverloads constructor(context: Context, attrs: 
         val drawable = AppCompatResources.getDrawable(context, R.drawable.material_drawer_ico_menu_down)
         if (drawable != null) {
             val size = context.resources.getDimensionPixelSize(R.dimen.material_drawer_account_header_dropdown)
-            accountSwitcherArrow.setImageDrawable(FixStateListDrawable(drawable, subTextColor).apply {
+            accountSwitcherArrow.setImageDrawable(FixStateListDrawable(drawable, accountSwitcherArrowColor ?: subTextColor).apply {
                 setBounds(0, 0, size, size)
             })
         }
@@ -524,8 +546,8 @@ open class AccountHeaderView @JvmOverloads constructor(context: Context, attrs: 
             currentProfileEmail.typeface = typeface
         }
 
-        currentProfileName.setTextColor(textColor)
-        currentProfileEmail.setTextColor(subTextColor)
+        currentProfileName.setTextColor(currentProfileNameColor ?: textColor)
+        currentProfileEmail.setTextColor(currentProfileEmailColor ?: subTextColor)
 
         //calculate the profiles to set
         calculateProfiles()
